@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retro Graphics Converter - Convert Vintage Computer Graphics</title>
+    <meta name="description" content="Professional macOS app to convert and view vintage computer graphics from Apple II, C64, Amiga, Atari ST, and more. Browse disk images with built-in catalog viewer.">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #007AFF;
+            --primary-dark: #0051D5;
+            --secondary: #5856D6;
+            --accent: #FF2D55;
+            --success: #34C759;
+            --bg-light: #FFFFFF;
+            --bg-gray: #F5F5F7;
+            --text-primary: #1D1D1F;
+            --text-secondary: #6E6E73;
+            --border: #D2D2D7;
+            --shadow: rgba(0, 0, 0, 0.1);
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-light);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header/Hero */
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 120px 20px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="60" height="60" xmlns="http://www.w3.org/2000/svg"><rect width="1" height="1" fill="white" opacity="0.1"/></svg>');
+            opacity: 0.3;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        h1 {
+            font-size: 4em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+        }
+        
+        .subtitle {
+            font-size: 1.5em;
+            font-weight: 300;
+            opacity: 0.95;
+            margin-bottom: 15px;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            font-size: 0.95em;
+            font-weight: 500;
+            backdrop-filter: blur(10px);
+        }
+        
+        /* Buttons */
+        .button-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 40px 0;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 32px;
+            font-size: 1.05em;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 12px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            border: none;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
+        }
+        
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 122, 255, 0.4);
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: var(--text-primary);
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+        
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px var(--shadow);
+        }
+        
+        /* Sections */
+        section {
+            padding: 80px 0;
+        }
+        
+        section:nth-child(even) {
+            background: var(--bg-gray);
+        }
+        
+        h2 {
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-align: center;
+            letter-spacing: -0.02em;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2em;
+            color: var(--text-secondary);
+            margin-bottom: 60px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Feature Cards */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 16px;
+            box-shadow: 0 2px 8px var(--shadow);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 32px var(--shadow);
+        }
+        
+        .feature-icon {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            display: block;
+        }
+        
+        .feature-title {
+            font-size: 1.4em;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+        
+        .feature-desc {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+        
+        /* Format Grid */
+        .format-section {
+            margin: 40px 0;
+        }
+        
+        h3 {
+            font-size: 1.5em;
+            font-weight: 600;
+            margin: 40px 0 25px;
+            color: var(--primary);
+        }
+        
+        .format-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+        
+        .format-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+        
+        .format-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 4px 16px var(--shadow);
+        }
+        
+        .format-card strong {
+            display: block;
+            font-size: 1.2em;
+            color: var(--primary);
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        .format-card span {
+            display: block;
+            color: var(--text-secondary);
+            font-size: 0.95em;
+        }
+        
+        /* Feature List */
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .feature-list-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .feature-list-item::before {
+            content: "✓";
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            background: var(--success);
+            color: white;
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 0.9em;
+            flex-shrink: 0;
+        }
+        
+        /* Download Section */
+        .download-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 40px;
+            border-radius: 24px;
+            text-align: center;
+            margin: 60px 0;
+        }
+        
+        .download-section h2 {
+            color: white;
+            margin-bottom: 30px;
+        }
+        
+        .download-text {
+            font-size: 1.2em;
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            opacity: 0.95;
+        }
+        
+        /* Stats */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin: 60px 0;
+            text-align: center;
+        }
+        
+        .stat-item {
+            padding: 30px;
+        }
+        
+        .stat-number {
+            font-size: 3em;
+            font-weight: 700;
+            color: var(--primary);
+            display: block;
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 1.1em;
+        }
+        
+        /* Requirements */
+        .requirements {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            border: 2px solid var(--border);
+            margin: 40px 0;
+        }
+        
+        .requirements ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .requirements li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.05em;
+        }
+        
+        .requirements li::before {
+            content: "●";
+            color: var(--primary);
+            font-size: 1.5em;
+        }
+        
+        /* Screenshot Cards */
+        .screenshot-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px var(--shadow);
+            transition: all 0.3s ease;
+        }
+        
+        .screenshot-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 32px var(--shadow);
+        }
+        
+        .screenshot-card img {
+            width: 100%;
+            display: block;
+        }
+        
+        .screenshot-card-content {
+            padding: 30px;
+        }
+        
+        .screenshot-card-content h3 {
+            color: var(--primary);
+            margin: 0 0 10px 0;
+            font-size: 1.3em;
+        }
+        
+        .screenshot-card-content p {
+            color: var(--text-secondary);
+            margin: 0;
+            line-height: 1.6;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--text-primary);
+            color: white;
+            padding: 60px 0 40px;
+            text-align: center;
+        }
+        
+        .footer-content {
+            margin-bottom: 30px;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.05em;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+        }
+        
+        .footer-bottom {
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.6;
+            font-size: 0.95em;
+        }
+        
+        .footer-credit {
+            font-size: 0.85em;
+            opacity: 0.4;
+            margin-top: 10px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5em;
+            }
+            
+            h2 {
+                font-size: 2em;
+            }
+            
+            .subtitle {
+                font-size: 1.2em;
+            }
+            
+            header {
+                padding: 80px 20px 60px;
+            }
+            
+            section {
+                padding: 60px 0;
+            }
+            
+            .feature-grid,
+            .format-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .button-group {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+        
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="hero-content">
+            <h1>Retro Graphics Converter</h1>
+            <p class="subtitle">Convert & View Vintage Computer Graphics</p>
+            <span class="badge">macOS 15.6+</span>
+            
+            <div class="button-group">
+                <a href="https://github.com/portwally/Retro-Graphics-converter" class="btn btn-primary" target="_blank">
+                    📥 Free Download (GitHub)
+                </a>
+                <a href="#" class="btn btn-secondary" onclick="alert('Coming soon to the Mac App Store!'); return false;">
+                    🍎 Buy on App Store
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <section>
+        <div class="container">
+            <div class="stats">
+                <div class="stat-item">
+                    <span class="stat-number">20+</span>
+                    <span class="stat-label">Graphics Formats</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">200+</span>
+                    <span class="stat-label">File Types Recognized</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">4</span>
+                    <span class="stat-label">Disk Image Formats</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">8x</span>
+                    <span class="stat-label">Max Upscaling</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section style="background: var(--bg-gray);">
+        <div class="container">
+            <h2>About</h2>
+            <p class="section-subtitle">
+                A professional macOS application designed to convert, view, and manage vintage computer graphics 
+                from the golden age of computing. Perfect for preserving retro art, exploring vintage games, 
+                or working with historical computer files.
+            </p>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <h2>Key Features</h2>
+            <p class="section-subtitle">Everything you need to work with vintage computer graphics</p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <span class="feature-icon">📀</span>
+                    <h3 class="feature-title">Disk Catalog Browser</h3>
+                    <p class="feature-desc">
+                        Browse Apple II disk images with a built-in file manager. 
+                        Navigate folders, search files, and preview graphics before converting.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="feature-icon">🎨</span>
+                    <h3 class="feature-title">Multi-Format Support</h3>
+                    <p class="feature-desc">
+                        Supports 20+ vintage graphics formats from Apple II, C64, Amiga, 
+                        Atari ST, ZX Spectrum, Amstrad CPC, and more.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="feature-icon">⚡</span>
+                    <h3 class="feature-title">Batch Conversion</h3>
+                    <p class="feature-desc">
+                        Convert multiple files at once. Drag & drop folders and let 
+                        the app process hundreds of images automatically.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="feature-icon">🔍</span>
+                    <h3 class="feature-title">Smart Detection</h3>
+                    <p class="feature-desc">
+                        Automatically recognizes 200+ ProDOS file types and intelligently 
+                        detects HGR, DHGR, and SHR graphics formats.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="feature-icon">📤</span>
+                    <h3 class="feature-title">Modern Export</h3>
+                    <p class="feature-desc">
+                        Export to PNG, JPEG, TIFF, GIF, or HEIC with optional upscaling 
+                        (1x to 8x) for high-quality results.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="feature-icon">💾</span>
+                    <h3 class="feature-title">Disk Image Support</h3>
+                    <p class="feature-desc">
+                        Read 2IMG, DSK, HDV, and PO formats. Works with ProDOS, DOS 3.3, 
+                        and mixed-format disks.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section style="background: var(--bg-gray);">
+        <div class="container">
+            <h2>Screenshots</h2>
+            <p class="section-subtitle">See the app in action</p>
+            
+            <div style="display: grid; gap: 40px; margin: 50px 0;">
+                <div class="screenshot-card">
+                    <img src="Filebrowser.png" alt="Disk Image File Browser">
+                    <div class="screenshot-card-content">
+                        <h3>Disk Image File Browser</h3>
+                        <p>Browse ProDOS and DOS 3.3 disk images with an intuitive file manager. Search, filter, and preview graphics before importing.</p>
+                    </div>
+                </div>
+                
+                <div class="screenshot-card">
+                    <img src="image_display_and_browser.png" alt="Image Display and Browser">
+                    <div class="screenshot-card-content">
+                        <h3>Image Display and Browser</h3>
+                        <p>View converted graphics with zoom controls and batch export options. Supports all vintage formats from Apple II to Commodore 64.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <h2>Supported Graphics Formats</h2>
+            <p class="section-subtitle">Convert graphics from your favorite vintage computers</p>
+            
+            <div class="format-section">
+                <h3>Apple II / IIgs</h3>
+                <div class="format-grid">
+                    <div class="format-card">
+                        <strong>HGR</strong>
+                        <span>Hi-Res Graphics</span>
+                        <span>280×192, 6 colors</span>
+                    </div>
+                    <div class="format-card">
+                        <strong>DHGR</strong>
+                        <span>Double Hi-Res</span>
+                        <span>560×192, 16 colors</span>
+                    </div>
+                    <div class="format-card">
+                        <strong>SHR</strong>
+                        <span>Super Hi-Res</span>
+                        <span>320×200, 256 colors</span>
+                    </div>
+                    <div class="format-card">
+                        <strong>SHR 3200</strong>
+                        <span>3200 Color Mode</span>
+                        <span>320×200, 3200 colors</span>
+                    </div>
+                </div>
+
+                <h3>Commodore 64</h3>
+                <div class="format-grid">
+                    <div class="format-card">
+                        <strong>Koala Painter</strong>
+                        <span>320×200, 16 colors</span>
+                    </div>
+                    <div class="format-card">
+                        <strong>Art Studio</strong>
+                        <span>320×200, 16 colors</span>
+                    </div>
+                    <div class="format-card">
+                        <strong>Advanced Art Studio</strong>
+                        <span>320×200, 16 colors</span>
+                    </div>
+                </div>
+
+                <h3>Other Systems</h3>
+                <div class="format-grid">
+                    <div class="format-card">
+                        <strong>Amiga IFF</strong>
+                        <span>Up to 4096 colors</span>
+                    </div>
+                    <div class="format-card">
+                        <strong>Atari ST Degas</strong>
+                        <span>320×200, 16 colors</span>
+                    </div>
+                    <div class="format-card">
+                        <strong>ZX Spectrum</strong>
+                        <span>256×192, 15 colors</span>
+                    </div>
+                    <div class="format-card">
+                        <strong>Amstrad CPC</strong>
+                        <span>Multiple modes</span>
+                    </div>
+                    <div class="format-card">
+                        <strong>PCX</strong>
+                        <span>Classic PC format</span>
+                    </div>
+                    <div class="format-card">
+                        <strong>MacPaint</strong>
+                        <span>576×720, 1-bit</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section style="background: var(--bg-gray);">
+        <div class="container">
+            <h2>Disk Image Features</h2>
+            <p class="section-subtitle">Professional file management for vintage disk images</p>
+            
+            <div class="feature-list">
+                <div class="feature-list-item">
+                    Complete file browser with folder navigation
+                </div>
+                <div class="feature-list-item">
+                    Expand/collapse ProDOS directories
+                </div>
+                <div class="feature-list-item">
+                    Smart search and filter by type
+                </div>
+                <div class="feature-list-item">
+                    Selective import with checkboxes
+                </div>
+                <div class="feature-list-item">
+                    Bulk export to Downloads folder
+                </div>
+                <div class="feature-list-item">
+                    200+ ProDOS file type recognition
+                </div>
+                <div class="feature-list-item">
+                    Automatic HGR/DHGR/SHR detection
+                </div>
+                <div class="feature-list-item">
+                    Support for non-standard layouts
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="download-section">
+            <h2>Get Retro Graphics Converter</h2>
+            <p class="download-text">
+                You can <strong>download the Retro Graphics Converter for free</strong> from GitHub, 
+                but if you want it ready to run without the hassle of compiling and you would like to 
+                <strong>thank me for my work</strong>, you are welcome to purchase it from the 
+                <strong>App Store</strong> for a small fee, which would make me very happy and 
+                motivate me to continue developing the app.
+            </p>
+            
+            <div class="button-group">
+                <a href="https://github.com/portwally/Retro-Graphics-converter" class="btn btn-primary" target="_blank">
+                    📥 Free Download (GitHub)
+                </a>
+                <a href="#" class="btn btn-secondary" onclick="alert('Coming soon to the Mac App Store!'); return false;">
+                    🍎 Buy on App Store
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <section style="background: var(--bg-gray);">
+        <div class="container">
+            <h2>System Requirements</h2>
+            <div class="requirements">
+                <ul>
+                    <li><strong>macOS 15.6</strong> or later</li>
+                    <li><strong>Apple Silicon</strong> or Intel Mac</li>
+                    <li>Minimum 4GB RAM (8GB recommended)</li>
+                    <li>100MB free disk space</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-links">
+                    <a href="https://github.com/portwally/portwally.github.io" target="_blank">Website</a>
+                    <a href="mailto:walter.tengler@gmail.com">Email</a>
+                    <a href="https://github.com/portwally/Retro-Graphics-converter" target="_blank">GitHub</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div>Made with ❤️ for retro computing enthusiasts</div>
+                <div class="footer-credit">Walter Tengler</div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
