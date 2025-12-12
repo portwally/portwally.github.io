@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Retro Graphics Converter</title>
+    <meta name="description" content="Privacy Policy for Retro Graphics Converter - We respect your privacy and don't collect any data.">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #007AFF;
+            --primary-dark: #0051D5;
+            --secondary: #5856D6;
+            --accent: #FF2D55;
+            --success: #34C759;
+            --bg-light: #FFFFFF;
+            --bg-gray: #F5F5F7;
+            --text-primary: #1D1D1F;
+            --text-secondary: #6E6E73;
+            --border: #D2D2D7;
+            --shadow: rgba(0, 0, 0, 0.1);
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-light);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        /* Container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 80px 20px 60px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="60" height="60" xmlns="http://www.w3.org/2000/svg"><rect width="1" height="1" fill="white" opacity="0.1"/></svg>');
+            opacity: 0.3;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        h1 {
+            font-size: 3em;
+            font-weight: 700;
+            margin-bottom: 15px;
+            letter-spacing: -0.02em;
+        }
+        
+        .subtitle {
+            font-size: 1.3em;
+            font-weight: 300;
+            opacity: 0.95;
+        }
+        
+        /* Main Content */
+        main {
+            padding: 80px 0;
+        }
+        
+        .content-card {
+            background: white;
+            border-radius: 16px;
+            padding: 60px;
+            box-shadow: 0 2px 8px var(--shadow);
+            margin-bottom: 40px;
+        }
+        
+        h2 {
+            font-size: 2em;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: var(--primary);
+            letter-spacing: -0.02em;
+        }
+        
+        p {
+            font-size: 1.15em;
+            line-height: 1.8;
+            color: var(--text-primary);
+            margin-bottom: 25px;
+        }
+        
+        /* Privacy List */
+        .privacy-list {
+            background: var(--bg-gray);
+            border-radius: 12px;
+            padding: 40px;
+            margin: 40px 0;
+        }
+        
+        .privacy-list ul {
+            list-style: none;
+            display: grid;
+            gap: 20px;
+        }
+        
+        .privacy-list li {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 1.15em;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px var(--shadow);
+        }
+        
+        .privacy-list li::before {
+            content: "✓";
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            background: var(--success);
+            color: white;
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 1em;
+            flex-shrink: 0;
+        }
+        
+        /* Highlight Box */
+        .highlight-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 16px;
+            margin: 40px 0;
+            text-align: center;
+        }
+        
+        .highlight-box p {
+            color: white;
+            font-size: 1.3em;
+            font-weight: 500;
+            margin: 0;
+        }
+        
+        /* Contact Section */
+        .contact-section {
+            text-align: center;
+            padding: 40px;
+            background: var(--bg-gray);
+            border-radius: 12px;
+            margin-top: 40px;
+        }
+        
+        .contact-section h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+        
+        .contact-section a {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 1.15em;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .contact-section a:hover {
+            color: var(--primary-dark);
+        }
+        
+        /* Back Link */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 1.05em;
+            font-weight: 500;
+            margin-bottom: 40px;
+            transition: color 0.3s;
+        }
+        
+        .back-link:hover {
+            color: var(--primary-dark);
+        }
+        
+        .back-link::before {
+            content: "←";
+            font-size: 1.3em;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--text-primary);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+            margin-top: 80px;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.05em;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+        }
+        
+        .footer-bottom {
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.6;
+            font-size: 0.95em;
+            margin-top: 20px;
+        }
+        
+        .footer-credit {
+            font-size: 0.85em;
+            opacity: 0.4;
+            margin-top: 10px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2em;
+            }
+            
+            h2 {
+                font-size: 1.6em;
+            }
+            
+            .subtitle {
+                font-size: 1.1em;
+            }
+            
+            header {
+                padding: 60px 20px 40px;
+            }
+            
+            main {
+                padding: 60px 0;
+            }
+            
+            .content-card {
+                padding: 40px 30px;
+            }
+            
+            .privacy-list {
+                padding: 30px 20px;
+            }
+            
+            p {
+                font-size: 1.05em;
+            }
+        }
+        
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="hero-content">
+            <h1>Privacy Policy</h1>
+            <p class="subtitle">Retro Graphics Converter (Retro GFX)</p>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <a href="index-modern.html" class="back-link">Back to Home</a>
+            
+            <div class="content-card">
+                <h2>Your Privacy Matters</h2>
+                
+                <p>
+                    Your privacy is important to us. <strong>Retro Graphics Converter does not collect, 
+                    store, transmit, or share any personal data.</strong>
+                </p>
+                
+                <div class="privacy-list">
+                    <ul>
+                        <li>No analytics</li>
+                        <li>No tracking</li>
+                        <li>No telemetry</li>
+                        <li>No user accounts</li>
+                        <li>No third-party services</li>
+                        <li>No server communication</li>
+                    </ul>
+                </div>
+                
+                <div class="highlight-box">
+                    <p>All processing happens locally on your device</p>
+                </div>
+                
+                <p>
+                    Retro Graphics Converter is designed with privacy at its core. The application 
+                    runs entirely on your Mac, processing all images locally without any network 
+                    communication. Your files, graphics, and data never leave your computer.
+                </p>
+                
+                <p>
+                    We don't know what files you convert, when you use the app, or any other 
+                    information about your usage. The app doesn't have the ability to send 
+                    data anywhere – it's completely offline.
+                </p>
+                
+                <div class="contact-section">
+                    <h3>Questions?</h3>
+                    <p>If you have any questions about this privacy policy, please contact:</p>
+                    <a href="mailto:walter.tengler@gmail.com">walter.tengler@gmail.com</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="index-modern.html">Home</a>
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="https://github.com/portwally/portwally.github.io" target="_blank">Website</a>
+                <a href="mailto:walter.tengler@gmail.com">Email</a>
+                <a href="https://github.com/portwally/Retro-Graphics-converter" target="_blank">GitHub</a>
+            </div>
+            <div class="footer-bottom">
+                <div>Made with ❤️ for retro computing enthusiasts</div>
+                <div class="footer-credit">Walter Tengler</div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
