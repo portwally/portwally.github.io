@@ -15,22 +15,24 @@
         }
         
         :root {
-            --primary: #007AFF;
-            --primary-dark: #0051D5;
-            --secondary: #5856D6;
-            --accent: #FF2D55;
-            --success: #34C759;
-            --bg-light: #FFFFFF;
-            --bg-gray: #F5F5F7;
-            --text-primary: #1D1D1F;
-            --text-secondary: #6E6E73;
-            --border: #D2D2D7;
-            --shadow: rgba(0, 0, 0, 0.1);
+            --primary: #0A84FF;
+            --primary-dark: #409CFF;
+            --secondary: #5E5CE6;
+            --accent: #FF375F;
+            --success: #32D74B;
+            --bg-dark: #1C1C1E;
+            --bg-darker: #000000;
+            --bg-card: #2C2C2E;
+            --text-primary: #FFFFFF;
+            --text-secondary: #EBEBF5;
+            --text-tertiary: #98989D;
+            --border: #38383A;
+            --shadow: rgba(0, 0, 0, 0.5);
         }
         
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: var(--bg-light);
+            background: var(--bg-darker);
             color: var(--text-primary);
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
@@ -45,28 +47,31 @@
         
         /* Header/Hero */
         header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--bg-darker);
             color: white;
             text-align: center;
-            padding: 120px 20px 80px;
+            padding: 0;
             position: relative;
             overflow: hidden;
         }
         
+        .header-image {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: block;
+            padding: 60px 20px;
+        }
+        
         header::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg width="60" height="60" xmlns="http://www.w3.org/2000/svg"><rect width="1" height="1" fill="white" opacity="0.1"/></svg>');
-            opacity: 0.3;
+            display: none;
         }
         
         .hero-content {
             position: relative;
             z-index: 1;
+            padding: 40px 20px 80px;
+            background: var(--bg-darker);
         }
         
         h1 {
@@ -86,7 +91,8 @@
         .badge {
             display: inline-block;
             padding: 8px 20px;
-            background: rgba(255, 255, 255, 0.2);
+            background: var(--bg-card);
+            border: 1px solid var(--border);
             border-radius: 20px;
             font-size: 0.95em;
             font-weight: 500;
@@ -129,8 +135,9 @@
         }
         
         .btn-secondary {
-            background: white;
+            background: var(--bg-card);
             color: var(--text-primary);
+            border: 1px solid var(--border);
             box-shadow: 0 4px 12px var(--shadow);
         }
         
@@ -142,10 +149,11 @@
         /* Sections */
         section {
             padding: 80px 0;
+            background: var(--bg-darker);
         }
         
         section:nth-child(even) {
-            background: var(--bg-gray);
+            background: var(--bg-dark);
         }
         
         h2 {
@@ -159,7 +167,7 @@
         .section-subtitle {
             text-align: center;
             font-size: 1.2em;
-            color: var(--text-secondary);
+            color: var(--text-tertiary);
             margin-bottom: 60px;
             max-width: 700px;
             margin-left: auto;
@@ -175,9 +183,10 @@
         }
         
         .feature-card {
-            background: white;
+            background: var(--bg-card);
             padding: 40px 30px;
             border-radius: 16px;
+            border: 1px solid var(--border);
             box-shadow: 0 2px 8px var(--shadow);
             transition: all 0.3s ease;
             text-align: center;
@@ -202,7 +211,7 @@
         }
         
         .feature-desc {
-            color: var(--text-secondary);
+            color: var(--text-tertiary);
             line-height: 1.7;
         }
         
@@ -226,7 +235,7 @@
         }
         
         .format-card {
-            background: white;
+            background: var(--bg-card);
             padding: 25px;
             border-radius: 12px;
             border: 1px solid var(--border);
@@ -248,7 +257,7 @@
         
         .format-card span {
             display: block;
-            color: var(--text-secondary);
+            color: var(--text-tertiary);
             font-size: 0.95em;
         }
         
@@ -265,8 +274,9 @@
             align-items: flex-start;
             gap: 15px;
             padding: 20px;
-            background: white;
+            background: var(--bg-card);
             border-radius: 12px;
+            border: 1px solid var(--border);
             border-left: 4px solid var(--primary);
         }
         
@@ -287,7 +297,8 @@
         
         /* Download Section */
         .download-section {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--bg-card);
+            border: 2px solid var(--border);
             color: white;
             padding: 80px 40px;
             border-radius: 24px;
@@ -330,13 +341,13 @@
         }
         
         .stat-label {
-            color: var(--text-secondary);
+            color: var(--text-tertiary);
             font-size: 1.1em;
         }
         
         /* Requirements */
         .requirements {
-            background: white;
+            background: var(--bg-card);
             padding: 40px;
             border-radius: 16px;
             border: 2px solid var(--border);
@@ -365,7 +376,8 @@
         
         /* Screenshot Cards */
         .screenshot-card {
-            background: white;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
             border-radius: 16px;
             overflow: hidden;
             box-shadow: 0 4px 20px var(--shadow);
@@ -393,14 +405,15 @@
         }
         
         .screenshot-card-content p {
-            color: var(--text-secondary);
+            color: var(--text-tertiary);
             margin: 0;
             line-height: 1.6;
         }
         
         /* Footer */
         footer {
-            background: var(--text-primary);
+            background: var(--bg-dark);
+            border-top: 1px solid var(--border);
             color: white;
             padding: 60px 0 40px;
             text-align: center;
@@ -488,6 +501,7 @@
 </head>
 <body>
     <header>
+        <img src="header-hero.png" alt="Retro Graphics Converter" class="header-image">
         <div class="hero-content">
             <h1>Retro Graphics Converter</h1>
             <p class="subtitle">Convert & View Vintage Computer Graphics</p>
