@@ -334,6 +334,43 @@
             font-size: 0.95em;
         }
         
+        /* Screenshots */
+        .screenshot-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px var(--shadow);
+            transition: all 0.3s ease;
+        }
+        
+        .screenshot-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 32px var(--shadow);
+        }
+        
+        .screenshot-card img {
+            width: 100%;
+            display: block;
+        }
+        
+        .screenshot-card-content {
+            padding: 30px;
+        }
+        
+        .screenshot-card-content h3 {
+            font-size: 1.5em;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+        
+        .screenshot-card-content p {
+            color: var(--text-tertiary);
+            line-height: 1.7;
+            font-size: 1.05em;
+        }
+        
         /* Requirements */
         .requirements {
             background: var(--bg-card);
@@ -647,8 +684,34 @@
         </div>
     </section>
 
-    <!-- Technical Details -->
+    <!-- Screenshots -->
     <section style="background: var(--bg-gray);">
+        <div class="container">
+            <h2>Screenshots</h2>
+            <p class="section-subtitle">See the app in action</p>
+            
+            <div style="display: grid; gap: 40px; margin: 50px 0;">
+                <div class="screenshot-card">
+                    <img src="Bildschirmfoto_2025-12-21_um_04_01_44.png" alt="Apple II DHGR Conversion">
+                    <div class="screenshot-card-content">
+                        <h3>Apple II Double Hi-Res Mode</h3>
+                        <p>Convert modern images to authentic Apple II DHGR format with advanced dithering algorithms. Live preview shows exactly how your image will look on vintage hardware.</p>
+                    </div>
+                </div>
+                
+                <div class="screenshot-card">
+                    <img src="Bildschirmfoto_2025-12-21_um_04_02_10.png" alt="Apple IIgs 3200 Color Mode">
+                    <div class="screenshot-card-content">
+                        <h3>Apple IIgs 3200 Color Mode</h3>
+                        <p>Utilize all 16 palettes simultaneously for near-photorealistic results. Smart scanline clustering and Median Cut Quantization deliver stunning quality.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Details -->
+    <section>
         <div class="container">
             <h2>Technical Details</h2>
             <p class="section-intro">
