@@ -51,9 +51,21 @@
             background: var(--bg-darker);
             color: white;
             text-align: center;
-            padding: 60px 20px 40px;
+            padding: 0;
             position: relative;
             overflow: hidden;
+        }
+        
+        .header-image {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: block;
+            padding: 60px 20px;
+        }
+        
+        header::before {
+            display: none;
         }
         
         .hero-content {
@@ -452,11 +464,11 @@
 <body>
     <!-- Header -->
     <header>
+        <img src="herobitpast.png" alt="BitPast - Apple II Graphics Converter" class="header-image">
         <div class="hero-content">
-            <h1>🎨 BitPast</h1>
+            <h1>BitPast</h1>
             <p class="subtitle">Apple II Graphics Converter</p>
-            <p class="subtitle" style="font-size: 1.2em; opacity: 0.8;">Transform Modern Images into Authentic Apple II & IIgs Graphics</p>
-            <div class="badge">macOS 12.0+ • Beta</div>
+            <span class="badge">macOS 12.0+ • Beta Version</span>
         </div>
     </header>
 
@@ -635,50 +647,8 @@
         </div>
     </section>
 
-    <!-- How It Works -->
-    <section style="background: var(--bg-gray);">
-        <div class="container">
-            <h2>How It Works</h2>
-            <p class="section-subtitle">Simple workflow from modern image to retro masterpiece</p>
-            
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <span class="feature-icon">1️⃣</span>
-                    <h3 class="feature-title">Load Images</h3>
-                    <p class="feature-desc">
-                        Drag images into the "Image Browser" in the left panel. Multiple images are displayed in a grid.
-                    </p>
-                </div>
-                
-                <div class="feature-card">
-                    <span class="feature-icon">2️⃣</span>
-                    <h3 class="feature-title">Select & Adjust</h3>
-                    <p class="feature-desc">
-                        Select an image, choose System (Apple II / IIgs), Mode and Dithering. Use the sliders for fine-tuning.
-                    </p>
-                </div>
-                
-                <div class="feature-card">
-                    <span class="feature-icon">3️⃣</span>
-                    <h3 class="feature-title">Live Preview</h3>
-                    <p class="feature-desc">
-                        See changes in real-time in the preview. Zoom and pan to inspect details pixel by pixel.
-                    </p>
-                </div>
-                
-                <div class="feature-card">
-                    <span class="feature-icon">4️⃣</span>
-                    <h3 class="feature-title">Export</h3>
-                    <p class="feature-desc">
-                        Click "Export" and choose between PNG/JPG for preview, Native Format (.BIN/.SHR) or ProDOS Disk Image.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Technical Details -->
-    <section>
+    <section style="background: var(--bg-gray);">
         <div class="container">
             <h2>Technical Details</h2>
             <p class="section-intro">
@@ -688,39 +658,6 @@
                 native Swift implementation using Median Cut algorithm and Euclidean distance scanline clustering. Disk operations 
                 are handled via integrated wrapper for <strong>cadius</strong> by BrutalDeluxe to manage ProDOS volumes.
             </p>
-        </div>
-    </section>
-
-    <!-- Credits -->
-    <section style="background: var(--bg-gray);">
-        <div class="container">
-            <h2>Credits & Acknowledgments</h2>
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <span class="feature-icon">🎖️</span>
-                    <h3 class="feature-title">Bill Buckels</h3>
-                    <p class="feature-desc">
-                        For creating the original <strong>b2d</strong> (Bmp2DHR) command-line tool. 
-                        <a href="https://www.appleoldies.ca/bmp2dhr/" target="_blank" style="color: var(--primary);">Visit AppleOldies.ca</a>
-                    </p>
-                </div>
-                
-                <div class="feature-card">
-                    <span class="feature-icon">💿</span>
-                    <h3 class="feature-title">Brutal Deluxe</h3>
-                    <p class="feature-desc">
-                        For the <strong>Cadius</strong> tool used for ProDOS disk management and image creation.
-                    </p>
-                </div>
-                
-                <div class="feature-card">
-                    <span class="feature-icon">🎯</span>
-                    <h3 class="feature-title">Digarok</h3>
-                    <p class="feature-desc">
-                        For <strong>Buckshot</strong>, which served as inspiration for the resolution handling logic.
-                    </p>
-                </div>
-            </div>
         </div>
     </section>
 
@@ -767,15 +704,11 @@
             <div class="footer-content">
                 <div class="footer-links">
                     <a href="index.html">Retro Graphics Converter</a>
-                    <a href="mailto:walter.tengler@gmail.com">Email</a>
+                    <a href="/cdn-cgi/l/email-protection#e196808d958493cf95848f868d8493a1868c80888dcf828e8c">Email</a>
                     <a href="https://github.com/portwally/BitPast" target="_blank">GitHub</a>
                 </div>
             </div>
             <div class="footer-bottom">
                 <div>Made with ❤️ for retro computing enthusiasts</div>
                 <div class="footer-credit">Walter Tengler</div>
-            </div>
-        </div>
-    </footer>
-</body>
-</html>
+            </di
