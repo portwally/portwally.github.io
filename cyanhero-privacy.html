@@ -15,20 +15,26 @@
         }
 
         :root {
-            --primary: #0A84FF;
-            --bg-dark: #1C1C1E;
-            --bg-darker: #000000;
-            --bg-card: #2C2C2E;
-            --text-primary: #FFFFFF;
-            --text-secondary: #EBEBF5;
-            --text-tertiary: #98989D;
-            --border: #38383A;
-            --cyan: #0A7EA4;
+            --primary: #1a5f7a;
+            --primary-dark: #134b5f;
+            --primary-light: #2980b9;
+            --cyan: #1a5f7a;
+            --cyan-light: #3498db;
+            --bg-light: #f8f9fa;
+            --bg-white: #ffffff;
+            --bg-card: #ffffff;
+            --bg-section: #eef4f7;
+            --text-primary: #2c3e50;
+            --text-secondary: #34495e;
+            --text-tertiary: #7f8c8d;
+            --border: #d5e1e8;
+            --shadow: rgba(26, 95, 122, 0.1);
+            --shadow-dark: rgba(0, 0, 0, 0.1);
         }
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: var(--bg-darker);
+            background: var(--bg-light);
             color: var(--text-primary);
             line-height: 1.8;
             -webkit-font-smoothing: antialiased;
@@ -41,10 +47,15 @@
         }
 
         header {
-            background: linear-gradient(135deg, #001F3F 0%, #003F5C 50%, var(--cyan) 100%);
+            background: linear-gradient(135deg, #1a5f7a 0%, #2980b9 50%, #3498db 100%);
             padding: 60px 20px;
             text-align: center;
-            margin-bottom: 60px;
+            margin-bottom: 0;
+            color: white;
+        }
+
+        header .container {
+            padding: 0 20px;
         }
 
         h1 {
@@ -52,6 +63,7 @@
             font-weight: 700;
             margin-bottom: 10px;
             letter-spacing: -0.02em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
         }
 
         .app-name {
@@ -66,12 +78,18 @@
             margin-top: 15px;
         }
 
+        .main-content {
+            background: var(--bg-section);
+            padding: 60px 0;
+        }
+
         .content {
             background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: 16px;
             padding: 50px 40px;
             margin-bottom: 40px;
+            box-shadow: 0 4px 16px var(--shadow);
         }
 
         h2 {
@@ -91,7 +109,7 @@
         }
 
         .highlight-box {
-            background: rgba(10, 126, 164, 0.1);
+            background: rgba(26, 95, 122, 0.08);
             border-left: 4px solid var(--cyan);
             padding: 25px;
             margin: 30px 0;
@@ -104,6 +122,10 @@
             color: var(--cyan);
         }
 
+        .highlight-box p {
+            color: var(--text-secondary);
+        }
+
         ul {
             margin: 20px 0;
             padding-left: 30px;
@@ -114,29 +136,45 @@
             color: var(--text-secondary);
         }
 
+        li strong {
+            color: var(--text-primary);
+        }
+
         .back-link {
             display: inline-block;
             margin-top: 40px;
-            padding: 12px 24px;
+            padding: 14px 28px;
             background: var(--primary);
             color: white;
             text-decoration: none;
-            border-radius: 8px;
+            border-radius: 10px;
             font-weight: 600;
             transition: all 0.3s ease;
+            box-shadow: 0 4px 12px var(--shadow);
         }
 
         .back-link:hover {
+            background: var(--primary-light);
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0, 122, 255, 0.4);
+            box-shadow: 0 8px 20px var(--shadow-dark);
         }
 
         footer {
             text-align: center;
             padding: 40px 20px;
-            color: var(--text-tertiary);
-            border-top: 1px solid var(--border);
-            margin-top: 60px;
+            color: white;
+            background: var(--primary);
+        }
+
+        footer p {
+            color: white;
+            opacity: 0.9;
+        }
+
+        footer .credit {
+            margin-top: 10px;
+            font-size: 0.9em;
+            opacity: 0.7;
         }
 
         @media (max-width: 768px) {
@@ -163,121 +201,123 @@
         </div>
     </header>
 
-    <div class="container">
-        <div class="content">
-            <div class="highlight-box">
-                <h3>🔒 Your Privacy is Guaranteed</h3>
-                <p style="margin-bottom: 0;"><strong>CyanHero does not collect, transmit, or store any of your personal data.</strong> This app is designed with complete privacy protection. All image processing happens entirely on your local computer, and no information ever leaves your device.</p>
+    <div class="main-content">
+        <div class="container">
+            <div class="content">
+                <div class="highlight-box">
+                    <h3>🔒 Your Privacy is Guaranteed</h3>
+                    <p style="margin-bottom: 0;"><strong>CyanHero does not collect, transmit, or store any of your personal data.</strong> This app is designed with complete privacy protection. All image processing happens entirely on your local computer, and no information ever leaves your device.</p>
+                </div>
+
+                <h2>Data Collection</h2>
+                <p><strong>CyanHero collects ZERO data.</strong> Specifically:</p>
+                <ul>
+                    <li>No personal information is collected</li>
+                    <li>No user analytics or telemetry</li>
+                    <li>No tracking of app usage</li>
+                    <li>No network connections or internet communication</li>
+                    <li>No crash reports or diagnostic data sent to developers</li>
+                    <li>No advertising identifiers or cookies</li>
+                </ul>
+
+                <h2>Image Processing</h2>
+                <p>All image processing operations are performed entirely on your local Mac:</p>
+                <ul>
+                    <li><strong>Local Processing:</strong> Images are processed using your Mac's CPU and GPU only</li>
+                    <li><strong>No Cloud Services:</strong> Images are never uploaded to any server or cloud service</li>
+                    <li><strong>Your Files Stay Yours:</strong> Only you have access to your images and negatives</li>
+                    <li><strong>Complete Control:</strong> You choose where files are saved on your computer</li>
+                </ul>
+
+                <h2>File Access</h2>
+                <p>CyanHero only accesses files that you explicitly select:</p>
+                <ul>
+                    <li>The app can only read images you choose to import</li>
+                    <li>The app can only write files to locations you authorize</li>
+                    <li>All file access is sandboxed according to macOS security standards</li>
+                    <li>No background file scanning or indexing occurs</li>
+                </ul>
+
+                <h2>Network Activity</h2>
+                <p><strong>CyanHero has ZERO network activity:</strong></p>
+                <ul>
+                    <li>The app does not connect to the internet</li>
+                    <li>No data is transmitted to any external servers</li>
+                    <li>The app does not check for updates automatically</li>
+                    <li>No third-party services or APIs are used</li>
+                </ul>
+
+                <h2>Curve Files and Presets</h2>
+                <p>Tone curve files (.acv) are stored and processed locally:</p>
+                <ul>
+                    <li>Bundled preset curves are included in the app package</li>
+                    <li>Custom curves you load or save remain on your computer only</li>
+                    <li>No curve data is shared or synchronized</li>
+                </ul>
+
+                <h2>Print Settings</h2>
+                <p>Print configuration and page layout settings:</p>
+                <ul>
+                    <li>Print settings are saved locally using macOS standard preferences</li>
+                    <li>These settings are never transmitted outside your device</li>
+                    <li>You can clear these settings at any time through macOS settings</li>
+                </ul>
+
+                <h2>Third-Party Services</h2>
+                <p><strong>CyanHero uses NO third-party services:</strong></p>
+                <ul>
+                    <li>No analytics frameworks (e.g., Google Analytics, Mixpanel)</li>
+                    <li>No crash reporting services (e.g., Crashlytics, Sentry)</li>
+                    <li>No advertising networks or SDKs</li>
+                    <li>No social media integrations</li>
+                    <li>No cloud storage providers</li>
+                </ul>
+
+                <h2>App Store Distribution</h2>
+                <p>If you purchase CyanHero from the Mac App Store:</p>
+                <ul>
+                    <li>Apple processes your payment and transaction data according to their privacy policy</li>
+                    <li>The developer does not receive any personal payment information</li>
+                    <li>CyanHero itself still collects zero data on your device</li>
+                </ul>
+
+                <h2>Open Source Transparency</h2>
+                <p>CyanHero's source code is available on GitHub:</p>
+                <ul>
+                    <li>You can review the complete source code to verify privacy claims</li>
+                    <li>The code is open for security audits and community review</li>
+                    <li>No hidden code or obfuscated functionality</li>
+                </ul>
+
+                <h2>Changes to This Policy</h2>
+                <p>Any changes to this privacy policy will be:</p>
+                <ul>
+                    <li>Posted on this page with an updated date</li>
+                    <li>Announced on the GitHub repository</li>
+                    <li>Will never compromise the core principle: zero data collection</li>
+                </ul>
+
+                <h2>Contact</h2>
+                <p>If you have questions about this privacy policy, you can:</p>
+                <ul>
+                    <li>Open an issue on the GitHub repository</li>
+                    <li>Contact the developer through the support channels listed on the CyanHero website</li>
+                </ul>
+
+                <div class="highlight-box">
+                    <h3>Privacy Commitment</h3>
+                    <p style="margin-bottom: 0;">CyanHero is built on a foundation of complete user privacy. Your images, your work, and your creative process are entirely your own. This app exists solely as a tool to help you create beautiful alternative process prints, and it does so without compromising your privacy in any way.</p>
+                </div>
+
+                <a href="cyanhero.html" class="back-link">← Back to CyanHero</a>
             </div>
-
-            <h2>Data Collection</h2>
-            <p><strong>CyanHero collects ZERO data.</strong> Specifically:</p>
-            <ul>
-                <li>No personal information is collected</li>
-                <li>No user analytics or telemetry</li>
-                <li>No tracking of app usage</li>
-                <li>No network connections or internet communication</li>
-                <li>No crash reports or diagnostic data sent to developers</li>
-                <li>No advertising identifiers or cookies</li>
-            </ul>
-
-            <h2>Image Processing</h2>
-            <p>All image processing operations are performed entirely on your local Mac:</p>
-            <ul>
-                <li><strong>Local Processing:</strong> Images are processed using your Mac's CPU and GPU only</li>
-                <li><strong>No Cloud Services:</strong> Images are never uploaded to any server or cloud service</li>
-                <li><strong>Your Files Stay Yours:</strong> Only you have access to your images and negatives</li>
-                <li><strong>Complete Control:</strong> You choose where files are saved on your computer</li>
-            </ul>
-
-            <h2>File Access</h2>
-            <p>CyanHero only accesses files that you explicitly select:</p>
-            <ul>
-                <li>The app can only read images you choose to import</li>
-                <li>The app can only write files to locations you authorize</li>
-                <li>All file access is sandboxed according to macOS security standards</li>
-                <li>No background file scanning or indexing occurs</li>
-            </ul>
-
-            <h2>Network Activity</h2>
-            <p><strong>CyanHero has ZERO network activity:</strong></p>
-            <ul>
-                <li>The app does not connect to the internet</li>
-                <li>No data is transmitted to any external servers</li>
-                <li>The app does not check for updates automatically</li>
-                <li>No third-party services or APIs are used</li>
-            </ul>
-
-            <h2>Curve Files and Presets</h2>
-            <p>Tone curve files (.acv) are stored and processed locally:</p>
-            <ul>
-                <li>Bundled preset curves are included in the app package</li>
-                <li>Custom curves you load or save remain on your computer only</li>
-                <li>No curve data is shared or synchronized</li>
-            </ul>
-
-            <h2>Print Settings</h2>
-            <p>Print configuration and page layout settings:</p>
-            <ul>
-                <li>Print settings are saved locally using macOS standard preferences</li>
-                <li>These settings are never transmitted outside your device</li>
-                <li>You can clear these settings at any time through macOS settings</li>
-            </ul>
-
-            <h2>Third-Party Services</h2>
-            <p><strong>CyanHero uses NO third-party services:</strong></p>
-            <ul>
-                <li>No analytics frameworks (e.g., Google Analytics, Mixpanel)</li>
-                <li>No crash reporting services (e.g., Crashlytics, Sentry)</li>
-                <li>No advertising networks or SDKs</li>
-                <li>No social media integrations</li>
-                <li>No cloud storage providers</li>
-            </ul>
-
-            <h2>App Store Distribution</h2>
-            <p>If you purchase CyanHero from the Mac App Store:</p>
-            <ul>
-                <li>Apple processes your payment and transaction data according to their privacy policy</li>
-                <li>The developer does not receive any personal payment information</li>
-                <li>CyanHero itself still collects zero data on your device</li>
-            </ul>
-
-            <h2>Open Source Transparency</h2>
-            <p>CyanHero's source code is available on GitHub:</p>
-            <ul>
-                <li>You can review the complete source code to verify privacy claims</li>
-                <li>The code is open for security audits and community review</li>
-                <li>No hidden code or obfuscated functionality</li>
-            </ul>
-
-            <h2>Changes to This Policy</h2>
-            <p>Any changes to this privacy policy will be:</p>
-            <ul>
-                <li>Posted on this page with an updated date</li>
-                <li>Announced on the GitHub repository</li>
-                <li>Will never compromise the core principle: zero data collection</li>
-            </ul>
-
-            <h2>Contact</h2>
-            <p>If you have questions about this privacy policy, you can:</p>
-            <ul>
-                <li>Open an issue on the GitHub repository</li>
-                <li>Contact the developer through the support channels listed on the CyanHero website</li>
-            </ul>
-
-            <div class="highlight-box">
-                <h3>Privacy Commitment</h3>
-                <p style="margin-bottom: 0;">CyanHero is built on a foundation of complete user privacy. Your images, your work, and your creative process are entirely your own. This app exists solely as a tool to help you create beautiful alternative process prints, and it does so without compromising your privacy in any way.</p>
-            </div>
-
-            <a href="cyanhero.html" class="back-link">← Back to CyanHero</a>
         </div>
     </div>
 
     <footer>
         <div class="container">
             <p>CyanHero - Created with respect for your privacy</p>
-            <p style="margin-top: 10px; font-size: 0.9em;">Walter Tengler</p>
+            <p class="credit">Walter Tengler</p>
         </div>
     </footer>
 </body>
