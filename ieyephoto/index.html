@@ -7,7 +7,7 @@
     <meta name="description" content="Professional photography by Luisa Rodrigues. Capturing moments, creating memories.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -16,9 +16,8 @@
         }
 
         :root {
-            --primary: #2980b9;
-            --primary-dark: #1a5f7a;
-            --primary-light: #3498db;
+            --primary: #c9a86c;
+            --primary-dark: #a88a4e;
             --dark: #1a1a1a;
             --darker: #0d0d0d;
             --light: #f5f5f5;
@@ -34,7 +33,7 @@
         }
 
         body {
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Raleway', sans-serif;
             background: var(--darker);
             color: var(--white);
             line-height: 1.7;
@@ -44,8 +43,8 @@
 
         /* Typography */
         h1, h2, h3, h4 {
-            font-family: 'Lato', sans-serif;
-            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+            font-weight: 500;
             letter-spacing: 0.02em;
         }
 
@@ -71,13 +70,12 @@
         }
 
         .logo {
-            font-family: 'Lato', sans-serif;
-            font-size: 1.6em;
-            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8em;
+            font-weight: 600;
             color: var(--white);
             text-decoration: none;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
+            letter-spacing: 0.1em;
         }
 
         .logo span {
@@ -93,10 +91,9 @@
         .nav-links a {
             color: var(--text-light);
             text-decoration: none;
-            font-size: 0.8em;
-            font-family: 'Lato', sans-serif;
-            font-weight: 700;
-            letter-spacing: 0.12em;
+            font-size: 0.9em;
+            font-weight: 500;
+            letter-spacing: 0.15em;
             text-transform: uppercase;
             position: relative;
             transition: var(--transition);
@@ -178,27 +175,24 @@
         }
 
         .hero-subtitle {
-            font-size: 0.85em;
-            font-family: 'Lato', sans-serif;
-            letter-spacing: 0.35em;
+            font-size: 0.95em;
+            letter-spacing: 0.4em;
             text-transform: uppercase;
             color: var(--primary);
-            margin-bottom: 25px;
-            font-weight: 700;
+            margin-bottom: 20px;
+            font-weight: 500;
         }
 
         .hero h1 {
-            font-size: clamp(2em, 5vw, 3.5em);
-            font-weight: 300;
-            line-height: 1.2;
+            font-size: clamp(3em, 8vw, 6em);
+            font-weight: 400;
+            line-height: 1.1;
             margin-bottom: 30px;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
         }
 
         .hero h1 span {
             display: block;
-            font-weight: 700;
+            font-style: italic;
             color: var(--primary);
         }
 
@@ -212,14 +206,13 @@
 
         .btn {
             display: inline-block;
-            padding: 16px 40px;
-            font-size: 0.8em;
-            font-family: 'Lato', sans-serif;
-            font-weight: 700;
-            letter-spacing: 0.15em;
+            padding: 18px 45px;
+            font-size: 0.85em;
+            font-weight: 600;
+            letter-spacing: 0.2em;
             text-transform: uppercase;
             text-decoration: none;
-            border: 2px solid var(--primary);
+            border: 1px solid var(--primary);
             color: var(--white);
             background: transparent;
             transition: var(--transition);
@@ -228,17 +221,17 @@
 
         .btn:hover {
             background: var(--primary);
-            color: var(--white);
+            color: var(--dark);
         }
 
         .btn-filled {
             background: var(--primary);
-            color: var(--white);
+            color: var(--dark);
         }
 
         .btn-filled:hover {
-            background: var(--primary-dark);
-            border-color: var(--primary-dark);
+            background: transparent;
+            color: var(--white);
         }
 
         .scroll-indicator {
@@ -260,10 +253,8 @@
         }
 
         .scroll-indicator span {
-            font-size: 0.65em;
-            font-family: 'Lato', sans-serif;
-            font-weight: 700;
-            letter-spacing: 0.25em;
+            font-size: 0.7em;
+            letter-spacing: 0.3em;
             text-transform: uppercase;
             color: var(--text-muted);
         }
@@ -286,10 +277,8 @@
         }
 
         .section-tag {
-            font-size: 0.75em;
-            font-family: 'Lato', sans-serif;
-            font-weight: 700;
-            letter-spacing: 0.25em;
+            font-size: 0.85em;
+            letter-spacing: 0.3em;
             text-transform: uppercase;
             color: var(--primary);
             margin-bottom: 15px;
@@ -297,11 +286,8 @@
         }
 
         .section-title {
-            font-size: clamp(1.8em, 4vw, 2.5em);
+            font-size: clamp(2.2em, 5vw, 3.5em);
             margin-bottom: 25px;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            font-weight: 700;
         }
 
         .section-line {
@@ -332,11 +318,11 @@
         .about-image::before {
             content: '';
             position: absolute;
-            top: 20px;
-            left: 20px;
-            right: -20px;
-            bottom: -20px;
-            border: 2px solid var(--primary);
+            top: 30px;
+            left: 30px;
+            right: -30px;
+            bottom: -30px;
+            border: 1px solid var(--primary);
             z-index: 0;
         }
 
@@ -355,11 +341,8 @@
         }
 
         .about-text h3 {
-            font-size: 1.8em;
+            font-size: 2em;
             margin-bottom: 30px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
         }
 
         .about-text p {
@@ -369,9 +352,8 @@
         }
 
         .signature {
-            font-family: 'Lato', sans-serif;
-            font-size: 1.5em;
-            font-weight: 300;
+            font-family: 'Playfair Display', serif;
+            font-size: 2em;
             font-style: italic;
             color: var(--primary);
             margin-top: 30px;
@@ -435,16 +417,12 @@
         }
 
         .portfolio-info h4 {
-            font-size: 1.1em;
+            font-size: 1.3em;
             margin-bottom: 5px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
         }
 
         .portfolio-info span {
-            font-size: 0.7em;
-            font-family: 'Lato', sans-serif;
-            font-weight: 700;
+            font-size: 0.85em;
             color: var(--primary);
             letter-spacing: 0.1em;
             text-transform: uppercase;
@@ -466,7 +444,7 @@
         .service-card {
             text-align: center;
             padding: 50px 30px;
-            border: 1px solid rgba(41, 128, 185, 0.2);
+            border: 1px solid rgba(201, 168, 108, 0.2);
             transition: var(--transition);
         }
 
@@ -481,10 +459,8 @@
         }
 
         .service-card h4 {
-            font-size: 1.2em;
+            font-size: 1.4em;
             margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
         }
 
         .service-card p {
@@ -523,10 +499,8 @@
 
         .contact-item span {
             display: block;
-            font-size: 0.75em;
-            font-family: 'Lato', sans-serif;
-            font-weight: 700;
-            letter-spacing: 0.15em;
+            font-size: 0.8em;
+            letter-spacing: 0.2em;
             text-transform: uppercase;
             color: var(--primary);
             margin-bottom: 10px;
@@ -551,13 +525,12 @@
 
         .social-links a {
             color: var(--text-muted);
+            font-size: 1.2em;
             transition: var(--transition);
             text-decoration: none;
-            font-family: 'Lato', sans-serif;
-            letter-spacing: 0.12em;
+            letter-spacing: 0.15em;
             text-transform: uppercase;
-            font-size: 0.75em;
-            font-weight: 700;
+            font-size: 0.8em;
         }
 
         .social-links a:hover {
