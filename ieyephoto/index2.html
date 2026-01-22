@@ -607,6 +607,48 @@
             color: var(--cyan);
         }
 
+        /* Language Switcher */
+        .lang-switcher {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-left: 30px;
+        }
+
+        .lang-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 0.8em;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            padding: 5px 10px;
+            transition: var(--transition);
+            text-transform: uppercase;
+        }
+
+        .lang-btn:hover {
+            color: var(--cyan);
+        }
+
+        .lang-btn.active {
+            color: var(--cyan);
+            border-bottom: 1px solid var(--cyan);
+        }
+
+        .lang-divider {
+            color: var(--text-muted);
+            font-size: 0.8em;
+        }
+
+        @media (max-width: 768px) {
+            .lang-switcher {
+                margin-left: 0;
+                margin-right: 15px;
+            }
+        }
+
         /* Footer */
         footer {
             background: var(--darker);
@@ -714,12 +756,17 @@
     <nav id="navbar">
         <a href="#" class="logo">ieye<span>photo</span></a>
         <ul class="nav-links" id="navLinks">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#portfolio">Gallery</a></li>
-            <li><a href="#process">Process</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="#home" data-i18n="nav.home">Home</a></li>
+            <li><a href="#portfolio" data-i18n="nav.gallery">Gallery</a></li>
+            <li><a href="#process" data-i18n="nav.process">Process</a></li>
+            <li><a href="#about" data-i18n="nav.about">About</a></li>
+            <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
         </ul>
+        <div class="lang-switcher">
+            <button class="lang-btn active" data-lang="en">EN</button>
+            <span class="lang-divider">|</span>
+            <button class="lang-btn" data-lang="pt">PT</button>
+        </div>
         <div class="menu-toggle" id="menuToggle">
             <span></span>
             <span></span>
@@ -731,20 +778,20 @@
         <div class="hero-bg"></div>
         <div class="hero-overlay"></div>
         <div class="hero-content">
-            <p class="hero-subtitle">Alternative Process Art</p>
-            <h1>Cyanotype<span>Creations</span></h1>
-            <p class="hero-description">Handcrafted sun prints using the historic Prussian blue photographic process</p>
-            <a href="#portfolio" class="btn">View Gallery</a>
+            <p class="hero-subtitle" data-i18n="hero.subtitle">Alternative Process Art</p>
+            <h1 data-i18n="hero.title">Cyanotype<span>Creations</span></h1>
+            <p class="hero-description" data-i18n="hero.description">Handcrafted sun prints using the historic Prussian blue photographic process</p>
+            <a href="#portfolio" class="btn" data-i18n="hero.cta">View Gallery</a>
         </div>
         <div class="scroll-indicator">
-            <span>Scroll</span>
+            <span data-i18n="hero.scroll">Scroll</span>
         </div>
     </section>
 
     <section class="portfolio" id="portfolio">
         <div class="section-header">
-            <span class="section-tag">Gallery</span>
-            <h2 class="section-title">Selected Works</h2>
+            <span class="section-tag" data-i18n="portfolio.tag">Gallery</span>
+            <h2 class="section-title" data-i18n="portfolio.title">Selected Works</h2>
             <div class="section-line"></div>
         </div>
         <div class="portfolio-grid">
@@ -752,8 +799,8 @@
                 <img src="https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?w=800&h=400&fit=crop&sat=-100&hue=200" alt="Botanical Print">
                 <div class="portfolio-overlay">
                     <div class="portfolio-info">
-                        <h4>Botanical Series</h4>
-                        <span>Fern & Foliage</span>
+                        <h4 data-i18n="portfolio.item1.title">Botanical Series</h4>
+                        <span data-i18n="portfolio.item1.category">Fern & Foliage</span>
                     </div>
                 </div>
             </div>
@@ -761,8 +808,8 @@
                 <img src="https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=400&h=400&fit=crop&sat=-100&hue=200" alt="Floral Print">
                 <div class="portfolio-overlay">
                     <div class="portfolio-info">
-                        <h4>Flora Studies</h4>
-                        <span>Pressed Flowers</span>
+                        <h4 data-i18n="portfolio.item2.title">Flora Studies</h4>
+                        <span data-i18n="portfolio.item2.category">Pressed Flowers</span>
                     </div>
                 </div>
             </div>
@@ -770,8 +817,8 @@
                 <img src="https://images.unsplash.com/photo-1487530811176-3780de880c2d?w=400&h=800&fit=crop&sat=-100&hue=200" alt="Nature Print">
                 <div class="portfolio-overlay">
                     <div class="portfolio-info">
-                        <h4>Wild Garden</h4>
-                        <span>Mixed Botanicals</span>
+                        <h4 data-i18n="portfolio.item3.title">Wild Garden</h4>
+                        <span data-i18n="portfolio.item3.category">Mixed Botanicals</span>
                     </div>
                 </div>
             </div>
@@ -779,8 +826,8 @@
                 <img src="https://images.unsplash.com/photo-1457089328109-e5d9bd499191?w=400&h=400&fit=crop&sat=-100&hue=200" alt="Leaf Print">
                 <div class="portfolio-overlay">
                     <div class="portfolio-info">
-                        <h4>Leaf Forms</h4>
-                        <span>Shadow Studies</span>
+                        <h4 data-i18n="portfolio.item4.title">Leaf Forms</h4>
+                        <span data-i18n="portfolio.item4.category">Shadow Studies</span>
                     </div>
                 </div>
             </div>
@@ -788,8 +835,8 @@
                 <img src="https://images.unsplash.com/photo-1509587584298-0f3b3a3a1797?w=400&h=400&fit=crop&sat=-100&hue=200" alt="Abstract Print">
                 <div class="portfolio-overlay">
                     <div class="portfolio-info">
-                        <h4>Abstract Forms</h4>
-                        <span>Light & Shadow</span>
+                        <h4 data-i18n="portfolio.item5.title">Abstract Forms</h4>
+                        <span data-i18n="portfolio.item5.category">Light & Shadow</span>
                     </div>
                 </div>
             </div>
@@ -798,35 +845,35 @@
 
     <section class="process" id="process">
         <div class="section-header">
-            <span class="section-tag">The Craft</span>
-            <h2 class="section-title">Cyanotype Process</h2>
+            <span class="section-tag" data-i18n="process.tag">The Craft</span>
+            <h2 class="section-title" data-i18n="process.title">Cyanotype Process</h2>
             <div class="section-line"></div>
         </div>
         <div class="process-content">
-            <p class="process-description">
+            <p class="process-description" data-i18n="process.description">
                 Cyanotype is one of the oldest photographic printing processes, invented by Sir John Herschel in 1842.
                 It produces distinctive cyan-blue prints through a simple yet magical process involving iron salts and sunlight.
             </p>
             <div class="process-steps">
                 <div class="process-step">
                     <span class="step-number">1</span>
-                    <h4>Prepare</h4>
-                    <p>Coat paper with light-sensitive iron solution and let dry in darkness</p>
+                    <h4 data-i18n="process.step1.title">Prepare</h4>
+                    <p data-i18n="process.step1.desc">Coat paper with light-sensitive iron solution and let dry in darkness</p>
                 </div>
                 <div class="process-step">
                     <span class="step-number">2</span>
-                    <h4>Compose</h4>
-                    <p>Arrange botanicals, objects, or negatives on the coated surface</p>
+                    <h4 data-i18n="process.step2.title">Compose</h4>
+                    <p data-i18n="process.step2.desc">Arrange botanicals, objects, or negatives on the coated surface</p>
                 </div>
                 <div class="process-step">
                     <span class="step-number">3</span>
-                    <h4>Expose</h4>
-                    <p>Place under direct sunlight or UV light for several minutes</p>
+                    <h4 data-i18n="process.step3.title">Expose</h4>
+                    <p data-i18n="process.step3.desc">Place under direct sunlight or UV light for several minutes</p>
                 </div>
                 <div class="process-step">
                     <span class="step-number">4</span>
-                    <h4>Develop</h4>
-                    <p>Rinse in water to reveal the Prussian blue image</p>
+                    <h4 data-i18n="process.step4.title">Develop</h4>
+                    <p data-i18n="process.step4.desc">Rinse in water to reveal the Prussian blue image</p>
                 </div>
             </div>
         </div>
@@ -834,25 +881,25 @@
 
     <section class="services" id="services">
         <div class="section-header">
-            <span class="section-tag">Offerings</span>
-            <h2 class="section-title">What I Create</h2>
+            <span class="section-tag" data-i18n="services.tag">Offerings</span>
+            <h2 class="section-title" data-i18n="services.title">What I Create</h2>
             <div class="section-line"></div>
         </div>
         <div class="services-grid">
             <div class="service-card">
                 <div class="service-icon">🌿</div>
-                <h4>Original Prints</h4>
-                <p>One-of-a-kind botanical cyanotype prints on fine art paper, ready to frame.</p>
+                <h4 data-i18n="services.item1.title">Original Prints</h4>
+                <p data-i18n="services.item1.desc">One-of-a-kind botanical cyanotype prints on fine art paper, ready to frame.</p>
             </div>
             <div class="service-card">
                 <div class="service-icon">🎨</div>
-                <h4>Custom Commissions</h4>
-                <p>Personalized pieces using your meaningful botanicals, wedding flowers, or special items.</p>
+                <h4 data-i18n="services.item2.title">Custom Commissions</h4>
+                <p data-i18n="services.item2.desc">Personalized pieces using your meaningful botanicals, wedding flowers, or special items.</p>
             </div>
             <div class="service-card">
                 <div class="service-icon">📚</div>
-                <h4>Workshops</h4>
-                <p>Learn the art of cyanotype printing in intimate group or private sessions.</p>
+                <h4 data-i18n="services.item3.title">Workshops</h4>
+                <p data-i18n="services.item3.desc">Learn the art of cyanotype printing in intimate group or private sessions.</p>
             </div>
         </div>
     </section>
@@ -863,12 +910,12 @@
                 <img src="https://images.unsplash.com/photo-1554151228-14d9def656e4?w=600&h=800&fit=crop" alt="Luisa Rodrigues">
             </div>
             <div class="about-text">
-                <span class="section-tag">The Artist</span>
+                <span class="section-tag" data-i18n="about.tag">The Artist</span>
                 <h3>Luisa Rodrigues</h3>
-                <p class="artist-title">Cyanotype Artist</p>
-                <p>I create one-of-a-kind cyanotype prints using the same sun-sensitive process invented in 1842. Each piece is made by hand, exposed under natural sunlight, and developed in water to reveal the signature Prussian blue tones.</p>
-                <p>My work explores the intersection of botanical forms, light, and time. I forage local plants, press flowers, and compose arrangements that become permanent impressions of fleeting natural beauty.</p>
-                <p>Every print is unique — shaped by the sun's intensity, exposure time, and the organic materials used. This unpredictability is what draws me to the medium.</p>
+                <p class="artist-title" data-i18n="about.title">Cyanotype Artist</p>
+                <p data-i18n="about.p1">I create one-of-a-kind cyanotype prints using the same sun-sensitive process invented in 1842. Each piece is made by hand, exposed under natural sunlight, and developed in water to reveal the signature Prussian blue tones.</p>
+                <p data-i18n="about.p2">My work explores the intersection of botanical forms, light, and time. I forage local plants, press flowers, and compose arrangements that become permanent impressions of fleeting natural beauty.</p>
+                <p data-i18n="about.p3">Every print is unique — shaped by the sun's intensity, exposure time, and the organic materials used. This unpredictability is what draws me to the medium.</p>
                 <p class="signature">Luisa</p>
             </div>
         </div>
@@ -876,24 +923,24 @@
 
     <section class="contact" id="contact">
         <div class="section-header">
-            <span class="section-tag">Get in Touch</span>
-            <h2 class="section-title">Let's Create Together</h2>
+            <span class="section-tag" data-i18n="contact.tag">Get in Touch</span>
+            <h2 class="section-title" data-i18n="contact.title">Let's Create Together</h2>
             <div class="section-line"></div>
         </div>
         <div class="contact-content">
-            <p class="contact-text">Interested in a custom piece, commissioning work, or attending a workshop? I'd love to hear from you.</p>
+            <p class="contact-text" data-i18n="contact.text">Interested in a custom piece, commissioning work, or attending a workshop? I'd love to hear from you.</p>
             <div class="contact-info">
                 <div class="contact-item">
-                    <span>Email</span>
+                    <span data-i18n="contact.email">Email</span>
                     <a href="mailto:hello@ieyephoto.com">hello@ieyephoto.com</a>
                 </div>
                 <div class="contact-item">
-                    <span>Studio</span>
-                    <p>By Appointment</p>
+                    <span data-i18n="contact.studio">Studio</span>
+                    <p data-i18n="contact.appointment">By Appointment</p>
                 </div>
                 <div class="contact-item">
-                    <span>Shipping</span>
-                    <p>Worldwide</p>
+                    <span data-i18n="contact.shipping">Shipping</span>
+                    <p data-i18n="contact.worldwide">Worldwide</p>
                 </div>
             </div>
             <div class="social-links">
@@ -905,7 +952,7 @@
     </section>
 
     <footer>
-        <p>&copy; 2026 ieyephoto | Luisa Rodrigues Cyanotype Art. All rights reserved.</p>
+        <p data-i18n="footer.copyright">&copy; 2026 ieyephoto | Luisa Rodrigues Cyanotype Art. All rights reserved.</p>
     </footer>
 
     <script>
@@ -946,6 +993,164 @@
                 }
             });
         });
+
+        // Language translations
+        const translations = {
+            en: {
+                'nav.home': 'Home',
+                'nav.gallery': 'Gallery',
+                'nav.process': 'Process',
+                'nav.about': 'About',
+                'nav.contact': 'Contact',
+                'hero.subtitle': 'Alternative Process Art',
+                'hero.title': 'Cyanotype<span>Creations</span>',
+                'hero.description': 'Handcrafted sun prints using the historic Prussian blue photographic process',
+                'hero.cta': 'View Gallery',
+                'hero.scroll': 'Scroll',
+                'portfolio.tag': 'Gallery',
+                'portfolio.title': 'Selected Works',
+                'portfolio.item1.title': 'Botanical Series',
+                'portfolio.item1.category': 'Fern & Foliage',
+                'portfolio.item2.title': 'Flora Studies',
+                'portfolio.item2.category': 'Pressed Flowers',
+                'portfolio.item3.title': 'Wild Garden',
+                'portfolio.item3.category': 'Mixed Botanicals',
+                'portfolio.item4.title': 'Leaf Forms',
+                'portfolio.item4.category': 'Shadow Studies',
+                'portfolio.item5.title': 'Abstract Forms',
+                'portfolio.item5.category': 'Light & Shadow',
+                'process.tag': 'The Craft',
+                'process.title': 'Cyanotype Process',
+                'process.description': 'Cyanotype is one of the oldest photographic printing processes, invented by Sir John Herschel in 1842. It produces distinctive cyan-blue prints through a simple yet magical process involving iron salts and sunlight.',
+                'process.step1.title': 'Prepare',
+                'process.step1.desc': 'Coat paper with light-sensitive iron solution and let dry in darkness',
+                'process.step2.title': 'Compose',
+                'process.step2.desc': 'Arrange botanicals, objects, or negatives on the coated surface',
+                'process.step3.title': 'Expose',
+                'process.step3.desc': 'Place under direct sunlight or UV light for several minutes',
+                'process.step4.title': 'Develop',
+                'process.step4.desc': 'Rinse in water to reveal the Prussian blue image',
+                'services.tag': 'Offerings',
+                'services.title': 'What I Create',
+                'services.item1.title': 'Original Prints',
+                'services.item1.desc': 'One-of-a-kind botanical cyanotype prints on fine art paper, ready to frame.',
+                'services.item2.title': 'Custom Commissions',
+                'services.item2.desc': 'Personalized pieces using your meaningful botanicals, wedding flowers, or special items.',
+                'services.item3.title': 'Workshops',
+                'services.item3.desc': 'Learn the art of cyanotype printing in intimate group or private sessions.',
+                'about.tag': 'The Artist',
+                'about.title': 'Cyanotype Artist',
+                'about.p1': 'I create one-of-a-kind cyanotype prints using the same sun-sensitive process invented in 1842. Each piece is made by hand, exposed under natural sunlight, and developed in water to reveal the signature Prussian blue tones.',
+                'about.p2': 'My work explores the intersection of botanical forms, light, and time. I forage local plants, press flowers, and compose arrangements that become permanent impressions of fleeting natural beauty.',
+                'about.p3': 'Every print is unique — shaped by the sun\'s intensity, exposure time, and the organic materials used. This unpredictability is what draws me to the medium.',
+                'contact.tag': 'Get in Touch',
+                'contact.title': 'Let\'s Create Together',
+                'contact.text': 'Interested in a custom piece, commissioning work, or attending a workshop? I\'d love to hear from you.',
+                'contact.email': 'Email',
+                'contact.studio': 'Studio',
+                'contact.appointment': 'By Appointment',
+                'contact.shipping': 'Shipping',
+                'contact.worldwide': 'Worldwide',
+                'footer.copyright': '&copy; 2026 ieyephoto | Luisa Rodrigues Cyanotype Art. All rights reserved.'
+            },
+            pt: {
+                'nav.home': 'Início',
+                'nav.gallery': 'Galeria',
+                'nav.process': 'Processo',
+                'nav.about': 'Sobre',
+                'nav.contact': 'Contato',
+                'hero.subtitle': 'Arte em Processo Alternativo',
+                'hero.title': 'Cianotipia<span>Criações</span>',
+                'hero.description': 'Impressões solares artesanais usando o histórico processo fotográfico azul da Prússia',
+                'hero.cta': 'Ver Galeria',
+                'hero.scroll': 'Rolar',
+                'portfolio.tag': 'Galeria',
+                'portfolio.title': 'Trabalhos Selecionados',
+                'portfolio.item1.title': 'Série Botânica',
+                'portfolio.item1.category': 'Samambaias & Folhagens',
+                'portfolio.item2.title': 'Estudos Florais',
+                'portfolio.item2.category': 'Flores Prensadas',
+                'portfolio.item3.title': 'Jardim Selvagem',
+                'portfolio.item3.category': 'Botânicos Diversos',
+                'portfolio.item4.title': 'Formas de Folhas',
+                'portfolio.item4.category': 'Estudos de Sombras',
+                'portfolio.item5.title': 'Formas Abstratas',
+                'portfolio.item5.category': 'Luz & Sombra',
+                'process.tag': 'A Arte',
+                'process.title': 'Processo de Cianotipia',
+                'process.description': 'A cianotipia é um dos processos de impressão fotográfica mais antigos, inventado por Sir John Herschel em 1842. Produz impressões azul-ciano distintivas através de um processo simples, mas mágico, envolvendo sais de ferro e luz solar.',
+                'process.step1.title': 'Preparar',
+                'process.step1.desc': 'Revestir o papel com solução de ferro fotossensível e deixar secar no escuro',
+                'process.step2.title': 'Compor',
+                'process.step2.desc': 'Organizar botânicos, objetos ou negativos na superfície revestida',
+                'process.step3.title': 'Expor',
+                'process.step3.desc': 'Colocar sob luz solar direta ou luz UV por vários minutos',
+                'process.step4.title': 'Revelar',
+                'process.step4.desc': 'Enxaguar em água para revelar a imagem azul da Prússia',
+                'services.tag': 'Serviços',
+                'services.title': 'O Que Eu Crio',
+                'services.item1.title': 'Impressões Originais',
+                'services.item1.desc': 'Impressões botânicas de cianotipia únicas em papel de arte, prontas para emoldurar.',
+                'services.item2.title': 'Encomendas Personalizadas',
+                'services.item2.desc': 'Peças personalizadas usando seus botânicos significativos, flores de casamento ou itens especiais.',
+                'services.item3.title': 'Workshops',
+                'services.item3.desc': 'Aprenda a arte da impressão em cianotipia em sessões íntimas em grupo ou particulares.',
+                'about.tag': 'A Artista',
+                'about.title': 'Artista de Cianotipia',
+                'about.p1': 'Crio impressões de cianotipia únicas usando o mesmo processo fotossensível inventado em 1842. Cada peça é feita à mão, exposta sob luz solar natural e revelada em água para revelar os tons característicos do azul da Prússia.',
+                'about.p2': 'Meu trabalho explora a interseção entre formas botânicas, luz e tempo. Coleto plantas locais, prenso flores e componho arranjos que se tornam impressões permanentes de beleza natural efêmera.',
+                'about.p3': 'Cada impressão é única — moldada pela intensidade do sol, tempo de exposição e materiais orgânicos utilizados. Essa imprevisibilidade é o que me atrai para este meio.',
+                'contact.tag': 'Entre em Contato',
+                'contact.title': 'Vamos Criar Juntos',
+                'contact.text': 'Interessado em uma peça personalizada, encomendar um trabalho ou participar de um workshop? Adoraria ouvir de você.',
+                'contact.email': 'Email',
+                'contact.studio': 'Ateliê',
+                'contact.appointment': 'Com Agendamento',
+                'contact.shipping': 'Envio',
+                'contact.worldwide': 'Mundial',
+                'footer.copyright': '&copy; 2026 ieyephoto | Luisa Rodrigues Arte em Cianotipia. Todos os direitos reservados.'
+            }
+        };
+
+        let currentLang = 'en';
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            document.documentElement.lang = lang;
+
+            // Update all elements with data-i18n attribute
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    element.innerHTML = translations[lang][key];
+                }
+            });
+
+            // Update active button
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('data-lang') === lang) {
+                    btn.classList.add('active');
+                }
+            });
+
+            // Save preference
+            localStorage.setItem('preferredLang', lang);
+        }
+
+        // Language switcher event listeners
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const lang = btn.getAttribute('data-lang');
+                setLanguage(lang);
+            });
+        });
+
+        // Load saved language preference
+        const savedLang = localStorage.getItem('preferredLang');
+        if (savedLang && translations[savedLang]) {
+            setLanguage(savedLang);
+        }
     </script>
 </body>
 </html>
