@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Vortex - Organizador Inteligente de Archivos para macOS</title>
+    <meta name="description" content="Arrastra, suelta, listo. File Vortex organiza automáticamente tus fotos y documentos en tu NAS con etiquetado IA y búsqueda instantánea de texto completo.">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #7C5CFF; --primary-dark: #9B7FFF; --secondary: #0A84FF; --accent: #FF375F; --success: #32D74B; --bg-dark: #1C1C1E; --bg-darker: #000000; --bg-card: #2C2C2E; --text-primary: #FFFFFF; --text-secondary: #EBEBF5; --text-tertiary: #98989D; --border: #38383A; --shadow: rgba(0, 0, 0, 0.5); }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg-darker); color: var(--text-primary); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        header { background: linear-gradient(135deg, #0d0015 0%, #1a0a2e 30%, #0a1628 70%, #000000 100%); color: white; text-align: center; padding: 100px 20px 80px; position: relative; overflow: hidden; }
+        header::before { content: ''; position: absolute; top: -50%; left: 50%; transform: translateX(-50%); width: 600px; height: 600px; background: radial-gradient(circle, rgba(124, 92, 255, 0.15) 0%, transparent 70%); border-radius: 50%; pointer-events: none; }
+        .hero-content { position: relative; z-index: 1; }
+        h1 { font-size: 4em; font-weight: 700; margin-bottom: 20px; letter-spacing: -0.02em; }
+        .subtitle { font-size: 1.5em; font-weight: 300; opacity: 0.95; margin-bottom: 15px; }
+        .tagline { font-size: 1.15em; color: var(--text-tertiary); max-width: 600px; margin: 0 auto 15px; }
+        .badge { display: inline-block; padding: 8px 20px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; font-size: 0.95em; font-weight: 500; backdrop-filter: blur(10px); }
+        .button-group { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin: 40px 0; }
+        .btn { display: inline-flex; align-items: center; gap: 10px; padding: 16px 32px; font-size: 1.05em; font-weight: 600; text-decoration: none; border-radius: 12px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; border: none; }
+        .btn-primary { background: var(--primary); color: white; box-shadow: 0 4px 12px rgba(124, 92, 255, 0.3); }
+        .btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(124, 92, 255, 0.4); }
+        section { padding: 80px 0; background: var(--bg-darker); }
+        section:nth-child(even) { background: var(--bg-dark); }
+        h2 { font-size: 2.5em; font-weight: 700; margin-bottom: 20px; text-align: center; letter-spacing: -0.02em; }
+        .section-subtitle { text-align: center; font-size: 1.2em; color: var(--text-tertiary); margin-bottom: 60px; max-width: 700px; margin-left: auto; margin-right: auto; }
+        .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin: 60px 0; text-align: center; }
+        .stat-item { padding: 30px; }
+        .stat-number { font-size: 3em; font-weight: 700; color: var(--primary); display: block; margin-bottom: 10px; }
+        .stat-label { color: var(--text-tertiary); font-size: 1.1em; }
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin: 50px 0; }
+        .feature-card { background: var(--bg-card); padding: 40px 30px; border-radius: 16px; border: 1px solid var(--border); box-shadow: 0 2px 8px var(--shadow); transition: all 0.3s ease; text-align: center; }
+        .feature-card:hover { transform: translateY(-8px); box-shadow: 0 12px 32px var(--shadow); }
+        .feature-icon { font-size: 3.5em; margin-bottom: 20px; display: block; }
+        .feature-title { font-size: 1.4em; font-weight: 600; margin-bottom: 15px; color: var(--text-primary); }
+        .feature-desc { color: var(--text-tertiary); line-height: 1.7; }
+        .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 30px; margin: 50px 0; }
+        .step { text-align: center; padding: 30px 20px; }
+        .step-number { display: inline-flex; align-items: center; justify-content: center; width: 56px; height: 56px; background: var(--primary); color: white; border-radius: 50%; font-size: 1.5em; font-weight: 700; margin-bottom: 20px; box-shadow: 0 4px 16px rgba(124, 92, 255, 0.3); }
+        .step h3 { font-size: 1.2em; font-weight: 600; margin-bottom: 10px; color: var(--text-primary); }
+        .step p { color: var(--text-tertiary); font-size: 0.95em; line-height: 1.7; }
+        h3 { font-size: 1.5em; font-weight: 600; margin: 40px 0 25px; color: var(--primary); }
+        .format-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; margin: 25px 0; }
+        .format-card { background: var(--bg-card); padding: 25px; border-radius: 12px; border: 1px solid var(--border); transition: all 0.3s ease; }
+        .format-card:hover { border-color: var(--primary); box-shadow: 0 4px 16px var(--shadow); }
+        .format-card strong { display: block; font-size: 1.1em; color: var(--primary); margin-bottom: 6px; font-weight: 600; }
+        .format-card span { display: block; color: var(--text-tertiary); font-size: 0.9em; }
+        .feature-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin: 40px 0; }
+        .feature-list-item { display: flex; align-items: flex-start; gap: 15px; padding: 20px; background: var(--bg-card); border-radius: 12px; border: 1px solid var(--border); border-left: 4px solid var(--primary); }
+        .feature-list-item::before { content: "\2713"; display: flex; align-items: center; justify-content: center; width: 24px; height: 24px; background: var(--success); color: white; border-radius: 50%; font-weight: bold; font-size: 0.9em; flex-shrink: 0; }
+        .download-section { background: var(--bg-card); border: 2px solid var(--border); color: white; padding: 80px 40px; border-radius: 24px; text-align: center; margin: 60px 0; }
+        .download-section h2 { color: white; margin-bottom: 30px; }
+        .download-text { font-size: 1.2em; line-height: 1.8; max-width: 800px; margin: 0 auto 40px; opacity: 0.95; }
+        .requirements { background: var(--bg-card); padding: 40px; border-radius: 16px; border: 2px solid var(--border); margin: 40px 0; }
+        .requirements ul { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        .requirements li { display: flex; align-items: center; gap: 12px; font-size: 1.05em; }
+        .requirements li::before { content: "\25CF"; color: var(--primary); font-size: 1.5em; }
+        footer { background: var(--bg-dark); border-top: 1px solid var(--border); color: white; padding: 60px 0 40px; text-align: center; }
+        .footer-links { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin: 20px 0; }
+        .footer-links a { color: white; text-decoration: none; font-size: 1.05em; opacity: 0.8; transition: opacity 0.3s; }
+        .footer-links a:hover { opacity: 1; }
+        .footer-bottom { padding-top: 30px; border-top: 1px solid rgba(255, 255, 255, 0.1); opacity: 0.6; font-size: 0.95em; }
+        .footer-credit { font-size: 0.85em; opacity: 0.4; margin-top: 10px; }
+        .screenshot-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin: 50px 0; justify-items: center; }
+        .screenshot-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px var(--shadow); transition: all 0.3s ease; max-width: 340px; }
+        .screenshot-card:hover { transform: translateY(-4px); box-shadow: 0 8px 32px var(--shadow); }
+        .screenshot-card img { width: 100%; display: block; }
+        .screenshot-card-content { padding: 24px; }
+        .screenshot-card-content h3 { color: var(--primary); margin: 0 0 8px 0; font-size: 1.15em; }
+        .screenshot-card-content p { color: var(--text-tertiary); margin: 0; line-height: 1.6; font-size: 0.95em; }
+        @media (max-width: 768px) { h1 { font-size: 2.5em; } h2 { font-size: 2em; } .subtitle { font-size: 1.2em; } header { padding: 80px 20px 60px; } section { padding: 60px 0; } .feature-grid, .format-grid, .steps, .screenshot-grid { grid-template-columns: 1fr; } .screenshot-card { max-width: 100%; } .button-group { flex-direction: column; } .btn { width: 100%; justify-content: center; } }
+        html { scroll-behavior: smooth; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="hero-content">
+            <h1>File Vortex</h1>
+            <p class="subtitle">Organizador Inteligente de Archivos para macOS</p>
+            <p class="tagline">Arrastra, suelta, listo. Organiza automáticamente tus fotos y documentos con etiquetado IA y búsqueda instantánea.</p>
+            <span class="badge">macOS 14.0 Sonoma o posterior</span>
+            <div class="button-group">
+                <a href="#download" class="btn btn-primary">Obtener File Vortex</a>
+            </div>
+        </div>
+    </header>
+
+    <section>
+        <div class="container">
+            <div class="stats">
+                <div class="stat-item"><span class="stat-number">30+</span><span class="stat-label">Formatos de Archivo</span></div>
+                <div class="stat-item"><span class="stat-number">IA</span><span class="stat-label">Análisis de Imágenes</span></div>
+                <div class="stat-item"><span class="stat-number">OCR</span><span class="stat-label">Extracción de Texto</span></div>
+                <div class="stat-item"><span class="stat-number">100%</span><span class="stat-label">Privacidad en el Dispositivo</span></div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <h2>Cómo Funciona</h2>
+            <p class="section-subtitle">Del caos al orden en cuatro simples pasos</p>
+            <div class="steps">
+                <div class="step"><div class="step-number">1</div><h3>Configura Tu Carpeta</h3><p>Elige tu NAS, disco externo o cualquier carpeta como destino para tus archivos.</p></div>
+                <div class="step"><div class="step-number">2</div><h3>Arrastra &amp; Suelta</h3><p>Suelta fotos, documentos y videos en la ventana flotante del vórtice en tu escritorio.</p></div>
+                <div class="step"><div class="step-number">3</div><h3>Auto-Organización</h3><p>Los archivos se clasifican en carpetas basadas en fecha, son analizados por IA y etiquetados automáticamente.</p></div>
+                <div class="step"><div class="step-number">4</div><h3>Buscar &amp; Encontrar</h3><p>Encuentra cualquier archivo instantáneamente por nombre, etiqueta o contenido desde la barra de menú.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <h2>Capturas de Pantalla</h2>
+            <p class="section-subtitle">Mira File Vortex en acción</p>
+            <div class="screenshot-grid">
+                <div class="screenshot-card"><img src="screenshot-drop.png" alt="Ventana de Drop de File Vortex"><div class="screenshot-card-content"><h3>Vórtice Arrastra &amp; Suelta</h3><p>La ventana flotante de drop con vórtice animado y estado de conexión NAS en vivo.</p></div></div>
+                <div class="screenshot-card"><img src="screenshot-search-people.png" alt="Búsqueda IA"><div class="screenshot-card-content"><h3>Búsqueda con IA</h3><p>Busca "personas" y encuentra todas las fotos con rostros. Las etiquetas IA se resaltan en los resultados.</p></div></div>
+                <div class="screenshot-card"><img src="screenshot-search-tags.png" alt="Etiquetas Populares"><div class="screenshot-card-content"><h3>Etiquetas Populares</h3><p>Navega por tu biblioteca por etiquetas populares. Miniaturas y etiquetas generadas por IA de un vistazo.</p></div></div>
+                <div class="screenshot-card"><img src="screenshot-search-outdoor.png" alt="Búsqueda por Etiqueta"><div class="screenshot-card-content"><h3>Búsqueda Inteligente por Etiqueta</h3><p>Busca cualquier etiqueta como "outdoor" para filtrar instantáneamente toda tu biblioteca.</p></div></div>
+                <div class="screenshot-card"><img src="screenshot-settings.png" alt="Configuración y Estadísticas"><div class="screenshot-card-content"><h3>Estadísticas de la Biblioteca</h3><p>Ve tu biblioteca de un vistazo con conteos de archivos, ubicación de almacenamiento y acciones rápidas.</p></div></div>
+                <div class="screenshot-card"><img src="screenshot-help.png" alt="Ayuda Integrada"><div class="screenshot-card-content"><h3>Ayuda Integrada</h3><p>Instrucciones paso a paso dentro de la aplicación. Fácil de usar desde el primer día.</p></div></div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <h2>Características Principales</h2>
+            <p class="section-subtitle">Todo lo que necesitas para mantener tus archivos organizados</p>
+            <div class="feature-grid">
+                <div class="feature-card"><span class="feature-icon">🌪️</span><h3 class="feature-title">Vórtice Arrastra &amp; Suelta</h3><p class="feature-desc">Una ventana flotante de drop permanece encima de todas las aplicaciones. Simplemente arrastra tus archivos al vórtice animado y se procesan instantáneamente.</p></div>
+                <div class="feature-card"><span class="feature-icon">🤖</span><h3 class="feature-title">Etiquetado con IA</h3><p class="feature-desc">El aprendizaje automático en el dispositivo reconoce objetos, escenas, rostros y texto en tus fotos. Las etiquetas se escriben en los metadatos del Finder y funcionan con Spotlight.</p></div>
+                <div class="feature-card"><span class="feature-icon">📂</span><h3 class="feature-title">Organización Inteligente</h3><p class="feature-desc">Los archivos se clasifican automáticamente en estructuras de carpetas limpias basadas en fecha. Elige formatos Año/Mes, Año/Mes/Día o prefijo de fecha plano.</p></div>
+                <div class="feature-card"><span class="feature-icon">🔍</span><h3 class="feature-title">Búsqueda Instantánea</h3><p class="feature-desc">Busca por nombres de archivo, descripciones de IA, texto extraído y etiquetas directamente desde la barra de menú. Haz clic para abrir o revelar en Finder.</p></div>
+                <div class="feature-card"><span class="feature-icon">📄</span><h3 class="feature-title">Inteligencia de Documentos</h3><p class="feature-desc">Extrae texto y palabras clave de PDFs, documentos Word y archivos de texto. Usa procesamiento de lenguaje natural para identificar términos clave.</p></div>
+                <div class="feature-card"><span class="feature-icon">🔒</span><h3 class="feature-title">Completamente Privado</h3><p class="feature-desc">Todo el procesamiento de IA ocurre en tu Mac usando los frameworks Apple Vision y NaturalLanguage. Ningún dato sale jamás de tu dispositivo.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <h2>Formatos de Archivo Soportados</h2>
+            <p class="section-subtitle">Funciona con todos los formatos comunes de fotos, documentos y videos</p>
+            <div>
+                <h3>Fotos &amp; Imágenes</h3>
+                <div class="format-grid">
+                    <div class="format-card"><strong>Formatos Estándar</strong><span>JPEG, PNG, GIF, TIFF, BMP, WebP</span></div>
+                    <div class="format-card"><strong>Formatos Apple</strong><span>HEIC, HEIF</span></div>
+                    <div class="format-card"><strong>Formatos RAW</strong><span>CR2, CR3, NEF, ARW, DNG, ORF, RW2</span></div>
+                </div>
+                <h3>Documentos</h3>
+                <div class="format-grid">
+                    <div class="format-card"><strong>PDF</strong><span>Extracción de texto completa, hasta 50 páginas</span></div>
+                    <div class="format-card"><strong>Documentos Office</strong><span>DOC, DOCX, RTF, ODT</span></div>
+                    <div class="format-card"><strong>Texto &amp; Apple</strong><span>TXT, Pages</span></div>
+                </div>
+                <h3>Videos</h3>
+                <div class="format-grid">
+                    <div class="format-card"><strong>Formatos Comunes</strong><span>MP4, MOV, AVI, MKV, M4V, WMV</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <h2>Más Características</h2>
+            <p class="section-subtitle">Diseñado para uso en el mundo real</p>
+            <div class="feature-list">
+                <div class="feature-list-item">Vive en la barra de menú — sin icono en el dock, sin desorden</div>
+                <div class="feature-list-item">La ventana flotante de drop permanece visible en todas las aplicaciones</div>
+                <div class="feature-list-item">Detección y clasificación automática de fotos de Facebook</div>
+                <div class="feature-list-item">Detección facial con etiquetado de retrato y grupo</div>
+                <div class="feature-list-item">Extracción de texto OCR desde imágenes</div>
+                <div class="feature-list-item">Etiquetas escritas en metadatos del Finder (funciona con Spotlight)</div>
+                <div class="feature-list-item">Manejo de archivos duplicados con renombrado automático</div>
+                <div class="feature-list-item">Monitoreo de conexión NAS con reconexión automática</div>
+                <div class="feature-list-item">Barra lateral de etiquetas populares para filtrado rápido</div>
+                <div class="feature-list-item">Opción abrir al iniciar sesión</div>
+                <div class="feature-list-item">Etiquetas personalizadas antes de soltar archivos</div>
+                <div class="feature-list-item">Funciona con NAS (SMB), discos externos o carpetas locales</div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container" id="download">
+        <div class="download-section">
+            <h2>Obtener File Vortex</h2>
+            <p class="download-text">File Vortex está disponible en la Mac App Store. Organiza tus archivos, deja que la IA haga el etiquetado y encuentra cualquier cosa en segundos.</p>
+            <div class="button-group"><a href="#" class="btn btn-primary">App Store</a></div>
+        </div>
+    </div>
+
+    <section>
+        <div class="container">
+            <h2>Requisitos del Sistema</h2>
+            <div class="requirements">
+                <ul>
+                    <li><strong>macOS 14.0 Sonoma</strong> o posterior</li>
+                    <li><strong>Apple Silicon</strong> o Intel Mac</li>
+                    <li>Almacenamiento en red (NAS) o disco externo recomendado</li>
+                    <li>100 MB de espacio en disco libre</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-links">
+                    <a href="privacy-policy-es.html">Política de Privacidad</a>
+                    <a href="../index.html">Más Apps</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div>Hecho con cuidado para personas que valoran los archivos organizados</div>
+                <div class="footer-credit">Walter Tengler</div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
