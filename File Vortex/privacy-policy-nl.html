@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Vortex - Privacybeleid</title>
+    <meta name="description" content="Privacybeleid voor File Vortex - Slimme Bestandsorganizer voor macOS.">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #7C5CFF;
+            --primary-dark: #9B7FFF;
+            --bg-dark: #1C1C1E;
+            --bg-darker: #000000;
+            --bg-card: #2C2C2E;
+            --text-primary: #FFFFFF;
+            --text-secondary: #EBEBF5;
+            --text-tertiary: #98989D;
+            --border: #38383A;
+            --shadow: rgba(0, 0, 0, 0.5);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-darker);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #0d0015 0%, #1a0a2e 30%, #0a1628 70%, #000000 100%);
+            color: white;
+            text-align: center;
+            padding: 80px 20px 60px;
+        }
+
+        h1 {
+            font-size: 3em;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            font-weight: 300;
+            opacity: 0.8;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+
+        .back-link:hover {
+            opacity: 0.8;
+        }
+
+        .content {
+            padding: 60px 0 80px;
+        }
+
+        .content h2 {
+            font-size: 1.6em;
+            font-weight: 600;
+            margin: 40px 0 15px;
+            color: var(--primary);
+        }
+
+        .content h2:first-child {
+            margin-top: 0;
+        }
+
+        .content p {
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+
+        .content ul {
+            color: var(--text-secondary);
+            margin: 10px 0 20px 25px;
+            line-height: 2;
+        }
+
+        .highlight-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--primary);
+            border-radius: 12px;
+            padding: 25px 30px;
+            margin: 30px 0;
+        }
+
+        .highlight-box p {
+            color: var(--text-primary);
+            font-weight: 500;
+            margin-bottom: 0;
+        }
+
+        .date {
+            color: var(--text-tertiary);
+            font-size: 0.95em;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid var(--border);
+        }
+
+        footer {
+            background: var(--bg-dark);
+            border-top: 1px solid var(--border);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2em;
+            }
+
+            header {
+                padding: 60px 20px 40px;
+            }
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Privacybeleid</h1>
+        <p class="subtitle">File Vortex</p>
+        <a href="index.html" class="back-link">&larr; Terug naar File Vortex</a>
+    </header>
+
+    <div class="content">
+        <div class="container">
+
+            <div class="highlight-box">
+                <p>File Vortex is ontworpen met privacy als kernprincipe. Alle bestandsverwerking en AI-analyse gebeurt volledig op uw apparaat. Er worden geen gegevens verzameld, verzonden of gedeeld met wie dan ook.</p>
+            </div>
+
+            <h2>Gegevensverzameling</h2>
+            <p>File Vortex verzamelt, bewaart of verzendt <strong>geen</strong> persoonlijke gegevens. De app werkt volledig offline en lokaal op uw Mac.</p>
+            <p>Specifiek verzamelt File Vortex niet:</p>
+            <ul>
+                <li>Persoonlijke informatie (naam, e-mail, adres, enz.)</li>
+                <li>Gebruiksanalyses of telemetrie</li>
+                <li>Bestandsinhoud of metadata</li>
+                <li>Crashrapporten of diagnostiek</li>
+                <li>Locatiegegevens</li>
+                <li>Apparaat-identificatoren</li>
+            </ul>
+
+            <h2>Verwerking op het Apparaat</h2>
+            <p>Alle bestandsanalyse, inclusief AI-gestuurde beeldherkenning, tekstextractie en trefwoordgeneratie, wordt volledig uitgevoerd op uw Mac met behulp van Apple's ingebouwde Vision- en NaturalLanguage-frameworks. Geen bestanden, afbeeldingen of geëxtraheerde gegevens worden ooit naar externe servers verzonden.</p>
+
+            <h2>Lokale Gegevensopslag</h2>
+            <p>File Vortex slaat de volgende gegevens lokaal op uw Mac op:</p>
+            <ul>
+                <li><strong>Bestandsindex-database:</strong> Een lokale SwiftData-database met metadata over uw georganiseerde bestanden (bestandsnamen, tags, beschrijvingen, miniaturen). Deze gegevens blijven op uw apparaat.</li>
+                <li><strong>Gebruikersvoorkeuren:</strong> Uw instellingen zoals het pad van de opslagmap en de datumformaatvoorkeur, opgeslagen in de lokale voorkeuren van de app.</li>
+                <li><strong>Beveiligingsbereik-bladwijzers:</strong> macOS-bladwijzergegevens die de app toegang geven tot uw gekozen opslagmap tussen app-lanceringen door.</li>
+            </ul>
+            <p>Alle lokaal opgeslagen gegevens kunnen worden verwijderd door de app te verwijderen.</p>
+
+            <h2>Bestandstoegang</h2>
+            <p>File Vortex heeft alleen toegang tot bestanden wanneer u ze expliciet naar het app-venster sleept, of wanneer u in uw geïndexeerde bibliotheek zoekt. De app heeft toegang tot uw gekozen opslagmap (NAS, externe schijf of lokale map) om bestanden te kopiëren en te organiseren. Deze toegang wordt door u verleend via de macOS-bestandskiezer en wordt beschermd door macOS-sandboxing.</p>
+
+            <h2>Netwerktoegang</h2>
+            <p>File Vortex vereist netwerktoegang uitsluitend voor communicatie met uw lokale netwerkopslag (NAS) via het SMB-protocol. De app maakt geen verbinding met externe servers, API's of clouddiensten.</p>
+
+            <h2>Diensten van Derden</h2>
+            <p>File Vortex maakt geen gebruik van diensten van derden, SDK's, analysetools of advertentieframeworks.</p>
+
+            <h2>Privacy van Kinderen</h2>
+            <p>File Vortex verzamelt geen gegevens van welke gebruiker dan ook, inclusief kinderen. De app is veilig voor gebruik door mensen van alle leeftijden.</p>
+
+            <h2>Wijzigingen in dit Beleid</h2>
+            <p>Als dit privacybeleid wordt bijgewerkt, worden de wijzigingen op deze pagina gepubliceerd met een bijgewerkte ingangsdatum. Aangezien File Vortex geen gegevens verzamelt, zijn significante wijzigingen onwaarschijnlijk.</p>
+
+            <h2>Contact</h2>
+            <p>Als u vragen heeft over dit privacybeleid, kunt u contact met ons opnemen via:</p>
+            <p><strong>Walter Tengler</strong></p>
+
+            <p class="date">Ingangsdatum: 28 januari 2026</p>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="index.html">File Vortex</a>
+                <a href="../index.html">Meer Apps</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
