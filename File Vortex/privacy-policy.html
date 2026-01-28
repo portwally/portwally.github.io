@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Vortex - Privacy Policy</title>
+    <meta name="description" content="Privacy Policy for File Vortex - Smart File Organizer for macOS.">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #7C5CFF;
+            --primary-dark: #9B7FFF;
+            --bg-dark: #1C1C1E;
+            --bg-darker: #000000;
+            --bg-card: #2C2C2E;
+            --text-primary: #FFFFFF;
+            --text-secondary: #EBEBF5;
+            --text-tertiary: #98989D;
+            --border: #38383A;
+            --shadow: rgba(0, 0, 0, 0.5);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-darker);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #0d0015 0%, #1a0a2e 30%, #0a1628 70%, #000000 100%);
+            color: white;
+            text-align: center;
+            padding: 80px 20px 60px;
+        }
+
+        h1 {
+            font-size: 3em;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            font-weight: 300;
+            opacity: 0.8;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+
+        .back-link:hover {
+            opacity: 0.8;
+        }
+
+        .content {
+            padding: 60px 0 80px;
+        }
+
+        .content h2 {
+            font-size: 1.6em;
+            font-weight: 600;
+            margin: 40px 0 15px;
+            color: var(--primary);
+        }
+
+        .content h2:first-child {
+            margin-top: 0;
+        }
+
+        .content p {
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+
+        .content ul {
+            color: var(--text-secondary);
+            margin: 10px 0 20px 25px;
+            line-height: 2;
+        }
+
+        .highlight-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--primary);
+            border-radius: 12px;
+            padding: 25px 30px;
+            margin: 30px 0;
+        }
+
+        .highlight-box p {
+            color: var(--text-primary);
+            font-weight: 500;
+            margin-bottom: 0;
+        }
+
+        .date {
+            color: var(--text-tertiary);
+            font-size: 0.95em;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid var(--border);
+        }
+
+        footer {
+            background: var(--bg-dark);
+            border-top: 1px solid var(--border);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2em;
+            }
+
+            header {
+                padding: 60px 20px 40px;
+            }
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Privacy Policy</h1>
+        <p class="subtitle">File Vortex</p>
+        <a href="index.html" class="back-link">&larr; Back to File Vortex</a>
+    </header>
+
+    <div class="content">
+        <div class="container">
+
+            <div class="highlight-box">
+                <p>File Vortex is designed with privacy at its core. All file processing and AI analysis happens entirely on your device. No data is collected, transmitted, or shared with anyone.</p>
+            </div>
+
+            <h2>Data Collection</h2>
+            <p>File Vortex does <strong>not</strong> collect, store, or transmit any personal data. The app operates entirely offline and locally on your Mac.</p>
+            <p>Specifically, File Vortex does not collect:</p>
+            <ul>
+                <li>Personal information (name, email, address, etc.)</li>
+                <li>Usage analytics or telemetry</li>
+                <li>File contents or metadata</li>
+                <li>Crash reports or diagnostics</li>
+                <li>Location data</li>
+                <li>Device identifiers</li>
+            </ul>
+
+            <h2>On-Device Processing</h2>
+            <p>All file analysis, including AI-powered image recognition, text extraction, and keyword generation, is performed entirely on your Mac using Apple's built-in Vision and NaturalLanguage frameworks. No files, images, or extracted data are ever sent to external servers.</p>
+
+            <h2>Local Data Storage</h2>
+            <p>File Vortex stores the following data locally on your Mac:</p>
+            <ul>
+                <li><strong>File index database:</strong> A local SwiftData database containing metadata about your organized files (filenames, tags, descriptions, thumbnails). This data stays on your device.</li>
+                <li><strong>User preferences:</strong> Your settings such as the storage folder path and date format preference, stored in the app's local preferences.</li>
+                <li><strong>Security-scoped bookmarks:</strong> macOS bookmark data that allows the app to access your chosen storage folder across app launches.</li>
+            </ul>
+            <p>All locally stored data can be removed by deleting the app.</p>
+
+            <h2>File Access</h2>
+            <p>File Vortex accesses files only when you explicitly drag and drop them onto the app window, or when you search your indexed library. The app accesses your chosen storage folder (NAS, external drive, or local folder) to copy and organize files. This access is granted by you through the macOS file picker and is protected by macOS sandboxing.</p>
+
+            <h2>Network Access</h2>
+            <p>File Vortex requires network access solely to communicate with your local network storage (NAS) via the SMB protocol. The app does not connect to any external servers, APIs, or cloud services.</p>
+
+            <h2>Third-Party Services</h2>
+            <p>File Vortex does not use any third-party services, SDKs, analytics tools, or advertising frameworks.</p>
+
+            <h2>Children's Privacy</h2>
+            <p>File Vortex does not collect any data from any user, including children. The app is safe for use by people of all ages.</p>
+
+            <h2>Changes to This Policy</h2>
+            <p>If this privacy policy is updated, the changes will be posted on this page with an updated effective date. Since File Vortex does not collect any data, significant changes are unlikely.</p>
+
+            <h2>Contact</h2>
+            <p>If you have questions about this privacy policy, you can reach us at:</p>
+            <p><strong>Walter Tengler</strong></p>
+
+            <p class="date">Effective date: January 28, 2026</p>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="index.html">File Vortex</a>
+                <a href="../index.html">More Apps</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
