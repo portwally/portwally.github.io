@@ -543,7 +543,7 @@
                     <span class="stat-label">File Types Recognized</span>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-number">5</span>
+                    <span class="stat-number">15</span>
                     <span class="stat-label">Disk Image Formats</span>
                 </div>
                 <div class="stat-item">
@@ -620,8 +620,8 @@
                     <span class="feature-icon">💾</span>
                     <h3 class="feature-title">Disk Image Support</h3>
                     <p class="feature-desc">
-                        Read 2IMG, DSK, HDV, PO, and D64 formats. Works with Apple II ProDOS,
-                        DOS 3.3, and Commodore 64 disk images.
+                        Read 15 disk image formats: 2IMG, DSK, HDV, PO, DO, D64/D71/D81, ADF, ST, ATR, SSD/DSD, TRD.
+                        Apple II, C64, Amiga, Atari, BBC Micro, ZX Spectrum.
                     </p>
                 </div>
 
@@ -755,6 +755,30 @@
                     </div>
                 </div>
 
+                <h3>Commodore Plus/4 & VIC-20</h3>
+                <div class="format-grid">
+                    <div class="format-card">
+                        <strong>Plus/4 HiRes</strong>
+                        <span>320×200, 128 colors</span>
+                        <span>TED chip palette</span>
+                    </div>
+                    <div class="format-card">
+                        <strong>Plus/4 Multicolor</strong>
+                        <span>160×200, 128 colors</span>
+                        <span>TED chip palette</span>
+                    </div>
+                    <div class="format-card">
+                        <strong>VIC-20 HiRes</strong>
+                        <span>176×184, 16 colors</span>
+                        <span>VIC chip graphics</span>
+                    </div>
+                    <div class="format-card">
+                        <strong>VIC-20 Multicolor</strong>
+                        <span>88×184, 16 colors</span>
+                        <span>VIC chip graphics</span>
+                    </div>
+                </div>
+
                 <h3>Other Systems</h3>
                 <div class="format-grid">
                     <div class="format-card">
@@ -764,12 +788,18 @@
                     </div>
                     <div class="format-card">
                         <strong>Atari ST Degas</strong>
-                        <span>PI1/PI2/PI3 formats</span>
+                        <span>PI1/PI2/PI3, NEOchrome</span>
                         <span>320×200, 16 colors</span>
+                    </div>
+                    <div class="format-card">
+                        <strong>Atari 8-bit</strong>
+                        <span>400/800/XL/XE</span>
+                        <span>GR.8-15, MicroIllustrator</span>
                     </div>
                     <div class="format-card">
                         <strong>ZX Spectrum</strong>
                         <span>256×192, 15 colors</span>
+                        <span>SCR format</span>
                     </div>
                     <div class="format-card">
                         <strong>Amstrad CPC</strong>
@@ -778,13 +808,13 @@
                     </div>
                     <div class="format-card">
                         <strong>MSX/MSX2</strong>
-                        <span>Screen 1, 2, 5, 8</span>
+                        <span>Screen 1, 2, 5, 7, 8</span>
                         <span>TMS9918 VDP modes</span>
                     </div>
                     <div class="format-card">
                         <strong>BBC Micro</strong>
                         <span>MODE 0-5 (.bbc/.bbm)</span>
-                        <span>2/4/16 colors, auto-detect</span>
+                        <span>2/4/16 colors</span>
                     </div>
                     <div class="format-card">
                         <strong>TRS-80/CoCo</strong>
@@ -793,13 +823,62 @@
                     </div>
                     <div class="format-card">
                         <strong>PCX</strong>
-                        <span>CGA, EGA 16/64-color</span>
-                        <span>VGA 256-color, 24-bit</span>
+                        <span>CGA, EGA, VGA</span>
+                        <span>Up to 24-bit RGB</span>
+                    </div>
+                    <div class="format-card">
+                        <strong>BMP</strong>
+                        <span>1/4/8/24-bit</span>
+                        <span>Windows bitmap</span>
                     </div>
                     <div class="format-card">
                         <strong>MacPaint</strong>
                         <span>576×720, 1-bit</span>
                         <span>PackBits compressed</span>
+                    </div>
+                </div>
+
+                <h3>Disk Image Formats (15 Types)</h3>
+                <div class="format-grid">
+                    <div class="format-card">
+                        <strong>.2mg / .po / .do</strong>
+                        <span>Apple II</span>
+                        <span>2IMG, ProDOS, DOS 3.3</span>
+                    </div>
+                    <div class="format-card">
+                        <strong>.dsk / .hdv</strong>
+                        <span>Apple II / Multi</span>
+                        <span>Universal, HDV volumes</span>
+                    </div>
+                    <div class="format-card">
+                        <strong>.d64 / .d71 / .d81</strong>
+                        <span>Commodore</span>
+                        <span>1541/1571/1581 disks</span>
+                    </div>
+                    <div class="format-card">
+                        <strong>.adf</strong>
+                        <span>Amiga</span>
+                        <span>880KB OFS/FFS</span>
+                    </div>
+                    <div class="format-card">
+                        <strong>.st</strong>
+                        <span>Atari ST</span>
+                        <span>360KB-720KB disks</span>
+                    </div>
+                    <div class="format-card">
+                        <strong>.atr</strong>
+                        <span>Atari 8-bit</span>
+                        <span>400/800/XL/XE disks</span>
+                    </div>
+                    <div class="format-card">
+                        <strong>.ssd / .dsd</strong>
+                        <span>BBC Micro</span>
+                        <span>DFS single/double-sided</span>
+                    </div>
+                    <div class="format-card">
+                        <strong>.trd</strong>
+                        <span>ZX Spectrum</span>
+                        <span>TR-DOS Beta Disk</span>
                     </div>
                 </div>
             </div>
