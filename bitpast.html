@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BitPast - Retro Graphics Converter</title>
-    <meta name="description" content="Transform modern images into authentic retro computer graphics. Native macOS app supporting Apple II, Apple IIgs, C64, Amiga, Atari ST, MSX, PC, and more.">
-    <meta name="keywords" content="retro graphics, image converter, Apple II, Apple IIgs, Commodore 64, C64, Amiga 500, Amiga 1200, Atari ST, MSX, IBM PC, CGA, EGA, VGA, ZX Spectrum, Amstrad CPC, VIC-20, Plus/4, vintage computer, 8-bit, 16-bit, pixel art, dithering, macOS app, native file formats, ProDOS, IFF, Koala, DEGAS, HAM, retro computing">
+    <meta name="description" content="Transform modern images into authentic retro computer graphics. Native macOS app supporting Apple II, Apple IIgs, C64, Amiga, Atari ST, Atari 800, BBC Micro, MSX, PC, TRS-80 CoCo, and more.">
+    <meta name="keywords" content="retro graphics, image converter, Apple II, Apple IIgs, Commodore 64, C64, Amiga 500, Amiga 1200, Atari 800, Atari ST, BBC Micro, MSX, IBM PC, CGA, EGA, VGA, ZX Spectrum, Amstrad CPC, VIC-20, Plus/4, TRS-80, Color Computer, CoCo, vintage computer, 8-bit, 16-bit, pixel art, dithering, macOS app, native file formats, ProDOS, IFF, Koala, DEGAS, HAM, retro computing">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
@@ -506,7 +506,7 @@
         <div class="hero-content">
             <h1>BitPast</h1>
             <p class="subtitle">Retro Graphics Converter for macOS</p>
-            <span class="badge">macOS 12.0+ • 12 Retro Systems • Free & Open Source</span>
+            <span class="badge">macOS 12.0+ • 15 Retro Systems • Free & Open Source</span>
         </div>
     </header>
 
@@ -529,7 +529,7 @@
         <!-- Stats -->
         <div class="stats-grid">
             <div class="stat-card">
-                <div class="stat-number">12</div>
+                <div class="stat-number">15</div>
                 <div class="stat-label">Retro Systems</div>
             </div>
             <div class="stat-card">
@@ -553,8 +553,8 @@
             <h2>About BitPast</h2>
             <p class="section-intro">
                 <strong>BitPast</strong> is a modern, native macOS application for converting images into authentic retro computer graphic formats.
-                Supporting <strong>12 classic systems</strong> including Apple II, Apple IIgs, Commodore 64, VIC-20, ZX Spectrum, Amstrad CPC,
-                Plus/4, Atari ST, Amiga 500, Amiga 1200, IBM PC, and MSX - each with their authentic color palettes, resolutions, and native file formats.
+                Supporting <strong>15 classic systems</strong> including Apple II, Apple IIgs, BBC Micro, Commodore 64, VIC-20, ZX Spectrum, Amstrad CPC,
+                Plus/4, Atari 800, Atari ST, Amiga 500, Amiga 1200, IBM PC, MSX, and TRS-80 Color Computer - each with their authentic color palettes, resolutions, and native file formats.
             </p>
         </div>
     </section>
@@ -576,9 +576,9 @@
 
                 <div class="feature-card">
                     <span class="feature-icon">🎮</span>
-                    <h3 class="feature-title">12 Retro Systems</h3>
+                    <h3 class="feature-title">15 Retro Systems</h3>
                     <p class="feature-desc">
-                        Apple II, Apple IIgs, Amiga 500/1200, Amstrad CPC, Atari ST, C64, MSX, PC (CGA/EGA/VGA), Plus/4, VIC-20, and ZX Spectrum.
+                        Apple II, Apple IIgs, Amiga 500/1200, Amstrad CPC, Atari 800, Atari ST, BBC Micro, C64, MSX, PC (CGA/EGA/VGA), Plus/4, TRS-80 CoCo, VIC-20, and ZX Spectrum.
                     </p>
                 </div>
 
@@ -694,6 +694,21 @@
                         <span>Screen 2, 5, 8</span>
                         <span>.SC2, .SC5, .SC8 output</span>
                     </div>
+                    <div class="format-card">
+                        <strong>Atari 800</strong>
+                        <span>Graphics 8, 9, 10, 11, 15</span>
+                        <span>.GR8, .GR9, etc. output</span>
+                    </div>
+                    <div class="format-card">
+                        <strong>BBC Micro</strong>
+                        <span>Mode 0, 1, 2, 4, 5</span>
+                        <span>.BBC output</span>
+                    </div>
+                    <div class="format-card">
+                        <strong>TRS-80 CoCo</strong>
+                        <span>PMODE 1-4, CoCo 3</span>
+                        <span>.BIN, .CM3 output</span>
+                    </div>
                 </div>
 
                 <h3>💾 Export Formats</h3>
@@ -764,6 +779,11 @@
                         <strong>IBM PC</strong>
                         <span>.IMG</span>
                         <span>360KB, 720KB, 1.2MB, 1.44MB</span>
+                    </div>
+                    <div class="format-card">
+                        <strong>TRS-80 CoCo</strong>
+                        <span>.DSK</span>
+                        <span>180KB, 360KB</span>
                     </div>
                 </div>
             </div>
