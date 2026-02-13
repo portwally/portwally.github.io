@@ -224,6 +224,64 @@
             color: var(--text-dim);
         }
 
+        /* Social Links */
+        .social {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .social h2 {
+            font-size: 1.5rem;
+            margin-bottom: 24px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 24px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text-light);
+            transition: all 0.2s ease;
+        }
+
+        .social-link:hover {
+            border-color: var(--accent);
+            background: rgba(196, 167, 125, 0.1);
+            opacity: 1;
+        }
+
+        .social-link svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        .social-link span {
+            font-size: 0.9rem;
+            font-weight: 400;
+        }
+
+        @media (max-width: 640px) {
+            .social-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 12px;
+            }
+
+            .social-link {
+                width: 200px;
+                justify-content: center;
+            }
+        }
+
         /* Footer */
         footer {
             max-width: 800px;
@@ -385,6 +443,27 @@
                 She likes meeting people who are also trying to figure it out.
             </p>
         </div>
+
+        <div class="divider"></div>
+
+        <!-- Social Media -->
+        <section class="social">
+            <h2>Follow Me</h2>
+            <div class="social-links">
+                <a href="https://www.facebook.com/profile.php?id=61588304121447" target="_blank" rel="noopener" class="social-link">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                    </svg>
+                    <span>Facebook</span>
+                </a>
+                <a href="https://x.com/RubinaAlmeida" target="_blank" rel="noopener" class="social-link">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                    </svg>
+                    <span>X / Twitter</span>
+                </a>
+            </div>
+        </section>
 
         <div class="divider"></div>
 
