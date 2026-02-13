@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rubina Almeida - The Grounded Dreamer</title>
+    <meta name="description" content="Rubina Almeida - A 28-year-old Portuguese backpacker exploring Europe, student pilot, and grounded dreamer. AI-generated fictional character.">
+    <meta property="og:title" content="Rubina Almeida - The Grounded Dreamer">
+    <meta property="og:description" content="A 28-year-old Portuguese woman from the rural hills of Trás-os-Montes, now a solo backpacker exploring Europe.">
+    <meta property="og:image" content="images/rubina-hero.png">
+    <meta property="og:type" content="website">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,200;0,300;0,400;1,300&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-dark: #0D0D0D;
+            --text-light: #D9D7C7;
+            --text-muted: #8B8778;
+            --text-dim: #5A5850;
+            --accent: #C4A77D;
+            --border: #2A2A28;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-weight: 300;
+            background: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.8;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Fraunces', Georgia, serif;
+            font-weight: 200;
+            letter-spacing: 0.02em;
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: opacity 0.2s ease;
+        }
+
+        a:hover {
+            opacity: 0.8;
+        }
+
+        /* Article Layout */
+        article {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 80px 32px;
+        }
+
+        /* Hero */
+        .hero {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .hero-image {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 8px;
+            margin-bottom: 48px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .introducing {
+            display: block;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 400;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            margin-bottom: 16px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            margin-bottom: 12px;
+            color: var(--text-light);
+        }
+
+        .tagline {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 1.3rem;
+            font-weight: 300;
+            font-style: italic;
+            color: var(--text-muted);
+        }
+
+        /* Section Divider */
+        .divider {
+            width: 60px;
+            height: 1px;
+            background: var(--border);
+            margin: 60px auto;
+        }
+
+        /* Text Content */
+        .content {
+            font-size: 1.05rem;
+            color: var(--text-light);
+        }
+
+        .content p {
+            margin-bottom: 1.5em;
+            text-align: justify;
+            hyphens: auto;
+        }
+
+        .content h2 {
+            font-size: 2rem;
+            margin: 60px 0 24px;
+            text-align: center;
+        }
+
+        .content h2:first-of-type {
+            margin-top: 0;
+        }
+
+        /* Floated Images */
+        .float-right {
+            float: right;
+            width: 45%;
+            max-width: 320px;
+            margin: 0 0 24px 32px;
+            border-radius: 6px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .float-left {
+            float: left;
+            width: 45%;
+            max-width: 320px;
+            margin: 0 32px 24px 0;
+            border-radius: 6px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .clearfix::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        /* Portuguese Phrase */
+        .portuguese {
+            font-style: italic;
+            color: var(--accent);
+        }
+
+        /* Drop Cap */
+        .drop-cap::first-letter {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 4rem;
+            font-weight: 200;
+            float: left;
+            line-height: 0.8;
+            margin: 8px 16px 0 0;
+            color: var(--accent);
+        }
+
+        /* Profile Info - Inline Style */
+        .profile-inline {
+            margin: 40px 0;
+            padding: 32px;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            font-size: 0.95rem;
+            line-height: 2;
+        }
+
+        .profile-inline strong {
+            color: var(--text-dim);
+            font-weight: 400;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+        }
+
+        /* Contact Section */
+        .contact {
+            text-align: center;
+            margin-top: 80px;
+            padding-top: 60px;
+            border-top: 1px solid var(--border);
+        }
+
+        .contact-logo {
+            width: 180px;
+            margin-bottom: 24px;
+            opacity: 0.9;
+        }
+
+        .contact h2 {
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+        }
+
+        .contact-email {
+            font-size: 1.1rem;
+            color: var(--accent);
+        }
+
+        .contact-note {
+            margin-top: 12px;
+            font-size: 0.85rem;
+            color: var(--text-dim);
+        }
+
+        /* Footer */
+        footer {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 32px;
+            text-align: center;
+            border-top: 1px solid var(--border);
+        }
+
+        .disclaimer {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        footer a {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* Full Width Image */
+        .full-image {
+            width: 100%;
+            border-radius: 6px;
+            margin: 40px 0;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            article {
+                padding: 60px 20px;
+            }
+
+            .float-right,
+            .float-left {
+                float: none;
+                width: 100%;
+                max-width: 100%;
+                margin: 24px 0;
+            }
+
+            .content p {
+                text-align: left;
+            }
+
+            .drop-cap::first-letter {
+                font-size: 3rem;
+            }
+
+            .profile-inline {
+                padding: 24px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <article>
+        <!-- Hero -->
+        <header class="hero">
+            <img src="images/rubina-hero.png" alt="Rubina Almeida" class="hero-image">
+            <span class="introducing">Introducing</span>
+            <h1>Rubina Almeida</h1>
+            <p class="tagline">The Grounded Dreamer</p>
+        </header>
+
+        <div class="divider"></div>
+
+        <!-- Story -->
+        <div class="content">
+            <p class="drop-cap">
+                She was born in the remote hills of <strong>Trás-os-Montes</strong>, in Portugal's rural northeast,
+                where the land is stubborn and the people even more so. Her childhood was measured in grape harvests
+                and Sunday dinners that lasted until the stars came out. The vineyard taught her patience.
+                The endless horizon taught her to wonder what lay beyond it.
+            </p>
+
+            <img src="images/rubina-1.png" alt="Rubina on a rainy day" class="float-right">
+
+            <p>
+                Rubina studied tourism management in Porto, thinking it might be a bridge between her roots and her
+                restlessness. For a few years, she wore blazers and answered emails in an office with fluorescent
+                lights. She was good at it. She was also slowly suffocating.
+            </p>
+
+            <p>
+                One autumn evening, she quit. Packed a bag. Started walking. Now she's a solo backpacker drifting
+                through Europe, collecting stories instead of souvenirs, funding her travels through odd jobs in
+                hostels and cafés. She's learned to find beauty in departure lounges and overnight buses, in the
+                company of strangers who become friends for exactly one meal.
+            </p>
+
+            <h2>Learning to Fly</h2>
+
+            <img src="images/rubina-2.png" alt="Rubina watching the rain" class="float-left">
+
+            <p>
+                Between travels, she's saving for her pilot license. There's something about small airports at dawn,
+                she says—the smell of fuel, the hum of propellers warming up, the way the runway lights blur into
+                the horizon. It feels like the truest version of freedom. She's not there yet. But she's getting closer,
+                one flight hour at a time.
+            </p>
+
+            <p>
+                When she needs to decompress, she plays strategy games on her laptop in hostel common rooms.
+                Age of Empires. Cities: Skylines. There's comfort in building something, even if it's just pixels.
+                She jokes that she's practicing for when she finally settles down—though she's not sure she ever will.
+            </p>
+
+            <div class="profile-inline clearfix">
+                <strong>Nickname:</strong> Rubi &nbsp;&nbsp;|&nbsp;&nbsp;
+                <strong>Age:</strong> 28 &nbsp;&nbsp;|&nbsp;&nbsp;
+                <strong>From:</strong> Trás-os-Montes, Portugal &nbsp;&nbsp;|&nbsp;&nbsp;
+                <strong>Currently:</strong> Somewhere in Europe<br>
+                <strong>Languages:</strong> Portuguese, English, some Spanish &nbsp;&nbsp;|&nbsp;&nbsp;
+                <strong>Likes:</strong> Craft beer, rainy afternoons, small airports, RTS games
+            </div>
+
+            <img src="images/rubina-3.png" alt="Rubina in muddy clothes" class="float-right">
+
+            <p>
+                She still calls her <span class="portuguese">avó</span> every Sunday without fail. Still feels
+                <span class="portuguese">saudade</span>—that untranslatable Portuguese ache for something you love
+                but cannot hold—even when she's running from home. That tension, between roots and wings,
+                is what makes her who she is.
+            </p>
+
+            <p>
+                Rubina doesn't pretend to have answers. She's not an influencer with a curated feed or a life coach
+                with five steps to happiness. She's just a woman trying to figure out how to be herself in a world
+                that keeps asking her to be something else. Some days she's brave. Some days she's terrified.
+                Most days, she's both.
+            </p>
+
+            <img src="images/rubina-4.png" alt="Rubina at harvest time" class="full-image">
+
+            <h2>Moments</h2>
+
+            <p>
+                The photos here aren't posed. They're moments—caught between arrivals and departures,
+                between the person she was and the person she's becoming. A rain-streaked window in a hostel
+                she's already forgotten the name of. Muddy boots after helping with the grape harvest back home.
+                The particular light of a Portuguese afternoon that makes everything look like a memory,
+                even while it's happening.
+            </p>
+
+            <img src="images/rubina-5.png" alt="Rubina watching the sky" class="float-left">
+
+            <p>
+                She doesn't know where she'll be next month. She's learned to be okay with that. The uncertainty
+                used to feel like failure; now it feels like possibility. Every departure is a small death,
+                every arrival a small rebirth. She's getting better at both.
+            </p>
+
+            <p>
+                If you see her somewhere—in a café in Lisbon, at a budget airline gate in Barcelona,
+                on a train platform in the middle of nowhere—say <span class="portuguese">olá</span>.
+                She likes meeting people who are also trying to figure it out.
+            </p>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Contact -->
+        <section class="contact clearfix">
+            <img src="images/olivepixels-logo.png" alt="Olivepixels" class="contact-logo">
+            <h2>Contact</h2>
+            <a href="mailto:walter.tengler@gmail.com" class="contact-email">walter.tengler@gmail.com</a>
+            <p class="contact-note">For inquiries about Rubina or collaboration opportunities</p>
+        </section>
+    </article>
+
+    <!-- Footer -->
+    <footer>
+        <p class="disclaimer">
+            Rubina Almeida is a fictional AI-generated character created for storytelling and entertainment purposes.
+            All images are AI-generated. She does not represent a real person.
+        </p>
+        <a href="privacy.html">Privacy Policy</a>
+    </footer>
+</body>
+</html>
