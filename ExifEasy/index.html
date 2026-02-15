@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ExifEasy - Photo Metadata Editor for macOS</title>
+    <meta name="description" content="Easily edit photo metadata in bulk. Change GPS locations, dates, and EXIF data with a simple drag-and-drop interface. Perfect for photographers and privacy-conscious users.">
+    <meta name="keywords" content="exif, metadata, photo, gps, location, editor, batch, jpeg, heic, privacy, geotag, date, time, photographer, image, macos, mac app">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #FF9500;
+            --primary-dark: #FFAA33;
+            --secondary: #0A84FF;
+            --accent: #FF375F;
+            --success: #32D74B;
+            --bg-dark: #1C1C1E;
+            --bg-darker: #000000;
+            --bg-card: #2C2C2E;
+            --text-primary: #FFFFFF;
+            --text-secondary: #EBEBF5;
+            --text-tertiary: #98989D;
+            --border: #38383A;
+            --shadow: rgba(0, 0, 0, 0.5);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-darker);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header/Hero */
+        header {
+            background: linear-gradient(135deg, #1a0f00 0%, #2e1a0a 30%, #1a1408 70%, #000000 100%);
+            color: white;
+            text-align: center;
+            padding: 100px 20px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255, 149, 0, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: 4em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle {
+            font-size: 1.5em;
+            font-weight: 300;
+            opacity: 0.95;
+            margin-bottom: 15px;
+        }
+
+        .tagline {
+            font-size: 1.15em;
+            color: var(--text-tertiary);
+            max-width: 600px;
+            margin: 0 auto 15px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            font-size: 0.95em;
+            font-weight: 500;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Buttons */
+        .button-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 40px 0;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 32px;
+            font-size: 1.05em;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 12px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 12px rgba(255, 149, 0, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 149, 0, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px var(--shadow);
+        }
+
+        /* Sections */
+        section {
+            padding: 80px 0;
+            background: var(--bg-darker);
+        }
+
+        section:nth-child(even) {
+            background: var(--bg-dark);
+        }
+
+        h2 {
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-align: center;
+            letter-spacing: -0.02em;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2em;
+            color: var(--text-tertiary);
+            margin-bottom: 60px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Stats */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin: 60px 0;
+            text-align: center;
+        }
+
+        .stat-item {
+            padding: 30px;
+        }
+
+        .stat-number {
+            font-size: 3em;
+            font-weight: 700;
+            color: var(--primary);
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: var(--text-tertiary);
+            font-size: 1.1em;
+        }
+
+        /* Feature Cards */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            padding: 40px 30px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            box-shadow: 0 2px 8px var(--shadow);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 32px var(--shadow);
+        }
+
+        .feature-icon {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .feature-title {
+            font-size: 1.4em;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+
+        .feature-desc {
+            color: var(--text-tertiary);
+            line-height: 1.7;
+        }
+
+        /* How it works */
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+
+        .step {
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 56px;
+            height: 56px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            font-size: 1.5em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 16px rgba(255, 149, 0, 0.3);
+        }
+
+        .step h3 {
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        .step p {
+            color: var(--text-tertiary);
+            font-size: 0.95em;
+            line-height: 1.7;
+        }
+
+        /* Format grid */
+        h3 {
+            font-size: 1.5em;
+            font-weight: 600;
+            margin: 40px 0 25px;
+            color: var(--primary);
+        }
+
+        .format-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .format-card {
+            background: var(--bg-card);
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .format-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 4px 16px var(--shadow);
+        }
+
+        .format-card strong {
+            display: block;
+            font-size: 1.1em;
+            color: var(--primary);
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        .format-card span {
+            display: block;
+            color: var(--text-tertiary);
+            font-size: 0.9em;
+        }
+
+        /* Feature list */
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .feature-list-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 20px;
+            background: var(--bg-card);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--primary);
+        }
+
+        .feature-list-item::before {
+            content: "\2713";
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            background: var(--success);
+            color: white;
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 0.9em;
+            flex-shrink: 0;
+        }
+
+        /* Download section */
+        .download-section {
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            color: white;
+            padding: 80px 40px;
+            border-radius: 24px;
+            text-align: center;
+            margin: 60px 0;
+        }
+
+        .download-section h2 {
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .download-text {
+            font-size: 1.2em;
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            opacity: 0.95;
+        }
+
+        /* Requirements */
+        .requirements {
+            background: var(--bg-card);
+            padding: 40px;
+            border-radius: 16px;
+            border: 2px solid var(--border);
+            margin: 40px 0;
+        }
+
+        .requirements ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .requirements li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.05em;
+        }
+
+        .requirements li::before {
+            content: "\25CF";
+            color: var(--primary);
+            font-size: 1.5em;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-dark);
+            border-top: 1px solid var(--border);
+            color: white;
+            padding: 60px 0 40px;
+            text-align: center;
+        }
+
+        .footer-content {
+            margin-bottom: 30px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.05em;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+        }
+
+        .footer-bottom {
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.6;
+            font-size: 0.95em;
+        }
+
+        .footer-credit {
+            font-size: 0.85em;
+            opacity: 0.4;
+            margin-top: 10px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5em;
+            }
+
+            h2 {
+                font-size: 2em;
+            }
+
+            .subtitle {
+                font-size: 1.2em;
+            }
+
+            header {
+                padding: 80px 20px 60px;
+            }
+
+            section {
+                padding: 60px 0;
+            }
+
+            .feature-grid,
+            .format-grid,
+            .steps {
+                grid-template-columns: 1fr;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="hero-content">
+            <h1>ExifEasy</h1>
+            <p class="subtitle">Photo Metadata Editor for macOS</p>
+            <p class="tagline">Easily edit photo metadata in bulk. Change GPS locations, dates, and EXIF data with a simple drag-and-drop interface.</p>
+            <span class="badge">macOS 14.0 Sonoma or later</span>
+
+            <div class="button-group">
+                <a href="#download" class="btn btn-primary">
+                    Get ExifEasy
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <section>
+        <div class="container">
+            <div class="stats">
+                <div class="stat-item">
+                    <span class="stat-number">Batch</span>
+                    <span class="stat-label">Edit Multiple Photos</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">GPS</span>
+                    <span class="stat-label">Location Editing</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">EXIF</span>
+                    <span class="stat-label">Full Metadata Access</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">100%</span>
+                    <span class="stat-label">Privacy Focused</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <h2>How It Works</h2>
+            <p class="section-subtitle">Edit your photo metadata in three simple steps</p>
+
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Drop Your Photos</h3>
+                    <p>Drag and drop photos onto ExifEasy or use the file picker to select multiple images at once.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Edit Metadata</h3>
+                    <p>Change dates, times, and GPS coordinates. Use the interactive map to set locations visually.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Save Changes</h3>
+                    <p>Apply your changes to all selected photos instantly. Original files are updated in place.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <h2>Key Features</h2>
+            <p class="section-subtitle">Everything you need to manage photo metadata</p>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <span class="feature-icon">📸</span>
+                    <h3 class="feature-title">Batch Editing</h3>
+                    <p class="feature-desc">
+                        Select multiple photos and edit their metadata simultaneously.
+                        Change dates, times, and locations across hundreds of photos in seconds.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">🗺️</span>
+                    <h3 class="feature-title">Interactive Map</h3>
+                    <p class="feature-desc">
+                        Pick GPS coordinates visually on an interactive map. See where your photos
+                        were taken and update locations with a single click.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">📅</span>
+                    <h3 class="feature-title">Date &amp; Time Editing</h3>
+                    <p class="feature-desc">
+                        Correct timestamps on your photos. Fix camera clock errors or adjust
+                        dates for scanned photos and screenshots.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">🔍</span>
+                    <h3 class="feature-title">Metadata Inspector</h3>
+                    <p class="feature-desc">
+                        View complete EXIF, TIFF, GPS, and IPTC metadata in a clean tabbed
+                        interface. See all technical details at a glance.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">🔒</span>
+                    <h3 class="feature-title">Privacy Protection</h3>
+                    <p class="feature-desc">
+                        Remove sensitive GPS data before sharing photos online. Protect your
+                        home address and frequently visited locations.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">📍</span>
+                    <h3 class="feature-title">Current Location</h3>
+                    <p class="feature-desc">
+                        Use your Mac's location to quickly geotag photos. Perfect for
+                        adding location data to photos that don't have GPS information.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <h2>Supported Formats</h2>
+            <p class="section-subtitle">Works with all common photo formats</p>
+
+            <div class="format-grid">
+                <div class="format-card">
+                    <strong>JPEG</strong>
+                    <span>Standard photos from cameras and phones</span>
+                </div>
+                <div class="format-card">
+                    <strong>HEIC / HEIF</strong>
+                    <span>Apple's modern photo format</span>
+                </div>
+                <div class="format-card">
+                    <strong>PNG</strong>
+                    <span>Screenshots and graphics</span>
+                </div>
+                <div class="format-card">
+                    <strong>TIFF</strong>
+                    <span>High-quality archival images</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <h2>More Features</h2>
+            <p class="section-subtitle">Built for photographers and privacy-conscious users</p>
+
+            <div class="feature-list">
+                <div class="feature-list-item">
+                    Native macOS app — fast and lightweight
+                </div>
+                <div class="feature-list-item">
+                    Drag-and-drop interface for quick access
+                </div>
+                <div class="feature-list-item">
+                    View photo locations on the map
+                </div>
+                <div class="feature-list-item">
+                    Tabbed metadata inspector with all EXIF data
+                </div>
+                <div class="feature-list-item">
+                    Search locations by address or place name
+                </div>
+                <div class="feature-list-item">
+                    Use original date/time or set custom values
+                </div>
+                <div class="feature-list-item">
+                    Built-in help documentation
+                </div>
+                <div class="feature-list-item">
+                    Available in English, German, and Portuguese
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container" id="download">
+        <div class="download-section">
+            <h2>Get ExifEasy</h2>
+            <p class="download-text">
+                ExifEasy is available on the Mac App Store.
+                Take control of your photo metadata with a simple, powerful tool.
+            </p>
+
+            <div class="button-group">
+                <a href="#" class="btn btn-primary">
+                    App Store
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <section>
+        <div class="container">
+            <h2>System Requirements</h2>
+            <div class="requirements">
+                <ul>
+                    <li><strong>macOS 14.0 Sonoma</strong> or later</li>
+                    <li><strong>Apple Silicon</strong> or Intel Mac</li>
+                    <li>10MB free disk space</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-links">
+                    <a href="../File Vortex/index.html">File Vortex</a>
+                    <a href="../Fire/index.html">Fire</a>
+                    <a href="../index.html">More Apps</a>
+                    <a href="privacy-policy.html" rel="nofollow">Privacy Policy</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div>Made for photographers who care about their metadata</div>
+                <div class="footer-credit">Walter Tengler</div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

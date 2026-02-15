@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ExifEasy - Privacy Policy</title>
+    <meta name="description" content="Privacy Policy for ExifEasy - Photo Metadata Editor for macOS.">
+    <meta name="robots" content="noindex, nofollow">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #FF9500;
+            --primary-dark: #FFAA33;
+            --bg-dark: #1C1C1E;
+            --bg-darker: #000000;
+            --bg-card: #2C2C2E;
+            --text-primary: #FFFFFF;
+            --text-secondary: #EBEBF5;
+            --text-tertiary: #98989D;
+            --border: #38383A;
+            --shadow: rgba(0, 0, 0, 0.5);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-darker);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1a0f00 0%, #2e1a0a 30%, #1a1408 70%, #000000 100%);
+            color: white;
+            text-align: center;
+            padding: 80px 20px 60px;
+        }
+
+        h1 {
+            font-size: 3em;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            font-weight: 300;
+            opacity: 0.8;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+
+        .back-link:hover {
+            opacity: 0.8;
+        }
+
+        .content {
+            padding: 60px 0 80px;
+        }
+
+        .content h2 {
+            font-size: 1.6em;
+            font-weight: 600;
+            margin: 40px 0 15px;
+            color: var(--primary);
+        }
+
+        .content h2:first-child {
+            margin-top: 0;
+        }
+
+        .content p {
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+
+        .content ul {
+            color: var(--text-secondary);
+            margin: 10px 0 20px 25px;
+            line-height: 2;
+        }
+
+        .highlight-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--primary);
+            border-radius: 12px;
+            padding: 25px 30px;
+            margin: 30px 0;
+        }
+
+        .highlight-box p {
+            color: var(--text-primary);
+            font-weight: 500;
+            margin-bottom: 0;
+        }
+
+        .date {
+            color: var(--text-tertiary);
+            font-size: 0.95em;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid var(--border);
+        }
+
+        footer {
+            background: var(--bg-dark);
+            border-top: 1px solid var(--border);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2em;
+            }
+
+            header {
+                padding: 60px 20px 40px;
+            }
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Privacy Policy</h1>
+        <p class="subtitle">ExifEasy</p>
+        <a href="index.html" class="back-link">&larr; Back to ExifEasy</a>
+    </header>
+
+    <div class="content">
+        <div class="container">
+
+            <div class="highlight-box">
+                <p>ExifEasy is designed with privacy at its core. All photo processing happens entirely on your device. No data is collected, transmitted, or shared with anyone.</p>
+            </div>
+
+            <h2>Data Collection</h2>
+            <p>ExifEasy does <strong>not</strong> collect, store, or transmit any personal data. The app operates entirely offline and locally on your Mac.</p>
+            <p>Specifically, ExifEasy does not collect:</p>
+            <ul>
+                <li>Personal information (name, email, address, etc.)</li>
+                <li>Usage analytics or telemetry</li>
+                <li>Photo contents or metadata</li>
+                <li>Crash reports or diagnostics</li>
+                <li>Device identifiers</li>
+            </ul>
+
+            <h2>On-Device Processing</h2>
+            <p>All photo metadata reading and writing is performed entirely on your Mac using Apple's ImageIO framework. No photos, metadata, or any other data are ever sent to external servers.</p>
+
+            <h2>Location Services</h2>
+            <p>ExifEasy may request access to your Mac's location services to allow you to geotag photos with your current location. This feature is entirely optional. Your location data is used only to set GPS coordinates in your photos and is never transmitted off your device.</p>
+
+            <h2>File Access</h2>
+            <p>ExifEasy accesses photo files only when you explicitly drag and drop them onto the app window or select them using the file picker. The app reads and writes metadata directly to your photo files on your local storage. This access is protected by macOS sandboxing and security-scoped bookmarks.</p>
+
+            <h2>Map Display</h2>
+            <p>ExifEasy uses Apple Maps to display photo locations and allow you to pick GPS coordinates. Map data is loaded from Apple's servers. This is standard Apple Maps functionality and is subject to Apple's privacy policy.</p>
+
+            <h2>Third-Party Services</h2>
+            <p>ExifEasy does not use any third-party services, SDKs, analytics tools, or advertising frameworks. The only external service used is Apple Maps for displaying the interactive map.</p>
+
+            <h2>Children's Privacy</h2>
+            <p>ExifEasy does not collect any data from any user, including children. The app is safe for use by people of all ages.</p>
+
+            <h2>Changes to This Policy</h2>
+            <p>If this privacy policy is updated, the changes will be posted on this page with an updated effective date. Since ExifEasy does not collect any data, significant changes are unlikely.</p>
+
+            <h2>Contact</h2>
+            <p>If you have questions about this privacy policy, you can reach us at:</p>
+            <p><strong>Walter Tengler</strong><br>
+            <a href="mailto:walter.tengler@gmail.com" style="color: var(--primary);">walter.tengler@gmail.com</a></p>
+
+            <p class="date">Effective date: February 15, 2026</p>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="index.html">ExifEasy</a>
+                <a href="../index.html">More Apps</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
