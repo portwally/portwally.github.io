@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - EasyDup</title>
+    <meta name="description" content="Privacy Policy for EasyDup - Find & Remove Duplicate Files">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            padding: 20px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: #4facfe;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #4facfe;
+        }
+
+        .lang-switcher {
+            display: flex;
+            gap: 10px;
+        }
+
+        .lang-switcher button {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: rgba(255, 255, 255, 0.7);
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+        }
+
+        .lang-switcher button:hover,
+        .lang-switcher button.active {
+            background: #4facfe;
+            border-color: #4facfe;
+            color: #fff;
+        }
+
+        /* Content */
+        .content {
+            padding: 120px 0 60px;
+        }
+
+        .content h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #ffffff 0%, #4facfe 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .last-updated {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+            margin-bottom: 40px;
+        }
+
+        .policy-content {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 40px;
+        }
+
+        .policy-content h2 {
+            font-size: 1.5rem;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            color: #4facfe;
+        }
+
+        .policy-content h2:first-child {
+            margin-top: 0;
+        }
+
+        .policy-content p {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 15px;
+        }
+
+        .policy-content ul {
+            color: rgba(255, 255, 255, 0.8);
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+
+        .policy-content li {
+            margin-bottom: 8px;
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #4facfe;
+        }
+
+        .copyright {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.85rem;
+        }
+
+        /* Language content */
+        [data-lang] {
+            display: none;
+        }
+
+        [data-lang="en"] {
+            display: block;
+        }
+
+        span[data-lang="en"],
+        a[data-lang="en"] {
+            display: inline;
+        }
+
+        @media (max-width: 768px) {
+            .content h1 {
+                font-size: 2rem;
+            }
+
+            .policy-content {
+                padding: 25px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">Easy<span>Dup</span></a>
+            <div class="nav-links">
+                <a href="index.html" data-lang="en">Home</a>
+                <a href="index.html" data-lang="de">Startseite</a>
+                <a href="index.html" data-lang="pt">Inicio</a>
+            </div>
+            <div class="lang-switcher">
+                <button onclick="setLang('en')" class="active">EN</button>
+                <button onclick="setLang('de')">DE</button>
+                <button onclick="setLang('pt')">PT</button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="content">
+        <div class="container">
+            <h1 data-lang="en">Privacy Policy</h1>
+            <h1 data-lang="de">Datenschutzrichtlinie</h1>
+            <h1 data-lang="pt">Politica de Privacidade</h1>
+
+            <p class="last-updated" data-lang="en">Last updated: February 15, 2026</p>
+            <p class="last-updated" data-lang="de">Zuletzt aktualisiert: 15. Februar 2026</p>
+            <p class="last-updated" data-lang="pt">Última atualizacao: 15 de fevereiro de 2026</p>
+
+            <!-- English -->
+            <div class="policy-content" data-lang="en">
+                <h2>Introduction</h2>
+                <p>EasyDup ("we", "our", or "us") is committed to protecting your privacy. This Privacy Policy explains how our macOS application handles your information.</p>
+
+                <h2>Information We Collect</h2>
+                <p><strong>We do not collect any personal information.</strong></p>
+                <p>EasyDup is designed with privacy in mind. The app operates entirely on your local device and does not:</p>
+                <ul>
+                    <li>Collect personal data</li>
+                    <li>Track your usage</li>
+                    <li>Send any data to external servers</li>
+                    <li>Require an internet connection to function</li>
+                    <li>Access files outside of the folders you explicitly select</li>
+                </ul>
+
+                <h2>Local Data Processing</h2>
+                <p>EasyDup processes files locally on your Mac to identify duplicates. This includes:</p>
+                <ul>
+                    <li>Reading file metadata (size, modification date, file name)</li>
+                    <li>Computing file hashes (SHA256) for duplicate detection</li>
+                    <li>Storing your preferences locally using macOS UserDefaults</li>
+                </ul>
+                <p>All processing happens on your device. No file content or metadata is ever transmitted outside your Mac.</p>
+
+                <h2>File Access</h2>
+                <p>EasyDup only accesses folders that you explicitly grant permission to scan. The app uses macOS security features to ensure it cannot access files without your consent.</p>
+
+                <h2>Data Storage</h2>
+                <p>Your preferences (such as scan settings and appearance mode) are stored locally on your Mac using macOS standard storage mechanisms. This data never leaves your device.</p>
+
+                <h2>Third-Party Services</h2>
+                <p>EasyDup does not integrate with any third-party analytics, advertising, or tracking services.</p>
+
+                <h2>Children's Privacy</h2>
+                <p>EasyDup does not collect any personal information from anyone, including children under 13 years of age.</p>
+
+                <h2>Changes to This Policy</h2>
+                <p>We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last updated" date.</p>
+
+                <h2>Contact Us</h2>
+                <p>If you have any questions about this Privacy Policy, please contact us at:</p>
+                <p>Email: walter.tengler@gmail.com</p>
+            </div>
+
+            <!-- German -->
+            <div class="policy-content" data-lang="de">
+                <h2>Einleitung</h2>
+                <p>EasyDup ("wir", "unser" oder "uns") ist dem Schutz Ihrer Privatsphäre verpflichtet. Diese Datenschutzrichtlinie erklärt, wie unsere macOS-Anwendung mit Ihren Informationen umgeht.</p>
+
+                <h2>Informationen, die wir sammeln</h2>
+                <p><strong>Wir sammeln keine persönlichen Informationen.</strong></p>
+                <p>EasyDup wurde mit Datenschutz im Sinn entwickelt. Die App arbeitet vollständig auf Ihrem lokalen Gerät und:</p>
+                <ul>
+                    <li>Sammelt keine persönlichen Daten</li>
+                    <li>Verfolgt Ihre Nutzung nicht</li>
+                    <li>Sendet keine Daten an externe Server</li>
+                    <li>Benötigt keine Internetverbindung zum Funktionieren</li>
+                    <li>Greift nicht auf Dateien außerhalb der von Ihnen explizit ausgewählten Ordner zu</li>
+                </ul>
+
+                <h2>Lokale Datenverarbeitung</h2>
+                <p>EasyDup verarbeitet Dateien lokal auf Ihrem Mac, um Duplikate zu identifizieren. Dies umfasst:</p>
+                <ul>
+                    <li>Lesen von Dateimetadaten (Größe, Änderungsdatum, Dateiname)</li>
+                    <li>Berechnung von Datei-Hashes (SHA256) zur Duplikaterkennung</li>
+                    <li>Speichern Ihrer Einstellungen lokal mit macOS UserDefaults</li>
+                </ul>
+                <p>Die gesamte Verarbeitung erfolgt auf Ihrem Gerät. Keine Dateiinhalte oder Metadaten werden jemals außerhalb Ihres Macs übertragen.</p>
+
+                <h2>Dateizugriff</h2>
+                <p>EasyDup greift nur auf Ordner zu, für die Sie ausdrücklich die Erlaubnis zum Scannen erteilt haben. Die App nutzt macOS-Sicherheitsfunktionen, um sicherzustellen, dass sie ohne Ihre Zustimmung nicht auf Dateien zugreifen kann.</p>
+
+                <h2>Datenspeicherung</h2>
+                <p>Ihre Einstellungen (wie Scan-Einstellungen und Erscheinungsmodus) werden lokal auf Ihrem Mac mit macOS-Standardspeichermechanismen gespeichert. Diese Daten verlassen niemals Ihr Gerät.</p>
+
+                <h2>Drittanbieter-Dienste</h2>
+                <p>EasyDup integriert keine Analyse-, Werbe- oder Tracking-Dienste von Drittanbietern.</p>
+
+                <h2>Datenschutz für Kinder</h2>
+                <p>EasyDup sammelt keine persönlichen Informationen von niemandem, einschließlich Kindern unter 13 Jahren.</p>
+
+                <h2>Änderungen dieser Richtlinie</h2>
+                <p>Wir können diese Datenschutzrichtlinie von Zeit zu Zeit aktualisieren. Wir werden Sie über Änderungen informieren, indem wir die neue Datenschutzrichtlinie auf dieser Seite veröffentlichen und das Datum "Zuletzt aktualisiert" aktualisieren.</p>
+
+                <h2>Kontaktieren Sie uns</h2>
+                <p>Wenn Sie Fragen zu dieser Datenschutzrichtlinie haben, kontaktieren Sie uns bitte unter:</p>
+                <p>E-Mail: walter.tengler@gmail.com</p>
+            </div>
+
+            <!-- Portuguese -->
+            <div class="policy-content" data-lang="pt">
+                <h2>Introducao</h2>
+                <p>O EasyDup ("nós", "nosso" ou "nos") está comprometido em proteger a sua privacidade. Esta Política de Privacidade explica como a nossa aplicacao macOS trata as suas informacoes.</p>
+
+                <h2>Informacoes que recolhemos</h2>
+                <p><strong>Nao recolhemos quaisquer informacoes pessoais.</strong></p>
+                <p>O EasyDup foi concebido com a privacidade em mente. A aplicacao funciona inteiramente no seu dispositivo local e nao:</p>
+                <ul>
+                    <li>Recolhe dados pessoais</li>
+                    <li>Rastreia a sua utilizacao</li>
+                    <li>Envia quaisquer dados para servidores externos</li>
+                    <li>Requer ligacao à internet para funcionar</li>
+                    <li>Acede a ficheiros fora das pastas que seleciona explicitamente</li>
+                </ul>
+
+                <h2>Processamento local de dados</h2>
+                <p>O EasyDup processa ficheiros localmente no seu Mac para identificar duplicados. Isto inclui:</p>
+                <ul>
+                    <li>Leitura de metadados de ficheiros (tamanho, data de modificacao, nome do ficheiro)</li>
+                    <li>Cálculo de hashes de ficheiros (SHA256) para detecao de duplicados</li>
+                    <li>Armazenamento das suas preferências localmente usando macOS UserDefaults</li>
+                </ul>
+                <p>Todo o processamento acontece no seu dispositivo. Nenhum conteúdo de ficheiro ou metadados é alguma vez transmitido para fora do seu Mac.</p>
+
+                <h2>Acesso a ficheiros</h2>
+                <p>O EasyDup apenas acede a pastas para as quais concede explicitamente permissao de análise. A aplicacao utiliza funcionalidades de seguranca do macOS para garantir que nao pode aceder a ficheiros sem o seu consentimento.</p>
+
+                <h2>Armazenamento de dados</h2>
+                <p>As suas preferências (como configuracoes de análise e modo de aparência) sao armazenadas localmente no seu Mac usando mecanismos de armazenamento padrao do macOS. Estes dados nunca saem do seu dispositivo.</p>
+
+                <h2>Servicos de terceiros</h2>
+                <p>O EasyDup nao integra quaisquer servicos de análise, publicidade ou rastreamento de terceiros.</p>
+
+                <h2>Privacidade de criancas</h2>
+                <p>O EasyDup nao recolhe quaisquer informacoes pessoais de ninguém, incluindo criancas com menos de 13 anos de idade.</p>
+
+                <h2>Alteracoes a esta política</h2>
+                <p>Podemos atualizar esta Política de Privacidade periodicamente. Iremos notificá-lo de quaisquer alteracoes publicando a nova Política de Privacidade nesta página e atualizando a data de "Última atualizacao".</p>
+
+                <h2>Contacte-nos</h2>
+                <p>Se tiver alguma questao sobre esta Política de Privacidade, por favor contacte-nos em:</p>
+                <p>Email: walter.tengler@gmail.com</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="index.html" data-lang="en">Home</a>
+                <a href="index.html" data-lang="de">Startseite</a>
+                <a href="index.html" data-lang="pt">Inicio</a>
+                <a href="mailto:walter.tengler@gmail.com" data-lang="en">Contact</a>
+                <a href="mailto:walter.tengler@gmail.com" data-lang="de">Kontakt</a>
+                <a href="mailto:walter.tengler@gmail.com" data-lang="pt">Contacto</a>
+            </div>
+            <p class="copyright">&copy; 2026 EasyDup. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function setLang(lang) {
+            // Update active button
+            document.querySelectorAll('.lang-switcher button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Hide all language content
+            document.querySelectorAll('[data-lang]').forEach(el => {
+                el.style.display = 'none';
+            });
+
+            // Show selected language content
+            document.querySelectorAll(`[data-lang="${lang}"]`).forEach(el => {
+                if (el.tagName === 'SPAN' || el.tagName === 'A') {
+                    el.style.display = 'inline';
+                } else {
+                    el.style.display = 'block';
+                }
+            });
+
+            // Update HTML lang attribute
+            document.documentElement.lang = lang;
+
+            // Store preference
+            localStorage.setItem('easydup-lang', lang);
+        }
+
+        // Load saved language preference
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('easydup-lang');
+            if (savedLang) {
+                setLang(savedLang);
+                document.querySelectorAll('.lang-switcher button').forEach(btn => {
+                    btn.classList.remove('active');
+                    if (btn.textContent === savedLang.toUpperCase()) {
+                        btn.classList.add('active');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

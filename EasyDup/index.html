@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EasyDup - Find & Remove Duplicate Files</title>
+    <meta name="description" content="EasyDup is a powerful macOS app that helps you find and remove duplicate files to free up disk space.">
+    <meta name="keywords" content="duplicate files, duplicate finder, mac app, macos, disk space, file cleaner, remove duplicates, storage optimizer, file manager, SHA256, duplicate detection, free up space, disk cleaner">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            padding: 20px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: #4facfe;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #4facfe;
+        }
+
+        .lang-switcher {
+            display: flex;
+            gap: 10px;
+        }
+
+        .lang-switcher button {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: rgba(255, 255, 255, 0.7);
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+        }
+
+        .lang-switcher button:hover,
+        .lang-switcher button.active {
+            background: #4facfe;
+            border-color: #4facfe;
+            color: #fff;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 140px 0 80px;
+            text-align: center;
+        }
+
+        .hero-image {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto 40px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #ffffff 0%, #4facfe 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: #fff;
+            padding: 16px 32px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 10px 30px rgba(79, 172, 254, 0.3);
+        }
+
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(79, 172, 254, 0.4);
+        }
+
+        .download-btn svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 30px;
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.95rem;
+        }
+
+        /* Screenshots Section */
+        .screenshots {
+            padding: 80px 0;
+        }
+
+        .screenshots h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+        }
+
+        .screenshots-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 40px;
+        }
+
+        .screenshot {
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .screenshot img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #4facfe;
+        }
+
+        .copyright {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.85rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .screenshots-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+
+        /* Language content */
+        [data-lang] {
+            display: none;
+        }
+
+        [data-lang="en"] {
+            display: block;
+        }
+
+        span[data-lang="en"],
+        a[data-lang="en"] {
+            display: inline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">Easy<span>Dup</span></a>
+                <div class="nav-links">
+                    <a href="#features" data-lang="en">Features</a>
+                    <a href="#features" data-lang="de">Funktionen</a>
+                    <a href="#features" data-lang="pt">Funcionalidades</a>
+                    <a href="#screenshots" data-lang="en">Screenshots</a>
+                    <a href="#screenshots" data-lang="de">Screenshots</a>
+                    <a href="#screenshots" data-lang="pt">Capturas</a>
+                    <a href="privacy.html" rel="nofollow" data-lang="en">Privacy</a>
+                    <a href="privacy.html" rel="nofollow" data-lang="de">Datenschutz</a>
+                    <a href="privacy.html" rel="nofollow" data-lang="pt">Privacidade</a>
+                </div>
+                <div class="lang-switcher">
+                    <button onclick="setLang('en')" class="active">EN</button>
+                    <button onclick="setLang('de')">DE</button>
+                    <button onclick="setLang('pt')">PT</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <div class="hero-image">
+                    <img src="images/hero.png" alt="EasyDup Hero Image">
+                </div>
+                <h1 data-lang="en">Find & Remove Duplicate Files</h1>
+                <h1 data-lang="de">Duplikate finden & entfernen</h1>
+                <h1 data-lang="pt">Encontre e remova ficheiros duplicados</h1>
+
+                <p data-lang="en">EasyDup helps you reclaim valuable disk space by finding and removing duplicate files on your Mac. Fast, safe, and easy to use.</p>
+                <p data-lang="de">EasyDup hilft Ihnen, wertvollen Speicherplatz zurückzugewinnen, indem es doppelte Dateien auf Ihrem Mac findet und entfernt. Schnell, sicher und einfach zu bedienen.</p>
+                <p data-lang="pt">O EasyDup ajuda-o a recuperar espaço em disco valioso ao encontrar e remover ficheiros duplicados no seu Mac. Rápido, seguro e fácil de usar.</p>
+
+                <a href="https://apps.apple.com/us/app/easydup/id6759220925" class="download-btn">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                    </svg>
+                    <span data-lang="en">Download on the App Store</span>
+                    <span data-lang="de">Im App Store laden</span>
+                    <span data-lang="pt">Descarregar na App Store</span>
+                </a>
+            </div>
+        </section>
+
+        <section class="features" id="features">
+            <div class="container">
+                <h2 data-lang="en">Features</h2>
+                <h2 data-lang="de">Funktionen</h2>
+                <h2 data-lang="pt">Funcionalidades</h2>
+
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🔍</div>
+                        <h3 data-lang="en">Smart Duplicate Detection</h3>
+                        <h3 data-lang="de">Intelligente Duplikaterkennung</h3>
+                        <h3 data-lang="pt">Detecao Inteligente de Duplicados</h3>
+                        <p data-lang="en">Uses SHA256 hashing to accurately identify identical files, regardless of their names.</p>
+                        <p data-lang="de">Verwendet SHA256-Hashing, um identische Dateien unabhängig von ihren Namen genau zu identifizieren.</p>
+                        <p data-lang="pt">Utiliza hashing SHA256 para identificar com precisao ficheiros idênticos, independentemente dos seus nomes.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">⚡</div>
+                        <h3 data-lang="en">Fast Scanning</h3>
+                        <h3 data-lang="de">Schnelles Scannen</h3>
+                        <h3 data-lang="pt">Análise Rápida</h3>
+                        <p data-lang="en">Quick hash pre-filtering makes scanning large folders fast and efficient.</p>
+                        <p data-lang="de">Schnelle Hash-Vorfilterung macht das Scannen großer Ordner schnell und effizient.</p>
+                        <p data-lang="pt">A pré-filtragem rápida de hash torna a análise de pastas grandes rápida e eficiente.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">🛡️</div>
+                        <h3 data-lang="en">Safe Scan Mode</h3>
+                        <h3 data-lang="de">Sicherer Scan-Modus</h3>
+                        <h3 data-lang="pt">Modo de Análise Segura</h3>
+                        <p data-lang="en">Automatically skips app bundles, system files, and protected folders to prevent accidental damage.</p>
+                        <p data-lang="de">Überspringt automatisch App-Bundles, Systemdateien und geschützte Ordner, um versehentliche Schäden zu vermeiden.</p>
+                        <p data-lang="pt">Ignora automaticamente pacotes de aplicacoes, ficheiros de sistema e pastas protegidas para evitar danos acidentais.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">👁️</div>
+                        <h3 data-lang="en">File Preview</h3>
+                        <h3 data-lang="de">Dateivorschau</h3>
+                        <h3 data-lang="pt">Pré-visualizacao de Ficheiros</h3>
+                        <p data-lang="en">Preview files before deleting with built-in QuickLook integration.</p>
+                        <p data-lang="de">Vorschau von Dateien vor dem Löschen mit integrierter QuickLook-Integration.</p>
+                        <p data-lang="pt">Pré-visualize ficheiros antes de eliminar com integracao QuickLook incorporada.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">🎯</div>
+                        <h3 data-lang="en">Auto-Select</h3>
+                        <h3 data-lang="de">Automatische Auswahl</h3>
+                        <h3 data-lang="pt">Selecao Automática</h3>
+                        <p data-lang="en">Automatically select duplicates while keeping the newest or oldest copy.</p>
+                        <p data-lang="de">Wählt automatisch Duplikate aus und behält die neueste oder älteste Kopie.</p>
+                        <p data-lang="pt">Seleciona automaticamente duplicados mantendo a cópia mais recente ou mais antiga.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">🗑️</div>
+                        <h3 data-lang="en">Safe Deletion</h3>
+                        <h3 data-lang="de">Sicheres Löschen</h3>
+                        <h3 data-lang="pt">Eliminacao Segura</h3>
+                        <p data-lang="en">Move files to Trash for easy recovery, or delete permanently.</p>
+                        <p data-lang="de">Dateien in den Papierkorb verschieben zur einfachen Wiederherstellung oder endgültig löschen.</p>
+                        <p data-lang="pt">Mova ficheiros para o Lixo para fácil recuperacao, ou elimine permanentemente.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="screenshots" id="screenshots">
+            <div class="container">
+                <h2 data-lang="en">Screenshots</h2>
+                <h2 data-lang="de">Screenshots</h2>
+                <h2 data-lang="pt">Capturas de Ecrã</h2>
+
+                <div class="screenshots-grid">
+                    <div class="screenshot">
+                        <img src="images/screenshot1.png" alt="EasyDup Main Interface">
+                    </div>
+                    <div class="screenshot">
+                        <img src="images/screenshot2.png" alt="EasyDup Settings">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="privacy.html" rel="nofollow" data-lang="en">Privacy Policy</a>
+                <a href="privacy.html" rel="nofollow" data-lang="de">Datenschutzrichtlinie</a>
+                <a href="privacy.html" rel="nofollow" data-lang="pt">Política de Privacidade</a>
+                <a href="mailto:walter.tengler@gmail.com" data-lang="en">Contact</a>
+                <a href="mailto:walter.tengler@gmail.com" data-lang="de">Kontakt</a>
+                <a href="mailto:walter.tengler@gmail.com" data-lang="pt">Contacto</a>
+            </div>
+            <p class="copyright">&copy; 2026 EasyDup. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function setLang(lang) {
+            // Update active button
+            document.querySelectorAll('.lang-switcher button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Hide all language content
+            document.querySelectorAll('[data-lang]').forEach(el => {
+                el.style.display = 'none';
+            });
+
+            // Show selected language content
+            document.querySelectorAll(`[data-lang="${lang}"]`).forEach(el => {
+                if (el.tagName === 'SPAN' || el.tagName === 'A') {
+                    el.style.display = 'inline';
+                } else {
+                    el.style.display = 'block';
+                }
+            });
+
+            // Update HTML lang attribute
+            document.documentElement.lang = lang;
+
+            // Store preference
+            localStorage.setItem('easydup-lang', lang);
+        }
+
+        // Load saved language preference
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('easydup-lang');
+            if (savedLang) {
+                setLang(savedLang);
+                document.querySelectorAll('.lang-switcher button').forEach(btn => {
+                    btn.classList.remove('active');
+                    if (btn.textContent === savedLang.toUpperCase()) {
+                        btn.classList.add('active');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
