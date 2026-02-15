@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legal Notice - BitPast</title>
+    <meta name="description" content="Legal Notice / Imprint for BitPast">
+    <meta name="robots" content="noindex, nofollow">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --primary: #5E5CE6;
+            --primary-dark: #7D7AFF;
+            --bg-dark: #1C1C1E;
+            --bg-darker: #000000;
+            --bg-card: #2C2C2E;
+            --text-primary: #FFFFFF;
+            --text-tertiary: #98989D;
+            --border: #38383A;
+            --shadow: rgba(0, 0, 0, 0.5);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-darker);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+
+        header {
+            background: var(--bg-dark);
+            border-bottom: 1px solid var(--border);
+            text-align: center;
+            padding: 80px 20px 60px;
+        }
+
+        h1 { font-size: 3em; font-weight: 700; margin-bottom: 15px; }
+        .subtitle { font-size: 1.3em; font-weight: 300; opacity: 0.95; }
+
+        main { padding: 80px 0; }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 1.05em;
+            font-weight: 500;
+            margin-bottom: 40px;
+        }
+        .back-link::before { content: "\2190"; font-size: 1.3em; }
+        .back-link:hover { color: var(--primary-dark); }
+
+        .content-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 60px;
+            box-shadow: 0 2px 8px var(--shadow);
+        }
+
+        h2 { font-size: 1.6em; font-weight: 700; margin: 40px 0 20px; color: var(--primary); }
+        h2:first-child { margin-top: 0; }
+
+        .info-block { margin-bottom: 25px; }
+        .info-block .label { color: var(--text-tertiary); font-size: 0.9em; margin-bottom: 5px; }
+        .info-block .value { color: var(--text-primary); font-size: 1.1em; }
+        .info-block .value a { color: var(--primary); text-decoration: none; }
+
+        p { color: #EBEBF5; margin-bottom: 15px; line-height: 1.8; }
+
+        footer {
+            background: var(--bg-dark);
+            border-top: 1px solid var(--border);
+            padding: 40px 0;
+            text-align: center;
+            margin-top: 80px;
+        }
+
+        .footer-links { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin: 20px 0; }
+        .footer-links a { color: white; text-decoration: none; opacity: 0.8; }
+        .footer-links a:hover { opacity: 1; }
+        .footer-bottom { padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); opacity: 0.6; margin-top: 20px; }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2em; }
+            header { padding: 60px 20px 40px; }
+            .content-card { padding: 40px 30px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Legal Notice</h1>
+        <p class="subtitle">BitPast</p>
+    </header>
+
+    <main>
+        <div class="container">
+            <a href="bitpast.html" class="back-link">Back to BitPast</a>
+
+            <div class="content-card">
+                <h2>Information according to Decreto-Lei 7/2004</h2>
+
+                <div class="info-block">
+                    <p class="label">Name</p>
+                    <p class="value">Walter Tengler</p>
+                </div>
+
+                <div class="info-block">
+                    <p class="label">Address</p>
+                    <p class="value">Rua do Cruzeiro 217<br>4910-253 Moledo<br>Portugal</p>
+                </div>
+
+                <div class="info-block">
+                    <p class="label">Tax Identification Number (NIF)</p>
+                    <p class="value">241940141</p>
+                </div>
+
+                <div class="info-block">
+                    <p class="label">Contact</p>
+                    <p class="value"><a href="mailto:walter.tengler@gmail.com">walter.tengler@gmail.com</a></p>
+                </div>
+
+                <h2>Disclaimer</h2>
+                <p>The content of this website is for general information purposes only. While we strive to keep the information accurate and up-to-date, we make no representations or warranties of any kind about the completeness, accuracy, or reliability of the information.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="bitpast.html">BitPast</a>
+                <a href="index.html">Retro Graphics Converter</a>
+                <a href="bitpast-privacy.html" rel="nofollow">Privacy Policy</a>
+                <a href="mailto:walter.tengler@gmail.com">Email</a>
+            </div>
+            <div class="footer-bottom">
+                <div>Made with love for retro computing enthusiasts</div>
+                <div style="font-size: 0.85em; opacity: 0.6; margin-top: 10px;">Walter Tengler</div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
