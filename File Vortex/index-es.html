@@ -11,8 +11,11 @@
         :root { --primary: #7C5CFF; --primary-dark: #9B7FFF; --secondary: #0A84FF; --accent: #FF375F; --success: #32D74B; --bg-dark: #1C1C1E; --bg-darker: #000000; --bg-card: #2C2C2E; --text-primary: #FFFFFF; --text-secondary: #EBEBF5; --text-tertiary: #98989D; --border: #38383A; --shadow: rgba(0, 0, 0, 0.5); }
         body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg-darker); color: var(--text-primary); line-height: 1.6; -webkit-font-smoothing: antialiased; }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        header { background: linear-gradient(135deg, #0d0015 0%, #1a0a2e 30%, #0a1628 70%, #000000 100%); color: white; text-align: center; padding: 100px 20px 40px; position: relative; overflow: hidden; }
-        .hero-image { max-width: 100%; width: 900px; margin-top: 40px; border-radius: 12px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5); }
+        nav { position: absolute; top: 0; left: 0; right: 0; padding: 20px 40px; z-index: 10; }
+        .nav-logo { font-size: 1.2em; font-weight: 600; color: white; text-decoration: none; opacity: 0.9; transition: opacity 0.3s; }
+        .nav-logo:hover { opacity: 1; }
+        header { background: linear-gradient(135deg, #0d0015 0%, #1a0a2e 30%, #0a1628 70%, #000000 100%); color: white; text-align: center; padding: 80px 20px 40px; position: relative; overflow: hidden; }
+        .hero-image { max-width: 100%; width: 900px; margin-bottom: 40px; border-radius: 12px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5); }
         header::before { content: ''; position: absolute; top: -50%; left: 50%; transform: translateX(-50%); width: 600px; height: 600px; background: radial-gradient(circle, rgba(124, 92, 255, 0.15) 0%, transparent 70%); border-radius: 50%; pointer-events: none; }
         .hero-content { position: relative; z-index: 1; }
         h1 { font-size: 4em; font-weight: 700; margin-bottom: 20px; letter-spacing: -0.02em; }
@@ -77,15 +80,15 @@
 </head>
 <body>
     <header>
+        <nav><a href="index.html" class="nav-logo">File Vortex</a></nav>
         <div class="hero-content">
-            <h1>File Vortex</h1>
+            <img src="hero.png" alt="File Vortex - Organizador de Archivos con IA" class="hero-image">
             <p class="subtitle">Organizador Inteligente de Archivos para macOS</p>
             <p class="tagline">Arrastra, suelta, listo. Organiza automáticamente tus fotos y documentos con etiquetado IA y búsqueda instantánea.</p>
             <span class="badge">macOS 14.0 Sonoma o posterior</span>
             <div class="button-group">
                 <a href="https://apps.apple.com/us/app/file-vortex/id6758395210" class="btn btn-primary">Obtener File Vortex</a>
             </div>
-            <img src="hero.png" alt="File Vortex - Organizador de Archivos con IA" class="hero-image">
         </div>
     </header>
 
