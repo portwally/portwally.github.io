@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Fluvio</title>
+    <meta name="description" content="Privacy Policy for Fluvio - Real-Time Flood Monitoring App for Portugal">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0a1628 0%, #0d2137 50%, #0f3460 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            padding: 20px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 22, 40, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: #00b4d8;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #00b4d8;
+        }
+
+        .lang-switcher {
+            display: flex;
+            gap: 10px;
+        }
+
+        .lang-switcher button {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: rgba(255, 255, 255, 0.7);
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+        }
+
+        .lang-switcher button:hover,
+        .lang-switcher button.active {
+            background: #00b4d8;
+            border-color: #00b4d8;
+            color: #fff;
+        }
+
+        /* Content */
+        .content {
+            padding: 120px 0 60px;
+        }
+
+        .content h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #ffffff 0%, #00b4d8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .last-updated {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+            margin-bottom: 40px;
+        }
+
+        .policy-content {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 40px;
+        }
+
+        .policy-content h2 {
+            font-size: 1.5rem;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            color: #00b4d8;
+        }
+
+        .policy-content h2:first-child {
+            margin-top: 0;
+        }
+
+        .policy-content p {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 15px;
+        }
+
+        .policy-content ul {
+            color: rgba(255, 255, 255, 0.8);
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+
+        .policy-content li {
+            margin-bottom: 8px;
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #00b4d8;
+        }
+
+        .copyright {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.85rem;
+        }
+
+        /* Language content */
+        [data-lang] {
+            display: none;
+        }
+
+        [data-lang="en"] {
+            display: block;
+        }
+
+        span[data-lang="en"],
+        a[data-lang="en"] {
+            display: inline;
+        }
+
+        @media (max-width: 768px) {
+            .content h1 {
+                font-size: 2rem;
+            }
+
+            .policy-content {
+                padding: 25px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">Flu<span>vio</span></a>
+            <div class="nav-links">
+                <a href="index.html" data-lang="en">Home</a>
+                <a href="index.html" data-lang="de">Startseite</a>
+                <a href="index.html" data-lang="pt">Inicio</a>
+            </div>
+            <div class="lang-switcher">
+                <button onclick="setLang('en')" class="active">EN</button>
+                <button onclick="setLang('de')">DE</button>
+                <button onclick="setLang('pt')">PT</button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="content">
+        <div class="container">
+            <h1 data-lang="en">Privacy Policy</h1>
+            <h1 data-lang="de">Datenschutzrichtlinie</h1>
+            <h1 data-lang="pt">Politica de Privacidade</h1>
+
+            <p class="last-updated" data-lang="en">Last updated: February 17, 2026</p>
+            <p class="last-updated" data-lang="de">Zuletzt aktualisiert: 17. Februar 2026</p>
+            <p class="last-updated" data-lang="pt">Ultima atualizacao: 17 de fevereiro de 2026</p>
+
+            <!-- English -->
+            <div class="policy-content" data-lang="en">
+                <h2>Introduction</h2>
+                <p>Fluvio ("we", "our", or "us") is committed to protecting your privacy. This Privacy Policy explains how our iOS and macOS application handles your information.</p>
+
+                <h2>Information We Collect</h2>
+                <p><strong>We do not collect any personal information.</strong></p>
+                <p>Fluvio is designed with privacy in mind. The app:</p>
+                <ul>
+                    <li>Does not collect personal data</li>
+                    <li>Does not track your usage</li>
+                    <li>Does not send any personal data to external servers</li>
+                    <li>Does not require account registration</li>
+                </ul>
+
+                <h2>Data Sources</h2>
+                <p>Fluvio fetches publicly available water resource data from:</p>
+                <ul>
+                    <li>SNIRH (Sistema Nacional de Informacao de Recursos Hidricos) - Portuguese National Water Resources Information System</li>
+                    <li>ArcGIS services for geographic data</li>
+                    <li>EDIA for Alqueva dam data</li>
+                </ul>
+                <p>This data is publicly available and does not include personal information.</p>
+
+                <h2>Location Services</h2>
+                <p>The app may request access to your location to show nearby dams and stations on the map. This location data:</p>
+                <ul>
+                    <li>Is processed locally on your device</li>
+                    <li>Is never transmitted to external servers</li>
+                    <li>Is not stored or logged</li>
+                    <li>Can be disabled in your device settings</li>
+                </ul>
+
+                <h2>Data Storage</h2>
+                <p>Your preferences and cached data are stored locally on your device using standard iOS/macOS storage mechanisms. This data never leaves your device.</p>
+
+                <h2>Third-Party Services</h2>
+                <p>Fluvio does not integrate with any third-party analytics, advertising, or tracking services.</p>
+
+                <h2>Children's Privacy</h2>
+                <p>Fluvio does not collect any personal information from anyone, including children under 13 years of age.</p>
+
+                <h2>Changes to This Policy</h2>
+                <p>We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last updated" date.</p>
+
+                <h2>Contact Us</h2>
+                <p>If you have any questions about this Privacy Policy, please contact us at:</p>
+                <p>Email: walter.tengler@gmail.com</p>
+            </div>
+
+            <!-- German -->
+            <div class="policy-content" data-lang="de">
+                <h2>Einleitung</h2>
+                <p>Fluvio ("wir", "unser" oder "uns") ist dem Schutz Ihrer Privatsphare verpflichtet. Diese Datenschutzrichtlinie erklart, wie unsere iOS- und macOS-Anwendung mit Ihren Informationen umgeht.</p>
+
+                <h2>Informationen, die wir sammeln</h2>
+                <p><strong>Wir sammeln keine personlichen Informationen.</strong></p>
+                <p>Fluvio wurde mit Datenschutz im Sinn entwickelt. Die App:</p>
+                <ul>
+                    <li>Sammelt keine personlichen Daten</li>
+                    <li>Verfolgt Ihre Nutzung nicht</li>
+                    <li>Sendet keine personlichen Daten an externe Server</li>
+                    <li>Erfordert keine Kontoregistrierung</li>
+                </ul>
+
+                <h2>Datenquellen</h2>
+                <p>Fluvio ruft offentlich verfugbare Wasserressourcendaten ab von:</p>
+                <ul>
+                    <li>SNIRH (Sistema Nacional de Informacao de Recursos Hidricos) - Portugiesisches Nationales Wasserressourcen-Informationssystem</li>
+                    <li>ArcGIS-Diensten fur geografische Daten</li>
+                    <li>EDIA fur Alqueva-Staudammdaten</li>
+                </ul>
+                <p>Diese Daten sind offentlich verfugbar und enthalten keine personlichen Informationen.</p>
+
+                <h2>Standortdienste</h2>
+                <p>Die App kann Zugriff auf Ihren Standort anfordern, um nahegelegene Staudamme und Stationen auf der Karte anzuzeigen. Diese Standortdaten:</p>
+                <ul>
+                    <li>Werden lokal auf Ihrem Gerat verarbeitet</li>
+                    <li>Werden niemals an externe Server ubertragen</li>
+                    <li>Werden nicht gespeichert oder protokolliert</li>
+                    <li>Konnen in Ihren Gerateeinstellungen deaktiviert werden</li>
+                </ul>
+
+                <h2>Datenspeicherung</h2>
+                <p>Ihre Einstellungen und zwischengespeicherten Daten werden lokal auf Ihrem Gerat mit Standard-iOS/macOS-Speichermechanismen gespeichert. Diese Daten verlassen niemals Ihr Gerat.</p>
+
+                <h2>Drittanbieter-Dienste</h2>
+                <p>Fluvio integriert keine Analyse-, Werbe- oder Tracking-Dienste von Drittanbietern.</p>
+
+                <h2>Datenschutz fur Kinder</h2>
+                <p>Fluvio sammelt keine personlichen Informationen von niemandem, einschliesslich Kindern unter 13 Jahren.</p>
+
+                <h2>Anderungen dieser Richtlinie</h2>
+                <p>Wir konnen diese Datenschutzrichtlinie von Zeit zu Zeit aktualisieren. Wir werden Sie uber Anderungen informieren, indem wir die neue Datenschutzrichtlinie auf dieser Seite veroffentlichen und das Datum "Zuletzt aktualisiert" aktualisieren.</p>
+
+                <h2>Kontaktieren Sie uns</h2>
+                <p>Wenn Sie Fragen zu dieser Datenschutzrichtlinie haben, kontaktieren Sie uns bitte unter:</p>
+                <p>E-Mail: walter.tengler@gmail.com</p>
+            </div>
+
+            <!-- Portuguese -->
+            <div class="policy-content" data-lang="pt">
+                <h2>Introducao</h2>
+                <p>O Fluvio ("nos", "nosso" ou "nos") esta comprometido em proteger a sua privacidade. Esta Politica de Privacidade explica como a nossa aplicacao iOS e macOS trata as suas informacoes.</p>
+
+                <h2>Informacoes que recolhemos</h2>
+                <p><strong>Nao recolhemos quaisquer informacoes pessoais.</strong></p>
+                <p>O Fluvio foi concebido com a privacidade em mente. A aplicacao:</p>
+                <ul>
+                    <li>Nao recolhe dados pessoais</li>
+                    <li>Nao rastreia a sua utilizacao</li>
+                    <li>Nao envia quaisquer dados pessoais para servidores externos</li>
+                    <li>Nao requer registo de conta</li>
+                </ul>
+
+                <h2>Fontes de dados</h2>
+                <p>O Fluvio obtem dados de recursos hidricos publicamente disponiveis de:</p>
+                <ul>
+                    <li>SNIRH (Sistema Nacional de Informacao de Recursos Hidricos)</li>
+                    <li>Servicos ArcGIS para dados geograficos</li>
+                    <li>EDIA para dados da barragem de Alqueva</li>
+                </ul>
+                <p>Estes dados sao publicamente disponiveis e nao incluem informacoes pessoais.</p>
+
+                <h2>Servicos de localizacao</h2>
+                <p>A aplicacao pode solicitar acesso a sua localizacao para mostrar barragens e estacoes proximas no mapa. Estes dados de localizacao:</p>
+                <ul>
+                    <li>Sao processados localmente no seu dispositivo</li>
+                    <li>Nunca sao transmitidos para servidores externos</li>
+                    <li>Nao sao armazenados ou registados</li>
+                    <li>Podem ser desativados nas configuracoes do seu dispositivo</li>
+                </ul>
+
+                <h2>Armazenamento de dados</h2>
+                <p>As suas preferencias e dados em cache sao armazenados localmente no seu dispositivo usando mecanismos de armazenamento padrao do iOS/macOS. Estes dados nunca saem do seu dispositivo.</p>
+
+                <h2>Servicos de terceiros</h2>
+                <p>O Fluvio nao integra quaisquer servicos de analise, publicidade ou rastreamento de terceiros.</p>
+
+                <h2>Privacidade de criancas</h2>
+                <p>O Fluvio nao recolhe quaisquer informacoes pessoais de ninguem, incluindo criancas com menos de 13 anos de idade.</p>
+
+                <h2>Alteracoes a esta politica</h2>
+                <p>Podemos atualizar esta Politica de Privacidade periodicamente. Iremos notifica-lo de quaisquer alteracoes publicando a nova Politica de Privacidade nesta pagina e atualizando a data de "Ultima atualizacao".</p>
+
+                <h2>Contacte-nos</h2>
+                <p>Se tiver alguma questao sobre esta Politica de Privacidade, por favor contacte-nos em:</p>
+                <p>Email: walter.tengler@gmail.com</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="../index.html">Retro Graphics Converter</a>
+                <a href="../bitpast.html">BitPast</a>
+                <a href="../coresdoamor/">Cores do Amor</a>
+                <a href="../EasyDup/">EasyDup</a>
+                <a href="../ExifEasy/">ExifEasy</a>
+                <a href="../File Vortex/">File Vortex</a>
+                <a href="../Fire/">Fire</a>
+                <a href="index.html" data-lang="en">Home</a>
+                <a href="index.html" data-lang="de">Startseite</a>
+                <a href="index.html" data-lang="pt">Inicio</a>
+                <a href="imprint.html" rel="nofollow" data-lang="en">Legal Notice</a>
+                <a href="imprint.html" rel="nofollow" data-lang="de">Impressum</a>
+                <a href="imprint.html" rel="nofollow" data-lang="pt">Aviso Legal</a>
+            </div>
+            <p class="copyright">&copy; 2026 Walter Tengler</p>
+        </div>
+    </footer>
+
+    <script>
+        function setLang(lang) {
+            // Update active button
+            document.querySelectorAll('.lang-switcher button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Hide all language content
+            document.querySelectorAll('[data-lang]').forEach(el => {
+                el.style.display = 'none';
+            });
+
+            // Show selected language content
+            document.querySelectorAll(`[data-lang="${lang}"]`).forEach(el => {
+                if (el.tagName === 'SPAN' || el.tagName === 'A') {
+                    el.style.display = 'inline';
+                } else {
+                    el.style.display = 'block';
+                }
+            });
+
+            // Update HTML lang attribute
+            document.documentElement.lang = lang;
+
+            // Store preference
+            localStorage.setItem('fluvio-lang', lang);
+        }
+
+        // Load saved language preference
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('fluvio-lang');
+            if (savedLang) {
+                setLang(savedLang);
+                document.querySelectorAll('.lang-switcher button').forEach(btn => {
+                    btn.classList.remove('active');
+                    if (btn.textContent === savedLang.toUpperCase()) {
+                        btn.classList.add('active');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
