@@ -107,6 +107,10 @@ img {
   white-space: nowrap;
 }
 
+.logo-blue {
+  color: var(--cyan-primary);
+}
+
 .nav-links {
   display: flex;
   gap: 2.5rem;
