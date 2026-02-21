@@ -13,7 +13,11 @@
   <nav class="navbar" id="navbar">
     <div class="nav-container">
       <a href="#home" class="nav-logo">
-        <img src="images/logo.jpeg" alt="A Invenção do Dia Azul" class="logo-img">
+        <svg class="logo-leaf" width="20" height="28" viewBox="0 0 20 28" fill="none">
+          <path d="M10 27V14C10 7 4 2 1 1C5 3 15 4 19 10C17 6 13 4 10 3C14 5 18 9 18 14C18 19 14 23 10 27Z" fill="#5ba4c9" opacity="0.8"/>
+          <path d="M10 27V14" stroke="#5ba4c9" stroke-width="1"/>
+        </svg>
+        <span class="logo-text">a invenção do dia azul</span>
       </a>
       <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
         <span></span><span></span><span></span>
@@ -60,8 +64,8 @@
   <!-- Gallery Section -->
   <section class="gallery" id="gallery">
     <div class="section-container">
-      <div class="section-header">
-        <span class="section-label">GALLERY</span>
+      <div class="section-header section-header--center">
+        <span class="section-label section-label--center">GALLERY</span>
         <h2 class="section-title">Selected works</h2>
       </div>
       <div class="gallery-grid">
@@ -108,89 +112,94 @@
   <!-- Process Section -->
   <section class="process" id="process">
     <div class="section-container">
-      <div class="section-header">
-        <span class="section-label">PROCESS</span>
-        <h2 class="section-title">Cyanotype process</h2>
-        <p class="section-description">
-          Cyanotype is one of the oldest photographic printing processes,
-          invented in 1842 by Sir John Herschel. Using a light-sensitive solution
-          of iron compounds and the power of UV light, each piece becomes a unique,
-          handcrafted work of art in the iconic Prussian blue.
+      <div class="section-header section-header--center">
+        <span class="section-label section-label--center">THE CRAFT</span>
+        <h2 class="section-title section-title--script">Cyanotype process</h2>
+        <p class="section-description section-description--center">
+          Cyanotype is one of the oldest photographic printing processes, invented by Sir John Herschel in 1842. It produces distinctive cyan-blue prints through a simple yet magical process involving iron salts and sunlight.
         </p>
       </div>
       <div class="process-steps">
         <div class="process-step">
-          <div class="process-step-img">
-            <img src="images/process-1.jpeg" alt="Prepare" loading="lazy">
-          </div>
-          <div class="process-step-info">
-            <span class="step-number">1</span>
-            <h3 class="step-title">PREPARE</h3>
-            <p class="step-desc">Mix the light-sensitive chemicals and coat paper, fabric, or other surfaces with the solution. Let dry in a dark environment.</p>
-          </div>
+          <div class="step-circle">1</div>
+          <h3 class="step-title">PREPARE</h3>
+          <p class="step-desc">Coat paper with light-sensitive iron solution and let dry in darkness</p>
         </div>
         <div class="process-step">
-          <div class="process-step-img">
-            <img src="images/process-2.jpeg" alt="Compose" loading="lazy">
-          </div>
-          <div class="process-step-info">
-            <span class="step-number">2</span>
-            <h3 class="step-title">COMPOSE</h3>
-            <p class="step-desc">Place botanical elements, negatives, or objects directly onto the coated surface to create your unique composition.</p>
-          </div>
+          <div class="step-circle">2</div>
+          <h3 class="step-title">COMPOSE</h3>
+          <p class="step-desc">Arrange botanicals, objects, or negatives on the coated surface</p>
         </div>
         <div class="process-step">
-          <div class="process-step-img">
-            <img src="images/process-3.jpeg" alt="Expose" loading="lazy">
-          </div>
-          <div class="process-step-info">
-            <span class="step-number">3</span>
-            <h3 class="step-title">EXPOSE</h3>
-            <p class="step-desc">Expose the composition to sunlight or UV light. The uncovered areas will turn a rich Prussian blue while shielded areas remain white.</p>
-          </div>
+          <div class="step-circle">3</div>
+          <h3 class="step-title">EXPOSE</h3>
+          <p class="step-desc">Place under direct sunlight or UV light for several minutes</p>
         </div>
         <div class="process-step">
-          <div class="process-step-img">
-            <img src="images/process-4.jpeg" alt="Develop" loading="lazy">
-          </div>
-          <div class="process-step-info">
-            <span class="step-number">4</span>
-            <h3 class="step-title">DEVELOP</h3>
-            <p class="step-desc">Rinse in water to wash away the unexposed chemicals, revealing the final cyanotype print. The blue will deepen as it oxidizes.</p>
-          </div>
+          <div class="step-circle">4</div>
+          <h3 class="step-title">DEVELOPE</h3>
+          <p class="step-desc">Rinse in water to reveal the Prussian blue image</p>
         </div>
+      </div>
+    </div>
+    <!-- Process photo strip -->
+    <div class="process-photos">
+      <div class="process-photo">
+        <img src="images/process-1.jpeg" alt="Prepare materials" loading="lazy">
+      </div>
+      <div class="process-photo">
+        <img src="images/gallery-6.jpeg" alt="Compose botanicals" loading="lazy">
+      </div>
+      <div class="process-photo">
+        <img src="images/create-1.jpeg" alt="Expose to sunlight" loading="lazy">
+      </div>
+      <div class="process-photo">
+        <img src="images/gallery-8.jpeg" alt="Develop in water" loading="lazy">
       </div>
     </div>
   </section>
 
-  <!-- What I Create Section -->
-  <section class="creations" id="creations">
+  <!-- Offerings / What I Create Section -->
+  <section class="offerings" id="offerings">
     <div class="section-container">
-      <div class="section-header">
-        <span class="section-label">ORIGINALS</span>
-        <h2 class="section-title">What I create</h2>
+      <div class="section-header section-header--center">
+        <span class="section-label section-label--center">OFFERINGS</span>
+        <h2 class="section-title section-title--script">What I create</h2>
       </div>
-      <div class="creations-grid">
-        <div class="creation-card">
-          <div class="creation-img">
-            <img src="images/gallery-6.jpeg" alt="Fine Art Prints" loading="lazy">
+      <div class="offerings-grid">
+        <div class="offering-card">
+          <div class="offering-icon">
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+              <path d="M18 4C18 4 8 8 8 18C8 22 10 26 14 28L18 32L22 28C26 26 28 22 28 18C28 8 18 4 18 4Z" fill="white"/>
+              <path d="M18 10V28M14 14C14 14 16 16 18 16C20 16 22 14 22 14" stroke="#3d5a3d" stroke-width="1.5"/>
+            </svg>
           </div>
-          <h3 class="creation-title">Fine Art Prints</h3>
-          <p class="creation-desc">Original cyanotype prints on premium watercolor paper, each one unique and handcrafted.</p>
+          <h3 class="offering-title">Original Prints</h3>
+          <p class="offering-desc">One-of-a-kind botanical cyanotype prints on fine art paper, ready to frame.</p>
         </div>
-        <div class="creation-card">
-          <div class="creation-img">
-            <img src="images/create-1.jpeg" alt="Fabric Art" loading="lazy">
+        <div class="offering-card">
+          <div class="offering-icon">
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+              <circle cx="18" cy="14" r="6" fill="white"/>
+              <path d="M12 22C12 22 14 18 18 18C22 18 24 22 24 22" stroke="white" stroke-width="2"/>
+              <line x1="18" y1="20" x2="18" y2="30" stroke="white" stroke-width="1.5"/>
+              <circle cx="14" cy="10" r="2" fill="white"/>
+              <circle cx="22" cy="10" r="2" fill="white"/>
+            </svg>
           </div>
-          <h3 class="creation-title">Fabric Art</h3>
-          <p class="creation-desc">Cyanotype designs on natural fabrics — from scarves and tote bags to wall hangings.</p>
+          <h3 class="offering-title">Custom Commissions</h3>
+          <p class="offering-desc">Personalized pieces using your meaningful botanicals, wedding flowers, or special items.</p>
         </div>
-        <div class="creation-card">
-          <div class="creation-img">
-            <img src="images/gallery-8.jpeg" alt="Custom Pieces" loading="lazy">
+        <div class="offering-card">
+          <div class="offering-icon">
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+              <path d="M10 6C10 6 6 12 6 18C6 24 10 30 18 30C26 30 30 24 30 18C30 12 26 6 26 6" fill="none" stroke="white" stroke-width="1.5"/>
+              <path d="M14 8L18 4L22 8" fill="white"/>
+              <path d="M18 4V20M14 12H22M12 18H24" stroke="white" stroke-width="1.5"/>
+            </svg>
           </div>
-          <h3 class="creation-title">Custom Pieces</h3>
-          <p class="creation-desc">Bespoke cyanotype artwork made to order, tailored to your vision and space.</p>
+          <h3 class="offering-title">Workshops</h3>
+          <p class="offering-desc">Learn the art of cyanotype printing in intimate group or private sessions.</p>
         </div>
       </div>
     </div>
@@ -198,61 +207,99 @@
 
   <!-- Kits Section -->
   <section class="kits" id="kits">
-    <div class="section-container">
-      <div class="section-header">
-        <span class="section-label">KITS</span>
-        <h2 class="section-title">Cyanotype Kits</h2>
-        <p class="section-description">
-          Discover the magic of sun printing with our carefully curated cyanotype kits.
-          Perfect for beginners and experienced artists alike, each kit contains everything
-          you need to create your own Prussian blue masterpieces at home.
-        </p>
+    <div class="kits-intro">
+      <div class="section-container">
+        <div class="section-header section-header--center">
+          <span class="section-label section-label--center">CYANOTYPE KITS</span>
+          <h2 class="section-title section-title--script">
+            You can discover the magic of sun and create your own blue day printing with everything you need in one box
+          </h2>
+          <p class="section-description section-description--center">
+            No darkroom required&mdash;just sunlight, water, and creativity
+          </p>
+        </div>
       </div>
-      <div class="kits-grid">
+    </div>
+    <div class="kits-cards">
+      <div class="section-container">
+        <!-- Starter Kit -->
         <div class="kit-card">
           <div class="kit-img">
             <img src="images/kit-starter.jpeg" alt="Starter Kit" loading="lazy">
+            <div class="kit-img-label">
+              <h3>Starter Kit</h3>
+              <p>Perfect for beginners</p>
+            </div>
           </div>
           <div class="kit-info">
-            <h3 class="kit-title">Starter Kit</h3>
+            <h3 class="kit-title">STARTER KIT</h3>
+            <p class="kit-subtitle">Perfect for first-time sun prints.<br>Everything you need to create your first cyanotypes:</p>
             <ul class="kit-features">
-              <li>Pre-coated paper sheets (10x)</li>
-              <li>Instruction booklet</li>
-              <li>Sample botanicals</li>
-              <li>Acrylic contact frame</li>
+              <li>Solutions A and B (2x15ml)</li>
+              <li>5 sheets cotton paper</li>
+              <li>Foam brush</li>
+              <li>Gloves</li>
+              <li>Step-by-step guide</li>
+              <li>Pipetes</li>
+              <li>Glass and mdf support</li>
+              <li>Binder clips</li>
             </ul>
             <a href="#contact" class="kit-btn">INQUIRE ABOUT THIS KIT</a>
           </div>
         </div>
-        <div class="kit-card kit-card--featured">
-          <span class="kit-badge">MOST POPULAR</span>
+
+        <!-- Complete Kit -->
+        <div class="kit-card">
           <div class="kit-img">
+            <span class="kit-badge">MOST POPULAR</span>
             <img src="images/kit-complete.jpeg" alt="Complete Kit" loading="lazy">
+            <div class="kit-img-label">
+              <h3>Complete Kit</h3>
+              <p>Most popular choice</p>
+            </div>
           </div>
           <div class="kit-info">
-            <h3 class="kit-title">Complete Kit</h3>
+            <h3 class="kit-title">COMPLETE KIT</h3>
+            <p class="kit-subtitle">Our most popular option.<br>Create multiple unique prints with professional materials:</p>
             <ul class="kit-features">
-              <li>Cyanotype solution A & B</li>
-              <li>Premium watercolor paper (20x)</li>
-              <li>Fabric swatches (5x)</li>
-              <li>Mixing tools & brushes</li>
-              <li>Detailed guide with techniques</li>
+              <li>Solutions A and B (2x25ml)</li>
+              <li>10 sheets of type of papers</li>
+              <li>Foam brush</li>
+              <li>Gloves</li>
+              <li>Step-by-step guide</li>
+              <li>Pipetes</li>
+              <li>Glass and mdf support</li>
+              <li>Binder clips</li>
             </ul>
-            <a href="#contact" class="kit-btn kit-btn--featured">INQUIRE ABOUT THIS KIT</a>
+            <a href="#contact" class="kit-btn">INQUIRE ABOUT THIS KIT</a>
           </div>
         </div>
+
+        <!-- Pro Kit -->
         <div class="kit-card">
           <div class="kit-img">
             <img src="images/kit-pro.jpeg" alt="Pro Kit" loading="lazy">
+            <div class="kit-img-label">
+              <h3>Pro Kit</h3>
+              <p>For serious artists &amp; photographers</p>
+            </div>
           </div>
           <div class="kit-info">
-            <h3 class="kit-title">Pro Kit</h3>
+            <h3 class="kit-title">PRO KIT</h3>
+            <p class="kit-subtitle">For artists and photographers ready to explore alternative processes at a professional level.</p>
             <ul class="kit-features">
-              <li>Everything in Complete Kit</li>
-              <li>Large format paper (10x)</li>
-              <li>Toning chemicals set</li>
-              <li>Professional contact frame</li>
-              <li>1-on-1 online workshop session</li>
+              <li>Solutions A and B (2x25ml)</li>
+              <li>20 sheets of different type of papers</li>
+              <li>Cotton fabric</li>
+              <li>Embroidery hopp</li>
+              <li>Peroxide hydrogen</li>
+              <li>Hake brush</li>
+              <li>Gloves</li>
+              <li>Step-by-step guide</li>
+              <li>2 sheets of cyano paper ready to use</li>
+              <li>Pipetes</li>
+              <li>Glass and mdf support</li>
+              <li>Binder clips</li>
             </ul>
             <a href="#contact" class="kit-btn">INQUIRE ABOUT THIS KIT</a>
           </div>
@@ -278,7 +325,7 @@
             artworks that capture the delicate beauty of the natural world in shades of Prussian blue.
           </p>
           <p class="about-bio">
-            My work is inspired by the intersection of science and art — the same curiosity
+            My work is inspired by the intersection of science and art &mdash; the same curiosity
             that led Anna Atkins to create the first photographic book of botanical specimens
             using this very technique in 1843.
           </p>
