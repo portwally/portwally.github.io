@@ -707,11 +707,22 @@ img {
 /* Climate Aware Badge */
 .climate-badge {
   margin-top: 3rem;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
 }
 
 .climate-badge-img {
-  width: 80px;
+  width: 70px;
   height: auto;
+  flex-shrink: 0;
+}
+
+.climate-badge-text {
+  font-size: 0.85rem;
+  color: var(--white-muted);
+  line-height: 1.7;
+  max-width: 400px;
 }
 
 /* --- Contact Section --- */
