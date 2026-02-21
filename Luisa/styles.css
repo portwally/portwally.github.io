@@ -708,21 +708,27 @@ img {
 .climate-badge {
   margin-top: 3rem;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 1.25rem;
+  position: relative;
+  margin-left: -90px;
+  padding-left: 90px;
 }
 
 .climate-badge-img {
   width: 70px;
   height: auto;
   flex-shrink: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
 }
 
 .climate-badge-text {
   font-size: 0.85rem;
   color: var(--white-muted);
   line-height: 1.7;
-  max-width: 400px;
+  max-width: 500px;
 }
 
 /* --- Contact Section --- */
@@ -900,6 +906,18 @@ a.contact-col-text:hover {
 
   .about-portrait {
     max-width: 300px;
+  }
+
+  .climate-badge {
+    margin-left: 0;
+    padding-left: 0;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .climate-badge-img {
+    position: static;
   }
 
   .offerings-grid {
