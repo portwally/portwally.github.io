@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rubina Almeida - The Grounded Dreamer</title>
-    <meta name="description" content="Rubina Almeida - A 28-year-old Portuguese backpacker exploring Europe, student pilot, and grounded dreamer. AI-generated fictional character.">
+    <meta name="description" content="Rubina Almeida - A 28-year-old Portuguese backpacker exploring Europe, student pilot, and grounded dreamer. AI-generated fictional character powered by Anthropic Claude.">
+    <meta name="keywords" content="Rubina Almeida, AI character, Anthropic Claude, AI-generated content, digital nomad, Portuguese backpacker, AI storytelling, fictional character, travel blog, Claude AI, Replicate, AI art, virtual influencer, autonomous AI, social media automation">
     <meta property="og:title" content="Rubina Almeida - The Grounded Dreamer">
     <meta property="og:description" content="A 28-year-old Portuguese woman from the rural hills of Trás-os-Montes, now a solo backpacker exploring Europe.">
     <meta property="og:image" content="images/rubina-hero.png">
@@ -337,6 +338,75 @@
                 padding: 24px 16px;
             }
         }
+
+        /* The Engine Section */
+        .engine {
+            text-align: center;
+            padding: 20px 0 60px;
+        }
+
+        .engine h2 {
+            font-size: 2rem;
+            margin-bottom: 24px;
+        }
+
+        .engine-intro,
+        .engine-outro {
+            max-width: 650px;
+            margin: 0 auto;
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .engine-outro {
+            margin-top: 40px;
+        }
+
+        .app-gallery {
+            display: flex;
+            gap: 16px;
+            overflow-x: auto;
+            padding: 40px 0;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            scrollbar-color: var(--border) transparent;
+        }
+
+        .app-gallery::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .app-gallery::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .app-gallery::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 4px;
+        }
+
+        .app-gallery img {
+            flex-shrink: 0;
+            width: 240px;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+            scroll-snap-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .app-gallery img:hover {
+            transform: scale(1.02);
+        }
+
+        @media (max-width: 640px) {
+            .app-gallery img {
+                width: 200px;
+                border-radius: 16px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -443,6 +513,39 @@
                 She likes meeting people who are also trying to figure it out.
             </p>
         </div>
+
+        <div class="divider"></div>
+
+        <!-- The Engine -->
+        <section class="engine">
+            <h2>The Engine</h2>
+            <p class="engine-intro">
+                Rubina comes to life through a custom iOS app built to orchestrate her digital presence.
+                Powered by Anthropic's Claude, she crafts authentic stories from her travels—each post
+                reflecting her mood, location, and the narrative arc of her journey.
+            </p>
+
+            <div class="app-gallery">
+                <img src="images/app-01-dashboard.png" alt="Dashboard showing Rubina's current state and weather">
+                <img src="images/app-02-ai-provider.png" alt="AI Provider connection with Anthropic Claude">
+                <img src="images/app-03-queue.png" alt="Content queue with drafts and published posts">
+                <img src="images/app-04-post-detail.png" alt="Post composer with location and mood">
+                <img src="images/app-05-image-settings.png" alt="AI image generation settings">
+                <img src="images/app-06-export.png" alt="Export and share to social media">
+                <img src="images/app-07-travel-schedule.png" alt="Travel schedule across Europe">
+                <img src="images/app-08-travel-map.png" alt="Interactive travel map">
+                <img src="images/app-09-character.png" alt="Character DNA and personality settings">
+                <img src="images/app-10-settings-ai.png" alt="AI provider settings with Claude and Gemini">
+                <img src="images/app-11-settings-publish.png" alt="Publishing and social media configuration">
+                <img src="images/app-12-social-media.png" alt="Social media developer credentials">
+            </div>
+
+            <p class="engine-outro">
+                The app integrates real-time weather data, manages her content queue, and publishes
+                across social platforms—all while maintaining the coherent voice of a digital nomad
+                finding her rhythm in new cities.
+            </p>
+        </section>
 
         <div class="divider"></div>
 
