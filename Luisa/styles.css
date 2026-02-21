@@ -709,18 +709,9 @@ img {
   margin-top: 3rem;
 }
 
-.climate-badge-icon {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.climate-badge-text {
-  font-size: 0.6rem;
-  font-weight: 600;
-  letter-spacing: 0.15em;
-  color: var(--white-muted);
-  line-height: 1.5;
+.climate-badge-img {
+  width: 80px;
+  height: auto;
 }
 
 /* --- Contact Section --- */
