@@ -90,12 +90,11 @@ img {
 }
 
 .logo-img {
-  width: 24px;
-  height: 24px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
   object-fit: cover;
   flex-shrink: 0;
-  border: 1px solid rgba(91, 164, 201, 0.3);
 }
 
 .logo-text {
