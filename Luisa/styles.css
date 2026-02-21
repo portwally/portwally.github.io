@@ -704,6 +704,25 @@ img {
 .about-link:hover .arrow { transform: translateX(4px); }
 .about-link .arrow { transition: transform 0.3s; }
 
+/* Climate Aware Badge */
+.climate-badge {
+  margin-top: 3rem;
+}
+
+.climate-badge-icon {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.climate-badge-text {
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: var(--white-muted);
+  line-height: 1.5;
+}
+
 /* --- Contact Section --- */
 .contact {
   position: relative;
@@ -729,49 +748,77 @@ img {
   padding-bottom: 5rem;
 }
 
+.contact-label {
+  display: block;
+  margin-bottom: 1rem;
+}
+
 .contact-title {
-  font-family: var(--font-serif);
+  font-family: var(--font-script);
   font-size: clamp(2.5rem, 5vw, 4rem);
-  font-weight: 300;
-  margin-bottom: 1.25rem;
+  font-weight: 400;
+  margin-bottom: 1.5rem;
 }
 
 .contact-subtitle {
-  font-size: 0.95rem;
-  color: var(--white-muted);
-  margin-bottom: 2.5rem;
-  max-width: 500px;
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  color: var(--white-soft);
+  margin-bottom: 3.5rem;
+  max-width: 600px;
   margin-left: auto;
   margin-right: auto;
+  line-height: 1.7;
 }
 
-.contact-info {
-  margin-bottom: 2.5rem;
+/* Contact info columns */
+.contact-columns {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  max-width: 700px;
+  margin: 0 auto 3rem;
 }
 
-.contact-link {
-  font-size: 1rem;
-  color: var(--cyan-light);
-  letter-spacing: 0.05em;
+.contact-col {
+  text-align: center;
+}
+
+.contact-col-title {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  color: var(--cyan-primary);
+  margin-bottom: 0.5rem;
+}
+
+.contact-col-text {
+  font-size: 0.9rem;
+  color: var(--white-soft);
+}
+
+a.contact-col-text {
   transition: color 0.3s;
 }
 
-.contact-link:hover { color: var(--white); }
+a.contact-col-text:hover {
+  color: var(--cyan-light);
+}
 
+/* Social links - colored circles */
 .contact-social {
   display: flex;
-  gap: 1.5rem;
+  gap: 1rem;
   justify-content: center;
 }
 
 .social-link {
-  color: var(--white-muted);
-  transition: color 0.3s, transform 0.3s;
+  display: block;
+  transition: transform 0.3s;
 }
 
 .social-link:hover {
-  color: var(--cyan-light);
-  transform: translateY(-2px);
+  transform: translateY(-3px);
 }
 
 /* --- Footer --- */
