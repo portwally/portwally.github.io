@@ -89,8 +89,13 @@ img {
   gap: 0.6rem;
 }
 
-.logo-leaf {
+.logo-img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
   flex-shrink: 0;
+  border: 1px solid rgba(91, 164, 201, 0.3);
 }
 
 .logo-text {
