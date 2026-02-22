@@ -63,14 +63,8 @@ img {
   left: 0;
   right: 0;
   z-index: 1000;
-  padding: 1.25rem 0;
-  transition: background 0.4s ease, padding 0.3s ease;
-}
-
-.navbar.scrolled {
-  background: rgba(11, 11, 20, 0.95);
-  backdrop-filter: blur(12px);
-  padding: 0.75rem 0;
+  padding: 1rem 0;
+  background: var(--bg-dark);
 }
 
 .nav-container {
@@ -90,8 +84,8 @@ img {
 }
 
 .logo-img {
-  width: 18px;
-  height: 18px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
   object-fit: cover;
   flex-shrink: 0;
