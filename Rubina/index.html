@@ -376,9 +376,11 @@
 
         .app-gallery img {
             width: 100%;
-            height: auto;
-            border-radius: 20px;
-            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+            height: 280px;
+            object-fit: cover;
+            object-position: top;
+            border-radius: 16px;
+            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4);
             transition: transform 0.3s ease;
         }
 
@@ -400,7 +402,8 @@
             }
 
             .app-gallery img {
-                border-radius: 14px;
+                height: 200px;
+                border-radius: 12px;
             }
         }
     </style>
