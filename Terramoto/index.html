@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terramoto - Earthquake & Tsunami Physics Simulation</title>
+    <meta name="keywords" content="earthquake simulator, tsunami simulation, physics app, shallow water equations, GPU simulation, educational app, geophysics, wave propagation, Metal compute, iOS app, macOS app">
+    <meta name="description" content="Experience earthquake and tsunami physics with real-time GPU-accelerated fluid dynamics simulation. Watch waves propagate across oceans following actual coastlines.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="Terramoto Banner.png">
+</head>
+<body>
+    <header class="hero">
+        <nav>
+            <div class="logo">Terramoto</div>
+            <div class="nav-links">
+                <a href="privacy.html">Privacy</a>
+                <a href="imprint.html">Imprint</a>
+            </div>
+        </nav>
+        <div class="hero-content">
+            <img src="Terramoto Banner.png" alt="Terramoto App" class="hero-image">
+            <h1>Terramoto</h1>
+            <p class="tagline">Earthquake & Tsunami Physics Simulation</p>
+            <p class="subtitle">Experience real-time GPU-accelerated tsunami simulation. Watch waves propagate across oceans, reflect off coastlines, and flood coastal areas based on real elevation data.</p>
+            <a href="#" class="app-store-badge">
+                <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store">
+            </a>
+        </div>
+    </header>
+
+    <div class="disclaimer-banner">
+        <strong>Educational Purpose Only</strong>
+        This app is NOT an emergency warning system. Do not use for disaster planning or evacuation decisions. Always rely on official sources like NOAA and local emergency management.
+    </div>
+
+    <main>
+        <section class="features">
+            <h2>Features</h2>
+            <div class="feature-grid">
+                <div class="feature">
+                    <div class="feature-icon">🌊</div>
+                    <h3>Real Physics Simulation</h3>
+                    <p>Uses shallow water equations - the same mathematics used by scientific institutions - to simulate realistic wave propagation.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">⚡</div>
+                    <h3>GPU Accelerated</h3>
+                    <p>Powered by Metal compute shaders for real-time fluid dynamics simulation directly on your device.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🗺️</div>
+                    <h3>Global Coverage</h3>
+                    <p>Accurate coastlines from Natural Earth data. Waves travel faster in deep ocean and amplify in shallow coastal waters.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🏙️</div>
+                    <h3>Affected Cities</h3>
+                    <p>See which cities would be impacted by seismic events with distance calculations and severity estimates.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📊</div>
+                    <h3>Well-Balanced Solver</h3>
+                    <p>Hydrostatic reconstruction ensures physically accurate wave behavior without artificial artifacts at coastlines.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🎓</div>
+                    <h3>Educational</h3>
+                    <p>Perfect for students and educators. Understand why some coastlines are more vulnerable to tsunamis.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="how-it-works">
+            <h2>How It Works</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Tap the Map</h3>
+                    <p>Select any location in the ocean to simulate an earthquake epicenter.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Set Magnitude</h3>
+                    <p>Choose earthquake magnitude. Larger earthquakes create taller, wider initial waves.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Watch Simulation</h3>
+                    <p>Observe waves propagate in real-time, reflect off coastlines, and flood coastal areas.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="data-sources">
+            <h2>Technology</h2>
+            <div class="sources">
+                <div class="source">
+                    <h3>Shallow Water Equations</h3>
+                    <p>The simulation solves the 2D shallow water equations using an HLL Riemann solver with hydrostatic reconstruction for stability.</p>
+                </div>
+                <div class="source">
+                    <h3>Natural Earth Data</h3>
+                    <p>Coastline and bathymetry data from Natural Earth public domain geographic datasets for accurate wave interaction.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="requirements">
+            <h2>Requirements</h2>
+            <ul>
+                <li>iOS 18.0 or later</li>
+                <li>iPadOS 18.0 or later</li>
+                <li>macOS 15.0 or later</li>
+                <li>Metal GPU support</li>
+            </ul>
+        </section>
+
+        <section id="support" class="data-sources">
+            <h2>Support</h2>
+            <div class="sources">
+                <div class="source">
+                    <h3>Contact</h3>
+                    <p>Questions or feedback? Email us at <a href="mailto:walter.tengler@gmail.com">walter.tengler@gmail.com</a></p>
+                </div>
+                <div class="source">
+                    <h3>FAQ</h3>
+                    <p>Terramoto uses GPU-accelerated physics to simulate wave propagation. The simulation is simplified for educational purposes and should not be used for emergency planning.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#support">Support</a>
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="imprint.html">Imprint</a>
+            </div>
+            <div class="footer-links" style="margin-top: 15px;">
+                <a href="../index.html">Retro Graphics Converter</a>
+                <a href="../Fire/">Fire</a>
+                <a href="../Fluvio/">Fluvio</a>
+                <a href="../File Vortex/">File Vortex</a>
+                <a href="../EasyDup/">EasyDup</a>
+            </div>
+            <p>&copy; 2026 Walter Tengler. All rights reserved.</p>
+            <p class="disclaimer">This app is for educational and entertainment purposes only. Terramoto is NOT an emergency warning system and should NOT be used for disaster planning, evacuation decisions, or any life-safety purposes. For actual tsunami warnings, always rely on official sources such as NOAA and local emergency management agencies.</p>
+        </div>
+    </footer>
+</body>
+</html>
