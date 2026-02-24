@@ -52,44 +52,33 @@
         }
 
         header {
-            background: linear-gradient(180deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 50%, rgba(26,26,46,1) 100%), url('banner.png') center center;
-            background-size: cover;
+            background: var(--bg-darker);
             color: white;
             text-align: center;
-            padding: 80px 20px 100px;
+            padding: 0;
             position: relative;
+        }
+
+        .banner-img {
+            width: 100%;
+            max-width: 1200px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
         }
 
         .hero-content {
             position: relative;
             z-index: 1;
-        }
-
-        h1 {
-            font-size: 4.5em;
-            font-weight: 800;
-            margin-bottom: 20px;
-            letter-spacing: -0.02em;
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
-        }
-
-        h1 span {
-            color: var(--accent);
-        }
-
-        .subtitle {
-            font-size: 1.6em;
-            font-weight: 400;
-            color: var(--text-secondary);
-            margin-bottom: 15px;
-            text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+            padding: 30px 20px 40px;
+            background: linear-gradient(180deg, var(--bg-darker) 0%, var(--bg-dark) 100%);
         }
 
         .tagline {
-            font-size: 1.2em;
-            color: var(--accent);
-            font-weight: 600;
-            margin-bottom: 30px;
+            font-size: 1.1em;
+            color: var(--text-tertiary);
+            font-weight: 400;
+            margin-bottom: 25px;
         }
 
         .badge {
@@ -469,20 +458,12 @@
         }
 
         @media (max-width: 768px) {
-            h1 {
-                font-size: 2.8em;
-            }
-
             h2 {
                 font-size: 2em;
             }
 
-            .subtitle {
-                font-size: 1.2em;
-            }
-
-            header {
-                padding: 60px 20px 80px;
+            .hero-content {
+                padding: 20px 20px 30px;
             }
 
             section {
@@ -523,10 +504,9 @@
 </head>
 <body>
     <header>
+        <img src="banner.png" alt="Missile Tag - Launch Missiles at Your Friends. Losers Buy Beer." class="banner-img">
         <div class="hero-content">
-            <h1>Missile <span>Tag</span></h1>
-            <p class="subtitle">Launch Missiles at Your Friends. Losers Buy Beer.</p>
-            <p class="tagline">Real-time location-based PvP. Run or get hit.</p>
+            <p class="tagline">Real-time location-based PvP game for iOS</p>
             <span class="badge">iOS 16+</span>
 
             <div class="button-group">
