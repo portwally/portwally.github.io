@@ -41,32 +41,32 @@
                 <div class="feature">
                     <div class="feature-icon">🌊</div>
                     <h3>Real Physics Simulation</h3>
-                    <p>Uses shallow water equations - the same mathematics used by scientific institutions - to simulate realistic wave propagation.</p>
+                    <p>Solves the shallow water equations — the same mathematical framework used by real tsunami warning centers — with an HLL Riemann solver for accurate wave propagation.</p>
                 </div>
                 <div class="feature">
                     <div class="feature-icon">⚡</div>
                     <h3>GPU Accelerated</h3>
-                    <p>Powered by Metal compute shaders for real-time fluid dynamics simulation directly on your device.</p>
+                    <p>The entire simulation runs on your GPU via Apple Metal compute shaders, enabling real-time wave propagation across thousands of grid cells simultaneously.</p>
                 </div>
                 <div class="feature">
                     <div class="feature-icon">🗺️</div>
                     <h3>Global Coverage</h3>
-                    <p>Accurate coastlines from Natural Earth data. Waves travel faster in deep ocean and amplify in shallow coastal waters.</p>
+                    <p>Real bathymetry data ensures waves accelerate in deep ocean (~720 km/h) and slow down in shallow coastal waters — just like real tsunamis. Waves cross the International Date Line seamlessly.</p>
                 </div>
                 <div class="feature">
                     <div class="feature-icon">🏙️</div>
-                    <h3>Affected Cities</h3>
-                    <p>See which cities would be impacted by seismic events with distance calculations and severity estimates.</p>
+                    <h3>11,000+ Cities</h3>
+                    <p>See which cities would be impacted with Modified Mercalli Intensity estimates based on hypocentral distance, magnitude, and earthquake depth.</p>
                 </div>
                 <div class="feature">
                     <div class="feature-icon">📊</div>
-                    <h3>Well-Balanced Solver</h3>
-                    <p>Hydrostatic reconstruction ensures physically accurate wave behavior without artificial artifacts at coastlines.</p>
+                    <h3>Well-Balanced Numerics</h3>
+                    <p>Hydrostatic reconstruction (Audusse et al. 2004) ensures a calm ocean stays calm — no fake ripples from bathymetry steps or shoreline boundaries.</p>
                 </div>
                 <div class="feature">
                     <div class="feature-icon">🎓</div>
                     <h3>Educational</h3>
-                    <p>Perfect for students and educators. Understand why some coastlines are more vulnerable to tsunamis.</p>
+                    <p>Understand why shallow earthquakes are more dangerous, how ocean depth affects wave speed, and why some coastlines are more vulnerable to tsunamis.</p>
                 </div>
             </div>
         </section>
@@ -81,8 +81,8 @@
                 </div>
                 <div class="step">
                     <div class="step-number">2</div>
-                    <h3>Set Magnitude</h3>
-                    <p>Choose earthquake magnitude. Larger earthquakes create taller, wider initial waves.</p>
+                    <h3>Set Magnitude & Depth</h3>
+                    <p>Choose earthquake magnitude (1–10) and focal depth (1–700 km). Only shallow quakes under 70 km generate tsunamis — just like in reality.</p>
                 </div>
                 <div class="step">
                     <div class="step-number">3</div>
@@ -93,15 +93,31 @@
         </section>
 
         <section class="data-sources">
-            <h2>Technology</h2>
-            <div class="sources">
+            <h2>The Science Behind the Simulation</h2>
+            <div class="sources science-grid">
                 <div class="source">
                     <h3>Shallow Water Equations</h3>
-                    <p>The simulation solves the 2D shallow water equations using an HLL Riemann solver with hydrostatic reconstruction for stability.</p>
+                    <p>Solves mass conservation and momentum equations in 2D conservative form — computing wave height and velocity at every grid point, every timestep.</p>
                 </div>
                 <div class="source">
-                    <h3>Natural Earth Data</h3>
-                    <p>Coastline and bathymetry data from Natural Earth public domain geographic datasets for accurate wave interaction.</p>
+                    <h3>HLL Riemann Solver</h3>
+                    <p>A proven numerical method for computing wave propagation across cell interfaces. Accurately captures shock waves, rarefaction fans, and wave interactions.</p>
+                </div>
+                <div class="source">
+                    <h3>Hydrostatic Reconstruction</h3>
+                    <p>State-of-the-art technique (Audusse et al. 2004) that prevents spurious numerical waves at coastlines. Ensures physically accurate behavior at every shoreline.</p>
+                </div>
+                <div class="source">
+                    <h3>Real Bathymetry</h3>
+                    <p>Uses actual ocean floor elevation data from Natural Earth. Wave speed depends on water depth — waves travel ~720 km/h in deep ocean and slow dramatically near coasts.</p>
+                </div>
+                <div class="source">
+                    <h3>Realistic Wave Physics</h3>
+                    <p>CFL-stable adaptive timestep, Manning friction for seafloor interaction, sponge layer boundaries to absorb outgoing waves, and periodic longitude wrapping for global tsunamis.</p>
+                </div>
+                <div class="source">
+                    <h3>Seismological Accuracy</h3>
+                    <p>Earthquake depth affects surface intensity via hypocentral distance. Only shallow quakes (&lt;70 km) generate tsunamis. Damage estimates use the Modified Mercalli Intensity scale.</p>
                 </div>
             </div>
         </section>

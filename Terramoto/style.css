@@ -241,6 +241,11 @@ nav {
     margin: 0 auto;
 }
 
+.science-grid {
+    max-width: 1200px;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+
 .source {
     background: var(--light-bg);
     padding: 2rem;
