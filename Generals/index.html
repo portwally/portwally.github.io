@@ -196,15 +196,52 @@
             letter-spacing: 0.05em;
         }
 
-        .badge {
-            font-size: 0.5em;
-            background: rgba(255,255,255,0.1);
-            padding: 4px 12px;
+        .legend {
+            margin-top: 60px;
+            padding: 30px;
+            background: var(--bg-card);
             border-radius: 20px;
-            margin-left: 10px;
-            vertical-align: middle;
-            letter-spacing: 0.05em;
-            border: 1px solid currentColor;
+            border: 2px solid var(--neon-purple);
+            box-shadow: 0 0 20px rgba(191, 0, 255, 0.3);
+        }
+
+        .legend h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5em;
+            color: var(--neon-purple);
+            text-shadow: 0 0 10px var(--neon-purple);
+            margin-bottom: 20px;
+            text-align: center;
+            letter-spacing: 0.1em;
+        }
+
+        .legend-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 15px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+        }
+
+        .legend-rank {
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .legend-equals {
+            color: var(--neon-cyan);
+        }
+
+        .legend-name {
+            color: var(--neon-pink);
+            font-style: italic;
         }
 
         @media (max-width: 600px) {
@@ -250,7 +287,7 @@
                 <img src="christoph.jpg" alt="Christoph" class="photo">
                 <div class="rank-info">
                     <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                    <div class="rank-title">General <span class="badge">Volldepp</span></div>
+                    <div class="rank-title">General</div>
                     <div class="stripes">
                         <span class="stripe"></span>
                         <span class="stripe"></span>
@@ -264,7 +301,7 @@
                 <img src="walter.jpg" alt="Walter" class="photo">
                 <div class="rank-info">
                     <div class="stars">&#9733;&#9733;&#9733;&#9733;</div>
-                    <div class="rank-title">Colonel <span class="badge">Depp</span></div>
+                    <div class="rank-title">Colonel</div>
                     <div class="stripes">
                         <span class="stripe"></span>
                         <span class="stripe"></span>
@@ -278,7 +315,7 @@
                 <img src="wally.JPG" alt="Wally" class="photo">
                 <div class="rank-info">
                     <div class="stars">&#9733;&#9733;&#9733;</div>
-                    <div class="rank-title">Major <span class="badge">Hirni</span></div>
+                    <div class="rank-title">Major</div>
                     <div class="stripes">
                         <span class="stripe"></span>
                         <span class="stripe"></span>
@@ -291,7 +328,7 @@
                 <img src="justin.jpg" alt="Justin" class="photo">
                 <div class="rank-info">
                     <div class="stars">&#9733;&#9733;</div>
-                    <div class="rank-title">Captain <span class="badge">Trottel</span></div>
+                    <div class="rank-title">Captain</div>
                     <div class="stripes">
                         <span class="stripe"></span>
                         <span class="stripe"></span>
@@ -304,11 +341,42 @@
                 <img src="Thomas.JPG" alt="Thomas" class="photo">
                 <div class="rank-info">
                     <div class="stars">&#9733;</div>
-                    <div class="rank-title">Lieutenant <span class="badge">Fröhn</span></div>
+                    <div class="rank-title">Lieutenant</div>
                     <div class="stripes">
                         <span class="stripe"></span>
                     </div>
                     <div class="name">Thomas</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="legend">
+            <h2>Legend</h2>
+            <div class="legend-grid">
+                <div class="legend-item">
+                    <span class="legend-rank">General</span>
+                    <span class="legend-equals">=</span>
+                    <span class="legend-name">Volldepp</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-rank">Colonel</span>
+                    <span class="legend-equals">=</span>
+                    <span class="legend-name">Depp</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-rank">Major</span>
+                    <span class="legend-equals">=</span>
+                    <span class="legend-name">Hirni</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-rank">Captain</span>
+                    <span class="legend-equals">=</span>
+                    <span class="legend-name">Trottel</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-rank">Lieutenant</span>
+                    <span class="legend-equals">=</span>
+                    <span class="legend-name">Fröhn</span>
                 </div>
             </div>
         </div>
