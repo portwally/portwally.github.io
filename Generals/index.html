@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE GENERALS - Ranked by Stupidity</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --neon-pink: #ff00ff;
+            --neon-cyan: #00ffff;
+            --neon-green: #39ff14;
+            --neon-yellow: #ffff00;
+            --neon-orange: #ff6600;
+            --neon-purple: #bf00ff;
+            --bg-dark: #0a0a15;
+            --bg-card: #12121f;
+            --text-primary: #ffffff;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            background-image:
+                radial-gradient(ellipse at top, rgba(191, 0, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at bottom, rgba(0, 255, 255, 0.1) 0%, transparent 50%);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4em;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--neon-pink);
+            text-shadow:
+                0 0 10px var(--neon-pink),
+                0 0 20px var(--neon-pink),
+                0 0 40px var(--neon-pink),
+                0 0 80px var(--neon-pink);
+            animation: flicker 3s infinite alternate;
+        }
+
+        @keyframes flicker {
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+                text-shadow:
+                    0 0 10px var(--neon-pink),
+                    0 0 20px var(--neon-pink),
+                    0 0 40px var(--neon-pink),
+                    0 0 80px var(--neon-pink);
+            }
+            20%, 24%, 55% {
+                text-shadow: none;
+            }
+        }
+
+        .tagline {
+            font-size: 1.4em;
+            color: var(--neon-cyan);
+            text-shadow: 0 0 10px var(--neon-cyan);
+            margin-top: 15px;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+        }
+
+        .rankings {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .rank-card {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 25px 35px;
+            border: 2px solid;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .rank-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, transparent 0%, rgba(255,255,255,0.03) 100%);
+            pointer-events: none;
+        }
+
+        .rank-card:hover {
+            transform: translateX(10px);
+        }
+
+        /* Rank-specific colors */
+        .rank-1 { border-color: var(--neon-yellow); }
+        .rank-1 .stars { color: var(--neon-yellow); text-shadow: 0 0 10px var(--neon-yellow), 0 0 20px var(--neon-yellow); }
+        .rank-1 .rank-title { color: var(--neon-yellow); text-shadow: 0 0 10px var(--neon-yellow); }
+        .rank-1 .photo { box-shadow: 0 0 20px var(--neon-yellow), 0 0 40px var(--neon-yellow); }
+
+        .rank-2 { border-color: var(--neon-orange); }
+        .rank-2 .stars { color: var(--neon-orange); text-shadow: 0 0 10px var(--neon-orange), 0 0 20px var(--neon-orange); }
+        .rank-2 .rank-title { color: var(--neon-orange); text-shadow: 0 0 10px var(--neon-orange); }
+        .rank-2 .photo { box-shadow: 0 0 20px var(--neon-orange), 0 0 40px var(--neon-orange); }
+
+        .rank-3 { border-color: var(--neon-pink); }
+        .rank-3 .stars { color: var(--neon-pink); text-shadow: 0 0 10px var(--neon-pink), 0 0 20px var(--neon-pink); }
+        .rank-3 .rank-title { color: var(--neon-pink); text-shadow: 0 0 10px var(--neon-pink); }
+        .rank-3 .photo { box-shadow: 0 0 20px var(--neon-pink), 0 0 40px var(--neon-pink); }
+
+        .rank-4 { border-color: var(--neon-cyan); }
+        .rank-4 .stars { color: var(--neon-cyan); text-shadow: 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan); }
+        .rank-4 .rank-title { color: var(--neon-cyan); text-shadow: 0 0 10px var(--neon-cyan); }
+        .rank-4 .photo { box-shadow: 0 0 20px var(--neon-cyan), 0 0 40px var(--neon-cyan); }
+
+        .rank-5 { border-color: var(--neon-green); }
+        .rank-5 .stars { color: var(--neon-green); text-shadow: 0 0 10px var(--neon-green), 0 0 20px var(--neon-green); }
+        .rank-5 .rank-title { color: var(--neon-green); text-shadow: 0 0 10px var(--neon-green); }
+        .rank-5 .photo { box-shadow: 0 0 20px var(--neon-green), 0 0 40px var(--neon-green); }
+
+        .photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+            border: 3px solid currentColor;
+        }
+
+        .rank-info {
+            flex: 1;
+        }
+
+        .stars {
+            font-size: 2em;
+            letter-spacing: 0.1em;
+            margin-bottom: 5px;
+        }
+
+        .rank-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8em;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+        }
+
+        .stripes {
+            display: flex;
+            gap: 4px;
+            margin: 10px 0;
+        }
+
+        .stripe {
+            height: 4px;
+            background: currentColor;
+            border-radius: 2px;
+            opacity: 0.6;
+        }
+
+        .rank-1 .stripe { width: 100px; background: var(--neon-yellow); }
+        .rank-2 .stripe { width: 85px; background: var(--neon-orange); }
+        .rank-3 .stripe { width: 70px; background: var(--neon-pink); }
+        .rank-4 .stripe { width: 55px; background: var(--neon-cyan); }
+        .rank-5 .stripe { width: 40px; background: var(--neon-green); }
+
+        .name {
+            font-size: 1.6em;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: 0.05em;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2.5em;
+            }
+
+            .tagline {
+                font-size: 1em;
+                letter-spacing: 0.15em;
+            }
+
+            .rank-card {
+                flex-direction: column;
+                text-align: center;
+                padding: 30px 20px;
+            }
+
+            .photo {
+                width: 140px;
+                height: 140px;
+            }
+
+            .stripes {
+                justify-content: center;
+            }
+
+            .rank-card:hover {
+                transform: translateY(-5px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>THE GENERALS</h1>
+            <p class="tagline">Ranked by Stupidity</p>
+        </header>
+
+        <div class="rankings">
+            <div class="rank-card rank-1">
+                <img src="christoph.jpg" alt="Christoph" class="photo">
+                <div class="rank-info">
+                    <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    <div class="rank-title">General</div>
+                    <div class="stripes">
+                        <span class="stripe"></span>
+                        <span class="stripe"></span>
+                        <span class="stripe"></span>
+                    </div>
+                    <div class="name">Christoph</div>
+                </div>
+            </div>
+
+            <div class="rank-card rank-2">
+                <img src="walter.jpg" alt="Walter" class="photo">
+                <div class="rank-info">
+                    <div class="stars">&#9733;&#9733;&#9733;&#9733;</div>
+                    <div class="rank-title">Colonel</div>
+                    <div class="stripes">
+                        <span class="stripe"></span>
+                        <span class="stripe"></span>
+                        <span class="stripe"></span>
+                    </div>
+                    <div class="name">Walter</div>
+                </div>
+            </div>
+
+            <div class="rank-card rank-3">
+                <img src="wally.JPG" alt="Wally" class="photo">
+                <div class="rank-info">
+                    <div class="stars">&#9733;&#9733;&#9733;</div>
+                    <div class="rank-title">Major</div>
+                    <div class="stripes">
+                        <span class="stripe"></span>
+                        <span class="stripe"></span>
+                    </div>
+                    <div class="name">Wally</div>
+                </div>
+            </div>
+
+            <div class="rank-card rank-4">
+                <img src="justin.jpg" alt="Justin" class="photo">
+                <div class="rank-info">
+                    <div class="stars">&#9733;&#9733;</div>
+                    <div class="rank-title">Captain</div>
+                    <div class="stripes">
+                        <span class="stripe"></span>
+                        <span class="stripe"></span>
+                    </div>
+                    <div class="name">Justin</div>
+                </div>
+            </div>
+
+            <div class="rank-card rank-5">
+                <img src="Thomas.JPG" alt="Thomas" class="photo">
+                <div class="rank-info">
+                    <div class="stars">&#9733;</div>
+                    <div class="rank-title">Lieutenant</div>
+                    <div class="stripes">
+                        <span class="stripe"></span>
+                    </div>
+                    <div class="name">Thomas</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
