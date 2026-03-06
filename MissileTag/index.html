@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Missile Tag - Launch Missiles at Your Friends. Losers Buy Beer.</title>
-    <meta name="description" content="Real-time location-based PvP game where friends launch virtual missiles at each other. Get hit? You owe beers. Run out of the blast radius in time — or deploy a shield.">
-    <meta name="keywords" content="missile tag, location game, pvp game, ios game, friends game, beer game, gps game, real-time game">
-    <meta property="og:title" content="Missile Tag - Launch Missiles at Your Friends">
-    <meta property="og:description" content="Real-time location-based PvP game. Get hit? You owe beers. Run or deploy shields!">
+    <title>BeerTag - Throw Stuff at Your Friends. Miss and You Owe Beer.</title>
+    <meta name="description" content="Location-based PvP party game. Start throwing rocks, build a hot streak to unlock missiles. Get hit? You owe beers. 20 weapons from snowballs to ICBMs.">
+    <meta name="keywords" content="beertag, beer tag, location game, pvp game, ios game, friends game, beer game, gps game, party game, missile game">
+    <meta property="og:title" content="BeerTag - Throw Stuff at Your Friends">
+    <meta property="og:description" content="Location-based party game. Start with rocks, streak your way to ICBMs. Miss and you owe beer!">
     <meta property="og:image" content="banner.png">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
         * {
             margin: 0;
@@ -19,22 +19,23 @@
         }
 
         :root {
-            --primary: #e74c3c;
-            --primary-dark: #c0392b;
-            --primary-light: #ff6b5b;
-            --accent: #f39c12;
-            --accent-light: #f1c40f;
-            --success: #27ae60;
-            --bg-dark: #1a1a2e;
-            --bg-darker: #0f0f1a;
-            --bg-card: #16213e;
-            --bg-section: #1a1a2e;
+            --primary: #FF4500;
+            --primary-dark: #CC3700;
+            --primary-light: #FF6B3D;
+            --accent: #FFC107;
+            --accent-light: #FFD54F;
+            --cyan: #00D4FF;
+            --success: #00E676;
+            --bg-dark: #0A0E17;
+            --bg-darker: #060910;
+            --bg-card: #111827;
+            --bg-section: #0D1117;
             --text-primary: #ffffff;
             --text-secondary: #e0e0e0;
-            --text-tertiary: #a0a0a0;
-            --border: #2a2a4a;
-            --shadow: rgba(231, 76, 60, 0.2);
-            --shadow-dark: rgba(0, 0, 0, 0.3);
+            --text-tertiary: #8899aa;
+            --border: #1E2D3D;
+            --shadow: rgba(255, 69, 0, 0.2);
+            --shadow-dark: rgba(0, 0, 0, 0.4);
         }
 
         body {
@@ -75,7 +76,7 @@
         }
 
         .tagline {
-            font-size: 1.1em;
+            font-size: 1.15em;
             color: var(--text-tertiary);
             font-weight: 400;
             margin-bottom: 25px;
@@ -84,7 +85,7 @@
         .badge {
             display: inline-block;
             padding: 10px 24px;
-            background: rgba(231, 76, 60, 0.2);
+            background: rgba(255, 69, 0, 0.15);
             border: 2px solid var(--primary);
             border-radius: 25px;
             font-size: 1em;
@@ -117,12 +118,12 @@
         .btn-primary {
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             color: white;
-            box-shadow: 0 4px 20px rgba(231, 76, 60, 0.4);
+            box-shadow: 0 4px 20px rgba(255, 69, 0, 0.4);
         }
 
         .btn-primary:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 30px rgba(231, 76, 60, 0.5);
+            box-shadow: 0 8px 30px rgba(255, 69, 0, 0.5);
         }
 
         .btn-secondary {
@@ -147,7 +148,7 @@
 
         h2 {
             font-size: 2.8em;
-            font-weight: 700;
+            font-weight: 800;
             margin-bottom: 20px;
             text-align: center;
             letter-spacing: -0.02em;
@@ -269,7 +270,7 @@
 
         .stat-number {
             font-size: 3em;
-            font-weight: 700;
+            font-weight: 800;
             background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -281,6 +282,49 @@
         .stat-label {
             color: var(--text-tertiary);
             font-size: 1.1em;
+        }
+
+        /* Streak progression visual */
+        .streak-bar {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            margin: 50px auto;
+            max-width: 900px;
+            position: relative;
+        }
+
+        .streak-stage {
+            flex: 1;
+            text-align: center;
+            padding: 20px 8px;
+            position: relative;
+        }
+
+        .streak-stage .stage-icon {
+            font-size: 2.2em;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .streak-stage .stage-label {
+            font-size: 0.75em;
+            font-weight: 600;
+            color: var(--text-tertiary);
+        }
+
+        .streak-arrow {
+            color: var(--primary);
+            font-size: 1.5em;
+            font-weight: 800;
+        }
+
+        .streak-connector {
+            height: 3px;
+            background: linear-gradient(90deg, var(--success), var(--cyan), var(--primary), var(--accent));
+            border-radius: 2px;
+            margin: 0 auto 20px;
+            max-width: 900px;
         }
 
         .arsenal-table {
@@ -313,10 +357,10 @@
         }
 
         .arsenal-table tr:hover {
-            background: rgba(231, 76, 60, 0.05);
+            background: rgba(255, 69, 0, 0.05);
         }
 
-        .tier-badge {
+        .stage-badge {
             display: inline-block;
             padding: 4px 12px;
             border-radius: 20px;
@@ -324,11 +368,11 @@
             font-weight: 600;
         }
 
-        .tier-1 { background: rgba(39, 174, 96, 0.2); color: #27ae60; }
-        .tier-2 { background: rgba(52, 152, 219, 0.2); color: #3498db; }
-        .tier-3 { background: rgba(155, 89, 182, 0.2); color: #9b59b6; }
-        .tier-4 { background: rgba(243, 156, 18, 0.2); color: #f39c12; }
-        .tier-5 { background: rgba(231, 76, 60, 0.2); color: #e74c3c; }
+        .band-1 { background: rgba(0, 230, 118, 0.15); color: #00E676; }
+        .band-2 { background: rgba(0, 212, 255, 0.15); color: #00D4FF; }
+        .band-3 { background: rgba(155, 89, 182, 0.15); color: #BB86FC; }
+        .band-4 { background: rgba(255, 152, 0, 0.15); color: #FF9800; }
+        .band-5 { background: rgba(255, 69, 0, 0.15); color: #FF4500; }
 
         .download-section {
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
@@ -337,7 +381,7 @@
             border-radius: 24px;
             text-align: center;
             margin: 60px 0;
-            box-shadow: 0 8px 40px rgba(231, 76, 60, 0.3);
+            box-shadow: 0 8px 40px rgba(255, 69, 0, 0.3);
         }
 
         .download-section h2 {
@@ -408,7 +452,7 @@
         }
 
         .requirements li::before {
-            content: "✓";
+            content: "\2713";
             color: var(--success);
             font-size: 1.2em;
             font-weight: bold;
@@ -457,6 +501,28 @@
             margin-top: 10px;
         }
 
+        /* Highlight callout */
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(255,69,0,0.1) 0%, rgba(255,193,7,0.1) 100%);
+            border: 1px solid rgba(255,69,0,0.3);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .highlight-box .hl-text {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .highlight-box .hl-sub {
+            font-size: 1em;
+            color: var(--text-tertiary);
+            margin-top: 8px;
+        }
+
         @media (max-width: 768px) {
             h2 {
                 font-size: 2em;
@@ -495,6 +561,14 @@
             .arsenal-table td {
                 padding: 12px 10px;
             }
+
+            .streak-bar {
+                flex-wrap: wrap;
+            }
+
+            .streak-stage .stage-icon {
+                font-size: 1.6em;
+            }
         }
 
         html {
@@ -504,14 +578,14 @@
 </head>
 <body>
     <header>
-        <img src="banner.png" alt="Missile Tag - Launch Missiles at Your Friends. Losers Buy Beer." class="banner-img">
+        <img src="banner.png" alt="BeerTag - Throw Stuff at Your Friends. Miss and You Owe Beer." class="banner-img">
         <div class="hero-content">
-            <p class="tagline">Real-time location-based PvP game for iOS</p>
-            <span class="badge">iOS 16+</span>
+            <p class="tagline">Location-based PvP party game for iOS &mdash; from rocks to ICBMs</p>
+            <span class="badge">Now on TestFlight</span>
 
             <div class="button-group">
                 <a href="#" class="btn btn-primary">
-                    Coming Soon to App Store
+                    Join TestFlight Beta
                 </a>
             </div>
         </div>
@@ -521,20 +595,20 @@
         <div class="container">
             <div class="stats">
                 <div class="stat-item">
-                    <span class="stat-number">30+</span>
-                    <span class="stat-label">Real Missile Types</span>
+                    <span class="stat-number">20</span>
+                    <span class="stat-label">Weapons to Unlock</span>
                 </div>
                 <div class="stat-item">
                     <span class="stat-number">GPS</span>
                     <span class="stat-label">Real-time Tracking</span>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-number">5</span>
-                    <span class="stat-label">Weapon Tiers</span>
+                    <span class="stat-number">Live</span>
+                    <span class="stat-label">Multiplayer via Firebase</span>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-number">Live</span>
-                    <span class="stat-label">Missile Map</span>
+                    <span class="stat-number">2m</span>
+                    <span class="stat-label">Direct Hit Required</span>
                 </div>
             </div>
         </div>
@@ -542,9 +616,66 @@
 
     <section style="background: var(--bg-section);">
         <div class="container">
+            <h2>The Hot Streak</h2>
+            <p class="section-subtitle">
+                Everyone starts with a rock. Hit your friend? You level up to the next weapon. Miss? You drop back to rocks &mdash; and you owe them a beer.
+            </p>
+
+            <div class="streak-connector"></div>
+            <div class="streak-bar">
+                <div class="streak-stage">
+                    <span class="stage-icon">&#x1FAA8;</span>
+                    <span class="stage-label">Rock</span>
+                </div>
+                <span class="streak-arrow">&rarr;</span>
+                <div class="streak-stage">
+                    <span class="stage-icon">&#x2603;&#xFE0F;</span>
+                    <span class="stage-label">Snowball</span>
+                </div>
+                <span class="streak-arrow">&rarr;</span>
+                <div class="streak-stage">
+                    <span class="stage-icon">&#x1F37A;</span>
+                    <span class="stage-label">Beer Bottle</span>
+                </div>
+                <span class="streak-arrow">&rarr;</span>
+                <div class="streak-stage">
+                    <span class="stage-icon">&#x26BD;</span>
+                    <span class="stage-label">Football</span>
+                </div>
+                <span class="streak-arrow">&rarr;</span>
+                <div class="streak-stage">
+                    <span class="stage-icon">&#x1F3F9;</span>
+                    <span class="stage-label">Bow</span>
+                </div>
+                <span class="streak-arrow">&rarr;</span>
+                <div class="streak-stage">
+                    <span class="stage-icon">&#x1F4A3;</span>
+                    <span class="stage-label">Grenade</span>
+                </div>
+                <span class="streak-arrow">&rarr;</span>
+                <div class="streak-stage">
+                    <span class="stage-icon">&#x1F680;</span>
+                    <span class="stage-label">RPG-7</span>
+                </div>
+                <span class="streak-arrow">&rarr;</span>
+                <div class="streak-stage">
+                    <span class="stage-icon">&#x2622;&#xFE0F;</span>
+                    <span class="stage-label">ICBM</span>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <div class="hl-text">Miss = Reset to Rock + Owe a Beer</div>
+                <div class="hl-sub">The friend who dodged your shot gets +1 stage for free</div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
             <h2>How It Works</h2>
             <p class="section-subtitle">
-                Target your friends' real GPS positions, launch virtual missiles, and watch them scramble to escape the blast radius. Miss? You wasted a missile. Hit? They owe you a beer.
+                Share invite codes with friends, pick your weapon, and launch at their real GPS position. They see it coming in real-time on their phone.
             </p>
 
             <div class="gameplay-section">
@@ -552,90 +683,33 @@
                     <div class="gameplay-step">
                         <span class="step-number">1</span>
                         <h3>Add Friends</h3>
-                        <p>Invite via link, QR code, or contacts</p>
+                        <p>Share your 6-character invite code or enter theirs</p>
                     </div>
                     <div class="gameplay-step">
                         <span class="step-number">2</span>
-                        <h3>Pick Weapon</h3>
-                        <p>Choose from your arsenal</p>
+                        <h3>Pick Target</h3>
+                        <p>See friends on the map with live GPS positions</p>
                     </div>
                     <div class="gameplay-step">
                         <span class="step-number">3</span>
                         <h3>Launch!</h3>
-                        <p>Target their GPS position</p>
+                        <p>Your current streak weapon flies toward their position</p>
                     </div>
                     <div class="gameplay-step">
                         <span class="step-number">4</span>
-                        <h3>Countdown</h3>
-                        <p>Target gets real-time alert</p>
+                        <h3>They See It</h3>
+                        <p>Real-time alert with countdown timer and trajectory</p>
                     </div>
                     <div class="gameplay-step">
                         <span class="step-number">5</span>
                         <h3>Evade or Shield</h3>
-                        <p>Run or deploy defenses</p>
+                        <p>Run out of the blast radius or deploy defenses</p>
                     </div>
                     <div class="gameplay-step">
                         <span class="step-number">6</span>
-                        <h3>Settle Up</h3>
-                        <p>Hit = they owe you</p>
+                        <h3>Beer or Glory</h3>
+                        <p>Hit = streak up. Miss = reset + owe a beer</p>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section>
-        <div class="container">
-            <h2>Key Features</h2>
-            <p class="section-subtitle">Everything you need for friendly warfare</p>
-
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <span class="feature-icon">🗺️</span>
-                    <h3 class="feature-title">Live Missile Map</h3>
-                    <p class="feature-desc">
-                        Watch missiles fly in real-time. See the blast radius, track your friends' positions, and know exactly when impact is coming.
-                    </p>
-                </div>
-
-                <div class="feature-card">
-                    <span class="feature-icon">🚀</span>
-                    <h3 class="feature-title">Real Missile Specs</h3>
-                    <p class="feature-desc">
-                        From RPG-7s to ICBMs — all missiles use real-world speeds, ranges, and blast calculations. Physics matters.
-                    </p>
-                </div>
-
-                <div class="feature-card">
-                    <span class="feature-icon">🛡️</span>
-                    <h3 class="feature-title">Defense Systems</h3>
-                    <p class="feature-desc">
-                        Deploy Iron Dome shields, activate bunkers, send decoys, or just run. Multiple ways to survive an incoming strike.
-                    </p>
-                </div>
-
-                <div class="feature-card">
-                    <span class="feature-icon">📍</span>
-                    <h3 class="feature-title">GPS Precision</h3>
-                    <p class="feature-desc">
-                        Real-time location tracking during engagements. Safe zones for home and work where you can't be targeted.
-                    </p>
-                </div>
-
-                <div class="feature-card">
-                    <span class="feature-icon">🎖️</span>
-                    <h3 class="feature-title">Rank Progression</h3>
-                    <p class="feature-desc">
-                        Start as a Recruit with RPGs. Earn points to unlock Tier 5 ICBMs. 100 levels of progression to Supreme Commander.
-                    </p>
-                </div>
-
-                <div class="feature-card">
-                    <span class="feature-icon">👥</span>
-                    <h3 class="feature-title">Spectator Mode</h3>
-                    <p class="feature-desc">
-                        Friends can watch active engagements in real-time. Perfect for group trash talk and social gaming.
-                    </p>
                 </div>
             </div>
         </div>
@@ -643,26 +717,56 @@
 
     <section style="background: var(--bg-section);">
         <div class="container">
-            <h2>Stake Modes</h2>
-            <p class="section-subtitle">Play your way — from casual to competitive</p>
+            <h2>Key Features</h2>
+            <p class="section-subtitle">Everything you need for friendly warfare</p>
 
-            <div class="modes-grid">
-                <div class="mode-card">
-                    <div class="mode-icon">🍺</div>
-                    <h3>Beer Mode</h3>
-                    <p>Track beer IOUs in a shared ledger. Get hit? You owe 1-3 beers based on warhead class. Social accountability built in.</p>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <span class="feature-icon">&#x1F4F1;</span>
+                    <h3 class="feature-title">Real-time Multiplayer</h3>
+                    <p class="feature-desc">
+                        Firebase-powered live sync. Both players see the projectile in flight, trajectories on the map, and impact resolution in real-time.
+                    </p>
                 </div>
 
-                <div class="mode-card">
-                    <div class="mode-icon">🎯</div>
-                    <h3>Points Mode</h3>
-                    <p>Free-to-play with virtual currency. Leaderboards, cosmetic rewards, and bragging rights. No real money required.</p>
+                <div class="feature-card">
+                    <span class="feature-icon">&#x1F525;</span>
+                    <h3 class="feature-title">Hot Streak System</h3>
+                    <p class="feature-desc">
+                        Every hit advances your weapon one stage. Chain hits to go from rocks to ICBMs in a single session. One miss resets everything.
+                    </p>
                 </div>
 
-                <div class="mode-card">
-                    <div class="mode-icon">💰</div>
-                    <h3>Crypto Mode</h3>
-                    <p>Micro-stakes with ETH, SOL, or USDC. Smart contract escrow holds stakes until impact. Coming in v1.1.</p>
+                <div class="feature-card">
+                    <span class="feature-icon">&#x1F6E1;&#xFE0F;</span>
+                    <h3 class="feature-title">Defense Systems</h3>
+                    <p class="feature-desc">
+                        Deploy Iron Dome shields, activate bunkers, send decoys, or just run. Multiple ways to survive an incoming strike.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">&#x1F4CD;</span>
+                    <h3 class="feature-title">GPS Precision</h3>
+                    <p class="feature-desc">
+                        Combat-grade location tracking during engagements. Everyday weapons need a 2-meter direct hit &mdash; basically standing on top of them.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">&#x1F5FA;&#xFE0F;</span>
+                    <h3 class="feature-title">Live Missile Map</h3>
+                    <p class="feature-desc">
+                        Satellite view with glowing trajectories, animated projectile dots, and blast radius circles. Track in follow-cam or full overview mode.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">&#x1F37A;</span>
+                    <h3 class="feature-title">Beer Ledger</h3>
+                    <p class="feature-desc">
+                        Automatic beer debt tracking. Miss a shot? You owe a beer. It's all tallied up on the friends screen. No escaping your debts.
+                    </p>
                 </div>
             </div>
         </div>
@@ -670,61 +774,112 @@
 
     <section>
         <div class="container">
+            <h2>Stake Modes</h2>
+            <p class="section-subtitle">Play your way &mdash; from casual to competitive</p>
+
+            <div class="modes-grid">
+                <div class="mode-card">
+                    <div class="mode-icon">&#x1F37A;</div>
+                    <h3>Beer Mode</h3>
+                    <p>Miss a shot? You owe a beer. Track IOUs in a shared ledger. Social accountability built in. The default way to play.</p>
+                </div>
+
+                <div class="mode-card">
+                    <div class="mode-icon">&#x1F3AF;</div>
+                    <h3>Points Mode</h3>
+                    <p>Free-to-play with virtual currency. Leaderboards, bragging rights, and rank progression. No real-world stakes.</p>
+                </div>
+
+                <div class="mode-card">
+                    <div class="mode-icon">&#x1F4B0;</div>
+                    <h3>Crypto Mode</h3>
+                    <p>Micro-stakes with ETH, SOL, or USDC. Smart contract escrow holds stakes until impact. Coming in v2.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section style="background: var(--bg-section);">
+        <div class="container">
             <h2>The Arsenal</h2>
-            <p class="section-subtitle">Sample weapons from the 30+ missile types</p>
+            <p class="section-subtitle">20 stages &mdash; from everyday objects to real-world missiles with authentic specs</p>
 
             <div style="overflow-x: auto;">
                 <table class="arsenal-table">
                     <thead>
                         <tr>
-                            <th>Missile</th>
-                            <th>Tier</th>
+                            <th>Stage</th>
+                            <th>Weapon</th>
+                            <th>Band</th>
                             <th>Speed</th>
                             <th>Range</th>
                             <th>Blast Radius</th>
-                            <th>Escape Time</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td><strong>RPG-7</strong></td>
-                            <td><span class="tier-badge tier-1">Tier 1</span></td>
-                            <td>Mach 0.9</td>
+                            <td>1</td>
+                            <td><strong>&#x1FAA8; Rock</strong></td>
+                            <td><span class="stage-badge band-1">Everyday</span></td>
+                            <td>20 km/h</td>
+                            <td>30m</td>
+                            <td>2m</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td><strong>&#x1F37A; Beer Bottle</strong></td>
+                            <td><span class="stage-badge band-1">Everyday</span></td>
+                            <td>40 km/h</td>
+                            <td>40m</td>
+                            <td>2m</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td><strong>&#x26F3; Golf Ball</strong></td>
+                            <td><span class="stage-badge band-2">Skilled</span></td>
+                            <td>250 km/h</td>
+                            <td>250m</td>
+                            <td>2m</td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td><strong>&#x1F3F9; Bow &amp; Arrow</strong></td>
+                            <td><span class="stage-badge band-2">Skilled</span></td>
+                            <td>250 km/h</td>
+                            <td>300m</td>
+                            <td>2m</td>
+                        </tr>
+                        <tr>
+                            <td>10</td>
+                            <td><strong>&#x1F4A3; Hand Grenade</strong></td>
+                            <td><span class="stage-badge band-3">Advanced</span></td>
+                            <td>100 km/h</td>
+                            <td>50m</td>
+                            <td>15m</td>
+                        </tr>
+                        <tr>
+                            <td>11</td>
+                            <td><strong>&#x1F52B; RPG-7</strong></td>
+                            <td><span class="stage-badge band-4">Military</span></td>
+                            <td>M0.9</td>
                             <td>0.5 km</td>
-                            <td>131 m</td>
-                            <td>47s</td>
+                            <td>131m</td>
                         </tr>
                         <tr>
-                            <td><strong>HIMARS</strong></td>
-                            <td><span class="tier-badge tier-2">Tier 2</span></td>
-                            <td>Mach 2.7</td>
-                            <td>150 km</td>
-                            <td>611 m</td>
-                            <td>3m 39s</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Tomahawk</strong></td>
-                            <td><span class="tier-badge tier-3">Tier 3</span></td>
-                            <td>Mach 0.7</td>
+                            <td>15</td>
+                            <td><strong>&#x1F985; Tomahawk</strong></td>
+                            <td><span class="stage-badge band-5">Devastating</span></td>
+                            <td>M0.7</td>
                             <td>1,600 km</td>
-                            <td>830 m</td>
-                            <td>4m 58s</td>
+                            <td>830m</td>
                         </tr>
                         <tr>
-                            <td><strong>Pershing II</strong></td>
-                            <td><span class="tier-badge tier-4">Tier 4</span></td>
-                            <td>Mach 7.9</td>
-                            <td>1,770 km</td>
-                            <td>793 m</td>
-                            <td>4m 45s</td>
-                        </tr>
-                        <tr>
-                            <td><strong>RS-28 Sarmat</strong></td>
-                            <td><span class="tier-badge tier-5">Tier 5</span></td>
-                            <td>Mach 20.4</td>
+                            <td>20</td>
+                            <td><strong>&#x2620;&#xFE0F; RS-28 Sarmat</strong></td>
+                            <td><span class="stage-badge band-5">Devastating</span></td>
+                            <td>M20.4</td>
                             <td>18,000 km</td>
-                            <td>2,500 m</td>
-                            <td>15 min</td>
+                            <td>2,500m</td>
                         </tr>
                     </tbody>
                 </table>
@@ -734,14 +889,14 @@
 
     <div class="container">
         <div class="download-section">
-            <h2>Ready to Launch?</h2>
+            <h2>Ready to Throw?</h2>
             <p class="download-text">
-                Missile Tag is coming soon to the App Store. Get ready to target your friends, dodge incoming strikes, and settle debts in the most explosive way possible.
+                BeerTag is live on TestFlight. Grab a friend, share invite codes, and start launching stuff at each other. From a snowball across the street to a Sarmat across the continent.
             </p>
 
             <div class="button-group">
                 <a href="#" class="btn btn-primary" style="background: white; color: var(--primary);">
-                    Coming Soon
+                    Join TestFlight Beta
                 </a>
             </div>
         </div>
