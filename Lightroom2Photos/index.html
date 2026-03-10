@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lightroom2Photos - Migrate Lightroom to Apple Photos</title>
+    <meta name="keywords" content="lightroom migration, apple photos, lightroom to photos, photo library migration, lightroom classic, macos app, photo import, catalog converter, metadata transfer, album migration">
+    <meta name="description" content="Migrate your Adobe Lightroom Classic catalog to Apple Photos. Transfer photos, albums, keywords, ratings, and metadata with a simple 4-step wizard.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/jpeg" href="Lightroom2Photos banner.jpg">
+</head>
+<body>
+    <header class="hero">
+        <nav>
+            <div class="logo">Lightroom2Photos</div>
+            <div class="nav-links">
+                <a href="privacy.html">Privacy</a>
+                <a href="imprint.html">Imprint</a>
+            </div>
+        </nav>
+        <div class="hero-content">
+            <img src="Lightroom2Photos banner.jpg" alt="Lightroom2Photos App" class="hero-image">
+            <h1>Lightroom2Photos</h1>
+            <p class="tagline">From Lightroom to Apple Photos</p>
+            <p class="subtitle">Migrate your Adobe Lightroom Classic catalog to Apple Photos. Transfer photos, albums, keywords, ratings, and GPS data with a guided 4-step wizard.</p>
+            <a href="#" class="app-store-badge">
+                <img src="https://developer.apple.com/assets/elements/badges/download-on-the-mac-app-store.svg" alt="Download on the Mac App Store">
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <section class="features">
+            <h2>Features</h2>
+            <div class="feature-grid">
+                <div class="feature">
+                    <div class="feature-icon">📂</div>
+                    <h3>Full Catalog Import</h3>
+                    <p>Reads your Lightroom Classic .lrcat catalog directly. No export needed, no intermediary formats.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📁</div>
+                    <h3>Album Migration</h3>
+                    <p>Recreates your Lightroom collections as Apple Photos albums, including nested folder hierarchies.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🏷️</div>
+                    <h3>Keyword Transfer</h3>
+                    <p>Writes Lightroom keywords into image metadata via ExifTool so they appear in Photos and Spotlight.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">⭐</div>
+                    <h3>Ratings & Labels</h3>
+                    <p>Preserves star ratings and color labels by embedding them in image descriptions.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📍</div>
+                    <h3>GPS & Dates</h3>
+                    <p>Transfers GPS coordinates and original capture dates so your photos stay organized on the map and timeline.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🔄</div>
+                    <h3>Undo Migration</h3>
+                    <p>Made a mistake? Roll back the entire migration with one click. Imported photos and albums are cleanly removed.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🔍</div>
+                    <h3>Duplicate Detection</h3>
+                    <p>Importing into an existing library? Skip duplicates automatically based on filename matching.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>Safe & Private</h3>
+                    <p>Everything runs locally on your Mac. No cloud uploads, no accounts, no data leaves your machine.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="workflow">
+            <h2>How It Works</h2>
+            <div class="workflow-steps">
+                <div class="workflow-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Select Your Catalog</h3>
+                        <p>Open your Lightroom Classic catalog file (.lrcat). The app reads it directly without modifying anything. Grant Photos library access when prompted.</p>
+                    </div>
+                </div>
+                <div class="workflow-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Review & Configure</h3>
+                        <p>See a summary of your catalog: number of photos, collections, and keywords. Grant access to source photo folders, choose what metadata to transfer, and configure album options.</p>
+                    </div>
+                </div>
+                <div class="workflow-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Migrate</h3>
+                        <p>Watch the progress in real-time as each photo is processed. Metadata is written via ExifTool, then photos are imported into your Photos library and assigned to albums.</p>
+                    </div>
+                </div>
+                <div class="workflow-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Review Report</h3>
+                        <p>See a detailed report with success rate, imported/skipped/failed counts, and any warnings. Open Photos to verify, or undo the migration if needed.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="data-sources">
+            <h2>Tips</h2>
+            <div class="sources">
+                <div class="source">
+                    <h3>Use a Separate Library</h3>
+                    <p>For safety, consider creating a new Photos library first: quit Photos, hold Option while opening Photos, and click "Create New". You can merge libraries later.</p>
+                </div>
+                <div class="source">
+                    <h3>Install ExifTool</h3>
+                    <p>For keyword and metadata transfer, install ExifTool via Homebrew: <code>brew install exiftool</code>. Without it, photos are imported but keywords won't be embedded.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="requirements">
+            <h2>Requirements</h2>
+            <ul>
+                <li>macOS 15.0 or later</li>
+                <li>Adobe Lightroom Classic catalog (.lrcat)</li>
+                <li>ExifTool (optional, for metadata)</li>
+            </ul>
+        </section>
+
+        <section id="support" class="data-sources">
+            <h2>Support</h2>
+            <div class="sources">
+                <div class="source">
+                    <h3>Contact</h3>
+                    <p>Questions or feedback? Email us at <a href="mailto:walter.tengler@gmail.com">walter.tengler@gmail.com</a></p>
+                </div>
+                <div class="source">
+                    <h3>FAQ</h3>
+                    <p>Lightroom2Photos reads your catalog file directly and does not modify it. Your original photos are never altered. The app requires Full Disk Access or folder-level permission to read your photo files.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#support">Support</a>
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="imprint.html">Imprint</a>
+            </div>
+            <div class="footer-links" style="margin-top: 15px;">
+                <a href="../Alerta/">Alerta</a>
+                <a href="../Terramoto/">Terramoto</a>
+                <a href="../Fluvio/">Fluvio</a>
+                <a href="../Terra5/">Terra5</a>
+                <a href="../EUEnergyMonitor/">EU Energy Monitor</a>
+            </div>
+            <div class="footer-links" style="margin-top: 10px;">
+                <a href="../Fire/">Fire</a>
+                <a href="../File Vortex/">File Vortex</a>
+                <a href="../EasyDup/">EasyDup</a>
+                <a href="../ExifEasy/">ExifEasy</a>
+                <a href="../Bomba/">Bomba</a>
+                <a href="../MissileTag/">MissileTag</a>
+                <a href="../Scanora/">Scanora</a>
+            </div>
+            <div class="footer-links" style="margin-top: 10px;">
+                <a href="../coresdoamor/">Cores do Amor</a>
+                <a href="../index.html">Retro Graphics</a>
+                <a href="../cyanhero.html">CyanHero</a>
+                <a href="../bitpast.html">BitPast</a>
+            </div>
+            <p>&copy; 2026 Walter Tengler. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

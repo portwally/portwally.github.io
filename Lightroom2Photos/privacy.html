@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Lightroom2Photos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="legal-page">
+        <a href="index.html" class="back-link">&larr; Back to Home</a>
+
+        <h1>Privacy Policy</h1>
+        <p><strong>Last updated:</strong> March 10, 2026</p>
+
+        <h2>1. Introduction</h2>
+        <p>Lightroom2Photos ("we", "our", or "the app") is committed to protecting your privacy. This Privacy Policy explains how we handle your information when you use our macOS application.</p>
+
+        <h2>2. Core Principle</h2>
+        <p>Lightroom2Photos is a fully offline application. All data processing happens locally on your Mac. No data is transmitted to external servers, no accounts are required, and no analytics or tracking is used.</p>
+
+        <h2>3. Information We Access</h2>
+
+        <h3>3.1 Lightroom Catalog</h3>
+        <p>The app reads your Adobe Lightroom Classic catalog file (.lrcat) to extract photo metadata, collection structures, and keyword hierarchies. The catalog file is opened in read-only mode and is never modified.</p>
+
+        <h3>3.2 Photo Files</h3>
+        <p>The app accesses your original photo files to:</p>
+        <ul>
+            <li>Import them into Apple Photos</li>
+            <li>Optionally write metadata (keywords, ratings) to file copies via ExifTool</li>
+        </ul>
+        <p>When metadata writing is enabled, the app creates temporary copies of your files, writes metadata to the copies, and imports the copies. Your original files are never modified.</p>
+
+        <h3>3.3 Apple Photos Library</h3>
+        <p>The app uses Apple's PhotoKit framework to import photos, create albums, and organize your Photos library. This requires the "Photos Library" permission which you grant explicitly.</p>
+
+        <h3>3.4 Migration Manifests</h3>
+        <p>After each migration, the app saves a manifest file locally in your Application Support directory. This file contains only asset identifiers (not photos) and is used to enable the undo/rollback feature. Manifests are stored at:</p>
+        <p><code>~/Library/Application Support/Lightroom2Photos/Manifests/</code></p>
+
+        <h2>4. Information We Do NOT Collect</h2>
+        <p>Lightroom2Photos does not collect, store, or transmit:</p>
+        <ul>
+            <li>Personal identification information</li>
+            <li>Account or login credentials</li>
+            <li>Usage analytics or tracking data</li>
+            <li>Crash reports or diagnostics</li>
+            <li>Any data to external servers or cloud services</li>
+            <li>Advertising identifiers</li>
+        </ul>
+
+        <h2>5. Third-Party Services</h2>
+        <p>Lightroom2Photos does not integrate with any third-party services, advertising networks, or analytics platforms. The app operates entirely offline.</p>
+        <p>The optional ExifTool dependency is a local command-line tool that runs on your machine. It does not connect to the internet.</p>
+
+        <h2>6. Data Storage</h2>
+        <p>All data remains on your device:</p>
+        <ul>
+            <li>Migration manifests are stored in Application Support</li>
+            <li>Temporary file copies (for metadata writing) are created in a temporary directory and cleaned up after migration</li>
+            <li>No data is stored on external servers</li>
+        </ul>
+
+        <h2>7. Permissions</h2>
+        <p>The app requests the following system permissions:</p>
+        <ul>
+            <li><strong>Photos Library (Read & Write):</strong> Required to import photos and create albums in Apple Photos</li>
+            <li><strong>File Access:</strong> Required to read your Lightroom catalog and source photo files</li>
+        </ul>
+        <p>You can revoke these permissions at any time in System Settings.</p>
+
+        <h2>8. Children's Privacy</h2>
+        <p>Lightroom2Photos does not collect any personal information from anyone, including children under 13. The app does not require any personal information to function.</p>
+
+        <h2>9. Your Rights</h2>
+        <p>You can:</p>
+        <ul>
+            <li>Revoke Photos library access at any time in System Settings</li>
+            <li>Delete migration manifests from Application Support</li>
+            <li>Delete the app to remove all locally stored data</li>
+            <li>Use the built-in rollback feature to undo any migration</li>
+        </ul>
+
+        <h2>10. Changes to This Policy</h2>
+        <p>We may update this Privacy Policy from time to time. Changes will be posted on this page with an updated revision date.</p>
+
+        <h2>11. Contact</h2>
+        <p>If you have questions about this Privacy Policy, please contact:</p>
+        <p>Walter Tengler<br>
+        Email: <a href="mailto:walter.tengler@gmail.com">walter.tengler@gmail.com</a></p>
+    </div>
+</body>
+</html>
