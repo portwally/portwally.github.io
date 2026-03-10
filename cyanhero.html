@@ -533,6 +533,10 @@
                 width: 100%;
                 justify-content: center;
             }
+
+            .formula-grid {
+                grid-template-columns: 1fr !important;
+            }
         }
 
         html {
@@ -601,6 +605,41 @@
                 Create perfect digital negatives with tone curve adjustments, real-time preview,
                 and precision controls optimized for UV exposure printing.
             </p>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <h2>Logarithmic Negative Inversion</h2>
+            <p class="section-subtitle">
+                The scientifically correct way to create digital negatives
+            </p>
+
+            <div class="workflow-section" style="margin-top: 0;">
+                <p style="color: var(--text-secondary); line-height: 1.8; font-size: 1.05em; margin-bottom: 25px;">
+                    Most digital negative software uses simple arithmetic inversion (255 minus pixel value) to convert positives to negatives. This approach is fundamentally flawed for UV-contact printing processes because it compresses shadows while stretching highlights — the opposite of what alternative processes need.
+                </p>
+                <p style="color: var(--text-secondary); line-height: 1.8; font-size: 1.05em; margin-bottom: 25px;">
+                    CyanHero uses <strong style="color: var(--primary);">logarithmic inversion</strong>, which maps pixel values so that each photographic exposure stop produces equal tonal spacing in the negative. This is critical because photographic processes respond to light intensity on a logarithmic scale — each stop represents a doubling of light.
+                </p>
+
+                <div class="formula-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin: 30px 0;">
+                    <div style="background: var(--bg-section); padding: 25px; border-radius: 12px; border: 1px solid var(--border);">
+                        <h3 style="color: var(--accent); margin-bottom: 10px; font-size: 1.1em;">Arithmetic (common but wrong)</h3>
+                        <p style="color: var(--text-tertiary); font-family: monospace; font-size: 0.95em; margin-bottom: 10px;">output = 255 - input</p>
+                        <p style="color: var(--text-tertiary); font-size: 0.9em;">Uneven stop spacing, faint shadows, excessive highlight contrast</p>
+                    </div>
+                    <div style="background: var(--bg-section); padding: 25px; border-radius: 12px; border: 2px solid var(--cyan-light);">
+                        <h3 style="color: var(--success); margin-bottom: 10px; font-size: 1.1em;">Logarithmic (CyanHero)</h3>
+                        <p style="color: var(--text-tertiary); font-family: monospace; font-size: 0.95em; margin-bottom: 10px;">output = 255 &times; (1 &minus; log(input) / log(255))</p>
+                        <p style="color: var(--text-tertiary); font-size: 0.9em;">Equal stop spacing, full tonal range, process-matched curves</p>
+                    </div>
+                </div>
+
+                <p style="color: var(--text-secondary); line-height: 1.8; font-size: 1.05em;">
+                    Combined with process-specific preset curves that are designed for the logarithmic base, CyanHero delivers negatives with consistent tonal separation across the full dynamic range of each alternative process.
+                </p>
+            </div>
         </div>
     </section>
 
