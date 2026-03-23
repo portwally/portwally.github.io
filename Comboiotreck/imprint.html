@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legal Notice - Comboio Treck</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0a1a10 0%, #0d2818 50%, #1a3a2a 100%);
+            color: #ffffff; min-height: 100vh; line-height: 1.6;
+        }
+        .container { max-width: 800px; margin: 0 auto; padding: 0 20px; }
+        header { padding: 20px 0; position: fixed; top: 0; left: 0; right: 0; background: rgba(10, 26, 16, 0.95); backdrop-filter: blur(10px); z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        nav { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .logo { font-size: 1.5rem; font-weight: 700; color: #fff; text-decoration: none; }
+        .logo span { color: #e63946; }
+        .nav-links { display: flex; gap: 30px; align-items: center; }
+        .nav-links a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.95rem; transition: color 0.3s; }
+        .nav-links a:hover { color: #4ecca3; }
+        .lang-switcher { display: flex; gap: 10px; }
+        .lang-switcher button { background: transparent; border: 1px solid rgba(255,255,255,0.3); color: rgba(255,255,255,0.7); padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 0.85rem; transition: all 0.3s; }
+        .lang-switcher button:hover, .lang-switcher button.active { background: #4ecca3; border-color: #4ecca3; color: #fff; }
+        .content { padding: 120px 0 60px; }
+        .content h1 { font-size: 2.5rem; margin-bottom: 30px; background: linear-gradient(135deg, #ffffff 0%, #4ecca3 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .imprint-content { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 40px; }
+        .imprint-content h2 { font-size: 1.3rem; margin-top: 25px; margin-bottom: 10px; color: #4ecca3; }
+        .imprint-content h2:first-child { margin-top: 0; }
+        .imprint-content p { color: rgba(255,255,255,0.8); margin-bottom: 10px; }
+        footer { padding: 40px 0; border-top: 1px solid rgba(255,255,255,0.1); text-align: center; }
+        .footer-links { display: flex; justify-content: center; gap: 30px; margin-bottom: 20px; flex-wrap: wrap; }
+        .footer-links a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.9rem; transition: color 0.3s; }
+        .footer-links a:hover { color: #4ecca3; }
+        .copyright { color: rgba(255,255,255,0.4); font-size: 0.85rem; }
+        [data-lang] { display: none; }
+        [data-lang="en"] { display: block; }
+        span[data-lang="en"], a[data-lang="en"] { display: inline; }
+        @media (max-width: 768px) { .content h1 { font-size: 2rem; } .imprint-content { padding: 25px; } .nav-links { display: none; } }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">Comboio <span>Treck</span></a>
+            <div class="nav-links">
+                <a href="index.html" data-lang="en">Home</a>
+                <a href="index.html" data-lang="de">Startseite</a>
+                <a href="index.html" data-lang="pt">Inicio</a>
+            </div>
+            <div class="lang-switcher">
+                <button onclick="setLang('en')" class="active">EN</button>
+                <button onclick="setLang('de')">DE</button>
+                <button onclick="setLang('pt')">PT</button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="content">
+        <div class="container">
+            <h1 data-lang="en">Legal Notice</h1>
+            <h1 data-lang="de">Impressum</h1>
+            <h1 data-lang="pt">Aviso Legal</h1>
+
+            <div class="imprint-content" data-lang="en">
+                <h2>Information according to Section 5 TMG</h2>
+                <p>Walter Tengler</p>
+                <p>Email: walter.tengler@gmail.com</p>
+
+                <h2>Disclaimer</h2>
+                <p>All train data displayed in Comboio Treck is provided by Comboios de Portugal (CP) and is subject to their terms of use. We do not guarantee the accuracy, completeness, or timeliness of the displayed information.</p>
+                <p>Railway network geometry is sourced from OpenStreetMap contributors under the Open Database License (ODbL).</p>
+
+                <h2>Liability for Content</h2>
+                <p>The contents of this app and website have been created with the utmost care. However, we cannot guarantee the contents' accuracy, completeness, or topicality.</p>
+
+                <h2>Copyright</h2>
+                <p>&copy; 2026 Walter Tengler. All rights reserved.</p>
+            </div>
+
+            <div class="imprint-content" data-lang="de">
+                <h2>Angaben gemass Section 5 TMG</h2>
+                <p>Walter Tengler</p>
+                <p>E-Mail: walter.tengler@gmail.com</p>
+
+                <h2>Haftungsausschluss</h2>
+                <p>Alle in Comboio Treck angezeigten Zugdaten werden von Comboios de Portugal (CP) bereitgestellt und unterliegen deren Nutzungsbedingungen. Wir garantieren nicht die Richtigkeit, Vollstandigkeit oder Aktualitat der angezeigten Informationen.</p>
+                <p>Die Eisenbahnnetz-Geometrie stammt von OpenStreetMap-Mitwirkenden unter der Open Database License (ODbL).</p>
+
+                <h2>Haftung fur Inhalte</h2>
+                <p>Die Inhalte dieser App und Website wurden mit grosster Sorgfalt erstellt. Fur die Richtigkeit, Vollstandigkeit und Aktualitat der Inhalte konnen wir jedoch keine Gewahr ubernehmen.</p>
+
+                <h2>Urheberrecht</h2>
+                <p>&copy; 2026 Walter Tengler. Alle Rechte vorbehalten.</p>
+            </div>
+
+            <div class="imprint-content" data-lang="pt">
+                <h2>Informacoes de acordo com a Seccao 5 TMG</h2>
+                <p>Walter Tengler</p>
+                <p>Email: walter.tengler@gmail.com</p>
+
+                <h2>Aviso de responsabilidade</h2>
+                <p>Todos os dados de comboios apresentados no Comboio Treck sao fornecidos pela Comboios de Portugal (CP) e estao sujeitos aos seus termos de utilizacao. Nao garantimos a precisao, integridade ou atualidade das informacoes apresentadas.</p>
+                <p>A geometria da rede ferroviaria e proveniente de contribuidores do OpenStreetMap sob a Licenca Open Database (ODbL).</p>
+
+                <h2>Responsabilidade pelo conteudo</h2>
+                <p>Os conteudos desta aplicacao e website foram criados com o maximo cuidado. No entanto, nao podemos garantir a precisao, integridade ou atualidade dos conteudos.</p>
+
+                <h2>Direitos de autor</h2>
+                <p>&copy; 2026 Walter Tengler. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="index.html" data-lang="en">Home</a>
+                <a href="index.html" data-lang="de">Startseite</a>
+                <a href="index.html" data-lang="pt">Inicio</a>
+                <a href="privacy.html" rel="nofollow" data-lang="en">Privacy Policy</a>
+                <a href="privacy.html" rel="nofollow" data-lang="de">Datenschutzrichtlinie</a>
+                <a href="privacy.html" rel="nofollow" data-lang="pt">Politica de Privacidade</a>
+            </div>
+            <p class="copyright">&copy; 2026 Walter Tengler</p>
+        </div>
+    </footer>
+
+    <script>
+        function setLang(lang) {
+            document.querySelectorAll('.lang-switcher button').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            document.querySelectorAll('[data-lang]').forEach(el => el.style.display = 'none');
+            document.querySelectorAll(`[data-lang="${lang}"]`).forEach(el => {
+                el.style.display = (el.tagName === 'SPAN' || el.tagName === 'A') ? 'inline' : 'block';
+            });
+            document.documentElement.lang = lang;
+            localStorage.setItem('comboiotreck-lang', lang);
+        }
+        document.addEventListener('DOMContentLoaded', () => {
+            const saved = localStorage.getItem('comboiotreck-lang');
+            if (saved) {
+                setLang(saved);
+                document.querySelectorAll('.lang-switcher button').forEach(btn => {
+                    btn.classList.remove('active');
+                    if (btn.textContent === saved.toUpperCase()) btn.classList.add('active');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
