@@ -8,7 +8,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #1a1a2e;
+            background: #0d0d1a;
             color: #fff;
             min-height: 100vh;
             padding: 40px 20px;
@@ -16,13 +16,14 @@
         h1 {
             text-align: center;
             margin-bottom: 40px;
-            font-size: 2rem;
-            color: #e0e0e0;
+            font-size: 2.2rem;
+            color: #fff;
+            text-shadow: 0 0 20px rgba(255,255,255,0.15);
         }
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 16px;
+            gap: 18px;
             max-width: 1000px;
             margin: 0 auto;
         }
@@ -32,23 +33,51 @@
         }
         .grid a button {
             width: 100%;
-            padding: 18px 16px;
+            padding: 20px 16px;
             font-size: 1rem;
-            font-weight: 600;
-            border: none;
-            border-radius: 12px;
-            background: #16213e;
-            color: #e0e0e0;
+            font-weight: 700;
+            border: 2px solid var(--clr);
+            border-radius: 14px;
+            background: rgba(0,0,0,0.3);
+            color: #fff;
             cursor: pointer;
-            transition: background 0.2s, transform 0.15s;
+            transition: transform 0.2s, box-shadow 0.3s, background 0.3s;
+            box-shadow: 0 0 12px var(--clr), inset 0 0 12px rgba(0,0,0,0.4);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
         }
         .grid a button:hover {
-            background: #0f3460;
-            transform: translateY(-2px);
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 0 24px var(--clr), 0 0 48px var(--clr), inset 0 0 12px rgba(0,0,0,0.3);
+            background: rgba(255,255,255,0.08);
         }
         .grid a button:active {
-            transform: translateY(0);
+            transform: translateY(0) scale(0.98);
         }
+
+        .grid a:nth-child(1)  button { --clr: #ff6b6b; }
+        .grid a:nth-child(2)  button { --clr: #ffa94d; }
+        .grid a:nth-child(3)  button { --clr: #ffd43b; }
+        .grid a:nth-child(4)  button { --clr: #a9e34b; }
+        .grid a:nth-child(5)  button { --clr: #51cf66; }
+        .grid a:nth-child(6)  button { --clr: #38d9a9; }
+        .grid a:nth-child(7)  button { --clr: #3bc9db; }
+        .grid a:nth-child(8)  button { --clr: #4dabf7; }
+        .grid a:nth-child(9)  button { --clr: #748ffc; }
+        .grid a:nth-child(10) button { --clr: #9775fa; }
+        .grid a:nth-child(11) button { --clr: #da77f2; }
+        .grid a:nth-child(12) button { --clr: #f06595; }
+        .grid a:nth-child(13) button { --clr: #ff8787; }
+        .grid a:nth-child(14) button { --clr: #ffb366; }
+        .grid a:nth-child(15) button { --clr: #ffe066; }
+        .grid a:nth-child(16) button { --clr: #b2f2bb; }
+        .grid a:nth-child(17) button { --clr: #63e6be; }
+        .grid a:nth-child(18) button { --clr: #66d9e8; }
+        .grid a:nth-child(19) button { --clr: #74c0fc; }
+        .grid a:nth-child(20) button { --clr: #91a7ff; }
+        .grid a:nth-child(21) button { --clr: #b197fc; }
+        .grid a:nth-child(22) button { --clr: #e599f7; }
+        .grid a:nth-child(23) button { --clr: #fcc2d7; }
+        .grid a:nth-child(24) button { --clr: #ff6b6b; }
     </style>
 </head>
 <body>
