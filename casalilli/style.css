@@ -71,6 +71,32 @@ h1, h2, h3 { font-family: 'Cormorant Garamond', Georgia, serif; }
 }
 .nav-cta:hover { background: #237063 !important; }
 
+/* === LANGUAGE SWITCHER === */
+.lang-switcher {
+    display: flex; gap: 4px;
+    margin-left: 1rem;
+    border: 1px solid rgba(42, 127, 111, 0.25);
+    border-radius: 6px;
+    overflow: hidden;
+}
+.lang-btn {
+    padding: 0.35rem 0.7rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: #636E72;
+    transition: all 0.3s;
+    text-decoration: none;
+}
+.lang-btn:hover {
+    background: rgba(42, 127, 111, 0.08);
+    color: #2A7F6F;
+}
+.lang-btn.active {
+    background: #2A7F6F;
+    color: #fff;
+}
+
 /* === HERO === */
 .hero {
     position: relative;
@@ -322,5 +348,6 @@ h1, h2, h3 { font-family: 'Cormorant Garamond', Georgia, serif; }
     .hero-title { font-size: 2.2rem; }
     .hero-subtitle { font-size: 1rem; }
     .nav-links { display: none; }
+    .lang-switcher { margin-left: auto; }
     .audience-grid { grid-template-columns: 1fr; }
 }
