@@ -28,7 +28,7 @@
         </div>
     </nav>
     <!-- Hero Banner -->
-    <header class="hero" style="background-image: url('banner.png');">
+    <header class="hero" style="background-image: url('img/banner-new.jpg');">
         <div class="hero-overlay"></div>
         <div class="hero-content">
             <h1 class="hero-title">Casa da Lili</h1>
@@ -47,6 +47,47 @@
             <p>Throughout the stay, each person is welcomed at their own pace, with space for silence, nature, rest and therapeutic support. The experience brings together simple yet deeply meaningful moments: rest, nature walks, nourishing meals, mindfulness practices and therapies tailored to each person's needs.</p>
         </div>
     </section>
+    <!-- Photo Gallery -->
+    <section class="photo-gallery-section">
+        <div class="container">
+            <h2 class="section-title">The House</h2>
+            <div class="section-divider"></div>
+            <div class="carousel-wrapper">
+                <button class="carousel-btn carousel-prev" aria-label="Previous">&#8592;</button>
+                <div class="carousel-viewport">
+                    <div class="carousel-track" id="carouselTrack">
+                        <img src="img/aerial-view.jpg" alt="Aerial view of the house and village">
+                        <img src="img/house-exterior.jpg" alt="Casa da Lili — exterior view">
+                        <img src="img/house-street.jpg" alt="House exterior">
+                        <img src="img/house-side.jpg" alt="House facade">
+                        <img src="img/house-entrance.jpg" alt="House entrance with terrace">
+                        <img src="img/terrace-1.jpg" alt="Terrace with table and sea view">
+                        <img src="img/terrace-2.jpg" alt="Terrace with hanging plants">
+                        <img src="img/terrace-lavender.jpg" alt="Lavender on the terrace with sea view">
+                        <img src="img/banner-new.jpg" alt="Terrace at dawn">
+                        <img src="img/living-room-1.jpg" alt="Living room with stone walls">
+                        <img src="img/living-room-2.jpg" alt="Living room with stairs and stone walls">
+                        <img src="img/interior-lounge.jpg" alt="Bright living space">
+                        <img src="img/interior-landing.jpg" alt="Interior hall with decoration">
+                        <img src="img/interior-sofa.jpg" alt="Colourful sofa">
+                        <img src="img/interior-sign.jpg" alt="Gratitude, Positivity, Harmony">
+                        <img src="img/bedroom.jpg" alt="Private bedroom">
+                        <img src="img/bedroom-2.jpg" alt="Bedroom with artwork">
+                        <img src="img/view-garden.jpg" alt="Window view to the garden">
+                        <img src="img/view-sea.jpg" alt="Window view to the sea">
+                        <img src="img/interior-corner.jpg" alt="Interior corner with table and mirror">
+                        <img src="img/interior-chakra.jpg" alt="Hall with plants and tapestry">
+                        <img src="img/terrace-sunflower.jpg" alt="Terrace with sunflower and sea view">
+                        <img src="img/terrace-flowers.jpg" alt="Flowers on the terrace with Atlantic view">
+                        <img src="img/detail-love.jpg" alt="Decorative detail">
+                        <img src="img/house-alley.jpg" alt="Side of the house with red flowers">
+                    </div>
+                </div>
+                <button class="carousel-btn carousel-next" aria-label="Next">&#8594;</button>
+            </div>
+        </div>
+    </section>
+
     <!-- Who is it for -->
     <section class="section section-alt">
         <div class="container">
@@ -215,6 +256,14 @@
         </div>
     </section>
 
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" id="lightboxClose">&times;</button>
+        <button class="lightbox-prev" id="lightboxPrev">&#8592;</button>
+        <img src="" alt="" id="lightboxImg">
+        <button class="lightbox-next" id="lightboxNext">&#8594;</button>
+    </div>
+
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
@@ -222,5 +271,65 @@
             <p class="footer-copy">&copy; 2026 Casa da Lili. All rights reserved.</p>
         </div>
     </footer>
+    <script>
+    const track = document.getElementById('carouselTrack');
+    const imgs = Array.from(track.querySelectorAll('img'));
+    const total = imgs.length;
+    const visible = 3;
+    let current = 0;
+    let autoTimer;
+
+    function getStepSize() {
+        const vw = track.parentElement.offsetWidth;
+        const gap = 12;
+        return (vw - gap * (visible - 1)) / visible + gap;
+    }
+
+    function goTo(index) {
+        const max = total - visible;
+        if (index > max) index = 0;
+        if (index < 0) index = max;
+        current = index;
+        track.style.transform = `translateX(-${current * getStepSize()}px)`;
+    }
+
+    document.querySelector('.carousel-prev').addEventListener('click', () => { goTo(current - 1); resetTimer(); });
+    document.querySelector('.carousel-next').addEventListener('click', () => { goTo(current + 1); resetTimer(); });
+
+    function startTimer() { autoTimer = setInterval(() => goTo(current + 1), 3500); }
+    function resetTimer() { clearInterval(autoTimer); startTimer(); }
+    startTimer();
+    window.addEventListener('resize', () => goTo(current));
+
+    // Lightbox
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    let lbIndex = 0;
+
+    imgs.forEach((img, i) => img.addEventListener('click', () => openLightbox(i)));
+
+    function openLightbox(i) {
+        lbIndex = i;
+        lightboxImg.src = imgs[i].src;
+        lightboxImg.alt = imgs[i].alt;
+        lightbox.classList.add('active');
+        clearInterval(autoTimer);
+    }
+    function closeLightbox() {
+        lightbox.classList.remove('active');
+        startTimer();
+    }
+
+    document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+    document.getElementById('lightboxNext').addEventListener('click', () => { lbIndex = (lbIndex + 1) % total; lightboxImg.src = imgs[lbIndex].src; });
+    document.getElementById('lightboxPrev').addEventListener('click', () => { lbIndex = (lbIndex - 1 + total) % total; lightboxImg.src = imgs[lbIndex].src; });
+    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+    document.addEventListener('keydown', (e) => {
+        if (!lightbox.classList.contains('active')) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowRight') { lbIndex = (lbIndex + 1) % total; lightboxImg.src = imgs[lbIndex].src; }
+        if (e.key === 'ArrowLeft') { lbIndex = (lbIndex - 1 + total) % total; lightboxImg.src = imgs[lbIndex].src; }
+    });
+    </script>
 </body>
 </html>
