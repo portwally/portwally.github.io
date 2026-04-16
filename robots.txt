@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://portwally.github.io/sitemap.xml
