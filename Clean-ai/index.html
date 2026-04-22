@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clean AI — Reclaim the disk space your AI tools forgot</title>
+    <meta name="description" content="A native macOS utility that finds and safely removes disk waste left behind by Claude, VS Code, Copilot, Gemini, Ollama, ChatGPT, Cursor and LM Studio. Files move to the Trash — nothing is deleted permanently.">
+    <meta name="keywords" content="Clean AI, macOS cleaner, disk space, AI cache, Claude, Ollama, VS Code, Copilot, Gemini, ChatGPT, Cursor, LM Studio, Mac app, cache cleaner">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="banner.png">
+</head>
+<body>
+    <nav>
+        <div class="logo">Clean AI</div>
+        <div class="nav-links">
+            <a href="#apps">Apps</a>
+            <a href="#safety">Safety</a>
+            <a href="#how">How it works</a>
+            <a href="privacy.html">Privacy</a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-content">
+            <span class="platform-chip">Native for macOS 26</span>
+            <h1>Reclaim the disk space<br>your <span class="accent">AI tools</span> forgot.</h1>
+            <p class="tagline">One sidebar. Every major AI app. Gigabytes of recoverable cache.</p>
+            <p class="subtitle">Clean AI scans the caches, logs, session data and temporary files left behind by Claude, VS Code, Copilot, Gemini, Ollama, ChatGPT, Cursor and LM Studio — then moves anything you select to the Trash. Never permanently deleted.</p>
+            <div class="cta-row">
+                <a href="#" class="app-store-badge" aria-label="Download on the Mac App Store">
+                    <img src="https://developer.apple.com/assets/elements/badges/download-on-the-mac-app-store.svg" alt="Download on the Mac App Store">
+                </a>
+                <a href="https://github.com/portwally/clean-ai" class="btn btn-secondary">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.55 0-.27-.01-1.16-.02-2.11-3.2.7-3.87-1.36-3.87-1.36-.53-1.33-1.28-1.68-1.28-1.68-1.05-.72.08-.7.08-.7 1.16.08 1.76 1.19 1.76 1.19 1.03 1.76 2.7 1.26 3.36.97.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.28 1.19-3.08-.12-.29-.52-1.47.11-3.06 0 0 .97-.31 3.18 1.18A11 11 0 0 1 12 6.8c.99 0 1.97.13 2.89.39 2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.24 2.77.12 3.06.74.8 1.19 1.82 1.19 3.08 0 4.41-2.69 5.39-5.25 5.67.41.36.77 1.06.77 2.13 0 1.54-.01 2.78-.01 3.16 0 .3.2.66.8.54 4.56-1.53 7.85-5.83 7.85-10.91C23.5 5.65 18.35.5 12 .5z"/></svg>
+                    View on GitHub
+                </a>
+            </div>
+            <img src="banner.png" alt="Clean AI — macOS utility cleaning up AI app caches" class="hero-image">
+        </div>
+    </header>
+
+    <main>
+        <section id="apps" class="apps">
+            <div class="wrap">
+                <span class="section-eyebrow">Coverage</span>
+                <h2 class="section-title">Seven AI apps. One clean sidebar.</h2>
+                <p class="section-lede">Clean AI shows each supported app as its own tab with the real app icon and a live size badge. Apps you don't have installed appear dimmed.</p>
+
+                <div class="app-grid">
+                    <div class="app-tile" style="--tile-color: var(--claude);">
+                        <div class="app-icon">C</div>
+                        <div class="app-name">Claude</div>
+                        <div class="app-footprint">CLI · Desktop · Worktrees</div>
+                        <div class="app-detail">Electron caches, VM bundles, session data, stale worktrees and <code>/tmp/claude-*</code> directories.</div>
+                    </div>
+                    <div class="app-tile" style="--tile-color: var(--vscode);">
+                        <div class="app-icon">&lt;/&gt;</div>
+                        <div class="app-name">VS Code + Copilot</div>
+                        <div class="app-footprint">With Claude Code</div>
+                        <div class="app-detail">Browser cache, cached workers, downloaded extension packages, duplicate old extension versions.</div>
+                    </div>
+                    <div class="app-tile" style="--tile-color: var(--gemini);">
+                        <div class="app-icon">★</div>
+                        <div class="app-name">Gemini CLI</div>
+                        <div class="app-footprint">Google AI</div>
+                        <div class="app-detail">Temporary files. Credentials and settings are shown but locked from deletion.</div>
+                    </div>
+                    <div class="app-tile" style="--tile-color: var(--ollama);">
+                        <div class="app-icon">◆</div>
+                        <div class="app-name">Ollama</div>
+                        <div class="app-footprint">Local LLM runner</div>
+                        <div class="app-detail">Manifests, app-support data, logs. Model weights flagged as caution — they re-download.</div>
+                    </div>
+                    <div class="app-tile" style="--tile-color: var(--chatgpt);">
+                        <div class="app-icon">◉</div>
+                        <div class="app-name">ChatGPT</div>
+                        <div class="app-footprint">OpenAI desktop</div>
+                        <div class="app-detail">Electron browser cache, code cache, GPU cache, logs and app cache.</div>
+                    </div>
+                    <div class="app-tile" style="--tile-color: var(--cursor);">
+                        <div class="app-icon">▸</div>
+                        <div class="app-name">Cursor</div>
+                        <div class="app-footprint">AI code editor</div>
+                        <div class="app-detail">Same cleanup pattern as VS Code. Session backups and extensions marked caution.</div>
+                    </div>
+                    <div class="app-tile" style="--tile-color: var(--lmstudio);">
+                        <div class="app-icon">▣</div>
+                        <div class="app-name">LM Studio</div>
+                        <div class="app-footprint">Local model studio</div>
+                        <div class="app-detail">Cache, logs and downloaded models. Model files need re-download after cleanup.</div>
+                    </div>
+                    <div class="app-tile" style="--tile-color: var(--gemini);">
+                        <div class="app-icon">+</div>
+                        <div class="app-name">Add your own</div>
+                        <div class="app-footprint">Open source</div>
+                        <div class="app-detail">Every app is defined by a single registry entry. Fork, add a config, open a PR.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="gallery">
+            <div class="wrap">
+                <span class="section-eyebrow">Inside the app</span>
+                <h2 class="section-title">A native macOS experience, not a web wrapper.</h2>
+                <p class="section-lede">Sidebar navigation, segmented tabs, SF Symbols, traffic-light window controls. Every detail feels like it belongs on your Mac because it is built on SwiftUI.</p>
+
+                <div class="gallery-grid">
+                    <div class="shot">
+                        <figure>
+                            <img src="shot-claude-list.png" alt="Clean AI scanning Claude — list view showing 14.19 GB across 45 items" loading="lazy">
+                        </figure>
+                        <div class="shot-caption">
+                            <span class="shot-kicker" style="--shot-color: var(--claude);">List · Claude</span>
+                            <span class="shot-title">14 GB of caches, logs and VM bundles grouped by category.</span>
+                        </div>
+                    </div>
+
+                    <div class="shot">
+                        <figure>
+                            <img src="shot-vscode-list.png" alt="Clean AI scanning VS Code — Safe, Use Caution and Do Not Delete sections with extension package sizes" loading="lazy">
+                        </figure>
+                        <div class="shot-caption">
+                            <span class="shot-kicker" style="--shot-color: var(--vscode);">List · VS Code</span>
+                            <span class="shot-title">Old Claude Code extensions flagged automatically as safe to delete.</span>
+                        </div>
+                    </div>
+
+                    <div class="shot">
+                        <figure>
+                            <img src="shot-gemini-list.png" alt="Clean AI scanning Gemini CLI — showing safe temp files, caution-flagged accounts and locked OAuth credentials" loading="lazy">
+                        </figure>
+                        <div class="shot-caption">
+                            <span class="shot-kicker" style="--shot-color: var(--gemini);">List · Gemini CLI</span>
+                            <span class="shot-title">OAuth credentials shown but locked — the UI refuses to select them.</span>
+                        </div>
+                    </div>
+
+                    <div class="shot">
+                        <figure>
+                            <img src="shot-claude-chart.png" alt="Clean AI storage chart for Claude — horizontal bars showing each item's footprint" loading="lazy">
+                        </figure>
+                        <div class="shot-caption">
+                            <span class="shot-kicker" style="--shot-color: var(--claude);">Chart · Claude</span>
+                            <span class="shot-title">See the hogs at a glance. One 11 GB VM bundle, dozens of small caches.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="bento">
+            <div class="wrap">
+                <span class="section-eyebrow">Why it's different</span>
+                <h2 class="section-title">Not a sledgehammer. A scalpel.</h2>
+                <p class="section-lede">Generic cleaners don't know the difference between your chat history and a 40 GB cache blob. Clean AI does — because every path was audited by hand.</p>
+
+                <div class="bento-grid">
+                    <div class="bento-cell span-3 bento-accent">
+                        <div class="pill-icon">↺</div>
+                        <h3>Trash, never permanent</h3>
+                        <p>Every selected item is moved via <code>FileManager.trashItem</code>. If you change your mind, restore from the Trash like any other file.</p>
+                    </div>
+                    <div class="bento-cell span-3">
+                        <div class="pill-icon">◉</div>
+                        <h3>Audited paths</h3>
+                        <p>Every scan location was verified on a real machine. We know which files are regenerable caches and which hold your settings — and label them accordingly.</p>
+                    </div>
+                    <div class="bento-cell span-2">
+                        <div class="pill-icon">○</div>
+                        <h3>No account. No telemetry.</h3>
+                        <p>Runs entirely on your Mac. Nothing leaves your machine.</p>
+                    </div>
+                    <div class="bento-cell span-2">
+                        <div class="pill-icon">⇅</div>
+                        <h3>Per-app views</h3>
+                        <p>List and chart views for each app. Sort by size. Select what to remove individually.</p>
+                    </div>
+                    <div class="bento-cell span-2">
+                        <div class="pill-icon">⟳</div>
+                        <h3>Smart duplicates</h3>
+                        <p>When you have two versions of Claude Code installed, the older one is flagged as safe to delete automatically.</p>
+                    </div>
+                    <div class="bento-cell span-6">
+                        <div class="pill-icon">✻</div>
+                        <h3>One sidebar, seven apps, growing.</h3>
+                        <p>Adding a new app takes a single entry in <code>AppRegistry.swift</code>. The sidebar, scanner, list view and cleanup flow all pick it up automatically. Contributions welcome.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="safety" class="safety">
+            <div class="wrap">
+                <span class="section-eyebrow">Safety model</span>
+                <h2 class="section-title">Three colors. No ambiguity.</h2>
+                <p class="section-lede">Every scanned path is classified before you see it. The same colors appear throughout the app — green, orange, red — and the UI refuses to let you select the red ones.</p>
+
+                <div class="safety-rows">
+                    <div class="safety-row tier-safe">
+                        <div class="safety-label"><span class="safety-dot"></span>Safe</div>
+                        <div class="safety-body"><strong>Regenerated automatically.</strong> HTTP caches, compiled workers, log files, temp directories, downloaded extension packages. Delete without concern.</div>
+                        <div class="safety-meta">Selectable by default</div>
+                    </div>
+                    <div class="safety-row tier-caution">
+                        <div class="safety-label"><span class="safety-dot"></span>Caution</div>
+                        <div class="safety-body"><strong>Removable, but with consequences.</strong> Model weights require re-download (gigabytes). Extensions need reinstalling. Workspace storage loses chat and search history.</div>
+                        <div class="safety-meta">Selectable, clearly warned</div>
+                    </div>
+                    <div class="safety-row tier-unsafe">
+                        <div class="safety-label"><span class="safety-dot"></span>Do not delete</div>
+                        <div class="safety-body"><strong>Settings, credentials, configuration.</strong> OAuth tokens, user preferences, MCP configs, plugin settings. Shown for visibility but the UI will not let you select them.</div>
+                        <div class="safety-meta">Lock icon, non-selectable</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="how" class="flow">
+            <div class="wrap">
+                <span class="section-eyebrow">Flow</span>
+                <h2 class="section-title">Scan. Review. Trash.</h2>
+                <p class="section-lede">No configuration, no profiles, no preset cleanup recipes. Just three steps you can stop at any time.</p>
+
+                <div class="flow-steps">
+                    <div class="flow-step">
+                        <h3>Pick an app</h3>
+                        <p>The sidebar shows every supported app with its real icon. Tap one — Clean AI scans it in the background and shows every discovered item sorted by size.</p>
+                    </div>
+                    <div class="flow-step">
+                        <h3>Review &amp; select</h3>
+                        <p>See each path with its category, safety level, and size. Flip between a grouped list and a horizontal bar chart. Select everything safe with one click, or pick individually.</p>
+                    </div>
+                    <div class="flow-step">
+                        <h3>Move to Trash</h3>
+                        <p>A final confirmation shows exactly how many items and how many megabytes. Clean AI moves them to the Trash and re-scans so you can see what's left.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="requirements">
+            <div class="wrap">
+                <span class="section-eyebrow">Requirements</span>
+                <h2 class="section-title" style="margin-left: auto; margin-right: auto;">Runs on modern Macs.</h2>
+                <div class="req-chips">
+                    <div class="req-chip">macOS 26.2 or later</div>
+                    <div class="req-chip">Apple Silicon or Intel</div>
+                    <div class="req-chip">No network required</div>
+                    <div class="req-chip">Free &amp; open source</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-wrap">
+            <div class="footer-links footer-primary">
+                <a href="https://github.com/portwally/clean-ai">GitHub</a>
+                <a href="privacy.html">Privacy</a>
+                <a href="imprint.html">Imprint</a>
+            </div>
+            <div class="footer-links" style="margin-top: 1rem;">
+                <a href="../SOSIberico/">SOS Ibérica</a>
+                <a href="../Fugiu/">Fugiu!</a>
+                <a href="../Alerta/">Alerta</a>
+                <a href="../Fire/">Fire</a>
+                <a href="../Terramoto/">Terramoto</a>
+                <a href="../Fluvio/">Fluvio</a>
+                <a href="../EUEnergyMonitor/">EU Energy Monitor</a>
+            </div>
+            <div class="footer-links" style="margin-top: 0.5rem;">
+                <a href="../File Vortex/">File Vortex</a>
+                <a href="../EasyDup/">EasyDup</a>
+                <a href="../ExifEasy/">ExifEasy</a>
+                <a href="../SlimPix/">SlimPix</a>
+                <a href="../Scanora/">Scanora</a>
+                <a href="../Bomba/">Bomba</a>
+                <a href="../BeerTag/">BeerTag</a>
+            </div>
+            <div class="footer-links" style="margin-top: 0.5rem;">
+                <a href="../coresdoamor/">Cores do Amor</a>
+                <a href="../index.html">Retro Graphics</a>
+                <a href="../cyanhero.html">CyanHero</a>
+                <a href="../bitpast.html">BitPast</a>
+                <a href="../Adsensemonitor/">AdSense Monitor</a>
+                <a href="../Comboiotreck/">Comboiotreck</a>
+                <a href="../CertificadoEnergetico/">Certificado Energético</a>
+                <a href="../climaviva/">Clima Viva</a>
+                <a href="../emergengy-reminder/">Emergency Reminder</a>
+                <a href="../Pibup/">Pibup</a>
+            </div>
+            <p>&copy; 2026 Walter Tengler. Clean AI is open source under the MIT licence.</p>
+        </div>
+    </footer>
+</body>
+</html>
