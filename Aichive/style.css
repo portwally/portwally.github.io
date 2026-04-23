@@ -836,6 +836,27 @@ body.legal {
         gap: 0.5rem;
     }
     .safety-meta { text-align: left; }
+
+    .gallery-grid {
+        grid-template-columns: 1fr;
+        gap: 1.75rem;
+    }
+
+    .shot-caption {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.35rem;
+    }
+}
+
+@media (max-width: 640px) {
+    /* Hide in-page anchor links (Apps, Safety, How it works) on narrow
+       screens — they wrap awkwardly. Keep Support and Privacy visible. */
+    .nav-links a:nth-child(1),
+    .nav-links a:nth-child(2),
+    .nav-links a:nth-child(3) {
+        display: none;
+    }
 }
 
 @media (max-width: 600px) {
@@ -847,5 +868,21 @@ body.legal {
     .section-title { font-size: 1.75rem; }
     nav { padding: 0.8rem 1.25rem; }
     .nav-links { gap: 1.25rem; }
-    .nav-links a { font-size: 0.85rem; }
+    .nav-links a { font-size: 0.9rem; }
+
+    /* Support card can't be side-by-side on narrow screens */
+    .support-card {
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 1rem 1.25rem;
+        font-size: 0.95rem;
+    }
+
+    /* Disclaimer text size */
+    .disclaimer-text { font-size: 0.8rem; }
+
+    /* App tile grid tightens */
+    .app-grid {
+        grid-template-columns: 1fr;
+    }
 }
