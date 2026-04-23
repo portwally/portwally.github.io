@@ -339,9 +339,92 @@ section {
     line-height: 1.5;
 }
 
+/* Gallery — screenshots of the macOS app */
+.gallery {
+    background: var(--bg-tint);
+    padding-bottom: 6rem;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-top: 2.5rem;
+}
+
+.gallery-grid .shot.feature {
+    grid-column: span 2;
+}
+
+.shot {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.shot figure {
+    margin: 0;
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--ink);
+    box-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.06),
+        0 12px 32px rgba(27, 26, 23, 0.12),
+        0 28px 64px rgba(27, 26, 23, 0.10);
+    border: 1px solid var(--hairline);
+    transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.shot figure:hover {
+    transform: translateY(-3px);
+    box-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.06),
+        0 16px 40px rgba(27, 26, 23, 0.16),
+        0 32px 72px rgba(27, 26, 23, 0.12);
+}
+
+.shot img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.shot-caption {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    padding: 0 0.25rem;
+}
+
+.shot-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--shot-color, var(--ink-dim));
+    white-space: nowrap;
+}
+
+.shot-kicker::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--shot-color, var(--ink-dim));
+}
+
+.shot-title {
+    font-size: 0.98rem;
+    color: var(--ink);
+    font-weight: 500;
+}
+
 /* Bento grid */
 .bento {
-    background: var(--bg-tint);
+    background: var(--bg);
 }
 
 .bento-grid {
