@@ -632,6 +632,96 @@ section {
     font-weight: 500;
 }
 
+/* Support */
+.support {
+    background: var(--bg);
+    text-align: center;
+}
+
+.support .section-title,
+.support .section-lede {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.support-card {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 1.15rem 1.85rem;
+    margin-top: 2rem;
+    background: var(--surface);
+    border: 1px solid var(--hairline);
+    border-radius: 14px;
+    text-decoration: none;
+    color: var(--ink);
+    font-size: 1.05rem;
+    font-weight: 500;
+    transition: transform 0.15s, box-shadow 0.2s, border-color 0.2s;
+    box-shadow: 0 1px 2px rgba(27, 26, 23, 0.04);
+}
+
+.support-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--hairline-strong);
+    box-shadow: 0 10px 24px rgba(27, 26, 23, 0.08);
+}
+
+.support-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(135deg, var(--claude), var(--gemini));
+    color: #fff;
+    border-radius: 10px;
+    font-size: 0.95rem;
+}
+
+.support-email {
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.005em;
+}
+
+/* Disclaimer strip — small legal note above footer */
+.disclaimer-strip {
+    background: var(--bg-tint);
+    padding: 2.25rem 2rem;
+    border-top: 1px solid var(--hairline);
+    border-bottom: 1px solid var(--hairline);
+}
+
+.disclaimer-text {
+    max-width: 860px;
+    margin: 0 auto;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: var(--ink-mute);
+    text-align: center;
+}
+
+.disclaimer-text strong {
+    color: var(--ink);
+    font-weight: 600;
+}
+
+.disclaimer-text em {
+    font-style: italic;
+    color: var(--ink);
+}
+
+.disclaimer-text a {
+    color: var(--ink);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    text-decoration-thickness: 1px;
+}
+
+.disclaimer-text a:hover {
+    text-decoration-thickness: 2px;
+}
+
 /* Footer */
 footer {
     background: var(--ink);
