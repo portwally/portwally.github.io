@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FCPX Clean — Reclaim the space Final Cut Pro forgot</title>
+    <meta name="description" content="A native macOS utility that finds and safely removes render files, proxies, optimized media and analysis data inside your Final Cut Pro libraries. Original footage is never touched. Everything goes to the Trash.">
+    <meta name="keywords" content="FCPX Clean, Final Cut Pro cleaner, FCP cache, render files, proxy media, optimized media, analysis files, macOS utility, Final Cut Pro disk space, fcpbundle cleaner">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="icon.png">
+</head>
+<body>
+    <nav>
+        <div class="logo">
+            <img class="logo-icon" src="icon.png" alt="FCPX Clean icon">
+            FCPX Clean
+        </div>
+        <div class="nav-links">
+            <a href="#what">What it cleans</a>
+            <a href="#safety">Safety</a>
+            <a href="#how">How it works</a>
+            <a href="#support">Support</a>
+            <a href="privacy.html">Privacy</a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-content">
+            <span class="platform-chip">Native for macOS 26.4+</span>
+            <h1>Reclaim the space<br><span class="accent">Final Cut Pro</span> forgot.</h1>
+            <p class="tagline">Four cache types. One sweep. Gigabytes back on your drive.</p>
+            <p class="subtitle">FCPX Clean scans your Final Cut Pro libraries and finds the regeneratable data you don't need — render files, proxies, optimized media and analysis files — then moves what you pick to the Trash. Your Original Media is never selectable.</p>
+            <div class="cta-row">
+                <a href="https://apps.apple.com/us/app/fcpx-clean/id6763284089" class="app-store-badge" aria-label="Download FCPX Clean on the App Store">
+                    <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store">
+                </a>
+                <a href="#what" class="btn btn-secondary">See what it cleans</a>
+            </div>
+            <img src="banner.png" alt="FCPX Clean — macOS app showing a Final Cut Pro library with reclaimable render files, proxies, optimized and cache media" class="hero-image">
+        </div>
+    </header>
+
+    <main>
+        <section id="what" class="categories">
+            <div class="wrap">
+                <span class="section-eyebrow">Coverage</span>
+                <h2 class="section-title">Four cache types Final Cut Pro will regenerate on demand.</h2>
+                <p class="section-lede">Every event inside every <code>.fcpbundle</code> gets its reclaimable size broken down by category. You pick which types to sweep per library, per event, or across every source at once.</p>
+
+                <div class="cat-grid">
+                    <div class="cat-tile" style="--tile-color: var(--render);">
+                        <div class="cat-icon">◐</div>
+                        <div class="cat-name">Render Files</div>
+                        <div class="cat-sub">Timeline &amp; effect renders</div>
+                        <div class="cat-detail">Cached previews of your timeline. FCP rebuilds them automatically the next time you scrub through. Often the biggest win in an old project.</div>
+                    </div>
+                    <div class="cat-tile" style="--tile-color: var(--proxy);">
+                        <div class="cat-icon">◨</div>
+                        <div class="cat-name">Proxy Media</div>
+                        <div class="cat-sub">Low-res editing copies</div>
+                        <div class="cat-detail">Small proxies used for smooth editing on lower-powered hardware. Safe to remove — originals stay intact and proxies can be re-created with one menu command.</div>
+                    </div>
+                    <div class="cat-tile" style="--tile-color: var(--optimized);">
+                        <div class="cat-icon">◇</div>
+                        <div class="cat-name">Optimized Media</div>
+                        <div class="cat-sub">ProRes transcodes</div>
+                        <div class="cat-detail">Heavy ProRes copies generated from camera originals for performance. FCP can regenerate them, or simply edit from the originals once they're gone.</div>
+                    </div>
+                    <div class="cat-tile" style="--tile-color: var(--analysis);">
+                        <div class="cat-icon">≈</div>
+                        <div class="cat-name">Analysis Files</div>
+                        <div class="cat-sub">Optical flow &amp; stabilization</div>
+                        <div class="cat-detail">Slow-motion optical flow maps and stabilization analysis. FCP regenerates them the next time you apply the effect — just not instantly.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="bento">
+            <div class="wrap">
+                <span class="section-eyebrow">Why it's different</span>
+                <h2 class="section-title">Not a generic disk cleaner. A specialist.</h2>
+                <p class="section-lede">FCPX Clean reads the exact folder layout Final Cut Pro uses inside every <code>.fcpbundle</code>. It knows which folders are regeneratable and which contain your camera footage — and refuses to touch the latter.</p>
+
+                <div class="bento-grid">
+                    <div class="bento-cell span-3 bento-accent">
+                        <div class="pill-icon">↺</div>
+                        <h3>Trash, never permanent</h3>
+                        <p>Every selected folder goes through <code>FileManager.trashItem</code>. Change your mind, restore from the Trash. Empty it when you're sure.</p>
+                    </div>
+                    <div class="bento-cell span-3">
+                        <div class="pill-icon">◉</div>
+                        <h3>Original Media is untouchable</h3>
+                        <p>Folders named <code>Original Media</code> are displayed for visibility but can never be selected. A <code>precondition</code> in the cleaner refuses to trash them even if the UI were bypassed.</p>
+                    </div>
+                    <div class="bento-cell span-2">
+                        <div class="pill-icon">◍</div>
+                        <h3>Proportional bars</h3>
+                        <p>Each library's bar is scaled to the largest one in the scan. At a glance you see where the gigabytes actually live.</p>
+                    </div>
+                    <div class="bento-cell span-2">
+                        <div class="pill-icon">⇅</div>
+                        <h3>Per-event selection</h3>
+                        <p>Tri-state checkboxes roll up from events to libraries to the whole scan. Sweep one category across every library with one click.</p>
+                    </div>
+                    <div class="bento-cell span-2">
+                        <div class="pill-icon">○</div>
+                        <h3>No account. No telemetry.</h3>
+                        <p>Runs entirely on your Mac. Nothing leaves your machine.</p>
+                    </div>
+                    <div class="bento-cell span-6">
+                        <div class="pill-icon">✻</div>
+                        <h3>Scan any volume — internal, external, or network-mounted.</h3>
+                        <p>Point FCPX Clean at a drive, a folder, or a network share and it walks the tree for every <code>.fcpbundle</code> package. Each library appears as a row in the main table with its own per-category breakdown. Large scans are async so the UI stays responsive.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="safety" class="safety">
+            <div class="wrap">
+                <span class="section-eyebrow">Safety model</span>
+                <h2 class="section-title">Two lanes. No ambiguity.</h2>
+                <p class="section-lede">Every folder inside a scanned library is classified before you see it. Caches are selectable and colored. Original Media shows up but is locked — the UI will not let you remove it.</p>
+
+                <div class="safety-rows">
+                    <div class="safety-row tier-safe">
+                        <div class="safety-label"><span class="safety-dot"></span>Cache — Safe to remove</div>
+                        <div class="safety-body"><strong>Render Files, Proxy Media, Optimized Media, Analysis Files.</strong> All four are regenerated by Final Cut Pro on demand. Some regeneration is instant (renders on playback), some takes a moment (optical flow on first use).</div>
+                        <div class="safety-meta">Selectable, color-coded</div>
+                    </div>
+                    <div class="safety-row tier-locked">
+                        <div class="safety-label"><span class="safety-dot"></span>Original Media — Locked</div>
+                        <div class="safety-body"><strong>Your actual camera footage.</strong> Shown in the library breakdown for visibility, but can never be checked, selected, or trashed. A safety guard in the cleaner refuses the operation even if the UI were bypassed.</div>
+                        <div class="safety-meta">Non-selectable</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="how" class="flow">
+            <div class="wrap">
+                <span class="section-eyebrow">Flow</span>
+                <h2 class="section-title">Scan. Review. Trash.</h2>
+                <p class="section-lede">No preset cleanup recipes, no profiles, no auto-mode. You stay in control of every byte that leaves your drive.</p>
+
+                <div class="flow-steps">
+                    <div class="flow-step">
+                        <h3>Scan a volume</h3>
+                        <p>Pick a drive or folder. FCPX Clean walks the tree for every <code>.fcpbundle</code> and reads each library's events to size every category — internal, external, or mounted network shares.</p>
+                    </div>
+                    <div class="flow-step">
+                        <h3>Review &amp; select</h3>
+                        <p>Each library becomes an expandable row. Four category checkboxes per row, per event, and across the whole scan. A proportional bar shows where the biggest wins are. Toggle <em>Fixed</em> vs <em>Proportional</em> to compare across libraries.</p>
+                    </div>
+                    <div class="flow-step">
+                        <h3>Move to Trash</h3>
+                        <p>A confirmation sheet shows total folders, total size, and the category breakdown. Confirm and FCPX Clean moves everything to the Trash, re-scans the libraries, and updates the numbers.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="requirements">
+            <div class="wrap">
+                <span class="section-eyebrow">Requirements</span>
+                <h2 class="section-title" style="margin-left: auto; margin-right: auto;">Runs on modern Macs.</h2>
+                <div class="req-chips">
+                    <div class="req-chip">macOS 26.4 or later</div>
+                    <div class="req-chip">Apple Silicon</div>
+                    <div class="req-chip">Final Cut Pro libraries on any mounted volume</div>
+                    <div class="req-chip">No account, no tracking</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="support" class="support">
+            <div class="wrap">
+                <span class="section-eyebrow">Support</span>
+                <h2 class="section-title">Questions, bug reports, feature ideas?</h2>
+                <p class="section-lede">Email me directly. I read everything and usually reply within a day.</p>
+                <a href="mailto:walter.tengler@gmail.com?subject=FCPX%20Clean" class="support-card">
+                    <span class="support-icon">✉</span>
+                    <span class="support-email">walter.tengler@gmail.com</span>
+                </a>
+            </div>
+        </section>
+
+        <section class="disclaimer-strip">
+            <div class="wrap">
+                <p class="disclaimer-text">
+                    <strong>Disclaimer.</strong> FCPX Clean moves selected folders to the macOS Trash — never permanent deletion — and every cleanup requires your explicit confirmation. Folders named <em>Original Media</em> cannot be selected in the UI and are refused by a safety guard in the cleaner. However, no software is guaranteed bug-free, and Final Cut Pro's library layout can change in future updates. Always maintain your own backups of important projects. FCPX Clean is provided <em>as is</em> without warranty of any kind; the author accepts no liability for any data loss, loss of work, or other damages resulting from use of this software. Full terms in the <a href="imprint.html">imprint</a>.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-wrap">
+            <div class="footer-links footer-primary">
+                <a href="#support">Support</a>
+                <a href="privacy.html">Privacy</a>
+                <a href="imprint.html">Imprint</a>
+            </div>
+            <div class="footer-links" style="margin-top: 1rem;">
+                <a href="../Aichive/">Aichive</a>
+                <a href="../SOSIberico/">SOS Ibérica</a>
+                <a href="../Fugiu/">Fugiu!</a>
+                <a href="../Alerta/">Alerta</a>
+                <a href="../Fire/">Fire</a>
+                <a href="../Terramoto/">Terramoto</a>
+                <a href="../Fluvio/">Fluvio</a>
+                <a href="../EUEnergyMonitor/">EU Energy Monitor</a>
+            </div>
+            <div class="footer-links" style="margin-top: 0.5rem;">
+                <a href="../File Vortex/">File Vortex</a>
+                <a href="../EasyDup/">EasyDup</a>
+                <a href="../ExifEasy/">ExifEasy</a>
+                <a href="../SlimPix/">SlimPix</a>
+                <a href="../Scanora/">Scanora</a>
+                <a href="../Bomba/">Bomba</a>
+                <a href="../BeerTag/">BeerTag</a>
+            </div>
+            <div class="footer-links" style="margin-top: 0.5rem;">
+                <a href="../coresdoamor/">Cores do Amor</a>
+                <a href="../index.html">Retro Graphics</a>
+                <a href="../cyanhero.html">CyanHero</a>
+                <a href="../bitpast.html">BitPast</a>
+                <a href="../Adsensemonitor/">AdSense Monitor</a>
+                <a href="../Comboiotreck/">Comboiotreck</a>
+                <a href="../CertificadoEnergetico/">Certificado Energético</a>
+                <a href="../climaviva/">Clima Viva</a>
+                <a href="../emergengy-reminder/">Emergency Reminder</a>
+                <a href="../Pibup/">Pibup</a>
+            </div>
+            <p>&copy; 2026 Walter Tengler. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
