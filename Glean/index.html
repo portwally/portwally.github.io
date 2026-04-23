@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clean AI — Reclaim the disk space your AI tools forgot</title>
-    <meta name="description" content="A native macOS utility that finds and safely removes disk waste left behind by Claude, VS Code, Copilot, Gemini, Ollama, ChatGPT, Cursor and LM Studio. Files move to the Trash — nothing is deleted permanently.">
-    <meta name="keywords" content="Clean AI, macOS cleaner, disk space, AI cache, Claude, Ollama, VS Code, Copilot, Gemini, ChatGPT, Cursor, LM Studio, Mac app, cache cleaner">
+    <title>Glean — Reclaim the disk space your AI tools forgot</title>
+    <meta name="description" content="A native macOS utility that finds and safely removes disk waste left behind by Claude, VS Code, GitHub Copilot, Gemini, Ollama, ChatGPT, Cursor and LM Studio. Files move to the Trash — nothing is deleted permanently.">
+    <meta name="keywords" content="Glean, macOS cleaner, disk space, AI cache, Claude, Ollama, VS Code, GitHub Copilot, Gemini, ChatGPT, Cursor, LM Studio, Mac app, cache cleaner">
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="banner.png">
 </head>
 <body>
     <nav>
-        <div class="logo">Clean AI</div>
+        <div class="logo">Glean</div>
         <div class="nav-links">
             <a href="#apps">Apps</a>
             <a href="#safety">Safety</a>
@@ -25,17 +25,14 @@
             <span class="platform-chip">Native for macOS 15.6+</span>
             <h1>Reclaim the disk space<br>your <span class="accent">AI tools</span> forgot.</h1>
             <p class="tagline">One sidebar. Every major AI app. Gigabytes of recoverable cache.</p>
-            <p class="subtitle">Clean AI scans the caches, logs, session data and temporary files left behind by Claude, VS Code, Copilot, Gemini, Ollama, ChatGPT, Cursor and LM Studio — then moves anything you select to the Trash. Never permanently deleted.</p>
+            <p class="subtitle">Glean scans the caches, logs, session data and temporary files left behind by Claude, VS Code, GitHub Copilot, Gemini, Ollama, ChatGPT, Cursor and LM Studio — then moves anything you select to the Trash. Never permanently deleted.</p>
             <div class="cta-row">
                 <a href="#" class="app-store-badge" aria-label="Download on the App Store">
                     <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store">
                 </a>
-                <a href="https://github.com/portwally/clean-ai" class="btn btn-secondary">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.55 0-.27-.01-1.16-.02-2.11-3.2.7-3.87-1.36-3.87-1.36-.53-1.33-1.28-1.68-1.28-1.68-1.05-.72.08-.7.08-.7 1.16.08 1.76 1.19 1.76 1.19 1.03 1.76 2.7 1.26 3.36.97.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.28 1.19-3.08-.12-.29-.52-1.47.11-3.06 0 0 .97-.31 3.18 1.18A11 11 0 0 1 12 6.8c.99 0 1.97.13 2.89.39 2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.24 2.77.12 3.06.74.8 1.19 1.82 1.19 3.08 0 4.41-2.69 5.39-5.25 5.67.41.36.77 1.06.77 2.13 0 1.54-.01 2.78-.01 3.16 0 .3.2.66.8.54 4.56-1.53 7.85-5.83 7.85-10.91C23.5 5.65 18.35.5 12 .5z"/></svg>
-                    View on GitHub
-                </a>
+                <a href="#apps" class="btn btn-secondary">See what it cleans</a>
             </div>
-            <img src="banner.png" alt="Clean AI — macOS utility cleaning up AI app caches" class="hero-image">
+            <img src="banner.png" alt="Glean — macOS utility cleaning up AI app caches" class="hero-image">
         </div>
     </header>
 
@@ -43,8 +40,8 @@
         <section id="apps" class="apps">
             <div class="wrap">
                 <span class="section-eyebrow">Coverage</span>
-                <h2 class="section-title">Seven AI apps. One clean sidebar.</h2>
-                <p class="section-lede">Clean AI shows each supported app as its own tab with the real app icon and a live size badge. Apps you don't have installed appear dimmed.</p>
+                <h2 class="section-title">Eight AI apps. One clean sidebar.</h2>
+                <p class="section-lede">Glean shows each supported app as its own tab with the real app icon and a live size badge. Apps you don't have installed appear dimmed.</p>
 
                 <div class="app-grid">
                     <div class="app-tile" style="--tile-color: var(--claude);">
@@ -55,9 +52,15 @@
                     </div>
                     <div class="app-tile" style="--tile-color: var(--vscode);">
                         <div class="app-icon">&lt;/&gt;</div>
-                        <div class="app-name">VS Code + Copilot</div>
+                        <div class="app-name">VS Code</div>
                         <div class="app-footprint">With Claude Code</div>
-                        <div class="app-detail">Browser cache, cached workers, downloaded extension packages, duplicate old extension versions.</div>
+                        <div class="app-detail">Browser cache, cached workers, downloaded extension packages, duplicate old Claude Code extension versions.</div>
+                    </div>
+                    <div class="app-tile" style="--tile-color: var(--copilot);">
+                        <div class="app-icon">✧</div>
+                        <div class="app-name">GitHub Copilot</div>
+                        <div class="app-footprint">VS Code + gh CLI</div>
+                        <div class="app-detail">Extension state, chat history, old github.copilot and github.copilot-chat versions, gh-copilot CLI cache.</div>
                     </div>
                     <div class="app-tile" style="--tile-color: var(--gemini);">
                         <div class="app-icon">★</div>
@@ -89,12 +92,6 @@
                         <div class="app-footprint">Local model studio</div>
                         <div class="app-detail">Cache, logs and downloaded models. Model files need re-download after cleanup.</div>
                     </div>
-                    <div class="app-tile" style="--tile-color: var(--gemini);">
-                        <div class="app-icon">+</div>
-                        <div class="app-name">Add your own</div>
-                        <div class="app-footprint">Open source</div>
-                        <div class="app-detail">Every app is defined by a single registry entry. Fork, add a config, open a PR.</div>
-                    </div>
                 </div>
             </div>
         </section>
@@ -108,7 +105,7 @@
                 <div class="gallery-grid">
                     <div class="shot">
                         <figure>
-                            <img src="shot-claude-list.png" alt="Clean AI scanning Claude — list view showing 14.19 GB across 45 items" loading="lazy">
+                            <img src="shot-claude-list.png" alt="Glean scanning Claude — list view showing 14.19 GB across 45 items" loading="lazy">
                         </figure>
                         <div class="shot-caption">
                             <span class="shot-kicker" style="--shot-color: var(--claude);">List · Claude</span>
@@ -118,7 +115,7 @@
 
                     <div class="shot">
                         <figure>
-                            <img src="shot-vscode-list.png" alt="Clean AI scanning VS Code — Safe, Use Caution and Do Not Delete sections with extension package sizes" loading="lazy">
+                            <img src="shot-vscode-list.png" alt="Glean scanning VS Code — Safe, Use Caution and Do Not Delete sections with extension package sizes" loading="lazy">
                         </figure>
                         <div class="shot-caption">
                             <span class="shot-kicker" style="--shot-color: var(--vscode);">List · VS Code</span>
@@ -128,7 +125,7 @@
 
                     <div class="shot">
                         <figure>
-                            <img src="shot-gemini-list.png" alt="Clean AI scanning Gemini CLI — showing safe temp files, caution-flagged accounts and locked OAuth credentials" loading="lazy">
+                            <img src="shot-gemini-list.png" alt="Glean scanning Gemini CLI — showing safe temp files, caution-flagged accounts and locked OAuth credentials" loading="lazy">
                         </figure>
                         <div class="shot-caption">
                             <span class="shot-kicker" style="--shot-color: var(--gemini);">List · Gemini CLI</span>
@@ -138,7 +135,7 @@
 
                     <div class="shot">
                         <figure>
-                            <img src="shot-claude-chart.png" alt="Clean AI storage chart for Claude — horizontal bars showing each item's footprint" loading="lazy">
+                            <img src="shot-claude-chart.png" alt="Glean storage chart for Claude — horizontal bars showing each item's footprint" loading="lazy">
                         </figure>
                         <div class="shot-caption">
                             <span class="shot-kicker" style="--shot-color: var(--claude);">Chart · Claude</span>
@@ -153,7 +150,7 @@
             <div class="wrap">
                 <span class="section-eyebrow">Why it's different</span>
                 <h2 class="section-title">Not a sledgehammer. A scalpel.</h2>
-                <p class="section-lede">Generic cleaners don't know the difference between your chat history and a 40 GB cache blob. Clean AI does — because every path was audited by hand.</p>
+                <p class="section-lede">Generic cleaners don't know the difference between your chat history and a 40 GB cache blob. Glean does — because every path was audited by hand.</p>
 
                 <div class="bento-grid">
                     <div class="bento-cell span-3 bento-accent">
@@ -183,8 +180,8 @@
                     </div>
                     <div class="bento-cell span-6">
                         <div class="pill-icon">✻</div>
-                        <h3>One sidebar, seven apps, growing.</h3>
-                        <p>Adding a new app takes a single entry in <code>AppRegistry.swift</code>. The sidebar, scanner, list view and cleanup flow all pick it up automatically. Contributions welcome.</p>
+                        <h3>One sidebar. Eight apps. Growing with every update.</h3>
+                        <p>New AI tools arrive all the time. As they become popular, we audit their file layout and add them as a new tab — with the same safety classification you see today. No configuration, no subscriptions.</p>
                     </div>
                 </div>
             </div>
@@ -225,7 +222,7 @@
                 <div class="flow-steps">
                     <div class="flow-step">
                         <h3>Pick an app</h3>
-                        <p>The sidebar shows every supported app with its real icon. Tap one — Clean AI scans it in the background and shows every discovered item sorted by size.</p>
+                        <p>The sidebar shows every supported app with its real icon. Tap one — Glean scans it in the background and shows every discovered item sorted by size.</p>
                     </div>
                     <div class="flow-step">
                         <h3>Review &amp; select</h3>
@@ -233,7 +230,7 @@
                     </div>
                     <div class="flow-step">
                         <h3>Move to Trash</h3>
-                        <p>A final confirmation shows exactly how many items and how many megabytes. Clean AI moves them to the Trash and re-scans so you can see what's left.</p>
+                        <p>A final confirmation shows exactly how many items and how many megabytes. Glean moves them to the Trash and re-scans so you can see what's left.</p>
                     </div>
                 </div>
             </div>
@@ -247,7 +244,7 @@
                     <div class="req-chip">macOS 15.6 or later</div>
                     <div class="req-chip">Apple Silicon or Intel</div>
                     <div class="req-chip">No network required</div>
-                    <div class="req-chip">Free &amp; open source</div>
+                    <div class="req-chip">No account, no tracking</div>
                 </div>
             </div>
         </section>
@@ -256,7 +253,6 @@
     <footer>
         <div class="footer-wrap">
             <div class="footer-links footer-primary">
-                <a href="https://github.com/portwally/clean-ai">GitHub</a>
                 <a href="privacy.html">Privacy</a>
                 <a href="imprint.html">Imprint</a>
             </div>
@@ -290,7 +286,7 @@
                 <a href="../emergengy-reminder/">Emergency Reminder</a>
                 <a href="../Pibup/">Pibup</a>
             </div>
-            <p>&copy; 2026 Walter Tengler. Clean AI is open source under the MIT licence.</p>
+            <p>&copy; 2026 Walter Tengler. All rights reserved.</p>
         </div>
     </footer>
 </body>
