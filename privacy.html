@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy — Walter Tengler Apps</title>
+    <meta name="description" content="General privacy policy covering all apps by Walter Tengler.">
+    <meta name="robots" content="noindex">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #07070f;
+            --bg-card: rgba(255,255,255,0.04);
+            --border: rgba(255,255,255,0.08);
+            --text: #f0f0ff;
+            --muted: #8888aa;
+            --accent: #a78bfa;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .wrap {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 80px 24px 60px;
+        }
+
+        .back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 0.9em;
+            font-weight: 600;
+            margin-bottom: 40px;
+            transition: color 0.2s;
+        }
+
+        .back:hover { color: var(--text); }
+
+        header {
+            margin-bottom: 48px;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #ffffff 30%, #a78bfa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            color: var(--muted);
+            font-size: 1.05em;
+        }
+
+        .last-updated {
+            color: var(--muted);
+            font-size: 0.85em;
+            margin-top: 8px;
+        }
+
+        .highlight {
+            background: rgba(167, 139, 250, 0.08);
+            border: 1px solid rgba(167, 139, 250, 0.25);
+            border-radius: 12px;
+            padding: 24px 28px;
+            margin: 32px 0;
+        }
+
+        .highlight strong {
+            color: var(--accent);
+            display: block;
+            margin-bottom: 8px;
+            font-size: 1.05em;
+        }
+
+        h2 {
+            font-size: 1.4em;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            margin: 44px 0 16px;
+            color: var(--text);
+        }
+
+        p {
+            color: #cccde0;
+            margin-bottom: 16px;
+        }
+
+        ul {
+            margin: 12px 0 20px 22px;
+        }
+
+        li {
+            color: #cccde0;
+            margin-bottom: 8px;
+        }
+
+        strong { color: var(--text); }
+
+        a { color: var(--accent); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        .app-note {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin: 20px 0;
+            font-size: 0.95em;
+        }
+
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 32px 24px;
+            text-align: center;
+            color: var(--muted);
+            font-size: 0.88em;
+        }
+
+        footer a {
+            color: var(--muted);
+        }
+
+        footer a:hover { color: var(--text); }
+    </style>
+</head>
+<body>
+
+<div class="wrap">
+    <a href="./" class="back">← All apps</a>
+
+    <header>
+        <h1>Privacy Policy</h1>
+        <p class="subtitle">Applies to all apps published by Walter Tengler on the Apple App Store.</p>
+        <p class="last-updated">Last updated: April 24, 2026</p>
+    </header>
+
+    <div class="highlight">
+        <strong>The short version</strong>
+        My apps do not collect, store, or transmit any personal data. There is no tracking, no analytics, no advertising, and no user accounts. Everything you do in the app stays on your device.
+    </div>
+
+    <h2>No data collection</h2>
+    <p>None of my apps collect any personal information. Specifically:</p>
+    <ul>
+        <li><strong>No personal information</strong> — no name, email, or identifying data is requested or stored.</li>
+        <li><strong>No analytics</strong> — no usage tracking, telemetry, or behavioral data is collected.</li>
+        <li><strong>No crash reports</strong> sent automatically to any server.</li>
+        <li><strong>No advertising identifiers</strong>, no ad SDKs, no tracking frameworks.</li>
+        <li><strong>No user accounts</strong> — nothing to sign up for, nothing to log into.</li>
+    </ul>
+
+    <h2>Local processing</h2>
+    <p>Any file you open, image you convert, or calculation you run happens entirely on your device. Files are never uploaded to any server. The app only reads files you explicitly select, and only writes to locations you explicitly authorize, using standard macOS / iOS sandboxing.</p>
+
+    <h2>Public data APIs</h2>
+    <p>Some apps display publicly available information from third-party data sources. When an app fetches from one of these public APIs, your device makes a standard HTTPS request — no personal data is included in these requests, but the data provider may log standard network information (such as your IP address) according to their own policies. Examples of apps that use public APIs:</p>
+    <ul>
+        <li><strong>Alerta, Bomba, Comboio Treck, Fluvio, Terramoto, Clima Viva, Certificado Energético, PIBUP, Fugiu</strong> — official Portuguese government and public-service data sources.</li>
+        <li><strong>Fire (EU Fires)</strong> — NASA FIRMS satellite data.</li>
+        <li><strong>EU Energy Monitor</strong> — ENTSO-E / public European grid data.</li>
+    </ul>
+    <p>These apps do not create accounts, do not authenticate, and do not associate requests with any identity.</p>
+
+    <h2>Local storage</h2>
+    <p>Apps may store the following on your device only, using standard macOS / iOS mechanisms:</p>
+    <ul>
+        <li>App preferences and settings you configure.</li>
+        <li>References to recently opened files (standard OS behavior).</li>
+        <li>Offline caches for public data (where applicable), to reduce repeat network calls.</li>
+    </ul>
+    <p>This data never leaves your device and can be cleared at any time through system settings.</p>
+
+    <h2>App Store &amp; payment</h2>
+    <p>Apps purchased on the Apple App Store are processed entirely by Apple. Apple handles your payment, receipt, and subscription details according to <a href="https://www.apple.com/legal/privacy/" target="_blank">Apple's privacy policy</a>. I as the developer never receive your payment information.</p>
+
+    <h2>Children's privacy</h2>
+    <p>These apps do not collect data from anyone, including children. They are safe to use at any age.</p>
+
+    <h2>Third-party services</h2>
+    <p>No third-party analytics, crash reporting, advertising networks, social-media integrations, or cloud storage services are bundled in any of my apps.</p>
+
+    <h2>App-specific details</h2>
+    <p>A few apps have more detailed, app-specific privacy notes that describe their particular data sources and on-device storage. You can find those on the individual app pages linked from the <a href="./">main page</a>.</p>
+
+    <h2>Changes to this policy</h2>
+    <p>If anything meaningful changes, I'll update this page and the date above. The core principle — no data collection — isn't going to change.</p>
+
+    <h2>Contact</h2>
+    <p>Questions about privacy in any of my apps? Email <a href="mailto:walter.tengler@gmail.com">walter.tengler@gmail.com</a>.</p>
+</div>
+
+<footer>
+    <p>© 2026 Walter Tengler · <a href="./">All apps</a></p>
+</footer>
+
+</body>
+</html>
