@@ -18,7 +18,8 @@
         <p>Aichive runs entirely on your Mac. It does not have a server, does not have an account system, and does not transmit any information about you or the files it scans. There is nothing to opt out of because nothing is collected.</p>
 
         <h2>2. What Aichive reads from your Mac</h2>
-        <p>To find recoverable disk space, Aichive reads the file system at well-known locations used by supported AI apps — for example <code>~/.claude/</code>, <code>~/Library/Application Support/Claude/</code>, <code>~/Library/Application Support/Code/</code>, <code>~/.gemini/</code>, <code>~/.ollama/</code>, and similar. It records the file path, display name, category, size, and safety level — all locally, in memory, for the duration of the session.</p>
+        <p>Aichive is a sandboxed macOS application. On first launch it asks you to grant access to your home folder via the standard macOS file picker. Until you confirm, Aichive cannot read any file. Once granted, the scope is persisted locally as a security-scoped bookmark and reused on future launches.</p>
+        <p>Within that granted scope, Aichive reads the file system at well-known locations used by supported AI apps — for example <code>~/.claude/</code>, <code>~/Library/Application Support/Claude/</code>, <code>~/Library/Application Support/Code/</code>, <code>~/.gemini/</code>, <code>~/.ollama/</code>, and similar. It records the file path, display name, category, size, and safety level — all locally, in memory, for the duration of the session.</p>
         <p>Aichive never opens, reads, or transmits the contents of any file it finds. It only uses file-system metadata (path, size, existence).</p>
 
         <h2>3. What Aichive does not collect</h2>
