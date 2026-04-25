@@ -144,12 +144,27 @@ nav {
     margin: 0 auto 2rem;
 }
 
+.store-badges {
+    display: inline-flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
 .app-store-badge img {
     height: 50px;
     transition: transform 0.2s;
 }
 
-.app-store-badge:hover img {
+.play-store-badge img {
+    height: 74px;
+    margin: -12px 0;
+    transition: transform 0.2s;
+}
+
+.app-store-badge:hover img,
+.play-store-badge:hover img {
     transform: scale(1.05);
 }
 
