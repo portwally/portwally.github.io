@@ -13,7 +13,7 @@
         <a href="index.html" class="back-link">&larr; Zurück zur Startseite</a>
 
         <h1>Datenschutzerklärung</h1>
-        <p><strong>Stand:</strong> 18. Februar 2026</p>
+        <p><strong>Stand:</strong> 26. April 2026</p>
 
         <h2>1. Einleitung</h2>
         <p>Fire („wir", „unsere" oder „die App") verpflichtet sich zum Schutz Ihrer Privatsphäre. Diese Datenschutzerklärung erläutert, wie wir Ihre Daten erfassen, verwenden und schützen, wenn Sie unsere mobile Anwendung nutzen.</p>
@@ -21,16 +21,26 @@
         <h2>2. Daten, die wir erfassen</h2>
 
         <h3>2.1 Standortdaten</h3>
-        <p>Wenn Sie die Erlaubnis erteilen, erfasst Fire den Standort Ihres Geräts, um:</p>
+        <p>Wenn Sie die Erlaubnis erteilen, verwendet Fire den Standort Ihres Geräts, um:</p>
         <ul>
             <li>Die Karte auf Ihre aktuelle Position zu zentrieren</li>
-            <li>Push-Benachrichtigungen zu senden, wenn Brände in Ihrer Nähe erkannt werden</li>
             <li>Entfernungen zu Brandherden zu berechnen</li>
+            <li>Die geeignete Datenquelle auszuwählen (Portugal vs. EU-weite Satellitendaten)</li>
+            <li>Bei geöffneter App lokale Benachrichtigungen zu erzeugen, wenn Brände in Ihrer Nähe erkannt werden</li>
         </ul>
-        <p>Standortdaten werden lokal auf Ihrem Gerät verarbeitet und nicht an unsere Server übertragen.</p>
+        <p>Ihr Standort bleibt auf Ihrem Gerät, sofern Sie nicht ausdrücklich die <strong>Einsatzwarnungen (Portugal — Beta)</strong> aktivieren (siehe Abschnitt 2.3).</p>
 
         <h3>2.2 App-Einstellungen</h3>
-        <p>Ihre Benachrichtigungseinstellungen (Alarmradius, Intensitätsschwelle, Toneinstellungen) werden lokal auf Ihrem Gerät mit Apples Standard-Speichermechanismen gespeichert.</p>
+        <p>Ihre Benachrichtigungseinstellungen (Alarmradius, Intensitätsschwelle, Toneinstellungen, Sprache) werden lokal auf Ihrem Gerät mit Apples Standard-Speichermechanismen gespeichert.</p>
+
+        <h3>2.3 Einsatzwarnungen (Portugal — Beta) — opt-in</h3>
+        <p>Wenn Sie sich in Portugal befinden und in den App-Einstellungen die <em>Einsatzwarnungen</em> aktivieren, übermitteln wir das Mindestmaß an Daten, das nötig ist, um servergesteuerte Push-Benachrichtigungen auch bei geschlossener App zu liefern:</p>
+        <ul>
+            <li><strong>Push-Benachrichtigungs-Token (FCM-Token)</strong> — eine anonyme Kennung von Firebase Cloud Messaging, die nur für diese Installation der App auf diesem Gerät gilt</li>
+            <li><strong>Standortpunkt</strong> — eine einzelne Koordinate (lat/lng), die Sie beim Aktivieren der Option festlegen. Standardmäßig wird dieser Punkt <em>nicht</em> aktualisiert, wenn Sie sich bewegen; er wird nur erneut gesendet, wenn Sie zusätzlich „Standort automatisch aktualisieren" aktivieren UND sich mehr als 2 km vom letzten gesendeten Punkt entfernt haben, mit einer Mindestpause von 1 Stunde zwischen Aktualisierungen.</li>
+            <li><strong>Warnradius</strong> und <strong>bevorzugte Sprache</strong> — damit der Server die Benachrichtigung lokalisieren kann</li>
+        </ul>
+        <p>Diese opt-in-Funktion ist derzeit auf Portugal beschränkt. Wir senden keine fortlaufende Standortspur. Wenn Sie die Einsatzwarnungen deaktivieren oder Portugal verlassen, wird der Datensatz von unserem Server gelöscht.</p>
 
         <h2>3. Werbung</h2>
         <p>Fire zeigt Werbung über Google AdMob an. Google AdMob kann bestimmte Informationen sammeln und verwenden, um personalisierte Werbung zu schalten. Dies kann umfassen:</p>
@@ -47,33 +57,47 @@
         <p>Weitere Informationen darüber, wie Google Daten verarbeitet, finden Sie in der <a href="https://policies.google.com/privacy">Datenschutzerklärung von Google</a>.</p>
 
         <h2>4. Daten, die wir NICHT erfassen</h2>
-        <p>Fire erfasst, speichert oder überträgt direkt nicht:</p>
+        <p>Fire erfasst, speichert oder überträgt nicht:</p>
         <ul>
-            <li>Persönliche Identifikationsinformationen</li>
-            <li>Konto- oder Anmeldeinformationen</li>
-            <li>Nutzungsanalysen oder Tracking-Daten</li>
-            <li>Ihren Standort an externe Server</li>
+            <li>Name, E-Mail, Telefonnummer oder andere persönliche Identifikationsinformationen</li>
+            <li>Konto- oder Anmeldeinformationen (die App hat keine Benutzerkonten)</li>
+            <li>Nutzungsanalysen oder Verhaltens-Tracking-Daten</li>
+            <li>Eine fortlaufende Standortspur (nur den opt-in-Standortpunkt aus Abschnitt 2.3)</li>
+            <li>Geräteinhalte (Kontakte, Fotos, Kalender usw.)</li>
         </ul>
 
         <h2>5. Drittanbieterdienste</h2>
-        <p>Fire ruft Branddaten von folgenden öffentlichen Quellen ab:</p>
+        <p>Fire nutzt die folgenden externen Dienste:</p>
         <ul>
             <li><strong>NASA FIRMS:</strong> Brandherd-Daten von Satellitensensoren</li>
             <li><strong>EFFIS Copernicus:</strong> Waldbrand-Gefahrenindex-Overlay-Daten</li>
-            <li><strong>Apple Karten:</strong> Kartenkacheln und Satellitenbilder</li>
+            <li><strong>ANEPC (Autoridade Nacional de Emergência e Proteção Civil) / ProCiv:</strong> Offizielle Daten des portugiesischen Zivilschutzes (öffentlicher ArcGIS-Endpunkt).</li>
+            <li><strong>Apple Karten:</strong> Kartenkacheln und Satellitenbilder.</li>
+            <li><strong>Cloudflare Workers (Cloudflare, Inc., Infrastruktur in der Europäischen Union):</strong> Hostet unser Push-Benachrichtigungs-Backend. Wenn Einsatzwarnungen (Portugal — Beta) aktiviert sind, werden FCM-Token, Standortpunkt, Radius und Sprache hier gespeichert.</li>
+            <li><strong>Firebase Cloud Messaging (Google Ireland Limited):</strong> Push-Zustelldienst für iOS (über den Apple Push Notification Service). FCM verarbeitet das Geräte-Token und den Benachrichtigungsinhalt als Auftragsverarbeiter.</li>
         </ul>
         <p>Diese Dienste können Standard-Webanfragedaten (IP-Adresse, Zeitstempel) gemäß ihren eigenen Datenschutzrichtlinien protokollieren.</p>
 
         <h2>6. Datenspeicherung</h2>
-        <p>Alle Daten werden lokal auf Ihrem Gerät gespeichert:</p>
+        <p><strong>Auf Ihrem Gerät:</strong></p>
         <ul>
-            <li>Benachrichtigungseinstellungen werden in UserDefaults gespeichert</li>
-            <li>Gemeldete Brand-IDs (um doppelte Warnungen zu vermeiden) werden temporär gespeichert</li>
-            <li>Keine Daten werden auf externen Servern gespeichert</li>
+            <li>Benachrichtigungseinstellungen (in UserDefaults)</li>
+            <li>Bereits gemeldete Brand-IDs, um doppelte Warnungen zu vermeiden</li>
         </ul>
+        <p><strong>Auf unserem Server (nur bei aktivierten Einsatzwarnungen Portugal — Beta):</strong></p>
+        <ul>
+            <li>FCM-Token, Standortpunkt (lat/lng), Warnradius, Sprache und Zeitstempel der letzten Aktualisierung — eine einzige Zeile pro App-Installation, die bei Einstellungsänderungen aktualisiert wird.</li>
+            <li>Liste der bereits an Sie gemeldeten Vorfälle der letzten 7 Tage, um Wiederholungen zu vermeiden. Wird nach diesem Zeitraum automatisch entfernt.</li>
+        </ul>
+        <p>Der Datensatz wird vom Server gelöscht, sobald Sie die Einsatzwarnungen deaktivieren, Portugal verlassen oder das FCM-Token ungültig wird (z. B. bei einer Neuinstallation der App).</p>
 
-        <h2>7. Push-Benachrichtigungen</h2>
-        <p>Wenn Sie Brandwarnungen aktivieren, verwendet die App Apples Push-Benachrichtigungsdienst, um lokale Benachrichtigungen zu senden. Diese Benachrichtigungen werden vollständig auf Ihrem Gerät generiert und geplant – kein Server ist beteiligt.</p>
+        <h2>7. Benachrichtigungen</h2>
+        <p>Fire verwendet zwei Benachrichtigungswege:</p>
+        <ul>
+            <li><strong>Lokale Benachrichtigungen:</strong> Bei geöffneter App und mit Standortberechtigung erzeugt die App lokal Benachrichtigungen, wenn ein Brand innerhalb Ihres Radius auftritt. Kein Server beteiligt.</li>
+            <li><strong>Einsatzwarnungen (Portugal — Beta, opt-in):</strong> Unser Server fragt die öffentlichen ANEPC-Daten alle paar Minuten ab. Erkennt er einen neuen brandbezogenen Vorfall im von Ihnen registrierten Radius, sendet er eine Push-Benachrichtigung an Ihr Gerät über Firebase Cloud Messaging und den Apple Push Notification Service. So erhalten Sie auch bei geschlossener App Warnungen. Aktuell auf brandbezogene Vorfälle beschränkt (Wald-, Stadt-, Landwirtschafts- und Industriebrände).</li>
+        </ul>
+        <p>Sie können beide Wege jederzeit in den App-Einstellungen oder in den iOS-Einstellungen deaktivieren.</p>
 
         <h2>8. Datenschutz für Kinder</h2>
         <p>Fire sammelt wissentlich keine persönlichen Informationen von Kindern unter 13 Jahren. Die App erfordert keine persönlichen Informationen, um zu funktionieren.</p>

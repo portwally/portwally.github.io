@@ -13,7 +13,7 @@
         <a href="index.html" class="back-link">&larr; Voltar ao Início</a>
 
         <h1>Política de Privacidade</h1>
-        <p><strong>Última atualização:</strong> 18 de fevereiro de 2026</p>
+        <p><strong>Última atualização:</strong> 26 de abril de 2026</p>
 
         <h2>1. Introdução</h2>
         <p>Fire ("nós", "nosso" ou "a aplicação") está comprometido com a proteção da sua privacidade. Esta Política de Privacidade explica como recolhemos, usamos e protegemos as suas informações quando utiliza a nossa aplicação móvel.</p>
@@ -21,16 +21,26 @@
         <h2>2. Informações que Recolhemos</h2>
 
         <h3>2.1 Dados de Localização</h3>
-        <p>Se conceder permissão, Fire recolhe a localização do seu dispositivo para:</p>
+        <p>Se conceder permissão, Fire utiliza a localização do seu dispositivo para:</p>
         <ul>
             <li>Centrar o mapa na sua posição atual</li>
-            <li>Enviar notificações push quando são detetados incêndios perto de si</li>
             <li>Calcular distâncias aos focos de incêndio</li>
+            <li>Decidir qual a fonte de proteção civil a utilizar (Portugal vs. satélite à escala da UE)</li>
+            <li>Gerar notificações locais quando são detetados incêndios perto de si (com a aplicação aberta)</li>
         </ul>
-        <p>Os dados de localização são processados localmente no seu dispositivo e não são transmitidos para os nossos servidores.</p>
+        <p>A localização permanece no seu dispositivo, exceto quando ativa explicitamente os <strong>Alertas de ocorrências (Portugal — Beta)</strong> (ver secção 2.3).</p>
 
         <h3>2.2 Definições da Aplicação</h3>
-        <p>As suas preferências de notificação (raio de alerta, limiar de intensidade, definições de som) são armazenadas localmente no seu dispositivo.</p>
+        <p>As suas preferências de notificação (raio de alerta, limiar de intensidade, definições de som, idioma) são armazenadas localmente no seu dispositivo.</p>
+
+        <h3>2.3 Alertas de Ocorrências (Portugal — Beta) — opt-in</h3>
+        <p>Se estiver em Portugal e ativar a opção <em>Alertas de ocorrências</em> nas Definições da aplicação, transmitimos para o nosso servidor o mínimo necessário para entregar notificações push enquanto a aplicação está fechada:</p>
+        <ul>
+            <li><strong>Token de notificação push (FCM token)</strong> — identificador anónimo gerado pelo Firebase Cloud Messaging, válido apenas para esta instalação da aplicação neste dispositivo</li>
+            <li><strong>Ponto de monitorização</strong> — uma única coordenada (lat/lng) que escolhe ao ativar a opção. Por predefinição, este ponto <em>não</em> é atualizado quando se desloca; só é reenviado se ativar adicionalmente "Atualizar localização automaticamente" e ultrapassar 2 km do último ponto enviado, com um limite mínimo de 1 hora entre atualizações.</li>
+            <li><strong>Raio de alerta</strong> e <strong>idioma preferido</strong> — para que o servidor envie a notificação localizada</li>
+        </ul>
+        <p>Esta funcionalidade opt-in está atualmente limitada a Portugal. Não enviamos um histórico contínuo da sua localização. Quando desativa os Alertas de ocorrências, ou quando viaja para fora de Portugal, o registo é eliminado do nosso servidor.</p>
 
         <h2>3. Publicidade</h2>
         <p>Fire apresenta anúncios através do Google AdMob. O Google AdMob pode recolher e utilizar determinadas informações para apresentar anúncios personalizados. Isto pode incluir:</p>
@@ -47,20 +57,24 @@
         <p>Para mais informações sobre como a Google trata os dados, visite a <a href="https://policies.google.com/privacy">Política de Privacidade da Google</a>.</p>
 
         <h2>4. Dados que NÃO Recolhemos</h2>
-        <p>Fire não recolhe, armazena nem transmite diretamente:</p>
+        <p>Fire não recolhe, armazena nem transmite:</p>
         <ul>
-            <li>Informações de identificação pessoal</li>
-            <li>Informações de conta ou início de sessão</li>
-            <li>Análises de utilização ou dados de rastreamento</li>
-            <li>A sua localização para servidores externos</li>
+            <li>Nome, email, número de telefone ou outras informações de identificação pessoal</li>
+            <li>Informações de conta ou início de sessão (a aplicação não tem contas de utilizador)</li>
+            <li>Análises de utilização ou dados de rastreamento comportamental</li>
+            <li>Histórico contínuo da sua localização (apenas o ponto de monitorização opt-in descrito em 2.3)</li>
+            <li>Conteúdos do dispositivo (contactos, fotos, calendário, etc.)</li>
         </ul>
 
         <h2>5. Serviços de Terceiros</h2>
-        <p>Fire obtém dados de incêndios das seguintes fontes públicas:</p>
+        <p>Fire utiliza os seguintes serviços externos:</p>
         <ul>
             <li><strong>NASA FIRMS:</strong> Dados de focos de incêndio de sensores de satélite</li>
             <li><strong>EFFIS Copernicus:</strong> Dados de sobreposição do Índice Meteorológico de Incêndio</li>
-            <li><strong>Apple Maps:</strong> Mosaicos de mapas e imagens de satélite</li>
+            <li><strong>ANEPC (Autoridade Nacional de Emergência e Proteção Civil) / ProCiv:</strong> Fonte oficial dos dados portugueses de proteção civil (endpoint público ArcGIS).</li>
+            <li><strong>Apple Maps:</strong> Mosaicos de mapas e imagens de satélite.</li>
+            <li><strong>Cloudflare Workers (Cloudflare, Inc., infraestrutura na União Europeia):</strong> Aloja o nosso servidor de notificações push. Quando os Alertas de ocorrências (Portugal — Beta) estão ativos, o token FCM, o ponto de monitorização, o raio e o idioma são guardados aqui.</li>
+            <li><strong>Firebase Cloud Messaging (Google Ireland Limited):</strong> Serviço de entrega de notificações push para iOS (via Apple Push Notification service). O FCM trata o token do dispositivo e o conteúdo da notificação como subcontratante.</li>
         </ul>
 
         <h2>6. Os Seus Direitos</h2>

@@ -13,7 +13,7 @@
         <a href="index.html" class="back-link">&larr; Retour à l'Accueil</a>
 
         <h1>Politique de Confidentialité</h1>
-        <p><strong>Dernière mise à jour:</strong> 18 février 2026</p>
+        <p><strong>Dernière mise à jour:</strong> 26 avril 2026</p>
 
         <h2>1. Introduction</h2>
         <p>Fire ("nous", "notre" ou "l'application") s'engage à protéger votre vie privée. Cette Politique de Confidentialité explique comment nous collectons, utilisons et protégeons vos informations lorsque vous utilisez notre application mobile.</p>
@@ -21,16 +21,26 @@
         <h2>2. Informations que Nous Collectons</h2>
 
         <h3>2.1 Données de Localisation</h3>
-        <p>Si vous accordez l'autorisation, Fire collecte la localisation de votre appareil pour:</p>
+        <p>Si vous accordez l'autorisation, Fire utilise la localisation de votre appareil pour:</p>
         <ul>
             <li>Centrer la carte sur votre position actuelle</li>
-            <li>Envoyer des notifications push lorsque des feux sont détectés près de vous</li>
             <li>Calculer les distances aux foyers d'incendie</li>
+            <li>Choisir la source de protection civile à utiliser (Portugal vs. satellite à l'échelle de l'UE)</li>
+            <li>Générer des notifications locales lorsque des feux sont détectés près de vous (l'app étant ouverte)</li>
         </ul>
-        <p>Les données de localisation sont traitées localement sur votre appareil et ne sont pas transmises à nos serveurs.</p>
+        <p>Votre position reste sur votre appareil, sauf si vous activez explicitement les <strong>Alertes d'incidents (Portugal — Bêta)</strong> (voir section 2.3).</p>
 
         <h3>2.2 Paramètres de l'Application</h3>
-        <p>Vos préférences de notification (rayon d'alerte, seuil d'intensité, paramètres sonores) sont stockées localement sur votre appareil.</p>
+        <p>Vos préférences de notification (rayon d'alerte, seuil d'intensité, paramètres sonores, langue) sont stockées localement sur votre appareil.</p>
+
+        <h3>2.3 Alertes d'Incidents (Portugal — Bêta) — opt-in</h3>
+        <p>Si vous êtes au Portugal et activez les <em>Alertes d'incidents</em> dans les réglages de l'app, nous transmettons à notre serveur le minimum nécessaire pour livrer des notifications push gérées par le serveur même lorsque l'app est fermée:</p>
+        <ul>
+            <li><strong>Jeton de notification push (FCM token)</strong> — identifiant anonyme émis par Firebase Cloud Messaging, valable uniquement pour cette installation de l'app sur cet appareil</li>
+            <li><strong>Point de surveillance</strong> — une seule coordonnée (lat/lng) que vous choisissez en activant l'option. Par défaut, ce point n'est <em>pas</em> mis à jour quand vous vous déplacez ; il n'est renvoyé que si vous activez en plus « Mettre à jour ma position automatiquement » ET que vous vous êtes déplacé de plus de 2 km par rapport au dernier point envoyé, avec un minimum d'1 heure entre les mises à jour.</li>
+            <li><strong>Rayon d'alerte</strong> et <strong>langue préférée</strong> — pour que le serveur localise la notification</li>
+        </ul>
+        <p>Cette fonctionnalité opt-in est actuellement limitée au Portugal. Nous n'envoyons pas un historique continu de votre position. Lorsque vous désactivez les Alertes d'incidents ou voyagez hors du Portugal, l'enregistrement est supprimé de notre serveur.</p>
 
         <h2>3. Publicité</h2>
         <p>Fire affiche des publicités via Google AdMob. Google AdMob peut collecter et utiliser certaines informations pour diffuser des annonces personnalisées. Cela peut inclure:</p>
@@ -47,20 +57,24 @@
         <p>Pour plus d'informations sur la façon dont Google traite les données, consultez la <a href="https://policies.google.com/privacy">Politique de confidentialité de Google</a>.</p>
 
         <h2>4. Données que Nous NE Collectons PAS</h2>
-        <p>Fire ne collecte, ne stocke ni ne transmet directement:</p>
+        <p>Fire ne collecte, ne stocke ni ne transmet:</p>
         <ul>
-            <li>Informations d'identification personnelle</li>
-            <li>Informations de compte ou de connexion</li>
-            <li>Analyses d'utilisation ou données de suivi</li>
-            <li>Votre localisation vers des serveurs externes</li>
+            <li>Nom, e-mail, numéro de téléphone ou autre information d'identification personnelle</li>
+            <li>Informations de compte ou de connexion (l'app n'a pas de comptes utilisateur)</li>
+            <li>Analyses d'utilisation ni données de suivi comportemental</li>
+            <li>Un historique continu de votre position (uniquement le point de surveillance opt-in décrit en 2.3)</li>
+            <li>Le contenu de votre appareil (contacts, photos, calendrier, etc.)</li>
         </ul>
 
         <h2>5. Services Tiers</h2>
-        <p>Fire récupère les données de feux des sources publiques suivantes:</p>
+        <p>Fire utilise les services externes suivants:</p>
         <ul>
             <li><strong>NASA FIRMS:</strong> Données de foyers d'incendie des capteurs satellites</li>
             <li><strong>EFFIS Copernicus:</strong> Données de superposition de l'Indice Forêt Météo</li>
-            <li><strong>Apple Maps:</strong> Tuiles de carte et imagerie satellite</li>
+            <li><strong>ANEPC (Autoridade Nacional de Emergência e Proteção Civil) / ProCiv :</strong> Source officielle des données portugaises de protection civile (endpoint public ArcGIS).</li>
+            <li><strong>Apple Maps :</strong> Tuiles de carte et imagerie satellite.</li>
+            <li><strong>Cloudflare Workers (Cloudflare, Inc., infrastructure dans l'Union européenne) :</strong> Héberge notre backend de notifications push. Lorsque les Alertes d'incidents (Portugal — Bêta) sont activées, le jeton FCM, le point de surveillance, le rayon et la langue y sont stockés.</li>
+            <li><strong>Firebase Cloud Messaging (Google Ireland Limited) :</strong> Service de livraison de notifications push pour iOS (via Apple Push Notification service). FCM traite le jeton de l'appareil et le contenu de la notification en tant que sous-traitant.</li>
         </ul>
 
         <h2>6. Vos Droits</h2>
