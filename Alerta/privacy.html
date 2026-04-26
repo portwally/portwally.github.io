@@ -13,7 +13,7 @@
         <a href="index.html" class="back-link">&larr; Voltar ao Início</a>
 
         <h1>Política de Privacidade</h1>
-        <p><strong>Última atualização:</strong> 2 de março de 2026</p>
+        <p><strong>Última atualização:</strong> 26 de abril de 2026</p>
 
         <h2>1. Introdução</h2>
         <p>A Alerta ("nós", "nosso" ou "a app") está empenhada em proteger a sua privacidade. Esta Política de Privacidade explica como recolhemos, utilizamos e protegemos as suas informações quando utiliza a nossa aplicação móvel.</p>
@@ -21,16 +21,25 @@
         <h2>2. Informação que Recolhemos</h2>
 
         <h3>2.1 Dados de Localização</h3>
-        <p>Se conceder permissão, a Alerta recolhe a localização do seu dispositivo para:</p>
+        <p>Se conceder permissão, a Alerta utiliza a localização do seu dispositivo para:</p>
         <ul>
             <li>Centrar o mapa na sua posição atual</li>
-            <li>Enviar notificações push quando são detetadas ocorrências perto de si</li>
             <li>Calcular distâncias até às ocorrências</li>
+            <li>Filtrar localmente que ocorrências estão dentro do seu raio de alerta</li>
         </ul>
-        <p>Os dados de localização são processados localmente no seu dispositivo e não são transmitidos para os nossos servidores.</p>
+        <p>A localização permanece no seu dispositivo, exceto quando ativa explicitamente os <strong>Alertas de ocorrências</strong> (ver secção 2.3).</p>
 
         <h3>2.2 Definições da App</h3>
-        <p>As suas preferências de notificação (raio de alerta, tipos de ocorrência, definições de som) são armazenadas localmente no seu dispositivo utilizando mecanismos de armazenamento padrão da Apple.</p>
+        <p>As suas preferências de notificação (raio de alerta, tipos de ocorrência, definições de som, idioma) são armazenadas localmente no seu dispositivo utilizando mecanismos de armazenamento padrão da Apple.</p>
+
+        <h3>2.3 Alertas de Ocorrências (Push) — opt-in</h3>
+        <p>Se ativar a opção <em>Alertas de ocorrências</em> nas Definições da app, transmitimos para o nosso servidor o mínimo necessário para entregar notificações enquanto a app está fechada:</p>
+        <ul>
+            <li><strong>Token de notificação push (FCM token)</strong> — identificador anónimo gerado pelo Firebase Cloud Messaging, válido apenas para esta instalação da app neste dispositivo</li>
+            <li><strong>Ponto de monitorização</strong> — uma única coordenada (lat/lng) que escolhe ao ativar a opção. Por predefinição, este ponto <em>não</em> é atualizado quando se desloca; só é reenviado se ativar adicionalmente "Atualizar localização automaticamente" e ultrapassar 2 km do último ponto enviado, com um limite mínimo de 1 hora entre atualizações.</li>
+            <li><strong>Raio de alerta</strong> e <strong>idioma preferido</strong> — para que o servidor envie a notificação localizada</li>
+        </ul>
+        <p>Não enviamos um histórico contínuo da sua localização. Quando desativa os Alertas de ocorrências, o registo é eliminado do nosso servidor.</p>
 
         <h2>3. Publicidade</h2>
         <p>A Alerta apresenta anúncios através do Google AdMob. O Google AdMob pode recolher e utilizar certas informações para apresentar anúncios personalizados. Isto pode incluir:</p>
@@ -47,32 +56,46 @@
         <p>Para mais informações sobre como a Google trata os dados, visite a <a href="https://policies.google.com/privacy">Política de Privacidade da Google</a>.</p>
 
         <h2>4. Dados que NÃO Recolhemos</h2>
-        <p>A Alerta não recolhe, armazena ou transmite diretamente:</p>
+        <p>A Alerta não recolhe, armazena ou transmite:</p>
         <ul>
-            <li>Informações de identificação pessoal</li>
-            <li>Informações de conta ou login</li>
-            <li>Dados de análise ou rastreio de utilização</li>
-            <li>A sua localização para servidores externos</li>
+            <li>Nome, email, número de telefone ou outras informações de identificação pessoal</li>
+            <li>Informações de conta ou login (a app não tem contas de utilizador)</li>
+            <li>Dados analíticos de utilização ou de rastreio comportamental</li>
+            <li>Histórico contínuo da sua localização (apenas o ponto de monitorização opt-in descrito em 2.3)</li>
+            <li>Conteúdos do dispositivo (contactos, fotos, calendário, etc.)</li>
         </ul>
 
         <h2>5. Serviços de Terceiros</h2>
-        <p>A Alerta obtém dados de ocorrências das seguintes fontes públicas:</p>
+        <p>A Alerta utiliza os seguintes serviços externos:</p>
         <ul>
-            <li><strong>ANEPC / ProCiv:</strong> Dados oficiais de ocorrências de proteção civil</li>
-            <li><strong>Apple Maps:</strong> Mapas e imagens de satélite</li>
+            <li><strong>ANEPC (Autoridade Nacional de Emergência e Proteção Civil) / ProCiv:</strong> Fonte oficial dos dados de ocorrências (endpoint público ArcGIS).</li>
+            <li><strong>Apple Maps:</strong> Mapas e imagens de satélite.</li>
+            <li><strong>Cloudflare Workers (Cloudflare, Inc., infraestrutura na União Europeia):</strong> Aloja o nosso servidor de notificações push. Quando os Alertas de ocorrências estão ativos, o token FCM, o ponto de monitorização, o raio e o idioma são guardados aqui.</li>
+            <li><strong>Firebase Cloud Messaging (Google Ireland Limited):</strong> Serviço de entrega de notificações push para dispositivos iOS (via Apple Push Notification service) e Android. O FCM trata o token do dispositivo e o conteúdo da notificação como subcontratante.</li>
+            <li><strong>Google AdMob:</strong> Publicidade — ver secção 3.</li>
         </ul>
         <p>Estes serviços podem registar dados padrão de pedidos web (endereço IP, timestamp) de acordo com as suas próprias políticas de privacidade.</p>
 
         <h2>6. Armazenamento de Dados</h2>
-        <p>Todos os dados são armazenados localmente no seu dispositivo:</p>
+        <p><strong>No seu dispositivo:</strong></p>
         <ul>
-            <li>Definições de notificação são armazenadas em UserDefaults</li>
-            <li>IDs de ocorrências notificadas (para evitar alertas duplicados) são armazenados temporariamente</li>
-            <li>Nenhum dado é armazenado em servidores externos</li>
+            <li>Definições de notificação (em UserDefaults)</li>
+            <li>IDs de ocorrências já notificadas, para evitar alertas duplicados</li>
         </ul>
+        <p><strong>No nosso servidor (apenas se os Alertas de ocorrências estiverem ativos):</strong></p>
+        <ul>
+            <li>Token FCM, ponto de monitorização (lat/lng), raio de alerta, idioma e o instante da última atualização — uma única linha por instalação da app, atualizada quando alterar as definições.</li>
+            <li>Lista das ocorrências já notificadas a si nos últimos 7 dias, para evitar repetição. Removidas automaticamente após esse período.</li>
+        </ul>
+        <p>O registo é eliminado do servidor assim que desativar os Alertas de ocorrências ou que o token FCM se torne inválido (por exemplo, ao reinstalar a app).</p>
 
-        <h2>7. Notificações Push</h2>
-        <p>Se ativar alertas de ocorrências, a app utiliza o serviço de Notificações Push da Apple para entregar notificações locais. Estas notificações são geradas e agendadas inteiramente no seu dispositivo - nenhum servidor está envolvido.</p>
+        <h2>7. Notificações</h2>
+        <p>A Alerta utiliza dois caminhos de notificação:</p>
+        <ul>
+            <li><strong>Notificações locais:</strong> Quando a app está aberta e tem permissão de localização, gera notificações localmente quando uma ocorrência aparece dentro do seu raio. Nenhum servidor envolvido.</li>
+            <li><strong>Alertas de ocorrências (push, opt-in):</strong> O nosso servidor consulta os dados públicos da ANEPC a cada poucos minutos. Quando deteta uma nova ocorrência dentro do raio que registou, envia uma notificação push para o seu dispositivo via Firebase Cloud Messaging e Apple Push Notification service. Isto permite-lhe receber alertas mesmo com a app fechada.</li>
+        </ul>
+        <p>Pode desativar qualquer dos caminhos a qualquer momento nas Definições da app ou nas Definições do iOS.</p>
 
         <h2>8. Privacidade de Menores</h2>
         <p>A Alerta não recolhe intencionalmente qualquer informação pessoal de crianças menores de 13 anos. A app não requer qualquer informação pessoal para funcionar.</p>
@@ -99,7 +122,7 @@
         <hr style="margin: 3rem 0;">
 
         <h1>Privacy Policy</h1>
-        <p><strong>Last updated:</strong> March 2, 2026</p>
+        <p><strong>Last updated:</strong> April 26, 2026</p>
 
         <h2>1. Introduction</h2>
         <p>Alerta ("we", "our", or "the app") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard your information when you use our mobile application.</p>
@@ -107,16 +130,25 @@
         <h2>2. Information We Collect</h2>
 
         <h3>2.1 Location Data</h3>
-        <p>If you grant permission, Alerta collects your device's location to:</p>
+        <p>If you grant permission, Alerta uses your device's location to:</p>
         <ul>
             <li>Center the map on your current position</li>
-            <li>Send push notifications when incidents are detected near you</li>
             <li>Calculate distances to incidents</li>
+            <li>Filter locally which incidents are within your alert radius</li>
         </ul>
-        <p>Location data is processed locally on your device and is not transmitted to our servers.</p>
+        <p>Location stays on your device, except when you explicitly enable <strong>Incident alerts</strong> (see section 2.3).</p>
 
         <h3>2.2 App Settings</h3>
-        <p>Your notification preferences (alert radius, incident types, sound settings) are stored locally on your device using Apple's standard storage mechanisms.</p>
+        <p>Your notification preferences (alert radius, incident types, sound settings, language) are stored locally on your device using Apple's standard storage mechanisms.</p>
+
+        <h3>2.3 Incident Alerts (push) — opt-in</h3>
+        <p>If you enable <em>Incident alerts</em> in the app's Settings, we transmit the minimum data needed to deliver notifications while the app is closed:</p>
+        <ul>
+            <li><strong>Push notification token (FCM token)</strong> — an anonymous identifier issued by Firebase Cloud Messaging, valid only for this install of the app on this device</li>
+            <li><strong>Monitoring point</strong> — a single coordinate (lat/lng) chosen when you enable the option. By default this point is <em>not</em> updated as you move; it is only re-sent if you additionally enable "Auto-update my location" and you've moved more than 2 km from the last sent point, with a minimum 1-hour cool-down between updates.</li>
+            <li><strong>Alert radius</strong> and <strong>preferred language</strong> — so the server can localize the notification</li>
+        </ul>
+        <p>We do not send a continuous trail of your location. When you turn Incident alerts off, the record is deleted from our server.</p>
 
         <h2>3. Advertising</h2>
         <p>Alerta displays advertisements through Google AdMob. Google AdMob may collect and use certain information to serve personalized ads. This may include:</p>
@@ -133,32 +165,46 @@
         <p>For more information about how Google handles data, please visit <a href="https://policies.google.com/privacy">Google's Privacy Policy</a>.</p>
 
         <h2>4. Data We Do NOT Collect</h2>
-        <p>Alerta does not directly collect, store, or transmit:</p>
+        <p>Alerta does not collect, store, or transmit:</p>
         <ul>
-            <li>Personal identification information</li>
-            <li>Account or login information</li>
-            <li>Usage analytics or tracking data</li>
-            <li>Your location to external servers</li>
+            <li>Name, email, phone number, or any other personal identification information</li>
+            <li>Account or login information (the app has no user accounts)</li>
+            <li>Usage analytics or behavioral tracking data</li>
+            <li>A continuous trail of your location (only the opt-in monitoring point described in 2.3)</li>
+            <li>Device contents (contacts, photos, calendar, etc.)</li>
         </ul>
 
         <h2>5. Third-Party Services</h2>
-        <p>Alerta retrieves incident data from the following public sources:</p>
+        <p>Alerta uses the following external services:</p>
         <ul>
-            <li><strong>ANEPC / ProCiv:</strong> Official civil protection incident data</li>
-            <li><strong>Apple Maps:</strong> Map tiles and satellite imagery</li>
+            <li><strong>ANEPC (Autoridade Nacional de Emergência e Proteção Civil) / ProCiv:</strong> Official source of incident data (public ArcGIS endpoint).</li>
+            <li><strong>Apple Maps:</strong> Map tiles and satellite imagery.</li>
+            <li><strong>Cloudflare Workers (Cloudflare, Inc., infrastructure in the European Union):</strong> Hosts our push-notification backend. When Incident alerts are enabled, the FCM token, monitoring point, radius and language are stored here.</li>
+            <li><strong>Firebase Cloud Messaging (Google Ireland Limited):</strong> Push delivery service for iOS (via Apple Push Notification service) and Android. FCM processes the device token and notification payload as a sub-processor.</li>
+            <li><strong>Google AdMob:</strong> Advertising — see section 3.</li>
         </ul>
         <p>These services may log standard web request data (IP address, timestamp) according to their own privacy policies.</p>
 
         <h2>6. Data Storage</h2>
-        <p>All data is stored locally on your device:</p>
+        <p><strong>On your device:</strong></p>
         <ul>
-            <li>Notification settings are stored in UserDefaults</li>
-            <li>Notified incident IDs (to prevent duplicate alerts) are stored temporarily</li>
-            <li>No data is stored on external servers</li>
+            <li>Notification preferences (in UserDefaults)</li>
+            <li>Already-notified incident IDs, to prevent duplicate alerts</li>
         </ul>
+        <p><strong>On our server (only if Incident alerts are enabled):</strong></p>
+        <ul>
+            <li>FCM token, monitoring point (lat/lng), alert radius, language, and the timestamp of the last update — a single row per app install, updated when you change settings.</li>
+            <li>List of incidents already notified to you in the last 7 days, to prevent repetition. Removed automatically after that window.</li>
+        </ul>
+        <p>The record is deleted from the server as soon as you disable Incident alerts or the FCM token becomes invalid (for example, when reinstalling the app).</p>
 
-        <h2>7. Push Notifications</h2>
-        <p>If you enable incident alerts, the app uses Apple's Push Notification service to deliver local notifications. These notifications are generated and scheduled entirely on your device - no server is involved.</p>
+        <h2>7. Notifications</h2>
+        <p>Alerta uses two notification paths:</p>
+        <ul>
+            <li><strong>Local notifications:</strong> When the app is open and has location permission, it generates notifications locally when an incident appears within your radius. No server involved.</li>
+            <li><strong>Incident alerts (push, opt-in):</strong> Our server polls the public ANEPC data every few minutes. When it detects a new incident inside the radius you registered, it sends a push notification to your device via Firebase Cloud Messaging and Apple Push Notification service. This lets you receive alerts even when the app is closed.</li>
+        </ul>
+        <p>You can disable either path at any time in the app's Settings or in iOS Settings.</p>
 
         <h2>8. Children's Privacy</h2>
         <p>Alerta does not knowingly collect any personal information from children under 13. The app does not require any personal information to function.</p>
