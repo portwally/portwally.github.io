@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Abastece - Precios de Combustible en Chile</title>
-    <meta name="keywords" content="combustible, bencina, diesel, precios, gasolinera, barato, CNE, Chile, Argentina, ahorrar, estacion de servicio">
-    <meta name="description" content="Encuentra donde cargar mas barato en Chile. Precios en tiempo real de la CNE con mapa interactivo, sin publicidad y sin registro.">
+    <title>Abastece - Precios de Combustible en Chile y Brasil</title>
+    <meta name="keywords" content="combustible, bencina, gasolina, diesel, etanol, GLP, GNV, precios, gasolinera, posto, barato, CNE, ANP, Chile, Brasil, ahorrar">
+    <meta name="description" content="Encuentra donde cargar mas barato en Chile y Brasil. Precios oficiales de la CNE y de la ANP, mapa interactivo, modo ruta y sin publicidad invasiva.">
+    <link rel="alternate" hreflang="es" href="abastece.html">
+    <link rel="alternate" hreflang="pt-BR" href="abastece-pt-br.html">
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="banner abastece.png">
     <script data-goatcounter="https://portwally.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
@@ -15,15 +17,16 @@
         <nav>
             <div class="logo">Abastece</div>
             <div class="nav-links">
+                <a href="abastece-pt-br.html">Português</a>
                 <a href="#soporte">Soporte</a>
                 <a href="abastece-privacidad.html">Privacidad</a>
             </div>
         </nav>
         <div class="hero-content">
-            <img src="banner abastece.png" alt="Abastece App" class="hero-image">
+            <img src="banner abastece.png" alt="Abastece App - Chile y Brasil" class="hero-image">
             <h1>Abastece</h1>
-            <p class="tagline">El mejor precio de bencina cerca de ti</p>
-            <p class="subtitle">Encuentra donde cargar mas barato en Chile. Precios en tiempo real con datos oficiales de la CNE, mapa interactivo y sin ninguna publicidad.</p>
+            <p class="tagline">El mejor precio de combustible cerca de ti</p>
+            <p class="subtitle">Encuentra donde cargar mas barato en Chile y Brasil. Datos oficiales de la CNE y de la ANP, mapa interactivo, modo ruta para tus viajes y sin ninguna publicidad invasiva.</p>
             <a href="https://apps.apple.com/us/app/abastece/id6761839602" class="app-store-badge">
                 <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Descargar en la App Store">
             </a>
@@ -36,8 +39,8 @@
             <div class="feature-grid">
                 <div class="feature">
                     <div class="feature-icon">⛽</div>
-                    <h3>Precios en Tiempo Real</h3>
-                    <p>Consulta los precios actualizados de todas las estaciones de servicio de tu zona. Bencina 93, 95, 97, Diesel y GLP vehicular.</p>
+                    <h3>Precios Actualizados</h3>
+                    <p>Consulta los precios de todas las estaciones de tu zona. En Chile: bencina 93, 95, 97, diesel y GLP. En Brasil: gasolina, etanol, diesel S10, GLP y GNV.</p>
                 </div>
                 <div class="feature">
                     <div class="feature-icon">🗺️</div>
@@ -45,24 +48,24 @@
                     <p>Visualiza las estaciones en un mapa con marcadores por colores: verde para los mas baratos, naranja para precio medio y rojo para los mas caros.</p>
                 </div>
                 <div class="feature">
+                    <div class="feature-icon">🛣️</div>
+                    <h3>Modo Ruta</h3>
+                    <p>Defines un origen y un destino y la app te muestra los postos mas baratos a lo largo del camino, dentro de un corredor configurable de 2 a 15 km. Ideal para viajes largos.</p>
+                </div>
+                <div class="feature">
                     <div class="feature-icon">📍</div>
                     <h3>Cerca de Ti</h3>
                     <p>Deteccion automatica de tu ubicacion para mostrarte solo las estaciones dentro del radio que elijas. Tambien puedes fijar una ubicacion manualmente.</p>
                 </div>
                 <div class="feature">
-                    <div class="feature-icon">🔧</div>
-                    <h3>Multiples Combustibles</h3>
-                    <p>Selecciona el tipo de combustible que uses: Bencina 93, Bencina 95, Bencina 97, Diesel o GLP vehicular. La app recuerda tu preferencia.</p>
-                </div>
-                <div class="feature">
-                    <div class="feature-icon">🧭</div>
-                    <h3>Navegacion Directa</h3>
-                    <p>Toca una estacion para ver todos los detalles e iniciar la navegacion directamente en Apple Maps o Google Maps.</p>
+                    <div class="feature-icon">📊</div>
+                    <h3>Tendencias por Region</h3>
+                    <p>Compara los precios promedio entre regiones (Chile) o estados (Brasil) y entiende el impacto de los impuestos en cada zona del pais.</p>
                 </div>
                 <div class="feature">
                     <div class="feature-icon">🔒</div>
                     <h3>Privacidad Total</h3>
-                    <p>Abastece funciona 100% en tu dispositivo. No recopilamos datos personales, sin cuenta, sin registro, sin publicidad.</p>
+                    <p>Abastece funciona en tu dispositivo. No recopilamos datos personales, sin cuenta, sin registro, sin seguimiento.</p>
                 </div>
             </div>
         </section>
@@ -72,11 +75,11 @@
             <div class="sources">
                 <div class="source">
                     <h3>Chile — CNE</h3>
-                    <p>Los precios de Chile se obtienen directamente de la API oficial de la Comision Nacional de Energia (CNE), garantizando informacion fiable y actualizada de todas las estaciones de servicio del pais.</p>
+                    <p>Los precios chilenos se obtienen directamente de la API oficial de la Comision Nacional de Energia (CNE), garantizando informacion fiable y actualizada de todas las estaciones de servicio del pais.</p>
                 </div>
                 <div class="source">
-                    <h3>Argentina — Proximamente</h3>
-                    <p>El soporte para Argentina esta en desarrollo. Los datos provienen de la Secretaria de Energia de Argentina y estaran disponibles cuando el servidor oficial complete su migracion.</p>
+                    <h3>Brasil — ANP</h3>
+                    <p>Los precios brasilenos provienen del Levantamento Semanal de Precos de la Agencia Nacional do Petroleo (ANP), unidos al cadastro oficial de revendedores con coordenadas. Los datos se actualizan cada semana.</p>
                 </div>
             </div>
         </section>
@@ -108,6 +111,7 @@
     <footer>
         <div class="footer-content">
             <div class="footer-links">
+                <a href="abastece-pt-br.html">Português (Brasil)</a>
                 <a href="#soporte">Soporte</a>
                 <a href="abastece-privacidad.html">Politica de Privacidad</a>
                 <a href="mailto:walter.tengler@gmail.com">Contacto</a>
@@ -134,7 +138,7 @@
                 <a href="../Bitpast/">BitPast</a>
             </div>
             <p>&copy; 2026 Walter Tengler. Todos los derechos reservados.</p>
-            <p class="disclaimer">Datos proporcionados por la Comision Nacional de Energia de Chile (CNE). Esta app es solo para fines informativos y no debe utilizarse como unica fuente para decisiones de repostaje.</p>
+            <p class="disclaimer">Datos proporcionados por la Comision Nacional de Energia de Chile (CNE) y la Agencia Nacional do Petroleo de Brasil (ANP). Esta app es solo para fines informativos y no debe utilizarse como unica fuente para decisiones de repostaje.</p>
         </div>
     </footer>
 </body>
