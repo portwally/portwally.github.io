@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alerta - Ocorrencias de Proteção Civil em Tempo Real</title>
-    <meta name="keywords" content="proteção civil, incêndios, acidentes, Portugal, alertas, emergência, bombeiros, ANEPC, fogos, iOS app, macOS app">
-    <meta name="description" content="Acompanhe ocorrências de proteção civil em Portugal em tempo real. Receba alertas quando surgem novos incidentes na sua área.">
+    <meta name="keywords" content="proteção civil, incêndios, acidentes, sismos, terramotos, IPMA, Portugal, alertas, emergência, bombeiros, ANEPC, fogos, iOS app, macOS app">
+    <meta name="description" content="Acompanhe ocorrências de proteção civil e sismos em Portugal em tempo real. Receba alertas quando surgem novos incidentes na sua área ou quando ocorrem sismos.">
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="Alerta Banner Hero.png">
     <script data-goatcounter="https://portwally.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
@@ -23,7 +23,7 @@
             <img src="Alerta Banner Hero.png" alt="Alerta App" class="hero-image">
             <h1>Alerta</h1>
             <p class="tagline">Proteção Civil em Tempo Real</p>
-            <p class="subtitle">Acompanhe ocorrências de proteção civil em Portugal. Receba notificações instantâneas quando surgem novos incidentes na sua área. Veja estatísticas em tempo real de meios envolvidos.</p>
+            <p class="subtitle">Acompanhe ocorrências de proteção civil e sismos em Portugal em tempo real. Receba notificações instantâneas quando surgem novos incidentes na sua área ou quando ocorre um sismo. Veja estatísticas e meios mobilizados em todo o país.</p>
             <a href="https://apps.apple.com/us/app/alerta/id6759662896" class="app-store-badge">
                 <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store">
             </a>
@@ -31,6 +31,37 @@
     </header>
 
     <main>
+        <section class="screenshots">
+            <h2>A app por dentro</h2>
+            <p class="screenshots-subtitle">Mapa em tempo real, estatísticas, sismos e alertas push — tudo num só lugar.</p>
+            <div class="screenshot-grid">
+                <figure class="screenshot">
+                    <img src="screenshots/01-map.png" alt="Mapa interativo com todas as ocorrências ativas em Portugal" loading="lazy">
+                    <figcaption>Mapa interativo com todas as ocorrências ativas no país, atualizado em tempo real.</figcaption>
+                </figure>
+                <figure class="screenshot">
+                    <img src="screenshots/06-detail.png" alt="Detalhe de uma ocorrência com meios mobilizados e cronologia" loading="lazy">
+                    <figcaption>Detalhe da ocorrência: localização, meios mobilizados e cronologia da evolução.</figcaption>
+                </figure>
+                <figure class="screenshot">
+                    <img src="screenshots/02-stats-summary.png" alt="Painel de estatísticas com totais nacionais" loading="lazy">
+                    <figcaption>Estatísticas nacionais: ocorrências ativas, operacionais, veículos e meios aéreos.</figcaption>
+                </figure>
+                <figure class="screenshot">
+                    <img src="screenshots/03-stats-charts.png" alt="Gráficos de recursos ao longo do tempo e ocorrências por tipo" loading="lazy">
+                    <figcaption>Recursos ao longo do tempo e ocorrências por tipo, em 24h, 30 dias ou 1 ano.</figcaption>
+                </figure>
+                <figure class="screenshot screenshot-feature">
+                    <img src="screenshots/04-earthquakes.png" alt="Sismos do IPMA com mapa e lista filtrada por período" loading="lazy">
+                    <figcaption><strong>Novo:</strong> sismos do IPMA com mapa interativo e histórico de 24 horas, 7 ou 30 dias.</figcaption>
+                </figure>
+                <figure class="screenshot">
+                    <img src="screenshots/05-settings.png" alt="Definições com raio de alerta e magnitude mínima de sismos" loading="lazy">
+                    <figcaption>Defina o raio de alerta para ocorrências e a magnitude mínima para alertas de sismos.</figcaption>
+                </figure>
+            </div>
+        </section>
+
         <section class="features">
             <h2>Funcionalidades</h2>
             <div class="feature-grid">
@@ -44,20 +75,25 @@
                     <h3>Alertas Push</h3>
                     <p>Receba notificações quando surgem novas ocorrências perto de si. Configure o raio de alerta conforme as suas necessidades.</p>
                 </div>
+                <div class="feature feature-highlight">
+                    <div class="feature-icon">🌐</div>
+                    <h3>Sismos em Tempo Real</h3>
+                    <p>Dados sísmicos oficiais do IPMA para Portugal Continental, Madeira e Açores. Mapa e histórico de 24h, 7 ou 30 dias, com alertas push acima da magnitude que definir.</p>
+                </div>
                 <div class="feature">
                     <div class="feature-icon">📊</div>
                     <h3>Estatísticas em Tempo Real</h3>
-                    <p>Veja o número de ocorrências ativas, bombeiros, veículos e meios aéreos envolvidos em todo o país.</p>
+                    <p>Veja o número de ocorrências ativas, bombeiros, veículos e meios aéreos envolvidos em todo o país, com gráficos de evolução temporal.</p>
                 </div>
                 <div class="feature">
                     <div class="feature-icon">🚒</div>
                     <h3>Recursos Mobilizados</h3>
-                    <p>Informação detalhada sobre bombeiros, veículos e meios aéreos em cada ocorrência.</p>
+                    <p>Informação detalhada sobre bombeiros, veículos e meios aéreos em cada ocorrência, com a sua evolução desde o despacho.</p>
                 </div>
                 <div class="feature">
                     <div class="feature-icon">📍</div>
                     <h3>Localização</h3>
-                    <p>Centre o mapa na sua posição atual e veja as ocorrências mais próximas de si.</p>
+                    <p>Centre o mapa na sua posição atual e veja as ocorrências mais próximas de si. A localização nunca sai do dispositivo sem o seu consentimento.</p>
                 </div>
                 <div class="feature">
                     <div class="feature-icon">🌍</div>
@@ -73,6 +109,10 @@
                 <div class="source">
                     <h3>ANEPC / ProCiv</h3>
                     <p>Dados oficiais da Autoridade Nacional de Emergência e Proteção Civil sobre ocorrências em todo o território nacional.</p>
+                </div>
+                <div class="source">
+                    <h3>IPMA — Instituto Português do Mar e da Atmosfera</h3>
+                    <p>Dados sísmicos oficiais para Portugal Continental, Madeira e Açores, atualizados regularmente.</p>
                 </div>
             </div>
         </section>
@@ -137,7 +177,7 @@
                 <a href="../SlimPix/">SlimPix</a>
             </div>
             <p>&copy; 2026 Walter Tengler. Todos os direitos reservados.</p>
-            <p class="disclaimer">Dados fornecidos pela ANEPC. Esta app destina-se apenas a fins informativos e não deve ser utilizada como única fonte para decisões de emergência.</p>
+            <p class="disclaimer">Dados fornecidos pela ANEPC e pelo IPMA. Esta app destina-se apenas a fins informativos e não deve ser utilizada como única fonte para decisões de emergência.</p>
         </div>
     </footer>
 </body>
