@@ -38,6 +38,7 @@
             <li><strong>Token de notificação push (FCM token)</strong> — identificador anónimo gerado pelo Firebase Cloud Messaging, válido apenas para esta instalação da app neste dispositivo</li>
             <li><strong>Ponto de monitorização</strong> — uma única coordenada (lat/lng) que escolhe ao ativar a opção. Por predefinição, este ponto <em>não</em> é atualizado quando se desloca; só é reenviado se ativar adicionalmente "Atualizar localização automaticamente" e ultrapassar 2 km do último ponto enviado, com um limite mínimo de 1 hora entre atualizações.</li>
             <li><strong>Raio de alerta</strong> e <strong>idioma preferido</strong> — para que o servidor envie a notificação localizada</li>
+            <li><strong>Magnitude mínima de sismo</strong> (opcional) — se ativar os Alertas de Sismos, o limiar de magnitude que escolhe (1.0–6.0) é guardado para que o servidor saiba a partir de que ponto deve enviar uma notificação. Os dados sismológicos vêm do IPMA (fonte pública).</li>
         </ul>
         <p>Não enviamos um histórico contínuo da sua localização. Quando desativa os Alertas de ocorrências, o registo é eliminado do nosso servidor.</p>
 
@@ -147,6 +148,7 @@
             <li><strong>Push notification token (FCM token)</strong> — an anonymous identifier issued by Firebase Cloud Messaging, valid only for this install of the app on this device</li>
             <li><strong>Monitoring point</strong> — a single coordinate (lat/lng) chosen when you enable the option. By default this point is <em>not</em> updated as you move; it is only re-sent if you additionally enable "Auto-update my location" and you've moved more than 2 km from the last sent point, with a minimum 1-hour cool-down between updates.</li>
             <li><strong>Alert radius</strong> and <strong>preferred language</strong> — so the server can localize the notification</li>
+            <li><strong>Earthquake minimum magnitude</strong> (optional) — if you enable Earthquake Alerts, the magnitude threshold you pick (1.0–6.0) is stored so the server knows when to push you. Earthquake data itself comes from IPMA (a public source).</li>
         </ul>
         <p>We do not send a continuous trail of your location. When you turn Incident alerts off, the record is deleted from our server.</p>
 
