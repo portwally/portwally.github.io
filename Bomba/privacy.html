@@ -13,12 +13,13 @@
     <div class="legal-page">
         <a href="index.html" class="back-link">&larr; Voltar</a>
         <h1>Politica de Privacidade</h1>
-        <p><strong>Ultima atualizacao:</strong> Marco 2026</p>
+        <p><strong>Ultima atualizacao:</strong> Abril 2026</p>
 
         <h2>Introducao</h2>
         <p>A Bomba ("nos", "nosso" ou "app") esta comprometida em proteger a sua privacidade. Esta politica explica como tratamos os seus dados quando utiliza a nossa aplicacao.</p>
 
         <h2>Dados que Recolhemos</h2>
+
         <h3>Dados de Localizacao</h3>
         <p>A Bomba utiliza a localizacao do seu dispositivo exclusivamente para mostrar postos de combustivel na sua proximidade. A sua localizacao:</p>
         <ul>
@@ -29,33 +30,58 @@
         </ul>
 
         <h3>Dados de Precos</h3>
-        <p>Os dados de precos de combustivel sao obtidos da API publica da DGEG (Direcao-Geral de Energia e Geologia). Estes dados sao publicos e nao contem informacoes pessoais.</p>
+        <p>Os dados de precos de combustivel sao obtidos das APIs publicas da DGEG (Direcao-Geral de Energia e Geologia) e do Ministerio para a Transicao Ecologica de Espanha. Estes dados sao publicos e nao contem informacoes pessoais.</p>
+
+        <h3>Notificacoes Push (apenas se as ativar)</h3>
+        <p>Se ativar as notificacoes da previsao semanal de precos, a app envia para o nosso servidor um conjunto minimo de dados necessarios para lhe entregar a notificacao:</p>
+        <ul>
+            <li>Um token tecnico de notificacao (FCM token), gerado pela Google e exclusivo para a Bomba neste seu dispositivo</li>
+            <li>O sistema operativo do dispositivo (iOS ou Android)</li>
+            <li>O idioma escolhido na app, para enviar a notificacao no seu idioma</li>
+            <li>O pais selecionado nas definicoes (Portugal, Espanha ou automatico), para sabermos se lhe enviar ou nao a previsao portuguesa</li>
+            <li>A versao da app</li>
+        </ul>
+        <p>Estes dados <strong>nao incluem</strong> nome, email, numero de telefone, localizacao, identificador publicitario, historico de utilizacao ou qualquer outro dado pessoal. Sao guardados de forma encriptada na base de dados do nosso backend (Cloudflare D1) apenas para que possamos enviar-lhe a notificacao certa, na lingua certa, ao sabado ou domingo.</p>
+        <p>Pode <strong>cancelar</strong> esta recolha em qualquer momento desativando as notificacoes nas Definicoes da app. Quando o faz, a app pede ao servidor para apagar imediatamente o seu registo.</p>
 
         <h2>Dados que NAO Recolhemos</h2>
         <p>A Bomba nao recolhe, armazena ou transmite:</p>
         <ul>
-            <li>Informacoes pessoais identificaveis</li>
+            <li>Nome, email, numero de telefone ou outros dados de identificacao pessoal</li>
             <li>Historico de localizacao</li>
-            <li>Dados de utilizacao</li>
-            <li>Identificadores de dispositivo</li>
+            <li>Dados de utilizacao ou analises de comportamento</li>
+            <li>Identificador publicitario (IDFA / Advertising ID)</li>
             <li>Cookies ou tecnologias de rastreamento</li>
         </ul>
 
         <h2>Servicos de Terceiros</h2>
-        <h3>DGEG</h3>
-        <p>Utilizamos a API da DGEG para obter precos de combustivel. Nenhum dado pessoal e partilhado com este servico.</p>
+
+        <h3>DGEG e Ministerio Espanhol</h3>
+        <p>Utilizamos as APIs publicas da DGEG e do Ministerio para a Transicao Ecologica para obter precos de combustivel. Nenhum dado pessoal e partilhado com estes servicos.</p>
+
+        <h3>Firebase Cloud Messaging (Google)</h3>
+        <p>Se ativar as notificacoes, utilizamos o servico Firebase Cloud Messaging da Google para entregar a mensagem ao seu dispositivo. A Google atribui um token tecnico ao seu dispositivo (descrito acima); a politica de privacidade da Google aplica-se a este token: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a>.</p>
+
+        <h3>Cloudflare</h3>
+        <p>O nosso backend (que verifica a previsao da semana e envia a notificacao) corre na infraestrutura Cloudflare Workers. A Cloudflare ve, transitoriamente, o endereco IP do seu pedido — como qualquer pedido HTTP na Internet — e tem a sua propria politica de privacidade: <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener">cloudflare.com/privacypolicy</a>. Nao guardamos enderecos IP nos nossos registos.</p>
+
+        <h3>Google AdMob (publicidade)</h3>
+        <p>A app exibe publicidade fornecida pela Google AdMob. Para utilizadores na Uniao Europeia, mostramos publicidade nao personalizada por predefinicao. A AdMob processa dados nos termos da politica de privacidade da Google.</p>
 
         <h3>Apple Maps / Google Maps</h3>
         <p>Quando escolhe navegar para uma estacao, a app abre o Apple Maps ou Google Maps. A utilizacao desses servicos esta sujeita as suas respetivas politicas de privacidade.</p>
 
         <h2>Armazenamento de Dados</h2>
-        <p>Todas as preferencias e definicoes sao armazenadas localmente no seu dispositivo utilizando armazenamento seguro do sistema. Nenhum dado e enviado para servidores externos.</p>
+        <p>Todas as preferencias e definicoes sao armazenadas localmente no seu dispositivo. A unica excecao e quando ativa as notificacoes push, em que o token tecnico e as preferencias minimas descritas acima sao guardados no nosso backend Cloudflare ate que desative as notificacoes ou desinstale a app.</p>
 
         <h2>Seguranca</h2>
-        <p>Como nao recolhemos ou transmitimos dados pessoais, nao existem riscos de seguranca associados ao armazenamento ou transmissao dos seus dados.</p>
+        <p>Toda a comunicacao entre a app e o nosso backend e feita atraves de HTTPS. O acesso ao backend e protegido por uma chave secreta. Os dados pessoais que recolhemos sao minimos e nao sao partilhados com terceiros para fins comerciais.</p>
 
         <h2>Privacidade de Criancas</h2>
-        <p>A Bomba nao recolhe dados de nenhum utilizador, incluindo criancas com menos de 13 anos.</p>
+        <p>A Bomba nao se destina a criancas com menos de 13 anos e nao recolhe intencionalmente dados de utilizadores nessa faixa etaria.</p>
+
+        <h2>Os seus Direitos (RGPD)</h2>
+        <p>Como utilizador na Uniao Europeia, tem o direito de aceder, retificar ou apagar os dados que guardamos sobre o seu dispositivo. Pode exercer estes direitos desativando as notificacoes na app (apaga automaticamente o registo) ou contactando-nos pelo email abaixo.</p>
 
         <h2>Alteracoes a Esta Politica</h2>
         <p>Podemos atualizar esta politica periodicamente. Quaisquer alteracoes serao publicadas nesta pagina com uma data de atualizacao revista.</p>

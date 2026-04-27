@@ -13,12 +13,13 @@
     <div class="legal-page">
         <a href="index.html" class="back-link">&larr; Zurueck</a>
         <h1>Datenschutzerklaerung</h1>
-        <p><strong>Letzte Aktualisierung:</strong> Maerz 2026</p>
+        <p><strong>Letzte Aktualisierung:</strong> April 2026</p>
 
         <h2>Einfuehrung</h2>
         <p>Bomba ("wir", "unser" oder "App") verpflichtet sich zum Schutz Ihrer Privatsphaere. Diese Richtlinie erklaert, wie wir Ihre Daten behandeln, wenn Sie unsere Anwendung nutzen.</p>
 
         <h2>Daten, die wir erfassen</h2>
+
         <h3>Standortdaten</h3>
         <p>Bomba verwendet den Standort Ihres Geraets ausschliesslich, um Tankstellen in Ihrer Naehe anzuzeigen. Ihr Standort:</p>
         <ul>
@@ -29,33 +30,58 @@
         </ul>
 
         <h3>Preisdaten</h3>
-        <p>Kraftstoffpreisdaten werden von der oeffentlichen DGEG-API (Generaldirektion fuer Energie und Geologie) bezogen. Diese Daten sind oeffentlich und enthalten keine persoenlichen Informationen.</p>
+        <p>Kraftstoffpreisdaten werden von den oeffentlichen APIs der DGEG (Generaldirektion fuer Energie und Geologie Portugals) und des spanischen Ministeriums fuer den oekologischen Wandel bezogen. Diese Daten sind oeffentlich und enthalten keine persoenlichen Informationen.</p>
+
+        <h3>Push-Benachrichtigungen (nur wenn Sie sie aktivieren)</h3>
+        <p>Wenn Sie die woechentliche Preisprognose-Benachrichtigung aktivieren, sendet die App ein Minimum an Daten an unseren Server, das zur Zustellung der Benachrichtigung notwendig ist:</p>
+        <ul>
+            <li>Ein technisches Benachrichtigungstoken (FCM-Token), das Google fuer diese Installation ausstellt</li>
+            <li>Die Plattform Ihres Geraets (iOS oder Android)</li>
+            <li>Die in der App eingestellte Sprache, damit die Benachrichtigung in Ihrer Sprache ankommt</li>
+            <li>Das in den Einstellungen gewaehlte Land (Portugal, Spanien oder automatisch), damit wir wissen, ob wir Ihnen die portugiesische Prognose senden sollen</li>
+            <li>Die App-Version</li>
+        </ul>
+        <p>Diese Daten <strong>enthalten weder</strong> Name, E-Mail, Telefonnummer, Standort, Werbe-ID, Nutzungsverlauf <strong>noch</strong> sonstige persoenliche Informationen. Sie werden in unserer Backend-Datenbank (Cloudflare D1) ausschliesslich zu dem Zweck gespeichert, Ihnen am Freitag, Samstag oder Sonntag die richtige Benachrichtigung in der richtigen Sprache zu senden.</p>
+        <p>Sie koennen sich jederzeit <strong>abmelden</strong>, indem Sie die Benachrichtigungen in den App-Einstellungen deaktivieren. Wenn Sie das tun, fordert die App den Server umgehend auf, Ihren Eintrag zu loeschen.</p>
 
         <h2>Daten, die wir NICHT erfassen</h2>
         <p>Bomba erfasst, speichert oder uebertraegt nicht:</p>
         <ul>
-            <li>Persoenlich identifizierbare Informationen</li>
+            <li>Name, E-Mail, Telefonnummer oder andere persoenlich identifizierbare Informationen</li>
             <li>Standortverlauf</li>
-            <li>Nutzungsdaten</li>
-            <li>Geraetekennungen</li>
+            <li>Nutzungsanalysen oder Verhaltensdaten</li>
+            <li>Werbe-Identifikator (IDFA / Advertising ID)</li>
             <li>Cookies oder Tracking-Technologien</li>
         </ul>
 
         <h2>Dienste von Drittanbietern</h2>
-        <h3>DGEG</h3>
-        <p>Wir verwenden die DGEG-API, um Kraftstoffpreise zu erhalten. Keine persoenlichen Daten werden mit diesem Dienst geteilt.</p>
+
+        <h3>DGEG und spanisches Ministerium</h3>
+        <p>Wir verwenden die oeffentlichen APIs der DGEG und des spanischen Ministeriums, um Kraftstoffpreise zu erhalten. Es werden keine persoenlichen Daten mit diesen Diensten geteilt.</p>
+
+        <h3>Firebase Cloud Messaging (Google)</h3>
+        <p>Wenn Sie Benachrichtigungen aktivieren, verwenden wir Googles Firebase Cloud Messaging, um sie an Ihr Geraet zuzustellen. Google stellt fuer Ihr Geraet ein technisches Token aus (oben beschrieben); fuer dieses Token gilt die Datenschutzerklaerung von Google: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a>.</p>
+
+        <h3>Cloudflare</h3>
+        <p>Unser Backend (das die woechentliche Prognose prueft und die Benachrichtigung versendet) laeuft auf Cloudflare Workers. Cloudflare sieht die IP-Adresse Ihrer Anfrage voruebergehend — wie jede HTTP-Anfrage im Internet — und hat eine eigene Datenschutzerklaerung: <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener">cloudflare.com/privacypolicy</a>. Wir speichern keine IP-Adressen in unseren Anwendungslogs.</p>
+
+        <h3>Google AdMob (Werbung)</h3>
+        <p>Die App zeigt Werbung von Google AdMob. Nutzern in der EU werden standardmaessig nicht-personalisierte Anzeigen angezeigt. AdMob verarbeitet Daten gemaess der Datenschutzerklaerung von Google.</p>
 
         <h3>Apple Maps / Google Maps</h3>
         <p>Wenn Sie sich entscheiden, zu einer Station zu navigieren, oeffnet die App Apple Maps oder Google Maps. Die Nutzung dieser Dienste unterliegt deren jeweiligen Datenschutzrichtlinien.</p>
 
         <h2>Datenspeicherung</h2>
-        <p>Alle Einstellungen und Praeferenzen werden lokal auf Ihrem Geraet mit sicherem Systemspeicher gespeichert. Keine Daten werden an externe Server gesendet.</p>
+        <p>Alle Einstellungen und Praeferenzen werden lokal auf Ihrem Geraet gespeichert. Die einzige Ausnahme ist, wenn Sie Push-Benachrichtigungen aktivieren — in diesem Fall werden das technische Token und die oben beschriebenen minimalen Praeferenzen in unserem Cloudflare-Backend aufbewahrt, bis Sie die Benachrichtigungen deaktivieren oder die App deinstallieren.</p>
 
         <h2>Sicherheit</h2>
-        <p>Da wir keine persoenlichen Daten erfassen oder uebertragen, gibt es keine Sicherheitsrisiken im Zusammenhang mit der Speicherung oder Uebertragung Ihrer Daten.</p>
+        <p>Die gesamte Kommunikation zwischen der App und unserem Backend erfolgt ueber HTTPS. Der Zugriff auf das Backend ist durch ein gemeinsames Geheimnis geschuetzt. Die persoenlichen Daten, die wir erfassen, sind minimal und werden nicht zu kommerziellen Zwecken an Dritte weitergegeben.</p>
 
         <h2>Datenschutz fuer Kinder</h2>
-        <p>Bomba erfasst keine Daten von Benutzern, einschliesslich Kindern unter 13 Jahren.</p>
+        <p>Bomba richtet sich nicht an Kinder unter 13 Jahren und wir erfassen wissentlich keine Daten von Nutzern in diesem Altersbereich.</p>
+
+        <h2>Ihre Rechte (DSGVO)</h2>
+        <p>Als Nutzer in der Europaeischen Union haben Sie das Recht, auf die Daten, die wir ueber Ihr Geraet halten, zuzugreifen, sie zu berichtigen oder zu loeschen. Sie koennen diese Rechte ausueben, indem Sie die Benachrichtigungen in der App deaktivieren (loescht den Eintrag automatisch) oder uns unter der untenstehenden E-Mail-Adresse kontaktieren.</p>
 
         <h2>Aenderungen dieser Richtlinie</h2>
         <p>Wir koennen diese Richtlinie regelmaessig aktualisieren. Alle Aenderungen werden auf dieser Seite mit einem ueberarbeiteten Aktualisierungsdatum veroeffentlicht.</p>

@@ -13,12 +13,13 @@
     <div class="legal-page">
         <a href="index.html" class="back-link">&larr; Back</a>
         <h1>Privacy Policy</h1>
-        <p><strong>Last updated:</strong> March 2026</p>
+        <p><strong>Last updated:</strong> April 2026</p>
 
         <h2>Introduction</h2>
         <p>Bomba ("we", "our", or "app") is committed to protecting your privacy. This policy explains how we handle your data when you use our application.</p>
 
         <h2>Data We Collect</h2>
+
         <h3>Location Data</h3>
         <p>Bomba uses your device's location exclusively to show fuel stations near you. Your location:</p>
         <ul>
@@ -29,33 +30,58 @@
         </ul>
 
         <h3>Price Data</h3>
-        <p>Fuel price data is obtained from the public DGEG (Directorate-General for Energy and Geology) API. This data is public and contains no personal information.</p>
+        <p>Fuel price data is obtained from the public APIs of DGEG (Portugal's Directorate-General for Energy and Geology) and the Spanish Ministry for the Ecological Transition. This data is public and contains no personal information.</p>
+
+        <h3>Push Notifications (only if you enable them)</h3>
+        <p>If you enable the weekly forecast push, the app sends our backend a minimal set of data needed to deliver that notification:</p>
+        <ul>
+            <li>A technical notification token (FCM token) issued by Google for this install</li>
+            <li>Your device platform (iOS or Android)</li>
+            <li>Your in-app language, so the notification arrives in your language</li>
+            <li>Your selected country setting (Portugal, Spain, or Auto), so we know whether to send you the Portuguese forecast</li>
+            <li>The app version</li>
+        </ul>
+        <p>This data <strong>does not include</strong> name, email, phone number, location, advertising ID, usage history, or any other personal data. It is stored in our backend database (Cloudflare D1) for the sole purpose of sending you the right notification, in the right language, on Friday/Saturday/Sunday.</p>
+        <p>You can <strong>opt out</strong> at any time by turning notifications off in the app's Settings. When you do, the app immediately asks the server to delete your registration.</p>
 
         <h2>Data We Do NOT Collect</h2>
         <p>Bomba does not collect, store, or transmit:</p>
         <ul>
-            <li>Personally identifiable information</li>
+            <li>Name, email, phone number, or other personally identifiable information</li>
             <li>Location history</li>
-            <li>Usage data</li>
-            <li>Device identifiers</li>
+            <li>Usage analytics or behavioural data</li>
+            <li>Advertising identifier (IDFA / Advertising ID)</li>
             <li>Cookies or tracking technologies</li>
         </ul>
 
         <h2>Third-Party Services</h2>
-        <h3>DGEG</h3>
-        <p>We use the DGEG API to obtain fuel prices. No personal data is shared with this service.</p>
+
+        <h3>DGEG and Spanish Ministry</h3>
+        <p>We use the public DGEG and Spanish Ministry APIs to obtain fuel prices. No personal data is shared with these services.</p>
+
+        <h3>Firebase Cloud Messaging (Google)</h3>
+        <p>If you enable notifications, we use Google's Firebase Cloud Messaging service to deliver them to your device. Google issues a technical token for your device (described above); Google's privacy policy applies to this token: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a>.</p>
+
+        <h3>Cloudflare</h3>
+        <p>Our backend (which checks the weekly forecast and dispatches the notification) runs on Cloudflare Workers. Cloudflare transiently sees your request's IP address — as any HTTP request on the Internet does — and has its own privacy policy: <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener">cloudflare.com/privacypolicy</a>. We do not retain IP addresses in our application logs.</p>
+
+        <h3>Google AdMob (advertising)</h3>
+        <p>The app shows ads served by Google AdMob. EU users see non-personalised ads by default. AdMob processes data under Google's privacy policy.</p>
 
         <h3>Apple Maps / Google Maps</h3>
         <p>When you choose to navigate to a station, the app opens Apple Maps or Google Maps. Use of these services is subject to their respective privacy policies.</p>
 
         <h2>Data Storage</h2>
-        <p>All preferences and settings are stored locally on your device using secure system storage. No data is sent to external servers.</p>
+        <p>All preferences and settings are stored locally on your device. The only exception is when you enable push notifications — in that case the technical token and the minimal preferences described above are kept on our Cloudflare backend until you disable notifications or uninstall the app.</p>
 
         <h2>Security</h2>
-        <p>Since we do not collect or transmit personal data, there are no security risks associated with storing or transmitting your data.</p>
+        <p>All communication between the app and our backend uses HTTPS. Backend access is protected by a shared secret. The personal data we collect is minimal and is not shared with third parties for commercial purposes.</p>
 
         <h2>Children's Privacy</h2>
-        <p>Bomba does not collect data from any users, including children under 13.</p>
+        <p>Bomba is not directed at children under 13 and we do not knowingly collect data from users in that age range.</p>
+
+        <h2>Your Rights (GDPR)</h2>
+        <p>As a user in the European Union you have the right to access, correct, or delete the data we hold about your device. You can exercise these rights by turning notifications off in the app (this automatically deletes the record) or by contacting us at the email below.</p>
 
         <h2>Changes to This Policy</h2>
         <p>We may update this policy periodically. Any changes will be posted on this page with a revised update date.</p>

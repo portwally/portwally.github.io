@@ -13,12 +13,13 @@
     <div class="legal-page">
         <a href="index.html" class="back-link">&larr; Volver</a>
         <h1>Politica de Privacidad</h1>
-        <p><strong>Ultima actualizacion:</strong> Marzo 2026</p>
+        <p><strong>Ultima actualizacion:</strong> Abril 2026</p>
 
         <h2>Introduccion</h2>
         <p>Bomba ("nosotros", "nuestro" o "app") esta comprometida con la proteccion de tu privacidad. Esta politica explica como manejamos tus datos cuando utilizas nuestra aplicacion.</p>
 
         <h2>Datos que Recopilamos</h2>
+
         <h3>Datos de Ubicacion</h3>
         <p>Bomba utiliza la ubicacion de tu dispositivo exclusivamente para mostrarte las gasolineras cercanas. Tu ubicacion:</p>
         <ul>
@@ -31,31 +32,56 @@
         <h3>Datos de Precios</h3>
         <p>Los datos de precios de combustible se obtienen de las APIs publicas de DGEG (Portugal) y del Ministerio para la Transicion Ecologica (Espana). Estos datos son publicos y no contienen informacion personal.</p>
 
+        <h3>Notificaciones Push (solo si las activas)</h3>
+        <p>Si activas las notificaciones de la prevision semanal de precios, la app envia a nuestro servidor un conjunto minimo de datos necesarios para entregarte la notificacion:</p>
+        <ul>
+            <li>Un token tecnico de notificacion (FCM token), generado por Google y exclusivo para Bomba en este dispositivo</li>
+            <li>El sistema operativo del dispositivo (iOS o Android)</li>
+            <li>El idioma elegido en la app, para enviarte la notificacion en tu idioma</li>
+            <li>El pais seleccionado en los ajustes (Portugal, Espana o automatico), para saber si enviarte o no la prevision portuguesa</li>
+            <li>La version de la app</li>
+        </ul>
+        <p>Estos datos <strong>no incluyen</strong> nombre, email, numero de telefono, ubicacion, identificador publicitario, historial de uso ni ningun otro dato personal. Se almacenan en la base de datos de nuestro backend (Cloudflare D1) con el unico proposito de enviarte la notificacion correcta, en el idioma correcto, el viernes, sabado o domingo.</p>
+        <p>Puedes <strong>cancelar</strong> esta recopilacion en cualquier momento desactivando las notificaciones en los Ajustes de la app. Cuando lo haces, la app pide al servidor que elimine inmediatamente tu registro.</p>
+
         <h2>Datos que NO Recopilamos</h2>
         <p>Bomba no recopila, almacena ni transmite:</p>
         <ul>
-            <li>Informacion de identificacion personal</li>
+            <li>Nombre, email, numero de telefono u otros datos de identificacion personal</li>
             <li>Historial de ubicaciones</li>
-            <li>Datos de uso</li>
-            <li>Identificadores de dispositivo</li>
+            <li>Datos de uso o analiticas de comportamiento</li>
+            <li>Identificador publicitario (IDFA / Advertising ID)</li>
             <li>Cookies o tecnologias de seguimiento</li>
         </ul>
 
         <h2>Servicios de Terceros</h2>
+
         <h3>DGEG y Ministerio Espanol</h3>
-        <p>Utilizamos las APIs de DGEG y del Ministerio para la Transicion Ecologica para obtener los precios de combustible. No se comparte ningun dato personal con estos servicios.</p>
+        <p>Utilizamos las APIs publicas de DGEG y del Ministerio para la Transicion Ecologica para obtener los precios de combustible. No se comparte ningun dato personal con estos servicios.</p>
+
+        <h3>Firebase Cloud Messaging (Google)</h3>
+        <p>Si activas las notificaciones, utilizamos el servicio Firebase Cloud Messaging de Google para entregarlas a tu dispositivo. Google asigna un token tecnico a tu dispositivo (descrito arriba); la politica de privacidad de Google se aplica a este token: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a>.</p>
+
+        <h3>Cloudflare</h3>
+        <p>Nuestro backend (que comprueba la prevision semanal y envia la notificacion) se ejecuta en Cloudflare Workers. Cloudflare ve transitoriamente la direccion IP de tu solicitud — como cualquier solicitud HTTP en Internet — y tiene su propia politica de privacidad: <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener">cloudflare.com/privacypolicy</a>. No conservamos direcciones IP en los registros de la aplicacion.</p>
+
+        <h3>Google AdMob (publicidad)</h3>
+        <p>La app muestra anuncios servidos por Google AdMob. Para usuarios en la Union Europea, mostramos anuncios no personalizados de forma predeterminada. AdMob procesa datos segun la politica de privacidad de Google.</p>
 
         <h3>Apple Maps / Google Maps</h3>
         <p>Cuando eliges navegar a una estacion, la app abre Apple Maps o Google Maps. El uso de estos servicios esta sujeto a sus respectivas politicas de privacidad.</p>
 
         <h2>Almacenamiento de Datos</h2>
-        <p>Todas las preferencias y configuraciones se almacenan localmente en tu dispositivo utilizando el almacenamiento seguro del sistema. No se envia ningun dato a servidores externos.</p>
+        <p>Todas las preferencias y configuraciones se almacenan localmente en tu dispositivo. La unica excepcion es cuando activas las notificaciones push — en ese caso, el token tecnico y las preferencias minimas descritas arriba se conservan en nuestro backend Cloudflare hasta que desactives las notificaciones o desinstales la app.</p>
 
         <h2>Seguridad</h2>
-        <p>Dado que no recopilamos ni transmitimos datos personales, no existen riesgos de seguridad asociados con el almacenamiento o transmision de tus datos.</p>
+        <p>Toda la comunicacion entre la app y nuestro backend se realiza a traves de HTTPS. El acceso al backend esta protegido por una clave secreta. Los datos personales que recopilamos son minimos y no se comparten con terceros con fines comerciales.</p>
 
         <h2>Privacidad de Menores</h2>
-        <p>Bomba no recopila datos de ningun usuario, incluidos menores de 13 anos.</p>
+        <p>Bomba no esta dirigida a menores de 13 anos y no recopilamos a sabiendas datos de usuarios de ese rango de edad.</p>
+
+        <h2>Tus Derechos (RGPD)</h2>
+        <p>Como usuario en la Union Europea, tienes derecho a acceder, rectificar o eliminar los datos que conservamos sobre tu dispositivo. Puedes ejercer estos derechos desactivando las notificaciones en la app (esto elimina automaticamente el registro) o contactandonos en el email indicado abajo.</p>
 
         <h2>Cambios en Esta Politica</h2>
         <p>Podemos actualizar esta politica periodicamente. Cualquier cambio se publicara en esta pagina con una fecha de actualizacion revisada.</p>
