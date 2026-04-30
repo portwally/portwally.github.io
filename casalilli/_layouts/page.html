@@ -1,0 +1,363 @@
+{% assign d = site.data[page.data] %}
+{% assign other_lang = page.other_lang %}
+{% assign other_href = page.other_href %}
+{% assign alt_key = page.alt_key %}
+<!DOCTYPE html>
+<html lang="{{ d.lang }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{{ d.meta.description }}">
+    <title>{{ d.meta.title }}</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script data-goatcounter="https://portwally.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">Casa da Lili</a>
+            <ul class="nav-links">
+                <li><a href="#{{ d.nav.about_id }}">{{ d.nav.about_label }}</a></li>
+                <li><a href="#{{ d.nav.programmes_id }}">{{ d.nav.programmes_label }}</a></li>
+                <li><a href="#{{ d.nav.therapies_id }}">{{ d.nav.therapies_label }}</a></li>
+                <li><a href="#{{ d.nav.contact_id }}" class="nav-cta">{{ d.nav.contact_label }}</a></li>
+            </ul>
+            <div class="lang-switcher">
+                {% if d.lang == 'pt' %}
+                <a href="index.html" class="lang-btn active">PT</a>
+                <a href="en.html" class="lang-btn">EN</a>
+                {% else %}
+                <a href="index.html" class="lang-btn">PT</a>
+                <a href="en.html" class="lang-btn active">EN</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Banner -->
+    <header class="hero" style="background-image: url('img/banner-new.jpg');">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">{{ d.hero.title }}</h1>
+            <p class="hero-subtitle">{{ d.hero.subtitle }}</p>
+            <p class="hero-tagline">{{ d.hero.tagline_line1 }}<br>{{ d.hero.tagline_line2 }}</p>
+            <a href="#{{ d.nav.programmes_id }}" class="hero-btn">{{ d.hero.cta }}</a>
+            <div class="scroll-indicator"><span>↓</span></div>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="{{ d.nav.about_id }}" class="section">
+        <div class="container">
+            <h2 class="section-title">{{ d.about.title }}</h2>
+            <div class="section-divider"></div>
+            <p class="lead-text" data-reveal="fade-up">{{ d.about.lead }}</p>
+            <p data-reveal="fade-up" data-reveal-delay="1">{{ d.about.body }}</p>
+        </div>
+    </section>
+
+    <!-- O Lugar / The Place -->
+    <section class="place-section">
+        <div class="container">
+            <h2 class="section-title" data-reveal="fade-up">{{ d.place.title }}</h2>
+            <div class="section-divider" data-reveal="fade-up" data-reveal-delay="1"></div>
+            <div class="place-grid">
+                <div class="place-image-col" data-reveal="fade-left">
+                    <img src="{{ d.place.image }}" alt="{{ d.place.image_alt }}">
+                </div>
+                <div class="place-text-col">
+                    {% for fragment in d.place.fragments %}
+                    <div class="place-fragment" data-reveal="fade-right" data-reveal-delay="{{ forloop.index }}">
+                        <p class="place-fragment-heading">{{ fragment.heading }}</p>
+                        <p class="place-fragment-text">{{ fragment.text }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Photo Gallery -->
+    <section class="photo-gallery-section">
+        <div class="container">
+            <h2 class="section-title">{{ d.gallery.title }}</h2>
+            <div class="section-divider"></div>
+            <div class="carousel-wrapper">
+                <button class="carousel-btn carousel-prev" aria-label="{{ d.gallery.prev_label }}">&#8592;</button>
+                <div class="carousel-viewport">
+                    <div class="carousel-track" id="carouselTrack">
+                        {% for photo in site.data.gallery.photos %}
+                        <img src="{{ photo.src }}" alt="{% if d.lang == 'pt' %}{{ photo.alt_pt }}{% else %}{{ photo.alt_en }}{% endif %}">
+                        {% endfor %}
+                    </div>
+                </div>
+                <button class="carousel-btn carousel-next" aria-label="{{ d.gallery.next_label }}">&#8594;</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Who is it for -->
+    <section class="section section-alt">
+        <div class="container">
+            <h2 class="section-title">{{ d.audience.title }}</h2>
+            <div class="section-divider"></div>
+            <div class="audience-grid">
+                {% for card in d.audience.cards %}
+                <div class="audience-card" data-reveal="fade-up" data-reveal-delay="{{ forloop.index }}">
+                    <span class="audience-icon">&#10047;</span>
+                    <h3>{{ card.heading }}</h3>
+                    <p>{{ card.text }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Um Dia Aqui / A Day Here -->
+    <section class="day-section">
+        <div class="container">
+            <h2 class="section-title" data-reveal="fade-up">{{ d.day.title }}</h2>
+            <div class="section-divider" data-reveal="fade-up" data-reveal-delay="1"></div>
+            <div class="timeline">
+                {% for step in d.day.steps %}
+                {% assign side = 'left' %}
+                {% assign reveal = 'fade-left' %}
+                {% assign mod = forloop.index0 | modulo: 2 %}
+                {% if mod == 1 %}
+                  {% assign side = 'right' %}
+                  {% assign reveal = 'fade-right' %}
+                {% endif %}
+                <div class="timeline-step {{ side }}" data-reveal="{{ reveal }}">
+                    {% if side == 'right' %}
+                    <div class="timeline-image"><img src="{{ step.image }}" alt="{{ step.image_alt }}"></div>
+                    <div class="timeline-dot-col"><div class="timeline-dot"></div></div>
+                    <div class="timeline-content">
+                        <span class="step-number">{{ step.time }}</span>
+                        <p class="step-heading">{{ step.heading }}</p>
+                        <p class="step-text">{{ step.text }}</p>
+                    </div>
+                    {% else %}
+                    <div class="timeline-content">
+                        <span class="step-number">{{ step.time }}</span>
+                        <p class="step-heading">{{ step.heading }}</p>
+                        <p class="step-text">{{ step.text }}</p>
+                    </div>
+                    <div class="timeline-dot-col"><div class="timeline-dot"></div></div>
+                    <div class="timeline-image"><img src="{{ step.image }}" alt="{{ step.image_alt }}"></div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Programmes Section -->
+    <section id="{{ d.nav.programmes_id }}" class="section">
+        <div class="container">
+            <h2 class="section-title">{{ d.programmes.title }}</h2>
+            <div class="section-divider"></div>
+            <p class="lead-text">{{ d.programmes.lead }}</p>
+
+            <div class="programs-grid">
+                {% for programme in d.programmes.items %}
+                <div class="program-card{% if programme.featured %} featured{% endif %}" data-reveal="fade-up" data-reveal-delay="{{ forloop.index }}">
+                    {% if programme.featured and programme.badge != "" %}
+                    <div class="program-badge">{{ programme.badge }}</div>
+                    {% endif %}
+                    <div class="program-header">
+                        <span class="program-duration">{{ programme.duration }}</span>
+                        <h3>{{ programme.title }}</h3>
+                    </div>
+                    <p class="program-desc">{{ programme.description }}</p>
+                    <ul class="program-list">
+                        {% for item in programme.includes %}
+                        <li>{{ item }}</li>
+                        {% endfor %}
+                    </ul>
+                    <div class="program-price">{{ programme.price }}</div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Therapies Section -->
+    <section id="{{ d.nav.therapies_id }}" class="section section-alt">
+        <div class="container">
+            <h2 class="section-title">{{ d.therapies.title }}</h2>
+            <div class="section-divider"></div>
+            <p class="lead-text">{{ d.therapies.lead }}</p>
+
+            <div class="therapies-grid">
+                {% for therapy in d.therapies.items %}
+                <div class="therapy-card" data-reveal="fade-up" data-reveal-delay="{{ forloop.index }}">
+                    <span class="therapy-icon">{{ therapy.icon }}</span>
+                    <h3>{{ therapy.title }}</h3>
+                    <p>{{ therapy.description }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials-section">
+        <div class="container">
+            <h2 class="section-title" data-reveal="fade-up">{{ d.testimonials.title }}</h2>
+            <div class="section-divider" data-reveal="fade-up" data-reveal-delay="1"></div>
+            <div class="testimonials-grid">
+                {% for testimonial in d.testimonials.items %}
+                <div class="testimonial-card" data-reveal="fade-up" data-reveal-delay="{{ forloop.index }}">
+                    <span class="testimonial-quote-mark">&ldquo;</span>
+                    <p class="testimonial-text">{{ testimonial.text }}</p>
+                    <cite class="testimonial-cite">&mdash; {{ testimonial.cite }}</cite>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Approach Section -->
+    <section class="section section-alt">
+        <div class="container">
+            <h2 class="section-title">{{ d.approach.title }}</h2>
+            <div class="section-divider"></div>
+            <div class="approach-content">
+                {% for paragraph in d.approach.paragraphs %}
+                <p data-reveal="fade-up" data-reveal-delay="{{ forloop.index }}">{{ paragraph }}</p>
+                {% endfor %}
+                <p class="approach-highlight" data-reveal="fade-up" data-reveal-delay="3">{{ d.approach.highlight }}</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quote Banner -->
+    <div class="quote-banner">
+        <div class="quote-banner-overlay"></div>
+        <p class="quote-banner-text" data-reveal="fade-in">{{ d.quote_banner.text }}</p>
+    </div>
+
+    <!-- Contact Section -->
+    <section id="{{ d.nav.contact_id }}" class="section contact-section">
+        <div class="container">
+            <h2 class="section-title">{{ d.contact.title }}</h2>
+            <div class="section-divider"></div>
+            <p class="lead-text">{{ d.contact.lead }}</p>
+            <div class="contact-grid">
+                <div class="contact-item">
+                    <span class="contact-label">{{ d.contact.email_label }}</span>
+                    <a href="mailto:{{ site.data.contact.email }}">{{ site.data.contact.email }}</a>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-label">{{ d.contact.phone_label }}</span>
+                    <a href="tel:{{ site.data.contact.phone_link }}">{{ site.data.contact.phone_display }}</a>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-label">{{ d.contact.instagram_label }}</span>
+                    <a href="{{ site.data.contact.instagram_url }}">{{ site.data.contact.instagram_handle }}</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" id="lightboxClose">&times;</button>
+        <button class="lightbox-prev" id="lightboxPrev">&#8592;</button>
+        <img src="" alt="" id="lightboxImg">
+        <button class="lightbox-next" id="lightboxNext">&#8594;</button>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-quote">{{ d.footer.quote }}</p>
+            <p class="footer-copy">{{ d.footer.copyright }}</p>
+        </div>
+    </footer>
+
+    <script>
+    const track = document.getElementById('carouselTrack');
+    const imgs = Array.from(track.querySelectorAll('img'));
+    const total = imgs.length;
+    const visible = 3;
+    let current = 0;
+    let autoTimer;
+
+    function getStepSize() {
+        const vw = track.parentElement.offsetWidth;
+        const gap = 12;
+        return (vw - gap * (visible - 1)) / visible + gap;
+    }
+
+    function goTo(index) {
+        const max = total - visible;
+        if (index > max) index = 0;
+        if (index < 0) index = max;
+        current = index;
+        track.style.transform = `translateX(-${current * getStepSize()}px)`;
+    }
+
+    document.querySelector('.carousel-prev').addEventListener('click', () => { goTo(current - 1); resetTimer(); });
+    document.querySelector('.carousel-next').addEventListener('click', () => { goTo(current + 1); resetTimer(); });
+
+    function startTimer() { autoTimer = setInterval(() => goTo(current + 1), 3500); }
+    function resetTimer() { clearInterval(autoTimer); startTimer(); }
+    startTimer();
+    window.addEventListener('resize', () => goTo(current));
+
+    // Lightbox
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    let lbIndex = 0;
+
+    imgs.forEach((img, i) => img.addEventListener('click', () => openLightbox(i)));
+
+    function openLightbox(i) {
+        lbIndex = i;
+        lightboxImg.src = imgs[i].src;
+        lightboxImg.alt = imgs[i].alt;
+        lightbox.classList.add('active');
+        clearInterval(autoTimer);
+    }
+    function closeLightbox() {
+        lightbox.classList.remove('active');
+        startTimer();
+    }
+
+    document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+    document.getElementById('lightboxNext').addEventListener('click', () => { lbIndex = (lbIndex + 1) % total; lightboxImg.src = imgs[lbIndex].src; });
+    document.getElementById('lightboxPrev').addEventListener('click', () => { lbIndex = (lbIndex - 1 + total) % total; lightboxImg.src = imgs[lbIndex].src; });
+    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+    document.addEventListener('keydown', (e) => {
+        if (!lightbox.classList.contains('active')) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowRight') { lbIndex = (lbIndex + 1) % total; lightboxImg.src = imgs[lbIndex].src; }
+        if (e.key === 'ArrowLeft') { lbIndex = (lbIndex - 1 + total) % total; lightboxImg.src = imgs[lbIndex].src; }
+    });
+
+    // Scroll Reveal
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('revealed');
+                revealObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('[data-reveal]').forEach(el => revealObserver.observe(el));
+
+    // Hero scroll indicator fade
+    const scrollIndicator = document.querySelector('.scroll-indicator');
+    if (scrollIndicator) {
+        window.addEventListener('scroll', () => {
+            scrollIndicator.style.opacity = window.scrollY > window.innerHeight * 0.4 ? '0' : '1';
+        }, { passive: true });
+    }
+    </script>
+</body>
+</html>

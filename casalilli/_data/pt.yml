@@ -1,0 +1,178 @@
+lang: pt
+meta:
+  title: "Casa da Lili — Bem-Estar entre a Serra e o Mar"
+  description: "Casa da Lili — Programa de Estadia de Bem-Estar. Uma experiência de pausa, cuidado e reconexão entre a serra e o mar."
+
+nav:
+  about_id: sobre
+  about_label: "Sobre"
+  programmes_id: programas
+  programmes_label: "Programas"
+  therapies_id: terapias
+  therapies_label: "Terapias"
+  contact_id: contacto
+  contact_label: "Reservar"
+
+hero:
+  title: "Casa da Lili"
+  subtitle: "Programa de Estadia de Bem-Estar"
+  tagline_line1: "Uma experiência de pausa, cuidado e reconexão,"
+  tagline_line2: "num ambiente tranquilo entre a serra e o mar."
+  cta: "Descubra os Programas"
+
+about:
+  title: "Bem-vindo à Casa da Lili"
+  lead: "Este programa foi pensado para quem sente necessidade de abrandar, descansar e cuidar de si de forma mais consciente."
+  body: "Ao longo da estadia, cada pessoa é acolhida no seu próprio ritmo, com espaço para silêncio, natureza, repouso e acompanhamento terapêutico. A proposta integra momentos simples, mas profundamente significativos: descanso, caminhada na natureza, alimentação cuidada, práticas de presença e terapias ajustadas às necessidades de cada pessoa."
+
+place:
+  title: "O Lugar"
+  image: "img/terrace-lavender.jpg"
+  image_alt: "Terraço com lavanda e vista para o mar"
+  fragments:
+    - heading: "Entre a serra e o mar"
+      text: "A casa fica numa aldeia tranquila, rodeada de natureza e a poucos minutos do Atlântico."
+    - heading: "Um ritmo diferente"
+      text: "Aqui, o tempo abranda. Não há agenda imposta, apenas presença."
+    - heading: "Silêncio que restaura"
+      text: "O silêncio da casa não é vazio — é o começo de algo."
+
+gallery:
+  title: "A Casa"
+  prev_label: "Anterior"
+  next_label: "Próximo"
+
+audience:
+  title: "Para Quem É Este Programa?"
+  cards:
+    - heading: "Esgotamento"
+      text: "Para quem vive com cansaço profissional ou burnout e precisa de uma pausa verdadeira."
+    - heading: "Transição"
+      text: "Para quem atravessa mudanças de vida — carreira, relações, luto — e precisa de espaço para se reorganizar."
+    - heading: "Fadiga Emocional"
+      text: "Para quem sente o peso acumulado do dia-a-dia e deseja aliviar a tensão de forma consciente."
+    - heading: "Reconexão"
+      text: "Para quem simplesmente sente que chegou o momento de cuidar de si com mais presença e profundidade."
+
+day:
+  title: "Um Dia Aqui"
+  steps:
+    - time: "Manhã"
+      heading: "Chegada e acolhimento"
+      text: "A sua estadia começa com uma conversa tranquila, um pequeno-almoço caseiro e o tempo para se instalar sem pressa."
+      image: "img/house-entrance.jpg"
+      image_alt: "Entrada da casa"
+    - time: "Meio da Manhã"
+      heading: "Movimento e respiração"
+      text: "Uma prática suave de yoga ou respiração no terraço — com a vista do mar como pano de fundo."
+      image: "img/terrace-1.jpg"
+      image_alt: "Terraço com vista para o mar"
+    - time: "Tarde"
+      heading: "Caminhada na natureza"
+      text: "Um percurso tranquilo pelos caminhos da aldeia ou junto ao litoral. Sem destino obrigatório."
+      image: "img/view-garden.jpg"
+      image_alt: "Vista do jardim"
+    - time: "Final da Tarde"
+      heading: "Sessão terapêutica"
+      text: "Um momento só para si — Reiki, massagem, terapia ou meditação, conforme o que precisar."
+      image: "img/interior-chakra.jpg"
+      image_alt: "Espaço terapêutico"
+    - time: "Noite"
+      heading: "Refeição e recolhimento"
+      text: "Uma refeição cuidada e, depois, silêncio. A casa acolhe-o enquanto o dia termina."
+      image: "img/interior-lounge.jpg"
+      image_alt: "Sala de estar"
+
+programmes:
+  title: "Os Nossos Programas"
+  lead: "Três modalidades de estadia, cada uma com um nível de profundidade diferente. Todos os programas são personalizados."
+  items:
+    - duration: "1 Dia"
+      title: "Pausa de Bem-Estar"
+      description: "Uma proposta breve e significativa para quem precisa de parar e respirar."
+      includes:
+        - "Acolhimento e conversa inicial"
+        - "Pequeno-almoço e uma refeição principal"
+        - "Caminhada suave na natureza"
+        - "1 sessão terapêutica individual"
+        - "1 momento de yoga, respiração ou meditação"
+      price: "A partir de €[XX]"
+      featured: false
+      badge: ""
+    - duration: "2 Dias"
+      title: "Estadia de Reconexão"
+      description: "Mais tempo para desacelerar, escutar o corpo e aprofundar o processo."
+      includes:
+        - "Estadia em quarto privado (1 noite)"
+        - "Pequeno-almoço e refeição principal por dia"
+        - "2 caminhadas na natureza"
+        - "2 sessões terapêuticas individuais"
+        - "2 momentos de yoga, respiração ou meditação"
+        - "Conversa de integração ao final da estadia"
+      price: "A partir de €[XX]"
+      featured: true
+      badge: "Mais Popular"
+    - duration: "3 Dias"
+      title: "Imersão de Cuidado e Presença"
+      description: "Uma experiência profunda de regeneração, pausa e cuidado integral."
+      includes:
+        - "Estadia em quarto privado (2 noites)"
+        - "Pequeno-almoço e refeição principal por dia"
+        - "Caminhadas na natureza + manhã de silêncio"
+        - "3 sessões terapêuticas individuais"
+        - "Práticas diárias de yoga, respiração e meditação"
+        - "Sessão de encerramento e integração final"
+      price: "A partir de €[XX]"
+      featured: false
+      badge: ""
+
+therapies:
+  title: "As Nossas Terapias"
+  lead: "Cada sessão é escolhida em conjunto com a pessoa, conforme as suas necessidades e preferências."
+  items:
+    - icon: "✦"
+      title: "Reiki"
+      description: "Técnica de cura energética japonesa que promove o equilíbrio físico, emocional e espiritual através da canalização de energia pelas mãos."
+    - icon: "◈"
+      title: "Massagem Ayurvédica"
+      description: "Massagem terapêutica baseada na medicina tradicional indiana, que utiliza óleos quentes e movimentos específicos para desbloquear tensões."
+    - icon: "⬡"
+      title: "Terapia Multidimensional"
+      description: "Abordagem holística que trabalha diferentes níveis energéticos, integrando corpo, mente e emoções para promover a cura profunda."
+    - icon: "❧"
+      title: "Yoga e Respiração"
+      description: "Práticas suaves de movimento e respiração que acalmam o sistema nervoso e promovem presença corporal."
+    - icon: "◎"
+      title: "Meditação"
+      description: "Prática guiada de atenção plena que cultiva a calma interior, a clareza mental e a capacidade de observar sem julgamento."
+
+testimonials:
+  title: "Vozes de Quem Esteve"
+  items:
+    - text: "Foi uma experiência que me devolveu a mim. O silêncio, a natureza, o acolhimento… tudo fazia sentido. Saí de lá mais leve e com uma clareza que não tinha há meses."
+      cite: "Convidada, Programa de 2 Dias"
+    - text: "Nunca pensei que três dias pudessem mudar tanto a minha perspetiva. O cuidado com que fui recebida foi diferente de tudo o que conhecia."
+      cite: "Convidada, Programa de 3 Dias"
+    - text: "Vim para descansar e parti com uma sensação de renovação profunda. O equilíbrio entre as terapias, a natureza e o silêncio foi perfeito."
+      cite: "Convidada, Programa de 1 Dia"
+
+approach:
+  title: "A Nossa Abordagem"
+  paragraphs:
+    - "Na Casa da Lili, o bem-estar é acolhido de forma simples, humana e personalizada. A natureza envolvente, o silêncio da casa, a vista sobre o Atlântico e o ritmo desacelerado da estadia fazem parte essencial da experiência."
+    - "O acompanhamento terapêutico acontece com escuta, presença e respeito pelo momento de cada pessoa. Mais do que um programa fechado, esta é uma proposta de cuidado consciente."
+  highlight: "A Casa da Lili não segue um formato rígido nem massificado. Cada estadia é vivida de forma íntima, simples e ajustada ao momento de vida de quem chega."
+
+quote_banner:
+  text: "Cuidar de si não é um luxo. É o começo de tudo."
+
+contact:
+  title: "Reservas e Contacto"
+  lead: "Para reservar a sua estadia ou esclarecer qualquer dúvida, entre em contacto connosco."
+  email_label: "Email"
+  phone_label: "Telefone"
+  instagram_label: "Instagram"
+
+footer:
+  quote: "Cuidar de si começa onde o tempo abranda."
+  copyright: "© 2026 Casa da Lili. Todos os direitos reservados."

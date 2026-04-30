@@ -1,0 +1,178 @@
+lang: en
+meta:
+  title: "Casa da Lili — Wellness Between the Mountains and the Sea"
+  description: "Casa da Lili — Wellness Stay Programme. An experience of pause, care and reconnection between the mountains and the sea."
+
+nav:
+  about_id: about
+  about_label: "About"
+  programmes_id: programmes
+  programmes_label: "Programmes"
+  therapies_id: therapies
+  therapies_label: "Therapies"
+  contact_id: contact
+  contact_label: "Book Now"
+
+hero:
+  title: "Casa da Lili"
+  subtitle: "Wellness Stay Programme"
+  tagline_line1: "An experience of pause, care and reconnection,"
+  tagline_line2: "in a peaceful setting between the mountains and the sea."
+  cta: "Discover Our Programmes"
+
+about:
+  title: "Welcome to Casa da Lili"
+  lead: "This programme was designed for those who feel the need to slow down, rest and take care of themselves more consciously."
+  body: "Throughout the stay, each person is welcomed at their own pace, with space for silence, nature, rest and therapeutic support. The experience brings together simple yet deeply meaningful moments: rest, nature walks, nourishing meals, mindfulness practices and therapies tailored to each person's needs."
+
+place:
+  title: "The Place"
+  image: "img/terrace-lavender.jpg"
+  image_alt: "Terrace with lavender and sea view"
+  fragments:
+    - heading: "Between the mountains and the sea"
+      text: "The house sits in a quiet village, surrounded by nature and minutes from the Atlantic."
+    - heading: "A different pace"
+      text: "Here, time slows down. There is no imposed schedule — only presence."
+    - heading: "Silence that restores"
+      text: "The silence of the house is not emptiness — it is the beginning of something."
+
+gallery:
+  title: "The House"
+  prev_label: "Previous"
+  next_label: "Next"
+
+audience:
+  title: "Who Is This Programme For?"
+  cards:
+    - heading: "Burnout"
+      text: "For those experiencing professional exhaustion or burnout who need a genuine pause to recover."
+    - heading: "Life Transitions"
+      text: "For those going through major changes — career shifts, relationship endings, grief — who need space to recentre."
+    - heading: "Emotional Fatigue"
+      text: "For those carrying the accumulated weight of daily life who wish to release tension in a mindful way."
+    - heading: "Reconnection"
+      text: "For those who simply feel the time has come to care for themselves with more presence and depth."
+
+day:
+  title: "A Day Here"
+  steps:
+    - time: "Morning"
+      heading: "Arrival and welcome"
+      text: "Your stay begins with a quiet conversation, a homemade breakfast, and all the time you need to settle in."
+      image: "img/house-entrance.jpg"
+      image_alt: "House entrance"
+    - time: "Mid-Morning"
+      heading: "Movement and breath"
+      text: "A gentle yoga or breathwork session on the terrace, with the sea as your backdrop."
+      image: "img/terrace-1.jpg"
+      image_alt: "Terrace with sea view"
+    - time: "Afternoon"
+      heading: "Walk in nature"
+      text: "A quiet walk through the village paths or along the coastline. No fixed destination required."
+      image: "img/view-garden.jpg"
+      image_alt: "View of the garden"
+    - time: "Late Afternoon"
+      heading: "Therapeutic session"
+      text: "A moment just for you — Reiki, massage, therapy or meditation, depending on what you need."
+      image: "img/interior-chakra.jpg"
+      image_alt: "Therapy space"
+    - time: "Evening"
+      heading: "Dinner and stillness"
+      text: "A nourishing meal, and then stillness. The house holds you as the day ends."
+      image: "img/interior-lounge.jpg"
+      image_alt: "Living room"
+
+programmes:
+  title: "Our Programmes"
+  lead: "Three stay options, each with a different level of depth. All programmes are personalised."
+  items:
+    - duration: "1 Day"
+      title: "Wellness Pause"
+      description: "A brief yet meaningful experience for those who need to stop and breathe."
+      includes:
+        - "Welcome and initial conversation"
+        - "Breakfast and one main meal"
+        - "Gentle nature walk"
+        - "1 individual therapeutic session"
+        - "1 yoga, breathwork or meditation session"
+      price: "From €[XX]"
+      featured: false
+      badge: ""
+    - duration: "2 Days"
+      title: "Reconnection Stay"
+      description: "More time to slow down, listen to your body and deepen the process."
+      includes:
+        - "Private room (1 night)"
+        - "Breakfast and one main meal per day"
+        - "2 nature walks"
+        - "2 individual therapeutic sessions"
+        - "2 yoga, breathwork or meditation sessions"
+        - "Integration conversation at the end of the stay"
+      price: "From €[XX]"
+      featured: true
+      badge: "Most Popular"
+    - duration: "3 Days"
+      title: "Deep Care and Presence Immersion"
+      description: "A profound experience of regeneration, pause and holistic care."
+      includes:
+        - "Private room (2 nights)"
+        - "Breakfast and one main meal per day"
+        - "Nature walks + optional silent morning"
+        - "3 individual therapeutic sessions"
+        - "Daily yoga, breathwork and meditation"
+        - "Closing and integration session"
+      price: "From €[XX]"
+      featured: false
+      badge: ""
+
+therapies:
+  title: "Our Therapies"
+  lead: "Each session is chosen together with the guest, based on their needs and preferences."
+  items:
+    - icon: "✦"
+      title: "Reiki"
+      description: "A Japanese energy healing technique that promotes physical, emotional and spiritual balance through the channelling of energy by the hands."
+    - icon: "◈"
+      title: "Ayurvedic Massage"
+      description: "A therapeutic massage rooted in traditional Indian medicine, using warm oils and specific movements to release tensions and restore energy flow."
+    - icon: "⬡"
+      title: "Multidimensional Therapy"
+      description: "A holistic approach that works across different energetic levels, integrating body, mind and emotions to promote deep healing."
+    - icon: "❧"
+      title: "Yoga and Breathwork"
+      description: "Gentle movement and breathing practices that calm the nervous system and promote body awareness and presence."
+    - icon: "◎"
+      title: "Meditation"
+      description: "Guided mindfulness practice that cultivates inner calm, mental clarity and the ability to observe without judgement."
+
+testimonials:
+  title: "Voices from Guests"
+  items:
+    - text: "It was an experience that gave me back to myself. The silence, the nature, the warmth of it all… everything made sense. I left feeling lighter and with a clarity I hadn't had in months."
+      cite: "Guest, 2-Day Programme"
+    - text: "I never thought three days could shift my perspective so profoundly. The care with which I was received was unlike anything I had known."
+      cite: "Guest, 3-Day Programme"
+    - text: "I came to rest and left with a sense of deep renewal. The balance between therapies, nature and silence was perfect."
+      cite: "Guest, 1-Day Programme"
+
+approach:
+  title: "Our Approach"
+  paragraphs:
+    - "At Casa da Lili, wellbeing is embraced in a simple, human and personalised way. The surrounding nature, the silence of the house, the view over the Atlantic and the unhurried rhythm of the stay are all essential parts of the experience."
+    - "Therapeutic support is offered with attentive listening, presence and respect for each person's moment. More than a fixed programme, this is an invitation to conscious care."
+  highlight: "Casa da Lili does not follow a rigid or mass-produced format. Each stay is lived intimately, simply and adapted to the life moment of each guest."
+
+quote_banner:
+  text: "Caring for yourself is not a luxury. It is the beginning of everything."
+
+contact:
+  title: "Bookings and Contact"
+  lead: "To book your stay or ask any questions, please get in touch."
+  email_label: "Email"
+  phone_label: "Phone"
+  instagram_label: "Instagram"
+
+footer:
+  quote: "Caring for yourself begins where time slows down."
+  copyright: "© 2026 Casa da Lili. All rights reserved."
