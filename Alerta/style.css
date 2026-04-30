@@ -55,6 +55,28 @@ nav {
     opacity: 1;
 }
 
+.lang-switcher {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+    letter-spacing: 0.02em;
+}
+
+.lang-switcher a {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    margin: 0 2px;
+}
+
+.lang-switcher a:hover {
+    color: #fff;
+    opacity: 1;
+}
+
+.lang-switcher strong {
+    color: #fff;
+    margin: 0 2px;
+}
+
 .language-selector {
     position: relative;
     cursor: pointer;
