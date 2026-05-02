@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apple II ASCII Art - Convert images to retro ASCII art</title>
+    <meta name="keywords" content="Apple II, ASCII art, image converter, macOS app, retro computing, phosphor screen, PrintChar21, PRNumber3, Applesoft BASIC, vintage computing">
+    <meta name="description" content="Convert any image to Apple II ASCII art in 40-column or 80-column mode. Live phosphor preview with authentic Apple II fonts. Free macOS app.">
+    <meta property="og:title" content="Apple II ASCII Art">
+    <meta property="og:description" content="Convert any image to Apple II ASCII art with live phosphor preview.">
+    <meta property="og:image" content="hero.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="hero.png">
+    <script data-goatcounter="https://portwally.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+    <header class="hero">
+        <nav>
+            <div class="logo">Apple II ASCII Art</div>
+            <div class="nav-links">
+                <a href="https://github.com/portwally/Apple-II-ASCII-Art" target="_blank">GitHub</a>
+                <a href="privacy.html">Privacy</a>
+                <a href="imprint.html">Imprint</a>
+            </div>
+        </nav>
+        <div class="hero-content">
+            <img src="hero.png" alt="Apple II ASCII Art - photo dissolving into green phosphor ASCII characters" class="hero-image">
+            <h1>Apple II ASCII Art</h1>
+            <p class="tagline">Convert any image to Apple II text-mode art</p>
+            <p class="subtitle">A native macOS app that turns photos into authentic 40-column or 80-column Apple II ASCII art &mdash; rendered live on a green, amber, or white phosphor screen, ready to view on a real Apple II.</p>
+            <div class="cta-row">
+                <a href="https://github.com/portwally/Apple-II-ASCII-Art" class="cta-button primary" target="_blank">View on GitHub</a>
+                <a href="https://github.com/portwally/Apple-II-ASCII-Art/archive/refs/heads/main.zip" class="cta-button secondary">Download Source</a>
+            </div>
+            <p class="meta">Free &amp; open source &middot; macOS 14+ &middot; SwiftUI</p>
+        </div>
+    </header>
+
+    <main>
+        <section class="features">
+            <h2>Features</h2>
+            <div class="feature-grid">
+                <div class="feature">
+                    <div class="feature-icon">📺</div>
+                    <h3>40 &amp; 80 Column Modes</h3>
+                    <p>Standard 40-col or 80-col card output. Same 280&times;192 Apple II display, mapped per character cell.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🔤</div>
+                    <h3>Authentic Apple II Fonts</h3>
+                    <p>PrintChar21 for 40-col and PRNumber3 for 80-col, both bundled in the app. Pixel-perfect glyphs.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🟢</div>
+                    <h3>Phosphor Preview</h3>
+                    <p>Live preview in classic green (#33FF00), amber (#FFB000), or white &mdash; with subtle screen glow.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🎚️</div>
+                    <h3>Custom Character Ramps</h3>
+                    <p>Apple II Classic, Standard ASCII, Simple, or Dense &mdash; plus your own custom ramp text.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🖼️</div>
+                    <h3>Drag &amp; Drop</h3>
+                    <p>Drop any PNG, JPEG, TIFF, GIF, BMP, or HEIC. Brightness, contrast, invert, and flip update live.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">💾</div>
+                    <h3>Multiple Exports</h3>
+                    <p>Apple II text (.txt with CR endings), Mac text (LF), or runnable Applesoft BASIC (.bas) program.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="how-it-works">
+            <h2>How It Works</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-num">1</div>
+                    <h3>Drop an image</h3>
+                    <p>Any common format works. The app aspect-fills the image into the Apple II's 280&times;192 display canvas.</p>
+                </div>
+                <div class="step">
+                    <div class="step-num">2</div>
+                    <h3>Sample brightness</h3>
+                    <p>Each character cell&rsquo;s region is downsampled and converted to perceptual luminance using the BT.709 coefficients.</p>
+                </div>
+                <div class="step">
+                    <div class="step-num">3</div>
+                    <h3>Map to characters</h3>
+                    <p>The brightness value indexes into your chosen character ramp &mdash; dark to light &mdash; producing a grid of ASCII glyphs.</p>
+                </div>
+                <div class="step">
+                    <div class="step-num">4</div>
+                    <h3>Export to Apple II</h3>
+                    <p>Save as plain text with CR line endings, or as an Applesoft BASIC program with auto-inserted PR# 3 for 80-col output.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="requirements">
+            <h2>Requirements</h2>
+            <ul>
+                <li>macOS 14 (Sonoma) or later</li>
+                <li>Apple Silicon or Intel</li>
+                <li>Xcode 16 to build from source</li>
+            </ul>
+        </section>
+
+        <section id="support" class="info-section">
+            <h2>Support</h2>
+            <div class="sources">
+                <div class="source">
+                    <h3>Issues &amp; Contributions</h3>
+                    <p>Report bugs, suggest features, or contribute on <a href="https://github.com/portwally/Apple-II-ASCII-Art" target="_blank">GitHub</a>.</p>
+                </div>
+                <div class="source">
+                    <h3>Contact</h3>
+                    <p>Questions? Email <a href="mailto:walter.tengler@gmail.com">walter.tengler@gmail.com</a></p>
+                </div>
+                <div class="source">
+                    <h3>Fonts</h3>
+                    <p>Bundled Apple II fonts (PrintChar21, PRNumber3) are from <a href="https://www.kreativekorp.com/software/fonts/apple2/" target="_blank">Kreative Korporation</a>.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#support">Support</a>
+                <a href="https://github.com/portwally/Apple-II-ASCII-Art" target="_blank">GitHub</a>
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="imprint.html">Imprint</a>
+            </div>
+            <div class="footer-links" style="margin-top: 15px;">
+                <a href="../Fire/">Fire</a>
+                <a href="../Alerta/">Alerta</a>
+                <a href="../Terramoto/">Terramoto</a>
+                <a href="../Fluvio/">Fluvio</a>
+                <a href="../EUEnergyMonitor/">EU Energy Monitor</a>
+            </div>
+            <div class="footer-links" style="margin-top: 10px;">
+                <a href="../File Vortex/">File Vortex</a>
+                <a href="../EasyDup/">EasyDup</a>
+                <a href="../ExifEasy/">ExifEasy</a>
+                <a href="../Bomba/">Bomba</a>
+                <a href="../BeerTag/">BeerTag</a>
+                <a href="../Scanora/">Scanora</a>
+            </div>
+            <div class="footer-links" style="margin-top: 10px;">
+                <a href="../coresdoamor/">Cores do Amor</a>
+                <a href="../RetroGraphicsConverter/">Retro Graphics</a>
+                <a href="../CyanHero/">CyanHero</a>
+                <a href="../Bitpast/">BitPast</a>
+            </div>
+            <div class="footer-links" style="margin-top: 10px;">
+                <a href="../Adsensemonitor/">AdSense Monitor</a>
+                <a href="../Comboiotreck/">Comboiotreck</a>
+                <a href="../CertificadoEnergetico/">Certificado Energético</a>
+                <a href="../climaviva/">Clima Viva</a>
+                <a href="../emergengy-reminder/">Emergency Reminder</a>
+                <a href="../SlimPix/">SlimPix</a>
+            </div>
+            <p>&copy; 2026 Walter Tengler. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

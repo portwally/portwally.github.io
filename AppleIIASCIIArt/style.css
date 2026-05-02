@@ -1,0 +1,480 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --phosphor: #33FF00;
+    --phosphor-dim: #1f9a00;
+    --amber: #FFB000;
+    --black: #000000;
+    --near-black: #0a0a0a;
+    --dark-bg: #111111;
+    --card-bg: #181818;
+    --border: #2a2a2a;
+    --text: #e8e8e8;
+    --text-dim: #b0b0b0;
+    --text-muted: #777777;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    line-height: 1.6;
+    color: var(--text);
+    background: var(--black);
+}
+
+a { color: var(--phosphor); }
+
+/* Navigation */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: var(--phosphor);
+    font-family: 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace;
+    letter-spacing: 0.02em;
+    text-shadow: 0 0 8px rgba(51, 255, 0, 0.4);
+}
+
+.nav-links {
+    display: flex;
+    gap: 1.75rem;
+    align-items: center;
+}
+
+.nav-links a {
+    color: var(--text);
+    text-decoration: none;
+    opacity: 0.85;
+    transition: opacity 0.2s, color 0.2s;
+    font-size: 0.95rem;
+}
+
+.nav-links a:hover {
+    opacity: 1;
+    color: var(--phosphor);
+}
+
+/* Hero */
+.hero {
+    background: var(--black);
+    background-image:
+        radial-gradient(ellipse at center top, rgba(51, 255, 0, 0.06) 0%, transparent 60%),
+        repeating-linear-gradient(
+            0deg,
+            rgba(51, 255, 0, 0.02) 0px,
+            rgba(51, 255, 0, 0.02) 1px,
+            transparent 1px,
+            transparent 3px
+        );
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--text);
+    padding: 6rem 2rem 4rem;
+}
+
+.hero-content {
+    max-width: 900px;
+}
+
+.hero-image {
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 2.5rem;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid var(--border);
+    box-shadow: 0 0 60px rgba(51, 255, 0, 0.15);
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    margin-bottom: 0.75rem;
+    color: var(--phosphor);
+    font-family: 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace;
+    letter-spacing: 0.02em;
+    text-shadow: 0 0 14px rgba(51, 255, 0, 0.5);
+}
+
+.tagline {
+    font-size: 1.4rem;
+    color: var(--text);
+    margin-bottom: 1.25rem;
+}
+
+.subtitle {
+    font-size: 1.05rem;
+    color: var(--text-dim);
+    max-width: 700px;
+    margin: 0 auto 2.5rem;
+}
+
+.cta-row {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 1.25rem;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 0.85rem 1.75rem;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: transform 0.15s, box-shadow 0.2s, background 0.2s;
+    border: 1px solid var(--phosphor);
+}
+
+.cta-button.primary {
+    background: var(--phosphor);
+    color: var(--black);
+}
+
+.cta-button.primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 24px rgba(51, 255, 0, 0.5);
+}
+
+.cta-button.secondary {
+    background: transparent;
+    color: var(--phosphor);
+}
+
+.cta-button.secondary:hover {
+    background: rgba(51, 255, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.meta {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    font-family: 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+/* Section base */
+main section {
+    padding: 5rem 2rem;
+}
+
+main h2 {
+    text-align: center;
+    font-size: 2.25rem;
+    margin-bottom: 3rem;
+    color: var(--phosphor);
+    font-family: 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace;
+    letter-spacing: 0.02em;
+}
+
+/* Features */
+.features {
+    background: var(--near-black);
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.feature {
+    background: var(--card-bg);
+    padding: 2rem;
+    text-align: center;
+    border: 1px solid var(--border);
+    transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+
+.feature:hover {
+    border-color: var(--phosphor);
+    transform: translateY(-3px);
+    box-shadow: 0 0 24px rgba(51, 255, 0, 0.12);
+}
+
+.feature-icon {
+    font-size: 2.75rem;
+    margin-bottom: 1rem;
+}
+
+.feature h3 {
+    color: var(--phosphor);
+    margin-bottom: 0.5rem;
+    font-size: 1.15rem;
+}
+
+.feature p {
+    color: var(--text-dim);
+    font-size: 0.95rem;
+}
+
+/* How it works */
+.how-it-works {
+    background: var(--black);
+}
+
+.steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.step {
+    background: var(--card-bg);
+    padding: 2rem;
+    border: 1px solid var(--border);
+    position: relative;
+}
+
+.step-num {
+    position: absolute;
+    top: 1rem;
+    right: 1.25rem;
+    font-family: 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace;
+    color: var(--phosphor);
+    opacity: 0.5;
+    font-size: 1.5rem;
+}
+
+.step h3 {
+    color: var(--phosphor);
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.step p {
+    color: var(--text-dim);
+    font-size: 0.95rem;
+}
+
+/* Requirements */
+.requirements {
+    background: var(--near-black);
+    text-align: center;
+}
+
+.requirements ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.requirements li {
+    background: var(--card-bg);
+    padding: 1rem 1.75rem;
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace;
+    font-size: 0.95rem;
+}
+
+/* Info section (Support) */
+.info-section {
+    background: var(--black);
+}
+
+.sources {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.source {
+    background: var(--card-bg);
+    padding: 1.75rem;
+    border: 1px solid var(--border);
+}
+
+.source h3 {
+    color: var(--phosphor);
+    margin-bottom: 0.5rem;
+    font-size: 1.05rem;
+}
+
+.source p {
+    color: var(--text-dim);
+    font-size: 0.95rem;
+}
+
+.source a {
+    color: var(--phosphor);
+    text-decoration: none;
+}
+
+.source a:hover {
+    text-decoration: underline;
+}
+
+/* Footer */
+footer {
+    background: var(--near-black);
+    color: var(--text);
+    padding: 3rem 2rem;
+    text-align: center;
+    border-top: 1px solid var(--border);
+}
+
+.footer-links {
+    margin-bottom: 1rem;
+}
+
+.footer-links a {
+    color: var(--text);
+    text-decoration: none;
+    margin: 0 0.85rem;
+    opacity: 0.7;
+    font-size: 0.9rem;
+    transition: opacity 0.2s, color 0.2s;
+}
+
+.footer-links a:hover {
+    opacity: 1;
+    color: var(--phosphor);
+}
+
+footer p {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    margin-top: 1rem;
+}
+
+.disclaimer {
+    font-size: 0.8rem;
+    opacity: 0.7;
+    max-width: 600px;
+    margin: 1rem auto 0;
+}
+
+/* Legal Pages */
+.legal-page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+    color: var(--text);
+}
+
+.legal-page h1 {
+    color: var(--phosphor);
+    margin-bottom: 2rem;
+    font-family: 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+.legal-page h2 {
+    color: var(--phosphor);
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+}
+
+.legal-page p, .legal-page ul {
+    margin-bottom: 1rem;
+    color: var(--text-dim);
+}
+
+.legal-page ul {
+    padding-left: 2rem;
+}
+
+.legal-page a {
+    color: var(--phosphor);
+}
+
+.back-link {
+    display: inline-block;
+    margin-bottom: 2rem;
+    color: var(--phosphor);
+    text-decoration: none;
+    font-family: 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero {
+        padding: 5rem 1rem 3rem;
+    }
+
+    .hero h1 {
+        font-size: 2.25rem;
+    }
+
+    .tagline {
+        font-size: 1.1rem;
+    }
+
+    .subtitle {
+        font-size: 0.95rem;
+    }
+
+    .hero-image {
+        max-width: 95%;
+    }
+
+    nav {
+        padding: 1rem;
+    }
+
+    .nav-links {
+        gap: 1rem;
+    }
+
+    .nav-links a {
+        font-size: 0.85rem;
+    }
+
+    main h2 {
+        font-size: 1.75rem;
+    }
+
+    main section {
+        padding: 3.5rem 1rem;
+    }
+
+    .requirements ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .cta-row {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .cta-button {
+        width: 100%;
+        max-width: 280px;
+        text-align: center;
+    }
+}
