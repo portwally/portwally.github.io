@@ -68,7 +68,7 @@
                 <div class="feature">
                     <div class="feature-icon">💾</div>
                     <h3>Multiple Exports</h3>
-                    <p>Apple II text (.txt with CR endings), Mac text (LF), or runnable Applesoft BASIC (.bas) program.</p>
+                    <p>Bootable ProDOS disk image (.po) with a STARTUP launcher, Apple II text (.txt with CR endings), Mac text (LF), or runnable Applesoft BASIC (.bas) program.</p>
                 </div>
             </div>
         </section>
@@ -124,6 +124,26 @@
                     <figcaption>White &middot; Standard ASCII (inverted)</figcaption>
                 </figure>
             </div>
+        </section>
+
+        <section class="gallery">
+            <h2>Export Options</h2>
+            <p class="gallery-intro">Save as a bootable Apple II disk image, plain text, or a runnable Applesoft BASIC program.</p>
+
+            <figure class="gallery-source">
+                <img src="export-sheet.png" alt="Export sheet showing Apple II Disk Image, Apple II Text, Mac Text, and Applesoft BASIC options">
+                <figcaption>The export sheet</figcaption>
+            </figure>
+        </section>
+
+        <section class="gallery">
+            <h2>Disk Creation</h2>
+            <p class="gallery-intro">The disk image is a bootable ProDOS volume. A built-in STARTUP launcher auto-runs at boot and lets you pick between four programs &mdash; the slow, readable PRINT versions or the fast versions that BLOAD a screen-memory dump straight to text page 1 with a small embedded 6502 ML routine.</p>
+
+            <figure class="gallery-source">
+                <img src="disk-launcher.png" alt="STARTUP launcher menu running on a booted Apple II disk, showing ART40, LOADER40, ART80, LOADER80 options">
+                <figcaption>STARTUP launcher running on the booted disk</figcaption>
+            </figure>
         </section>
 
         <section class="requirements">
