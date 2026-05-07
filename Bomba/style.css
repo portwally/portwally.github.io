@@ -314,6 +314,46 @@ nav {
     .screenshots-section h2 { font-size: 2rem; }
 }
 
+/* Disclaimer Section */
+.disclaimer-section {
+    padding: 2rem 2rem 0;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.disclaimer-box {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    background: #fff8e6;
+    border: 1px solid #f0c040;
+    border-left: 4px solid #e6a800;
+    border-radius: 8px;
+    padding: 1.2rem 1.4rem;
+}
+
+.disclaimer-icon {
+    font-size: 1.4rem;
+    line-height: 1;
+    flex-shrink: 0;
+    color: #c17f00;
+    margin-top: 2px;
+}
+
+.disclaimer-box strong {
+    display: block;
+    font-size: 0.95rem;
+    color: #7a4f00;
+    margin-bottom: 0.4rem;
+}
+
+.disclaimer-box p {
+    margin: 0;
+    font-size: 0.875rem;
+    color: #5a4000;
+    line-height: 1.55;
+}
+
 /* Requirements Section */
 .requirements {
     padding: 4rem 2rem;
