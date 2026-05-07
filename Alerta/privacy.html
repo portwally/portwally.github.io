@@ -13,7 +13,7 @@
         <a href="index.html" class="back-link">&larr; Voltar ao Início</a>
 
         <h1>Política de Privacidade</h1>
-        <p><strong>Última atualização:</strong> 26 de abril de 2026</p>
+        <p><strong>Última atualização:</strong> 7 de maio de 2026</p>
 
         <h2>1. Introdução</h2>
         <p>A Alerta ("nós", "nosso" ou "a app") está empenhada em proteger a sua privacidade. Esta Política de Privacidade explica como recolhemos, utilizamos e protegemos as suas informações quando utiliza a nossa aplicação móvel.</p>
@@ -27,10 +27,10 @@
             <li>Calcular distâncias até às ocorrências</li>
             <li>Filtrar localmente que ocorrências estão dentro do seu raio de alerta</li>
         </ul>
-        <p>A localização permanece no seu dispositivo, exceto quando ativa explicitamente os <strong>Alertas de ocorrências</strong> (ver secção 2.3).</p>
+        <p>A localização permanece no seu dispositivo, exceto quando ativa explicitamente os <strong>Alertas de ocorrências</strong> (ver secção 2.3) ou quando submete uma denúncia cidadã (ver secção 2.5).</p>
 
         <h3>2.2 Definições da App</h3>
-        <p>As suas preferências de notificação (raio de alerta, tipos de ocorrência, definições de som, idioma) são armazenadas localmente no seu dispositivo utilizando mecanismos de armazenamento padrão da Apple.</p>
+        <p>As suas preferências de notificação (raio de alerta, tipos de ocorrência, definições de som, idioma) são armazenadas localmente no seu dispositivo utilizando mecanismos de armazenamento padrão da plataforma (UserDefaults no iOS, EncryptedSharedPreferences/DataStore no Android).</p>
 
         <h3>2.3 Alertas de Ocorrências (Push) — opt-in</h3>
         <p>Se ativar a opção <em>Alertas de ocorrências</em> nas Definições da app, transmitimos para o nosso servidor o mínimo necessário para entregar notificações enquanto a app está fechada:</p>
@@ -39,81 +39,124 @@
             <li><strong>Ponto de monitorização</strong> — uma única coordenada (lat/lng) que escolhe ao ativar a opção. Por predefinição, este ponto <em>não</em> é atualizado quando se desloca; só é reenviado se ativar adicionalmente "Atualizar localização automaticamente" e ultrapassar 2 km do último ponto enviado, com um limite mínimo de 1 hora entre atualizações.</li>
             <li><strong>Raio de alerta</strong> e <strong>idioma preferido</strong> — para que o servidor envie a notificação localizada</li>
             <li><strong>Magnitude mínima de sismo</strong> (opcional) — se ativar os Alertas de Sismos, o limiar de magnitude que escolhe (1.0–6.0) é guardado para que o servidor saiba a partir de que ponto deve enviar uma notificação. Os dados sismológicos vêm do IPMA (fonte pública).</li>
+            <li><strong>Identificador de utilizador</strong> (apenas se tiver iniciado sessão) — quando inicia sessão, o registo do dispositivo no servidor é associado à sua conta para que os operadores da Proteção Civil possam saber quem é o autor das denúncias cidadãs e para podermos preservar a sua reputação ao mudar de dispositivo. Se nunca iniciar sessão, este campo permanece vazio e o registo é completamente anónimo.</li>
         </ul>
         <p>Não enviamos um histórico contínuo da sua localização. Quando desativa os Alertas de ocorrências, o registo é eliminado do nosso servidor.</p>
 
+        <h3>2.4 Conta de Utilizador (Início de Sessão) — opt-in</h3>
+        <p>A Alerta permite, mas não exige, iniciar sessão. Pode ver o mapa, receber alertas push e usar a app inteira sem conta. O início de sessão é necessário apenas para submeter denúncias cidadãs (ver secção 2.5).</p>
+        <p>Quando inicia sessão com <strong>Sign in with Apple</strong> ou <strong>Sign in with Google</strong>, recebemos da Apple/Google um identificador estável (<em>subject id</em>) e, se permitir, o seu nome e email. Não armazenamos a sua palavra-passe — a autenticação é feita inteiramente por Apple/Google. No nosso servidor guardamos:</p>
+        <ul>
+            <li>O <em>subject id</em> + fornecedor (apple/google) — para reconhecer a sua conta em futuros inícios de sessão</li>
+            <li>Um <strong>nome de exibição</strong> que pode editar livremente nas Definições da app</li>
+            <li>Um <strong>email</strong> (opcional, fornecido pela Apple/Google) — usado apenas internamente; nunca o partilhamos com terceiros</li>
+            <li>Uma <strong>pontuação de reputação</strong> (trust score) derivada do histórico das suas denúncias cidadãs (precisão, fotografias, confirmações por operadores) — não envolve dados externos à app</li>
+            <li>Um <strong>token de sessão</strong> de 30 dias, renovado a cada utilização</li>
+        </ul>
+        <p>Pode editar o seu nome de exibição, terminar sessão ou apagar a conta a qualquer momento nas Definições da app. Apagar a conta remove todos os dados associados, dissocia as suas denúncias cidadãs (passam a anónimas) e elimina sessões e fotografias.</p>
+
+        <h3>2.5 Denúncias Cidadãs — opt-in</h3>
+        <p>Se decidir submeter uma denúncia cidadã sobre uma ocorrência (incêndio, acidente, etc.), recolhemos e armazenamos no nosso servidor:</p>
+        <ul>
+            <li>O <strong>tipo</strong> de ocorrência (categoria escolhida na app)</li>
+            <li>A <strong>localização</strong> em coordenadas (lat/lng) do incidente — escolhida por si no mapa, não derivada da sua localização atual</li>
+            <li>Uma <strong>descrição</strong> em texto livre que escreve (opcional, máximo 280 caracteres)</li>
+            <li>Uma ou mais <strong>fotografias</strong> (opcional) — armazenadas no Cloudflare R2; metadados EXIF são removidos pelo servidor antes do armazenamento</li>
+            <li>Um <strong>indicador de anonimato</strong> que escolhe na submissão (publicar com o seu nome ou anonimamente)</li>
+            <li>O instante (timestamp) de submissão</li>
+            <li>O seu <strong>identificador de utilizador</strong> (não público se escolher anónimo)</li>
+        </ul>
+        <p>As denúncias submetidas são visíveis no mapa público da Alerta e na app irmã Fire (que partilha o mesmo serviço de denúncias cidadãs), bem como no painel dos operadores da Proteção Civil. Pode resolver, eliminar ou denunciar como falsa qualquer denúncia sua a qualquer momento.</p>
+
+        <h3>2.6 Consentimento de Publicidade na União Europeia</h3>
+        <p>Em utilizadores na UE/EEE/Reino Unido/Suíça, a Alerta apresenta na primeira utilização um diálogo de consentimento gerido pela <strong>User Messaging Platform (UMP)</strong> da Google, em conformidade com o IAB TCF v2.2. As suas escolhas (consentir, recusar ou personalizar por fornecedor) são armazenadas no dispositivo pela própria UMP e podem ser revistas em qualquer momento em <em>Definições → Sobre → Gerir opções de privacidade</em>.</p>
+
         <h2>3. Publicidade</h2>
-        <p>A Alerta apresenta anúncios através do Google AdMob. O Google AdMob pode recolher e utilizar certas informações para apresentar anúncios personalizados. Isto pode incluir:</p>
+        <p>A Alerta apresenta anúncios através do Google AdMob. Para utilizadores na UE/EEE/Reino Unido/Suíça, a personalização dos anúncios depende inteiramente da sua escolha no diálogo de consentimento descrito na secção 2.6 — se recusar consentimento, o AdMob serve apenas anúncios não personalizados. Para utilizadores fora dessa região, o AdMob pode utilizar:</p>
         <ul>
             <li>Identificadores de dispositivo (como ID de publicidade)</li>
             <li>Endereço IP</li>
             <li>Localização geral (baseada no endereço IP)</li>
             <li>Dados de utilização da app</li>
         </ul>
-        <p>Pode optar por não receber publicidade personalizada ajustando as definições do seu dispositivo:</p>
+        <p>Pode optar por não receber publicidade personalizada também através das definições do seu dispositivo:</p>
         <ul>
             <li><strong>iOS:</strong> Definições → Privacidade e Segurança → Rastreio → desativar "Permitir que as Apps Peçam para Rastrear"</li>
+            <li><strong>Android:</strong> Definições → Privacidade → Anúncios → "Excluir personalização de anúncios" ou repor o ID de publicidade</li>
         </ul>
         <p>Para mais informações sobre como a Google trata os dados, visite a <a href="https://policies.google.com/privacy">Política de Privacidade da Google</a>.</p>
 
         <h2>4. Dados que NÃO Recolhemos</h2>
         <p>A Alerta não recolhe, armazena ou transmite:</p>
         <ul>
-            <li>Nome, email, número de telefone ou outras informações de identificação pessoal</li>
-            <li>Informações de conta ou login (a app não tem contas de utilizador)</li>
-            <li>Dados analíticos de utilização ou de rastreio comportamental</li>
+            <li>A sua palavra-passe (a autenticação é gerida inteiramente pela Apple/Google)</li>
+            <li>Dados analíticos de utilização ou de rastreio comportamental para além do que é descrito nesta política</li>
             <li>Histórico contínuo da sua localização (apenas o ponto de monitorização opt-in descrito em 2.3)</li>
-            <li>Conteúdos do dispositivo (contactos, fotos, calendário, etc.)</li>
+            <li>Conteúdos do dispositivo (contactos, calendário, fotos para além das que escolher anexar a uma denúncia, etc.)</li>
         </ul>
+        <p>Se nunca ativar os Alertas de ocorrências, nunca iniciar sessão e nunca submeter uma denúncia cidadã, nenhum dado pessoal seu chega ao nosso servidor.</p>
 
         <h2>5. Serviços de Terceiros</h2>
         <p>A Alerta utiliza os seguintes serviços externos:</p>
         <ul>
             <li><strong>ANEPC (Autoridade Nacional de Emergência e Proteção Civil) / ProCiv:</strong> Fonte oficial dos dados de ocorrências (endpoint público ArcGIS).</li>
-            <li><strong>Apple Maps:</strong> Mapas e imagens de satélite.</li>
-            <li><strong>Cloudflare Workers (Cloudflare, Inc., infraestrutura na União Europeia):</strong> Aloja o nosso servidor de notificações push. Quando os Alertas de ocorrências estão ativos, o token FCM, o ponto de monitorização, o raio e o idioma são guardados aqui.</li>
-            <li><strong>Firebase Cloud Messaging (Google Ireland Limited):</strong> Serviço de entrega de notificações push para dispositivos iOS (via Apple Push Notification service) e Android. O FCM trata o token do dispositivo e o conteúdo da notificação como subcontratante.</li>
-            <li><strong>Google AdMob:</strong> Publicidade — ver secção 3.</li>
+            <li><strong>IPMA — Instituto Português do Mar e da Atmosfera:</strong> Dados de sismos e mapas de risco de incêndio (fonte pública).</li>
+            <li><strong>USGS — United States Geological Survey:</strong> Dados de sismos a nível mundial (fonte pública).</li>
+            <li><strong>Apple Maps / OpenStreetMap (MapLibre):</strong> Mapas e imagens de satélite. No iOS é usado o Apple Maps; no Android é usado o MapLibre com tiles do OpenStreetMap.</li>
+            <li><strong>Cloudflare Workers e D1 (Cloudflare, Inc., infraestrutura na União Europeia):</strong> Aloja o nosso servidor de notificações push e a base de dados de denúncias cidadãs.</li>
+            <li><strong>Cloudflare R2:</strong> Armazena fotografias anexadas a denúncias cidadãs (com EXIF removido).</li>
+            <li><strong>Firebase Cloud Messaging (Google Ireland Limited):</strong> Serviço de entrega de notificações push para iOS (via Apple Push Notification service) e Android. O FCM trata o token do dispositivo e o conteúdo da notificação como subcontratante.</li>
+            <li><strong>Sign in with Apple (Apple Inc.):</strong> Provedor de identidade para o início de sessão opcional no iOS.</li>
+            <li><strong>Sign in with Google (Google Ireland Limited):</strong> Provedor de identidade para o início de sessão opcional no iOS e Android.</li>
+            <li><strong>Google AdMob e User Messaging Platform:</strong> Publicidade e gestão de consentimento — ver secções 2.6 e 3.</li>
         </ul>
         <p>Estes serviços podem registar dados padrão de pedidos web (endereço IP, timestamp) de acordo com as suas próprias políticas de privacidade.</p>
 
         <h2>6. Armazenamento de Dados</h2>
         <p><strong>No seu dispositivo:</strong></p>
         <ul>
-            <li>Definições de notificação (em UserDefaults)</li>
-            <li>IDs de ocorrências já notificadas, para evitar alertas duplicados</li>
+            <li>Definições de notificação (em UserDefaults / EncryptedSharedPreferences)</li>
+            <li>IDs de ocorrências já notificadas localmente, para evitar alertas duplicados ao reabrir a app</li>
+            <li>Token de sessão da sua conta (em Keychain no iOS, EncryptedSharedPreferences no Android), apenas se iniciar sessão</li>
+            <li>Escolhas de consentimento UMP (apenas em utilizadores na UE/EEE/Reino Unido/Suíça)</li>
         </ul>
-        <p><strong>No nosso servidor (apenas se os Alertas de ocorrências estiverem ativos):</strong></p>
+        <p><strong>No nosso servidor (apenas se a funcionalidade respetiva estiver ativa):</strong></p>
         <ul>
             <li>Token FCM, ponto de monitorização (lat/lng), raio de alerta, idioma e o instante da última atualização — uma única linha por instalação da app, atualizada quando alterar as definições.</li>
             <li>Lista das ocorrências já notificadas a si nos últimos 7 dias, para evitar repetição. Removidas automaticamente após esse período.</li>
+            <li>Conta de utilizador (subject id, email opcional, nome de exibição, pontuação de reputação) — apenas se iniciar sessão.</li>
+            <li>Denúncias cidadãs que submeter, incluindo localização, descrição, tipo, fotografias (sem EXIF) e instante de criação. Mantemo-las até as resolver, eliminar ou serem rejeitadas pelos operadores; entre 30 a 90 dias depois disso, são marcadas como removidas e os dados pessoais associados anonimizados.</li>
         </ul>
-        <p>O registo é eliminado do servidor assim que desativar os Alertas de ocorrências ou que o token FCM se torne inválido (por exemplo, ao reinstalar a app).</p>
+        <p>O registo de dispositivo é eliminado do servidor assim que desativar os Alertas de ocorrências ou que o token FCM se torne inválido (por exemplo, ao reinstalar a app). A conta de utilizador é eliminada quando solicitar a sua remoção em <em>Definições → Conta → Eliminar conta</em>.</p>
 
         <h2>7. Notificações</h2>
         <p>A Alerta utiliza dois caminhos de notificação:</p>
         <ul>
-            <li><strong>Notificações locais:</strong> Quando a app está aberta e tem permissão de localização, gera notificações localmente quando uma ocorrência aparece dentro do seu raio. Nenhum servidor envolvido.</li>
+            <li><strong>Notificações locais:</strong> Quando a app está aberta e tem permissão de localização, gera notificações localmente quando uma ocorrência aparece dentro do seu raio. Os IDs já notificados são guardados localmente no dispositivo para evitar repetições, mesmo após reiniciar a app. Nenhum servidor envolvido.</li>
             <li><strong>Alertas de ocorrências (push, opt-in):</strong> O nosso servidor consulta os dados públicos da ANEPC a cada poucos minutos. Quando deteta uma nova ocorrência dentro do raio que registou, envia uma notificação push para o seu dispositivo via Firebase Cloud Messaging e Apple Push Notification service. Isto permite-lhe receber alertas mesmo com a app fechada.</li>
         </ul>
-        <p>Pode desativar qualquer dos caminhos a qualquer momento nas Definições da app ou nas Definições do iOS.</p>
+        <p>Pode desativar qualquer dos caminhos a qualquer momento nas Definições da app ou nas Definições do sistema.</p>
 
         <h2>8. Privacidade de Menores</h2>
-        <p>A Alerta não recolhe intencionalmente qualquer informação pessoal de crianças menores de 13 anos. A app não requer qualquer informação pessoal para funcionar.</p>
+        <p>A Alerta não recolhe intencionalmente qualquer informação pessoal de crianças menores de 13 anos. A app não requer qualquer informação pessoal para funcionar e a funcionalidade de início de sessão pelos provedores Apple/Google está sujeita às restrições de idade desses serviços.</p>
 
         <h2>9. Os Seus Direitos</h2>
         <p>Pode:</p>
         <ul>
-            <li>Negar ou revogar permissões de localização a qualquer momento nas Definições do iOS</li>
-            <li>Desativar notificações nas Definições do iOS ou dentro da app</li>
+            <li>Negar ou revogar permissões de localização a qualquer momento nas Definições do sistema</li>
+            <li>Desativar notificações nas Definições do sistema ou dentro da app</li>
+            <li>Terminar sessão ou apagar permanentemente a sua conta em <em>Definições → Conta</em></li>
+            <li>Resolver, eliminar ou marcar como falsa qualquer das suas denúncias cidadãs</li>
+            <li>Rever ou alterar as suas escolhas de consentimento de publicidade em <em>Definições → Sobre → Gerir opções de privacidade</em> (apenas utilizadores na UE/EEE/Reino Unido/Suíça)</li>
             <li>Eliminar a app para remover todos os dados armazenados localmente</li>
+            <li>Solicitar uma cópia ou eliminação dos seus dados, contactando-nos pelo email indicado na secção 12 (em conformidade com o RGPD)</li>
         </ul>
 
         <h2>10. Alterações a Esta Política</h2>
         <p>Podemos atualizar esta Política de Privacidade periodicamente. As alterações serão publicadas nesta página com uma data de revisão atualizada.</p>
 
-        <h2>11. Conformidade com a App Store</h2>
-        <p>A Alerta está disponível na Apple App Store e cumpre as Diretrizes da App Store da Apple e as Diretrizes de Revisão da App Store relativamente à privacidade e tratamento de dados.</p>
+        <h2>11. Conformidade com as Lojas de Aplicações</h2>
+        <p>A Alerta está disponível na Apple App Store e na Google Play Store. Cumpre as Diretrizes da App Store da Apple e a Política de Programa para Programadores da Google Play, incluindo as secções relativas à privacidade, tratamento de dados e publicidade.</p>
 
         <h2>12. Contacto</h2>
         <p>Se tiver questões sobre esta Política de Privacidade, contacte:</p>
@@ -123,7 +166,7 @@
         <hr style="margin: 3rem 0;">
 
         <h1>Privacy Policy</h1>
-        <p><strong>Last updated:</strong> April 26, 2026</p>
+        <p><strong>Last updated:</strong> May 7, 2026</p>
 
         <h2>1. Introduction</h2>
         <p>Alerta ("we", "our", or "the app") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard your information when you use our mobile application.</p>
@@ -137,10 +180,10 @@
             <li>Calculate distances to incidents</li>
             <li>Filter locally which incidents are within your alert radius</li>
         </ul>
-        <p>Location stays on your device, except when you explicitly enable <strong>Incident alerts</strong> (see section 2.3).</p>
+        <p>Location stays on your device, except when you explicitly enable <strong>Incident alerts</strong> (see section 2.3) or submit a citizen report (see section 2.5).</p>
 
         <h3>2.2 App Settings</h3>
-        <p>Your notification preferences (alert radius, incident types, sound settings, language) are stored locally on your device using Apple's standard storage mechanisms.</p>
+        <p>Your notification preferences (alert radius, incident types, sound settings, language) are stored locally on your device using the platform's standard storage mechanisms (UserDefaults on iOS, EncryptedSharedPreferences/DataStore on Android).</p>
 
         <h3>2.3 Incident Alerts (push) — opt-in</h3>
         <p>If you enable <em>Incident alerts</em> in the app's Settings, we transmit the minimum data needed to deliver notifications while the app is closed:</p>
@@ -149,81 +192,124 @@
             <li><strong>Monitoring point</strong> — a single coordinate (lat/lng) chosen when you enable the option. By default this point is <em>not</em> updated as you move; it is only re-sent if you additionally enable "Auto-update my location" and you've moved more than 2 km from the last sent point, with a minimum 1-hour cool-down between updates.</li>
             <li><strong>Alert radius</strong> and <strong>preferred language</strong> — so the server can localize the notification</li>
             <li><strong>Earthquake minimum magnitude</strong> (optional) — if you enable Earthquake Alerts, the magnitude threshold you pick (1.0–6.0) is stored so the server knows when to push you. Earthquake data itself comes from IPMA (a public source).</li>
+            <li><strong>User identifier</strong> (only if you have signed in) — when you sign in, the device row on the server is associated with your account so Civil Protection operators can attribute citizen reports to a known user and so your reputation is preserved across device changes. If you never sign in, this field stays empty and the device record is fully anonymous.</li>
         </ul>
         <p>We do not send a continuous trail of your location. When you turn Incident alerts off, the record is deleted from our server.</p>
 
+        <h3>2.4 User Account (Sign-In) — opt-in</h3>
+        <p>Alerta lets you sign in but does not require it. You can view the map, receive push alerts and use the entire app without an account. Sign-in is required only to submit citizen reports (see section 2.5).</p>
+        <p>When you sign in with <strong>Sign in with Apple</strong> or <strong>Sign in with Google</strong>, we receive from Apple/Google a stable identifier (<em>subject id</em>) and, if you allow it, your name and email. We never store your password — authentication is handled entirely by Apple/Google. On our server we keep:</p>
+        <ul>
+            <li>The <em>subject id</em> + provider (apple/google), to recognise your account on future sign-ins</li>
+            <li>A <strong>display name</strong> you can freely edit in the app's Settings</li>
+            <li>An <strong>email</strong> (optional, supplied by Apple/Google) — used only internally; never shared with third parties</li>
+            <li>A <strong>reputation score</strong> derived from your citizen-report history (accuracy, photo evidence, operator confirmations) — based only on in-app actions</li>
+            <li>A <strong>session token</strong> valid for 30 days, refreshed on each use</li>
+        </ul>
+        <p>You can edit your display name, sign out, or delete your account at any time in the app's Settings. Deleting the account removes all associated data, anonymises your citizen reports, and erases sessions and photos.</p>
+
+        <h3>2.5 Citizen Reports — opt-in</h3>
+        <p>If you choose to submit a citizen report about an incident (fire, accident, etc.), we collect and store on our server:</p>
+        <ul>
+            <li>The <strong>type</strong> of incident (category you pick in the app)</li>
+            <li>The <strong>location</strong> in coordinates (lat/lng) of the incident — chosen by you on the map, not derived from your current position</li>
+            <li>A free-text <strong>description</strong> you write (optional, up to 280 characters)</li>
+            <li>One or more <strong>photos</strong> (optional) — stored in Cloudflare R2; EXIF metadata is stripped server-side before storage</li>
+            <li>An <strong>anonymity flag</strong> you set on submission (post under your name or anonymously)</li>
+            <li>The submission <strong>timestamp</strong></li>
+            <li>Your <strong>user identifier</strong> (not publicly displayed if you choose anonymous)</li>
+        </ul>
+        <p>Submitted reports are visible on the public Alerta map and on the sister app Fire (which shares the same citizen-report service), as well as on the Civil Protection operator dashboard. You can resolve, delete, or flag any of your own reports at any time.</p>
+
+        <h3>2.6 EU Advertising Consent</h3>
+        <p>For users in the EU/EEA/UK/Switzerland, on first launch Alerta presents a consent dialog managed by Google's <strong>User Messaging Platform (UMP)</strong>, in line with IAB TCF v2.2. Your choices (consent, refuse or per-vendor customisation) are stored on-device by UMP itself and can be reviewed at any time under <em>Settings → About → Manage privacy choices</em>.</p>
+
         <h2>3. Advertising</h2>
-        <p>Alerta displays advertisements through Google AdMob. Google AdMob may collect and use certain information to serve personalized ads. This may include:</p>
+        <p>Alerta displays advertisements through Google AdMob. For users in the EU/EEA/UK/Switzerland, ad personalisation depends entirely on your choice in the consent dialog described in section 2.6 — if you refuse consent, AdMob serves only non-personalised ads. For users outside that region, AdMob may use:</p>
         <ul>
             <li>Device identifiers (such as advertising ID)</li>
             <li>IP address</li>
             <li>General location (based on IP address)</li>
             <li>App usage data</li>
         </ul>
-        <p>You can opt out of personalized advertising by adjusting your device settings:</p>
+        <p>You can also opt out of personalised advertising via your device settings:</p>
         <ul>
             <li><strong>iOS:</strong> Settings → Privacy & Security → Tracking → disable "Allow Apps to Request to Track"</li>
+            <li><strong>Android:</strong> Settings → Privacy → Ads → "Opt out of Ads Personalization" or reset your advertising ID</li>
         </ul>
         <p>For more information about how Google handles data, please visit <a href="https://policies.google.com/privacy">Google's Privacy Policy</a>.</p>
 
         <h2>4. Data We Do NOT Collect</h2>
         <p>Alerta does not collect, store, or transmit:</p>
         <ul>
-            <li>Name, email, phone number, or any other personal identification information</li>
-            <li>Account or login information (the app has no user accounts)</li>
-            <li>Usage analytics or behavioral tracking data</li>
+            <li>Your password (authentication is entirely handled by Apple/Google)</li>
+            <li>Behavioural usage analytics or tracking beyond what is described in this policy</li>
             <li>A continuous trail of your location (only the opt-in monitoring point described in 2.3)</li>
-            <li>Device contents (contacts, photos, calendar, etc.)</li>
+            <li>Device contents (contacts, calendar, photos other than those you choose to attach to a citizen report, etc.)</li>
         </ul>
+        <p>If you never enable Incident alerts, never sign in and never submit a citizen report, none of your personal data reaches our server.</p>
 
         <h2>5. Third-Party Services</h2>
         <p>Alerta uses the following external services:</p>
         <ul>
             <li><strong>ANEPC (Autoridade Nacional de Emergência e Proteção Civil) / ProCiv:</strong> Official source of incident data (public ArcGIS endpoint).</li>
-            <li><strong>Apple Maps:</strong> Map tiles and satellite imagery.</li>
-            <li><strong>Cloudflare Workers (Cloudflare, Inc., infrastructure in the European Union):</strong> Hosts our push-notification backend. When Incident alerts are enabled, the FCM token, monitoring point, radius and language are stored here.</li>
+            <li><strong>IPMA — Portuguese Institute for Sea and Atmosphere:</strong> Earthquake feed and fire-risk maps (public source).</li>
+            <li><strong>USGS — United States Geological Survey:</strong> Worldwide earthquake feed (public source).</li>
+            <li><strong>Apple Maps / OpenStreetMap (MapLibre):</strong> Map tiles and satellite imagery. iOS uses Apple Maps; Android uses MapLibre with OpenStreetMap tiles.</li>
+            <li><strong>Cloudflare Workers and D1 (Cloudflare, Inc., infrastructure in the European Union):</strong> Hosts our push-notification backend and the citizen-reports database.</li>
+            <li><strong>Cloudflare R2:</strong> Stores photos attached to citizen reports (with EXIF stripped).</li>
             <li><strong>Firebase Cloud Messaging (Google Ireland Limited):</strong> Push delivery service for iOS (via Apple Push Notification service) and Android. FCM processes the device token and notification payload as a sub-processor.</li>
-            <li><strong>Google AdMob:</strong> Advertising — see section 3.</li>
+            <li><strong>Sign in with Apple (Apple Inc.):</strong> Identity provider for optional sign-in on iOS.</li>
+            <li><strong>Sign in with Google (Google Ireland Limited):</strong> Identity provider for optional sign-in on iOS and Android.</li>
+            <li><strong>Google AdMob and User Messaging Platform:</strong> Advertising and consent management — see sections 2.6 and 3.</li>
         </ul>
         <p>These services may log standard web request data (IP address, timestamp) according to their own privacy policies.</p>
 
         <h2>6. Data Storage</h2>
         <p><strong>On your device:</strong></p>
         <ul>
-            <li>Notification preferences (in UserDefaults)</li>
-            <li>Already-notified incident IDs, to prevent duplicate alerts</li>
+            <li>Notification preferences (in UserDefaults / EncryptedSharedPreferences)</li>
+            <li>Already-notified incident IDs, to prevent duplicate alerts when reopening the app</li>
+            <li>Account session token (in Keychain on iOS, EncryptedSharedPreferences on Android), only if you sign in</li>
+            <li>UMP consent choices (only for users in the EU/EEA/UK/Switzerland)</li>
         </ul>
-        <p><strong>On our server (only if Incident alerts are enabled):</strong></p>
+        <p><strong>On our server (only if the relevant feature is enabled):</strong></p>
         <ul>
             <li>FCM token, monitoring point (lat/lng), alert radius, language, and the timestamp of the last update — a single row per app install, updated when you change settings.</li>
             <li>List of incidents already notified to you in the last 7 days, to prevent repetition. Removed automatically after that window.</li>
+            <li>User account (subject id, optional email, display name, reputation score) — only if you sign in.</li>
+            <li>Citizen reports you submit, including location, description, type, photos (without EXIF) and creation timestamp. Kept until you resolve, delete or operators reject them; 30 to 90 days afterwards they are marked removed and any associated personal data is anonymised.</li>
         </ul>
-        <p>The record is deleted from the server as soon as you disable Incident alerts or the FCM token becomes invalid (for example, when reinstalling the app).</p>
+        <p>The device record is deleted from the server as soon as you disable Incident alerts or the FCM token becomes invalid (for example, when reinstalling the app). The user account is deleted when you request its removal under <em>Settings → Account → Delete account</em>.</p>
 
         <h2>7. Notifications</h2>
         <p>Alerta uses two notification paths:</p>
         <ul>
-            <li><strong>Local notifications:</strong> When the app is open and has location permission, it generates notifications locally when an incident appears within your radius. No server involved.</li>
+            <li><strong>Local notifications:</strong> When the app is open and has location permission, it generates notifications locally when an incident appears within your radius. Already-notified IDs are persisted on-device to prevent duplicates even after restarting the app. No server involved.</li>
             <li><strong>Incident alerts (push, opt-in):</strong> Our server polls the public ANEPC data every few minutes. When it detects a new incident inside the radius you registered, it sends a push notification to your device via Firebase Cloud Messaging and Apple Push Notification service. This lets you receive alerts even when the app is closed.</li>
         </ul>
-        <p>You can disable either path at any time in the app's Settings or in iOS Settings.</p>
+        <p>You can disable either path at any time in the app's Settings or in your operating system's settings.</p>
 
         <h2>8. Children's Privacy</h2>
-        <p>Alerta does not knowingly collect any personal information from children under 13. The app does not require any personal information to function.</p>
+        <p>Alerta does not knowingly collect any personal information from children under 13. The app does not require any personal information to function, and the optional sign-in feature is subject to the age restrictions of the Apple/Google identity providers.</p>
 
         <h2>9. Your Rights</h2>
         <p>You can:</p>
         <ul>
-            <li>Deny or revoke location permissions at any time in iOS Settings</li>
-            <li>Disable notifications in iOS Settings or within the app</li>
+            <li>Deny or revoke location permissions at any time in your operating system's settings</li>
+            <li>Disable notifications in your operating system's settings or within the app</li>
+            <li>Sign out or permanently delete your account in <em>Settings → Account</em></li>
+            <li>Resolve, delete, or flag any of your own citizen reports</li>
+            <li>Review or change your advertising consent choices in <em>Settings → About → Manage privacy choices</em> (EU/EEA/UK/Switzerland users only)</li>
             <li>Delete the app to remove all locally stored data</li>
+            <li>Request a copy or deletion of your data by contacting us at the email in section 12 (in line with GDPR)</li>
         </ul>
 
         <h2>10. Changes to This Policy</h2>
         <p>We may update this Privacy Policy from time to time. Changes will be posted on this page with an updated revision date.</p>
 
         <h2>11. App Store Compliance</h2>
-        <p>Alerta is available on the Apple App Store and complies with Apple's App Store Guidelines and App Store Review Guidelines regarding privacy and data handling.</p>
+        <p>Alerta is available on the Apple App Store and the Google Play Store. It complies with Apple's App Store Guidelines and the Google Play Developer Programme Policies, including their privacy, data-handling and advertising sections.</p>
 
         <h2>12. Contact</h2>
         <p>If you have questions about this Privacy Policy, please contact:</p>
