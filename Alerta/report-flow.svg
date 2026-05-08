@@ -1,0 +1,182 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1640" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#586069"/>
+    </marker>
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#d73a49"/>
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2ea44f"/>
+    </marker>
+  </defs>
+
+  <rect width="900" height="1640" fill="#ffffff"/>
+
+  <text x="450" y="40" text-anchor="middle" font-size="22" font-weight="700" fill="#24292e">
+    How an Alerta citizen report reaches every phone
+  </text>
+  <text x="450" y="65" text-anchor="middle" font-size="13" fill="#586069">
+    From tap to public map — every gate, badge, and moderation step.
+  </text>
+
+  <!-- 1. Reporter device -->
+  <g>
+    <rect x="350" y="95" width="200" height="80" rx="10" fill="#fff5b1" stroke="#d4a72c" stroke-width="2"/>
+    <text x="450" y="125" text-anchor="middle" font-size="15" font-weight="700" fill="#24292e">Reporter's phone</text>
+    <text x="450" y="146" text-anchor="middle" font-size="11" fill="#444d56">Alerta or Fire app</text>
+    <text x="450" y="161" text-anchor="middle" font-size="11" fill="#586069">type · lat/lng · text · photo</text>
+  </g>
+  <line x1="450" y1="175" x2="450" y2="210" stroke="#586069" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="465" y="195" font-size="11" fill="#586069">POST /v1/reports</text>
+
+  <!-- 2. Auth -->
+  <g>
+    <rect x="280" y="215" width="340" height="60" rx="8" fill="#f1f8ff" stroke="#0366d6" stroke-width="1.5"/>
+    <text x="450" y="240" text-anchor="middle" font-size="14" font-weight="700" fill="#24292e">Cloudflare Worker · auth gate</text>
+    <text x="450" y="259" text-anchor="middle" font-size="11" fill="#586069">requireSession() · 401 if no signed-in user</text>
+  </g>
+  <line x1="450" y1="275" x2="450" y2="305" stroke="#586069" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- 3. Validation -->
+  <g>
+    <rect x="220" y="310" width="460" height="100" rx="8" fill="#f6f8fa" stroke="#586069" stroke-width="1.5"/>
+    <text x="450" y="335" text-anchor="middle" font-size="14" font-weight="700" fill="#24292e">Input validation</text>
+    <text x="450" y="356" text-anchor="middle" font-size="11" fill="#444d56">type ∈ {fire, flood, road_accident, power_outage, landslide, fallen_tree…}</text>
+    <text x="450" y="373" text-anchor="middle" font-size="11" fill="#444d56">lat/lng inside Europe bbox (30°–72° N, −32°–45° E)</text>
+    <text x="450" y="390" text-anchor="middle" font-size="11" fill="#444d56">description ≤ 280 chars · trim empty → null</text>
+  </g>
+  <line x1="450" y1="410" x2="450" y2="440" stroke="#586069" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- 4. Rate limits -->
+  <g>
+    <rect x="220" y="445" width="460" height="100" rx="8" fill="#fff5f5" stroke="#d73a49" stroke-width="1.5"/>
+    <text x="450" y="470" text-anchor="middle" font-size="14" font-weight="700" fill="#24292e">Rate limits — 429 if exceeded</text>
+    <text x="450" y="491" text-anchor="middle" font-size="11" fill="#444d56">≤ 3 reports per hour / user</text>
+    <text x="450" y="508" text-anchor="middle" font-size="11" fill="#444d56">≤ 10 reports per day / user</text>
+    <text x="450" y="525" text-anchor="middle" font-size="11" fill="#444d56">same-type-nearby cooldown · blocks duplicate spam</text>
+  </g>
+  <line x1="450" y1="545" x2="450" y2="575" stroke="#586069" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- 5. Suspicion & shadow ban -->
+  <g>
+    <rect x="220" y="580" width="460" height="120" rx="8" fill="#fff5f5" stroke="#d73a49" stroke-width="1.5"/>
+    <text x="450" y="605" text-anchor="middle" font-size="14" font-weight="700" fill="#24292e">Suspicion gates — set status = hidden</text>
+    <text x="450" y="626" text-anchor="middle" font-size="11" fill="#444d56">reporter device &gt; 50 km from claimed location → hidden</text>
+    <text x="450" y="643" text-anchor="middle" font-size="11" fill="#444d56">user shadow-banned (operator action) → hidden</text>
+    <text x="450" y="660" text-anchor="middle" font-size="11" fill="#444d56">— but —</text>
+    <text x="450" y="680" text-anchor="middle" font-size="11" fill="#2ea44f" font-weight="600">trust_score ≥ 5 overrides suspicion → status = open</text>
+  </g>
+  <line x1="450" y1="700" x2="450" y2="730" stroke="#586069" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- 6. DB insert -->
+  <g>
+    <rect x="290" y="735" width="320" height="65" rx="8" fill="#f1f8ff" stroke="#0366d6" stroke-width="1.5"/>
+    <text x="450" y="760" text-anchor="middle" font-size="14" font-weight="700" fill="#24292e">D1 insert · citizen_reports</text>
+    <text x="450" y="781" text-anchor="middle" font-size="11" fill="#586069">status: open | hidden · badge: unverified · audit log row</text>
+  </g>
+  <line x1="450" y1="800" x2="450" y2="830" stroke="#586069" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- 7. Badge engine -->
+  <g>
+    <rect x="100" y="835" width="700" height="270" rx="10" fill="#fffbdd" stroke="#d4a72c" stroke-width="2"/>
+    <text x="450" y="862" text-anchor="middle" font-size="15" font-weight="700" fill="#24292e">Trust-badge engine — runs on every new report &amp; after each ANEPC poll</text>
+
+    <!-- Tier rows -->
+    <g font-size="12" fill="#24292e">
+      <circle cx="135" cy="895" r="7" fill="#d73a49"/>
+      <text x="155" y="900"><tspan font-weight="700">Disputed</tspan> · ≥ 3 user flags → re-hidden from map</text>
+
+      <circle cx="135" cy="930" r="7" fill="#2ea44f"/>
+      <text x="155" y="935"><tspan font-weight="700">Confirmed by ANEPC</tspan> · matched to official Portuguese incident · +2 trust to reporter</text>
+
+      <circle cx="135" cy="965" r="7" fill="#0366d6"/>
+      <text x="155" y="970"><tspan font-weight="700">Operator verified</tspan> · sticky · only an operator can change it</text>
+
+      <circle cx="135" cy="1000" r="7" fill="#f9826c"/>
+      <text x="155" y="1005"><tspan font-weight="700">Multiple reports</tspan> · ≥ 2 distinct users · same type · ≤ 500 m · ≤ 30 min</text>
+
+      <circle cx="135" cy="1035" r="7" fill="#8a63d2"/>
+      <text x="155" y="1040"><tspan font-weight="700">Photo attached</tspan> · live photo on R2 storage</text>
+
+      <circle cx="135" cy="1070" r="7" fill="#959da5"/>
+      <text x="155" y="1075"><tspan font-weight="700">Unverified</tspan> · default · still visible on map, no trust pill</text>
+    </g>
+  </g>
+
+  <!-- ANEPC feedback loop -->
+  <g>
+    <rect x="615" y="640" width="190" height="90" rx="8" fill="#dcffe4" stroke="#2ea44f" stroke-width="1.5"/>
+    <text x="710" y="665" text-anchor="middle" font-size="13" font-weight="700" fill="#24292e">ANEPC ground truth</text>
+    <text x="710" y="684" text-anchor="middle" font-size="11" fill="#444d56">Portuguese civil</text>
+    <text x="710" y="699" text-anchor="middle" font-size="11" fill="#444d56">protection ArcGIS feed</text>
+    <text x="710" y="718" text-anchor="middle" font-size="10" fill="#586069">polled every 10 min</text>
+  </g>
+  <path d="M 710 730 Q 710 800 750 870 Q 770 900 760 930" fill="none" stroke="#2ea44f" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arrow-green)"/>
+  <text x="775" y="830" font-size="10" fill="#2ea44f" font-weight="600">spatial+temporal match</text>
+  <text x="775" y="844" font-size="10" fill="#2ea44f" font-weight="600">→ promotes badge</text>
+
+  <!-- 8. Operator path (Telegram + dashboard) -->
+  <line x1="450" y1="1105" x2="450" y2="1135" stroke="#586069" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <g>
+    <rect x="60" y="1140" width="370" height="120" rx="8" fill="#f1f8ff" stroke="#0366d6" stroke-width="1.5"/>
+    <text x="245" y="1165" text-anchor="middle" font-size="14" font-weight="700" fill="#24292e">Operator alert · Telegram bot</text>
+    <text x="245" y="1185" text-anchor="middle" font-size="11" fill="#444d56">Pings the operator's chat as soon as the report</text>
+    <text x="245" y="1200" text-anchor="middle" font-size="11" fill="#444d56">lands · awaited (Workers terminate on response)</text>
+    <text x="245" y="1220" text-anchor="middle" font-size="11" fill="#444d56">~200 ms · no-op when bot env vars are unset</text>
+    <text x="245" y="1245" text-anchor="middle" font-size="10" fill="#586069">Notifier swallows its own errors</text>
+  </g>
+
+  <g>
+    <rect x="470" y="1140" width="370" height="120" rx="8" fill="#f1f8ff" stroke="#0366d6" stroke-width="1.5"/>
+    <text x="655" y="1165" text-anchor="middle" font-size="14" font-weight="700" fill="#24292e">Operator dashboard · moderation</text>
+    <text x="655" y="1185" text-anchor="middle" font-size="11" fill="#444d56">Buckets: flagged · suspicious · low-trust · recent</text>
+    <text x="655" y="1200" text-anchor="middle" font-size="11" fill="#444d56">Actions: verify (sticky) · takedown · shadow-ban user</text>
+    <text x="655" y="1220" text-anchor="middle" font-size="11" fill="#444d56">Photos pulled in one batch query</text>
+    <text x="655" y="1245" text-anchor="middle" font-size="10" fill="#586069">Gated by X-Alerta-Admin-Key</text>
+  </g>
+
+  <line x1="245" y1="1260" x2="245" y2="1290" stroke="#586069" stroke-width="2"/>
+  <line x1="655" y1="1260" x2="655" y2="1290" stroke="#586069" stroke-width="2"/>
+  <line x1="245" y1="1290" x2="655" y2="1290" stroke="#586069" stroke-width="2"/>
+  <line x1="450" y1="1290" x2="450" y2="1320" stroke="#586069" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- 9. Public endpoint -->
+  <g>
+    <rect x="240" y="1325" width="420" height="70" rx="8" fill="#f6f8fa" stroke="#586069" stroke-width="1.5"/>
+    <text x="450" y="1351" text-anchor="middle" font-size="14" font-weight="700" fill="#24292e">GET /v1/reports — public list</text>
+    <text x="450" y="1372" text-anchor="middle" font-size="11" fill="#586069">Only status = open · returns id, type, lat/lng, badge, photos[]</text>
+  </g>
+  <line x1="450" y1="1395" x2="450" y2="1425" stroke="#586069" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- 10. End devices -->
+  <g>
+    <rect x="100" y="1430" width="700" height="180" rx="10" fill="#fff5b1" stroke="#d4a72c" stroke-width="2"/>
+    <text x="450" y="1457" text-anchor="middle" font-size="15" font-weight="700" fill="#24292e">Every Alerta &amp; Fire device polls and renders</text>
+
+    <!-- Two phone columns -->
+    <g>
+      <rect x="160" y="1480" width="240" height="110" rx="8" fill="#ffffff" stroke="#d4a72c" stroke-width="1.5"/>
+      <text x="280" y="1503" text-anchor="middle" font-size="13" font-weight="700" fill="#24292e">Alerta — Portugal focus</text>
+      <text x="280" y="1525" text-anchor="middle" font-size="11" fill="#444d56">Triangle pin · type colour</text>
+      <text x="280" y="1542" text-anchor="middle" font-size="11" fill="#444d56">Trust-badge dot</text>
+      <text x="280" y="1559" text-anchor="middle" font-size="11" fill="#444d56">Tap → photos · description</text>
+      <text x="280" y="1578" text-anchor="middle" font-size="10" fill="#586069">/v1/reports every 60 s</text>
+    </g>
+
+    <g>
+      <rect x="500" y="1480" width="240" height="110" rx="8" fill="#ffffff" stroke="#d4a72c" stroke-width="1.5"/>
+      <text x="620" y="1503" text-anchor="middle" font-size="13" font-weight="700" fill="#24292e">Fire — EU + Portugal</text>
+      <text x="620" y="1525" text-anchor="middle" font-size="11" fill="#444d56">Same triangle marker</text>
+      <text x="620" y="1542" text-anchor="middle" font-size="11" fill="#444d56">Cross-app visibility</text>
+      <text x="620" y="1559" text-anchor="middle" font-size="11" fill="#444d56">Reports a Fire user files</text>
+      <text x="620" y="1578" text-anchor="middle" font-size="11" fill="#444d56">are visible in Alerta too</text>
+    </g>
+  </g>
+
+  <!-- Footer note -->
+  <text x="450" y="1632" text-anchor="middle" font-size="10" fill="#959da5">
+    Citizen reports never trigger push notifications · only ANEPC-confirmed incidents do · this protects users from spam-driven pushes
+  </text>
+</svg>
