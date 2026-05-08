@@ -13,7 +13,7 @@
         <a href="index.html" class="back-link">&larr; Voltar ao Início</a>
 
         <h1>Política de Privacidade</h1>
-        <p><strong>Última atualização:</strong> 7 de maio de 2026</p>
+        <p><strong>Última atualização:</strong> 8 de maio de 2026</p>
 
         <h2>1. Introdução</h2>
         <p>A Alerta ("nós", "nosso" ou "a app") está empenhada em proteger a sua privacidade. Esta Política de Privacidade explica como recolhemos, utilizamos e protegemos as suas informações quando utiliza a nossa aplicação móvel.</p>
@@ -40,8 +40,9 @@
             <li><strong>Raio de alerta</strong> e <strong>idioma preferido</strong> — para que o servidor envie a notificação localizada</li>
             <li><strong>Magnitude mínima de sismo</strong> (opcional) — se ativar os Alertas de Sismos, o limiar de magnitude que escolhe (1.0–6.0) é guardado para que o servidor saiba a partir de que ponto deve enviar uma notificação. Os dados sismológicos vêm do IPMA (fonte pública).</li>
             <li><strong>Identificador de utilizador</strong> (apenas se tiver iniciado sessão) — quando inicia sessão, o registo do dispositivo no servidor é associado à sua conta para que os operadores da Proteção Civil possam saber quem é o autor das denúncias cidadãs e para podermos preservar a sua reputação ao mudar de dispositivo. Se nunca iniciar sessão, este campo permanece vazio e o registo é completamente anónimo.</li>
+            <li><strong>Histórico de localização (30 dias)</strong> — para apoiar a operação dos serviços de emergência, sempre que o seu ponto de monitorização muda mais de 200 metros, gravamos o novo par lat/lng com um carimbo de tempo. Estes pontos são automaticamente eliminados ao fim de 30 dias. Permite ao painel dos operadores visualizar as deslocações dos dispositivos durante uma operação. Não é guardado um trilho contínuo (apenas as posições onde se moveu significativamente); o histórico é eliminado se desativar os Alertas de ocorrências ou eliminar a sua conta.</li>
         </ul>
-        <p>Não enviamos um histórico contínuo da sua localização. Quando desativa os Alertas de ocorrências, o registo é eliminado do nosso servidor.</p>
+        <p>Quando desativa os Alertas de ocorrências, o registo do dispositivo e o seu histórico de localização são eliminados do nosso servidor.</p>
 
         <h3>2.4 Conta de Utilizador (Início de Sessão) — opt-in</h3>
         <p>A Alerta permite, mas não exige, iniciar sessão. Pode ver o mapa, receber alertas push e usar a app inteira sem conta. O início de sessão é necessário apenas para submeter denúncias cidadãs (ver secção 2.5).</p>
@@ -123,6 +124,7 @@
         <p><strong>No nosso servidor (apenas se a funcionalidade respetiva estiver ativa):</strong></p>
         <ul>
             <li>Token FCM, ponto de monitorização (lat/lng), raio de alerta, idioma e o instante da última atualização — uma única linha por instalação da app, atualizada quando alterar as definições.</li>
+            <li>Histórico de localização do dispositivo (lat/lng + timestamp), apenas para movimentações superiores a 200 m, com retenção máxima de 30 dias.</li>
             <li>Lista das ocorrências já notificadas a si nos últimos 7 dias, para evitar repetição. Removidas automaticamente após esse período.</li>
             <li>Conta de utilizador (subject id, email opcional, nome de exibição, pontuação de reputação) — apenas se iniciar sessão.</li>
             <li>Denúncias cidadãs que submeter, incluindo localização, descrição, tipo, fotografias (sem EXIF) e instante de criação. Mantemo-las até as resolver, eliminar ou serem rejeitadas pelos operadores; entre 30 a 90 dias depois disso, são marcadas como removidas e os dados pessoais associados anonimizados.</li>
@@ -166,7 +168,7 @@
         <hr style="margin: 3rem 0;">
 
         <h1>Privacy Policy</h1>
-        <p><strong>Last updated:</strong> May 7, 2026</p>
+        <p><strong>Last updated:</strong> May 8, 2026</p>
 
         <h2>1. Introduction</h2>
         <p>Alerta ("we", "our", or "the app") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard your information when you use our mobile application.</p>
@@ -193,8 +195,9 @@
             <li><strong>Alert radius</strong> and <strong>preferred language</strong> — so the server can localize the notification</li>
             <li><strong>Earthquake minimum magnitude</strong> (optional) — if you enable Earthquake Alerts, the magnitude threshold you pick (1.0–6.0) is stored so the server knows when to push you. Earthquake data itself comes from IPMA (a public source).</li>
             <li><strong>User identifier</strong> (only if you have signed in) — when you sign in, the device row on the server is associated with your account so Civil Protection operators can attribute citizen reports to a known user and so your reputation is preserved across device changes. If you never sign in, this field stays empty and the device record is fully anonymous.</li>
+            <li><strong>Location history (30 days)</strong> — to support Civil Protection operations, every time your monitoring point moves more than 200 metres we record the new lat/lng pair with a timestamp. These points are automatically deleted after 30 days. The operator dashboard uses them to visualise device movement during an operation. We do not record a continuous trail (only positions where you've moved significantly); the history is deleted if you disable Incident alerts or delete your account.</li>
         </ul>
-        <p>We do not send a continuous trail of your location. When you turn Incident alerts off, the record is deleted from our server.</p>
+        <p>When you turn Incident alerts off, the device record and its location history are deleted from our server.</p>
 
         <h3>2.4 User Account (Sign-In) — opt-in</h3>
         <p>Alerta lets you sign in but does not require it. You can view the map, receive push alerts and use the entire app without an account. Sign-in is required only to submit citizen reports (see section 2.5).</p>
@@ -276,6 +279,7 @@
         <p><strong>On our server (only if the relevant feature is enabled):</strong></p>
         <ul>
             <li>FCM token, monitoring point (lat/lng), alert radius, language, and the timestamp of the last update — a single row per app install, updated when you change settings.</li>
+            <li>Device location history (lat/lng + timestamp), only for moves &gt;200 m, with a maximum 30-day retention.</li>
             <li>List of incidents already notified to you in the last 7 days, to prevent repetition. Removed automatically after that window.</li>
             <li>User account (subject id, optional email, display name, reputation score) — only if you sign in.</li>
             <li>Citizen reports you submit, including location, description, type, photos (without EXIF) and creation timestamp. Kept until you resolve, delete or operators reject them; 30 to 90 days afterwards they are marked removed and any associated personal data is anonymised.</li>
