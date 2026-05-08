@@ -1,10 +1,13 @@
-# Verifies the Fire app's footer cross-link block stays in sync with the
-# master list of apps in /index.html. Fails the action (and blocks merging
-# if branch protection is on) when the two diverge — so a retired app can't
-# silently linger in Fire's footer and a newly added app can't get forgotten.
+# Verifies cross-link footers in sub-app pages stay in sync with the master
+# list of apps in /index.html.
 #
-# Add more sub-apps below the existing job to extend the same check to other
-# folders that also list peers in their footer.
+# Two jobs:
+#   1. fire-footer (HARD)  — fails the build if Fire's footer drifts.
+#                            Keeps Fire perfectly aligned.
+#   2. audit-other-footers (WARN) — loops through every other sub-app,
+#                            prints a drift report, never fails. Use it as
+#                            a health dashboard; tighten to hard mode once
+#                            you've cleaned up the apps that drift today.
 
 name: Check cross-links
 
@@ -54,3 +57,98 @@ jobs:
           fi
 
           echo "✓ Fire footer matches root index ($(echo "$FIRE_APPS" | wc -l | tr -d ' ') apps)"
+
+  audit-other-footers:
+    name: Audit all other sub-app footers (warn-only)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Report drift in every sub-app's footer
+        shell: bash
+        run: |
+          set -uo pipefail
+
+          # The canonical list of apps lives in /index.html.
+          ROOT_APPS=$(grep -oE 'href="[^"#h][^"]+/"' index.html \
+            | sed 's|^href="||;s|/"$||' \
+            | sort -u)
+
+          # Folders we explicitly skip — not sub-apps.
+          SKIP_REGEX='^(\.github|casalilli|node_modules|assets|Fire)$'
+
+          drifted=0
+          checked=0
+          summary=""
+
+          # Helper: normalise URL-encoded spaces so "File Vortex" and
+          # "File%20Vortex" compare equal — they're the same folder.
+          urldecode() { sed 's|%20| |g'; }
+
+          for dir in */; do
+            app="${dir%/}"
+            if echo "$app" | grep -qE "$SKIP_REGEX"; then continue; fi
+            if [ ! -f "$dir/index.html" ]; then continue; fi
+            # Skip retired/non-root folders — if the app isn't in the master
+            # list, its footer isn't ours to enforce.
+            if ! echo "$ROOT_APPS" | urldecode | grep -qx "$app"; then continue; fi
+            # Only audit folders that actually have a cross-link footer (≥3
+            # ../X/ style refs). Pages without a footer block are skipped.
+            count=$(grep -cE 'href="\.\./[^"]+/"' "$dir/index.html" || true)
+            if [ "${count:-0}" -lt 3 ]; then continue; fi
+
+            checked=$((checked + 1))
+
+            EXPECTED=$(echo "$ROOT_APPS" | urldecode | grep -v "^$app$" | sort -u)
+            ACTUAL=$(grep -oE 'href="\.\./[^"]+/"' "$dir/index.html" \
+              | sed 's|^href="\.\./||;s|/"$||' \
+              | urldecode \
+              | sort -u)
+
+            if [ "$EXPECTED" = "$ACTUAL" ]; then
+              echo "✓ $app"
+              continue
+            fi
+
+            drifted=$((drifted + 1))
+
+            stale=$(comm -23 <(echo "$ACTUAL") <(echo "$EXPECTED") | tr '\n' ',' | sed 's/,$//;s/,/, /g')
+            missing=$(comm -13 <(echo "$ACTUAL") <(echo "$EXPECTED") | tr '\n' ',' | sed 's/,$//;s/,/, /g')
+
+            line="✗ $app"
+            [ -n "$stale" ]   && line="$line · stale: $stale"
+            [ -n "$missing" ] && line="$line · missing: $missing"
+
+            echo "::warning title=$app footer drift::$line"
+            echo "$line"
+            summary="$summary$line"$'\n'
+          done
+
+          echo
+          echo "── Audit summary ──"
+          echo "Checked: $checked sub-apps"
+          echo "Drifted: $drifted"
+
+          # GitHub Actions step summary — appears as a nicely formatted
+          # block on the run's overview page.
+          {
+            echo "## Cross-link footer audit"
+            echo ""
+            echo "**$checked** sub-apps audited · **$drifted** drifted from root index"
+            echo ""
+            if [ "$drifted" -gt 0 ]; then
+              echo "### Drift detail"
+              echo ""
+              echo '```'
+              echo "$summary"
+              echo '```'
+              echo ""
+              echo "_stale_ = listed in this footer but no longer in root index (retired/renamed)."
+              echo "_missing_ = in root index but not yet linked from this footer."
+            else
+              echo "All sub-app footers match the root index. ✓"
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          # Always succeed — this job is intentionally informational.
+          exit 0
