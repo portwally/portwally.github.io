@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1280" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', system-ui, sans-serif">
+
+  <!-- Background gradient: cosmic dark, hint of warmth on the right -->
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%"  stop-color="#0a0e1a"/>
+      <stop offset="65%" stop-color="#0f1422"/>
+      <stop offset="100%" stop-color="#2a1410"/>
+    </linearGradient>
+
+    <linearGradient id="cardSpace" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a2540"/>
+      <stop offset="100%" stop-color="#0f172e"/>
+    </linearGradient>
+    <linearGradient id="cardNasa" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1e3a5f"/>
+      <stop offset="100%" stop-color="#152944"/>
+    </linearGradient>
+    <linearGradient id="cardPt" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3a1810"/>
+      <stop offset="100%" stop-color="#241008"/>
+    </linearGradient>
+    <linearGradient id="cardWorker" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#5c2818"/>
+      <stop offset="100%" stop-color="#3a1810"/>
+    </linearGradient>
+    <linearGradient id="cardFcm" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1e2a3a"/>
+      <stop offset="100%" stop-color="#141c28"/>
+    </linearGradient>
+    <linearGradient id="cardPhone" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3a2410"/>
+      <stop offset="100%" stop-color="#241808"/>
+    </linearGradient>
+
+    <!-- arrowhead -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5"
+            markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#ff8a4d"/>
+    </marker>
+
+    <!-- soft drop shadow -->
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
+      <feOffset dx="0" dy="2"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.4"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="900" height="1280" fill="url(#bg)"/>
+
+  <!-- TITLE -->
+  <text x="450" y="50" text-anchor="middle" font-size="26" font-weight="700" fill="#ffffff">
+    How a wildfire reaches your phone
+  </text>
+  <text x="450" y="76" text-anchor="middle" font-size="13" fill="#9ca3af">
+    From satellite detection to push notification — under 30 minutes, end to end.
+  </text>
+
+  <!-- ──────────── ROW 1: SPACE ──────────── -->
+  <rect x="60" y="110" width="780" height="135" rx="14" fill="url(#cardSpace)"
+        stroke="#2a3a55" stroke-width="1" filter="url(#soft)"/>
+  <text x="80" y="140" font-size="11" font-weight="600" fill="#7aa3d4" letter-spacing="2">SPACE · 800 km altitude</text>
+
+  <!-- 3 satellites with VIIRS sensors -->
+  <g transform="translate(170, 175)">
+    <!-- satellite body -->
+    <rect x="-22" y="-15" width="44" height="30" rx="4" fill="#cbd5e1"/>
+    <rect x="-8"  y="-10" width="16" height="20" rx="2" fill="#1e293b"/>
+    <!-- solar panels -->
+    <rect x="-58" y="-7" width="32" height="14" fill="#3b82f6" stroke="#1e40af"/>
+    <rect x="26"  y="-7" width="32" height="14" fill="#3b82f6" stroke="#1e40af"/>
+    <text x="0" y="38" text-anchor="middle" font-size="13" font-weight="700" fill="#ffffff">NOAA-20</text>
+    <text x="0" y="54" text-anchor="middle" font-size="10" fill="#9ca3af">VIIRS sensor</text>
+  </g>
+
+  <g transform="translate(450, 175)">
+    <rect x="-22" y="-15" width="44" height="30" rx="4" fill="#cbd5e1"/>
+    <rect x="-8"  y="-10" width="16" height="20" rx="2" fill="#1e293b"/>
+    <rect x="-58" y="-7" width="32" height="14" fill="#3b82f6" stroke="#1e40af"/>
+    <rect x="26"  y="-7" width="32" height="14" fill="#3b82f6" stroke="#1e40af"/>
+    <text x="0" y="38" text-anchor="middle" font-size="13" font-weight="700" fill="#ffffff">Suomi-NPP</text>
+    <text x="0" y="54" text-anchor="middle" font-size="10" fill="#9ca3af">VIIRS sensor</text>
+  </g>
+
+  <g transform="translate(730, 175)">
+    <rect x="-22" y="-15" width="44" height="30" rx="4" fill="#cbd5e1"/>
+    <rect x="-8"  y="-10" width="16" height="20" rx="2" fill="#1e293b"/>
+    <rect x="-58" y="-7" width="32" height="14" fill="#3b82f6" stroke="#1e40af"/>
+    <rect x="26"  y="-7" width="32" height="14" fill="#3b82f6" stroke="#1e40af"/>
+    <text x="0" y="38" text-anchor="middle" font-size="13" font-weight="700" fill="#ffffff">NOAA-21</text>
+    <text x="0" y="54" text-anchor="middle" font-size="10" fill="#9ca3af">VIIRS sensor</text>
+  </g>
+
+  <text x="450" y="232" text-anchor="middle" font-size="11" fill="#6b7280" font-style="italic">
+    Each satellite passes over Europe twice a day · 375 m pixel resolution
+  </text>
+
+  <!-- arrow down -->
+  <line x1="450" y1="265" x2="450" y2="305" stroke="#ff8a4d" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="465" y="290" font-size="11" fill="#9ca3af">raw thermal data</text>
+
+  <!-- ──────────── ROW 2: NASA FIRMS ──────────── -->
+  <rect x="240" y="320" width="420" height="100" rx="14" fill="url(#cardNasa)"
+        stroke="#2a4a78" stroke-width="1" filter="url(#soft)"/>
+  <text x="260" y="350" font-size="11" font-weight="600" fill="#7aa3d4" letter-spacing="2">NASA · USA</text>
+
+  <!-- server stack icon -->
+  <g transform="translate(295, 385)">
+    <rect x="-22" y="-12" width="44" height="8" rx="1.5" fill="#3b82f6"/>
+    <rect x="-22" y="-2"  width="44" height="8" rx="1.5" fill="#3b82f6"/>
+    <rect x="-22" y="8"   width="44" height="8" rx="1.5" fill="#3b82f6"/>
+    <circle cx="-15" cy="-8" r="1.5" fill="#22c55e"/>
+    <circle cx="-15" cy="2"  r="1.5" fill="#22c55e"/>
+    <circle cx="-15" cy="12" r="1.5" fill="#22c55e"/>
+  </g>
+  <text x="450" y="376" text-anchor="middle" font-size="18" font-weight="700" fill="#ffffff">NASA FIRMS</text>
+  <text x="450" y="397" text-anchor="middle" font-size="11" fill="#9ca3af">
+    Fire Information for Resource Management System
+  </text>
+  <text x="450" y="412" text-anchor="middle" font-size="10" fill="#6b7280">
+    firms.modaps.eosdis.nasa.gov · ~3 h latency
+  </text>
+
+  <!-- arrow down -->
+  <line x1="450" y1="430" x2="450" y2="475" stroke="#ff8a4d" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="465" y="455" font-size="11" fill="#9ca3af">CSV poll, every 30 min</text>
+
+  <!-- ──────────── ROW 3: Alerta Worker (with Portugal merge) ──────────── -->
+  <!-- Portugal source on the side -->
+  <rect x="60" y="490" width="220" height="100" rx="14" fill="url(#cardPt)"
+        stroke="#5c2818" stroke-width="1" filter="url(#soft)"/>
+  <text x="80" y="518" font-size="11" font-weight="600" fill="#e0a098" letter-spacing="2">PORTUGAL</text>
+  <text x="170" y="544" text-anchor="middle" font-size="14" font-weight="700" fill="#ffffff">
+    🇵🇹 ANEPC ArcGIS
+  </text>
+  <text x="170" y="562" text-anchor="middle" font-size="11" fill="#d4a89b">
+    + Fogos.pt fallback
+  </text>
+  <text x="170" y="579" text-anchor="middle" font-size="10" fill="#9b756a">
+    every 10 min · official source
+  </text>
+
+  <!-- Worker box -->
+  <rect x="320" y="490" width="520" height="170" rx="14" fill="url(#cardWorker)"
+        stroke="#7d3a25" stroke-width="1.5" filter="url(#soft)"/>
+  <text x="340" y="518" font-size="11" font-weight="600" fill="#ffae80" letter-spacing="2">ALERTA BACKEND</text>
+
+  <!-- worker icon: cloud -->
+  <g transform="translate(370, 575)">
+    <path d="M-22,-3 a14,14 0 0,1 26,-6 a16,16 0 0,1 26,8 a10,10 0 0,1 -2,20 h-44 a12,12 0 0,1 -6,-22 z"
+          fill="#ff6b3a" opacity="0.85"/>
+  </g>
+  <text x="580" y="555" text-anchor="middle" font-size="18" font-weight="700" fill="#ffffff">
+    Cloudflare Worker
+  </text>
+  <text x="580" y="578" text-anchor="middle" font-size="12" fill="#ffd0b8">
+    EU edge compute · TypeScript
+  </text>
+  <text x="580" y="608" text-anchor="middle" font-size="11" fill="#e0c4b6">
+    1. Filter by FRP &amp; confidence
+  </text>
+  <text x="580" y="624" text-anchor="middle" font-size="11" fill="#e0c4b6">
+    2. Match against each device's radius
+  </text>
+  <text x="580" y="640" text-anchor="middle" font-size="11" fill="#e0c4b6">
+    3. Localise message into 13 languages
+  </text>
+
+  <!-- arrow from FIRMS into Worker -->
+  <path d="M 450 430 L 450 460 L 450 490" fill="none" stroke="#ff8a4d" stroke-width="2"/>
+  <!-- arrow from Portugal into Worker -->
+  <line x1="280" y1="540" x2="320" y2="540" stroke="#ff8a4d" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- arrow down from Worker -->
+  <line x1="580" y1="675" x2="580" y2="720" stroke="#ff8a4d" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="595" y="700" font-size="11" fill="#9ca3af">FCM HTTP v1</text>
+
+  <!-- ──────────── ROW 4: Firebase FCM ──────────── -->
+  <rect x="370" y="735" width="420" height="90" rx="14" fill="url(#cardFcm)"
+        stroke="#2a3a55" stroke-width="1" filter="url(#soft)"/>
+  <text x="390" y="763" font-size="11" font-weight="600" fill="#7aa3d4" letter-spacing="2">GOOGLE</text>
+  <text x="580" y="790" text-anchor="middle" font-size="18" font-weight="700" fill="#ffffff">
+    Firebase Cloud Messaging
+  </text>
+  <text x="580" y="810" text-anchor="middle" font-size="11" fill="#9ca3af">
+    Routes to APNs (iOS) and FCM (Android)
+  </text>
+
+  <!-- arrows down split to 2 phones -->
+  <line x1="500" y1="835" x2="380" y2="900" stroke="#ff8a4d" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="660" y1="835" x2="780" y2="900" stroke="#ff8a4d" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- ──────────── ROW 5: Phones ──────────── -->
+  <!-- iOS phone -->
+  <g transform="translate(280, 920)">
+    <rect x="-50" y="0" width="100" height="160" rx="14" fill="#1f1f1f" stroke="#525252" stroke-width="2"/>
+    <rect x="-40" y="20" width="80" height="120" rx="3" fill="#ff6b3a"/>
+    <circle cx="0" cy="150" r="3" fill="#525252"/>
+    <text x="0" y="60" text-anchor="middle" font-size="22">🍎</text>
+    <text x="0" y="92" text-anchor="middle" font-size="9" font-weight="700" fill="#ffffff">🔥 Brand</text>
+    <text x="0" y="105" text-anchor="middle" font-size="9" font-weight="700" fill="#ffffff">erkannt</text>
+    <text x="0" y="125" text-anchor="middle" font-size="8" fill="#ffd0b8">Frankreich</text>
+    <text x="0" y="135" text-anchor="middle" font-size="8" fill="#ffd0b8">12 km · FIRMS</text>
+  </g>
+  <text x="280" y="1100" text-anchor="middle" font-size="13" font-weight="600" fill="#ffffff">iOS</text>
+  <text x="280" y="1118" text-anchor="middle" font-size="10" fill="#9ca3af">via APNs</text>
+
+  <!-- Android phone -->
+  <g transform="translate(680, 920)">
+    <rect x="-50" y="0" width="100" height="160" rx="14" fill="#1f1f1f" stroke="#525252" stroke-width="2"/>
+    <rect x="-40" y="20" width="80" height="120" rx="3" fill="#ff6b3a"/>
+    <circle cx="0" cy="150" r="3" fill="#525252"/>
+    <text x="0" y="60" text-anchor="middle" font-size="22">🤖</text>
+    <text x="0" y="92" text-anchor="middle" font-size="9" font-weight="700" fill="#ffffff">🔥 Pożar</text>
+    <text x="0" y="105" text-anchor="middle" font-size="9" font-weight="700" fill="#ffffff">wykryty</text>
+    <text x="0" y="125" text-anchor="middle" font-size="8" fill="#ffd0b8">Hiszpania</text>
+    <text x="0" y="135" text-anchor="middle" font-size="8" fill="#ffd0b8">8 km · FIRMS</text>
+  </g>
+  <text x="680" y="1100" text-anchor="middle" font-size="13" font-weight="600" fill="#ffffff">Android</text>
+  <text x="680" y="1118" text-anchor="middle" font-size="10" fill="#9ca3af">via FCM</text>
+
+  <!-- ──────────── LEGEND ──────────── -->
+  <text x="60"  y="1170" font-size="11" font-weight="600" fill="#9ca3af" letter-spacing="2">DATA SOURCES</text>
+  <g transform="translate(60, 1185)">
+    <rect width="14" height="14" rx="3" fill="#3b82f6"/>
+    <text x="22" y="11" font-size="11" fill="#cbd5e1">VIIRS sensor — hardware on satellites</text>
+  </g>
+  <g transform="translate(60, 1208)">
+    <rect width="14" height="14" rx="3" fill="#1e3a5f"/>
+    <text x="22" y="11" font-size="11" fill="#cbd5e1">NASA FIRMS — data API for VIIRS detections</text>
+  </g>
+  <g transform="translate(60, 1231)">
+    <rect width="14" height="14" rx="3" fill="#5c2818"/>
+    <text x="22" y="11" font-size="11" fill="#cbd5e1">ANEPC + Fogos.pt — Portugal-only authority feed</text>
+  </g>
+  <g transform="translate(60, 1254)">
+    <rect width="14" height="14" rx="3" fill="#ff6b3a"/>
+    <text x="22" y="11" font-size="11" fill="#cbd5e1">Alerta Backend (Cloudflare Worker, EU edge)</text>
+  </g>
+
+</svg>
