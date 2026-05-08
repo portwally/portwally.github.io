@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1280" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#586069"/>
+    </marker>
+  </defs>
+
+  <rect width="900" height="1280" fill="#ffffff"/>
+
+  <text x="450" y="42" text-anchor="middle" font-size="22" font-weight="700" fill="#24292e">
+    What happens when you report an incident
+  </text>
+  <text x="450" y="68" text-anchor="middle" font-size="13" fill="#586069">
+    Every report is checked before it appears on the map for other people.
+  </text>
+
+  <!-- 1. You report -->
+  <g>
+    <rect x="320" y="100" width="260" height="100" rx="10" fill="#fff5b1" stroke="#d4a72c" stroke-width="2"/>
+    <text x="450" y="132" text-anchor="middle" font-size="16" font-weight="700" fill="#24292e">You spot something</text>
+    <text x="450" y="156" text-anchor="middle" font-size="12" fill="#444d56">Fire · flood · accident · tree down</text>
+    <text x="450" y="175" text-anchor="middle" font-size="12" fill="#444d56">Tap "Report" — add a photo if you can</text>
+  </g>
+  <line x1="450" y1="200" x2="450" y2="240" stroke="#586069" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- 2. Quick checks -->
+  <g>
+    <rect x="180" y="245" width="540" height="125" rx="10" fill="#f6f8fa" stroke="#586069" stroke-width="1.5"/>
+    <text x="450" y="273" text-anchor="middle" font-size="15" font-weight="700" fill="#24292e">Quick safety checks</text>
+    <g font-size="12" fill="#24292e">
+      <text x="220" y="300">✓ You're signed in</text>
+      <text x="220" y="322">✓ The location is somewhere we cover</text>
+      <text x="220" y="344">✓ You haven't already filed a flood of reports today</text>
+      <text x="220" y="362" font-size="11" fill="#586069">  (this stops accidental duplicates and spam)</text>
+    </g>
+  </g>
+  <line x1="450" y1="370" x2="450" y2="410" stroke="#586069" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- 3. Trust evaluation -->
+  <g>
+    <rect x="100" y="415" width="700" height="160" rx="10" fill="#fffbdd" stroke="#d4a72c" stroke-width="2"/>
+    <text x="450" y="443" text-anchor="middle" font-size="15" font-weight="700" fill="#24292e">A trust badge is added</text>
+
+    <g font-size="13" fill="#24292e">
+      <circle cx="135" cy="475" r="8" fill="#2ea44f"/>
+      <text x="155" y="481"><tspan font-weight="700">Confirmed</tspan> — official civil protection has the same incident logged</text>
+
+      <circle cx="135" cy="505" r="8" fill="#0366d6"/>
+      <text x="155" y="511"><tspan font-weight="700">Verified by operator</tspan> — a moderator checked it in person</text>
+
+      <circle cx="135" cy="535" r="8" fill="#f9826c"/>
+      <text x="155" y="541"><tspan font-weight="700">Multiple reports</tspan> — several people reported the same thing nearby</text>
+
+      <circle cx="135" cy="565" r="8" fill="#959da5"/>
+      <text x="155" y="571"><tspan font-weight="700">Unverified</tspan> — single report, still shown but with a neutral pill</text>
+    </g>
+  </g>
+  <line x1="450" y1="575" x2="450" y2="615" stroke="#586069" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- 4. Operator alerted -->
+  <g>
+    <rect x="180" y="620" width="540" height="100" rx="10" fill="#f1f8ff" stroke="#0366d6" stroke-width="1.5"/>
+    <text x="450" y="648" text-anchor="middle" font-size="15" font-weight="700" fill="#24292e">A real person is notified</text>
+    <text x="450" y="673" text-anchor="middle" font-size="12" fill="#444d56">An operator gets a message the moment the report lands.</text>
+    <text x="450" y="691" text-anchor="middle" font-size="12" fill="#444d56">They can verify it, hide it, or remove a misbehaving user.</text>
+    <text x="450" y="710" text-anchor="middle" font-size="11" fill="#586069">Reports flagged by 3 other users are auto-hidden until reviewed.</text>
+  </g>
+  <line x1="450" y1="720" x2="450" y2="760" stroke="#586069" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- 5. On the map -->
+  <g>
+    <rect x="180" y="765" width="540" height="105" rx="10" fill="#dcffe4" stroke="#2ea44f" stroke-width="1.5"/>
+    <text x="450" y="793" text-anchor="middle" font-size="15" font-weight="700" fill="#24292e">Your report appears on the map</text>
+    <text x="450" y="818" text-anchor="middle" font-size="12" fill="#444d56">A coloured triangle, with the trust badge as a small dot.</text>
+    <text x="450" y="836" text-anchor="middle" font-size="12" fill="#444d56">Tap to see the photo, your description, and how long ago.</text>
+    <text x="450" y="858" text-anchor="middle" font-size="11" fill="#586069">Hidden reports never reach the map — only you can see your own.</text>
+  </g>
+  <line x1="450" y1="870" x2="450" y2="910" stroke="#586069" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- 6. Other users see it -->
+  <g>
+    <rect x="100" y="915" width="700" height="200" rx="10" fill="#fff5b1" stroke="#d4a72c" stroke-width="2"/>
+    <text x="450" y="943" text-anchor="middle" font-size="15" font-weight="700" fill="#24292e">Everyone else sees it within a minute</text>
+
+    <g>
+      <rect x="160" y="965" width="240" height="125" rx="8" fill="#ffffff" stroke="#d4a72c" stroke-width="1.5"/>
+      <text x="280" y="990" text-anchor="middle" font-size="13" font-weight="700" fill="#24292e">Alerta users</text>
+      <text x="280" y="1014" text-anchor="middle" font-size="12" fill="#444d56">See it on the Portugal map</text>
+      <text x="280" y="1031" text-anchor="middle" font-size="12" fill="#444d56">Trust badge tells them how</text>
+      <text x="280" y="1048" text-anchor="middle" font-size="12" fill="#444d56">reliable it is at a glance</text>
+      <text x="280" y="1075" text-anchor="middle" font-size="11" fill="#586069">No notification — map only</text>
+    </g>
+
+    <g>
+      <rect x="500" y="965" width="240" height="125" rx="8" fill="#ffffff" stroke="#d4a72c" stroke-width="1.5"/>
+      <text x="620" y="990" text-anchor="middle" font-size="13" font-weight="700" fill="#24292e">Fire users</text>
+      <text x="620" y="1014" text-anchor="middle" font-size="12" fill="#444d56">See the same triangle on</text>
+      <text x="620" y="1031" text-anchor="middle" font-size="12" fill="#444d56">their European fire map</text>
+      <text x="620" y="1048" text-anchor="middle" font-size="12" fill="#444d56">Reports cross both apps</text>
+      <text x="620" y="1075" text-anchor="middle" font-size="11" fill="#586069">No notification — map only</text>
+    </g>
+  </g>
+
+  <!-- Bottom note -->
+  <g>
+    <rect x="180" y="1145" width="540" height="80" rx="8" fill="#fff5f5" stroke="#d73a49" stroke-width="1.5"/>
+    <text x="450" y="1172" text-anchor="middle" font-size="13" font-weight="700" fill="#24292e">Why we don't push notifications for citizen reports</text>
+    <text x="450" y="1194" text-anchor="middle" font-size="11" fill="#444d56">A single unverified report shouldn't wake up a whole region.</text>
+    <text x="450" y="1211" text-anchor="middle" font-size="11" fill="#444d56">Push alerts are reserved for confirmed incidents from civil protection.</text>
+  </g>
+</svg>
