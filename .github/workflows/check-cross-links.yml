@@ -4,10 +4,10 @@
 # Two jobs:
 #   1. fire-footer (HARD)  — fails the build if Fire's footer drifts.
 #                            Keeps Fire perfectly aligned.
-#   2. audit-other-footers (WARN) — loops through every other sub-app,
-#                            prints a drift report, never fails. Use it as
-#                            a health dashboard; tighten to hard mode once
-#                            you've cleaned up the apps that drift today.
+#   2. audit-other-footers (HARD) — loops through every other sub-app and
+#                            fails the build if any footer drifts from the
+#                            master root /index.html list. Cleanup pass on
+#                            2026-05-08 brought all 27 sub-apps into sync.
 
 name: Check cross-links
 
@@ -59,7 +59,7 @@ jobs:
           echo "✓ Fire footer matches root index ($(echo "$FIRE_APPS" | wc -l | tr -d ' ') apps)"
 
   audit-other-footers:
-    name: Audit all other sub-app footers (warn-only)
+    name: All sub-app footers ≡ root index (hard)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -150,5 +150,8 @@ jobs:
             fi
           } >> "$GITHUB_STEP_SUMMARY"
 
-          # Always succeed — this job is intentionally informational.
-          exit 0
+          # Hard mode: fail the build if any sub-app footer drifted.
+          if [ "$drifted" -gt 0 ]; then
+            echo "::error::$drifted sub-app footer(s) drifted from root index.html"
+            exit 1
+          fi
