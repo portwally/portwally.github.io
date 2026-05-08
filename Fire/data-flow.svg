@@ -49,16 +49,16 @@
     <path id="path15" fill="url(#linearGradient3)" stroke="#2a4a78" d="M 254 320 L 646 320 C 653.731995 320 660 326.268005 660 334 L 660 406 C 660 413.731995 653.731995 420 646 420 L 254 420 C 246.268021 420 240 413.731995 240 406 L 240 334 C 240 326.268005 246.268021 320 254 320 Z"/>
     <text id="NASA--USA" xml:space="preserve" x="258" y="354" font-family="Helvetica" font-size="11" fill="#7aa3d4" letter-spacing="2">NASA · USA</text>
     <g id="g3">
-        <path id="path16" fill="#3b82f6" stroke="none" d="M 274.5 373 L 315.5 373 C 316.32843 373 317 373.67157 317 374.5 L 317 379.5 C 317 380.32843 316.32843 381 315.5 381 L 274.5 381 C 273.67157 381 273 380.32843 273 379.5 L 273 374.5 C 273 373.67157 273.67157 373 274.5 373 Z"/>
-        <path id="path17" fill="#3b82f6" stroke="none" d="M 274.5 383 L 315.5 383 C 316.32843 383 317 383.67157 317 384.5 L 317 389.5 C 317 390.32843 316.32843 391 315.5 391 L 274.5 391 C 273.67157 391 273 390.32843 273 389.5 L 273 384.5 C 273 383.67157 273.67157 383 274.5 383 Z"/>
-        <path id="path18" fill="#3b82f6" stroke="none" d="M 274.5 393 L 315.5 393 C 316.32843 393 317 393.67157 317 394.5 L 317 399.5 C 317 400.32843 316.32843 401 315.5 401 L 274.5 401 C 273.67157 401 273 400.32843 273 399.5 L 273 394.5 C 273 393.67157 273.67157 393 274.5 393 Z"/>
-        <path id="path19" fill="#22c55e" stroke="none" d="M 281.5 377 C 281.5 377.82843 280.82843 378.5 280 378.5 C 279.17157 378.5 278.5 377.82843 278.5 377 C 278.5 376.17157 279.17157 375.5 280 375.5 C 280.82843 375.5 281.5 376.17157 281.5 377 Z"/>
-        <path id="path20" fill="#22c55e" stroke="none" d="M 281.5 387 C 281.5 387.82843 280.82843 388.5 280 388.5 C 279.17157 388.5 278.5 387.82843 278.5 387 C 278.5 386.17157 279.17157 385.5 280 385.5 C 280.82843 385.5 281.5 386.17157 281.5 387 Z"/>
-        <path id="path21" fill="#22c55e" stroke="none" d="M 281.5 397 C 281.5 397.82843 280.82843 398.5 280 398.5 C 279.17157 398.5 278.5 397.82843 278.5 397 C 278.5 396.17157 279.17157 395.5 280 395.5 C 280.82843 395.5 281.5 396.17157 281.5 397 Z"/>
+        <path id="path16" fill="#3b82f6" stroke="none" d="M 268.5 370 L 309.5 370 C 310.32843 370 311 370.67157 311 371.5 L 311 376.5 C 311 377.32843 310.32843 378 309.5 378 L 268.5 378 C 267.67157 378 267 377.32843 267 376.5 L 267 371.5 C 267 370.67157 267.67157 370 268.5 370 Z"/>
+        <path id="path17" fill="#3b82f6" stroke="none" d="M 268.5 380 L 309.5 380 C 310.32843 380 311 380.67157 311 381.5 L 311 386.5 C 311 387.32843 310.32843 388 309.5 388 L 268.5 388 C 267.67157 388 267 387.32843 267 386.5 L 267 381.5 C 267 380.67157 267.67157 380 268.5 380 Z"/>
+        <path id="path18" fill="#3b82f6" stroke="none" d="M 268.5 390 L 309.5 390 C 310.32843 390 311 390.67157 311 391.5 L 311 396.5 C 311 397.32843 310.32843 398 309.5 398 L 268.5 398 C 267.67157 398 267 397.32843 267 396.5 L 267 391.5 C 267 390.67157 267.67157 390 268.5 390 Z"/>
+        <path id="path19" fill="#22c55e" stroke="none" d="M 275.5 374 C 275.5 374.82843 274.82843 375.5 274 375.5 C 273.17157 375.5 272.5 374.82843 272.5 374 C 272.5 373.17157 273.17157 372.5 274 372.5 C 274.82843 372.5 275.5 373.17157 275.5 374 Z"/>
+        <path id="path20" fill="#22c55e" stroke="none" d="M 275.5 384 C 275.5 384.82843 274.82843 385.5 274 385.5 C 273.17157 385.5 272.5 384.82843 272.5 384 C 272.5 383.17157 273.17157 382.5 274 382.5 C 274.82843 382.5 275.5 383.17157 275.5 384 Z"/>
+        <path id="path21" fill="#22c55e" stroke="none" d="M 275.5 394 C 275.5 394.82843 274.82843 395.5 274 395.5 C 273.17157 395.5 272.5 394.82843 272.5 394 C 272.5 393.17157 273.17157 392.5 274 392.5 C 274.82843 392.5 275.5 393.17157 275.5 394 Z"/>
     </g>
-    <text id="NASA-FIRMS" xml:space="preserve" x="392" y="380" font-family="Helvetica" font-size="18" fill="#ffffff">NASA FIRMS</text>
-    <text id="Fire-Information-for-Resource" xml:space="preserve" x="322" y="401" font-family="Helvetica" font-size="11" fill="#9ca3af">Fire Information for Resource Management System</text>
-    <text id="firmsmodapseosdisnasagov--3-h" xml:space="preserve" x="348" y="416" font-family="Helvetica" font-size="10" fill="#6b7280">firms.modaps.eosdis.nasa.gov · ~3 h latency</text>
+    <text id="NASA-FIRMS" xml:space="preserve" x="392" y="356" font-family="Helvetica" font-size="18" fill="#ffffff">NASA FIRMS</text>
+    <text id="Fire-Information-for-Resource" xml:space="preserve" x="324" y="376" font-family="Helvetica" font-size="11" fill="#9ca3af">Fire Information for Resource Management System</text>
+    <text id="firmsmodapseosdisnasagov--3-h" xml:space="preserve" x="350" y="391" font-family="Helvetica" font-size="10" fill="#6b7280">firms.modaps.eosdis.nasa.gov · ~3 h latency</text>
     <path id="path22" fill="#000000" stroke="#ff8a4d" stroke-width="2" d="M 450 430 L 450 475"/>
     <text id="CSV-poll-every-30" xml:space="preserve" x="463" y="459" font-family="Helvetica" font-size="11" fill="#9ca3af">CSV poll, every 30 min</text>
     <linearGradient id="linearGradient4" x1="48" y1="535" x2="48" y2="635" gradientUnits="userSpaceOnUse">
@@ -66,9 +66,9 @@
         <stop offset="1" stop-color="#241008" stop-opacity="1"/>
     </linearGradient>
     <path id="path23" fill="url(#linearGradient4)" stroke="#5c2818" d="M 62 535 L 254 535 C 261.731995 535 268 541.268005 268 549 L 268 621 C 268 628.731995 261.731995 635 254 635 L 62 635 C 54.268013 635 48 628.731995 48 621 L 48 549 C 48 541.268005 54.268013 535 62 535 Z"/>
-    <text id="PORTUGAL" xml:space="preserve" x="66" y="567" font-family="Helvetica" font-size="11" fill="#e0a098" letter-spacing="2">PORTUGAL</text>
-    <text id="-ANEPC-ArcGIS" xml:space="preserve" x="93" y="599" font-family="Helvetica" font-size="14" fill="#ffffff">🇵🇹 ANEPC ArcGIS</text>
-    <text id="every-10-min-" xml:space="preserve" x="92" y="628" font-family="Helvetica" font-size="10" fill="#9b756a">every 10 min · official source</text>
+    <text id="PORTUGAL" xml:space="preserve" x="63" y="563" font-family="Helvetica" font-size="11" fill="#e0a098" letter-spacing="2">PORTUGAL</text>
+    <text id="-ANEPC-ArcGIS" xml:space="preserve" x="92" y="587" font-family="Helvetica" font-size="14" fill="#ffffff">🇵🇹 ANEPC ArcGIS</text>
+    <text id="every-10-min-" xml:space="preserve" x="92" y="612" font-family="Helvetica" font-size="10" fill="#9b756a">every 10 min · official source</text>
     <linearGradient id="linearGradient5" x1="320" y1="490" x2="320" y2="660" gradientUnits="userSpaceOnUse">
         <stop offset="1e-05" stop-color="#5c2818" stop-opacity="1"/>
         <stop offset="1" stop-color="#3a1810" stop-opacity="1"/>
@@ -78,11 +78,11 @@
     <g id="g4">
         <path id="path25" fill="#ff6b3a" stroke="none" opacity="0.85" d="M 348 572 C 348.493896 565.922485 352.864563 560.863586 358.805969 559.492493 C 364.747345 558.121399 370.892883 560.753479 374 566 C 378.172943 562.3573 383.933105 561.13208 389.227356 562.761047 C 394.521606 564.390076 398.59668 568.641541 400 574 C 405.522858 574.552307 409.552277 579.477173 409 585 C 408.447723 590.522827 403.522858 594.552307 398 594 L 354 594 C 348.820953 593.73645 344.397095 590.175964 343.032654 585.172913 C 341.668182 580.169861 343.671844 574.856384 348 572 Z"/>
     </g>
-    <text id="Cloudflare-Worker" xml:space="preserve" x="505" y="559" font-family="Helvetica" font-size="18" fill="#ffffff">Cloudflare Worker</text>
-    <text id="EU-edge-compute-" xml:space="preserve" x="496" y="582" font-family="Helvetica" font-size="12" fill="#ffd0b8">EU edge compute · TypeScript</text>
-    <text id="1-Filter-by-FRP" xml:space="preserve" x="506" y="612" font-family="Helvetica" font-size="11" fill="#e0c4b6">1. Filter by FRP &amp; confidence</text>
-    <text id="2-Match-against-each" xml:space="preserve" x="485" y="628" font-family="Helvetica" font-size="11" fill="#e0c4b6">2. Match against each device's radius</text>
-    <text id="3-Localise-message-into" xml:space="preserve" x="482" y="644" font-family="Helvetica" font-size="11" fill="#e0c4b6">3. Localise message into 13 languages</text>
+    <text id="Cloudflare-Worker" xml:space="preserve" x="507" y="524" font-family="Helvetica" font-size="18" fill="#ffffff">Cloudflare Worker</text>
+    <text id="EU-edge-compute-" xml:space="preserve" x="506" y="554" font-family="Helvetica" font-size="12" fill="#ffd0b8">EU edge compute · TypeScript</text>
+    <text id="1-Filter-by-FRP" xml:space="preserve" x="506" y="583" font-family="Helvetica" font-size="11" fill="#e0c4b6">1. Filter by FRP &amp; confidence</text>
+    <text id="2-Match-against-each" xml:space="preserve" x="485" y="599" font-family="Helvetica" font-size="11" fill="#e0c4b6">2. Match against each device's radius</text>
+    <text id="3-Localise-message-into" xml:space="preserve" x="482" y="615" font-family="Helvetica" font-size="11" fill="#e0c4b6">3. Localise message into 13 languages</text>
     <path id="path26" fill="none" stroke="#ff8a4d" stroke-width="2" d="M 450 424 L 450 454 L 450 484"/>
     <path id="path27" fill="#000000" stroke="#ff8a4d" stroke-width="2" d="M 273 585 L 313 585"/>
     <path id="path28" fill="#000000" stroke="#ff8a4d" stroke-width="2" d="M 579 664 L 579 728"/>
@@ -93,8 +93,8 @@
     </linearGradient>
     <path id="path29" fill="url(#linearGradient6)" stroke="#2a3a55" d="M 384 735 L 776 735 C 783.731995 735 790 741.268005 790 749 L 790 811 C 790 818.731995 783.731995 825 776 825 L 384 825 C 376.268005 825 370 818.731995 370 811 L 370 749 C 370 741.268005 376.268005 735 384 735 Z"/>
     <text id="GOOGLE" xml:space="preserve" x="388" y="767" font-family="Helvetica" font-size="11" fill="#7aa3d4" letter-spacing="2">GOOGLE</text>
-    <text id="Firebase-Cloud-Messaging" xml:space="preserve" x="470" y="794" font-family="Helvetica" font-size="18" fill="#ffffff">Firebase Cloud Messaging</text>
-    <text id="Routes-to-APNs-iOS" xml:space="preserve" x="477" y="814" font-family="Helvetica" font-size="11" fill="#9ca3af">Routes to APNs (iOS) and FCM (Android)</text>
+    <text id="Firebase-Cloud-Messaging" xml:space="preserve" x="469" y="774" font-family="Helvetica" font-size="18" fill="#ffffff">Firebase Cloud Messaging</text>
+    <text id="Routes-to-APNs-iOS" xml:space="preserve" x="478" y="794" font-family="Helvetica" font-size="11" fill="#9ca3af">Routes to APNs (iOS) and FCM (Android)</text>
     <path id="path30" fill="#000000" stroke="#ff8a4d" stroke-width="2" d="M 502.000427 835.001343 L 276 909"/>
     <path id="path31" fill="#000000" stroke="#ff8a4d" stroke-width="2" d="M 652 835 L 676 909"/>
     <g id="g5">
