@@ -78,6 +78,20 @@
             </div>
         </section>
 
+        <section class="how-it-works">
+            <h2>How a wildfire reaches your phone</h2>
+            <p class="how-it-works-lede">
+                From satellite detection to push notification — under 30 minutes,
+                end to end. No human in the loop, no manual moderation:
+                NASA satellites detect the fire, our edge worker matches it
+                against your alert radius, Firebase delivers the push.
+            </p>
+            <img src="data-flow.svg"
+                 alt="Detection-to-phone flow: VIIRS sensors on NOAA-20, Suomi-NPP and NOAA-21 satellites detect thermal anomalies, NASA FIRMS publishes the data, the Cloudflare Worker filters and localises into 13 languages, Firebase Cloud Messaging delivers a push to iOS via APNs and Android via FCM."
+                 class="data-flow-diagram"
+                 loading="lazy">
+        </section>
+
         <section class="data-sources">
             <h2>Data Sources</h2>
             <div class="sources">
