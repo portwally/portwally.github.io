@@ -1,0 +1,56 @@
+# Verifies the Fire app's footer cross-link block stays in sync with the
+# master list of apps in /index.html. Fails the action (and blocks merging
+# if branch protection is on) when the two diverge — so a retired app can't
+# silently linger in Fire's footer and a newly added app can't get forgotten.
+#
+# Add more sub-apps below the existing job to extend the same check to other
+# folders that also list peers in their footer.
+
+name: Check cross-links
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  # Manual trigger from the Actions tab when you want to re-verify without
+  # making a commit.
+  workflow_dispatch:
+
+jobs:
+  fire-footer:
+    name: Fire footer ≡ root index
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify Fire footer matches root index
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          # All apps linked from the master /index.html (relative folder
+          # links only — drop anchors and external URLs). Strip Fire because
+          # the Fire page doesn't link to itself.
+          ROOT_APPS=$(grep -oE 'href="[^"#h][^"]+/"' index.html \
+            | sed 's|^href="||;s|/"$||' \
+            | grep -v '^Fire$' \
+            | sort -u)
+
+          # All cross-link folders referenced from Fire's footer.
+          FIRE_APPS=$(grep -oE 'href="\.\./[^"]+/"' Fire/index.html \
+            | sed 's|^href="\.\./||;s|/"$||' \
+            | sort -u)
+
+          if [ "$ROOT_APPS" != "$FIRE_APPS" ]; then
+            echo "::error::Fire footer drifted from root index.html"
+            echo
+            echo "── Diff (left = Fire footer, right = expected from root) ──"
+            diff <(echo "$FIRE_APPS") <(echo "$ROOT_APPS") || true
+            echo
+            echo "Fix: edit Fire/index.html so the <a href=\"../X/\">X</a> set"
+            echo "in the footer matches the apps listed in /index.html."
+            exit 1
+          fi
+
+          echo "✓ Fire footer matches root index ($(echo "$FIRE_APPS" | wc -l | tr -d ' ') apps)"
