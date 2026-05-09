@@ -93,6 +93,35 @@ nav {
 
 .nav-links a:hover { color: var(--ink); }
 
+.lang-switcher {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 1.25rem;
+    padding: 0.2rem;
+    background: var(--surface);
+    border: 1px solid var(--hairline);
+    border-radius: 999px;
+    gap: 0.1rem;
+}
+
+.lang-switcher a {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    color: var(--ink-mute);
+    padding: 0.3rem 0.55rem;
+    border-radius: 999px;
+    transition: background 0.15s, color 0.15s;
+}
+
+.lang-switcher a:hover { color: var(--ink); }
+
+.lang-switcher a.active {
+    background: var(--ink);
+    color: #fff;
+}
+
 /* Hero */
 .hero {
     position: relative;
