@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy — Sobrium</title>
+    <link rel="stylesheet" href="style.css">
+    <script data-goatcounter="https://portwally.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body class="legal">
+    <div class="legal-page">
+        <a href="index.html" class="back-link">&larr; Back to Sobrium</a>
+
+        <h1>Privacy Policy</h1>
+        <p><strong>Last updated:</strong> 9 May 2026</p>
+
+        <h2>1. Summary</h2>
+        <p>Sobrium runs entirely on your iPhone. It has no server, no account system, no analytics, and does not transmit anything about you, the apps you choose to lock, or the results of any sobriety test. There is nothing to opt out of because nothing is collected.</p>
+
+        <h2>2. Permissions Sobrium requests</h2>
+        <p>To function, Sobrium requests one iOS permission: <strong>Screen Time / Family Controls</strong>. This is the same authorization parental-control apps use, and it is what allows Sobrium to shield other apps at the system level. The permission is granted by you on first launch and can be revoked at any time in iOS Settings &rarr; Screen Time.</p>
+        <p>Sobrium does <em>not</em> request access to your contacts, photos, location, microphone, camera, calendar, reminders, or any other personal data store.</p>
+
+        <h2>3. What Sobrium reads from your iPhone</h2>
+        <p>When you select apps to block, iOS shows the system Family Activity Picker. Your selection is returned to Sobrium as opaque <em>application tokens</em> — Sobrium never sees the actual bundle identifiers, app names, icons, or any usage data. The tokens are stored locally in the app's shared container and used only to tell iOS which apps to shield.</p>
+        <p>For the Stand Still test, Sobrium reads the device accelerometer through Core Motion while the test is in progress. The raw motion samples are processed in memory to compute a sway score and discarded immediately afterwards. They are never stored, never logged, and never leave the device.</p>
+
+        <h2>4. What Sobrium stores locally</h2>
+        <ul>
+            <li>Your settings: which tests are enabled, difficulty, unlock duration</li>
+            <li>The opaque app-selection tokens described above</li>
+            <li>The active unlock session, if any (a timestamp telling Sobrium when to re-lock)</li>
+            <li>Counters for tests passed and tests failed</li>
+        </ul>
+        <p>All of this is stored in iOS's standard preferences storage on the device. It is never transmitted, synced, or backed up to any Sobrium server (because there are no Sobrium servers).</p>
+
+        <h2>5. What Sobrium does not collect</h2>
+        <ul>
+            <li>No personally identifying information</li>
+            <li>No account or login data — there is no account system</li>
+            <li>No analytics, telemetry, crash reports or usage tracking</li>
+            <li>No advertising identifiers (IDFA, etc.)</li>
+            <li>No location data</li>
+            <li>No biometric data</li>
+            <li>No network requests to any Sobrium server — because there are no Sobrium servers</li>
+        </ul>
+
+        <h2>6. Third-party services</h2>
+        <p>Sobrium uses only Apple system frameworks (SwiftUI, FamilyControls, ManagedSettings, Core Motion, Foundation). No third-party SDKs, analytics, advertising or tracking services are bundled.</p>
+
+        <h2>7. Children's privacy</h2>
+        <p>Sobrium is intended for adults of legal drinking age. It does not knowingly process data from children under 13.</p>
+
+        <h2>8. Changes</h2>
+        <p>If this policy changes in a future version, the updated date at the top will reflect it. Because no information is stored by us, there is nothing to migrate or delete.</p>
+
+        <h2>9. Contact</h2>
+        <p>Questions about Sobrium or this policy: <a href="mailto:walter.tengler@gmail.com">walter.tengler@gmail.com</a></p>
+    </div>
+</body>
+</html>
