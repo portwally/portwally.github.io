@@ -128,7 +128,9 @@ nav {
     justify-content: center;
     text-align: center;
     color: var(--white);
-    padding: 2rem;
+    /* Top padding reserves clearance for the absolute-positioned nav so
+       the centred hero content (banner image, headline) never sits under it. */
+    padding: 6rem 2rem 2rem;
 }
 
 .hero-content {
@@ -140,6 +142,7 @@ nav {
     max-width: 100%;
     height: auto;
     border-radius: 20px;
+    margin-top: 2rem;
     margin-bottom: 2rem;
     box-shadow: 0 20px 60px rgba(0,0,0,0.4);
 }
