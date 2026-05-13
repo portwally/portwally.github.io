@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retro TV &mdash; A century of television, on your Mac</title>
+    <meta name="keywords" content="Retro TV, retro TV simulator, vintage television, CRT TV, Philco Predicta, Trinitron, VHS, OLED, Internet Archive, Mac App Store, macOS app, NTSC, scanlines, channel surf, era timeline">
+    <meta name="description" content="A native macOS app that plays your videos through nearly a hundred years of television &mdash; from a 1928 Baird mechanical receiver to a modern OLED &mdash; with authentic per-era CRT effects, a chronological timeline, and a built-in browser for your local movies, Internet Archive videos and favourites.">
+    <meta property="og:title" content="Retro TV &mdash; A century of television, on your Mac">
+    <meta property="og:description" content="Play any video through 1928 mechanical TV, 1939 console, 1958 Predicta, 1965 colour console, 1985 VHS or 2024 OLED &mdash; authentic CRT effects, era-true look.">
+    <meta property="og:image" content="banner.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="banner.png">
+    <script data-goatcounter="https://portwally.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+
+<!-- Language switcher (top-right) -->
+<div id="lang-switcher">
+    <button id="lang-btn">EN</button>
+    <ul id="lang-menu">
+        <li data-lang="en">English</li>
+        <li data-lang="de">Deutsch</li>
+        <li data-lang="pt-PT">Português</li>
+        <li data-lang="it">Italiano</li>
+        <li data-lang="es">Español</li>
+        <li data-lang="fr">Français</li>
+    </ul>
+</div>
+
+<header class="hero">
+    <nav>
+        <a href="../" class="logo-back">← Apps</a>
+        <div class="nav-links">
+            <a href="privacy.html" data-i18n="nav.privacy">Privacy</a>
+            <a href="imprint.html" data-i18n="nav.imprint">Imprint</a>
+        </div>
+    </nav>
+
+    <div class="hero-content">
+        <img src="banner.png" alt="A 1958 Philco Predicta television set on a turquoise base with a tan grille, a gold-rimmed CRT face and a chrome antenna" class="hero-image">
+        <h1>RETRO TV</h1>
+        <p class="tagline" data-i18n="hero.tagline">A century of television, on your Mac.</p>
+        <p class="subtitle" data-i18n="hero.subtitle">
+            Play any video through nearly a hundred years of TV history &mdash; from a 1928 mechanical Baird receiver to a modern OLED. Era-authentic CRT effects, a chronological timeline, and a built-in browser for your local movies, Internet Archive videos and favourites.
+        </p>
+        <div class="cta-row">
+            <a href="#" class="cta-button primary" data-i18n="cta.appstore">Get on the Mac App Store</a>
+        </div>
+        <p class="meta" data-i18n="meta.platform">Mac App Store &middot; macOS 14+ &middot; SwiftUI &middot; Metal</p>
+    </div>
+</header>
+
+<main>
+
+<!-- The era timeline (matches what's in the app) -->
+<section class="timeline-section">
+    <h2 data-i18n="timeline.title">Six televisions, one century</h2>
+    <p class="section-sub" data-i18n="timeline.sub">Each era plays your video through the right signal model and CRT for that decade. Click a TV in the app's bottom timeline to switch.</p>
+    <div class="timeline-rail">
+        <div class="timeline-line"></div>
+        <div class="timeline-thumbs">
+            <div class="timeline-thumb">
+                <img src="bezels/mechanical-1928.png" alt="Baird Televisor 1928">
+                <div class="thumb-year">1928</div>
+                <div class="thumb-name" data-i18n="tv.mechanical">Baird Televisor</div>
+            </div>
+            <div class="timeline-thumb">
+                <img src="bezels/bw-1939.png" alt="1939 B&W console TV">
+                <div class="thumb-year">1939</div>
+                <div class="thumb-name" data-i18n="tv.bw">B&amp;W Console</div>
+            </div>
+            <div class="timeline-thumb featured">
+                <img src="bezels/predicta-1958.png" alt="Philco Predicta 1958">
+                <div class="thumb-year">1958</div>
+                <div class="thumb-name" data-i18n="tv.predicta">Philco Predicta</div>
+            </div>
+            <div class="timeline-thumb">
+                <img src="bezels/color-console-1965.png" alt="1965 color console TV">
+                <div class="thumb-year">1965</div>
+                <div class="thumb-name" data-i18n="tv.color">Colour Console</div>
+            </div>
+            <div class="timeline-thumb">
+                <img src="bezels/vhs-1985.png" alt="1985 portable CRT TV">
+                <div class="thumb-year">1985</div>
+                <div class="thumb-name" data-i18n="tv.vhs">VHS-Era CRT</div>
+            </div>
+            <div class="timeline-thumb">
+                <img src="bezels/oled-2024.png" alt="Modern OLED TV">
+                <div class="thumb-year">2024</div>
+                <div class="thumb-name" data-i18n="tv.oled">Modern OLED</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Screenshots placeholder -->
+<section class="screenshots-section">
+    <h2 data-i18n="screenshots.title">Screenshots</h2>
+    <p class="section-sub" data-i18n="screenshots.sub">Drop in your screenshots here.</p>
+    <div class="screenshot-grid">
+        <div class="screenshot-slot"><span>1</span></div>
+        <div class="screenshot-slot"><span>2</span></div>
+        <div class="screenshot-slot"><span>3</span></div>
+        <div class="screenshot-slot"><span>4</span></div>
+    </div>
+    <p class="screenshots-hint" data-i18n="screenshots.hint">Place files in /screenshots/ and reference them above.</p>
+</section>
+
+<!-- Features grid: each feature uses a bezel as its "icon" -->
+<section class="features">
+    <h2 data-i18n="features.title">What it does</h2>
+    <div class="feature-grid">
+        <div class="feature-card">
+            <img class="feature-icon" src="bezels/mechanical-1928.png" alt="">
+            <h3 data-i18n="feat.eras.title">Six eras, signal-accurate</h3>
+            <p data-i18n="feat.eras.body">From the 30-line mechanical scan of 1928 to the near-perfect picture of a 2024 OLED. Each era runs your video through a per-decade signal model (NTSC, VHS chroma, MPEG-2, passthrough) and a CRT display shader with the right scanlines, phosphor mask, beam glow and barrel curvature.</p>
+        </div>
+        <div class="feature-card">
+            <img class="feature-icon" src="bezels/predicta-1958.png" alt="">
+            <h3 data-i18n="feat.bezels.title">Photographic bezels</h3>
+            <p data-i18n="feat.bezels.body">Each TV is a real photograph or render &mdash; the iconic Philco Predicta, a wood-cabinet console, a 1985 plastic cube, a near-frameless OLED. Your video plays inside the screen face with the correct aspect for each set.</p>
+        </div>
+        <div class="feature-card">
+            <img class="feature-icon" src="bezels/color-console-1965.png" alt="">
+            <h3 data-i18n="feat.timeline.title">Chronological timeline</h3>
+            <p data-i18n="feat.timeline.body">Switch eras by clicking on a TV in a horizontal timeline at the bottom of the window. Markers sit on the years they belong to &mdash; not evenly spaced &mdash; so you see television's actual history.</p>
+        </div>
+        <div class="feature-card">
+            <img class="feature-icon" src="bezels/vhs-1985.png" alt="">
+            <h3 data-i18n="feat.library.title">Three sources, one menu</h3>
+            <p data-i18n="feat.library.body">A side menu lets you scan local folders for movies, search the Internet Archive for vintage public-domain footage, or pick from your saved favourites. Click anything to add it as a channel.</p>
+        </div>
+        <div class="feature-card">
+            <img class="feature-icon" src="bezels/bw-1939.png" alt="">
+            <h3 data-i18n="feat.channels.title">Channel surfing</h3>
+            <p data-i18n="feat.channels.body">Drop in multiple videos and switch between them like real channels. Keyboard shortcuts, transition animation, relay-click sound effect. The channel number flashes briefly on screen.</p>
+        </div>
+        <div class="feature-card">
+            <img class="feature-icon" src="bezels/oled-2024.png" alt="">
+            <h3 data-i18n="feat.native.title">Native Mac, Metal-fast</h3>
+            <p data-i18n="feat.native.body">Built in Swift + SwiftUI, with the CRT pipeline running entirely on the GPU via Metal shaders. 60 fps even on M1, regardless of how heavy the era's effect chain is.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Closing CTA -->
+<section class="cta-section">
+    <h2 data-i18n="cta.closing.title">Watch it again, the way you remember it.</h2>
+    <a href="#" class="cta-button primary" data-i18n="cta.appstore">Get on the Mac App Store</a>
+</section>
+
+</main>
+
+<footer>
+    <p>&copy; 2026 Walter Tengler</p>
+    <p>
+        <a href="privacy.html" data-i18n="nav.privacy">Privacy</a> &middot;
+        <a href="imprint.html" data-i18n="nav.imprint">Imprint</a> &middot;
+        <a href="../">More apps</a>
+    </p>
+</footer>
+
+<script>
+const translations = {
+    'en': {
+        'nav.privacy': 'Privacy',
+        'nav.imprint': 'Imprint',
+        'hero.tagline': 'A century of television, on your Mac.',
+        'hero.subtitle': 'Play any video through nearly a hundred years of TV history &mdash; from a 1928 mechanical Baird receiver to a modern OLED. Era-authentic CRT effects, a chronological timeline, and a built-in browser for your local movies, Internet Archive videos and favourites.',
+        'cta.appstore': 'Get on the Mac App Store',
+        'meta.platform': 'Mac App Store &middot; macOS 14+ &middot; SwiftUI &middot; Metal',
+        'timeline.title': 'Six televisions, one century',
+        'timeline.sub': 'Each era plays your video through the right signal model and CRT for that decade. Click a TV in the app\'s bottom timeline to switch.',
+        'tv.mechanical': 'Baird Televisor',
+        'tv.bw': 'B&amp;W Console',
+        'tv.predicta': 'Philco Predicta',
+        'tv.color': 'Colour Console',
+        'tv.vhs': 'VHS-Era CRT',
+        'tv.oled': 'Modern OLED',
+        'screenshots.title': 'Screenshots',
+        'screenshots.sub': 'Drop in your screenshots here.',
+        'screenshots.hint': 'Place files in /screenshots/ and reference them above.',
+        'features.title': 'What it does',
+        'feat.eras.title': 'Six eras, signal-accurate',
+        'feat.eras.body': 'From the 30-line mechanical scan of 1928 to the near-perfect picture of a 2024 OLED. Each era runs your video through a per-decade signal model (NTSC, VHS chroma, MPEG-2, passthrough) and a CRT display shader with the right scanlines, phosphor mask, beam glow and barrel curvature.',
+        'feat.bezels.title': 'Photographic bezels',
+        'feat.bezels.body': 'Each TV is a real photograph or render &mdash; the iconic Philco Predicta, a wood-cabinet console, a 1985 plastic cube, a near-frameless OLED. Your video plays inside the screen face with the correct aspect for each set.',
+        'feat.timeline.title': 'Chronological timeline',
+        'feat.timeline.body': 'Switch eras by clicking on a TV in a horizontal timeline at the bottom of the window. Markers sit on the years they belong to &mdash; not evenly spaced &mdash; so you see television\'s actual history.',
+        'feat.library.title': 'Three sources, one menu',
+        'feat.library.body': 'A side menu lets you scan local folders for movies, search the Internet Archive for vintage public-domain footage, or pick from your saved favourites. Click anything to add it as a channel.',
+        'feat.channels.title': 'Channel surfing',
+        'feat.channels.body': 'Drop in multiple videos and switch between them like real channels. Keyboard shortcuts, transition animation, relay-click sound effect. The channel number flashes briefly on screen.',
+        'feat.native.title': 'Native Mac, Metal-fast',
+        'feat.native.body': 'Built in Swift + SwiftUI, with the CRT pipeline running entirely on the GPU via Metal shaders. 60 fps even on M1, regardless of how heavy the era\'s effect chain is.',
+        'cta.closing.title': 'Watch it again, the way you remember it.',
+    },
+    'de': {
+        'nav.privacy': 'Datenschutz',
+        'nav.imprint': 'Impressum',
+        'hero.tagline': 'Ein Jahrhundert Fernsehen, auf deinem Mac.',
+        'hero.subtitle': 'Spiele jedes Video durch fast hundert Jahre TV-Geschichte ab &mdash; vom mechanischen Baird-Empfänger 1928 bis zum modernen OLED. Zeitgetreue CRT-Effekte, eine chronologische Zeitleiste und ein eingebauter Browser für deine lokalen Filme, Internet-Archive-Videos und Favoriten.',
+        'cta.appstore': 'Im Mac App Store laden',
+        'meta.platform': 'Mac App Store &middot; macOS 14+ &middot; SwiftUI &middot; Metal',
+        'timeline.title': 'Sechs Fernseher, ein Jahrhundert',
+        'timeline.sub': 'Jede Epoche spielt dein Video durch das passende Signalmodell und den passenden CRT dieses Jahrzehnts. Klick auf einen Fernseher in der unteren Zeitleiste, um zu wechseln.',
+        'tv.mechanical': 'Baird Televisor',
+        'tv.bw': 'Schwarz-Weiß-Konsole',
+        'tv.predicta': 'Philco Predicta',
+        'tv.color': 'Farb-Konsole',
+        'tv.vhs': 'VHS-Ära CRT',
+        'tv.oled': 'Moderner OLED',
+        'screenshots.title': 'Screenshots',
+        'screenshots.sub': 'Füge hier deine Screenshots ein.',
+        'screenshots.hint': 'Lege Dateien in /screenshots/ ab und verweise oben darauf.',
+        'features.title': 'Was die App kann',
+        'feat.eras.title': 'Sechs Epochen, signaltreu',
+        'feat.eras.body': 'Vom 30-Zeilen-mechanischen Scan von 1928 bis zum nahezu perfekten Bild eines OLED von 2024. Jede Epoche lässt dein Video durch ein jahrzehntspezifisches Signalmodell (NTSC, VHS-Chroma, MPEG-2, Passthrough) und einen CRT-Display-Shader mit passenden Scanlines, Phosphormaske, Strahl-Glühen und Tonnenverzerrung laufen.',
+        'feat.bezels.title': 'Fotografische Gehäuse',
+        'feat.bezels.body': 'Jeder Fernseher ist ein echtes Foto oder Rendering &mdash; der ikonische Philco Predicta, eine Holzkonsole, ein Plastikwürfel von 1985, ein nahezu rahmenloses OLED. Dein Video läuft im Bildschirm mit dem passenden Seitenverhältnis.',
+        'feat.timeline.title': 'Chronologische Zeitleiste',
+        'feat.timeline.body': 'Wechsle die Epoche, indem du auf einen Fernseher in einer horizontalen Zeitleiste am unteren Fensterrand klickst. Die Marker sitzen auf den Jahren, zu denen sie gehören &mdash; nicht gleichmäßig verteilt &mdash; so siehst du die echte Fernsehgeschichte.',
+        'feat.library.title': 'Drei Quellen, ein Menü',
+        'feat.library.body': 'Über ein Seitenmenü kannst du lokale Ordner nach Filmen scannen, im Internet Archive nach gemeinfreiem Vintage-Material suchen oder aus deinen gespeicherten Favoriten auswählen. Klick auf etwas, um es als Kanal hinzuzufügen.',
+        'feat.channels.title': 'Kanäle wechseln',
+        'feat.channels.body': 'Lege mehrere Videos ab und wechsle wie bei echten Kanälen zwischen ihnen. Tastaturkürzel, Übergangsanimation, Relais-Klick-Sound. Die Kanalnummer blinkt kurz auf dem Bildschirm.',
+        'feat.native.title': 'Native Mac-App, Metal-schnell',
+        'feat.native.body': 'In Swift + SwiftUI gebaut, die CRT-Pipeline läuft komplett auf der GPU über Metal-Shader. 60 fps auch auf einem M1, egal wie aufwendig die Effektkette der Epoche ist.',
+        'cta.closing.title': 'Schau es dir nochmal an &mdash; so, wie du es in Erinnerung hast.',
+    },
+    'pt-PT': {
+        'nav.privacy': 'Privacidade',
+        'nav.imprint': 'Aviso legal',
+        'hero.tagline': 'Um século de televisão, no teu Mac.',
+        'hero.subtitle': 'Reproduz qualquer vídeo através de quase cem anos de história da televisão &mdash; do receptor mecânico Baird de 1928 a um OLED moderno. Efeitos CRT autênticos por época, uma linha cronológica e um navegador integrado para os teus filmes locais, vídeos do Internet Archive e favoritos.',
+        'cta.appstore': 'Obter na Mac App Store',
+        'meta.platform': 'Mac App Store &middot; macOS 14+ &middot; SwiftUI &middot; Metal',
+        'timeline.title': 'Seis televisores, um século',
+        'timeline.sub': 'Cada época reproduz o teu vídeo através do modelo de sinal e CRT certos para essa década. Clica num televisor na linha temporal em baixo para mudar.',
+        'tv.mechanical': 'Baird Televisor',
+        'tv.bw': 'Consola P&amp;B',
+        'tv.predicta': 'Philco Predicta',
+        'tv.color': 'Consola a Cores',
+        'tv.vhs': 'CRT Era VHS',
+        'tv.oled': 'OLED Moderno',
+        'screenshots.title': 'Capturas de ecrã',
+        'screenshots.sub': 'Coloca aqui as tuas capturas.',
+        'screenshots.hint': 'Põe os ficheiros em /screenshots/ e referencia-os acima.',
+        'features.title': 'O que faz',
+        'feat.eras.title': 'Seis épocas, fiéis ao sinal',
+        'feat.eras.body': 'Da varredura mecânica de 30 linhas de 1928 à imagem quase perfeita de um OLED de 2024. Cada época passa o teu vídeo por um modelo de sinal específico da década (NTSC, croma VHS, MPEG-2, passagem direta) e por um shader de CRT com as linhas de varrimento, máscara de fósforo, brilho do feixe e curvatura de barril certos.',
+        'feat.bezels.title': 'Molduras fotográficas',
+        'feat.bezels.body': 'Cada televisor é uma fotografia ou render real &mdash; o icónico Philco Predicta, uma consola em madeira, um cubo de plástico de 1985, um OLED quase sem moldura. O teu vídeo é reproduzido dentro do ecrã, na proporção certa para cada aparelho.',
+        'feat.timeline.title': 'Linha cronológica',
+        'feat.timeline.body': 'Muda de época clicando num televisor numa linha temporal horizontal na base da janela. Os marcadores ficam nos anos a que pertencem &mdash; não distribuídos uniformemente &mdash; mostrando a história real da televisão.',
+        'feat.library.title': 'Três fontes, um menu',
+        'feat.library.body': 'Um menu lateral permite-te examinar pastas locais à procura de filmes, pesquisar no Internet Archive material vintage de domínio público, ou escolher entre os teus favoritos. Clica em qualquer item para o adicionares como canal.',
+        'feat.channels.title': 'Mudança de canal',
+        'feat.channels.body': 'Solta vários vídeos e muda entre eles como canais reais. Atalhos de teclado, animação de transição, efeito de clique de relé. O número do canal pisca brevemente no ecrã.',
+        'feat.native.title': 'Mac nativo, rápido com Metal',
+        'feat.native.body': 'Construído em Swift + SwiftUI, com a pipeline CRT a correr inteiramente na GPU via shaders Metal. 60 fps mesmo num M1, independentemente da carga dos efeitos da época.',
+        'cta.closing.title': 'Vê outra vez, como te lembras dele.',
+    },
+    'it': {
+        'nav.privacy': 'Privacy',
+        'nav.imprint': 'Note legali',
+        'hero.tagline': 'Un secolo di televisione, sul tuo Mac.',
+        'hero.subtitle': 'Riproduci qualsiasi video attraverso quasi cento anni di storia della TV &mdash; dal ricevitore meccanico Baird del 1928 a un OLED moderno. Effetti CRT fedeli all\'epoca, una linea temporale cronologica e un browser integrato per i tuoi film locali, video dell\'Internet Archive e preferiti.',
+        'cta.appstore': 'Disponibile sul Mac App Store',
+        'meta.platform': 'Mac App Store &middot; macOS 14+ &middot; SwiftUI &middot; Metal',
+        'timeline.title': 'Sei televisori, un secolo',
+        'timeline.sub': 'Ogni epoca riproduce il tuo video attraverso il modello di segnale e il CRT giusti per quel decennio. Clicca su un televisore nella linea temporale in basso per cambiare.',
+        'tv.mechanical': 'Baird Televisor',
+        'tv.bw': 'Console B/N',
+        'tv.predicta': 'Philco Predicta',
+        'tv.color': 'Console a colori',
+        'tv.vhs': 'CRT era VHS',
+        'tv.oled': 'OLED moderno',
+        'screenshots.title': 'Screenshot',
+        'screenshots.sub': 'Inserisci qui i tuoi screenshot.',
+        'screenshots.hint': 'Metti i file in /screenshots/ e fai riferimento sopra.',
+        'features.title': 'Cosa fa',
+        'feat.eras.title': 'Sei epoche, fedeli al segnale',
+        'feat.eras.body': 'Dalla scansione meccanica a 30 linee del 1928 all\'immagine quasi perfetta di un OLED del 2024. Ogni epoca passa il video attraverso un modello di segnale specifico del decennio (NTSC, croma VHS, MPEG-2, passthrough) e uno shader CRT con scanline, maschera al fosforo, alone del raggio e distorsione a barile corretti.',
+        'feat.bezels.title': 'Cornici fotografiche',
+        'feat.bezels.body': 'Ogni televisore è una fotografia o un render reale &mdash; l\'iconico Philco Predicta, una console in legno, un cubo di plastica del 1985, un OLED quasi senza cornice. Il video viene riprodotto all\'interno dello schermo con l\'aspetto giusto per ciascun apparecchio.',
+        'feat.timeline.title': 'Linea temporale cronologica',
+        'feat.timeline.body': 'Cambia epoca cliccando su un televisore in una linea temporale orizzontale in fondo alla finestra. I marcatori si trovano sugli anni a cui appartengono &mdash; non distribuiti uniformemente &mdash; mostrando la storia reale della televisione.',
+        'feat.library.title': 'Tre fonti, un menu',
+        'feat.library.body': 'Un menu laterale ti permette di scansionare cartelle locali alla ricerca di film, cercare nell\'Internet Archive materiale vintage di pubblico dominio o scegliere tra i tuoi preferiti salvati. Clicca su qualsiasi cosa per aggiungerla come canale.',
+        'feat.channels.title': 'Cambio di canale',
+        'feat.channels.body': 'Trascina più video e passa da uno all\'altro come veri canali. Scorciatoie da tastiera, animazione di transizione, effetto sonoro del relè. Il numero del canale lampeggia brevemente sullo schermo.',
+        'feat.native.title': 'Mac nativo, veloce con Metal',
+        'feat.native.body': 'Costruito in Swift + SwiftUI, con la pipeline CRT che gira interamente sulla GPU tramite shader Metal. 60 fps anche su un M1, indipendentemente da quanto pesante sia la catena di effetti dell\'epoca.',
+        'cta.closing.title': 'Guardalo di nuovo, come te lo ricordi.',
+    },
+    'es': {
+        'nav.privacy': 'Privacidad',
+        'nav.imprint': 'Aviso legal',
+        'hero.tagline': 'Un siglo de televisión, en tu Mac.',
+        'hero.subtitle': 'Reproduce cualquier vídeo a través de casi cien años de historia de la TV &mdash; desde un receptor mecánico Baird de 1928 hasta un OLED moderno. Efectos CRT auténticos por época, una línea temporal cronológica y un navegador integrado para tus películas locales, vídeos de Internet Archive y favoritos.',
+        'cta.appstore': 'Disponible en Mac App Store',
+        'meta.platform': 'Mac App Store &middot; macOS 14+ &middot; SwiftUI &middot; Metal',
+        'timeline.title': 'Seis televisores, un siglo',
+        'timeline.sub': 'Cada época reproduce tu vídeo a través del modelo de señal y el CRT correctos para esa década. Haz clic en un televisor en la línea temporal inferior para cambiar.',
+        'tv.mechanical': 'Baird Televisor',
+        'tv.bw': 'Consola B/N',
+        'tv.predicta': 'Philco Predicta',
+        'tv.color': 'Consola a color',
+        'tv.vhs': 'CRT era VHS',
+        'tv.oled': 'OLED moderno',
+        'screenshots.title': 'Capturas',
+        'screenshots.sub': 'Coloca aquí tus capturas.',
+        'screenshots.hint': 'Pon los archivos en /screenshots/ y haz referencia arriba.',
+        'features.title': 'Qué hace',
+        'feat.eras.title': 'Seis épocas, fieles a la señal',
+        'feat.eras.body': 'Desde el barrido mecánico de 30 líneas de 1928 hasta la imagen casi perfecta de un OLED de 2024. Cada época pasa tu vídeo por un modelo de señal específico de la década (NTSC, croma VHS, MPEG-2, passthrough) y un shader CRT con las líneas de barrido, máscara de fósforo, brillo del haz y distorsión de barril correctos.',
+        'feat.bezels.title': 'Marcos fotográficos',
+        'feat.bezels.body': 'Cada televisor es una foto o renderizado real &mdash; el icónico Philco Predicta, una consola de madera, un cubo de plástico de 1985, un OLED casi sin marco. Tu vídeo se reproduce dentro de la pantalla con la proporción correcta para cada aparato.',
+        'feat.timeline.title': 'Línea cronológica',
+        'feat.timeline.body': 'Cambia de época haciendo clic en un televisor en una línea temporal horizontal al pie de la ventana. Los marcadores se sitúan en los años a los que pertenecen &mdash; no a intervalos iguales &mdash; mostrando la historia real de la televisión.',
+        'feat.library.title': 'Tres fuentes, un menú',
+        'feat.library.body': 'Un menú lateral te permite escanear carpetas locales en busca de películas, buscar en Internet Archive material vintage de dominio público o elegir entre tus favoritos guardados. Haz clic en cualquier cosa para añadirla como canal.',
+        'feat.channels.title': 'Cambio de canal',
+        'feat.channels.body': 'Arrastra varios vídeos y cambia entre ellos como canales reales. Atajos de teclado, animación de transición, efecto sonoro del relé. El número del canal parpadea brevemente en pantalla.',
+        'feat.native.title': 'Mac nativo, rápido con Metal',
+        'feat.native.body': 'Construido en Swift + SwiftUI, con la canalización CRT ejecutándose enteramente en la GPU mediante shaders Metal. 60 fps incluso en un M1, independientemente de lo pesada que sea la cadena de efectos de la época.',
+        'cta.closing.title': 'Míralo otra vez, como lo recuerdas.',
+    },
+    'fr': {
+        'nav.privacy': 'Confidentialité',
+        'nav.imprint': 'Mentions légales',
+        'hero.tagline': 'Un siècle de télévision, sur votre Mac.',
+        'hero.subtitle': 'Lisez n\'importe quelle vidéo à travers près de cent ans d\'histoire de la TV &mdash; d\'un récepteur mécanique Baird de 1928 à un OLED moderne. Effets CRT authentiques pour chaque époque, une frise chronologique et un navigateur intégré pour vos films locaux, vidéos de l\'Internet Archive et favoris.',
+        'cta.appstore': 'Disponible sur le Mac App Store',
+        'meta.platform': 'Mac App Store &middot; macOS 14+ &middot; SwiftUI &middot; Metal',
+        'timeline.title': 'Six téléviseurs, un siècle',
+        'timeline.sub': 'Chaque époque lit votre vidéo à travers le modèle de signal et le CRT adaptés à cette décennie. Cliquez sur un téléviseur dans la frise du bas pour changer.',
+        'tv.mechanical': 'Baird Televisor',
+        'tv.bw': 'Console N&amp;B',
+        'tv.predicta': 'Philco Predicta',
+        'tv.color': 'Console couleur',
+        'tv.vhs': 'CRT ère VHS',
+        'tv.oled': 'OLED moderne',
+        'screenshots.title': 'Captures d\'écran',
+        'screenshots.sub': 'Placez vos captures ici.',
+        'screenshots.hint': 'Mettez les fichiers dans /screenshots/ et référencez-les ci-dessus.',
+        'features.title': 'Ce qu\'elle fait',
+        'feat.eras.title': 'Six époques, fidèles au signal',
+        'feat.eras.body': 'Du balayage mécanique à 30 lignes de 1928 à l\'image quasi parfaite d\'un OLED de 2024. Chaque époque passe votre vidéo par un modèle de signal propre à la décennie (NTSC, chroma VHS, MPEG-2, direct) et un shader CRT avec les lignes de balayage, le masque de phosphore, le halo de faisceau et la distorsion en barillet justes.',
+        'feat.bezels.title': 'Coques photographiques',
+        'feat.bezels.body': 'Chaque téléviseur est une photo ou un rendu réel &mdash; l\'iconique Philco Predicta, une console en bois, un cube en plastique de 1985, un OLED quasi sans cadre. Votre vidéo s\'affiche dans l\'écran avec le bon format pour chaque appareil.',
+        'feat.timeline.title': 'Frise chronologique',
+        'feat.timeline.body': 'Changez d\'époque en cliquant sur un téléviseur dans une frise horizontale en bas de la fenêtre. Les marqueurs sont placés sur les années auxquelles ils appartiennent &mdash; pas espacés uniformément &mdash; pour montrer l\'histoire réelle de la télévision.',
+        'feat.library.title': 'Trois sources, un menu',
+        'feat.library.body': 'Un menu latéral vous permet de scanner des dossiers locaux à la recherche de films, de chercher dans l\'Internet Archive des images d\'époque libres de droits, ou de choisir parmi vos favoris. Cliquez sur n\'importe quoi pour l\'ajouter comme chaîne.',
+        'feat.channels.title': 'Zapping',
+        'feat.channels.body': 'Déposez plusieurs vidéos et basculez entre elles comme de vraies chaînes. Raccourcis clavier, animation de transition, effet sonore de relais. Le numéro de chaîne clignote brièvement à l\'écran.',
+        'feat.native.title': 'Mac natif, rapide avec Metal',
+        'feat.native.body': 'Construit en Swift + SwiftUI, avec le pipeline CRT entièrement sur le GPU via des shaders Metal. 60 fps même sur un M1, peu importe la lourdeur de la chaîne d\'effets de l\'époque.',
+        'cta.closing.title': 'Regardez-la à nouveau, telle que vous vous en souvenez.',
+    },
+};
+
+// Language switcher: detect, apply, persist
+const supportedLangs = ['en', 'de', 'pt-PT', 'it', 'es', 'fr'];
+const langBtn  = document.getElementById('lang-btn');
+const langMenu = document.getElementById('lang-menu');
+
+function applyLanguage(lang) {
+    if (!translations[lang]) lang = 'en';
+    document.documentElement.lang = lang;
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        const value = translations[lang][key];
+        if (value !== undefined) el.innerHTML = value;
+    });
+    const labels = { 'en': 'EN', 'de': 'DE', 'pt-PT': 'PT', 'it': 'IT', 'es': 'ES', 'fr': 'FR' };
+    langBtn.textContent = labels[lang] || lang.toUpperCase();
+    langMenu.querySelectorAll('li').forEach(li => {
+        li.classList.toggle('active', li.dataset.lang === lang);
+    });
+    try { localStorage.setItem('retro-tv-lang', lang); } catch (e) {}
+}
+
+function pickInitialLanguage() {
+    try {
+        const saved = localStorage.getItem('retro-tv-lang');
+        if (saved && translations[saved]) return saved;
+    } catch (e) {}
+    const browser = (navigator.language || 'en');
+    if (translations[browser]) return browser;
+    const short = browser.split('-')[0];
+    const match = supportedLangs.find(l => l === short || l.startsWith(short));
+    return match || 'en';
+}
+
+langBtn.addEventListener('click', e => {
+    e.stopPropagation();
+    langMenu.classList.toggle('open');
+});
+langMenu.querySelectorAll('li').forEach(li => {
+    li.addEventListener('click', () => {
+        applyLanguage(li.dataset.lang);
+        langMenu.classList.remove('open');
+    });
+});
+document.addEventListener('click', () => langMenu.classList.remove('open'));
+
+applyLanguage(pickInitialLanguage());
+</script>
+
+</body>
+</html>
