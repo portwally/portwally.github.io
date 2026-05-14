@@ -372,39 +372,30 @@ section h2 {
     margin-top: 20px;
 }
 
-.screenshot-slot {
+.screenshot-shot {
+    display: block;
     aspect-ratio: 16 / 10;
-    background:
-        repeating-linear-gradient(
-            45deg,
-            rgba(255, 255, 255, 0.02) 0,
-            rgba(255, 255, 255, 0.02) 14px,
-            transparent 14px,
-            transparent 28px
-        ),
-        var(--wood-2);
-    border: 2px dashed var(--brass);
+    background: var(--wood-2);
     border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--cream-dim);
-    font-family: 'Helvetica Neue', sans-serif;
-    font-size: 2em;
-    font-weight: 800;
+    overflow: hidden;
+    box-shadow:
+        0 6px 18px rgba(0, 0, 0, 0.55),
+        0 0 0 1px rgba(255, 179, 71, 0.10);
+    transition: transform 160ms ease-out, box-shadow 160ms ease-out;
 }
 
-.screenshot-slot span {
-    opacity: 0.6;
+.screenshot-shot img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
-.screenshots-hint {
-    text-align: center;
-    color: var(--cream-dim);
-    font-size: 0.85em;
-    font-style: italic;
-    margin-top: 24px;
-    opacity: 0.7;
+.screenshot-shot:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        0 10px 26px rgba(0, 0, 0, 0.65),
+        0 0 0 1px rgba(255, 179, 71, 0.30);
 }
 
 /* ── Features grid ── */
