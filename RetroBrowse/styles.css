@@ -806,6 +806,22 @@ kbd {
 .footer-credit { margin-top: 6px; }
 .footer-credit a { color: var(--iigs-yellow); text-decoration: underline; }
 .footer-credit a:hover { color: var(--iigs-white); }
+.footer-apps {
+  margin: 14px auto;
+  max-width: 900px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px 12px;
+  font-size: 11px;
+  line-height: 1.6;
+}
+.footer-apps a {
+  color: var(--iigs-yellow);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.footer-apps a:hover { color: var(--iigs-white); text-decoration: underline; }
 
 /* =========================================================
    LEGAL PAGE
