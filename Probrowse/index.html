@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ProBrowse — Apple II disk image browser for modern macOS</title>
+<meta name="description" content="ProBrowse is a modern macOS dual-pane file manager for Apple II disk images. ProDOS, DOS 3.3, UCSD Pascal, ShrinkIt, Binary II. Inspect BASIC, fonts, graphics, icons, AppleWorks, Teach.">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ==== IIgs Menu Bar ==== -->
+<div class="menubar" role="banner">
+  <span class="apple">&#63743;</span>
+  <span class="menu">File</span>
+  <span class="menu">Edit</span>
+  <span class="menu">View</span>
+  <span class="menu">Special</span>
+  <span class="menu">Color</span>
+  <span class="menu-right">ProBrowse</span>
+</div>
+
+<main class="desktop">
+
+  <!-- ==== HERO WINDOW ==== -->
+  <section class="window window--hero">
+    <header class="titlebar">
+      <button class="closebox" aria-label="Close"></button>
+      <h1 class="titletext">ProBrowse</h1>
+      <button class="zoombox" aria-label="Zoom"></button>
+    </header>
+    <div class="window-body hero-body">
+      <img class="hero-img" src="assets/img/hero.png" alt="ProBrowse: vintage Apple II floppy disks streaming files into a modern macOS window and Mac">
+      <div class="hero-overlay">
+        <p class="hero-kicker">For Apple II disk images · macOS 14+</p>
+        <h2 class="hero-headline">Browse the past.<br>Manage with the present.</h2>
+        <p class="hero-sub">A modern dual-pane file manager for ProDOS, DOS 3.3, UCSD Pascal, ShrinkIt and Binary II disk images — built natively in Swift &amp; SwiftUI.</p>
+        <p class="hero-actions">
+          <a class="btn btn-primary" href="https://github.com/portwally/ProBrowse/releases">Download Latest</a>
+          <a class="btn" href="https://github.com/portwally/ProBrowse">View on GitHub</a>
+        </p>
+        <p class="hero-badges">
+          <img alt="Downloads" src="https://img.shields.io/github/downloads/portwally/ProBrowse/total?style=flat&amp;color=0d6efd">
+          <img alt="Stars" src="https://img.shields.io/github/stars/portwally/ProBrowse?style=flat&amp;color=f1c40f">
+          <img alt="Forks" src="https://img.shields.io/github/forks/portwally/ProBrowse?style=flat&amp;color=2ecc71">
+        </p>
+      </div>
+    </div>
+    <footer class="statusbar">
+      <span>Volume: ProBrowse</span>
+      <span class="sep"></span>
+      <span>Type: Application</span>
+      <span class="sep"></span>
+      <span class="status-right">macOS 14 Sonoma · Apple Silicon &amp; Intel</span>
+    </footer>
+  </section>
+
+  <!-- ==== WARNING WINDOW ==== -->
+  <aside class="window window--alert">
+    <header class="titlebar titlebar--alert">
+      <h2 class="titletext">⚠︎  Read Me First</h2>
+    </header>
+    <div class="window-body alert-body">
+      <p><strong>This is an early version under active development.</strong> It may contain bugs that could corrupt your disk images. <em>Always back up your disk images before using ProBrowse!</em></p>
+    </div>
+  </aside>
+
+  <!-- ==== FEATURES WINDOW ==== -->
+  <section class="window">
+    <header class="titlebar">
+      <button class="closebox" aria-label="Close"></button>
+      <h2 class="titletext">Features</h2>
+      <button class="zoombox" aria-label="Zoom"></button>
+    </header>
+    <div class="window-body">
+      <ul class="feature-grid">
+        <li><span class="icn icn-folders"></span><strong>Dual-Pane Browser</strong><span class="desc">Work with two disk images at once.</span></li>
+        <li><span class="icn icn-inspect"></span><strong>File Inspector</strong><span class="desc">View any file with <kbd>⌘ I</kbd> or right-click.</span></li>
+        <li><span class="icn icn-prodos"></span><strong>Native ProDOS</strong><span class="desc">Read &amp; write in pure Swift.</span></li>
+        <li><span class="icn icn-dos33"></span><strong>DOS 3.3</strong><span class="desc">Full read &amp; write support.</span></li>
+        <li><span class="icn icn-pascal"></span><strong>UCSD Pascal</strong><span class="desc">Read-only volume support.</span></li>
+        <li><span class="icn icn-shk"></span><strong>ShrinkIt Archives</strong><span class="desc">Browse, extract, create .shk / .sdk / .bxy.</span></li>
+        <li><span class="icn icn-bny"></span><strong>Binary II</strong><span class="desc">Read &amp; write .bny / .bqy.</span></li>
+        <li><span class="icn icn-drag"></span><strong>Drag &amp; Drop</strong><span class="desc">Copy between images or import from Finder.</span></li>
+        <li><span class="icn icn-type"></span><strong>Change File Type</strong><span class="desc">Right-click to edit type &amp; aux type.</span></li>
+        <li><span class="icn icn-db"></span><strong>200+ File Types</strong><span class="desc">Complete ProDOS file-type database.</span></li>
+        <li><span class="icn icn-gfx"></span><strong>Graphics Preview</strong><span class="desc">HGR, DHGR, SHR and APF — inline.</span></li>
+        <li><span class="icn icn-font"></span><strong>Font Preview</strong><span class="desc">Apple IIgs fonts &amp; hi-res screen fonts.</span></li>
+        <li><span class="icn icn-icon"></span><strong>Icon Preview</strong><span class="desc">IIgs Finder icons w/ palette &amp; transparency.</span></li>
+        <li><span class="icn icn-basic"></span><strong>BASIC Viewer</strong><span class="desc">Syntax-highlighted Applesoft &amp; Integer.</span></li>
+        <li><span class="icn icn-merlin"></span><strong>Merlin Viewer</strong><span class="desc">6502 assembler with highlighting.</span></li>
+        <li><span class="icn icn-cpu"></span><strong>Disassembler</strong><span class="desc">6502 and 65816 machine code.</span></li>
+        <li><span class="icn icn-aw"></span><strong>AppleWorks</strong><span class="desc">Classic &amp; GS word, DB, spreadsheet.</span></li>
+        <li><span class="icn icn-teach"></span><strong>Teach Viewer</strong><span class="desc">IIgs Teach docs — fonts, styles, color.</span></li>
+        <li><span class="icn icn-date"></span><strong>Dates &amp; Times</strong><span class="desc">ProDOS create / modify timestamps.</span></li>
+        <li><span class="icn icn-export"></span><strong>Export</strong><span class="desc">Extract files to your modern Mac.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ==== SCREENSHOTS WINDOW ==== -->
+  <section class="window">
+    <header class="titlebar">
+      <button class="closebox" aria-label="Close"></button>
+      <h2 class="titletext">Screenshots</h2>
+      <button class="zoombox" aria-label="Zoom"></button>
+    </header>
+    <div class="window-body shots-body">
+      <figure class="shot">
+        <a href="assets/img/shot-dualpane.png"><img src="assets/img/shot-dualpane.png" alt="Dual-pane file browser comparing two ProDOS volumes"></a>
+        <figcaption>Dual-pane browser — compare and copy between two ProDOS volumes side-by-side.</figcaption>
+      </figure>
+      <figure class="shot">
+        <a href="assets/img/shot-icons.png"><img src="assets/img/shot-icons.png" alt="ASIMOV.ICONS Apple IIgs Finder icon file inspector"></a>
+        <figcaption>Icon inspector — preview IIgs Finder icons at 1×–8× with the 16-color palette and transparency.</figcaption>
+      </figure>
+      <figure class="shot">
+        <a href="assets/img/shot-font.png"><img src="assets/img/shot-font.png" alt="Apple IIgs font file FUTURE.24 previewed with sample text and character map"></a>
+        <figcaption>Font viewer — rendered samples plus a complete character map for any IIgs FON file.</figcaption>
+      </figure>
+      <figure class="shot">
+        <a href="assets/img/shot-teach.png"><img src="assets/img/shot-teach.png" alt="Apple IIgs Teach document viewer showing READ.ME.FIRST"></a>
+        <figcaption>Teach viewer — read styled IIgs Teach documents with original fonts, styles, and colors.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ==== FORMATS WINDOW ==== -->
+  <section class="window">
+    <header class="titlebar">
+      <button class="closebox" aria-label="Close"></button>
+      <h2 class="titletext">Supported Formats</h2>
+      <button class="zoombox" aria-label="Zoom"></button>
+    </header>
+    <div class="window-body tables-body">
+
+      <h3 class="table-caption">Disk Image Formats</h3>
+      <table class="iigs-table">
+        <thead><tr><th>Format</th><th>Extension</th><th>Read</th><th>Write</th></tr></thead>
+        <tbody>
+          <tr><td>ProDOS Order</td><td><code>.po</code></td><td class="yes">●</td><td class="yes">●</td></tr>
+          <tr><td>DOS Order</td><td><code>.do</code></td><td class="yes">●</td><td class="yes">●</td></tr>
+          <tr><td>Universal 2IMG</td><td><code>.2mg</code></td><td class="yes">●</td><td class="yes">●</td></tr>
+          <tr><td>Hard Disk Volume</td><td><code>.hdv</code></td><td class="yes">●</td><td class="yes">●</td></tr>
+          <tr><td>Generic DSK</td><td><code>.dsk</code></td><td class="yes">●</td><td class="yes">●</td></tr>
+          <tr><td>UCSD Pascal Volume</td><td><code>.vol</code></td><td class="yes">●</td><td class="no">○</td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="table-caption">Archive Formats</h3>
+      <table class="iigs-table">
+        <thead><tr><th>Format</th><th>Extension</th><th>Read</th><th>Write</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>ShrinkIt Disk</td><td><code>.sdk</code></td><td class="yes">●</td><td class="yes">●</td><td>Compressed disk images</td></tr>
+          <tr><td>ShrinkIt Archive</td><td><code>.shk</code></td><td class="yes">●</td><td class="yes">●</td><td>Compressed file archives</td></tr>
+          <tr><td>Binary II + ShrinkIt</td><td><code>.bxy</code></td><td class="yes">●</td><td class="yes">●</td><td>Binary II wrapped ShrinkIt</td></tr>
+          <tr><td>Binary II</td><td><code>.bny</code>, <code>.bqy</code></td><td class="yes">●</td><td class="yes">●</td><td>Binary II archives</td></tr>
+          <tr><td>Gzip</td><td><code>.gz</code></td><td class="yes">●</td><td class="no">○</td><td>Gzip compressed files</td></tr>
+          <tr><td>ZIP</td><td><code>.zip</code></td><td class="yes">●</td><td class="no">○</td><td>ZIP archives</td></tr>
+        </tbody>
+      </table>
+      <p class="fineprint">All archive formats are handled natively — no external tools required.</p>
+
+      <h3 class="table-caption">File Systems</h3>
+      <table class="iigs-table">
+        <thead><tr><th>File System</th><th>Read</th><th>Write</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>ProDOS</td><td class="yes">●</td><td class="yes">●</td><td>Full support, including subdirectories</td></tr>
+          <tr><td>DOS 3.3</td><td class="yes">●</td><td class="yes">●</td><td>Full support</td></tr>
+          <tr><td>UCSD Pascal</td><td class="yes">●</td><td class="no">○</td><td>Read-only</td></tr>
+          <tr><td>ShrinkIt Archives</td><td class="yes">●</td><td class="yes">●</td><td>Native LZW compression</td></tr>
+          <tr><td>Binary II Archives</td><td class="yes">●</td><td class="yes">●</td><td>Full support</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ==== QUICK START + LIMITATIONS ==== -->
+  <div class="row">
+    <section class="window col">
+      <header class="titlebar">
+        <button class="closebox" aria-label="Close"></button>
+        <h2 class="titletext">Quick Start</h2>
+        <button class="zoombox" aria-label="Zoom"></button>
+      </header>
+      <div class="window-body">
+        <ol class="quick-list">
+          <li>Open two disk images — one per pane.</li>
+          <li>Browse files with full directory support.</li>
+          <li>Press <kbd>⌘ I</kbd> to inspect any file — BASIC, graphics, hex.</li>
+          <li>Drag &amp; drop files between images.</li>
+          <li>Export files to your Mac.</li>
+          <li>View Apple II graphics inline.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="window col">
+      <header class="titlebar">
+        <button class="closebox" aria-label="Close"></button>
+        <h2 class="titletext">Current Limitations</h2>
+        <button class="zoombox" aria-label="Zoom"></button>
+      </header>
+      <div class="window-body">
+        <ul class="limit-list">
+          <li>UCSD Pascal volumes are <strong>read-only</strong>.</li>
+          <li>Gzip and ZIP archives are <strong>read-only</strong>.</li>
+          <li>Beta quality — expect bugs!</li>
+        </ul>
+        <p class="requirements"><strong>Requires:</strong> macOS 14 (Sonoma) or later · Apple Silicon or Intel.</p>
+      </div>
+    </section>
+  </div>
+
+  <!-- ==== DOWNLOAD WINDOW ==== -->
+  <section class="window window--cta">
+    <header class="titlebar">
+      <button class="closebox" aria-label="Close"></button>
+      <h2 class="titletext">Get ProBrowse</h2>
+      <button class="zoombox" aria-label="Zoom"></button>
+    </header>
+    <div class="window-body cta-body">
+      <p class="cta-line">Built with Swift and SwiftUI for modern macOS. MIT licensed. Contributions welcome.</p>
+      <p class="cta-actions">
+        <a class="btn btn-primary" href="https://github.com/portwally/ProBrowse/releases">Download</a>
+        <a class="btn" href="https://github.com/portwally/ProBrowse">Source on GitHub</a>
+        <a class="btn" href="https://github.com/portwally/ProBrowse/issues">Report a Bug</a>
+      </p>
+      <p class="cta-warn">⚠︎  Always back up your disk images before using beta software.</p>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>© 2026 portwally · ProBrowse is an independent project, not affiliated with Apple Inc. <br>“Apple II”, “Apple IIgs”, and “ProDOS” are trademarks of Apple Inc.</p>
+  </footer>
+
+</main>
+</body>
+</html>
