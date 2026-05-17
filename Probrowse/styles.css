@@ -803,6 +803,9 @@ kbd {
   line-height: 1.6;
 }
 .footer p { margin: 0; }
+.footer-credit { margin-top: 6px; }
+.footer-credit a { color: var(--iigs-yellow); text-decoration: underline; }
+.footer-credit a:hover { color: var(--iigs-white); }
 
 /* =========================================================
    Responsive
