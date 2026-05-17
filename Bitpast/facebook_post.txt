@@ -1,0 +1,75 @@
+BitPast — Facebook Promotional Post Copy
+=========================================
+Three variants below. Pick one (or mix elements). Attach a screenshot or side-by-side image for best reach.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+VARIANT A — Hook-first, community feel (recommended)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Ever wonder what your photos would look like on a Commodore 64? Or an Amiga 1200 in HAM8 mode?
+
+BitPast lets you find out. 🕹️
+
+It's a free, native macOS app that converts any image into authentic retro computer graphics — complete with real file formats you can load on actual hardware or an emulator.
+
+✅ 15 classic platforms: C64, Amiga 500/1200, Apple II, Apple IIgs, ZX Spectrum, Atari 800/ST, BBC Micro, MSX, IBM PC, VIC-20, TRS-80 CoCo and more
+✅ 15+ dithering algorithms (Floyd-Steinberg, Atkinson, Bayer…)
+✅ Exports authentic native formats — .D64, .ADF, .SHR, .KLA, .SCR and 20+ more
+✅ Drag & drop, batch processing, live preview
+✅ Free & Open Source (MIT)
+
+Whether you're a retrocomputing enthusiast, pixel artist, or just nostalgic for the 8-bit era — BitPast is made for you.
+
+👉 Mac App Store: https://apps.apple.com/us/app/bitpast/id6756894753
+🌐 Learn more: https://portwally.github.io/Bitpast/
+
+#RetroComputing #Commodore64 #Amiga #Apple2 #ZXSpectrum #8bit #PixelArt #macOS #IndieApp #BitPast
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+VARIANT B — Short & punchy (great for engagement)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Your photo. On a Commodore 64. For real.
+
+BitPast converts any image into authentic retro computer graphics — 15 classic platforms, 20+ native file formats, drag & drop simple.
+
+Free & Open Source for macOS. 🖥️✨
+
+👉 https://apps.apple.com/us/app/bitpast/id6756894753
+
+#RetroComputing #C64 #Amiga #8bit #PixelArt #macOS #BitPast
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+VARIANT C — Technical / enthusiast-focused
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Attention retro computing fans, pixel artists, and homebrewers! 🎮
+
+BitPast — a free, native macOS app — converts modern images into the authentic graphic formats of your favourite classic computers:
+
+🍎 Apple II / IIgs (DHGR, HGR, 3200-color SHR)
+💾 Commodore 64 (HiRes, Multicolor, Koala)
+🖥️ Amiga 500 / 1200 (HAM6, HAM8 — up to 262,144 colors!)
+⚡ ZX Spectrum, Amstrad CPC, BBC Micro
+🕹️ Atari 800 / ST, IBM PC CGA/EGA/VGA, MSX/MSX2, VIC-20, TRS-80 CoCo
+
+Export to real disk images (.D64, .ADF, .ATR, .ST, .DSK…) and load them straight into your emulator or real hardware.
+
+Built with Swift on macOS. MIT licensed. No subscription. No nonsense.
+
+🔗 Mac App Store: https://apps.apple.com/us/app/bitpast/id6756894753
+🌐 Site: https://portwally.github.io/Bitpast/
+💻 GitHub: https://github.com/portwally/BitPast
+
+#RetroComputing #Amiga #C64 #Apple2 #ZXSpectrum #Atari #BBCMICRO #MSX #PixelArt #8bit #16bit #IndieApp #macOS #OpenSource
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+IMAGE SUGGESTIONS (attach to the post)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+- Side-by-side: modern photo → C64 Multicolor or Amiga HAM8 conversion
+- Screenshot of the BitPast app UI showing the batch/grid browser
+- Mosaic of the same image converted across multiple platforms (great visual hook)
