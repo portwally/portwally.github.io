@@ -529,6 +529,26 @@ footer {
     font-family: 'Helvetica Neue', sans-serif;
     font-size: 0.82em;
 }
+footer .footer-content {
+    max-width: 900px;
+    margin: 0 auto;
+}
+footer .footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px 18px;
+}
+footer .footer-links a {
+    color: var(--cream-dim);
+    text-decoration: none;
+}
+footer .footer-links a:hover { color: var(--amber); }
+footer .footer-content > p {
+    margin-top: 22px;
+    opacity: 0.6;
+    font-size: 0.95em;
+}
 footer a {
     color: var(--cream-dim);
     text-decoration: none;
