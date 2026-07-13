@@ -144,12 +144,29 @@ nav {
     margin: 0 auto 2rem;
 }
 
+.store-badges {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
 .app-store-badge img {
     height: 50px;
     transition: transform 0.2s;
 }
 
 .app-store-badge:hover img {
+    transform: scale(1.05);
+}
+
+.google-play-badge img {
+    height: 74px; /* Google Play badge has built-in padding; 74px ≈ 50px visual height */
+    transition: transform 0.2s;
+}
+
+.google-play-badge:hover img {
     transform: scale(1.05);
 }
 
