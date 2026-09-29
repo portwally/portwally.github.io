@@ -8,996 +8,473 @@
     <meta name="keywords" content="beertag, beer tag, location game, pvp game, ios game, friends game, beer game, gps game, party game, missile game">
     <meta property="og:title" content="BeerTag - Throw Stuff at Your Friends">
     <meta property="og:description" content="Location-based party game. Start with rocks, streak your way to ICBMs. Miss and you owe beer!">
-    <meta property="og:image" content="banner.png">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+    <meta property="og:image" content="https://portwally.github.io/BeerTag/img/og-image.jpg">
+    <meta name="twitter:card" content="summary_large_image">
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+
+
+
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@700;800&display=swap');
 
         :root {
+            --bg: #0A0E17;
+            --bg-deep: #05080F;
+            --panel: #111927;
+            --card: #1A2332;
+            --border: #2A3A4A;
+            --text: #FFFFFF;
+            --text-2: #8899AA;
+            --text-3: #556677;
             --primary: #FF4500;
-            --primary-dark: #CC3700;
-            --primary-light: #FF6B3D;
-            --accent: #FFC107;
-            --accent-light: #FFD54F;
+            --primary-2: #FF6B35;
             --cyan: #00D4FF;
+            --danger: #FF1744;
             --success: #00E676;
-            --bg-dark: #0A0E17;
-            --bg-darker: #060910;
-            --bg-card: #111827;
-            --bg-section: #0D1117;
-            --text-primary: #ffffff;
-            --text-secondary: #e0e0e0;
-            --text-tertiary: #8899aa;
-            --border: #1E2D3D;
-            --shadow: rgba(255, 69, 0, 0.2);
-            --shadow-dark: rgba(0, 0, 0, 0.4);
+            --warning: #FFD600;
+            --beer: #FFC107;
+            --everyday: #8BC34A;
+            --skilled: #2196F3;
+            --advanced: #B06CFF;
+            --military: #FF9800;
+            --devastating: #FF1744;
         }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: var(--bg-darker);
-            color: var(--text-primary);
+            background: var(--bg);
+            color: var(--text);
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+        /* Tactical grid behind the whole page */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(0, 212, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 212, 255, 0.05) 1px, transparent 1px);
+            background-size: 44px 44px;
+            pointer-events: none;
+            z-index: -1;
         }
 
-        header {
-            background: var(--bg-darker);
-            color: white;
-            text-align: center;
-            padding: 0;
-            position: relative;
+        a { color: var(--cyan); }
+        img { max-width: 100%; height: auto; }
+        .container { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+        section { padding: 88px 0; }
+
+        .ico { width: 1em; height: 1em; display: inline-block; vertical-align: middle; }
+        .glow { filter: drop-shadow(0 0 4px currentColor) drop-shadow(0 0 10px currentColor); }
+        .everyday { color: var(--everyday); }
+        .skilled { color: var(--skilled); }
+        .advanced { color: var(--advanced); }
+        .military { color: var(--military); }
+        .devastating { color: var(--devastating); }
+
+        .kicker {
+            font-family: 'JetBrains Mono', ui-monospace, monospace;
+            font-size: 0.8rem;
+            font-weight: 800;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--cyan);
+            margin-bottom: 14px;
+        }
+        h2 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 900;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            line-height: 1.1;
+            margin-bottom: 18px;
+        }
+        .lead { color: var(--text-2); font-size: 1.1rem; max-width: 680px; }
+        .center { text-align: center; }
+        .center .lead { margin: 0 auto; }
+
+        .panel {
+            background: rgba(17, 25, 39, 0.78);
+            border: 1px solid rgba(0, 212, 255, 0.16);
+            border-radius: 18px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+            backdrop-filter: blur(8px);
         }
 
-        .banner-img {
-            width: 100%;
-            max-width: 1200px;
-            height: auto;
-            display: block;
-            margin: 0 auto;
+        /* ---------- Hero ---------- */
+        .hero { padding: 72px 0 40px; position: relative; }
+        .hero::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            top: 0;
+            width: 900px;
+            height: 700px;
+            transform: translateX(-50%);
+            background: radial-gradient(closest-side, rgba(255, 69, 0, 0.22), transparent);
+            z-index: -1;
         }
-
-        .hero-content {
-            position: relative;
-            z-index: 1;
-            padding: 30px 20px 40px;
-            background: linear-gradient(180deg, var(--bg-darker) 0%, var(--bg-dark) 100%);
+        .hero-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 48px; align-items: center; }
+        .app-icon { width: 112px; height: 112px; border-radius: 26px; box-shadow: 0 0 40px rgba(255, 23, 68, 0.35), 0 12px 30px rgba(0,0,0,0.5); }
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 5.2rem);
+            font-weight: 900;
+            letter-spacing: 0.06em;
+            line-height: 1;
+            margin: 26px 0 16px;
         }
-
-        .tagline {
-            font-size: 1.15em;
-            color: var(--text-tertiary);
-            font-weight: 400;
-            margin-bottom: 25px;
-        }
-
+        .hero .tagline { font-size: clamp(1.25rem, 3vw, 1.6rem); font-weight: 800; color: var(--beer); line-height: 1.3; }
+        .hero .tagline span { color: var(--text-2); display: block; }
+        .hero .lead { margin-top: 18px; }
         .badge {
-            display: inline-block;
-            padding: 10px 24px;
-            background: rgba(255, 69, 0, 0.15);
-            border: 2px solid var(--primary);
-            border-radius: 25px;
-            font-size: 1em;
-            font-weight: 600;
-            color: var(--primary-light);
-        }
-
-        .button-group {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin: 40px 0;
-        }
-
-        .btn {
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            padding: 18px 36px;
-            font-size: 1.1em;
-            font-weight: 600;
-            text-decoration: none;
+            margin-top: 30px;
+            padding: 14px 24px;
             border-radius: 14px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-            border: none;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            color: white;
-            box-shadow: 0 4px 20px rgba(255, 69, 0, 0.4);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 30px rgba(255, 69, 0, 0.5);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: white;
-            border: 2px solid rgba(255,255,255,0.3);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(255,255,255,0.1);
-            border-color: rgba(255,255,255,0.5);
-        }
-
-        section {
-            padding: 80px 0;
-            background: var(--bg-darker);
-        }
-
-        section:nth-child(even) {
-            background: var(--bg-section);
-        }
-
-        h2 {
-            font-size: 2.8em;
+            background: linear-gradient(90deg, var(--primary), #CC3700);
+            color: #fff;
             font-weight: 800;
-            margin-bottom: 20px;
-            text-align: center;
-            letter-spacing: -0.02em;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            box-shadow: 0 0 28px rgba(255, 69, 0, 0.45);
         }
-
-        .section-subtitle {
-            text-align: center;
-            font-size: 1.2em;
-            color: var(--text-tertiary);
-            margin-bottom: 60px;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin: 50px 0;
-        }
-
-        .feature-card {
-            background: var(--bg-card);
-            padding: 40px 30px;
-            border-radius: 20px;
-            border: 1px solid var(--border);
-            box-shadow: 0 4px 20px var(--shadow-dark);
-            transition: all 0.3s ease;
-            text-align: center;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 40px var(--shadow-dark);
-            border-color: var(--primary);
-        }
-
-        .feature-icon {
-            font-size: 3.5em;
-            margin-bottom: 20px;
-            display: block;
-        }
-
-        .feature-title {
-            font-size: 1.4em;
-            font-weight: 600;
-            margin-bottom: 15px;
-            color: var(--primary-light);
-        }
-
-        .feature-desc {
-            color: var(--text-tertiary);
-            line-height: 1.7;
-        }
-
-        .gameplay-section {
-            background: var(--bg-card);
-            border: 2px solid var(--border);
-            border-radius: 24px;
-            padding: 60px 40px;
-            margin: 60px 0;
-            box-shadow: 0 8px 32px var(--shadow-dark);
-        }
-
-        .gameplay-steps {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 25px;
-            margin: 40px 0;
-        }
-
-        .gameplay-step {
-            text-align: center;
-            padding: 30px 20px;
-            background: var(--bg-darker);
-            border-radius: 16px;
-            border: 1px solid var(--border);
-        }
-
-        .step-number {
-            display: inline-block;
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-            color: white;
-            border-radius: 50%;
-            font-size: 1.5em;
-            font-weight: 700;
-            line-height: 50px;
-            margin-bottom: 15px;
-        }
-
-        .gameplay-step h3 {
-            font-size: 1.1em;
-            margin-bottom: 10px;
-            color: var(--text-primary);
-        }
-
-        .gameplay-step p {
-            color: var(--text-tertiary);
-            font-size: 0.9em;
-        }
-
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 30px;
-            margin: 60px 0;
-            text-align: center;
-        }
-
-        .stat-item {
-            padding: 30px;
-            background: var(--bg-card);
-            border-radius: 20px;
-            border: 1px solid var(--border);
-        }
-
-        .stat-number {
-            font-size: 3em;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            display: block;
-            margin-bottom: 10px;
-        }
-
-        .stat-label {
-            color: var(--text-tertiary);
-            font-size: 1.1em;
-        }
-
-        /* Streak progression visual */
-        .streak-bar {
-            display: flex;
-            align-items: center;
-            gap: 0;
-            margin: 50px auto;
-            max-width: 900px;
-            position: relative;
-        }
-
-        .streak-stage {
-            flex: 1;
-            text-align: center;
-            padding: 20px 8px;
-            position: relative;
-        }
-
-        .streak-stage .stage-icon {
-            font-size: 2.2em;
-            display: block;
-            margin-bottom: 8px;
-        }
-
-        .streak-stage .stage-label {
-            font-size: 0.75em;
-            font-weight: 600;
-            color: var(--text-tertiary);
-        }
-
-        .streak-arrow {
-            color: var(--primary);
-            font-size: 1.5em;
-            font-weight: 800;
-        }
-
-        .streak-connector {
-            height: 3px;
-            background: linear-gradient(90deg, var(--success), var(--cyan), var(--primary), var(--accent));
-            border-radius: 2px;
-            margin: 0 auto 20px;
-            max-width: 900px;
-        }
-
-        .arsenal-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 30px 0;
-            background: var(--bg-card);
-            border-radius: 16px;
+        .badge .ico { width: 20px; height: 20px; }
+        .phones { position: relative; height: 660px; }
+        .phone {
+            position: absolute;
+            width: 270px;
+            border-radius: 38px;
+            border: 2px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.55);
             overflow: hidden;
+            background: #000;
         }
+        .phone img { display: block; width: 100%; }
+        .phone.back { right: 0; top: 0; transform: rotate(5deg); border-color: rgba(255, 107, 53, 0.5); box-shadow: 0 0 40px rgba(255, 107, 53, 0.25), 0 30px 60px rgba(0,0,0,0.55); }
+        .phone.front { left: 10px; top: 60px; transform: rotate(-4deg); border-color: rgba(255, 23, 68, 0.6); box-shadow: 0 0 50px rgba(255, 23, 68, 0.3), 0 30px 60px rgba(0,0,0,0.6); }
 
-        .arsenal-table th,
-        .arsenal-table td {
-            padding: 16px 20px;
+        /* ---------- Stats strip ---------- */
+        .stats { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 40px; position: relative; z-index: 1; }
+        .stat { padding: 22px 12px; text-align: center; border-right: 1px solid var(--border); }
+        .stat:last-child { border-right: 0; }
+        .stat b { display: block; font-family: 'JetBrains Mono', monospace; font-size: 1.9rem; color: var(--warning); text-shadow: 0 0 14px rgba(255, 214, 0, 0.45); }
+        .stat span { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-3); }
+
+        /* ---------- Hot streak chain ---------- */
+        .chain {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin: 44px auto 28px;
+            padding: 28px 20px;
+        }
+        .chain .step { display: flex; flex-direction: column; align-items: center; gap: 8px; width: 92px; }
+        .chain .step .ico { width: 54px; height: 54px; }
+        .chain .step small { font-size: 0.72rem; font-weight: 700; color: var(--text-2); text-align: center; }
+        .chain .arrow { color: var(--text-3); font-size: 1.2rem; }
+        .rules { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+        .rule { padding: 22px; }
+        .rule h3 { font-size: 1rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; }
+        .rule p { color: var(--text-2); font-size: 0.95rem; }
+        .rule.hit h3 { color: var(--success); }
+        .rule.miss h3 { color: var(--danger); }
+        .rule.dodge h3 { color: var(--cyan); }
+
+        /* ---------- Steps ---------- */
+        .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 44px; }
+        .step-card { padding: 26px; position: relative; }
+        .step-card .num {
+            position: absolute;
+            top: 18px;
+            right: 20px;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 800;
+            color: var(--text-3);
+        }
+        .step-card .ico { width: 40px; height: 40px; color: var(--primary-2); margin-bottom: 14px; }
+        .step-card h3 { font-size: 1.1rem; font-weight: 800; margin-bottom: 6px; }
+        .step-card p { color: var(--text-2); font-size: 0.95rem; }
+
+        /* ---------- Screenshots ---------- */
+        .shots {
+            display: flex;
+            gap: 22px;
+            overflow-x: auto;
+            padding: 40px 4px 24px;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: thin;
+        }
+        .shot { flex: 0 0 max(190px, calc((100% - 88px) / 5)); scroll-snap-align: center; text-align: center; }
+        .shot img {
+            width: 100%;
+            border-radius: 30px;
+            border: 2px solid var(--c, var(--cyan));
+            box-shadow: 0 0 30px color-mix(in srgb, var(--c, var(--cyan)) 35%, transparent), 0 20px 40px rgba(0,0,0,0.5);
+            display: block;
+        }
+        .shot .kicker { margin: 16px 0 2px; font-size: 0.7rem; color: var(--c, var(--cyan)); }
+        .shot p { font-weight: 800; font-size: 1rem; }
+
+        /* ---------- Features ---------- */
+        .features { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 44px; }
+        .feature { padding: 24px; }
+        .feature .ico { width: 38px; height: 38px; margin-bottom: 14px; }
+        .feature h3 { font-size: 1.05rem; font-weight: 800; margin-bottom: 6px; }
+        .feature p { color: var(--text-2); font-size: 0.92rem; }
+
+        /* ---------- Stakes ---------- */
+        .stakes { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 44px; }
+        .stake { padding: 32px; }
+        .stake .ico { width: 48px; height: 48px; margin-bottom: 14px; }
+        .stake h3 { font-size: 1.4rem; font-weight: 900; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 8px; }
+        .stake p { color: var(--text-2); }
+        .stake ul { margin: 14px 0 0 18px; color: var(--text-2); font-size: 0.95rem; }
+        .stake li { margin-bottom: 6px; }
+        .stake.beer { border-color: rgba(255, 193, 7, 0.45); box-shadow: 0 0 40px rgba(255, 193, 7, 0.12); }
+        .stake.beer h3, .stake.beer .ico { color: var(--beer); }
+        .stake.points h3, .stake.points .ico { color: var(--cyan); }
+        .tag { display: inline-block; margin-left: 8px; padding: 2px 10px; font-size: 0.7rem; letter-spacing: 0.12em; border-radius: 99px; background: rgba(255,193,7,0.15); color: var(--beer); vertical-align: middle; }
+
+        /* ---------- Arsenal table ---------- */
+        .table-wrap { margin-top: 44px; overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+        th {
             text-align: left;
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--text-3);
+            padding: 16px 14px;
             border-bottom: 1px solid var(--border);
         }
+        td { padding: 12px 14px; border-bottom: 1px solid rgba(42, 58, 74, 0.5); white-space: nowrap; }
+        tr:last-child td { border-bottom: 0; }
+        tbody tr:hover { background: rgba(0, 212, 255, 0.04); }
+        td.stage { font-family: 'JetBrains Mono', monospace; font-weight: 800; }
+        td.name { font-weight: 700; }
+        td.name .ico { width: 28px; height: 28px; margin-right: 12px; }
+        td.mono { font-family: 'JetBrains Mono', monospace; color: var(--text-2); }
+        .pill { font-size: 0.68rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; padding: 3px 10px; border-radius: 99px; border: 1px solid currentColor; }
 
-        .arsenal-table th {
-            background: var(--bg-darker);
-            color: var(--accent);
-            font-weight: 600;
-            font-size: 0.9em;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+        /* ---------- Safety + CTA ---------- */
+        .safety { display: flex; gap: 20px; align-items: flex-start; padding: 28px; border-color: rgba(255, 214, 0, 0.35); }
+        .safety .ico { width: 40px; height: 40px; color: var(--warning); flex-shrink: 0; }
+        .safety h3 { color: var(--warning); font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; }
+        .safety p { color: var(--text-2); }
+        .cta { padding: 56px 28px; text-align: center; border-color: rgba(255, 69, 0, 0.4); box-shadow: 0 0 60px rgba(255, 69, 0, 0.15); }
+        .cta .app-icon { width: 88px; height: 88px; border-radius: 20px; }
+        .cta h2 { margin-top: 22px; }
+        .reqs { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 28px; }
+        .reqs span { padding: 8px 16px; border-radius: 99px; border: 1px solid var(--border); color: var(--text-2); font-size: 0.85rem; }
+
+        /* ---------- Footer (structure kept from the original page) ---------- */
+        footer { padding: 50px 0 30px; border-top: 1px solid var(--border); margin-top: 40px; color: var(--text-3); font-size: 0.9rem; text-align: center; }
+        .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 22px; }
+        .footer-links a { color: var(--text-2); text-decoration: none; }
+        .footer-links a:hover { color: var(--cyan); }
+        .footer-bottom { margin-top: 26px; }
+        .footer-credit { color: var(--text-2); font-weight: 600; margin-top: 4px; }
+        footer a { color: var(--text-2); text-decoration: none; }
+
+        /* ---------- Responsive ---------- */
+        @media (max-width: 960px) {
+            .hero-grid { grid-template-columns: 1fr; text-align: center; }
+            .hero .lead { margin-left: auto; margin-right: auto; }
+            .phones { height: 520px; max-width: 460px; margin: 0 auto; width: 100%; }
+            .phone { width: 220px; }
+            .phones { height: 560px; }
+            .features { grid-template-columns: repeat(2, 1fr); }
+            .steps { grid-template-columns: repeat(2, 1fr); }
         }
-
-        .arsenal-table tr:last-child td {
-            border-bottom: none;
-        }
-
-        .arsenal-table tr:hover {
-            background: rgba(255, 69, 0, 0.05);
-        }
-
-        .stage-badge {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.8em;
-            font-weight: 600;
-        }
-
-        .band-1 { background: rgba(0, 230, 118, 0.15); color: #00E676; }
-        .band-2 { background: rgba(0, 212, 255, 0.15); color: #00D4FF; }
-        .band-3 { background: rgba(155, 89, 182, 0.15); color: #BB86FC; }
-        .band-4 { background: rgba(255, 152, 0, 0.15); color: #FF9800; }
-        .band-5 { background: rgba(255, 69, 0, 0.15); color: #FF4500; }
-
-        .download-section {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            color: white;
-            padding: 80px 40px;
-            border-radius: 24px;
-            text-align: center;
-            margin: 60px 0;
-            box-shadow: 0 8px 40px rgba(255, 69, 0, 0.3);
-        }
-
-        .download-section h2 {
-            color: white;
-            margin-bottom: 30px;
-        }
-
-        .download-text {
-            font-size: 1.2em;
-            line-height: 1.8;
-            max-width: 800px;
-            margin: 0 auto 40px;
-            opacity: 0.95;
-        }
-
-        .modes-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            margin: 50px 0;
-        }
-
-        .mode-card {
-            background: var(--bg-card);
-            padding: 35px;
-            border-radius: 20px;
-            border: 1px solid var(--border);
-            text-align: center;
-        }
-
-        .mode-card .mode-icon {
-            font-size: 3em;
-            margin-bottom: 15px;
-        }
-
-        .mode-card h3 {
-            font-size: 1.3em;
-            margin-bottom: 10px;
-            color: var(--accent);
-        }
-
-        .mode-card p {
-            color: var(--text-tertiary);
-            font-size: 0.95em;
-        }
-
-        .requirements {
-            background: var(--bg-card);
-            padding: 40px;
-            border-radius: 20px;
-            border: 1px solid var(--border);
-            margin: 40px 0;
-        }
-
-        .requirements ul {
-            list-style: none;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
-
-        .requirements li {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 1.05em;
-            color: var(--text-secondary);
-        }
-
-        .requirements li::before {
-            content: "\2713";
-            color: var(--success);
-            font-size: 1.2em;
-            font-weight: bold;
-        }
-
-        footer {
-            background: var(--bg-dark);
-            color: white;
-            padding: 60px 0 40px;
-            text-align: center;
-            border-top: 1px solid var(--border);
-        }
-
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            flex-wrap: wrap;
-            margin: 20px 0;
-        }
-
-        .footer-links a {
-            color: white;
-            text-decoration: none;
-            font-size: 1em;
-            opacity: 0.8;
-            transition: opacity 0.3s;
-        }
-
-        .footer-links a:hover {
-            opacity: 1;
-            color: var(--primary-light);
-        }
-
-        .footer-bottom {
-            padding-top: 30px;
-            border-top: 1px solid var(--border);
-            opacity: 0.8;
-            font-size: 0.95em;
-            margin-top: 30px;
-        }
-
-        .footer-credit {
-            font-size: 0.85em;
-            opacity: 0.6;
-            margin-top: 10px;
-        }
-
-        /* Highlight callout */
-        .highlight-box {
-            background: linear-gradient(135deg, rgba(255,69,0,0.1) 0%, rgba(255,193,7,0.1) 100%);
-            border: 1px solid rgba(255,69,0,0.3);
-            border-radius: 16px;
-            padding: 30px;
-            text-align: center;
-            margin: 40px 0;
-        }
-
-        .highlight-box .hl-text {
-            font-size: 1.3em;
-            font-weight: 700;
-            color: var(--accent);
-        }
-
-        .highlight-box .hl-sub {
-            font-size: 1em;
-            color: var(--text-tertiary);
-            margin-top: 8px;
-        }
-
-        @media (max-width: 768px) {
-            h2 {
-                font-size: 2em;
-            }
-
-            .hero-content {
-                padding: 20px 20px 30px;
-            }
-
-            section {
-                padding: 60px 0;
-            }
-
-            .feature-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .button-group {
-                flex-direction: column;
-            }
-
-            .btn {
-                width: 100%;
-                justify-content: center;
-            }
-
-            .gameplay-section {
-                padding: 40px 25px;
-            }
-
-            .arsenal-table {
-                font-size: 0.85em;
-            }
-
-            .arsenal-table th,
-            .arsenal-table td {
-                padding: 12px 10px;
-            }
-
-            .streak-bar {
-                flex-wrap: wrap;
-            }
-
-            .streak-stage .stage-icon {
-                font-size: 1.6em;
-            }
-        }
-
-        html {
-            scroll-behavior: smooth;
+        @media (max-width: 640px) {
+            section { padding: 64px 0; }
+            .stats { grid-template-columns: repeat(2, 1fr); }
+            .stat:nth-child(2) { border-right: 0; }
+            .stat:nth-child(-n+2) { border-bottom: 1px solid var(--border); }
+            .rules, .steps, .features, .stakes { grid-template-columns: 1fr; }
+            .phones { height: 430px; }
+            .phone { width: 180px; border-radius: 26px; }
+            .phone.front { left: 0; }
+            .chain .step { width: 70px; }
+            .chain .step .ico { width: 42px; height: 42px; }
+            .chain .arrow { display: none; }
+            .safety { flex-direction: column; }
         }
     </style>
-    <script data-goatcounter="https://portwally.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<script data-goatcounter="https://portwally.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
 <body>
-    <header>
-        <img src="banner.png" alt="BeerTag - Throw Stuff at Your Friends. Miss and You Owe Beer." class="banner-img">
-        <div class="hero-content">
-            <p class="tagline">Location-based PvP party game for iOS &mdash; from rocks to ICBMs</p>
-            <span class="badge">Coming Soon for iOS</span>
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="w-rock" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 40 L18 24 L32 15 L47 20 L55 35 L47 48 L25 51 Z"/>
+  <path d="M32 15 L30 27 L18 24"/><path d="M30 27 L40 34 L55 35"/><path d="M40 34 L36 50"/></symbol><symbol id="w-snowball" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="34" r="19"/>
+  <path d="M21 29 a12 12 0 0 1 8 -8"/>
+  <circle cx="38" cy="30" r="1.6" fill="currentColor" stroke="none"/><circle cx="30" cy="40" r="1.6" fill="currentColor" stroke="none"/>
+  <circle cx="41" cy="42" r="1.6" fill="currentColor" stroke="none"/><circle cx="24" cy="44" r="1.2" fill="currentColor" stroke="none"/>
+  <path d="M49 6 v10 M44 11 h10 M45.5 7.5 l7 7 M52.5 7.5 l-7 7"/></symbol><symbol id="w-beer_bottle" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M28 6 h8 v5 h-8 z"/>
+  <path d="M29 11 v9 q-7 4 -7 12 v22 q0 3 3 3 h14 q3 0 3 -3 v-22 q0 -8 -7 -12 v-9"/>
+  <path d="M22 35 h20 v12 h-20"/><circle cx="32" cy="41" r="2.5" fill="currentColor" stroke="none"/></symbol><symbol id="w-football" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="32" r="21"/>
+  <path d="M32 24 L39.6 29.5 L36.7 38.5 L27.3 38.5 L24.4 29.5 Z"/>
+  <path d="M32 24 V11 M39.6 29.5 L51.8 25.5 M36.7 38.5 L44.3 49 M27.3 38.5 L19.7 49 M24.4 29.5 L12.2 25.5"/></symbol><symbol id="w-golf_ball" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="24" r="15"/>
+  <circle cx="27" cy="19" r="1.6" fill="currentColor" stroke="none"/><circle cx="34" cy="17" r="1.6" fill="currentColor" stroke="none"/>
+  <circle cx="38" cy="24" r="1.6" fill="currentColor" stroke="none"/><circle cx="30" cy="26" r="1.6" fill="currentColor" stroke="none"/>
+  <circle cx="25" cy="30" r="1.6" fill="currentColor" stroke="none"/><circle cx="35" cy="31" r="1.6" fill="currentColor" stroke="none"/>
+  <path d="M24 41 h16 l-5 6 v11 h-6 v-11 z"/></symbol><symbol id="w-slingshot" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M32 60 V38"/><path d="M32 38 L20 10 M32 38 L44 10"/>
+  <path d="M28 52 h8 M28 46 h8"/>
+  <path d="M20 10 Q32 26 44 10"/><circle cx="32" cy="19" r="4" fill="currentColor"/></symbol><symbol id="w-bow_arrow" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M22 6 Q50 32 22 58"/><path d="M22 6 L14 32 L22 58"/>
+  <path d="M8 32 H56"/><path d="M48 26 L57 32 L48 38"/>
+  <path d="M8 32 l-2 -5 M8 32 l-2 5 M13 32 l-2 -5 M13 32 l-2 5"/></symbol><symbol id="w-javelin_sport" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M8 56 L50 14"/><path d="M50 14 L58 6 L55 17 Z"/><path d="M50 14 L47 9 M50 14 L55 17"/>
+  <path d="M24 44 l5 5 M28 40 l5 5 M20 48 l5 5"/></symbol><symbol id="w-crossbow" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 36 H44"/><path d="M6 31 v10"/>
+  <path d="M44 12 Q56 36 44 60"/><path d="M44 12 L26 36 L44 60"/>
+  <path d="M26 36 H58"/><path d="M53 32 L59 36 L53 40"/>
+  <path d="M16 36 v9 h4"/></symbol><symbol id="w-grenade" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="30" cy="40" rx="15" ry="17"/>
+  <path d="M15 40 H45 M30 23 V57 M18 30 H42 M18 50 H42"/>
+  <path d="M24 17 h12 v6 h-12 z"/><path d="M36 17 q10 0 11 12"/>
+  <circle cx="20" cy="13" r="4.5"/><path d="M24 15 l2 2"/></symbol><symbol id="w-rpg7" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 33 H36 M6 40 H36"/><path d="M6 33 v7"/>
+  <path d="M36 31 L42 27 Q56 27 58 36.5 Q56 46 42 46 L36 42 Z"/>
+  <path d="M18 40 l-2 10 M28 40 v10"/><path d="M20 33 v-6 h6 v6"/></symbol><symbol id="w-stinger" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 29 H56 V38 H4 Z"/><path d="M56 29 l4 4.5 l-4 4.5"/>
+  <path d="M38 29 V20 H50 V29"/><path d="M42 20 L46 14"/>
+  <path d="M20 38 L17 51 M29 38 V50 h4"/></symbol><symbol id="w-himars" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 46 H58"/><circle cx="14" cy="50" r="5"/><circle cx="38" cy="50" r="5"/><circle cx="50" cy="50" r="5"/>
+  <path d="M44 46 V33 H53 L59 40 V46"/><path d="M47 33 v6 h7"/>
+  <path d="M8 42 L30 22 L38 30 L16 46"/><path d="M13 37 L21 45 M19 31.5 L27 39.5 M25 26.5 L33 34.5"/></symbol><symbol id="w-iskander" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M32 5 C38 12 38 18 38 22 V48 H26 V22 C26 18 26 12 32 5 Z"/>
+  <path d="M26 22 H38 M26 30 H38"/>
+  <path d="M26 40 L18 52 H26 M38 40 L46 52 H38"/>
+  <path d="M28 52 v6 M32 52 v9 M36 52 v6"/></symbol><symbol id="w-tomahawk" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M8 29 H46 Q58 29 58 32.5 Q58 36 46 36 H8 Z"/>
+  <path d="M26 29 L32 15 H37 L34 29 M26 36 L32 50 H37 L34 36"/>
+  <path d="M8 29 L4 21 H9 L13 29 M8 36 L4 44 H9 L13 36"/></symbol><symbol id="w-storm_shadow" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 27 H38 L58 32 L38 37 H6 Z"/><path d="M38 27 L44 32 L38 37"/>
+  <path d="M20 27 L30 11 H35 L31 27 M20 37 L30 53 H35 L31 37"/>
+  <path d="M6 27 L3 21 M6 37 L3 43"/></symbol><symbol id="w-brahmos" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 28 H42 L58 32 L42 36 H12 Z"/><path d="M42 26 V38"/>
+  <path d="M16 28 L12 22 H18 L22 28 M16 36 L12 42 H18 L22 36"/>
+  <path d="M12 30 L3 32 L12 34"/><path d="M4 20 h12 M2 44 h12 M8 14 h8"/></symbol><symbol id="w-pershing2" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M32 4 L37 15 V30 H27 V15 Z"/><path d="M25 30 H39"/>
+  <path d="M27 30 V54 H37 V30"/>
+  <path d="M27 44 L19 55 H27 M37 44 L45 55 H37"/><path d="M27 24 L22 30 M37 24 L42 30"/>
+  <path d="M29 54 v5 M35 54 v5"/></symbol><symbol id="w-minuteman3" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M32 4 L36 12 V40 H28 V12 Z"/><path d="M28 22 H36 M28 31 H36"/>
+  <path d="M4 48 H20 V60 H44 V48 H60"/>
+  <path d="M30 40 v8 M34 40 v8"/>
+  <circle cx="14" cy="42" r="4"/><circle cx="8" cy="38" r="3"/><circle cx="50" cy="42" r="4"/><circle cx="56" cy="38" r="3"/></symbol><symbol id="w-sarmat" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M25 60 V34 Q25 27 32 24 Q39 27 39 34 V60 Z"/><path d="M25 44 H39"/>
+  <path d="M25 52 L18 60 M39 52 L46 60"/>
+  <path d="M13 6 L17 15 H9 Z M32 3 L36 12 H28 Z M51 6 L55 15 H47 Z" />
+  <path d="M32 22 L14 17 M32 22 V14 M32 22 L50 17" stroke-dasharray="2 3"/></symbol><symbol id="ui-radar" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="32" r="24"/><circle cx="32" cy="32" r="14"/><path d="M32 32 L49 15"/><circle cx="41" cy="38" r="2.5" fill="currentColor" stroke="none"/><circle cx="24" cy="22" r="2" fill="currentColor" stroke="none"/></symbol><symbol id="ui-target" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="32" r="20"/><circle cx="32" cy="32" r="8"/><path d="M32 4 v12 M32 48 v12 M4 32 h12 M48 32 h12"/></symbol><symbol id="ui-launch" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M32 6 q10 10 10 26 v12 h-20 v-12 q0 -16 10 -26 z"/><path d="M22 36 l-8 10 h8 M42 36 l8 10 h-8"/><path d="M28 50 l4 8 l4 -8"/><circle cx="32" cy="24" r="4"/></symbol><symbol id="ui-alert" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M32 8 L58 54 H6 Z"/><path d="M32 24 v14"/><circle cx="32" cy="45" r="2" fill="currentColor" stroke="none"/></symbol><symbol id="ui-run" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="38" cy="10" r="5"/><path d="M28 22 l10 -2 l6 10 l8 2"/><path d="M36 20 l-6 16 l10 8 l-2 14"/><path d="M30 36 l-8 10 l-10 -2"/><path d="M26 24 l-10 6"/></symbol><symbol id="ui-beer" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 18 h28 v36 q0 4 -4 4 h-20 q-4 0 -4 -4 z"/><path d="M42 26 h6 q4 0 4 4 v12 q0 4 -4 4 h-6"/><path d="M14 18 q0 -8 7 -8 q2 -5 8 -4 q4 -4 9 0 q6 0 4 8"/><path d="M22 28 v20 M30 28 v20"/></symbol><symbol id="ui-flame" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M32 58 q-16 0 -16 -16 q0 -12 10 -20 q0 8 6 10 q-2 -14 8 -24 q2 12 10 18 q4 6 4 16 q0 16 -16 16 z"/><path d="M32 58 q-7 0 -7 -8 q0 -6 7 -10 q7 4 7 10 q0 8 -7 8 z"/></symbol><symbol id="ui-shield" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M32 6 L54 14 V30 Q54 48 32 58 Q10 48 10 30 V14 Z"/><path d="M22 32 l7 7 l13 -14"/></symbol><symbol id="ui-map" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 14 L22 8 L42 14 L58 8 V50 L42 56 L22 50 L6 56 Z"/><path d="M22 8 V50 M42 14 V56"/><path d="M28 36 q6 -12 20 -14" stroke-dasharray="3 5"/></symbol><symbol id="ui-clock" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="34" r="22"/><path d="M32 22 V34 L40 40"/><path d="M26 6 h12 M32 6 v6"/></symbol><symbol id="ui-drone" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="22" y="26" width="20" height="12" rx="3"/><path d="M22 30 H12 M42 30 H52"/><path d="M4 22 h16 M44 22 h16"/><path d="M12 22 v8 M52 22 v8"/><path d="M26 38 l-4 8 M38 38 l4 8"/><circle cx="32" cy="32" r="2" fill="currentColor" stroke="none"/></symbol><symbol id="ui-lock" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="14" y="28" width="36" height="28" rx="4"/><path d="M22 28 v-8 q0 -12 10 -12 q10 0 10 12 v8"/><circle cx="32" cy="41" r="3"/><path d="M32 44 v5"/></symbol><symbol id="ui-server" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="10" y="8" width="44" height="18" rx="3"/><rect x="10" y="32" width="44" height="18" rx="3"/><circle cx="18" cy="17" r="2" fill="currentColor" stroke="none"/><circle cx="18" cy="41" r="2" fill="currentColor" stroke="none"/><path d="M28 17 h18 M28 41 h18 M32 50 v8 M20 58 h24"/></symbol><symbol id="ui-code" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="10" y="12" width="44" height="40" rx="4"/><path d="M18 24 h6 M28 24 h6 M38 24 h6 M18 34 h6 M28 34 h6 M38 34 h6"/><path d="M22 44 h20"/></symbol><symbol id="ui-points" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="32" r="22"/><path d="M32 18 l4 9 l10 1 l-7 7 l2 10 l-9 -5 l-9 5 l2 -10 l-7 -7 l10 -1 z"/></symbol></svg>
+
+    <header class="hero">
+        <div class="container hero-grid">
+            <div>
+                <img class="app-icon" src="img/app-icon.png" width="512" height="512" alt="BeerTag app icon">
+                <h1>BEERTAG</h1>
+                <p class="tagline">Throw stuff at your friends.<span>Miss, and you owe a beer.</span></p>
+                <p class="lead">A real-world game of tag with virtual missiles. Your friends are on the radar &mdash; launch at their real GPS position and make them run before it lands.</p>
+                <div class="badge"><svg class="ico " aria-hidden="true"><use href="#ui-launch"/></svg> Coming soon for iPhone</div>
+            </div>
+            <div class="phones">
+                <div class="phone back"><img src="img/screen-tracker.jpg" width="600" height="1304" alt="Tracking a missile in flight"></div>
+                <div class="phone front"><img src="img/screen-incoming.jpg" width="600" height="1304" alt="Incoming strike alert with countdown"></div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="panel stats">
+                <div class="stat"><b>20</b><span>Weapons</span></div>
+                <div class="stat"><b>GPS</b><span>Live positions</span></div>
+                <div class="stat"><b>LIVE</b><span>Server-judged hits</span></div>
+                <div class="stat"><b>2 m</b><span>Direct hit to start</span></div>
+            </div>
         </div>
     </header>
 
-    <section>
-        <div class="container">
-            <div class="stats">
-                <div class="stat-item">
-                    <span class="stat-number">20</span>
-                    <span class="stat-label">Weapons to Unlock</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">GPS</span>
-                    <span class="stat-label">Real-time Tracking</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">Live</span>
-                    <span class="stat-label">Multiplayer via Firebase</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">2m</span>
-                    <span class="stat-label">Direct Hit Required</span>
-                </div>
+    <section id="streak">
+        <div class="container center">
+            <div class="kicker">The hot streak</div>
+            <h2>From rocks to missiles</h2>
+            <p class="lead">Everyone starts by throwing a rock. Land a hit and your next shot is one stage bigger. Keep the streak alive and you'll be launching real-world missile specs across the country.</p>
+            <div class="panel chain"><div class="step"><svg class="ico everyday glow" aria-hidden="true"><use href="#w-rock"/></svg><small>Rock</small></div><span class="arrow">&rarr;</span><div class="step"><svg class="ico everyday glow" aria-hidden="true"><use href="#w-snowball"/></svg><small>Snowball</small></div><span class="arrow">&rarr;</span><div class="step"><svg class="ico everyday glow" aria-hidden="true"><use href="#w-beer_bottle"/></svg><small>Beer Bottle</small></div><span class="arrow">&rarr;</span><div class="step"><svg class="ico everyday glow" aria-hidden="true"><use href="#w-football"/></svg><small>Football</small></div><span class="arrow">&rarr;</span><div class="step"><svg class="ico skilled glow" aria-hidden="true"><use href="#w-bow_arrow"/></svg><small>Bow &amp; Arrow</small></div><span class="arrow">&rarr;</span><div class="step"><svg class="ico advanced glow" aria-hidden="true"><use href="#w-grenade"/></svg><small>Hand Grenade</small></div><span class="arrow">&rarr;</span><div class="step"><svg class="ico military glow" aria-hidden="true"><use href="#w-rpg7"/></svg><small>RPG-7</small></div><span class="arrow">&rarr;</span><div class="step"><svg class="ico devastating glow" aria-hidden="true"><use href="#w-sarmat"/></svg><small>RS-28 Sarmat</small></div></div>
+            <div class="rules">
+                <div class="panel rule hit"><h3>Hit</h3><p>Your streak grows, your next weapon is one stage up, and you earn points. In Beer mode, they owe you one.</p></div>
+                <div class="panel rule miss"><h3>Miss</h3><p>You drop back to your base stage. In Beer mode, you owe them a beer.</p></div>
+                <div class="panel rule dodge"><h3>Escape</h3><p>Ran out of the blast on foot? You climb a stage and earn points for the dodge.</p></div>
             </div>
         </div>
     </section>
 
-    <section style="background: var(--bg-section);">
-        <div class="container">
-            <h2>The Hot Streak</h2>
-            <p class="section-subtitle">
-                Everyone starts with a rock. Hit your friend? You level up to the next weapon. Miss? You drop back to rocks &mdash; and you owe them a beer.
-            </p>
+    <section id="how">
+        <div class="container center">
+            <div class="kicker">How it works</div>
+            <h2>Launch. Warn. Run.</h2>
+            <p class="lead">Share invite codes, pick your target and fire at their real position. They see it coming in real time on their phone.</p>
+            <div class="steps"><div class="panel step-card"><span class="num">01</span><svg class="ico " aria-hidden="true"><use href="#ui-code"/></svg><h3>Add friends</h3><p>Share your 6-character invite code, or enter theirs. Only friends can see or target you.</p></div><div class="panel step-card"><span class="num">02</span><svg class="ico " aria-hidden="true"><use href="#ui-radar"/></svg><h3>Find them on radar</h3><p>Your friends show up on a dark tactical map at their live GPS position.</p></div><div class="panel step-card"><span class="num">03</span><svg class="ico " aria-hidden="true"><use href="#ui-launch"/></svg><h3>Launch</h3><p>Fire your current streak weapon at their real location — if they're in range.</p></div><div class="panel step-card"><span class="num">04</span><svg class="ico " aria-hidden="true"><use href="#ui-alert"/></svg><h3>They get the alert</h3><p>An incoming-strike alarm with a countdown and how far they need to run.</p></div><div class="panel step-card"><span class="num">05</span><svg class="ico " aria-hidden="true"><use href="#ui-run"/></svg><h3>Run or shield</h3><p>Get out of the blast radius on foot, or burn points on a defense.</p></div><div class="panel step-card"><span class="num">06</span><svg class="ico " aria-hidden="true"><use href="#ui-server"/></svg><h3>The server decides</h3><p>At impact, the server checks where they are. Hit, escaped, or intercepted — no arguing.</p></div></div>
+        </div>
+    </section>
 
-            <div class="streak-connector"></div>
-            <div class="streak-bar">
-                <div class="streak-stage">
-                    <span class="stage-icon">&#x1FAA8;</span>
-                    <span class="stage-label">Rock</span>
-                </div>
-                <span class="streak-arrow">&rarr;</span>
-                <div class="streak-stage">
-                    <span class="stage-icon">&#x2603;&#xFE0F;</span>
-                    <span class="stage-label">Snowball</span>
-                </div>
-                <span class="streak-arrow">&rarr;</span>
-                <div class="streak-stage">
-                    <span class="stage-icon">&#x1F37A;</span>
-                    <span class="stage-label">Beer Bottle</span>
-                </div>
-                <span class="streak-arrow">&rarr;</span>
-                <div class="streak-stage">
-                    <span class="stage-icon">&#x26BD;</span>
-                    <span class="stage-label">Football</span>
-                </div>
-                <span class="streak-arrow">&rarr;</span>
-                <div class="streak-stage">
-                    <span class="stage-icon">&#x1F3F9;</span>
-                    <span class="stage-label">Bow</span>
-                </div>
-                <span class="streak-arrow">&rarr;</span>
-                <div class="streak-stage">
-                    <span class="stage-icon">&#x1F4A3;</span>
-                    <span class="stage-label">Grenade</span>
-                </div>
-                <span class="streak-arrow">&rarr;</span>
-                <div class="streak-stage">
-                    <span class="stage-icon">&#x1F680;</span>
-                    <span class="stage-label">RPG-7</span>
-                </div>
-                <span class="streak-arrow">&rarr;</span>
-                <div class="streak-stage">
-                    <span class="stage-icon">&#x2622;&#xFE0F;</span>
-                    <span class="stage-label">ICBM</span>
-                </div>
-            </div>
+    <section id="screens">
+        <div class="container center">
+            <div class="kicker">In the app</div>
+            <h2>A command center in your pocket</h2>
+            <div class="shots"><figure class="shot" style="--c:#00D4FF"><img src="img/screen-map.jpg" width="600" height="1304" loading="lazy" alt="BeerTag screenshot: Your friends. In range."><figcaption><div class="kicker">Live radar</div><p>Your friends. In range.</p></figcaption></figure><figure class="shot" style="--c:#FF1744"><img src="img/screen-incoming.jpg" width="600" height="1304" loading="lazy" alt="BeerTag screenshot: Incoming! Run for it."><figcaption><div class="kicker">Early warning</div><p>Incoming! Run for it.</p></figcaption></figure><figure class="shot" style="--c:#FF6B35"><img src="img/screen-tracker.jpg" width="600" height="1304" loading="lazy" alt="BeerTag screenshot: Launch it. Watch it land."><figcaption><div class="kicker">Strike tracking</div><p>Launch it. Watch it land.</p></figcaption></figure><figure class="shot" style="--c:#B06CFF"><img src="img/screen-arsenal.jpg" width="600" height="1304" loading="lazy" alt="BeerTag screenshot: From rocks to missiles."><figcaption><div class="kicker">20 weapons</div><p>From rocks to missiles.</p></figcaption></figure><figure class="shot" style="--c:#FFC107"><img src="img/screen-contacts.jpg" width="600" height="1304" loading="lazy" alt="BeerTag screenshot: Loser buys the beer."><figcaption><div class="kicker">The stakes</div><p>Loser buys the beer.</p></figcaption></figure></div>
+        </div>
+    </section>
 
-            <div class="highlight-box">
-                <div class="hl-text">Miss = Reset to Rock + Owe a Beer</div>
-                <div class="hl-sub">The friend who dodged your shot gets +1 stage for free</div>
+    <section id="features">
+        <div class="container center">
+            <div class="kicker">Features</div>
+            <h2>Friendly warfare, done right</h2>
+            <div class="features"><div class="panel feature"><span style="color:var(--warning)"><svg class="ico glow" aria-hidden="true"><use href="#ui-clock"/></svg></span><h3>Always a fair chance</h3><p>Every strike gives the target enough warning to jog out of the blast radius — plus a head start to react.</p></div><div class="panel feature"><span style="color:var(--primary-2)"><svg class="ico glow" aria-hidden="true"><use href="#ui-flame"/></svg></span><h3>Hot streak</h3><p>Each hit makes your next shot one stage bigger. Chain hits to go from rocks to real-world missile specs.</p></div><div class="panel feature"><span style="color:var(--cyan)"><svg class="ico glow" aria-hidden="true"><use href="#ui-shield"/></svg></span><h3>Defenses</h3><p>Smoke Screen, Iron Dome, a 30-minute Bunker, or a Decoy that sends missiles to the wrong place.</p></div><div class="panel feature"><span style="color:var(--primary-2)"><svg class="ico glow" aria-hidden="true"><use href="#ui-map"/></svg></span><h3>Live strike map</h3><p>Follow your missile in flight or zoom out for the whole trajectory, with ETA and blast radius.</p></div><div class="panel feature"><span style="color:var(--beer)"><svg class="ico glow" aria-hidden="true"><use href="#ui-beer"/></svg></span><h3>Beer ledger</h3><p>Every hit and miss is tallied per friend. Mark beers as settled once they've been bought in real life.</p></div><div class="panel feature"><span style="color:var(--danger)"><svg class="ico glow" aria-hidden="true"><use href="#ui-target"/></svg></span><h3>Reload &amp; ammo</h3><p>Each weapon has its own reload time and daily ammo — big missiles are rare, so make them count.</p></div><div class="panel feature"><span style="color:var(--cyan)"><svg class="ico glow" aria-hidden="true"><use href="#ui-drone"/></svg></span><h3>Training Drone</h3><p>Deploy a practice target 20 m away and try everything solo. No points or beers at stake.</p></div><div class="panel feature"><span style="color:var(--success)"><svg class="ico glow" aria-hidden="true"><use href="#ui-lock"/></svg></span><h3>Private by design</h3><p>Only friends see your location. No ads, no tracking. Delete your account and data any time.</p></div></div>
+        </div>
+    </section>
+
+    <section id="stakes">
+        <div class="container center">
+            <div class="kicker">Stake modes</div>
+            <h2>Play for beer or glory</h2>
+            <p class="lead">Pick your stakes in Settings. Either way, the server keeps score &mdash; no arguing about who hit whom.</p>
+            <div class="stakes" style="text-align:left">
+                <div class="panel stake beer"><svg class="ico glow" aria-hidden="true"><use href="#ui-beer"/></svg><h3>Beer mode <span class="tag">Default</span></h3>
+                    <p>The classic. Every hit means they owe you a beer; every miss means you owe them.</p>
+                    <ul><li>Running tally per friend, in both directions</li><li>Settle Up once the beers are bought in real life</li><li>No real money ever changes hands in the app</li></ul></div>
+                <div class="panel stake points"><svg class="ico glow" aria-hidden="true"><use href="#ui-points"/></svg><h3>Points mode</h3>
+                    <p>Just points, rank and bragging rights &mdash; no real-world stakes.</p>
+                    <ul><li>Climb from Recruit to Supreme Commander</li><li>Spend points on defenses</li><li>Perfect for friends who don't drink</li></ul></div>
             </div>
         </div>
     </section>
 
-    <section>
-        <div class="container">
-            <h2>How It Works</h2>
-            <p class="section-subtitle">
-                Share invite codes with friends, pick your weapon, and launch at their real GPS position. They see it coming in real-time on their phone.
-            </p>
-
-            <div class="gameplay-section">
-                <div class="gameplay-steps">
-                    <div class="gameplay-step">
-                        <span class="step-number">1</span>
-                        <h3>Add Friends</h3>
-                        <p>Share your 6-character invite code or enter theirs</p>
-                    </div>
-                    <div class="gameplay-step">
-                        <span class="step-number">2</span>
-                        <h3>Pick Target</h3>
-                        <p>See friends on the map with live GPS positions</p>
-                    </div>
-                    <div class="gameplay-step">
-                        <span class="step-number">3</span>
-                        <h3>Launch!</h3>
-                        <p>Your current streak weapon flies toward their position</p>
-                    </div>
-                    <div class="gameplay-step">
-                        <span class="step-number">4</span>
-                        <h3>They See It</h3>
-                        <p>Real-time alert with countdown timer and trajectory</p>
-                    </div>
-                    <div class="gameplay-step">
-                        <span class="step-number">5</span>
-                        <h3>Evade or Shield</h3>
-                        <p>Run out of the blast radius or deploy defenses</p>
-                    </div>
-                    <div class="gameplay-step">
-                        <span class="step-number">6</span>
-                        <h3>Beer or Glory</h3>
-                        <p>Hit = streak up. Miss = reset + owe a beer</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section style="background: var(--bg-section);">
-        <div class="container">
-            <h2>Key Features</h2>
-            <p class="section-subtitle">Everything you need for friendly warfare</p>
-
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <span class="feature-icon">&#x1F4F1;</span>
-                    <h3 class="feature-title">Real-time Multiplayer</h3>
-                    <p class="feature-desc">
-                        Firebase-powered live sync. Both players see the projectile in flight, trajectories on the map, and impact resolution in real-time.
-                    </p>
-                </div>
-
-                <div class="feature-card">
-                    <span class="feature-icon">&#x1F525;</span>
-                    <h3 class="feature-title">Hot Streak System</h3>
-                    <p class="feature-desc">
-                        Every hit advances your weapon one stage. Chain hits to go from rocks to ICBMs in a single session. One miss resets everything.
-                    </p>
-                </div>
-
-                <div class="feature-card">
-                    <span class="feature-icon">&#x1F6E1;&#xFE0F;</span>
-                    <h3 class="feature-title">Defense Systems</h3>
-                    <p class="feature-desc">
-                        Deploy Iron Dome shields, activate bunkers, send decoys, or just run. Multiple ways to survive an incoming strike.
-                    </p>
-                </div>
-
-                <div class="feature-card">
-                    <span class="feature-icon">&#x1F4CD;</span>
-                    <h3 class="feature-title">GPS Precision</h3>
-                    <p class="feature-desc">
-                        Combat-grade location tracking during engagements. Everyday weapons need a 2-meter direct hit &mdash; basically standing on top of them.
-                    </p>
-                </div>
-
-                <div class="feature-card">
-                    <span class="feature-icon">&#x1F5FA;&#xFE0F;</span>
-                    <h3 class="feature-title">Live Missile Map</h3>
-                    <p class="feature-desc">
-                        Satellite view with glowing trajectories, animated projectile dots, and blast radius circles. Track in follow-cam or full overview mode.
-                    </p>
-                </div>
-
-                <div class="feature-card">
-                    <span class="feature-icon">&#x1F37A;</span>
-                    <h3 class="feature-title">Beer Ledger</h3>
-                    <p class="feature-desc">
-                        Automatic beer debt tracking. Miss a shot? You owe a beer. It's all tallied up on the friends screen. No escaping your debts.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section>
-        <div class="container">
-            <h2>Stake Modes</h2>
-            <p class="section-subtitle">Play your way &mdash; from casual to competitive</p>
-
-            <div class="modes-grid">
-                <div class="mode-card">
-                    <div class="mode-icon">&#x1F37A;</div>
-                    <h3>Beer Mode</h3>
-                    <p>Miss a shot? You owe a beer. Track IOUs in a shared ledger. Social accountability built in. The default way to play.</p>
-                </div>
-
-                <div class="mode-card">
-                    <div class="mode-icon">&#x1F3AF;</div>
-                    <h3>Points Mode</h3>
-                    <p>Free-to-play with virtual currency. Leaderboards, bragging rights, and rank progression. No real-world stakes.</p>
-                </div>
-
-                <div class="mode-card">
-                    <div class="mode-icon">&#x1F4B0;</div>
-                    <h3>Crypto Mode</h3>
-                    <p>Micro-stakes with ETH, SOL, or USDC. Smart contract escrow holds stakes until impact. Coming in v2.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section style="background: var(--bg-section);">
-        <div class="container">
-            <h2>The Arsenal</h2>
-            <p class="section-subtitle">20 stages &mdash; from everyday objects to real-world missiles with authentic specs</p>
-
-            <div style="overflow-x: auto;">
-                <table class="arsenal-table">
-                    <thead>
-                        <tr>
-                            <th>Stage</th>
-                            <th>Weapon</th>
-                            <th>Band</th>
-                            <th>Speed</th>
-                            <th>Range</th>
-                            <th>Blast Radius</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td><strong>&#x1FAA8; Rock</strong></td>
-                            <td><span class="stage-badge band-1">Everyday</span></td>
-                            <td>20 km/h</td>
-                            <td>30m</td>
-                            <td>2m</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td><strong>&#x2603;&#xFE0F; Snowball</strong></td>
-                            <td><span class="stage-badge band-1">Everyday</span></td>
-                            <td>30 km/h</td>
-                            <td>40m</td>
-                            <td>2m</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td><strong>&#x1F37A; Beer Bottle</strong></td>
-                            <td><span class="stage-badge band-1">Everyday</span></td>
-                            <td>40 km/h</td>
-                            <td>40m</td>
-                            <td>2m</td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td><strong>&#x26BD; Football</strong></td>
-                            <td><span class="stage-badge band-1">Everyday</span></td>
-                            <td>100 km/h</td>
-                            <td>60m</td>
-                            <td>2m</td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td><strong>&#x26F3; Golf Ball</strong></td>
-                            <td><span class="stage-badge band-1">Everyday</span></td>
-                            <td>250 km/h</td>
-                            <td>250m</td>
-                            <td>2m</td>
-                        </tr>
-                        <tr>
-                            <td>6</td>
-                            <td><strong>&#x1F3AF; Slingshot</strong></td>
-                            <td><span class="stage-badge band-1">Everyday</span></td>
-                            <td>200 km/h</td>
-                            <td>200m</td>
-                            <td>2m</td>
-                        </tr>
-                        <tr>
-                            <td>7</td>
-                            <td><strong>&#x1F3F9; Bow &amp; Arrow</strong></td>
-                            <td><span class="stage-badge band-1">Everyday</span></td>
-                            <td>250 km/h</td>
-                            <td>300m</td>
-                            <td>2m</td>
-                        </tr>
-                        <tr>
-                            <td>8</td>
-                            <td><strong>&#x1F4CD; Javelin (Throw)</strong></td>
-                            <td><span class="stage-badge band-1">Everyday</span></td>
-                            <td>100 km/h</td>
-                            <td>100m</td>
-                            <td>2m</td>
-                        </tr>
-                        <tr>
-                            <td>9</td>
-                            <td><strong>&#x1F3AF; Crossbow</strong></td>
-                            <td><span class="stage-badge band-1">Everyday</span></td>
-                            <td>350 km/h</td>
-                            <td>500m</td>
-                            <td>2m</td>
-                        </tr>
-                        <tr>
-                            <td>10</td>
-                            <td><strong>&#x1F4A3; Hand Grenade</strong></td>
-                            <td><span class="stage-badge band-2">Advanced</span></td>
-                            <td>100 km/h</td>
-                            <td>50m</td>
-                            <td>15m</td>
-                        </tr>
-                        <tr>
-                            <td>11</td>
-                            <td><strong>&#x1F52B; RPG-7</strong></td>
-                            <td><span class="stage-badge band-3">Military</span></td>
-                            <td>M0.9</td>
-                            <td>500m</td>
-                            <td>131m</td>
-                        </tr>
-                        <tr>
-                            <td>12</td>
-                            <td><strong>&#x1F680; FIM-92 Stinger</strong></td>
-                            <td><span class="stage-badge band-3">Military</span></td>
-                            <td>M2.0</td>
-                            <td>4.8 km</td>
-                            <td>108m</td>
-                        </tr>
-                        <tr>
-                            <td>13</td>
-                            <td><strong>&#x1F4A5; HIMARS</strong></td>
-                            <td><span class="stage-badge band-4">Tactical</span></td>
-                            <td>M2.7</td>
-                            <td>150 km</td>
-                            <td>611m</td>
-                        </tr>
-                        <tr>
-                            <td>14</td>
-                            <td><strong>&#x1F525; Iskander-M</strong></td>
-                            <td><span class="stage-badge band-4">Tactical</span></td>
-                            <td>M6.2</td>
-                            <td>500 km</td>
-                            <td>851m</td>
-                        </tr>
-                        <tr>
-                            <td>15</td>
-                            <td><strong>&#x1F985; Tomahawk</strong></td>
-                            <td><span class="stage-badge band-4">Cruise</span></td>
-                            <td>M0.7</td>
-                            <td>1,600 km</td>
-                            <td>830m</td>
-                        </tr>
-                        <tr>
-                            <td>16</td>
-                            <td><strong>&#x2708;&#xFE0F; Storm Shadow</strong></td>
-                            <td><span class="stage-badge band-4">Cruise</span></td>
-                            <td>M0.9</td>
-                            <td>550 km</td>
-                            <td>830m</td>
-                        </tr>
-                        <tr>
-                            <td>17</td>
-                            <td><strong>&#x1F680; BrahMos</strong></td>
-                            <td><span class="stage-badge band-4">Cruise</span></td>
-                            <td>M3.5</td>
-                            <td>650 km</td>
-                            <td>711m</td>
-                        </tr>
-                        <tr>
-                            <td>18</td>
-                            <td><strong>&#x2622;&#xFE0F; Pershing II</strong></td>
-                            <td><span class="stage-badge band-5">Devastating</span></td>
-                            <td>M7.9</td>
-                            <td>1,770 km</td>
-                            <td>793m</td>
-                        </tr>
-                        <tr>
-                            <td>19</td>
-                            <td><strong>&#x2622;&#xFE0F; Minuteman III</strong></td>
-                            <td><span class="stage-badge band-5">Devastating</span></td>
-                            <td>M20.6</td>
-                            <td>13,000 km</td>
-                            <td>1,037m</td>
-                        </tr>
-                        <tr>
-                            <td>20</td>
-                            <td><strong>&#x2620;&#xFE0F; RS-28 Sarmat</strong></td>
-                            <td><span class="stage-badge band-5">Devastating</span></td>
-                            <td>M20.4</td>
-                            <td>18,000 km</td>
-                            <td>2,500m</td>
-                        </tr>
-                    </tbody>
+    <section id="arsenal">
+        <div class="container center">
+            <div class="kicker">The arsenal</div>
+            <h2>20 stages. Real specs.</h2>
+            <p class="lead">Everyday objects first, then real-world weapons with authentic speed and range. Blast radii are scaled for the game &mdash; everyday throws need a 2-metre direct hit.</p>
+            <div class="panel table-wrap" style="text-align:left">
+                <table>
+                    <thead><tr><th>Stage</th><th>Weapon</th><th>Band</th><th>Speed</th><th>Range</th><th>Blast radius</th></tr></thead>
+                    <tbody><tr><td class="stage everyday">01</td><td class="name"><svg class="ico everyday glow" aria-hidden="true"><use href="#w-rock"/></svg>Rock</td><td><span class="pill everyday">Everyday</span></td><td class="mono">20 km/h</td><td class="mono">30 m</td><td class="mono">2 m</td></tr><tr><td class="stage everyday">02</td><td class="name"><svg class="ico everyday glow" aria-hidden="true"><use href="#w-snowball"/></svg>Snowball</td><td><span class="pill everyday">Everyday</span></td><td class="mono">30 km/h</td><td class="mono">40 m</td><td class="mono">2 m</td></tr><tr><td class="stage everyday">03</td><td class="name"><svg class="ico everyday glow" aria-hidden="true"><use href="#w-beer_bottle"/></svg>Beer Bottle</td><td><span class="pill everyday">Everyday</span></td><td class="mono">40 km/h</td><td class="mono">40 m</td><td class="mono">2 m</td></tr><tr><td class="stage everyday">04</td><td class="name"><svg class="ico everyday glow" aria-hidden="true"><use href="#w-football"/></svg>Football</td><td><span class="pill everyday">Everyday</span></td><td class="mono">100 km/h</td><td class="mono">60 m</td><td class="mono">2 m</td></tr><tr><td class="stage skilled">05</td><td class="name"><svg class="ico skilled glow" aria-hidden="true"><use href="#w-golf_ball"/></svg>Golf Ball</td><td><span class="pill skilled">Skilled</span></td><td class="mono">250 km/h</td><td class="mono">250 m</td><td class="mono">2 m</td></tr><tr><td class="stage skilled">06</td><td class="name"><svg class="ico skilled glow" aria-hidden="true"><use href="#w-slingshot"/></svg>Slingshot</td><td><span class="pill skilled">Skilled</span></td><td class="mono">200 km/h</td><td class="mono">200 m</td><td class="mono">2 m</td></tr><tr><td class="stage skilled">07</td><td class="name"><svg class="ico skilled glow" aria-hidden="true"><use href="#w-bow_arrow"/></svg>Bow &amp; Arrow</td><td><span class="pill skilled">Skilled</span></td><td class="mono">250 km/h</td><td class="mono">300 m</td><td class="mono">2 m</td></tr><tr><td class="stage advanced">08</td><td class="name"><svg class="ico advanced glow" aria-hidden="true"><use href="#w-javelin_sport"/></svg>Javelin</td><td><span class="pill advanced">Advanced</span></td><td class="mono">100 km/h</td><td class="mono">100 m</td><td class="mono">2 m</td></tr><tr><td class="stage advanced">09</td><td class="name"><svg class="ico advanced glow" aria-hidden="true"><use href="#w-crossbow"/></svg>Crossbow</td><td><span class="pill advanced">Advanced</span></td><td class="mono">350 km/h</td><td class="mono">500 m</td><td class="mono">2 m</td></tr><tr><td class="stage advanced">10</td><td class="name"><svg class="ico advanced glow" aria-hidden="true"><use href="#w-grenade"/></svg>Hand Grenade</td><td><span class="pill advanced">Advanced</span></td><td class="mono">100 km/h</td><td class="mono">50 m</td><td class="mono">15 m</td></tr><tr><td class="stage military">11</td><td class="name"><svg class="ico military glow" aria-hidden="true"><use href="#w-rpg7"/></svg>RPG-7</td><td><span class="pill military">Military</span></td><td class="mono">Mach 0.9</td><td class="mono">500 m</td><td class="mono">131 m</td></tr><tr><td class="stage military">12</td><td class="name"><svg class="ico military glow" aria-hidden="true"><use href="#w-stinger"/></svg>FIM-92 Stinger</td><td><span class="pill military">Military</span></td><td class="mono">Mach 2.0</td><td class="mono">4.8 km</td><td class="mono">108 m</td></tr><tr><td class="stage military">13</td><td class="name"><svg class="ico military glow" aria-hidden="true"><use href="#w-himars"/></svg>HIMARS (GMLRS)</td><td><span class="pill military">Military</span></td><td class="mono">Mach 2.7</td><td class="mono">150 km</td><td class="mono">611 m</td></tr><tr><td class="stage military">14</td><td class="name"><svg class="ico military glow" aria-hidden="true"><use href="#w-iskander"/></svg>9K720 Iskander-M</td><td><span class="pill military">Military</span></td><td class="mono">Mach 6.2</td><td class="mono">500 km</td><td class="mono">851 m</td></tr><tr><td class="stage devastating">15</td><td class="name"><svg class="ico devastating glow" aria-hidden="true"><use href="#w-tomahawk"/></svg>BGM-109 Tomahawk</td><td><span class="pill devastating">Devastating</span></td><td class="mono">Mach 0.7</td><td class="mono">1,600 km</td><td class="mono">830 m</td></tr><tr><td class="stage devastating">16</td><td class="name"><svg class="ico devastating glow" aria-hidden="true"><use href="#w-storm_shadow"/></svg>Storm Shadow / SCALP</td><td><span class="pill devastating">Devastating</span></td><td class="mono">Mach 0.9</td><td class="mono">550 km</td><td class="mono">830 m</td></tr><tr><td class="stage devastating">17</td><td class="name"><svg class="ico devastating glow" aria-hidden="true"><use href="#w-brahmos"/></svg>BrahMos</td><td><span class="pill devastating">Devastating</span></td><td class="mono">Mach 3.5</td><td class="mono">650 km</td><td class="mono">711 m</td></tr><tr><td class="stage devastating">18</td><td class="name"><svg class="ico devastating glow" aria-hidden="true"><use href="#w-pershing2"/></svg>Pershing II</td><td><span class="pill devastating">Devastating</span></td><td class="mono">Mach 7.9</td><td class="mono">1,770 km</td><td class="mono">793 m</td></tr><tr><td class="stage devastating">19</td><td class="name"><svg class="ico devastating glow" aria-hidden="true"><use href="#w-minuteman3"/></svg>Minuteman III</td><td><span class="pill devastating">Devastating</span></td><td class="mono">Mach 20.6</td><td class="mono">13,000 km</td><td class="mono">1,037 m</td></tr><tr><td class="stage devastating">20</td><td class="name"><svg class="ico devastating glow" aria-hidden="true"><use href="#w-sarmat"/></svg>RS-28 Sarmat</td><td><span class="pill devastating">Devastating</span></td><td class="mono">Mach 20.4</td><td class="mono">18,000 km</td><td class="mono">2,500 m</td></tr></tbody>
                 </table>
             </div>
         </div>
     </section>
 
-    <div class="container">
-        <div class="download-section">
-            <h2>Ready to Throw?</h2>
-            <p class="download-text">
-                BeerTag is coming soon. Grab a friend, share invite codes, and start launching stuff at each other. From a snowball across the street to a Sarmat across the continent.
-            </p>
-        </div>
-    </div>
-
-    <section style="background: var(--bg-section);">
+    <section id="safety" style="padding-top:0">
         <div class="container">
-            <h2>System Requirements</h2>
-            <div class="requirements">
-                <ul>
-                    <li><strong>iOS 16.0</strong> or later</li>
-                    <li><strong>iPhone</strong> with GPS</li>
-                    <li>Location Services enabled</li>
-                    <li>Push Notifications enabled</li>
-                    <li>Internet connection required</li>
-                </ul>
+            <div class="panel safety"><svg class="ico " aria-hidden="true"><use href="#ui-alert"/></svg><div><h3>Play safe</h3>
+                <p>BeerTag is played outdoors in the real world. Stay aware of your surroundings, never play while driving or cycling, and never run into traffic. The beer is between you and your friends &mdash; BeerTag doesn't sell or deliver alcohol. Please drink responsibly, and only where you're of legal drinking age.</p></div></div>
+        </div>
+    </section>
+
+    <section id="download" style="padding-top:0">
+        <div class="container">
+            <div class="panel cta">
+                <img class="app-icon" src="img/app-icon.png" width="512" height="512" alt="">
+                <h2>Ready to throw?</h2>
+                <p class="lead" style="margin:0 auto">BeerTag is coming soon to the App Store. Grab a friend, swap invite codes, and start with a snowball across the street &mdash; or practise on your Training Drone.</p>
+                <div class="badge"><svg class="ico " aria-hidden="true"><use href="#ui-launch"/></svg> Coming soon for iPhone</div>
+                <div class="reqs"><span>iOS 16 or later</span><span>iPhone with GPS</span><span>Location Services</span><span>Push notifications</span><span>Internet connection</span></div>
             </div>
         </div>
     </section>
