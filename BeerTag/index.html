@@ -16,6 +16,8 @@
 
 
 
+
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@700;800&display=swap');
 
@@ -286,7 +288,21 @@
         .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 22px; }
         .footer-links a { color: var(--text-2); text-decoration: none; }
         .footer-links a:hover { color: var(--cyan); }
+        .footer-links.apps { margin: 18px auto 0; max-width: 760px; gap: 6px 18px; font-size: 0.85rem; }
         .footer-bottom { margin-top: 26px; }
+
+        /* ---------- Support ---------- */
+        .support { display: flex; gap: 20px; align-items: center; justify-content: space-between; flex-wrap: wrap; padding: 28px; }
+        .support h3 { font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; }
+        .support p { color: var(--text-2); }
+        .support .mail {
+            display: inline-flex; align-items: center; gap: 10px;
+            padding: 12px 20px; border-radius: 12px;
+            border: 1px solid rgba(0, 212, 255, 0.45);
+            color: var(--cyan); font-weight: 700; text-decoration: none;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.15);
+        }
+        .support .mail .ico { width: 20px; height: 20px; }
         .footer-credit { color: var(--text-2); font-weight: 600; margin-top: 4px; }
         footer a { color: var(--text-2); text-decoration: none; }
 
@@ -366,7 +382,7 @@
   <circle cx="14" cy="42" r="4"/><circle cx="8" cy="38" r="3"/><circle cx="50" cy="42" r="4"/><circle cx="56" cy="38" r="3"/></symbol><symbol id="w-sarmat" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M25 60 V34 Q25 27 32 24 Q39 27 39 34 V60 Z"/><path d="M25 44 H39"/>
   <path d="M25 52 L18 60 M39 52 L46 60"/>
   <path d="M13 6 L17 15 H9 Z M32 3 L36 12 H28 Z M51 6 L55 15 H47 Z" />
-  <path d="M32 22 L14 17 M32 22 V14 M32 22 L50 17" stroke-dasharray="2 3"/></symbol><symbol id="ui-radar" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="32" r="24"/><circle cx="32" cy="32" r="14"/><path d="M32 32 L49 15"/><circle cx="41" cy="38" r="2.5" fill="currentColor" stroke="none"/><circle cx="24" cy="22" r="2" fill="currentColor" stroke="none"/></symbol><symbol id="ui-target" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="32" r="20"/><circle cx="32" cy="32" r="8"/><path d="M32 4 v12 M32 48 v12 M4 32 h12 M48 32 h12"/></symbol><symbol id="ui-launch" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M32 6 q10 10 10 26 v12 h-20 v-12 q0 -16 10 -26 z"/><path d="M22 36 l-8 10 h8 M42 36 l8 10 h-8"/><path d="M28 50 l4 8 l4 -8"/><circle cx="32" cy="24" r="4"/></symbol><symbol id="ui-alert" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M32 8 L58 54 H6 Z"/><path d="M32 24 v14"/><circle cx="32" cy="45" r="2" fill="currentColor" stroke="none"/></symbol><symbol id="ui-run" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="38" cy="10" r="5"/><path d="M28 22 l10 -2 l6 10 l8 2"/><path d="M36 20 l-6 16 l10 8 l-2 14"/><path d="M30 36 l-8 10 l-10 -2"/><path d="M26 24 l-10 6"/></symbol><symbol id="ui-beer" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 18 h28 v36 q0 4 -4 4 h-20 q-4 0 -4 -4 z"/><path d="M42 26 h6 q4 0 4 4 v12 q0 4 -4 4 h-6"/><path d="M14 18 q0 -8 7 -8 q2 -5 8 -4 q4 -4 9 0 q6 0 4 8"/><path d="M22 28 v20 M30 28 v20"/></symbol><symbol id="ui-flame" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M32 58 q-16 0 -16 -16 q0 -12 10 -20 q0 8 6 10 q-2 -14 8 -24 q2 12 10 18 q4 6 4 16 q0 16 -16 16 z"/><path d="M32 58 q-7 0 -7 -8 q0 -6 7 -10 q7 4 7 10 q0 8 -7 8 z"/></symbol><symbol id="ui-shield" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M32 6 L54 14 V30 Q54 48 32 58 Q10 48 10 30 V14 Z"/><path d="M22 32 l7 7 l13 -14"/></symbol><symbol id="ui-map" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 14 L22 8 L42 14 L58 8 V50 L42 56 L22 50 L6 56 Z"/><path d="M22 8 V50 M42 14 V56"/><path d="M28 36 q6 -12 20 -14" stroke-dasharray="3 5"/></symbol><symbol id="ui-clock" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="34" r="22"/><path d="M32 22 V34 L40 40"/><path d="M26 6 h12 M32 6 v6"/></symbol><symbol id="ui-drone" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="22" y="26" width="20" height="12" rx="3"/><path d="M22 30 H12 M42 30 H52"/><path d="M4 22 h16 M44 22 h16"/><path d="M12 22 v8 M52 22 v8"/><path d="M26 38 l-4 8 M38 38 l4 8"/><circle cx="32" cy="32" r="2" fill="currentColor" stroke="none"/></symbol><symbol id="ui-lock" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="14" y="28" width="36" height="28" rx="4"/><path d="M22 28 v-8 q0 -12 10 -12 q10 0 10 12 v8"/><circle cx="32" cy="41" r="3"/><path d="M32 44 v5"/></symbol><symbol id="ui-server" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="10" y="8" width="44" height="18" rx="3"/><rect x="10" y="32" width="44" height="18" rx="3"/><circle cx="18" cy="17" r="2" fill="currentColor" stroke="none"/><circle cx="18" cy="41" r="2" fill="currentColor" stroke="none"/><path d="M28 17 h18 M28 41 h18 M32 50 v8 M20 58 h24"/></symbol><symbol id="ui-code" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="10" y="12" width="44" height="40" rx="4"/><path d="M18 24 h6 M28 24 h6 M38 24 h6 M18 34 h6 M28 34 h6 M38 34 h6"/><path d="M22 44 h20"/></symbol><symbol id="ui-points" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="32" r="22"/><path d="M32 18 l4 9 l10 1 l-7 7 l2 10 l-9 -5 l-9 5 l2 -10 l-7 -7 l10 -1 z"/></symbol></svg>
+  <path d="M32 22 L14 17 M32 22 V14 M32 22 L50 17" stroke-dasharray="2 3"/></symbol><symbol id="ui-radar" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="32" r="24"/><circle cx="32" cy="32" r="14"/><path d="M32 32 L49 15"/><circle cx="41" cy="38" r="2.5" fill="currentColor" stroke="none"/><circle cx="24" cy="22" r="2" fill="currentColor" stroke="none"/></symbol><symbol id="ui-target" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="32" r="20"/><circle cx="32" cy="32" r="8"/><path d="M32 4 v12 M32 48 v12 M4 32 h12 M48 32 h12"/></symbol><symbol id="ui-launch" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M32 6 q10 10 10 26 v12 h-20 v-12 q0 -16 10 -26 z"/><path d="M22 36 l-8 10 h8 M42 36 l8 10 h-8"/><path d="M28 50 l4 8 l4 -8"/><circle cx="32" cy="24" r="4"/></symbol><symbol id="ui-alert" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M32 8 L58 54 H6 Z"/><path d="M32 24 v14"/><circle cx="32" cy="45" r="2" fill="currentColor" stroke="none"/></symbol><symbol id="ui-run" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="38" cy="10" r="5"/><path d="M28 22 l10 -2 l6 10 l8 2"/><path d="M36 20 l-6 16 l10 8 l-2 14"/><path d="M30 36 l-8 10 l-10 -2"/><path d="M26 24 l-10 6"/></symbol><symbol id="ui-beer" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 18 h28 v36 q0 4 -4 4 h-20 q-4 0 -4 -4 z"/><path d="M42 26 h6 q4 0 4 4 v12 q0 4 -4 4 h-6"/><path d="M14 18 q0 -8 7 -8 q2 -5 8 -4 q4 -4 9 0 q6 0 4 8"/><path d="M22 28 v20 M30 28 v20"/></symbol><symbol id="ui-flame" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M32 58 q-16 0 -16 -16 q0 -12 10 -20 q0 8 6 10 q-2 -14 8 -24 q2 12 10 18 q4 6 4 16 q0 16 -16 16 z"/><path d="M32 58 q-7 0 -7 -8 q0 -6 7 -10 q7 4 7 10 q0 8 -7 8 z"/></symbol><symbol id="ui-shield" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M32 6 L54 14 V30 Q54 48 32 58 Q10 48 10 30 V14 Z"/><path d="M22 32 l7 7 l13 -14"/></symbol><symbol id="ui-map" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 14 L22 8 L42 14 L58 8 V50 L42 56 L22 50 L6 56 Z"/><path d="M22 8 V50 M42 14 V56"/><path d="M28 36 q6 -12 20 -14" stroke-dasharray="3 5"/></symbol><symbol id="ui-clock" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="34" r="22"/><path d="M32 22 V34 L40 40"/><path d="M26 6 h12 M32 6 v6"/></symbol><symbol id="ui-drone" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="22" y="26" width="20" height="12" rx="3"/><path d="M22 30 H12 M42 30 H52"/><path d="M4 22 h16 M44 22 h16"/><path d="M12 22 v8 M52 22 v8"/><path d="M26 38 l-4 8 M38 38 l4 8"/><circle cx="32" cy="32" r="2" fill="currentColor" stroke="none"/></symbol><symbol id="ui-lock" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="14" y="28" width="36" height="28" rx="4"/><path d="M22 28 v-8 q0 -12 10 -12 q10 0 10 12 v8"/><circle cx="32" cy="41" r="3"/><path d="M32 44 v5"/></symbol><symbol id="ui-server" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="10" y="8" width="44" height="18" rx="3"/><rect x="10" y="32" width="44" height="18" rx="3"/><circle cx="18" cy="17" r="2" fill="currentColor" stroke="none"/><circle cx="18" cy="41" r="2" fill="currentColor" stroke="none"/><path d="M28 17 h18 M28 41 h18 M32 50 v8 M20 58 h24"/></symbol><symbol id="ui-code" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="10" y="12" width="44" height="40" rx="4"/><path d="M18 24 h6 M28 24 h6 M38 24 h6 M18 34 h6 M28 34 h6 M38 34 h6"/><path d="M22 44 h20"/></symbol><symbol id="ui-mail" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="14" width="48" height="36" rx="4"/><path d="M8 18 L32 36 L56 18"/></symbol><symbol id="ui-points" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="32" r="22"/><path d="M32 18 l4 9 l10 1 l-7 7 l2 10 l-9 -5 l-9 5 l2 -10 l-7 -7 l10 -1 z"/></symbol></svg>
 
     <header class="hero">
         <div class="container hero-grid">
@@ -468,6 +484,17 @@
         </div>
     </section>
 
+    <section id="support" style="padding-top:0">
+        <div class="container">
+            <div class="panel support">
+                <div><h3>Support &amp; contact</h3>
+                    <p>Questions, bug reports or feedback? Email us &mdash; we usually reply within a couple of days.<br>
+                    Delete your account any time in the app: Settings &rarr; Account &rarr; Delete Account.</p></div>
+                <a class="mail" href="mailto:walter.tengler@gmail.com?subject=BeerTag%20support"><svg class="ico " aria-hidden="true"><use href="#ui-mail"/></svg> walter.tengler@gmail.com</a>
+            </div>
+        </div>
+    </section>
+
     <section id="download" style="padding-top:0">
         <div class="container">
             <div class="panel cta">
@@ -485,52 +512,48 @@
             <div class="footer-links">
                 <a href="privacy.html">Privacy Policy</a>
                 <a href="imprint.html">Legal Notice</a>
-                <a href="mailto:walter.tengler@gmail.com">Contact</a>
+                <a href="mailto:walter.tengler@gmail.com">walter.tengler@gmail.com</a>
             </div>
-            <div class="footer-links" style="margin-top: 15px;">
-                <a href="../Alerta/">Alerta</a>
-                <a href="../Fire/">Fire</a>
-                <a href="../Terramoto/">Terramoto</a>
-                <a href="../Fluvio/">Fluvio</a>
-                <a href="../EUEnergyMonitor/">EU Energy Monitor</a>
-            </div>
-            <div class="footer-links" style="margin-top: 10px;">
-                <a href="../File Vortex/">File Vortex</a>
-                <a href="../EasyDup/">EasyDup</a>
-                <a href="../ExifEasy/">ExifEasy</a>
-                <a href="../Bomba/">Bomba</a>
-                <a href="../Scanora/">Scanora</a>
-            </div>
-            <div class="footer-links" style="margin-top: 10px;">
-                <a href="../coresdoamor/">Cores do Amor</a>
-                                <a href="../RetroBrowse/">Retro Browse</a>
-                <a href="../RetroGraphicsConverter/">Retro Graphics</a>
-                <a href="../CyanHero/">CyanHero</a>
-                <a href="../Bitpast/">BitPast</a>
-            </div>
-            <div class="footer-links" style="margin-top: 10px;">
+            <!-- Cross-link to other portwally apps. Mirrors the master list
+                 in /index.html so we don't promote retired or renamed apps. -->
+            <div class="footer-links apps">
+                <a href="../AppleIIASCIIArt/">1977</a>
                 <a href="../Adsensemonitor/">AdSense Monitor</a>
-                <a href="../Comboiotreck/">Comboiotreck</a>
+                <a href="../Aichive/">Aichive</a>
+                <a href="../Alerta/">Alerta</a>
+                <a href="../Bitpast/">BitPast</a>
+                <a href="../Bomba/">Bomba</a>
                 <a href="../CertificadoEnergetico/">Certificado Energético</a>
                 <a href="../climaviva/">Clima Viva</a>
+                <a href="../Comboiotreck/">Comboiotreck</a>
+                <a href="../coresdoamor/">Cores do Amor</a>
+                <a href="../CyanHero/">CyanHero</a>
+                <a href="../EasyDup/">EasyDup</a>
                 <a href="../emergengy-reminder/">Emergency Reminder</a>
+                <a href="../EUEnergyMonitor/">EU Energy Monitor</a>
+                <a href="../ExifEasy/">ExifEasy</a>
+                <a href="../FCPXClean/">FCPX Clean</a>
+                <a href="../File%20Vortex/">File Vortex</a>
+                <a href="../Fire/">Fire</a>
+                <a href="../Fluvio/">Fluvio</a>
+                <a href="../Fugiu/">Fugiu!</a>
+                <a href="../Pibup/">PIBUP</a>
+                <a href="../RetroBrowse/">Retro Browse</a>
+                <a href="../RetroGraphicsConverter/">Retro Graphics</a>
+                <a href="../RetroTube/">Retro Tube</a>
+                <a href="../RetroTV/">Retro TV</a>
+                <a href="../Scanora/">Scanora</a>
+                <a href="../Screen2Store/">Screen2Store</a>
                 <a href="../SlimPix/">SlimPix</a>
+                <a href="../Sobrium/">Sobrium</a>
+                <a href="../SOSIberico/">SOS Ibérica</a>
+                <a href="../Terramoto/">Terramoto</a>
             </div>
             <div class="footer-bottom">
                 <div>Made with explosive enthusiasm</div>
                 <div class="footer-credit">Walter Tengler</div>
             </div>
         </div>
-    <div style="margin:12px 0;padding-top:12px;border-top:1px solid rgba(128,128,128,0.2);text-align:center;">
-    <p style="margin:3px 0;font-size:0.8em;"><a href="../Adsensemonitor/" style="color:inherit;text-decoration:none;">AdSense Monitor</a> &middot; <a href="../Aichive/" style="color:inherit;text-decoration:none;">Aichive</a> &middot; <a href="../Alerta/" style="color:inherit;text-decoration:none;">Alerta</a> &middot; <a href="../AppleIIASCIIArt/" style="color:inherit;text-decoration:none;">1977</a> &middot; <a href="../Bitpast/" style="color:inherit;text-decoration:none;">BitPast</a> &middot; <a href="../Bomba/" style="color:inherit;text-decoration:none;">Bomba</a></p>
-    <p style="margin:3px 0;font-size:0.8em;"><a href="../CertificadoEnergetico/" style="color:inherit;text-decoration:none;">Certificado Energético</a> &middot; <a href="../Comboiotreck/" style="color:inherit;text-decoration:none;">Comboiotreck</a> &middot; <a href="../CyanHero/" style="color:inherit;text-decoration:none;">CyanHero</a> &middot; <a href="../EUEnergyMonitor/" style="color:inherit;text-decoration:none;">EU Energy Monitor</a> &middot; <a href="../EasyDup/" style="color:inherit;text-decoration:none;">EasyDup</a> &middot; <a href="../ExifEasy/" style="color:inherit;text-decoration:none;">ExifEasy</a></p>
-    <p style="margin:3px 0;font-size:0.8em;"><a href="../FCPXClean/" style="color:inherit;text-decoration:none;">FCPX Clean</a> &middot; <a href="../File Vortex/" style="color:inherit;text-decoration:none;">File Vortex</a> &middot; <a href="../Fire/" style="color:inherit;text-decoration:none;">Fire</a> &middot; <a href="../Fluvio/" style="color:inherit;text-decoration:none;">Fluvio</a> &middot; <a href="../Fugiu/" style="color:inherit;text-decoration:none;">Fugiu!</a> &middot; <a href="../Generals/" style="color:inherit;text-decoration:none;">Generals</a></p>
-    <p style="margin:3px 0;font-size:0.8em;"><a href="../Perversos/" style="color:inherit;text-decoration:none;">Perversos</a> &middot; <a href="../Pibup/" style="color:inherit;text-decoration:none;">PIBUP</a> &middot; <a href="../RetroGraphicsConverter/" style="color:inherit;text-decoration:none;">Retro Graphics</a> &middot; <a href="../RetroTube/" style="color:inherit;text-decoration:none;">Retro Tube</a> &middot; <a href="../Rubina/" style="color:inherit;text-decoration:none;">Rubina</a> &middot; <a href="../SOSIberico/" style="color:inherit;text-decoration:none;">SOS Ibérica</a></p>
-    <a href="../RetroTV/">Retro TV</a>
-    <p style="margin:3px 0;font-size:0.8em;"><a href="../Scanora/" style="color:inherit;text-decoration:none;">Scanora</a> &middot; <a href="../SlimPix/" style="color:inherit;text-decoration:none;">SlimPix</a> &middot; <a href="../Terra5/" style="color:inherit;text-decoration:none;">Terra5</a> &middot; <a href="../Terramoto/" style="color:inherit;text-decoration:none;">Terramoto</a> &middot; <a href="../climaviva/" style="color:inherit;text-decoration:none;">Clima Viva</a> &middot; <a href="../coresdoamor/" style="color:inherit;text-decoration:none;">Cores do Amor</a></p>
-    <p style="margin:3px 0;font-size:0.8em;"><a href="../emergengy-reminder/" style="color:inherit;text-decoration:none;">Emergency Reminder</a> &middot; <a href="../ieyephoto/" style="color:inherit;text-decoration:none;">ieyephoto</a></p>
-    </div>
-
     </footer>
 </body>
 </html>
