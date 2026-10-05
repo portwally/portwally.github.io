@@ -383,6 +383,11 @@
                     <span class="legend-equals">=</span>
                     <span class="legend-name">Trottel</span>
                 </div>
+                <div class="legend-item">
+                    <span class="legend-rank">Lieutenant</span>
+                    <span class="legend-equals">=</span>
+                    <span class="legend-name">Pfeife</span>
+                </div>
             </div>
         </div>
     </div>
@@ -407,7 +412,7 @@
           match /databases/{database}/documents {
             match /generals_votes/{person} {
               allow read: if true;
-              allow create: if person in ['justin','christoph','walter','wally']
+              allow create: if person in ['justin','christoph','walter','wally','craig']
                             && request.resource.data.keys().hasOnly(['count'])
                             && request.resource.data.count == 1;
               allow update: if request.resource.data.keys().hasOnly(['count'])
@@ -418,14 +423,15 @@
         */
 
         const PEOPLE = [
-            { id: 'justin',    name: 'Justin',    photo: 'justin.jpg' },
             { id: 'christoph', name: 'Christoph', photo: 'christoph.jpg' },
-            { id: 'walter',    name: 'Walter',    photo: 'walter.jpg' },
-            { id: 'wally',     name: 'Wally',     photo: 'wally.JPG' }
+            { id: 'craig',     name: 'Craig',     photo: 'craig.jpg' },
+            { id: 'wally',     name: 'Wally',     photo: 'wally.JPG' },
+            { id: 'justin',    name: 'Justin',    photo: 'justin.jpg' },
+            { id: 'walter',    name: 'Walter',    photo: 'walter.jpg' }
         ];
-        const TITLES = ['General', 'Colonel', 'Major', 'Captain'];
-        const STARS  = [5, 4, 3, 2];
-        const STRIPES = [3, 3, 2, 2];
+        const TITLES = ['General', 'Colonel', 'Major', 'Captain', 'Lieutenant'];
+        const STARS  = [5, 4, 3, 2, 1];
+        const STRIPES = [3, 3, 2, 2, 1];
         const STORAGE_KEY = 'generalsVote';
 
         const container = document.getElementById('rankings');
