@@ -244,6 +244,79 @@
             font-style: italic;
         }
 
+        .vote-hint {
+            text-align: center;
+            margin: -30px 0 35px;
+            font-size: 1.2em;
+            color: var(--neon-cyan);
+            letter-spacing: 0.05em;
+        }
+
+        .vote-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            min-width: 110px;
+        }
+
+        .vote-count {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2em;
+            font-weight: 900;
+            color: var(--text-primary);
+        }
+
+        .vote-count small {
+            display: block;
+            font-size: 0.35em;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            opacity: 0.7;
+        }
+
+        .vote-btn {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 0.9em;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 10px 18px;
+            border-radius: 10px;
+            border: 2px solid var(--neon-pink);
+            background: transparent;
+            color: var(--neon-pink);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .vote-btn:hover:not(:disabled) {
+            background: var(--neon-pink);
+            color: var(--bg-dark);
+            box-shadow: 0 0 20px var(--neon-pink);
+        }
+
+        .vote-btn:disabled {
+            opacity: 0.35;
+            cursor: default;
+        }
+
+        .vote-btn.mine {
+            opacity: 1;
+            border-color: var(--neon-green);
+            color: var(--neon-green);
+        }
+
+        .vote-error {
+            text-align: center;
+            color: var(--neon-orange);
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .vote-hint { margin-top: -40px; }
+        }
+
         @media (max-width: 600px) {
             h1 {
                 font-size: 2.5em;
@@ -283,61 +356,9 @@
             <p class="tagline">Ranked by Stupidity</p>
         </header>
 
-        <div class="rankings">
-            <div class="rank-card rank-1">
-                <img src="christoph.jpg" alt="Christoph" class="photo">
-                <div class="rank-info">
-                    <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                    <div class="rank-title">General</div>
-                    <div class="stripes">
-                        <span class="stripe"></span>
-                        <span class="stripe"></span>
-                        <span class="stripe"></span>
-                    </div>
-                    <div class="name">Christoph</div>
-                </div>
-            </div>
+        <p class="vote-hint" id="voteHint">Vote for the biggest fool. One vote each. Most votes = General.</p>
 
-            <div class="rank-card rank-2">
-                <img src="wally.JPG" alt="Wally" class="photo">
-                <div class="rank-info">
-                    <div class="stars">&#9733;&#9733;&#9733;&#9733;</div>
-                    <div class="rank-title">Colonel</div>
-                    <div class="stripes">
-                        <span class="stripe"></span>
-                        <span class="stripe"></span>
-                        <span class="stripe"></span>
-                    </div>
-                    <div class="name">Wally</div>
-                </div>
-            </div>
-
-            <div class="rank-card rank-3">
-                <img src="justin.jpg" alt="Justin" class="photo">
-                <div class="rank-info">
-                    <div class="stars">&#9733;&#9733;&#9733;</div>
-                    <div class="rank-title">Major</div>
-                    <div class="stripes">
-                        <span class="stripe"></span>
-                        <span class="stripe"></span>
-                    </div>
-                    <div class="name">Justin</div>
-                </div>
-            </div>
-
-            <div class="rank-card rank-4">
-                <img src="walter.jpg" alt="Walter" class="photo">
-                <div class="rank-info">
-                    <div class="stars">&#9733;&#9733;</div>
-                    <div class="rank-title">Captain</div>
-                    <div class="stripes">
-                        <span class="stripe"></span>
-                        <span class="stripe"></span>
-                    </div>
-                    <div class="name">Walter</div>
-                </div>
-            </div>
-        </div>
+        <div class="rankings" id="rankings"></div>
 
         <div class="legend">
             <h2>Legend</h2>
@@ -365,6 +386,116 @@
             </div>
         </div>
     </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getFirestore, collection, doc, onSnapshot, setDoc, updateDoc, increment, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+        // Paste your Firebase web app config here (Project settings > General > Your apps).
+        // It is safe to be public; access is controlled by the Firestore rules below.
+        const firebaseConfig = {
+            apiKey: "AIzaSyBqtOdfvxr2EWWAnZRZItKcS_D9QuUX-as",
+            authDomain: "generals-23152.firebaseapp.com",
+            projectId: "generals-23152",
+            appId: "1:1004497827219:web:479248dd2bcbe7e38aa466"
+        };
+
+        /* Firestore rules (Firebase console > Firestore > Rules):
+
+        rules_version = '2';
+        service cloud.firestore {
+          match /databases/{database}/documents {
+            match /generals_votes/{person} {
+              allow read: if true;
+              allow create: if person in ['justin','christoph','walter','wally']
+                            && request.resource.data.keys().hasOnly(['count'])
+                            && request.resource.data.count == 1;
+              allow update: if request.resource.data.keys().hasOnly(['count'])
+                            && request.resource.data.count == resource.data.count + 1;
+            }
+          }
+        }
+        */
+
+        const PEOPLE = [
+            { id: 'justin',    name: 'Justin',    photo: 'justin.jpg' },
+            { id: 'christoph', name: 'Christoph', photo: 'christoph.jpg' },
+            { id: 'walter',    name: 'Walter',    photo: 'walter.jpg' },
+            { id: 'wally',     name: 'Wally',     photo: 'wally.JPG' }
+        ];
+        const TITLES = ['General', 'Colonel', 'Major', 'Captain'];
+        const STARS  = [5, 4, 3, 2];
+        const STRIPES = [3, 3, 2, 2];
+        const STORAGE_KEY = 'generalsVote';
+
+        const container = document.getElementById('rankings');
+        const hint = document.getElementById('voteHint');
+        const counts = {};
+        PEOPLE.forEach(p => counts[p.id] = 0);
+
+        let myVote = null;
+        try { myVote = localStorage.getItem(STORAGE_KEY); } catch (e) {}
+
+        const configured = !!firebaseConfig.projectId;
+        let db = null;
+        if (configured) db = getFirestore(initializeApp(firebaseConfig));
+
+        function render() {
+            const sorted = PEOPLE
+                .map((p, i) => ({ ...p, i }))
+                .sort((a, b) => counts[b.id] - counts[a.id] || a.i - b.i);
+
+            container.innerHTML = sorted.map((p, pos) => {
+                const mine = myVote === p.id;
+                const disabled = !configured || myVote;
+                return `
+            <div class="rank-card rank-${pos + 1}">
+                <img src="${p.photo}" alt="${p.name}" class="photo">
+                <div class="rank-info">
+                    <div class="stars">${'&#9733;'.repeat(STARS[pos])}</div>
+                    <div class="rank-title">${TITLES[pos]}</div>
+                    <div class="stripes">${'<span class="stripe"></span>'.repeat(STRIPES[pos])}</div>
+                    <div class="name">${p.name}</div>
+                </div>
+                <div class="vote-box">
+                    <div class="vote-count">${counts[p.id]}<small>VOTES</small></div>
+                    <button class="vote-btn${mine ? ' mine' : ''}" data-id="${p.id}" ${disabled ? 'disabled' : ''}>${mine ? 'Your vote' : 'Vote'}</button>
+                </div>
+            </div>`;
+            }).join('');
+        }
+
+        container.addEventListener('click', async (e) => {
+            const btn = e.target.closest('.vote-btn');
+            if (!btn || btn.disabled || myVote || !db) return;
+            const id = btn.dataset.id;
+            btn.disabled = true;
+            try {
+                const ref = doc(db, 'generals_votes', id);
+                const snap = await getDoc(ref);
+                if (snap.exists()) await updateDoc(ref, { count: increment(1) });
+                else await setDoc(ref, { count: 1 });
+                myVote = id;
+                try { localStorage.setItem(STORAGE_KEY, id); } catch (err) {}
+                render();
+            } catch (err) {
+                console.error(err);
+                hint.insertAdjacentHTML('afterend', '<p class="vote-error">Vote failed, try again.</p>');
+                btn.disabled = false;
+            }
+        });
+
+        render();
+
+        if (configured) {
+            onSnapshot(collection(db, 'generals_votes'), (snap) => {
+                snap.forEach(d => { if (d.id in counts) counts[d.id] = d.data().count || 0; });
+                render();
+            }, (err) => console.error(err));
+        } else {
+            hint.textContent = 'Voting is not set up yet.';
+        }
+    </script>
 
 <footer style="margin-top:40px;border-top:1px solid rgba(128,128,128,0.2);padding:32px 20px;text-align:center;font-size:0.82em;color:#888;">
     <p style="margin-bottom:8px;"><a href="../" style="color:inherit;text-decoration:none;">← All Apps</a></p>
