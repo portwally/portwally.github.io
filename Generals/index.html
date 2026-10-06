@@ -262,18 +262,46 @@
 
         .vote-count {
             font-family: 'Orbitron', sans-serif;
-            font-size: 2em;
+            font-size: 3.2em;
+            line-height: 1;
             font-weight: 900;
-            color: var(--text-primary);
+            text-align: center;
+            color: var(--rank-color);
+            text-shadow: 0 0 12px var(--rank-color);
         }
 
         .vote-count small {
             display: block;
-            font-size: 0.35em;
-            font-weight: 500;
-            letter-spacing: 0.15em;
-            opacity: 0.7;
+            margin-top: 4px;
+            font-size: 0.25em;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            color: var(--text-primary);
+            text-shadow: none;
+            opacity: 0.8;
         }
+
+        .vote-share {
+            height: 8px;
+            margin: 4px 0 10px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .vote-share span {
+            display: block;
+            height: 100%;
+            background: var(--rank-color);
+            box-shadow: 0 0 10px var(--rank-color);
+            transition: width 0.4s ease;
+        }
+
+        .rank-1 { --rank-color: var(--neon-yellow); }
+        .rank-2 { --rank-color: var(--neon-orange); }
+        .rank-3 { --rank-color: var(--neon-pink); }
+        .rank-4 { --rank-color: var(--neon-cyan); }
+        .rank-5 { --rank-color: var(--neon-green); }
 
         .vote-btn {
             font-family: 'Orbitron', sans-serif;
@@ -356,7 +384,7 @@
             <p class="tagline">Ranked by Stupidity</p>
         </header>
 
-        <p class="vote-hint" id="voteHint">Vote for the biggest fool. One vote each. Most votes = General.</p>
+        <p class="vote-hint" id="voteHint">Vote for the biggest fool. One vote each. Most votes = General. <span id="voteTotal"></span></p>
 
         <div class="rankings" id="rankings"></div>
 
@@ -451,7 +479,12 @@
                 .map((p, i) => ({ ...p, i }))
                 .sort((a, b) => counts[b.id] - counts[a.id] || a.i - b.i);
 
+            const total = PEOPLE.reduce((n, p) => n + counts[p.id], 0);
+            const totalEl = document.getElementById('voteTotal');
+            if (totalEl) totalEl.textContent = total + (total === 1 ? ' vote' : ' votes') + ' cast';
+
             container.innerHTML = sorted.map((p, pos) => {
+                const pct = total ? Math.round(counts[p.id] / total * 100) : 0;
                 const mine = myVote === p.id;
                 const disabled = !configured || myVote;
                 return `
@@ -462,9 +495,10 @@
                     <div class="rank-title">${TITLES[pos]}</div>
                     <div class="stripes">${'<span class="stripe"></span>'.repeat(STRIPES[pos])}</div>
                     <div class="name">${p.name}</div>
+                    <div class="vote-share" title="${pct}% of votes"><span style="width:${pct}%"></span></div>
                 </div>
                 <div class="vote-box">
-                    <div class="vote-count">${counts[p.id]}<small>VOTES</small></div>
+                    <div class="vote-count">${counts[p.id]}<small>${counts[p.id] === 1 ? 'VOTE' : 'VOTES'}</small></div>
                     <button class="vote-btn${mine ? ' mine' : ''}" data-id="${p.id}" ${disabled ? 'disabled' : ''}>${mine ? 'Your vote' : 'Vote'}</button>
                 </div>
             </div>`;
