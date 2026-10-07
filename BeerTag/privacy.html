@@ -205,7 +205,7 @@
         <div class="container">
             <h1>Privacy Policy</h1>
             <div class="app-name">BeerTag</div>
-            <div class="last-updated">Last Updated: September 2026</div>
+            <div class="last-updated">Last Updated: October 2026</div>
         </div>
     </header>
 
@@ -214,7 +214,7 @@
             <div class="content">
                 <div class="highlight-box">
                     <h3>The Short Version</h3>
-                    <p style="margin-bottom: 0;"><strong>BeerTag is a location-based game: your friends see where you are so they can launch virtual missiles at you.</strong> We collect only what the game needs to work — your callsign, your location, your friends and your game history. No ads, no analytics, no tracking, and we never sell your data. You can delete your account and all of its data from inside the app at any time.</p>
+                    <p style="margin-bottom: 0;"><strong>BeerTag (for iPhone and Android) is a location-based game: your friends see where you are so they can launch virtual missiles at you.</strong> We collect only what the game needs to work — your callsign, your location, your friends and your game history. No ads, no analytics, no tracking, and we never sell your data. You can delete your account and all of its data from inside the app at any time.</p>
                 </div>
 
                 <h2>Who Is Responsible</h2>
@@ -227,9 +227,9 @@
                     <li><strong>Precise location:</strong> Your current GPS position (see below).</li>
                     <li><strong>Friends and invite code:</strong> Your personal 6-character invite code and the list of players you are connected with.</li>
                     <li><strong>Game data:</strong> Missiles you launch and receive (including launch and target positions, times and outcomes), points, rank, streak, active defenses, daily ammo usage over the last 24 hours, and — in Beer mode — the beer tally between you and each friend and the beers marked as settled.</li>
-                    <li><strong>Purchases:</strong> If you buy a base-stage unlock, we receive the App Store transaction details (product, transaction ID, date) from Apple to verify the purchase and restore it. Payment is handled entirely by Apple; we never see your payment details.</li>
+                    <li><strong>Purchases:</strong> If you buy a base-stage unlock on iPhone, we receive the App Store transaction details (product, transaction ID, date) from Apple to verify the purchase and restore it. Payment is handled entirely by Apple; we never see your payment details.</li>
                     <li><strong>Push notification token:</strong> A device token so we can alert you to incoming strikes and results.</li>
-                    <li><strong>Sign in with Apple (optional):</strong> If you link your account to Apple, our sign-in provider receives an Apple user identifier and, if you choose to share it, your email address (which may be an Apple private relay address). We use this only to let you sign in again on another device; we don't send you emails.</li>
+                    <li><strong>Sign in with Google or Apple (optional):</strong> If you link your account to Google or Apple, our sign-in provider receives a Google or Apple user identifier and your email address (with Apple, only if you choose to share it, and it may be a private relay address). We use this only to let you sign in again on another device; we don't send you emails.</li>
                 </ul>
                 <p>BeerTag does not access your contacts, photos, camera or microphone, and contains no advertising, analytics or crash-reporting SDKs.</p>
 
@@ -239,7 +239,7 @@
                     <li><strong>When it is sent:</strong> While the app is open, and — if you allow "Always" location access — also in the background, so you can be targeted and warned when the app is closed. How often depends on the game state (more often during an active strike).</li>
                     <li><strong>What is stored:</strong> Only your <em>latest</em> position and a "last seen" time, each overwritten by the next update — we don't keep a location history. Missile records do keep the launch position and the target position at the time of the strike, so both players can see what happened.</li>
                     <li><strong>Who can see it:</strong> Only players you are friends with. Our database security rules block everyone else.</li>
-                    <li><strong>How to stop it:</strong> Turn on <strong>Off-Grid</strong> in the app (Settings → Location). Your last position is deleted from our servers straight away and no new positions are sent until you go back on the grid; friends see you as off-grid and can't target you, and you can't launch. You can also change BeerTag's location access in iOS Settings → Privacy &amp; Security → Location Services, or delete your account.</li>
+                    <li><strong>How to stop it:</strong> Turn on <strong>Off-Grid</strong> in the app (Settings → Location). Your last position is deleted from our servers straight away and no new positions are sent until you go back on the grid; friends see you as off-grid and can't target you, and you can't launch. You can also change BeerTag's location access in your phone's settings — on iPhone: Settings → Privacy &amp; Security → Location Services; on Android: Settings → Location → App location permissions — or delete your account.</li>
                 </ul>
 
                 <h2>Friends</h2>
@@ -248,7 +248,7 @@
                 <h2>Why We Use Your Data (Legal Basis)</h2>
                 <ul>
                     <li><strong>To provide the game</strong> (GDPR Art. 6(1)(b), performance of our agreement with you): account, callsign, location, friends, strikes, scores, beer tally, purchases and notifications.</li>
-                    <li><strong>Your consent</strong> (Art. 6(1)(a)) for location access and push notifications, which you give — and can withdraw — through the iOS permission prompts and Settings.</li>
+                    <li><strong>Your consent</strong> (Art. 6(1)(a)) for location access and push notifications, which you give — and can withdraw — through your phone's permission prompts and settings.</li>
                     <li><strong>Legitimate interests</strong> (Art. 6(1)(f)) to keep the game fair and secure, for example enforcing reload times and verifying purchases server-side.</li>
                 </ul>
                 <p>We do not use your data for advertising, profiling or tracking across other apps and websites, and we never sell it.</p>
@@ -257,12 +257,14 @@
                 <p>We don't run our own servers. BeerTag uses these providers, who process data on our behalf under data processing terms:</p>
                 <ul>
                     <li><strong>Google Firebase</strong> (Google Ireland Limited / Google LLC): sign-in (Firebase Authentication), databases (Cloud Firestore in the EU; Realtime Database in the United States), game logic (Cloud Functions in Belgium) and push delivery (Firebase Cloud Messaging).</li>
-                    <li><strong>Apple</strong>: push notification delivery, in-app purchases and Sign in with Apple, under Apple's own privacy policy.</li>
+                    <li><strong>Apple</strong>: push notification delivery on iPhone, in-app purchases and Sign in with Apple, under Apple's own privacy policy.</li>
+                    <li><strong>Google</strong>: Sign in with Google and, on Android, location services (Google Play services), under Google's own privacy policy.</li>
+                    <li><strong>OpenFreeMap / OpenStreetMap</strong> (Android only): map tiles. Your device downloads them directly from OpenFreeMap's servers, which see your IP address and which map area is loaded, but no account or location data from BeerTag.</li>
                 </ul>
                 <p>Because the live game data (including your latest location) is stored in the United States, your data is transferred outside the EU. Google LLC is certified under the EU–U.S. Data Privacy Framework, and Google's data processing terms include the EU Standard Contractual Clauses.</p>
 
                 <h2>Push Notifications</h2>
-                <p>BeerTag sends notifications about incoming strikes and strike results. You can turn them off at any time in iOS Settings → Notifications → BeerTag — but you then won't be warned when a missile is on its way.</p>
+                <p>BeerTag sends notifications about incoming strikes and strike results. You can turn them off at any time in your phone's settings (iPhone: Settings → Notifications → BeerTag; Android: Settings → Apps → BeerTag → Notifications) — but you then won't be warned when a missile is on its way.</p>
 
                 <h2>How Long We Keep Data</h2>
                 <ul>
@@ -270,11 +272,18 @@
                     <li>Daily ammo records are pruned after 24 hours.</li>
                     <li>Everything else is kept as long as your account exists, so your rank, friends and beer tally survive between sessions.</li>
                     <li>When you delete your account, we delete your profile, location, friendships, invite code, strikes you launched or received, beer tally and settlements, defenses, purchase records and your sign-in account. If you signed in with Apple, we also revoke BeerTag's access to your Apple ID.</li>
+                    <li>We keep nothing after deletion; purchase claims are removed too, so a new account can restore your purchases.</li>
                 </ul>
 
-                <div class="highlight-box success">
-                    <h3>Delete Your Account</h3>
-                    <p style="margin-bottom: 0;">In the app: <strong>Settings → Account → Delete Account</strong>. Deletion is immediate and permanent. Purchases you made remain tied to your Apple ID and can be restored on a new account via <strong>Restore Purchases</strong>. If you've lost access to the app, email us and we'll delete your data manually.</p>
+                <div class="highlight-box success" id="delete-account">
+                    <h3>Delete Your BeerTag Account</h3>
+                    <p>This works the same in the iPhone and Android app:</p>
+                    <ol>
+                        <li>Open BeerTag and go to the <strong>Settings</strong> tab.</li>
+                        <li>Under <strong>Account</strong>, tap <strong>Delete Account</strong> and confirm.</li>
+                    </ol>
+                    <p>Deletion is immediate and permanent: your profile, callsign, location, friendships, invite code, strikes, points, beer tally, defenses, purchase records and sign-in account are removed (see "How Long We Keep Data" above). iPhone purchases remain tied to your Apple ID and can be restored on a new account via <strong>Restore Purchases</strong>.</p>
+                    <p style="margin-bottom: 0;">No longer have the app? Email <a href="mailto:walter.tengler@gmail.com?subject=BeerTag%20account%20deletion">walter.tengler@gmail.com</a> with the subject "BeerTag account deletion" and your callsign or invite code. We delete the account and all of its data within 30 days and confirm by email.</p>
                 </div>
 
                 <h2>Your Rights</h2>
