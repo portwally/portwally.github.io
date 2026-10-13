@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GS Remap - Apple IIgs picture converter for the Mac</title>
+    <meta name="description" content="GS Remap converts pictures to and from Apple IIgs Super Hi-Res on a Mac. It loads Apple II, Apple IIgs, Atari ST, Amiga, Commodore 64, Macintosh, PC and Unix picture formats and looks like an Apple IIgs desktop.">
+    <meta name="keywords" content="Apple IIgs, Super Hi-Res, SHR, image converter, retro graphics, Apple II, HiRes, Double HiRes, 3200 color, Atari ST, Amiga IFF, Commodore 64, MacPaint, macOS">
+    <meta property="og:title" content="GS Remap">
+    <meta property="og:description" content="An Apple IIgs picture converter for the Mac, with the look of the IIgs desktop.">
+    <meta property="og:image" content="https://portwally.github.io/GSRemap/img/desktop.png">
+    <meta property="og:type" content="website">
+    <link rel="icon" href="img/icon-64.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="menubar" aria-label="Sections">
+        <a href="#top" aria-label="GS Remap"><img src="img/icon-64.png" alt=""></a>
+        <a href="#about">About</a>
+        <a href="#pictures">Pictures</a>
+        <a href="#formats">Formats</a>
+        <a href="#download">Download</a>
+        <a href="privacy.html">Privacy</a>
+    </nav>
+
+    <main class="desktop" id="top">
+        <section class="window active" id="about">
+            <h1>GS Remap</h1>
+            <div class="body">
+                <div class="hero">
+                    <img src="img/icon.png" alt="GS Remap icon: an Apple IIgs window holding a picture, half smooth and half dithered">
+                    <div>
+                        <p class="name">GS Remap</p>
+                        <p class="lead">An Apple IIgs picture converter for the Mac.</p>
+                        <p>Load a picture from almost any computer of the 1980s, or a photo from today, and turn it into Apple IIgs Super Hi-Res. It works the way a IIgs program does, and it looks like one too.</p>
+                    </div>
+                </div>
+                <div class="buttons">
+                    <a class="button default" href="https://github.com/portwally/GSRemap/releases/latest">Download</a>
+                    <a class="button" href="https://github.com/portwally/GSRemap">Source on GitHub</a>
+                    <span class="button dim">Mac App Store: coming later</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="window two-thirds">
+            <h2>Desktop</h2>
+            <div class="body">
+                <img class="shot" src="img/desktop.png" width="1280" height="800" alt="The GS Remap desktop with the Load formats, Save formats and Image windows">
+                <p class="caption">Pick a computer and a format on the left, press Load, and the picture appears in the Image window. Pick a format on the right and press Save.</p>
+            </div>
+        </section>
+
+        <section class="window third">
+            <h2>What it does</h2>
+            <div class="body">
+                <ul class="plain">
+                    <li>Loads more than 50 picture formats</li>
+                    <li>Remaps to 320 mode, 640 mode, 640 dither mode or multipalette</li>
+                    <li>Calculates the best palette for each picture</li>
+                    <li>Pattern dither and error diffusion</li>
+                    <li>Ten true color filters</li>
+                    <li>Black &amp; white images with halftone</li>
+                    <li>Saves files a real IIgs can open</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="window half" id="pictures">
+            <h2>Remap</h2>
+            <div class="body">
+                <img class="shot" src="img/remap.png" width="1280" height="800" alt="The Remap dialog with graphic mode, palette and rendering choices and a diagram of the picture size">
+                <p class="caption">Choose the graphic mode, the palette and the rendering. The diagram shows how large the result is against a grid of screens.</p>
+            </div>
+        </section>
+
+        <section class="window half">
+            <h2>640 dither mode</h2>
+            <div class="body">
+                <img class="shot" src="img/640-dither.png" width="1280" height="800" alt="A sunset picture rendered in Apple IIgs 640 dither mode with the default palette">
+                <p class="caption">A sunset in 640 x 200 dither mode with the standard palette: eight colors, used the way IIgs desktop programs use them.</p>
+            </div>
+        </section>
+
+        <section class="window half">
+            <h2>Filters</h2>
+            <div class="body">
+                <img class="shot" src="img/filters-menu.png" width="1280" height="800" alt="The True color menu listing the filters">
+                <p class="caption">Equalize, median, emboss, blur, sharpen, solarize, find edges and contrast, plus mirror, flip and rotate.</p>
+            </div>
+        </section>
+
+        <section class="window half">
+            <h2>Monochrome</h2>
+            <div class="body">
+                <img class="shot" src="img/monochrome.png" width="1280" height="800" alt="A monochrome image made with error diffusion shown in the Image window">
+                <p class="caption">One bit per pixel, with error diffusion, pattern dither, halftone or a plain threshold.</p>
+            </div>
+        </section>
+
+        <section class="window half" id="formats">
+            <h2>Load formats</h2>
+            <div class="body">
+                <ul class="list">
+                    <li>Apple II family</li>
+                    <li class="selected">Apple IIgs specific</li>
+                    <li>Atari ST</li>
+                    <li>Amiga</li>
+                    <li>Commodore 64/128</li>
+                    <li>Macintosh</li>
+                    <li>IBM PC &amp; compatibles</li>
+                    <li>Unix machines</li>
+                    <li>Computer-independent</li>
+                </ul>
+                <p class="small">Apple II: HiRes, Double HiRes, Print Shop, ThunderScan, text screens. Apple IIgs: Super Hi-Res in every common variant, Apple Preferred, 3200 color, DreamGrafix, Paintworks Gold, Print Shop IIgs, Finder icons, AST and ComputerEyes. Atari ST: Degas, Degas Elite, Neochrome, Tiny, Spectrum 512. Amiga: IFF with HAM and HalfBrite. C64: Doodle, Koala, Print Shop. Macintosh: MacPaint, ScreenMaker. PC: BMP, PCX, GEM IMG, DeluxePaint. Unix: Sun, SGI, PBM, PGM, PPM. And JPEG, PNG, GIF, TIFF, CompuServe RLE, IPI and QRT.</p>
+            </div>
+        </section>
+
+        <section class="window half">
+            <h2>Save formats</h2>
+            <div class="body">
+                <ul class="list">
+                    <li>$C0,0 PaintWorks</li>
+                    <li>$C0,1 PackBytes</li>
+                    <li class="selected">$C0,2 Apple Preferred</li>
+                    <li>$C1 uncompressed screen</li>
+                    <li>Finder icon</li>
+                    <li>Icon resource</li>
+                    <li>Hex data</li>
+                    <li>GIF, PNG, TIFF</li>
+                </ul>
+                <p class="small">Apple IIgs files are saved with a suffix such as #C00002, so CiderPress and cadius give them the right ProDOS file type when you copy them to a disk image.</p>
+            </div>
+        </section>
+
+        <section class="window active" id="download">
+            <h2>Download</h2>
+            <div class="body">
+                <p class="radio on">Version 1.0.1 for macOS 13 or later, Apple Silicon and Intel. Free and open source under the MIT license.</p>
+                <p class="radio">The download is not notarized. The first time, macOS will not open it with a double-click: try once, then go to System Settings, Privacy &amp; Security, and click Open Anyway.</p>
+                <p class="radio dimmed">A Mac App Store version is planned.</p>
+                <div class="buttons">
+                    <a class="button default" href="https://github.com/portwally/GSRemap/releases/latest">Download from GitHub</a>
+                    <a class="button" href="https://github.com/portwally/GSRemap">Source code</a>
+                </div>
+            </div>
+        </section>
+
+        <footer class="window">
+            <h2>About this program</h2>
+            <div class="body small">
+                <p>GS Remap is based on SuperConvert 4.0 for the Apple IIgs, by Jason Harper with updates by Ian Brumby, published by Seven Hills Software. SuperConvert is their trademark. GS Remap is an independent project and is not affiliated with or endorsed by them.</p>
+                <p>Shaston and Print Char 21 fonts by Kreative Software.</p>
+                <p class="links">
+                    <a href="privacy.html" rel="nofollow">Privacy Policy</a>
+                    <a href="imprint.html" rel="nofollow">Legal Notice</a>
+                    <a href="mailto:walter.tengler@gmail.com">Email</a>
+                    <a href="../">More apps</a>
+                </p>
+                <p>Walter Tengler</p>
+            </div>
+        </footer>
+    </main>
+</body>
+</html>
