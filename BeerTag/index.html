@@ -20,6 +20,8 @@
 
 
 
+
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@700;800&display=swap');
 
@@ -232,6 +234,28 @@
         .shot .kicker { margin: 16px 0 2px; font-size: 0.7rem; color: var(--c, var(--cyan)); }
         .shot p { font-weight: 800; font-size: 1rem; }
 
+        /* ---------- Two looks (Comic / Tactical switch) ---------- */
+        .look-switch {
+            display: inline-flex; gap: 4px; padding: 4px; margin-top: 28px;
+            background: var(--bg-deep); border: 1px solid rgba(255,255,255,0.12); border-radius: 999px;
+        }
+        .look-switch button {
+            font: inherit; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.82rem;
+            color: var(--text-2); background: transparent; border: 0; border-radius: 999px; padding: 10px 26px; cursor: pointer;
+        }
+        .look-switch button[aria-pressed="true"] { color: #14110F; background: #FFD23F; }
+        .looks[data-look="tactical"] .look-switch button[aria-pressed="true"] { color: #05080F; background: var(--cyan); }
+        .look-note { color: var(--text-2); margin-top: 16px; min-height: 3.2em; max-width: 620px; margin-left: auto; margin-right: auto; }
+        .look-note span, .look-shots img { display: none; }
+        .looks[data-look="comic"] .look-note .comic, .looks[data-look="tactical"] .look-note .tactical { display: inline; }
+        .looks[data-look="comic"] .look-shots img.comic, .looks[data-look="tactical"] .look-shots img.tactical { display: block; }
+        .look-shots { display: grid; grid-template-columns: repeat(3, minmax(0, 250px)); gap: 28px; justify-content: center; margin-top: 36px; }
+        .look-shots figure { text-align: center; }
+        .look-shots img { width: 100%; border-radius: 30px; }
+        .look-shots img.comic { border: 3px solid #14110F; box-shadow: 7px 7px 0 #FFD23F; }
+        .look-shots img.tactical { border: 2px solid var(--cyan); box-shadow: 0 0 30px rgba(0, 212, 255, 0.35), 0 20px 40px rgba(0,0,0,0.5); }
+        .look-shots figcaption { margin-top: 18px; font-weight: 800; }
+
         /* ---------- Features ---------- */
         .features { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 44px; }
         .feature { padding: 24px; }
@@ -320,6 +344,10 @@
         }
         @media (max-width: 640px) {
             section { padding: 64px 0; }
+            .look-shots { gap: 12px; }
+            .look-shots img { border-radius: 16px; }
+            .look-shots img.comic { box-shadow: 4px 4px 0 #FFD23F; }
+            .look-shots figcaption { font-size: 0.8rem; margin-top: 12px; }
             .stats { grid-template-columns: repeat(2, 1fr); }
             .stat:nth-child(2) { border-right: 0; }
             .stat:nth-child(-n+2) { border-bottom: 1px solid var(--border); }
@@ -429,7 +457,7 @@
             <div class="kicker">How it works</div>
             <h2>Launch. Warn. Run.</h2>
             <p class="lead">Share invite codes, pick your target and fire at their real position. They see it coming in real time on their phone.</p>
-            <div class="steps"><div class="panel step-card"><span class="num">01</span><svg class="ico " aria-hidden="true"><use href="#ui-code"/></svg><h3>Add friends</h3><p>Share your 6-character invite code, or enter theirs. Only friends can see or target you.</p></div><div class="panel step-card"><span class="num">02</span><svg class="ico " aria-hidden="true"><use href="#ui-radar"/></svg><h3>Find them on radar</h3><p>Your friends show up on a dark tactical map at their live GPS position.</p></div><div class="panel step-card"><span class="num">03</span><svg class="ico " aria-hidden="true"><use href="#ui-launch"/></svg><h3>Launch</h3><p>Fire your current streak weapon at their real location — if they're in range.</p></div><div class="panel step-card"><span class="num">04</span><svg class="ico " aria-hidden="true"><use href="#ui-alert"/></svg><h3>They get the alert</h3><p>An incoming-strike alarm with a countdown and how far they need to run.</p></div><div class="panel step-card"><span class="num">05</span><svg class="ico " aria-hidden="true"><use href="#ui-run"/></svg><h3>Run or shield</h3><p>Get out of the blast radius on foot, or burn points on a defense.</p></div><div class="panel step-card"><span class="num">06</span><svg class="ico " aria-hidden="true"><use href="#ui-server"/></svg><h3>The server decides</h3><p>At impact, the server checks where they are. Hit, escaped, or intercepted — no arguing.</p></div></div>
+            <div class="steps"><div class="panel step-card"><span class="num">01</span><svg class="ico " aria-hidden="true"><use href="#ui-code"/></svg><h3>Add friends</h3><p>Share your 6-character invite code, or enter theirs. Only friends can see or target you.</p></div><div class="panel step-card"><span class="num">02</span><svg class="ico " aria-hidden="true"><use href="#ui-radar"/></svg><h3>Find them on radar</h3><p>Your friends show up on the map at their live GPS position.</p></div><div class="panel step-card"><span class="num">03</span><svg class="ico " aria-hidden="true"><use href="#ui-launch"/></svg><h3>Launch</h3><p>Fire your current streak weapon at their real location — if they're in range.</p></div><div class="panel step-card"><span class="num">04</span><svg class="ico " aria-hidden="true"><use href="#ui-alert"/></svg><h3>They get the alert</h3><p>An incoming-strike alarm with a countdown and how far they need to run.</p></div><div class="panel step-card"><span class="num">05</span><svg class="ico " aria-hidden="true"><use href="#ui-run"/></svg><h3>Run or shield</h3><p>Get out of the blast radius on foot, or burn points on a defense.</p></div><div class="panel step-card"><span class="num">06</span><svg class="ico " aria-hidden="true"><use href="#ui-server"/></svg><h3>The server decides</h3><p>At impact, the server checks where they are. Hit, escaped, or intercepted — no arguing.</p></div></div>
         </div>
     </section>
 
@@ -437,8 +465,33 @@
         <div class="container center">
             <div class="kicker">In the app</div>
             <h2>A command center in your pocket</h2>
-            <div class="shots"><figure class="shot" style="--c:#00D4FF"><img src="img/screen-map.jpg" width="600" height="1304" loading="lazy" alt="BeerTag screenshot: Your friends. In range."><figcaption><div class="kicker">Live radar</div><p>Your friends. In range.</p></figcaption></figure><figure class="shot" style="--c:#FF1744"><img src="img/screen-incoming.jpg" width="600" height="1304" loading="lazy" alt="BeerTag screenshot: Incoming! Run for it."><figcaption><div class="kicker">Early warning</div><p>Incoming! Run for it.</p></figcaption></figure><figure class="shot" style="--c:#FF6B35"><img src="img/screen-tracker.jpg" width="600" height="1304" loading="lazy" alt="BeerTag screenshot: Launch it. Watch it land."><figcaption><div class="kicker">Strike tracking</div><p>Launch it. Watch it land.</p></figcaption></figure><figure class="shot" style="--c:#FF1744"><img src="img/screen-impact.jpg" width="600" height="1304" loading="lazy" alt="BeerTag screenshot: Big weapons. Big booms."><figcaption><div class="kicker">Direct hit</div><p>Big weapons. Big booms.</p></figcaption></figure><figure class="shot" style="--c:#FF4B3E"><img src="img/screen-comic-impact.jpg" width="600" height="1304" loading="lazy" alt="BeerTag screenshot: Go tactical. Or go comic."><figcaption><div class="kicker">Two looks</div><p>Go tactical. Or go comic.</p></figcaption></figure><figure class="shot" style="--c:#1E9BD7"><img src="img/screen-comic-arsenal.jpg" width="600" height="1304" loading="lazy" alt="BeerTag screenshot: From rocks to missiles."><figcaption><div class="kicker">20 weapons</div><p>From rocks to missiles.</p></figcaption></figure><figure class="shot" style="--c:#FFC107"><img src="img/screen-contacts.jpg" width="600" height="1304" loading="lazy" alt="BeerTag screenshot: Loser buys the beer."><figcaption><div class="kicker">The stakes</div><p>Loser buys the beer.</p></figcaption></figure></div>
+            <div class="shots"><figure class="shot" style="--c:#00D4FF"><img src="img/screen-map.jpg" width="600" height="1304" loading="lazy" alt="BeerTag screenshot: Your friends. In range."><figcaption><div class="kicker">Live radar</div><p>Your friends. In range.</p></figcaption></figure><figure class="shot" style="--c:#FF1744"><img src="img/screen-incoming.jpg" width="600" height="1304" loading="lazy" alt="BeerTag screenshot: Incoming! Run for it."><figcaption><div class="kicker">Early warning</div><p>Incoming! Run for it.</p></figcaption></figure><figure class="shot" style="--c:#FF6B35"><img src="img/screen-tracker.jpg" width="600" height="1304" loading="lazy" alt="BeerTag screenshot: Launch it. Watch it land."><figcaption><div class="kicker">Strike tracking</div><p>Launch it. Watch it land.</p></figcaption></figure><figure class="shot" style="--c:#FF1744"><img src="img/screen-impact.jpg" width="600" height="1304" loading="lazy" alt="BeerTag screenshot: Big weapons. Big booms."><figcaption><div class="kicker">Direct hit</div><p>Big weapons. Big booms.</p></figcaption></figure><figure class="shot" style="--c:#FF4B3E"><img src="img/screen-comic-impact.jpg" width="600" height="1304" loading="lazy" alt="BeerTag screenshot: Hits go KABOOM!"><figcaption><div class="kicker">Comic style</div><p>Hits go KABOOM!</p></figcaption></figure><figure class="shot" style="--c:#1E9BD7"><img src="img/screen-comic-arsenal.jpg" width="600" height="1304" loading="lazy" alt="BeerTag screenshot: From rocks to missiles."><figcaption><div class="kicker">20 weapons</div><p>From rocks to missiles.</p></figcaption></figure><figure class="shot" style="--c:#FFC107"><img src="img/screen-contacts.jpg" width="600" height="1304" loading="lazy" alt="BeerTag screenshot: Loser buys the beer."><figcaption><div class="kicker">The stakes</div><p>Loser buys the beer.</p></figcaption></figure></div>
         </div>
+    </section>
+
+    <section id="looks">
+        <div class="container center looks" data-look="comic">
+            <div class="kicker">Two looks</div>
+            <h2>Comic or Tactical</h2>
+            <p class="lead">The same game in two styles. Comic is how the app starts; switch any time in Settings.</p>
+            <div class="look-switch" role="group" aria-label="Visual style">
+                <button type="button" data-look="comic" aria-pressed="true">Comic</button>
+                <button type="button" data-look="tactical" aria-pressed="false">Tactical</button>
+            </div>
+            <p class="look-note"><span class="comic">Saturday-morning cartoon: paper, ink and stickers. Rockets trail smoke puffs and hits go KABOOM!</span><span class="tactical">A dark command center with a neon HUD: radar blips, lock-on brackets and mushroom clouds.</span></p>
+            <div class="look-shots"><figure><img class="comic" src="img/screen-comic-map.jpg" width="600" height="1304" loading="lazy" alt="Your friends on the map, Comic style"><img class="tactical" src="img/screen-map.jpg" width="600" height="1304" loading="lazy" alt="Your friends on the map, Tactical style"><figcaption>Your friends on the map</figcaption></figure><figure><img class="comic" src="img/screen-comic-incoming.jpg" width="600" height="1304" loading="lazy" alt="Incoming strike, Comic style"><img class="tactical" src="img/screen-incoming.jpg" width="600" height="1304" loading="lazy" alt="Incoming strike, Tactical style"><figcaption>Incoming strike</figcaption></figure><figure><img class="comic" src="img/screen-comic-impact.jpg" width="600" height="1304" loading="lazy" alt="Impact, Comic style"><img class="tactical" src="img/screen-impact.jpg" width="600" height="1304" loading="lazy" alt="Impact, Tactical style"><figcaption>Impact</figcaption></figure></div>
+        </div>
+        <script>
+            document.querySelectorAll('.look-switch button').forEach(function (button) {
+                button.addEventListener('click', function () {
+                    var box = button.closest('.looks');
+                    box.dataset.look = button.dataset.look;
+                    box.querySelectorAll('.look-switch button').forEach(function (b) {
+                        b.setAttribute('aria-pressed', b === button ? 'true' : 'false');
+                    });
+                });
+            });
+        </script>
     </section>
 
     <section id="features">
