@@ -139,6 +139,8 @@ a { color: inherit; }
 
 footer.window .body { text-align: center; }
 footer .links { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 22px; }
+/* Cross-links to the other apps (kept in sync with /index.html by the Check cross-links workflow) */
+footer .links.apps { gap: 4px 16px; font-size: 0.9em; }
 
 @media (max-width: 860px) {
     body { font-size: 22px; padding-top: 96px; }
