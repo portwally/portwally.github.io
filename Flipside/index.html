@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flipside: Gravity Puzzle for iPhone</title>
+    <meta name="description" content="Flipside is a tap-to-clear puzzle game for iPhone where you flip gravity. Tap matching gems, flip the board so everything falls a new way, and set off chain reactions. 50 levels, a Daily Puzzle, four art themes. No ads, no tracking.">
+    <meta name="keywords" content="Flipside, gravity puzzle, puzzle game, iPhone game, tap to clear, match gems, flip gravity, daily puzzle, colorblind friendly, offline game, no ads">
+    <meta name="author" content="Walter Tengler">
+    <link rel="canonical" href="https://portwally.github.io/Flipside/">
+    <link rel="icon" type="image/png" href="icon.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Flipside: Gravity Puzzle">
+    <meta property="og:description" content="Turn the world around. A tap-to-clear puzzle where you flip gravity.">
+    <meta property="og:image" content="https://portwally.github.io/Flipside/screens/retro.jpg">
+    <meta property="og:url" content="https://portwally.github.io/Flipside/">
+    <meta name="twitter:card" content="summary_large_image">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MobileApplication",
+      "name": "Flipside: Gravity Puzzle",
+      "operatingSystem": "iOS",
+      "applicationCategory": "GameApplication",
+      "author": {"@type": "Person", "name": "Walter Tengler"},
+      "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"}
+    }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-top: #2e1f6b;
+            --bg-bottom: #0f1736;
+            --ink: #fff5ea;
+            --muted: rgba(255, 245, 234, 0.72);
+            --faint: rgba(255, 245, 234, 0.5);
+            --panel: rgba(255, 255, 255, 0.07);
+            --panel-strong: rgba(255, 255, 255, 0.11);
+            --stroke: rgba(255, 255, 255, 0.14);
+            --red: #ff3d68;
+            --blue: #2fb0ff;
+            --green: #22d47a;
+            --yellow: #ffdc2e;
+            --purple: #b06cff;
+            --radius: 22px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: var(--ink);
+            background: var(--bg-bottom);
+            background-image:
+                radial-gradient(circle at 12% 8%, rgba(255, 61, 104, 0.22), transparent 32%),
+                radial-gradient(circle at 88% 20%, rgba(47, 176, 255, 0.2), transparent 30%),
+                radial-gradient(circle at 70% 85%, rgba(176, 108, 255, 0.18), transparent 35%),
+                linear-gradient(180deg, var(--bg-top) 0%, var(--bg-bottom) 55%, #0b1029 100%);
+            background-attachment: fixed;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .display { font-family: 'Fredoka', 'Inter', sans-serif; font-weight: 700; line-height: 1.12; }
+
+        a { color: inherit; }
+
+        .container { max-width: 1160px; margin: 0 auto; padding: 0 20px; }
+
+        /* Floating gems in the background */
+        .sky { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+        .sky span {
+            position: absolute; width: 18px; height: 18px; border-radius: 50%; opacity: 0.35;
+            animation: drift 14s ease-in-out infinite alternate;
+        }
+        .sky span:nth-child(1) { left: 6%; top: 22%; background: var(--red); }
+        .sky span:nth-child(2) { left: 92%; top: 14%; background: var(--yellow); width: 12px; height: 12px; animation-duration: 11s; }
+        .sky span:nth-child(3) { left: 84%; top: 62%; background: var(--green); animation-duration: 17s; }
+        .sky span:nth-child(4) { left: 12%; top: 78%; background: var(--purple); width: 14px; height: 14px; animation-duration: 12s; }
+        .sky span:nth-child(5) { left: 48%; top: 6%; background: var(--blue); width: 10px; height: 10px; animation-duration: 19s; }
+        @keyframes drift { from { transform: translateY(0) rotate(0); } to { transform: translateY(-40px) rotate(180deg); } }
+
+        main, header, footer { position: relative; z-index: 1; }
+
+        /* Header */
+        header {
+            position: sticky; top: 0; z-index: 50;
+            background: rgba(15, 23, 54, 0.78);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--stroke);
+        }
+        nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 0; }
+        .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .logo img { width: 38px; height: 38px; border-radius: 10px; }
+        .logo .word { font-family: 'Fredoka', sans-serif; font-weight: 700; font-size: 1.45rem; letter-spacing: 0.01em; }
+        /* "side" hangs upside down — it's the flip side. */
+        .logo .word .side { display: inline-block; transform: scaleY(-1) translateY(-0.06em); color: var(--yellow); transition: transform 0.5s cubic-bezier(.34,1.56,.64,1); }
+        .logo:hover .word .side { transform: scaleY(1); }
+        .nav-links { display: flex; gap: 26px; }
+        .nav-links a { text-decoration: none; color: var(--muted); font-weight: 500; font-size: 0.95rem; transition: color 0.2s; }
+        .nav-links a:hover { color: var(--yellow); }
+        .lang-switcher { display: flex; gap: 6px; }
+        .lang-switcher button {
+            background: transparent; border: 1px solid var(--stroke); color: var(--muted);
+            padding: 4px 9px; border-radius: 8px; cursor: pointer; font: 600 0.8rem 'Inter', sans-serif;
+        }
+        .lang-switcher button.active, .lang-switcher button:hover { background: var(--yellow); border-color: var(--yellow); color: #1a1c2c; }
+
+        /* Hero */
+        .hero { padding: 64px 0 40px; }
+        .hero-grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 48px; align-items: center; }
+        .hero-grid > *, .split > * { min-width: 0; }
+        .kicker {
+            display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; border-radius: 999px;
+            background: var(--panel-strong); border: 1px solid var(--stroke); font-weight: 600; font-size: 0.9rem; color: var(--muted);
+        }
+        .kicker .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--green); box-shadow: 0 0 10px var(--green); }
+        .hero h1 { font-size: clamp(2.6rem, 6vw, 4.4rem); margin: 18px 0 18px; }
+        .flip-word {
+            display: inline-block; color: var(--yellow);
+            animation: flipword 4.5s cubic-bezier(.34,1.56,.64,1) infinite;
+        }
+        @keyframes flipword { 0%, 40% { transform: rotate(0); } 50%, 90% { transform: rotate(180deg); } 100% { transform: rotate(360deg); } }
+        .hero .lead { font-size: 1.15rem; color: var(--muted); max-width: 560px; }
+        .cta-row { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-top: 30px; }
+        .store-btn {
+            display: inline-flex; align-items: center; gap: 12px; padding: 14px 24px; border-radius: 16px;
+            background: #fff; color: #111; text-decoration: none; font-weight: 600; font-size: 1.02rem;
+            box-shadow: 0 10px 0 rgba(0,0,0,0.25), 0 18px 40px rgba(255, 220, 46, 0.18);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .store-btn svg { width: 24px; height: 24px; }
+        .store-btn small { display: block; font-size: 0.72rem; font-weight: 500; opacity: 0.6; line-height: 1.1; }
+        .store-btn.soon { cursor: default; }
+        .store-btn:not(.soon):hover { transform: translateY(-3px); }
+        .pills { display: flex; flex-wrap: wrap; gap: 8px; }
+        .pill { padding: 6px 12px; border-radius: 999px; background: var(--panel); border: 1px solid var(--stroke); font-size: 0.85rem; color: var(--muted); }
+
+        /* Playable mini board */
+        .demo { background: var(--panel); border: 1px solid var(--stroke); border-radius: 28px; padding: 20px; box-shadow: 0 30px 80px rgba(0,0,0,0.35); }
+        .demo-top { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+        .demo-top h2 { font-size: 1.35rem; }
+        .demo-score { font-family: 'Fredoka', sans-serif; font-weight: 600; color: var(--yellow); font-size: 1.15rem; white-space: nowrap; }
+        .board-wrap { position: relative; padding: 10px; }
+        .board {
+            --cell: min(54px, calc((100vw - 96px) / 6));
+            position: relative; width: calc(var(--cell) * 6); height: calc(var(--cell) * 6); margin: 0 auto;
+            border-radius: 16px; background:
+                linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px) 0 0 / var(--cell) var(--cell),
+                linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px) 0 0 / var(--cell) var(--cell),
+                rgba(0,0,0,0.25);
+            overflow: hidden; touch-action: none; user-select: none; -webkit-user-select: none; outline: none;
+        }
+        .board:focus-visible { box-shadow: 0 0 0 3px var(--yellow); }
+        .gem {
+            position: absolute; left: 0; top: 0; width: var(--cell); height: var(--cell); padding: 5px; cursor: pointer;
+            transition: transform 0.42s cubic-bezier(.34,1.56,.64,1), opacity 0.25s;
+        }
+        .gem i {
+            display: block; width: 100%; height: 100%; clip-path: circle(48% at 50% 50%);
+            background:
+                radial-gradient(circle at 34% 28%, rgba(255,255,255,0.85) 0 9%, transparent 10%),
+                radial-gradient(circle at 50% 38%, var(--hi) 0%, var(--c) 55%, var(--lo) 100%);
+            transition: transform 0.18s;
+        }
+        .gem:hover i { transform: scale(1.08); }
+        .gem.pop { opacity: 0; }
+        .gem.pop i { transform: scale(1.35); }
+        .gem[data-c="red"]    { --c: var(--red);    --hi: #ff8aa5; --lo: #b0153e; }
+        .gem[data-c="blue"]   { --c: var(--blue);   --hi: #8fd6ff; --lo: #136fb0; }
+        .gem[data-c="green"]  { --c: var(--green);  --hi: #8cf2bd; --lo: #0f8a4c; }
+        .gem[data-c="yellow"] { --c: var(--yellow); --hi: #fff1a1; --lo: #c79a00; }
+        .board.shapes .gem[data-c="blue"] i   { clip-path: inset(8% round 16%); }
+        .board.shapes .gem[data-c="green"] i  { clip-path: polygon(50% 4%, 97% 92%, 3% 92%); }
+        .board.shapes .gem[data-c="yellow"] i { clip-path: polygon(50% 2%, 62% 36%, 98% 37%, 69% 59%, 79% 95%, 50% 74%, 21% 95%, 31% 59%, 2% 37%, 38% 36%); }
+        .glow { position: absolute; background: var(--yellow); border-radius: 4px; box-shadow: 0 0 18px var(--yellow); transition: all 0.35s cubic-bezier(.34,1.56,.64,1); }
+        .glow.down  { left: 10px; right: 10px; bottom: 2px; height: 5px; }
+        .glow.up    { left: 10px; right: 10px; top: 2px; height: 5px; }
+        .glow.left  { top: 10px; bottom: 10px; left: 2px; width: 5px; }
+        .glow.right { top: 10px; bottom: 10px; right: 2px; width: 5px; }
+        .banner {
+            position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%) scale(0.6); opacity: 0; pointer-events: none;
+            font-family: 'Fredoka', sans-serif; font-weight: 700; font-size: 2.6rem; color: var(--yellow);
+            text-shadow: 0 4px 0 rgba(0,0,0,0.35); transition: all 0.3s cubic-bezier(.34,1.56,.64,1); white-space: nowrap;
+        }
+        .banner.show { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        .demo-controls { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 10px; margin-top: 14px; }
+        .dial { position: relative; width: 124px; height: 124px; border-radius: 50%; background: var(--panel-strong); border: 1px solid var(--stroke); }
+        .dial button {
+            position: absolute; width: 42px; height: 42px; border: 0; border-radius: 50%; background: transparent; color: var(--ink);
+            font-size: 1.25rem; font-weight: 700; cursor: pointer; transition: color 0.2s, transform 0.15s;
+        }
+        .dial button:hover { color: var(--yellow); transform: scale(1.12); }
+        .dial button.current { color: var(--yellow); }
+        .dial .u { top: 2px; left: 41px; } .dial .d { bottom: 2px; left: 41px; }
+        .dial .l { left: 2px; top: 41px; } .dial .r { right: 2px; top: 41px; }
+        .dial .arrow { position: absolute; inset: 0; display: grid; place-items: center; font-size: 1.6rem; color: var(--yellow); transition: transform 0.45s cubic-bezier(.34,1.56,.64,1); pointer-events: none; }
+        .side-btn {
+            justify-self: start; background: var(--panel); border: 1px solid var(--stroke); color: var(--muted);
+            padding: 8px 12px; border-radius: 12px; cursor: pointer; font: 600 0.85rem 'Inter', sans-serif;
+        }
+        .side-btn:hover, .side-btn[aria-pressed="true"] { color: #1a1c2c; background: var(--yellow); border-color: var(--yellow); }
+        .side-btn.right { justify-self: end; }
+        .demo-hint { margin-top: 12px; font-size: 0.86rem; color: var(--faint); text-align: center; }
+
+        /* Stats */
+        .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 46px 0 10px; }
+        .stat { background: var(--panel); border: 1px solid var(--stroke); border-radius: var(--radius); padding: 18px; text-align: center; }
+        .stat b { display: block; font-family: 'Fredoka', sans-serif; font-size: 2.3rem; line-height: 1; }
+        .stat:nth-child(1) b { color: var(--red); } .stat:nth-child(2) b { color: var(--blue); }
+        .stat:nth-child(3) b { color: var(--green); } .stat:nth-child(4) b { color: var(--yellow); }
+        .stat span { color: var(--muted); font-size: 0.9rem; }
+
+        section { padding: 70px 0; }
+        .section-head { text-align: center; max-width: 720px; margin: 0 auto 44px; }
+        .section-head h2 { font-size: clamp(2rem, 4.5vw, 2.9rem); margin-bottom: 12px; }
+        .section-head p { color: var(--muted); font-size: 1.08rem; }
+
+        /* How it plays */
+        .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .step { position: relative; background: var(--panel); border: 1px solid var(--stroke); border-radius: var(--radius); padding: 30px 26px 26px; transition: transform 0.3s cubic-bezier(.34,1.56,.64,1); }
+        .step:hover { transform: translateY(-6px) rotate(-1deg); }
+        .step:nth-child(2):hover { transform: translateY(-6px) rotate(1deg); }
+        .step .num {
+            width: 50px; height: 50px; border-radius: 50%; display: grid; place-items: center; margin-bottom: 16px;
+            font-family: 'Fredoka', sans-serif; font-weight: 700; font-size: 1.4rem; color: #1a1c2c;
+        }
+        .step:nth-child(1) .num { background: var(--red); } .step:nth-child(2) .num { background: var(--blue); } .step:nth-child(3) .num { background: var(--yellow); }
+        .step h3 { font-size: 1.5rem; margin-bottom: 8px; }
+        .step p { color: var(--muted); }
+
+        /* Theme phones */
+        .phones { display: flex; gap: 26px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 20px 6px 30px; scrollbar-width: none; }
+        .phones::-webkit-scrollbar { display: none; }
+        .phone { flex: 0 0 240px; scroll-snap-align: center; text-align: center; }
+        .phone .frame {
+            border-radius: 34px; padding: 8px; background: #05070f; border: 1px solid rgba(255,255,255,0.12);
+            box-shadow: 0 24px 50px rgba(0,0,0,0.45); transition: transform 0.4s cubic-bezier(.34,1.56,.64,1);
+        }
+        .phone:nth-child(odd) .frame { transform: rotate(-3deg); }
+        .phone:nth-child(even) .frame { transform: rotate(3deg) translateY(14px); }
+        .phone:hover .frame { transform: rotate(0) translateY(-6px) scale(1.03); }
+        .phone img { display: block; width: 100%; height: auto; border-radius: 27px; }
+        .phone h3 { font-size: 1.25rem; margin-top: 26px; }
+        .phone p { color: var(--muted); font-size: 0.92rem; padding: 0 6px; }
+        .unlock { display: inline-block; margin-top: 8px; padding: 3px 10px; border-radius: 999px; font-size: 0.78rem; font-weight: 700; background: var(--panel-strong); border: 1px solid var(--stroke); }
+        .unlock.free { background: var(--green); color: #0b2a18; border-color: var(--green); }
+        @media (min-width: 1120px) { .phones { justify-content: center; overflow: visible; } }
+
+        /* Daily puzzle */
+        .split { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+        .split h2 { font-size: clamp(2rem, 4.5vw, 2.8rem); margin-bottom: 14px; }
+        .split p { color: var(--muted); font-size: 1.08rem; margin-bottom: 14px; }
+        .chat { background: #e9e9ee; color: #111; border-radius: 26px; padding: 22px; max-width: 420px; margin-left: auto; box-shadow: 0 24px 60px rgba(0,0,0,0.35); transform: rotate(1.5deg); }
+        .chat .meta { font-size: 0.78rem; color: #777; text-align: center; margin-bottom: 12px; }
+        .bubble { background: #34c759; color: #fff; border-radius: 20px 20px 6px 20px; padding: 14px 16px; margin-left: 40px; white-space: pre-line; font-size: 1rem; line-height: 1.45; }
+        .bubble .grid { font-size: 1.25rem; letter-spacing: 1px; }
+        .reply { background: #fff; border-radius: 20px 20px 20px 6px; padding: 10px 14px; margin-top: 10px; margin-right: 80px; font-size: 0.95rem; }
+
+        /* Features */
+        .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+        .feature { background: var(--panel); border: 1px solid var(--stroke); border-radius: var(--radius); padding: 24px; transition: transform 0.3s cubic-bezier(.34,1.56,.64,1), background 0.3s; }
+        .feature:hover { transform: translateY(-5px); background: var(--panel-strong); }
+        .feature .icon { font-size: 1.9rem; margin-bottom: 10px; display: inline-block; transition: transform 0.5s cubic-bezier(.34,1.56,.64,1); }
+        .feature:hover .icon { transform: rotate(180deg); }
+        .feature h3 { font-size: 1.2rem; margin-bottom: 6px; }
+        .feature p { color: var(--muted); font-size: 0.95rem; }
+
+        /* Map */
+        .map-shot { max-width: 300px; margin: 0 auto; }
+        .map-shot .frame { transform: rotate(-4deg); }
+        .checks { list-style: none; margin-top: 10px; }
+        .checks li { position: relative; padding-left: 30px; margin: 10px 0; color: var(--muted); }
+        .checks li::before { content: ""; position: absolute; left: 0; top: 7px; width: 14px; height: 14px; border-radius: 50%; }
+        .checks li:nth-child(1)::before { background: var(--red); } .checks li:nth-child(2)::before { background: var(--blue); }
+        .checks li:nth-child(3)::before { background: var(--green); } .checks li:nth-child(4)::before { background: var(--yellow); }
+
+        /* Privacy band */
+        .privacy-band {
+            text-align: center; border-radius: 30px; padding: 46px 24px; border: 1px solid var(--stroke);
+            background: linear-gradient(135deg, rgba(34,212,122,0.18), rgba(47,176,255,0.14));
+        }
+        .privacy-band h2 { font-size: clamp(1.9rem, 4.5vw, 2.6rem); margin-bottom: 10px; }
+        .privacy-band p { color: var(--muted); max-width: 620px; margin: 0 auto 20px; font-size: 1.05rem; }
+        .btn-ghost { display: inline-block; padding: 12px 22px; border-radius: 14px; border: 1px solid var(--stroke); background: var(--panel-strong); text-decoration: none; font-weight: 600; transition: background 0.2s, color 0.2s; }
+        .btn-ghost:hover { background: var(--yellow); color: #1a1c2c; }
+
+        /* Footer (same structure as the other project pages) */
+        footer { padding: 40px 0; border-top: 1px solid var(--stroke); text-align: center; margin-top: 30px; }
+        .footer-links { display: flex; justify-content: center; gap: 26px; flex-wrap: wrap; margin-bottom: 16px; }
+        .footer-links a { color: var(--muted); text-decoration: none; font-size: 0.9rem; }
+        .footer-links a:hover { color: var(--yellow); }
+        .copyright { color: var(--faint); font-size: 0.85rem; }
+        .copyright a { color: var(--faint); text-decoration: none; }
+        .copyright a:hover { color: var(--yellow); }
+        .crosslinks { margin: 14px 0; padding-top: 14px; border-top: 1px solid rgba(128,128,128,0.2); }
+        .crosslinks p { margin: 3px 0; font-size: 0.8em; color: var(--faint); }
+        .crosslinks a { color: inherit; text-decoration: none; }
+        .crosslinks a:hover { color: var(--yellow); }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .hero-grid, .split { grid-template-columns: minmax(0, 1fr); }
+            .hero { padding-top: 36px; }
+            .steps, .features { grid-template-columns: 1fr; }
+            .stats { grid-template-columns: repeat(2, 1fr); }
+            .chat { margin: 0 auto; }
+            .nav-links { display: none; }
+        }
+        @media (max-width: 420px) {
+            .container { padding: 0 16px; }
+            .demo { padding: 14px; }
+            .logo .word { font-size: 1.25rem; }
+            .lang-switcher button { padding: 4px 7px; }
+            .dial { width: 112px; height: 112px; }
+            .dial .u, .dial .d { left: 35px; } .dial .l, .dial .r { top: 35px; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation: none !important; transition: none !important; }
+        }
+    </style>
+    <script data-goatcounter="https://portwally.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+    <div class="sky" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo" aria-label="Flipside">
+                    <img src="icon.png" alt="">
+                    <span class="word">Flip<span class="side">side</span></span>
+                </a>
+                <div class="nav-links">
+                    <a href="#how" data-i18n="nav.how">How it plays</a>
+                    <a href="#themes" data-i18n="nav.themes">Themes</a>
+                    <a href="#daily" data-i18n="nav.daily">Daily Puzzle</a>
+                    <a href="privacy.html" rel="nofollow" data-i18n="nav.privacy">Privacy</a>
+                </div>
+                <div class="lang-switcher" role="group" aria-label="Language">
+                    <button data-lang="en" class="active">EN</button>
+                    <button data-lang="de">DE</button>
+                    <button data-lang="pt">PT</button>
+                    <button data-lang="es">ES</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container hero-grid">
+                <div>
+                    <span class="kicker"><span class="dot"></span><span data-i18n="hero.kicker">A gravity puzzle for iPhone</span></span>
+                    <h1 data-i18n="hero.title">Turn the world <span class="flip-word">around</span>.</h1>
+                    <p class="lead" data-i18n="hero.lead">Tap groups of matching gems to clear them, then flip gravity so everything falls a new way. Plan the fall, set off chain reactions, and beat each level before you run out of taps.</p>
+                    <div class="cta-row">
+                        <!-- When the app is live, turn this into a link to the App Store page and remove the "soon" class. -->
+                        <span class="store-btn soon">
+                            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                            <span><small data-i18n="hero.soon">Coming soon</small><span data-i18n="hero.store">on the App Store</span></span>
+                        </span>
+                        <div class="pills">
+                            <span class="pill" data-i18n="pill.ads">No ads</span>
+                            <span class="pill" data-i18n="pill.tracking">No tracking</span>
+                            <span class="pill" data-i18n="pill.offline">Plays offline</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="demo" aria-label="Playable mini board">
+                    <div class="demo-top">
+                        <h2 data-i18n="demo.title">Try a flip</h2>
+                        <span class="demo-score"><span data-i18n="demo.score">Score</span> <span id="score">0</span></span>
+                    </div>
+                    <div class="board-wrap">
+                        <div class="board" id="board" tabindex="0" role="application"
+                             aria-label="Mini board. Arrow keys flip gravity, Enter starts a new board.">
+                            <div class="glow down" id="glow"></div>
+                        </div>
+                        <div class="banner" id="banner">Flip!</div>
+                    </div>
+                    <div class="demo-controls">
+                        <button class="side-btn" id="shapes" aria-pressed="false" data-i18n="demo.shapes">Shapes</button>
+                        <div class="dial" role="group" aria-label="Flip gravity">
+                            <div class="arrow" id="dialArrow">↓</div>
+                            <button class="u" data-dir="up" aria-label="Flip up">▲</button>
+                            <button class="l" data-dir="left" aria-label="Flip left">◀</button>
+                            <button class="r" data-dir="right" aria-label="Flip right">▶</button>
+                            <button class="d current" data-dir="down" aria-label="Flip down">▼</button>
+                        </div>
+                        <button class="side-btn right" id="reset" data-i18n="demo.reset">New board</button>
+                    </div>
+                    <p class="demo-hint" data-i18n="demo.hint">Tap 2+ touching gems. Swipe, use the arrow keys or the dial to flip gravity. Line up 4 with a flip for a chain reaction.</p>
+                    <p class="sr-only" id="live" aria-live="polite" style="position:absolute;left:-9999px;"></p>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="stats">
+                    <div class="stat"><b>50</b><span data-i18n="stat.levels">tuned levels</span></div>
+                    <div class="stat"><b>4</b><span data-i18n="stat.dirs">gravity directions</span></div>
+                    <div class="stat"><b>4</b><span data-i18n="stat.themes">art themes</span></div>
+                    <div class="stat"><b>1</b><span data-i18n="stat.daily">new puzzle every day</span></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="how">
+            <div class="container">
+                <div class="section-head">
+                    <h2 data-i18n="how.title">Tap. Flip. Chain.</h2>
+                    <p data-i18n="how.lead">Easy to pick up, surprisingly deep: the trick is choosing which way things fall.</p>
+                </div>
+                <div class="steps">
+                    <div class="step">
+                        <div class="num">1</div>
+                        <h3 data-i18n="how.s1.t">Tap</h3>
+                        <p data-i18n="how.s1.p">Tap two or more touching gems of the same color to clear them. Every tap counts, so pick wisely.</p>
+                    </div>
+                    <div class="step">
+                        <div class="num">2</div>
+                        <h3 data-i18n="how.s2.t">Flip</h3>
+                        <p data-i18n="how.s2.p">Swipe, or tip your phone, and gravity changes. Every gem slides the new way and fresh groups line up.</p>
+                    </div>
+                    <div class="step">
+                        <div class="num">3</div>
+                        <h3 data-i18n="how.s3.t">Chain</h3>
+                        <p data-i18n="how.s3.p">Line up a big group with a flip and it clears by itself. A well-timed flip sets off a whole chain reaction.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="themes">
+            <div class="container">
+                <div class="section-head">
+                    <h2 data-i18n="themes.title">Four worlds to flip</h2>
+                    <p data-i18n="themes.lead">Switch any time, even mid-level. One theme is free, the others unlock as you collect stars. Each has its own art, sounds and particles.</p>
+                </div>
+            </div>
+            <div class="phones">
+                <figure class="phone">
+                    <div class="frame"><img src="screens/retro.jpg" alt="Flipside in the Retro Pixel theme" loading="lazy" width="598" height="1300"></div>
+                    <h3>Retro Pixel</h3>
+                    <p data-i18n="theme.retro">Chunky 8-bit gems and chiptune bleeps.</p>
+                    <span class="unlock free" data-i18n="theme.free">Free</span>
+                </figure>
+                <figure class="phone">
+                    <div class="frame"><img src="screens/ink.jpg" alt="Flipside in the Ink and Paper theme with colorblind shapes" loading="lazy" width="598" height="1300"></div>
+                    <h3>Ink &amp; Paper</h3>
+                    <p data-i18n="theme.ink">Brush-drawn gems on warm paper, one red accent.</p>
+                    <span class="unlock">15 ★</span>
+                </figure>
+                <figure class="phone">
+                    <div class="frame"><img src="screens/cyanotype.jpg" alt="Flipside in the Cyanotype theme" loading="lazy" width="598" height="1300"></div>
+                    <h3>Cyanotype</h3>
+                    <p data-i18n="theme.cyan">White line art on blueprint blue.</p>
+                    <span class="unlock">45 ★</span>
+                </figure>
+                <figure class="phone">
+                    <div class="frame"><img src="screens/lowpoly.jpg" alt="Flipside in the Low-poly theme" loading="lazy" width="598" height="1300"></div>
+                    <h3>Low-poly</h3>
+                    <p data-i18n="theme.low">Faceted gems in soft light, crystal clinks.</p>
+                    <span class="unlock">90 ★</span>
+                </figure>
+            </div>
+        </section>
+
+        <section id="daily">
+            <div class="container split">
+                <div>
+                    <h2 data-i18n="daily.title">One puzzle. Everyone. Every day.</h2>
+                    <p data-i18n="daily.p1">The Daily Puzzle is the same board for every player, built from the date. Beat it, then share your result without spoiling the solution.</p>
+                    <p data-i18n="daily.p2">Come back each day for a login reward and keep your streak alive.</p>
+                </div>
+                <div class="chat" aria-label="Example of a shared Daily Puzzle result">
+                    <div class="meta" data-i18n="daily.meta">Today 09:41</div>
+                    <div class="bubble">Flipside Daily #299
+★★☆  3450 pts · 7 taps · 2 flips
+<span class="grid">🟥⬆️🟦💥🟩🟨🟦⬅️
+🟥🔨</span>
+Turn the world around</div>
+                    <div class="reply" data-i18n="daily.reply">How did you get a bomb on move 4?! 😮</div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container">
+                <div class="section-head">
+                    <h2 data-i18n="feat.title">Little things that matter</h2>
+                </div>
+                <div class="features">
+                    <div class="feature"><span class="icon">💥</span><h3 data-i18n="feat.1.t">Rockets, bombs &amp; combos</h3><p data-i18n="feat.1.p">Clear 5 at once for a rocket, 7 for a bomb. Put two specials side by side and tap one for a combo.</p></div>
+                    <div class="feature"><span class="icon">⚓</span><h3 data-i18n="feat.2.t">Obstacles with attitude</h3><p data-i18n="feat.2.p">Anchored gems, heavy stones that only fall one way, crates, sticky tiles and one-way walls.</p></div>
+                    <div class="feature"><span class="icon">🔷</span><h3 data-i18n="feat.3.t">Colorblind shapes</h3><p data-i18n="feat.3.p">One switch gives every color its own shape: circle, square, triangle, star and diamond. Try it on the board above.</p></div>
+                    <div class="feature"><span class="icon">📱</span><h3 data-i18n="feat.4.t">Tilt to flip</h3><p data-i18n="feat.4.p">Prefer motion? Tip your phone to flip gravity. It's off by default, so it never surprises you.</p></div>
+                    <div class="feature"><span class="icon">⚖️</span><h3 data-i18n="feat.5.t">Fair by design</h3><p data-i18n="feat.5.p">A solver checks that every level can be beaten without boosters. You never have to pay to win.</p></div>
+                    <div class="feature"><span class="icon">🎵</span><h3 data-i18n="feat.6.t">Feels physical</h3><p data-i18n="feat.6.p">Gems slide, overshoot and bounce. Every flip direction has its own sound and haptic pattern.</p></div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container split">
+                <div class="map-shot">
+                    <div class="phone" style="flex:none;"><div class="frame"><img src="screens/map.jpg" alt="The Flipside level map" loading="lazy" width="598" height="1300"></div></div>
+                </div>
+                <div>
+                    <h2 data-i18n="map.title">50 levels, five chapters</h2>
+                    <p data-i18n="map.p">From your first tap to Gravity Masters. The first twelve levels each teach one idea, then the puzzles get properly twisty.</p>
+                    <ul class="checks">
+                        <li data-i18n="map.c1">Earn up to three stars per level</li>
+                        <li data-i18n="map.c2">Lives refill over time, and practice mode is always free</li>
+                        <li data-i18n="map.c3">Coins for hammers, undos and extra flips</li>
+                        <li data-i18n="map.c4">Stars unlock new themes</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container">
+                <div class="privacy-band">
+                    <h2 data-i18n="priv.title">No ads. No tracking. No account.</h2>
+                    <p data-i18n="priv.p">Flipside doesn't collect anything about you. Your progress stays on your iPhone.</p>
+                    <a class="btn-ghost" href="privacy.html" rel="nofollow" data-i18n="priv.link">Read the privacy policy</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="privacy.html" rel="nofollow" data-i18n="foot.privacy">Privacy Policy</a>
+                <a href="imprint.html" rel="nofollow" data-i18n="foot.legal">Legal Notice</a>
+                <a href="mailto:walter.tengler@gmail.com" rel="nofollow" data-i18n="foot.contact">Contact</a>
+            </div>
+            <div class="crosslinks">
+                <p><a href="../Adsensemonitor/">AdSense Monitor</a> &middot; <a href="../Aichive/">Aichive</a> &middot; <a href="../Alerta/">Alerta</a> &middot; <a href="../AppleIIASCIIArt/">1977</a> &middot; <a href="../BeerTag/">BeerTag</a> &middot; <a href="../Bitpast/">BitPast</a> &middot; <a href="../Bomba/">Bomba</a></p>
+                <p><a href="../CertificadoEnergetico/">Certificado Energético</a> &middot; <a href="../Comboiotreck/">Comboio Treck</a> &middot; <a href="../CyanHero/">CyanHero</a> &middot; <a href="../EUEnergyMonitor/">EU Energy Monitor</a> &middot; <a href="../EasyDup/">EasyDup</a> &middot; <a href="../ExifEasy/">ExifEasy</a></p>
+                <p><a href="../FCPXClean/">FCPX Clean</a> &middot; <a href="../File Vortex/">File Vortex</a> &middot; <a href="../Fire/">Fire</a> &middot; <a href="../Fluvio/">Fluvio</a> &middot; <a href="../Fugiu/">Fugiu!</a> &middot; <a href="../GSRemap/">GS Remap</a> &middot; <a href="../Pibup/">PIBUP</a></p>
+                <p><a href="../RetroBrowse/">RetroBrowse</a> &middot; <a href="../RetroGraphicsConverter/">Retro Graphics</a> &middot; <a href="../RetroTV/">Retro TV</a> &middot; <a href="../RetroTube/">Retro Tube</a> &middot; <a href="../SOSIberico/">SOS Ibérica</a> &middot; <a href="../Scanora/">Scanora</a> &middot; <a href="../Screen2Store/">Screen2Store</a></p>
+                <p><a href="../SlimPix/">SlimPix</a> &middot; <a href="../Sobrium/">Sobrium</a> &middot; <a href="../Terramoto/">Terramoto</a> &middot; <a href="../climaviva/">Clima Viva</a> &middot; <a href="../coresdoamor/">Cores do Amor</a> &middot; <a href="../emergengy-reminder/">Emergency Reminder</a></p>
+            </div>
+            <p class="copyright">&copy; 2026 Walter Tengler &middot; <a href="mailto:walter.tengler@gmail.com" rel="nofollow" data-i18n="foot.contact">Contact</a></p>
+        </div>
+    </footer>
+
+    <script>
+    /* ---------- Translations ---------- */
+    const I18N = {
+        de: {
+            'nav.how': 'So wird gespielt', 'nav.themes': 'Themes', 'nav.daily': 'Tagesrätsel', 'nav.privacy': 'Datenschutz',
+            'hero.kicker': 'Ein Schwerkraft-Puzzle fürs iPhone',
+            'hero.title': 'Stell die Welt <span class="flip-word">auf den Kopf</span>.',
+            'hero.lead': 'Tippe Gruppen gleicher Edelsteine an, um sie abzuräumen, und kipp dann die Schwerkraft, damit alles in eine neue Richtung fällt. Plane den Fall, löse Kettenreaktionen aus und schaff jedes Level, bevor dir die Taps ausgehen.',
+            'hero.soon': 'Demnächst', 'hero.store': 'im App Store',
+            'pill.ads': 'Keine Werbung', 'pill.tracking': 'Kein Tracking', 'pill.offline': 'Spielt offline',
+            'demo.title': 'Probier einen Flip', 'demo.score': 'Punkte', 'demo.shapes': 'Formen', 'demo.reset': 'Neues Brett',
+            'demo.hint': 'Tippe 2+ benachbarte Steine an. Wische, nutze die Pfeiltasten oder das Rad, um die Schwerkraft zu kippen. Reihe 4 per Flip auf für eine Kettenreaktion.',
+            'stat.levels': 'abgestimmte Level', 'stat.dirs': 'Schwerkraft-Richtungen', 'stat.themes': 'Grafik-Themes', 'stat.daily': 'neues Rätsel pro Tag',
+            'how.title': 'Tippen. Kippen. Kette.', 'how.lead': 'Schnell gelernt, überraschend tief: Der Trick ist, zu wählen, wohin alles fällt.',
+            'how.s1.t': 'Tippen', 'how.s1.p': 'Tippe zwei oder mehr benachbarte Steine derselben Farbe an, um sie abzuräumen. Jeder Tap zählt, also wähle klug.',
+            'how.s2.t': 'Kippen', 'how.s2.p': 'Wische oder neige dein iPhone, und die Schwerkraft ändert sich. Alle Steine rutschen in die neue Richtung und neue Gruppen entstehen.',
+            'how.s3.t': 'Kette', 'how.s3.p': 'Reihe per Flip eine große Gruppe auf, und sie räumt sich von selbst ab. Ein gut getimter Flip löst eine ganze Kettenreaktion aus.',
+            'themes.title': 'Vier Welten zum Kippen', 'themes.lead': 'Jederzeit wechselbar, sogar mitten im Level. Ein Theme ist gratis, die anderen schaltest du mit Sternen frei. Jedes hat eigene Grafik, Sounds und Partikel.',
+            'theme.retro': 'Klobige 8-Bit-Steine und Chiptune-Piepser.', 'theme.ink': 'Mit Pinsel gezeichnete Steine auf warmem Papier, ein roter Akzent.',
+            'theme.cyan': 'Weiße Linienzeichnung auf Blaupausen-Blau.', 'theme.low': 'Facettierte Steine in weichem Licht, kristallenes Klirren.', 'theme.free': 'Gratis',
+            'daily.title': 'Ein Rätsel. Für alle. Jeden Tag.', 'daily.p1': 'Das Tagesrätsel ist für alle Spieler dasselbe Brett, erzeugt aus dem Datum. Löse es und teile dein Ergebnis, ohne die Lösung zu verraten.',
+            'daily.p2': 'Komm jeden Tag wieder, hol dir die Tagesbelohnung und halte deine Serie am Leben.', 'daily.meta': 'Heute 09:41', 'daily.reply': 'Wie hast du im 4. Zug eine Bombe bekommen?! 😮',
+            'feat.title': 'Kleine Dinge, die zählen',
+            'feat.1.t': 'Raketen, Bomben & Combos', 'feat.1.p': 'Räum 5 auf einmal ab für eine Rakete, 7 für eine Bombe. Leg zwei Spezialsteine nebeneinander und tippe einen an für eine Combo.',
+            'feat.2.t': 'Hindernisse mit Charakter', 'feat.2.p': 'Verankerte Steine, schwere Steine, die nur in eine Richtung fallen, Kisten, klebrige Felder und Einbahn-Wände.',
+            'feat.3.t': 'Formen für Farbenblinde', 'feat.3.p': 'Ein Schalter gibt jeder Farbe ihre eigene Form: Kreis, Quadrat, Dreieck, Stern und Raute. Probier es oben auf dem Brett.',
+            'feat.4.t': 'Kippen per Neigung', 'feat.4.p': 'Lieber mit Bewegung? Neig dein iPhone, um die Schwerkraft zu kippen. Standardmäßig aus, damit nichts überrascht.',
+            'feat.5.t': 'Fair gebaut', 'feat.5.p': 'Ein Solver prüft, dass jedes Level ohne Booster zu schaffen ist. Du musst nie zahlen, um zu gewinnen.',
+            'feat.6.t': 'Fühlt sich echt an', 'feat.6.p': 'Steine rutschen, schießen übers Ziel und federn zurück. Jede Kipp-Richtung hat ihren eigenen Sound und ihr eigenes Haptik-Muster.',
+            'map.title': '50 Level, fünf Kapitel', 'map.p': 'Vom ersten Tap bis zu den Gravity Masters. Die ersten zwölf Level bringen dir je eine Idee bei, danach wird es richtig knifflig.',
+            'map.c1': 'Bis zu drei Sterne pro Level', 'map.c2': 'Leben füllen sich mit der Zeit auf, und der Übungsmodus ist immer gratis',
+            'map.c3': 'Münzen für Hammer, Rückgängig und Extra-Flips', 'map.c4': 'Sterne schalten neue Themes frei',
+            'priv.title': 'Keine Werbung. Kein Tracking. Kein Konto.', 'priv.p': 'Flipside sammelt nichts über dich. Dein Fortschritt bleibt auf deinem iPhone.', 'priv.link': 'Datenschutzerklärung lesen',
+            'foot.privacy': 'Datenschutz', 'foot.legal': 'Impressum', 'foot.contact': 'Kontakt',
+            'banner.flip': 'Flip!', 'banner.great': 'Super!', 'banner.amazing': 'Wahnsinn!', 'banner.nothing': 'Nichts zu kippen'
+        },
+        pt: {
+            'nav.how': 'Como se joga', 'nav.themes': 'Temas', 'nav.daily': 'Puzzle diário', 'nav.privacy': 'Privacidade',
+            'hero.kicker': 'Um puzzle de gravidade para iPhone',
+            'hero.title': 'Vira o mundo <span class="flip-word">ao contrário</span>.',
+            'hero.lead': 'Toca em grupos de gemas iguais para as limpar e depois vira a gravidade para que tudo caia para outro lado. Planeia a queda, provoca reações em cadeia e passa cada nível antes de ficares sem toques.',
+            'hero.soon': 'Brevemente', 'hero.store': 'na App Store',
+            'pill.ads': 'Sem anúncios', 'pill.tracking': 'Sem rastreio', 'pill.offline': 'Joga offline',
+            'demo.title': 'Experimenta virar', 'demo.score': 'Pontos', 'demo.shapes': 'Formas', 'demo.reset': 'Novo tabuleiro',
+            'demo.hint': 'Toca em 2+ gemas vizinhas. Desliza, usa as setas ou o seletor para virar a gravidade. Alinha 4 com uma viragem para uma reação em cadeia.',
+            'stat.levels': 'níveis afinados', 'stat.dirs': 'direções de gravidade', 'stat.themes': 'temas visuais', 'stat.daily': 'puzzle novo por dia',
+            'how.title': 'Toca. Vira. Encadeia.', 'how.lead': 'Fácil de aprender, surpreendentemente profundo: o segredo é escolher para onde tudo cai.',
+            'how.s1.t': 'Toca', 'how.s1.p': 'Toca em duas ou mais gemas vizinhas da mesma cor para as limpar. Cada toque conta, escolhe bem.',
+            'how.s2.t': 'Vira', 'how.s2.p': 'Desliza, ou inclina o telemóvel, e a gravidade muda. Todas as gemas deslizam para o novo lado e surgem novos grupos.',
+            'how.s3.t': 'Encadeia', 'how.s3.p': 'Junta um grupo grande com uma viragem e ele limpa-se sozinho. Uma viragem bem pensada provoca uma reação em cadeia.',
+            'themes.title': 'Quatro mundos para virar', 'themes.lead': 'Muda quando quiseres, até a meio de um nível. Um tema é grátis, os outros desbloqueiam com estrelas. Cada um tem grafismo, sons e partículas próprios.',
+            'theme.retro': 'Gemas de 8 bits e sons chiptune.', 'theme.ink': 'Gemas desenhadas a pincel em papel quente, um toque de vermelho.',
+            'theme.cyan': 'Traço branco sobre azul de cianotipia.', 'theme.low': 'Gemas facetadas em luz suave, tilintar de cristal.', 'theme.free': 'Grátis',
+            'daily.title': 'Um puzzle. Para todos. Todos os dias.', 'daily.p1': 'O puzzle diário é o mesmo tabuleiro para todos os jogadores, gerado a partir da data. Resolve-o e partilha o resultado sem estragar a solução.',
+            'daily.p2': 'Volta todos os dias para receber uma recompensa e manter a tua sequência.', 'daily.meta': 'Hoje 09:41', 'daily.reply': 'Como é que tiveste uma bomba na 4.ª jogada?! 😮',
+            'feat.title': 'Pequenas coisas que contam',
+            'feat.1.t': 'Foguetes, bombas e combos', 'feat.1.p': 'Limpa 5 de uma vez para um foguete, 7 para uma bomba. Junta duas especiais e toca numa para um combo.',
+            'feat.2.t': 'Obstáculos com personalidade', 'feat.2.p': 'Gemas ancoradas, pedras pesadas que só caem para um lado, caixotes, casas pegajosas e paredes de sentido único.',
+            'feat.3.t': 'Formas para daltónicos', 'feat.3.p': 'Um interruptor dá a cada cor a sua forma: círculo, quadrado, triângulo, estrela e losango. Experimenta no tabuleiro acima.',
+            'feat.4.t': 'Inclina para virar', 'feat.4.p': 'Preferes movimento? Inclina o telemóvel para virar a gravidade. Está desligado por defeito, sem surpresas.',
+            'feat.5.t': 'Justo por natureza', 'feat.5.p': 'Um solver verifica que cada nível se resolve sem ajudas. Nunca tens de pagar para ganhar.',
+            'feat.6.t': 'Sente-se a sério', 'feat.6.p': 'As gemas deslizam, passam um pouco e ressaltam. Cada direção tem o seu som e padrão háptico.',
+            'map.title': '50 níveis, cinco capítulos', 'map.p': 'Do primeiro toque aos Gravity Masters. Os primeiros doze níveis ensinam uma ideia de cada vez, depois os puzzles ficam mesmo traiçoeiros.',
+            'map.c1': 'Até três estrelas por nível', 'map.c2': 'As vidas recarregam com o tempo e o modo de treino é sempre grátis',
+            'map.c3': 'Moedas para martelos, desfazer e viragens extra', 'map.c4': 'As estrelas desbloqueiam novos temas',
+            'priv.title': 'Sem anúncios. Sem rastreio. Sem conta.', 'priv.p': 'O Flipside não recolhe nada sobre ti. O teu progresso fica no teu iPhone.', 'priv.link': 'Ler a política de privacidade',
+            'foot.privacy': 'Política de Privacidade', 'foot.legal': 'Aviso Legal', 'foot.contact': 'Contacto',
+            'banner.flip': 'Vira!', 'banner.great': 'Boa!', 'banner.amazing': 'Incrível!', 'banner.nothing': 'Nada a virar'
+        },
+        es: {
+            'nav.how': 'Cómo se juega', 'nav.themes': 'Temas', 'nav.daily': 'Puzle diario', 'nav.privacy': 'Privacidad',
+            'hero.kicker': 'Un puzle de gravedad para iPhone',
+            'hero.title': 'Dale la vuelta <span class="flip-word">al mundo</span>.',
+            'hero.lead': 'Toca grupos de gemas iguales para eliminarlos y luego gira la gravedad para que todo caiga hacia otro lado. Planea la caída, provoca reacciones en cadena y supera cada nivel antes de quedarte sin toques.',
+            'hero.soon': 'Muy pronto', 'hero.store': 'en el App Store',
+            'pill.ads': 'Sin anuncios', 'pill.tracking': 'Sin rastreo', 'pill.offline': 'Funciona sin conexión',
+            'demo.title': 'Prueba a girar', 'demo.score': 'Puntos', 'demo.shapes': 'Formas', 'demo.reset': 'Nuevo tablero',
+            'demo.hint': 'Toca 2+ gemas vecinas. Desliza, usa las flechas o el selector para girar la gravedad. Alinea 4 con un giro para una reacción en cadena.',
+            'stat.levels': 'niveles ajustados', 'stat.dirs': 'direcciones de gravedad', 'stat.themes': 'temas visuales', 'stat.daily': 'puzle nuevo cada día',
+            'how.title': 'Toca. Gira. Encadena.', 'how.lead': 'Fácil de aprender, sorprendentemente profundo: el truco es elegir hacia dónde cae todo.',
+            'how.s1.t': 'Toca', 'how.s1.p': 'Toca dos o más gemas vecinas del mismo color para eliminarlas. Cada toque cuenta, elige bien.',
+            'how.s2.t': 'Gira', 'how.s2.p': 'Desliza, o inclina el móvil, y la gravedad cambia. Todas las gemas se deslizan hacia el nuevo lado y aparecen nuevos grupos.',
+            'how.s3.t': 'Encadena', 'how.s3.p': 'Junta un grupo grande con un giro y se elimina solo. Un giro bien pensado desata una reacción en cadena.',
+            'themes.title': 'Cuatro mundos para girar', 'themes.lead': 'Cámbialo cuando quieras, incluso a mitad de nivel. Un tema es gratis, los demás se desbloquean con estrellas. Cada uno tiene su arte, sonidos y partículas.',
+            'theme.retro': 'Gemas de 8 bits y sonidos chiptune.', 'theme.ink': 'Gemas a pincel sobre papel cálido, un toque de rojo.',
+            'theme.cyan': 'Trazo blanco sobre azul de plano.', 'theme.low': 'Gemas facetadas con luz suave, tintineo de cristal.', 'theme.free': 'Gratis',
+            'daily.title': 'Un puzle. Para todos. Cada día.', 'daily.p1': 'El puzle diario es el mismo tablero para todos los jugadores, creado a partir de la fecha. Resuélvelo y comparte tu resultado sin desvelar la solución.',
+            'daily.p2': 'Vuelve cada día para recoger tu recompensa y mantener tu racha.', 'daily.meta': 'Hoy 09:41', 'daily.reply': '¡¿Cómo conseguiste una bomba en la 4.ª jugada?! 😮',
+            'feat.title': 'Pequeños detalles que importan',
+            'feat.1.t': 'Cohetes, bombas y combos', 'feat.1.p': 'Elimina 5 a la vez para un cohete, 7 para una bomba. Pon dos especiales juntas y toca una para un combo.',
+            'feat.2.t': 'Obstáculos con carácter', 'feat.2.p': 'Gemas ancladas, piedras pesadas que solo caen hacia un lado, cajas, casillas pegajosas y paredes de un solo sentido.',
+            'feat.3.t': 'Formas para daltónicos', 'feat.3.p': 'Un interruptor da a cada color su propia forma: círculo, cuadrado, triángulo, estrella y rombo. Pruébalo en el tablero de arriba.',
+            'feat.4.t': 'Inclina para girar', 'feat.4.p': '¿Prefieres moverte? Inclina el móvil para girar la gravedad. Viene desactivado, sin sorpresas.',
+            'feat.5.t': 'Justo por diseño', 'feat.5.p': 'Un solver comprueba que cada nivel se puede superar sin potenciadores. Nunca tendrás que pagar para ganar.',
+            'feat.6.t': 'Se siente real', 'feat.6.p': 'Las gemas se deslizan, se pasan un poco y rebotan. Cada dirección tiene su propio sonido y vibración.',
+            'map.title': '50 niveles, cinco capítulos', 'map.p': 'Desde tu primer toque hasta los Gravity Masters. Los doce primeros niveles enseñan una idea cada uno, luego los puzles se vuelven retorcidos de verdad.',
+            'map.c1': 'Hasta tres estrellas por nivel', 'map.c2': 'Las vidas se recargan con el tiempo y el modo práctica siempre es gratis',
+            'map.c3': 'Monedas para martillos, deshacer y giros extra', 'map.c4': 'Las estrellas desbloquean temas nuevos',
+            'priv.title': 'Sin anuncios. Sin rastreo. Sin cuenta.', 'priv.p': 'Flipside no recopila nada sobre ti. Tu progreso se queda en tu iPhone.', 'priv.link': 'Leer la política de privacidad',
+            'foot.privacy': 'Política de Privacidad', 'foot.legal': 'Aviso Legal', 'foot.contact': 'Contacto',
+            'banner.flip': '¡Gira!', 'banner.great': '¡Genial!', 'banner.amazing': '¡Increíble!', 'banner.nothing': 'Nada que girar'
+        }
+    };
+    const EN = {};
+    document.querySelectorAll('[data-i18n]').forEach(el => { EN[el.dataset.i18n] = el.innerHTML; });
+    Object.assign(EN, { 'banner.flip': 'Flip!', 'banner.great': 'Great!', 'banner.amazing': 'Amazing!', 'banner.nothing': 'Nothing to flip' });
+    let lang = 'en';
+    function t(key) { return (lang !== 'en' && I18N[lang] && I18N[lang][key]) || EN[key] || key; }
+    function setLang(next) {
+        lang = I18N[next] || next === 'en' ? next : 'en';
+        document.querySelectorAll('[data-i18n]').forEach(el => { el.innerHTML = t(el.dataset.i18n); });
+        document.querySelectorAll('.lang-switcher button').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+        document.documentElement.lang = lang;
+        try { localStorage.setItem('flipside-lang', lang); } catch (e) {}
+    }
+    document.querySelectorAll('.lang-switcher button').forEach(b => b.addEventListener('click', () => setLang(b.dataset.lang)));
+    try {
+        const saved = localStorage.getItem('flipside-lang');
+        const browser = (navigator.language || 'en').slice(0, 2);
+        setLang(saved || (I18N[browser] ? browser : 'en'));
+    } catch (e) {}
+
+    /* ---------- Playable mini board ----------
+       Same idea as the game: tap groups of 2+, flip gravity, gems slide and
+       new ones enter from the far edge. After a flip, groups of 4+ that moved
+       clear by themselves (a chain). */
+    (function () {
+        const COLS = 6, ROWS = 6, COLORS = ['red', 'blue', 'green', 'yellow'];
+        const board = document.getElementById('board');
+        const glow = document.getElementById('glow');
+        const banner = document.getElementById('banner');
+        const scoreEl = document.getElementById('score');
+        const live = document.getElementById('live');
+        const dialArrow = document.getElementById('dialArrow');
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const STEP = reduceMotion ? 0 : 430;
+        const VEC = { down: [0, 1], up: [0, -1], left: [-1, 0], right: [1, 0] };
+        const ANGLE = { down: 0, left: 90, up: 180, right: 270 };
+        let grid, gravity, score, busy = false, nextId = 0, angle = 0;
+
+        const rand = n => Math.floor(Math.random() * n);
+        const cell = () => board.clientWidth / COLS;
+
+        function place(g, c, r) {
+            g.c = c; g.r = r;
+            g.el.style.transform = `translate(${c * cell()}px, ${r * cell()}px)`;
+        }
+
+        function makeGem(color, c, r) {
+            const el = document.createElement('div');
+            el.className = 'gem';
+            el.dataset.c = color;
+            el.innerHTML = '<i></i>';
+            const g = { id: nextId++, color, el, c, r };
+            el.addEventListener('click', () => tap(g));
+            board.appendChild(el);
+            place(g, c, r);
+            return g;
+        }
+
+        function groupAt(c, r) {
+            const start = grid[r][c];
+            if (!start) return [];
+            const seen = new Set([start.id]), out = [start], stack = [start];
+            while (stack.length) {
+                const g = stack.pop();
+                for (const [dx, dy] of Object.values(VEC)) {
+                    const nc = g.c + dx, nr = g.r + dy;
+                    if (nc < 0 || nr < 0 || nc >= COLS || nr >= ROWS) continue;
+                    const n = grid[nr][nc];
+                    if (n && n.color === start.color && !seen.has(n.id)) { seen.add(n.id); out.push(n); stack.push(n); }
+                }
+            }
+            return out;
+        }
+
+        // Slides every gem toward gravity. Returns the set of gems that moved.
+        function settle() {
+            const [dx, dy] = VEC[gravity], moved = new Set();
+            const lanes = gravity === 'down' || gravity === 'up' ? COLS : ROWS;
+            for (let lane = 0; lane < lanes; lane++) {
+                const cells = [];
+                for (let k = 0; k < (dy ? ROWS : COLS); k++) {
+                    // Order from the floor outward.
+                    const i = (dy > 0 || dx > 0) ? (dy ? ROWS : COLS) - 1 - k : k;
+                    cells.push(dy ? [lane, i] : [i, lane]);
+                }
+                const gems = cells.map(([c, r]) => grid[r][c]).filter(Boolean);
+                cells.forEach(([c, r]) => { grid[r][c] = null; });
+                gems.forEach((g, k) => {
+                    const [c, r] = cells[k];
+                    if (g.c !== c || g.r !== r) moved.add(g.id);
+                    grid[r][c] = g; place(g, c, r);
+                });
+            }
+            return moved;
+        }
+
+        // One new gem per cleared gem, entering from the edge opposite gravity.
+        function refill(count) {
+            const [dx, dy] = VEC[gravity], spawned = new Set();
+            const lanes = dy ? COLS : ROWS;
+            let lane = rand(lanes), placed = 0, guard = 0;
+            while (placed < count && guard++ < 200) {
+                lane = (lane + 1) % lanes;
+                const entryC = dy ? lane : (dx > 0 ? -1 : COLS);
+                const entryR = dy ? (dy > 0 ? -1 : ROWS) : lane;
+                const firstC = dy ? lane : (dx > 0 ? 0 : COLS - 1);
+                const firstR = dy ? (dy > 0 ? 0 : ROWS - 1) : lane;
+                if (grid[firstR][firstC]) continue;
+                const g = makeGem(COLORS[rand(COLORS.length)], entryC, entryR);
+                g.el.style.transition = 'none';
+                void g.el.offsetWidth;
+                g.el.style.transition = '';
+                grid[firstR][firstC] = g; place(g, firstC, firstR);
+                spawned.add(g.id); placed++;
+            }
+            const moved = settle();
+            spawned.forEach(id => moved.add(id));
+            return moved;
+        }
+
+        function clear(gems, wave) {
+            gems.forEach(g => { grid[g.r][g.c] = null; g.el.classList.add('pop'); setTimeout(() => g.el.remove(), 300); });
+            score += Math.round(gems.length * 10 * (1 + 0.5 * wave));
+            scoreEl.textContent = score;
+        }
+
+        function show(text) {
+            banner.textContent = text;
+            banner.classList.add('show');
+            clearTimeout(show.timer);
+            show.timer = setTimeout(() => banner.classList.remove('show'), 700);
+        }
+
+        function cascade(moved, wave) {
+            const seen = new Set(), groups = [];
+            for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++) {
+                const g = grid[r][c];
+                if (!g || seen.has(g.id)) continue;
+                const grp = groupAt(c, r);
+                grp.forEach(x => seen.add(x.id));
+                if (grp.length >= 4 && grp.some(x => moved.has(x.id))) groups.push(grp);
+            }
+            if (!groups.length) { busy = false; return; }
+            const all = groups.flat();
+            clear(all, wave);
+            show(t(wave >= 3 ? 'banner.amazing' : wave >= 2 ? 'banner.great' : 'banner.flip'));
+            live.textContent = `${all.length} gems cleared in a chain`;
+            setTimeout(() => cascade(refill(all.length), wave + 1), STEP);
+        }
+
+        function tap(g) {
+            if (busy || !grid[g.r][g.c]) return;
+            const grp = groupAt(g.c, g.r);
+            if (grp.length < 2) {
+                g.el.animate?.([{ transform: g.el.style.transform + ' rotate(12deg)' }, { transform: g.el.style.transform }], { duration: 220 });
+                return;
+            }
+            busy = true;
+            clear(grp, 0);
+            setTimeout(() => { refill(grp.length); busy = false; }, STEP / 2);
+        }
+
+        function flip(dir) {
+            if (busy) return;
+            if (dir === gravity) return;
+            const before = JSON.stringify(grid.map(row => row.map(g => g && g.id)));
+            const old = gravity;
+            gravity = dir;
+            const moved = settle();
+            if (JSON.stringify(grid.map(row => row.map(g => g && g.id))) === before) {
+                gravity = old; show(t('banner.nothing')); return;
+            }
+            busy = true;
+            setGravityCue();
+            show(t('banner.flip'));
+            live.textContent = `Gravity flipped ${dir}`;
+            setTimeout(() => cascade(moved, 1), STEP);
+        }
+
+        function setGravityCue() {
+            glow.className = 'glow ' + gravity;
+            let delta = ANGLE[gravity] - (((angle % 360) + 360) % 360);
+            if (delta > 180) delta -= 360;
+            if (delta < -180) delta += 360;
+            angle += delta;
+            dialArrow.style.transform = `rotate(${angle}deg)`;
+            document.querySelectorAll('.dial button').forEach(b => b.classList.toggle('current', b.dataset.dir === gravity));
+        }
+
+        function newBoard() {
+            board.querySelectorAll('.gem').forEach(e => e.remove());
+            grid = Array.from({ length: ROWS }, () => Array(COLS).fill(null));
+            gravity = 'down'; score = 0; busy = false; scoreEl.textContent = 0;
+            // Staggered stacks, like the "Flip!" tutorial: tall and short columns.
+            const heights = [3, 5, 2, 4, 5, 3];
+            for (let c = 0; c < COLS; c++) {
+                for (let k = 0; k < heights[c]; k++) {
+                    const r = ROWS - 1 - k;
+                    let color;
+                    do { color = COLORS[rand(COLORS.length)]; }
+                    while ((grid[r + 1] && grid[r + 1][c] && grid[r + 1][c].color === color && Math.random() < 0.6));
+                    grid[r][c] = makeGem(color, c, r);
+                }
+            }
+            setGravityCue();
+        }
+
+        function sizeBoard() {
+            const max = Math.min(54, Math.floor((board.parentElement.clientWidth - 20) / COLS));
+            board.style.setProperty('--cell', max + 'px');
+            if (grid) grid.flat().filter(Boolean).forEach(g => place(g, g.c, g.r));
+        }
+
+        // Swipes on the board flip gravity.
+        let start = null;
+        board.addEventListener('pointerdown', e => { start = [e.clientX, e.clientY]; });
+        board.addEventListener('pointerup', e => {
+            if (!start) return;
+            const dx = e.clientX - start[0], dy = e.clientY - start[1];
+            start = null;
+            if (Math.hypot(dx, dy) < 30) return;
+            if (Math.abs(dx) > Math.abs(dy) * 1.2) flip(dx > 0 ? 'right' : 'left');
+            else if (Math.abs(dy) > Math.abs(dx) * 1.2) flip(dy > 0 ? 'down' : 'up');
+        });
+        board.addEventListener('keydown', e => {
+            const map = { ArrowUp: 'up', ArrowDown: 'down', ArrowLeft: 'left', ArrowRight: 'right' };
+            if (map[e.key]) { e.preventDefault(); flip(map[e.key]); }
+            if (e.key === 'Enter') newBoard();
+        });
+        document.querySelectorAll('.dial button').forEach(b => b.addEventListener('click', () => flip(b.dataset.dir)));
+        document.getElementById('reset').addEventListener('click', newBoard);
+        const shapesBtn = document.getElementById('shapes');
+        shapesBtn.addEventListener('click', () => {
+            const on = board.classList.toggle('shapes');
+            shapesBtn.setAttribute('aria-pressed', on);
+        });
+        window.addEventListener('resize', sizeBoard);
+        sizeBoard();
+        newBoard();
+    })();
+    </script>
+</body>
+</html>

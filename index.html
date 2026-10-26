@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Walter Tengler — Apps</title>
-    <meta name="description" content="34 apps for macOS and iOS — utilities, real-time data, retro computing, creative tools, and more.">
+    <meta name="description" content="35 apps for macOS and iOS — utilities, real-time data, retro computing, creative tools, and more.">
     <style>
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -18,6 +18,7 @@
             --c-pt:   #F97316;
             --c-eu:   #06B6D4;
             --c-util: #10B981;
+            --c-game: #F43F5E;
         }
 
         html { scroll-behavior: smooth; }
@@ -220,6 +221,10 @@
         .c-util:hover   { border-color: rgba(16,185,129,0.45); }
         .c-util .cta    { color: #34d399; }
 
+        .c-game::before { background: linear-gradient(90deg, #F43F5E, #FBBF24); }
+        .c-game:hover   { border-color: rgba(244,63,94,0.45); }
+        .c-game .cta    { color: #fb7185; }
+
         /* ── Footer ── */
         footer {
             border-top: 1px solid var(--border);
@@ -333,10 +338,10 @@
 <section class="hero">
     <span class="hero-eyebrow">Walter Tengler</span>
     <h1 data-i18n="hero.tagline">Apps that get<br>things done</h1>
-    <p data-i18n="hero.description">34 apps for macOS and iOS — utilities, real-time data, retro computing, creative tools, and more.</p>
+    <p data-i18n="hero.description">35 apps for macOS and iOS — utilities, real-time data, retro computing, creative tools, and more.</p>
     <div class="hero-stats">
         <div class="hero-stat">
-            <strong>34</strong>
+            <strong>35</strong>
             <span data-i18n="stat.apps">Apps</span>
         </div>
         <div class="hero-stat">
@@ -602,6 +607,24 @@
     </div>
 </div>
 
+<!-- ── Games ── -->
+<div class="divider"></div>
+<div class="category">
+    <div class="category-header">
+        <span class="category-dot" style="background:var(--c-game)"></span>
+        <h2 data-i18n="cat.games">Games</h2>
+        <span class="category-count" data-i18n="cat.games.count">1 app</span>
+    </div>
+    <div class="app-grid">
+        <a href="Flipside/" class="app-card c-game">
+            <img class="icon" src="assets/icons/flipside.png" alt="" loading="lazy">
+            <div class="name">Flipside</div>
+            <div class="tagline" data-i18n="tag.flipside">A tap-to-clear puzzle where you flip gravity &mdash; plan the fall, chain the gems</div>
+            <div class="cta" data-i18n="cta">View app →</div>
+        </a>
+    </div>
+</div>
+
 <!-- ── Footer ── -->
 <footer>
     <div class="footer-links">
@@ -616,12 +639,13 @@
 const T = {
   en: {
     'hero.tagline': 'Apps that get<br>things done',
-    'hero.description': '34 apps for macOS and iOS — utilities, real-time data, retro computing, creative tools, and more.',
+    'hero.description': '35 apps for macOS and iOS — utilities, real-time data, retro computing, creative tools, and more.',
     'stat.apps': 'Apps', 'stat.platforms': 'Platforms', 'stat.available': 'Available',
     'cat.mac': 'Mac Utilities &amp; Creative', 'cat.mac.count': '18 apps',
     'cat.pt': 'Portugal', 'cat.pt.count': '9 apps',
     'cat.eu': 'Europe &amp; Global', 'cat.eu.count': '5 apps',
     'cat.util': 'Utilities &amp; Planning', 'cat.util.count': '2 apps',
+    'cat.games': 'Games', 'cat.games.count': '1 app',
     'cta': 'View app →',
     'footer.contact': 'Contact', 'footer.privacy': 'Privacy',
     'footer.copy': '© 2026 Walter Tengler · All apps available on the Apple App Store',
@@ -658,16 +682,18 @@ const T = {
     'tag.abastece': 'Real-time fuel prices at every station in Chile, Brazil and Argentina',
     'tag.beertag': "Launch virtual missiles at your friends' real locations &mdash; run, shield up and settle the score in beers",
     'tag.sobrium': "Lock the apps you'd regret using when drinking &mdash; pass a quick sobriety test to unlock",
-    'tag.emergency': 'Plan and manage your emergency supply kit &mdash; be prepared when it matters'
+    'tag.emergency': 'Plan and manage your emergency supply kit &mdash; be prepared when it matters',
+    'tag.flipside': 'A tap-to-clear puzzle where you flip gravity &mdash; plan the fall, chain the gems'
   },
   'pt-PT': {
     'hero.tagline': 'Apps que fazem<br>o trabalho',
-    'hero.description': '34 apps para macOS e iOS — utilitários, dados em tempo real, computação retro, ferramentas criativas e mais.',
+    'hero.description': '35 apps para macOS e iOS — utilitários, dados em tempo real, computação retro, ferramentas criativas e mais.',
     'stat.apps': 'Apps', 'stat.platforms': 'Plataformas', 'stat.available': 'Disponível',
     'cat.mac': 'Utilitários Mac &amp; Criatividade', 'cat.mac.count': '18 apps',
     'cat.pt': 'Portugal', 'cat.pt.count': '9 apps',
     'cat.eu': 'Europa &amp; Global', 'cat.eu.count': '5 apps',
     'cat.util': 'Utilitários &amp; Planeamento', 'cat.util.count': '2 apps',
+    'cat.games': 'Jogos', 'cat.games.count': '1 app',
     'cta': 'Ver app →',
     'footer.contact': 'Contacto', 'footer.privacy': 'Privacidade',
     'footer.copy': '© 2026 Walter Tengler · Todas as apps disponíveis na Apple App Store',
@@ -704,16 +730,18 @@ const T = {
     'tag.abastece': 'Preços de combustível em tempo real em todos os postos no Chile, Brasil e Argentina',
     'tag.beertag': 'Lança mísseis virtuais para a localização real dos teus amigos &mdash; foge, usa escudos e acerta as contas em cervejas',
     'tag.sobrium': 'Bloqueia as apps que te arrependes de usar ao beber &mdash; passa um teste de sobriedade rápido para desbloquear',
-    'tag.emergency': 'Planeia e gere o teu kit de emergência &mdash; estar preparado quando importa'
+    'tag.emergency': 'Planeia e gere o teu kit de emergência &mdash; estar preparado quando importa',
+    'tag.flipside': 'Um puzzle de tocar e limpar em que viras a gravidade &mdash; planeia a queda, encadeia as gemas'
   },
   es: {
     'hero.tagline': 'Apps que hacen<br>las cosas',
-    'hero.description': '34 apps para macOS e iOS — utilidades, datos en tiempo real, informática retro, herramientas creativas y más.',
+    'hero.description': '35 apps para macOS e iOS — utilidades, datos en tiempo real, informática retro, herramientas creativas y más.',
     'stat.apps': 'Apps', 'stat.platforms': 'Plataformas', 'stat.available': 'Disponible',
     'cat.mac': 'Utilidades Mac &amp; Creatividad', 'cat.mac.count': '18 apps',
     'cat.pt': 'Portugal', 'cat.pt.count': '9 apps',
     'cat.eu': 'Europa &amp; Global', 'cat.eu.count': '5 apps',
     'cat.util': 'Utilidades &amp; Planificación', 'cat.util.count': '2 apps',
+    'cat.games': 'Juegos', 'cat.games.count': '1 app',
     'cta': 'Ver app →',
     'footer.contact': 'Contacto', 'footer.privacy': 'Privacidad',
     'footer.copy': '© 2026 Walter Tengler · Todas las apps disponibles en la Apple App Store',
@@ -750,16 +778,18 @@ const T = {
     'tag.abastece': 'Precios de combustible en tiempo real en cada estación de Chile, Brasil y Argentina',
     'tag.beertag': 'Lanza misiles virtuales a la ubicación real de tus amigos &mdash; corre, usa escudos y salda cuentas en cervezas',
     'tag.sobrium': 'Bloquea las apps que lamentarías usar al beber &mdash; supera una prueba de sobriedad rápida para desbloquear',
-    'tag.emergency': 'Planifica y administra tu kit de suministros de emergencia &mdash; prepárate cuando importa'
+    'tag.emergency': 'Planifica y administra tu kit de suministros de emergencia &mdash; prepárate cuando importa',
+    'tag.flipside': 'Un puzle de tocar y eliminar en el que giras la gravedad &mdash; planea la caída, encadena las gemas'
   },
   fr: {
     'hero.tagline': 'Des apps qui<br>font le travail',
-    'hero.description': '34 apps pour macOS et iOS — utilitaires, données en temps réel, informatique rétro, outils créatifs et plus encore.',
+    'hero.description': '35 apps pour macOS et iOS — utilitaires, données en temps réel, informatique rétro, outils créatifs et plus encore.',
     'stat.apps': 'Apps', 'stat.platforms': 'Plateformes', 'stat.available': 'Disponible',
     'cat.mac': 'Utilitaires Mac &amp; Créativité', 'cat.mac.count': '18 apps',
     'cat.pt': 'Portugal', 'cat.pt.count': '9 apps',
     'cat.eu': 'Europe &amp; Monde', 'cat.eu.count': '5 apps',
     'cat.util': 'Utilitaires &amp; Planification', 'cat.util.count': '2 apps',
+    'cat.games': 'Jeux', 'cat.games.count': '1 app',
     'cta': "Voir l'app →",
     'footer.contact': 'Contact', 'footer.privacy': 'Confidentialité',
     'footer.copy': "© 2026 Walter Tengler · Toutes les apps disponibles sur l'Apple App Store",
@@ -796,16 +826,18 @@ const T = {
     'tag.abastece': 'Prix des carburants en temps réel dans chaque station du Chili, du Brésil et d\'Argentine',
     'tag.beertag': 'Lancez des missiles virtuels sur la position réelle de vos amis &mdash; courez, protégez-vous et réglez vos comptes en bières',
     'tag.sobrium': 'Verrouillez les apps que vous regretteriez d\'utiliser en buvant &mdash; passez un test de sobriété rapide pour déverrouiller',
-    'tag.emergency': 'Planifiez et gérez votre kit d\'urgence &mdash; soyez prêt quand ça compte'
+    'tag.emergency': 'Planifiez et gérez votre kit d\'urgence &mdash; soyez prêt quand ça compte',
+    'tag.flipside': "Un puzzle où l'on inverse la gravité &mdash; prévois la chute, enchaîne les gemmes"
   },
   de: {
     'hero.tagline': 'Apps, die<br>Dinge erledigen',
-    'hero.description': '34 Apps für macOS und iOS — Dienstprogramme, Echtzeit-Daten, Retro-Computing, kreative Werkzeuge und mehr.',
+    'hero.description': '35 Apps für macOS und iOS — Dienstprogramme, Echtzeit-Daten, Retro-Computing, kreative Werkzeuge und mehr.',
     'stat.apps': 'Apps', 'stat.platforms': 'Plattformen', 'stat.available': 'Verfügbar',
     'cat.mac': 'Mac-Dienstprogramme &amp; Kreatives', 'cat.mac.count': '18 Apps',
     'cat.pt': 'Portugal', 'cat.pt.count': '9 Apps',
     'cat.eu': 'Europa &amp; Global', 'cat.eu.count': '5 Apps',
     'cat.util': 'Dienstprogramme &amp; Planung', 'cat.util.count': '2 Apps',
+    'cat.games': 'Spiele', 'cat.games.count': '1 App',
     'cta': 'App ansehen →',
     'footer.contact': 'Kontakt', 'footer.privacy': 'Datenschutz',
     'footer.copy': '© 2026 Walter Tengler · Alle Apps im Apple App Store erhältlich',
@@ -842,16 +874,18 @@ const T = {
     'tag.abastece': 'Kraftstoffpreise in Echtzeit an jeder Tankstelle in Chile, Brasilien und Argentinien',
     'tag.beertag': 'Feuere virtuelle Raketen auf den echten Standort deiner Freunde &mdash; renn, nutze Schilde und begleicht die Rechnung in Bier',
     'tag.sobrium': 'Sperre Apps, die du beim Trinken bereuen würdest &mdash; bestehe einen schnellen Nüchternheitstest zum Entsperren',
-    'tag.emergency': 'Plane und verwalte dein Notfallversorgungskit &mdash; sei vorbereitet, wenn es darauf ankommt'
+    'tag.emergency': 'Plane und verwalte dein Notfallversorgungskit &mdash; sei vorbereitet, wenn es darauf ankommt',
+    'tag.flipside': 'Ein Tipp-Puzzle, bei dem du die Schwerkraft kippst &mdash; plane den Fall, verkette die Steine'
   },
   pl: {
     'hero.tagline': 'Aplikacje, które<br>działają',
-    'hero.description': '34 aplikacji dla macOS i iOS — narzędzia, dane w czasie rzeczywistym, retro computing, narzędzia kreatywne i więcej.',
+    'hero.description': '35 aplikacji dla macOS i iOS — narzędzia, dane w czasie rzeczywistym, retro computing, narzędzia kreatywne i więcej.',
     'stat.apps': 'Aplikacje', 'stat.platforms': 'Platformy', 'stat.available': 'Dostępne',
     'cat.mac': 'Narzędzia Mac &amp; Kreatywność', 'cat.mac.count': '18 aplikacji',
     'cat.pt': 'Portugalia', 'cat.pt.count': '9 aplikacji',
     'cat.eu': 'Europa &amp; Globalnie', 'cat.eu.count': '5 aplikacji',
     'cat.util': 'Narzędzia &amp; Planowanie', 'cat.util.count': '2 aplikacje',
+    'cat.games': 'Gry', 'cat.games.count': '1 aplikacja',
     'cta': 'Zobacz app →',
     'footer.contact': 'Kontakt', 'footer.privacy': 'Prywatność',
     'footer.copy': '© 2026 Walter Tengler · Wszystkie aplikacje dostępne w Apple App Store',
@@ -888,16 +922,18 @@ const T = {
     'tag.abastece': 'Ceny paliwa w czasie rzeczywistym na każdej stacji w Chile, Brazylii i Argentynie',
     'tag.beertag': 'Wystrzel wirtualne rakiety w prawdziwą lokalizację znajomych &mdash; uciekaj, używaj tarcz i rozliczajcie się w piwach',
     'tag.sobrium': 'Zablokuj aplikacje, których żałowałbyś używając przy alkoholu &mdash; zdaj szybki test trzeźwości, aby odblokować',
-    'tag.emergency': 'Zaplanuj i zarządzaj swoim zestawem awaryjnym &mdash; bądź gotowy, gdy to ważne'
+    'tag.emergency': 'Zaplanuj i zarządzaj swoim zestawem awaryjnym &mdash; bądź gotowy, gdy to ważne',
+    'tag.flipside': 'Gra logiczna, w której odwracasz grawitację &mdash; zaplanuj spadanie, łącz klejnoty'
   },
   cs: {
     'hero.tagline': 'Aplikace, které<br>fungují',
-    'hero.description': '34 aplikací pro macOS a iOS — nástroje, data v reálném čase, retro computing, kreativní nástroje a další.',
+    'hero.description': '35 aplikací pro macOS a iOS — nástroje, data v reálném čase, retro computing, kreativní nástroje a další.',
     'stat.apps': 'Aplikace', 'stat.platforms': 'Platformy', 'stat.available': 'Dostupné',
     'cat.mac': 'Nástroje Mac &amp; Kreativita', 'cat.mac.count': '18 aplikací',
     'cat.pt': 'Portugalsko', 'cat.pt.count': '9 aplikací',
     'cat.eu': 'Evropa &amp; Globální', 'cat.eu.count': '5 aplikací',
     'cat.util': 'Nástroje &amp; Plánování', 'cat.util.count': '2 aplikace',
+    'cat.games': 'Hry', 'cat.games.count': '1 aplikace',
     'cta': 'Zobrazit app →',
     'footer.contact': 'Kontakt', 'footer.privacy': 'Soukromí',
     'footer.copy': '© 2026 Walter Tengler · Všechny aplikace dostupné v Apple App Store',
@@ -934,16 +970,18 @@ const T = {
     'tag.abastece': 'Ceny paliva v reálném čase na každé stanici v Chile, Brazílii a Argentině',
     'tag.beertag': 'Odpalujte virtuální rakety na skutečnou polohu přátel &mdash; utíkejte, používejte štíty a vyrovnejte účty v pivech',
     'tag.sobrium': 'Uzamkněte aplikace, které byste litovali při pití &mdash; projděte rychlým testem střízlivosti pro odemčení',
-    'tag.emergency': 'Plánujte a spravujte svoji pohotovostní sadu &mdash; buďte připraveni, když na tom záleží'
+    'tag.emergency': 'Plánujte a spravujte svoji pohotovostní sadu &mdash; buďte připraveni, když na tom záleží',
+    'tag.flipside': 'Logická hra, ve které otáčíš gravitaci &mdash; naplánuj pád a řeť drahokamy'
   },
   sv: {
     'hero.tagline': 'Appar som<br>får saker gjorda',
-    'hero.description': '34 appar för macOS och iOS — verktyg, realtidsdata, retrodatorer, kreativa verktyg och mer.',
+    'hero.description': '35 appar för macOS och iOS — verktyg, realtidsdata, retrodatorer, kreativa verktyg och mer.',
     'stat.apps': 'Appar', 'stat.platforms': 'Plattformar', 'stat.available': 'Tillgänglig',
     'cat.mac': 'Mac-verktyg &amp; Kreativt', 'cat.mac.count': '18 appar',
     'cat.pt': 'Portugal', 'cat.pt.count': '9 appar',
     'cat.eu': 'Europa &amp; Globalt', 'cat.eu.count': '5 appar',
     'cat.util': 'Verktyg &amp; Planering', 'cat.util.count': '2 appar',
+    'cat.games': 'Spel', 'cat.games.count': '1 app',
     'cta': 'Visa app →',
     'footer.contact': 'Kontakt', 'footer.privacy': 'Integritet',
     'footer.copy': '© 2026 Walter Tengler · Alla appar tillgängliga i Apple App Store',
@@ -980,16 +1018,18 @@ const T = {
     'tag.abastece': 'Realtidsbränslepriser vid varje station i Chile, Brasilien och Argentina',
     'tag.beertag': 'Skjut virtuella missiler mot dina vänners verkliga position &mdash; spring, använd sköldar och gör upp i öl',
     'tag.sobrium': 'Lås appar du skulle ångra att använda när du dricker &mdash; klara ett snabbt nykterhetsprov för att låsa upp',
-    'tag.emergency': 'Planera och hantera din nödförsörjningssats &mdash; var förberedd när det gäller'
+    'tag.emergency': 'Planera och hantera din nödförsörjningssats &mdash; var förberedd när det gäller',
+    'tag.flipside': 'Ett pusselspel där du vänder på gravitationen &mdash; planera fallet, kedja ihop ädelstenarna'
   },
   no: {
     'hero.tagline': 'Apper som<br>får ting gjort',
-    'hero.description': '34 apper for macOS og iOS — verktøy, sanntidsdata, retrodata, kreative verktøy og mer.',
+    'hero.description': '35 apper for macOS og iOS — verktøy, sanntidsdata, retrodata, kreative verktøy og mer.',
     'stat.apps': 'Apper', 'stat.platforms': 'Plattformer', 'stat.available': 'Tilgjengelig',
     'cat.mac': 'Mac-verktøy &amp; Kreativt', 'cat.mac.count': '18 apper',
     'cat.pt': 'Portugal', 'cat.pt.count': '9 apper',
     'cat.eu': 'Europa &amp; Globalt', 'cat.eu.count': '5 apper',
     'cat.util': 'Verktøy &amp; Planlegging', 'cat.util.count': '2 apper',
+    'cat.games': 'Spill', 'cat.games.count': '1 app',
     'cta': 'Se app →',
     'footer.contact': 'Kontakt', 'footer.privacy': 'Personvern',
     'footer.copy': '© 2026 Walter Tengler · Alle apper tilgjengelige i Apple App Store',
@@ -1026,16 +1066,18 @@ const T = {
     'tag.abastece': 'Reelle drivstoffpriser ved hver stasjon i Chile, Brasil og Argentina',
     'tag.beertag': 'Skyt virtuelle missiler mot vennenes virkelige posisjon &mdash; løp, bruk skjold og gjør opp i øl',
     'tag.sobrium': 'Lås apper du ville angre på å bruke når du drikker &mdash; bestå en rask edruelighetsprøve for å låse opp',
-    'tag.emergency': 'Planlegg og administrer nødutstyrssatsen din &mdash; vær forberedt når det gjelder'
+    'tag.emergency': 'Planlegg og administrer nødutstyrssatsen din &mdash; vær forberedt når det gjelder',
+    'tag.flipside': 'Et puslespill der du snur tyngdekraften &mdash; planlegg fallet, kjed sammen edelsteinene'
   },
   nl: {
     'hero.tagline': 'Apps die dingen<br>gedaan krijgen',
-    'hero.description': "34 apps voor macOS en iOS — hulpprogramma's, realtime data, retro computing, creatieve tools en meer.",
+    'hero.description': "35 apps voor macOS en iOS — hulpprogramma's, realtime data, retro computing, creatieve tools en meer.",
     'stat.apps': 'Apps', 'stat.platforms': 'Platforms', 'stat.available': 'Beschikbaar',
     'cat.mac': "Mac-hulpprogramma's &amp; Creatief", 'cat.mac.count': '18 apps',
     'cat.pt': 'Portugal', 'cat.pt.count': '9 apps',
     'cat.eu': 'Europa &amp; Wereld', 'cat.eu.count': '5 apps',
     'cat.util': "Hulpprogramma's &amp; Planning", 'cat.util.count': '2 apps',
+    'cat.games': 'Games', 'cat.games.count': '1 app',
     'cta': 'Bekijk app →',
     'footer.contact': 'Contact', 'footer.privacy': 'Privacy',
     'footer.copy': '© 2026 Walter Tengler · Alle apps beschikbaar in de Apple App Store',
@@ -1072,16 +1114,18 @@ const T = {
     'tag.abastece': 'Realtime brandstofprijzen bij elke tankstation in Chili, Brazilië en Argentinië',
     'tag.beertag': 'Vuur virtuele raketten af op de echte locatie van je vrienden &mdash; ren, gebruik schilden en reken af in biertjes',
     'tag.sobrium': 'Vergrendel apps die je zou betreuren bij drinken &mdash; doorsta een snelle nuchterheidstest om te ontgrendelen',
-    'tag.emergency': 'Plan en beheer je noodvoorraadk it &mdash; wees voorbereid als het erop aankomt'
+    'tag.emergency': 'Plan en beheer je noodvoorraadk it &mdash; wees voorbereid als het erop aankomt',
+    'tag.flipside': 'Een puzzelspel waarin je de zwaartekracht omdraait &mdash; plan de val, maak kettingreacties'
   },
   ar: {
     'hero.tagline': 'تطبيقات تُنجز<br>المهام',
-    'hero.description': '٣٤ تطبيقاً لـ macOS وiOS — أدوات، بيانات فورية، حوسبة قديمة، أدوات إبداعية والمزيد.',
+    'hero.description': '٣٥ تطبيقاً لـ macOS وiOS — أدوات، بيانات فورية، حوسبة قديمة، أدوات إبداعية والمزيد.',
     'stat.apps': 'تطبيق', 'stat.platforms': 'منصات', 'stat.available': 'متاح',
     'cat.mac': 'أدوات Mac &amp; إبداع', 'cat.mac.count': '١٨ تطبيقاً',
     'cat.pt': 'البرتغال', 'cat.pt.count': '٩ تطبيقات',
     'cat.eu': 'أوروبا &amp; العالمي', 'cat.eu.count': '٥ تطبيقات',
     'cat.util': 'أدوات &amp; تخطيط', 'cat.util.count': '٢ تطبيقان',
+    'cat.games': 'ألعاب', 'cat.games.count': 'تطبيق واحد',
     'cta': '← عرض التطبيق',
     'footer.contact': 'تواصل', 'footer.privacy': 'الخصوصية',
     'footer.copy': '© 2026 Walter Tengler · جميع التطبيقات متاحة في Apple App Store',
@@ -1118,16 +1162,18 @@ const T = {
     'tag.abastece': 'أسعار الوقود الفورية في كل محطة في تشيلي والبرازيل والأرجنتين',
     'tag.beertag': 'أطلق صواريخ افتراضية على المواقع الحقيقية لأصدقائك &mdash; اهرب، استخدم الدروع وسوِّ الحساب بالمشروبات',
     'tag.sobrium': 'أغلق التطبيقات التي ستندم على استخدامها عند الشرب &mdash; اجتز اختبار رصانة سريعاً للفتح',
-    'tag.emergency': 'خطّط وأدر مجموعة إمداداتك الطارئة &mdash; كن مستعداً حين يهمّ الأمر'
+    'tag.emergency': 'خطّط وأدر مجموعة إمداداتك الطارئة &mdash; كن مستعداً حين يهمّ الأمر',
+    'tag.flipside': 'لعبة ألغاز تقلب فيها الجاذبية &mdash; خطّط للسقوط واصنع سلاسل من الجواهر'
   },
   ko: {
     'hero.tagline': '일을 완수하는<br>앱',
-    'hero.description': 'macOS 및 iOS용 앱 34개 — 유틸리티, 실시간 데이터, 레트로 컴퓨팅, 창작 도구 등.',
+    'hero.description': 'macOS 및 iOS용 앱 35개 — 유틸리티, 실시간 데이터, 레트로 컴퓨팅, 창작 도구 등.',
     'stat.apps': '앱', 'stat.platforms': '플랫폼', 'stat.available': '이용 가능',
     'cat.mac': 'Mac 유틸리티 &amp; 크리에이티브', 'cat.mac.count': '앱 18개',
     'cat.pt': '포르투갈', 'cat.pt.count': '앱 9개',
     'cat.eu': '유럽 &amp; 글로벌', 'cat.eu.count': '앱 5개',
     'cat.util': '유틸리티 &amp; 플래닝', 'cat.util.count': '앱 2개',
+    'cat.games': '게임', 'cat.games.count': '앱 1개',
     'cta': '앱 보기 →',
     'footer.contact': '연락', 'footer.privacy': '개인정보',
     'footer.copy': '© 2026 Walter Tengler · 모든 앱은 Apple App Store에서 이용 가능',
@@ -1164,7 +1210,8 @@ const T = {
     'tag.abastece': '칠레, 브라질, 아르헨티나의 모든 주유소 실시간 연료 가격',
     'tag.beertag': '친구의 실제 위치로 가상 미사일 발사 &mdash; 달아나고, 방어막을 쓰고, 맥주로 승부를 정산',
     'tag.sobrium': '음주 중 사용을 후회할 앱 잠금 &mdash; 빠른 정신 명료성 테스트를 통과하면 잠금 해제',
-    'tag.emergency': '비상 물자 키트 계획 및 관리 &mdash; 중요할 때 준비되어 있기'
+    'tag.emergency': '비상 물자 키트 계획 및 관리 &mdash; 중요할 때 준비되어 있기',
+    'tag.flipside': '중력을 뒤집는 탭 퍼즐 &mdash; 떨어질 방향을 계획하고 보석을 연쇄로 터뜨리세요'
   }
 };
 
