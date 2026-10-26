@@ -191,13 +191,15 @@
         .screen { position: relative; border-radius: 14px; overflow: hidden; background: #000; box-shadow: inset 0 0 40px rgba(0,0,0,0.9); }
         .screen img { width: 100%; }
         .screen::after {
+            /* soft CRT vignette, above the screenshot */
             content: "";
             position: absolute; inset: 0;
-            background:
-                repeating-linear-gradient(to bottom, rgba(0,0,0,0.16) 0 1px, transparent 1px 3px),
-                radial-gradient(ellipse at center, transparent 60%, rgba(0,0,0,0.45) 100%);
+            background: radial-gradient(ellipse at center, transparent 60%, rgba(0,0,0,0.45) 100%);
             pointer-events: none;
+            z-index: 102;
         }
+        /* Screenshots sit above the page's scanline overlay so they stay clean */
+        .screen img, .shot img, .machine img, .original img { position: relative; z-index: 101; }
 
         /* ---------- Stats ---------- */
         .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 18px; }
