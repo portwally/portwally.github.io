@@ -201,7 +201,7 @@
         <div class="container">
             <h1>Privacy Policy</h1>
             <div class="app-name">CyanHero</div>
-            <div class="last-updated">Last Updated: January 2026</div>
+            <div class="last-updated">Last Updated: October 2026</div>
         </div>
     </header>
 
@@ -210,7 +210,7 @@
             <div class="content">
                 <div class="highlight-box">
                     <h3>🔒 Your Privacy is Guaranteed</h3>
-                    <p style="margin-bottom: 0;"><strong>CyanHero does not collect, transmit, or store any of your personal data.</strong> This app is designed with complete privacy protection. All image processing happens entirely on your local computer, and no information ever leaves your device.</p>
+                    <p style="margin-bottom: 0;"><strong>CyanHero does not collect or store any of your personal data.</strong> This app is designed with complete privacy protection. All image processing happens entirely on your local computer, and your images never leave your device. The only information that leaves your Mac is the location of a place you choose yourself in the optional UV Index tool, as described under Network Activity below.</p>
                 </div>
 
                 <h2>Data Collection</h2>
@@ -219,7 +219,7 @@
                     <li>No personal information is collected</li>
                     <li>No user analytics or telemetry</li>
                     <li>No tracking of app usage</li>
-                    <li>No network connections or internet communication</li>
+                    <li>No access to your Mac's location</li>
                     <li>No crash reports or diagnostic data sent to developers</li>
                     <li>No advertising identifiers or cookies</li>
                 </ul>
@@ -243,12 +243,14 @@
                 </ul>
 
                 <h2>Network Activity</h2>
-                <p><strong>CyanHero has ZERO network activity:</strong></p>
+                <p>Making negatives, editing images, curves and printing all work <strong>completely offline</strong>. The app only connects to the internet when you use the optional <strong>UV Index</strong> tool:</p>
                 <ul>
-                    <li>The app does not connect to the internet</li>
-                    <li>No data is transmitted to any external servers</li>
+                    <li><strong>UV data:</strong> when you click "Get UV Data", the latitude and longitude of the place you selected are sent to the OpenUV service to retrieve the current UV index and today's forecast</li>
+                    <li><strong>Map and place search:</strong> the map, searching for a place, and looking up a place's name and time zone use Apple Maps, which receives your search text or the coordinates of the place you selected</li>
+                    <li><strong>You choose the place:</strong> CyanHero never reads your Mac's location. Only the coordinates of a place you search for, click on the map, or type in are sent</li>
+                    <li><strong>Nothing personal is sent:</strong> no name, account, device identifier, images, or other personal information is included. As with any internet request, these services can see your IP address</li>
+                    <li><strong>Nothing is stored by the developer:</strong> results are kept briefly in the app's memory to avoid repeat requests and are discarded when you quit</li>
                     <li>The app does not check for updates automatically</li>
-                    <li>No third-party services or APIs are used</li>
                 </ul>
 
                 <h2>Curve Files and Presets</h2>
@@ -268,7 +270,12 @@
                 </ul>
 
                 <h2>Third-Party Services</h2>
-                <p><strong>CyanHero uses NO third-party services:</strong></p>
+                <p>Only the optional UV Index tool uses outside services, and only when you use it:</p>
+                <ul>
+                    <li><strong>OpenUV</strong> (<a href="https://www.openuv.io">openuv.io</a>) provides the UV index, forecast and sun times for the coordinates you select</li>
+                    <li><strong>Apple Maps</strong> provides the map, place search, and place names and time zones, under <a href="https://www.apple.com/legal/privacy/">Apple's privacy policy</a></li>
+                </ul>
+                <p><strong>CyanHero uses no other third-party services:</strong></p>
                 <ul>
                     <li>No analytics frameworks (e.g., Google Analytics, Mixpanel)</li>
                     <li>No crash reporting services (e.g., Crashlytics, Sentry)</li>
