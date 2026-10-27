@@ -406,7 +406,7 @@
             <div class="plate"><h2 class="steel">INTEL</h2><span class="code">SAT.RECON</span><span class="rule"></span></div>
             <p class="lead">Straight from the Apple IIgs: Super Hi-Res, 320 x 200, 16 colors. Click a picture for a closer look.</p>
             <div class="gallery">
-                <figure class="shot steel"><a href="screens/start.png" data-caption="The start of a game on Green Valley: a command center and a war factory"><div class="well"><img src="screens/start.png" alt="The start of a game: the command center, a war factory, two tanks, a harvester and two soldiers" width="640" height="400" loading="lazy"></div></a><figcaption><span class="tag">REC 01</span><span>The start: a command center and a war factory</span></figcaption></figure>
+                <figure class="shot steel"><a href="screens/start.png" data-caption="The start of a game on Green Valley: a command center and your first units"><div class="well"><img src="screens/start.png" alt="The start of a game: the command center, two tanks, a harvester and two soldiers" width="640" height="400" loading="lazy"></div></a><figcaption><span class="tag">REC 01</span><span>The start: a command center and your first units</span></figcaption></figure>
                 <figure class="shot steel"><a href="screens/base.png" data-caption="A base with a radar center, a refinery, a guard tower and a turret"><div class="well"><img src="screens/base.png" alt="A built-up base with a power plant, radar center, barracks, refinery, guard tower and turret" width="640" height="400" loading="lazy"></div></a><figcaption><span class="tag">REC 02</span><span>A base with a radar center, a refinery and defenses</span></figcaption></figure>
                 <figure class="shot steel"><a href="screens/defense.png" data-caption="The enemy attacks; the turret and the guard tower fire back"><div class="well"><img src="screens/defense.png" alt="Enemy tanks and soldiers attacking the base, explosions near the ore field" width="640" height="400" loading="lazy"></div></a><figcaption><span class="tag">REC 03</span><span>The enemy attacks; the defenses fire back</span></figcaption></figure>
                 <figure class="shot steel"><a href="screens/enemy-base.png" data-caption="The enemy's base: barracks, war factory, refinery, power plant and guard towers"><div class="well"><img src="screens/enemy-base.png" alt="The enemy base in red: barracks on a concrete pad, a war factory, a refinery, a power plant and guard towers" width="640" height="400" loading="lazy"></div></a><figcaption><span class="tag">REC 04</span><span>The enemy's base, scouted</span></figcaption></figure>
@@ -493,10 +493,10 @@
                 <div>
                     <h3>COMMAND CENTER</h3>
                     <div class="cost" style="font-family: var(--term); font-size: 1.25rem;"><span style="color: var(--ore);">+100 POWER</span> &nbsp; 400 hit points</div>
-                    <p>Your headquarters, with the dock where harvesters unload. You start with it and a war factory - and if it falls, the mission is lost.</p>
+                    <p>Your headquarters, with the dock where harvesters unload. You start with it alone: build a barracks first, then a war factory for your vehicles. If it falls, the mission is lost.</p>
                     <div class="pair">
-                        <figure><img class="px" src="img/fact.png" alt="War factory" width="128" height="128"><figcaption>WAR FACTORY</figcaption></figure>
-                        <figure><img class="px" src="img/ref.png" alt="Refinery" width="128" height="128"><figcaption>REFINERY</figcaption></figure>
+                        <figure><img class="px" src="img/bar.png" alt="Barracks" width="128" height="128"><figcaption>1. BARRACKS</figcaption></figure>
+                        <figure><img class="px" src="img/fact.png" alt="War factory" width="128" height="128"><figcaption>2. WAR FACTORY</figcaption></figure>
                     </div>
                 </div>
             </div>
@@ -524,6 +524,7 @@
                     <h3>WAR FACTORY</h3>
                     <div class="cost"><span><b>$1000</b></span><span>10 s</span><span class="neg">-30 PWR</span></div>
                     <p>Tanks, buggies and harvesters roll out of its big door.</p>
+                    <span class="needs">NEEDS A BARRACKS</span>
                 </article>
                 <article class="card steel">
                     <div class="icon"><img class="px s32" src="img/radar.png" alt="Radar center" width="128" height="128"><div class="bar"><i></i></div><div class="ready">READY</div></div>
@@ -609,11 +610,12 @@
                     <h3>STANDING ORDERS</h3>
                     <ol class="orders">
                         <li><b>1</b><span><strong>Keep the ore flowing.</strong> Your harvester mines on its own: 25 credits a scoop, 500 a load. A refinery near the ore shortens its trips.</span></li>
-                        <li><b>2</b><span><strong>Mind the power.</strong> Your command center makes 100, each power plant 100 more. Too little, and everything slows down.</span></li>
-                        <li><b>3</b><span><strong>Scout ahead.</strong> The fog hides the enemy until one of your units has seen it.</span></li>
-                        <li><b>4</b><span><strong>Defend early.</strong> A couple of turrets and guard towers by the command center hold off the first waves.</span></li>
-                        <li><b>5</b><span><strong>Match your weapons.</strong> Rockets against tanks and buildings, machine guns against soldiers.</span></li>
-                        <li><b>6</b><span><strong>Finish the job.</strong> You win when every enemy unit and building is gone.</span></li>
+                        <li><b>2</b><span><strong>Barracks first.</strong> You start with a command center only: a barracks lets you build a war factory, and the war factory your tanks, buggies and harvesters.</span></li>
+                        <li><b>3</b><span><strong>Mind the power.</strong> Your command center makes 100, each power plant 100 more. Too little, and everything slows down.</span></li>
+                        <li><b>4</b><span><strong>Scout ahead.</strong> The fog hides the enemy until one of your units has seen it.</span></li>
+                        <li><b>5</b><span><strong>Defend early.</strong> A couple of turrets and guard towers by the command center hold off the first waves.</span></li>
+                        <li><b>6</b><span><strong>Match your weapons.</strong> Rockets against tanks and buildings, machine guns against soldiers.</span></li>
+                        <li><b>7</b><span><strong>Finish the job.</strong> You win when every enemy unit and building is gone.</span></li>
                     </ol>
                 </div></div>
             </div>
