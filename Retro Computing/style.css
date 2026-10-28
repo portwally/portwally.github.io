@@ -1,349 +1,207 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+/* 1977: an Apple II booting on a green-phosphor monitor. The apps are the disk's
+   catalog; the one pointed at runs below it. Type: Print Char 21, the Apple II's
+   own characters (Kreative Software). */
+
+@font-face {
+    font-family: "PrintChar21";
+    src: url("fonts/PrintChar21.ttf") format("truetype");
+    font-display: swap;
 }
 
 :root {
-    --phosphor: #33FF00;
-    --phosphor-dim: #1f9a00;
-    --black: #000000;
-    --near-black: #0a0a0a;
-    --dark-bg: #111111;
-    --card-bg: #181818;
-    --border: #2a2a2a;
-    --text: #e8e8e8;
-    --text-dim: #b0b0b0;
-    --text-muted: #777777;
+    --phosphor: #41ff6e;
+    --phosphor-dim: #1f9c43;
+    --glass: #031a08;
+    --beige: #d8ccae;
+    --beige-dark: #a89a78;
+    --beige-light: #efe6cf;
+    --room: #17130f;
+    --glow: 0 0 2px rgba(65, 255, 110, 0.9), 0 0 9px rgba(65, 255, 110, 0.45);
 }
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { background: var(--room); }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    line-height: 1.6;
-    color: var(--text);
-    background: var(--black);
-}
-
-a { color: var(--phosphor); }
-
-/* Navigation */
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
-}
-
-.logo {
-    font-size: 1.25rem;
-    font-weight: bold;
-    color: var(--phosphor);
-    font-family: 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace;
-    letter-spacing: 0.04em;
-    text-shadow: 0 0 8px rgba(51, 255, 0, 0.4);
-    text-decoration: none;
-}
-
-.nav-links {
-    display: flex;
-    gap: 1.75rem;
-    align-items: center;
-}
-
-.nav-links a {
-    color: var(--text);
-    text-decoration: none;
-    opacity: 0.85;
-    transition: opacity 0.2s, color 0.2s;
-    font-size: 0.95rem;
-}
-
-.nav-links a:hover {
-    opacity: 1;
-    color: var(--phosphor);
-}
-
-/* Hero */
-.hero {
-    background: var(--black);
-    background-image:
-        radial-gradient(ellipse at center top, rgba(51, 255, 0, 0.06) 0%, transparent 60%),
-        repeating-linear-gradient(
-            0deg,
-            rgba(51, 255, 0, 0.02) 0px,
-            rgba(51, 255, 0, 0.02) 1px,
-            transparent 1px,
-            transparent 3px
-        );
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 6rem 2rem 5rem;
-}
-
-.hero-content {
-    max-width: 800px;
-}
-
-.hero h1 {
-    font-size: 6rem;
-    font-family: 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace;
+    font-family: "PrintChar21", "Courier New", monospace;
     color: var(--phosphor);
-    letter-spacing: 0.06em;
-    text-shadow: 0 0 20px rgba(51, 255, 0, 0.55), 0 0 60px rgba(51, 255, 0, 0.2);
-    margin-bottom: 1.25rem;
-    line-height: 1;
+    /* a dark desk in a dim room */
+    background:
+        radial-gradient(ellipse at 50% 30%, #2a221a 0%, var(--room) 70%),
+        var(--room);
+    padding: 40px 18px 30px;
 }
 
-.hero-year-label {
-    font-family: 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace;
-    font-size: 0.8rem;
-    color: var(--phosphor-dim);
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    margin-bottom: 0.5rem;
-    opacity: 0.7;
+a { color: inherit; }
+
+.sr {
+    position: absolute; width: 1px; height: 1px; overflow: hidden;
+    clip: rect(0 0 0 0); white-space: nowrap;
 }
 
-.tagline {
-    font-size: 1.45rem;
-    color: var(--text);
-    margin-bottom: 1.25rem;
-    font-weight: 500;
+/* The monitor: a beige case, a curved dark-green screen */
+.room { max-width: 980px; margin: 0 auto; }
+.monitor {
+    background: linear-gradient(160deg, var(--beige-light), var(--beige) 45%, var(--beige-dark));
+    border-radius: 26px;
+    padding: 34px 38px 18px;
+    box-shadow:
+        inset 0 3px 0 rgba(255, 255, 255, 0.5),
+        inset 0 -8px 0 rgba(0, 0, 0, 0.18),
+        0 30px 60px rgba(0, 0, 0, 0.6);
 }
-
-.subtitle {
-    font-size: 1rem;
-    color: var(--text-dim);
-    max-width: 600px;
-    margin: 0 auto 0;
-    line-height: 1.7;
+.screen {
+    position: relative;
+    overflow: hidden;
+    background: radial-gradient(ellipse at 50% 45%, #06260d 0%, var(--glass) 75%, #010a03 100%);
+    border-radius: 34px / 26px;
+    padding: 34px 40px 30px;
+    box-shadow: inset 0 0 0 10px #2b2a24, inset 0 0 60px rgba(0, 0, 0, 0.9);
+    font-size: clamp(14px, 2.15vw, 21px);
+    line-height: 1.45;
+    text-shadow: var(--glow);
 }
-
-/* Apps Section */
-.apps {
-    background: var(--near-black);
-    padding: 5rem 2rem;
+/* scan lines and a faint flicker over everything on the glass */
+.screen::after {
+    content: "";
+    position: absolute; inset: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.28) 0 1px, transparent 1px 3px);
+    animation: flicker 6s infinite;
 }
+@keyframes flicker { 0%, 100% { opacity: 1; } 48% { opacity: 0.92; } 50% { opacity: 1; } }
 
-.apps h2 {
-    text-align: center;
-    font-size: 1.9rem;
-    margin-bottom: 3rem;
-    color: var(--phosphor);
-    font-family: 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace;
-    letter-spacing: 0.04em;
-    text-shadow: 0 0 10px rgba(51, 255, 0, 0.3);
-}
+.boot { font: inherit; white-space: pre; margin-bottom: 1.2em; }
+.volume { margin-bottom: 0.6em; }
 
-.apps-grid {
+/* The catalog: name, type, the machine it is for */
+.cols, .catalog a {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 1.5rem;
-    max-width: 1200px;
-    margin: 0 auto;
+    grid-template-columns: minmax(0, 1fr) 5ch 6ch;
+    gap: 2ch;
 }
-
-.app-card {
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    overflow: hidden;
+.cols { color: var(--phosphor-dim); margin-bottom: 0.2em; }
+.catalog { list-style: none; }
+.catalog a {
     text-decoration: none;
-    color: inherit;
-    display: flex;
-    flex-direction: column;
-    transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    padding: 0 0.5ch;
+    margin: 0 -0.5ch;
 }
-
-.app-card:hover {
-    border-color: var(--phosphor);
-    transform: translateY(-3px);
-    box-shadow: 0 0 28px rgba(51, 255, 0, 0.12);
+/* the line pointed at in inverse video, as the Apple II shows a selection */
+.catalog a.on, .catalog a:hover, .catalog a:focus-visible {
+    background: var(--phosphor);
+    color: var(--glass);
+    text-shadow: none;
+    outline: none;
+    box-shadow: 0 0 10px rgba(65, 255, 110, 0.6);
 }
+.free { color: var(--phosphor-dim); margin: 0.6em 0 1.2em; }
 
-.app-card-thumb {
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    overflow: hidden;
-    background: var(--dark-bg);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.app-card-thumb img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.3s ease;
-}
-
-.app-card:hover .app-card-thumb img {
-    transform: scale(1.03);
-}
-
-.app-card-body {
-    padding: 1.5rem;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-}
-
-.app-card-name {
-    font-family: 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace;
-    font-size: 1.05rem;
-    font-weight: bold;
-    color: var(--phosphor);
-    margin-bottom: 0.45rem;
-    letter-spacing: 0.02em;
-}
-
-.app-card-desc {
-    font-size: 0.92rem;
-    color: var(--text-dim);
-    line-height: 1.55;
-    flex: 1;
-    margin-bottom: 1.1rem;
-}
-
-.app-card-link {
-    font-family: 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace;
-    font-size: 0.82rem;
-    color: var(--phosphor);
-    letter-spacing: 0.04em;
-    opacity: 0.8;
-    transition: opacity 0.2s;
-}
-
-.app-card:hover .app-card-link {
-    opacity: 1;
-}
-
-/* Footer */
-footer {
-    background: var(--black);
-    color: var(--text);
-    padding: 3rem 2rem;
-    text-align: center;
-    border-top: 1px solid var(--border);
-}
-
-.footer-links {
-    margin-bottom: 0.75rem;
-}
-
-.footer-links a {
-    color: var(--text);
-    text-decoration: none;
-    margin: 0 0.85rem;
-    opacity: 0.7;
-    font-size: 0.9rem;
-    transition: opacity 0.2s, color 0.2s;
-}
-
-.footer-links a:hover {
-    opacity: 1;
-    color: var(--phosphor);
-}
-
-footer p {
-    color: var(--text-muted);
-    font-size: 0.82rem;
-    margin-top: 1rem;
-}
-
-/* Legal Pages */
-.legal-page {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 4rem 2rem;
-    color: var(--text);
-}
-
-.legal-page h1 {
-    color: var(--phosphor);
-    margin-bottom: 2rem;
-    font-family: 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace;
-    text-shadow: 0 0 10px rgba(51, 255, 0, 0.3);
-}
-
-.legal-page h2 {
-    color: var(--phosphor);
-    margin-top: 2rem;
-    margin-bottom: 1rem;
-    font-size: 1.25rem;
-    font-family: 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace;
-}
-
-.legal-page p, .legal-page ul {
-    margin-bottom: 1rem;
-    color: var(--text-dim);
-}
-
-.legal-page ul {
-    padding-left: 2rem;
-}
-
-.legal-page a {
-    color: var(--phosphor);
-}
-
-.back-link {
+/* What ]RUN shows: the program's picture and what it does */
+.prompt { margin-bottom: 0.7em; }
+.cursor {
     display: inline-block;
-    margin-bottom: 2rem;
-    color: var(--phosphor);
-    text-decoration: none;
-    font-family: 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace;
+    width: 0.62em; height: 1em;
+    margin-left: 0.15em;
+    vertical-align: -0.12em;
+    background: var(--phosphor);
+    box-shadow: var(--glow);
+    animation: blink 1.06s steps(1) infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
+.shot { display: block; margin-bottom: 0.9em; }
+.shot img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    object-position: center top;
+    border: 2px solid var(--phosphor-dim);
+    border-radius: 4px;
+    /* a touch of the phosphor over the colours */
+    filter: saturate(0.9) contrast(1.05);
+    box-shadow: 0 0 18px rgba(65, 255, 110, 0.25);
+}
+.preview p:last-child { min-height: 4.4em; }
+
+/* The badge under the screen */
+.badge {
+    margin-top: 14px;
+    text-align: right;
+    color: #6d6450;
+    font-size: 15px;
+    letter-spacing: 3px;
+    text-shadow: none;
+}
+.rainbow {
+    display: inline-block;
+    width: 14px; height: 16px;
+    margin-right: 10px;
+    vertical-align: -2px;
+    background: linear-gradient(180deg, #61bb46 0 17%, #fdb827 17% 34%, #f5821f 34% 50%,
+        #e03a3e 50% 67%, #963d97 67% 84%, #009ddc 84% 100%);
 }
 
-.back-link:hover {
-    text-decoration: underline;
+.hint {
+    max-width: 760px;
+    margin: 26px auto 0;
+    text-align: center;
+    color: #b9ad90;
+    font-size: 15px;
+    line-height: 1.6;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-    .hero {
-        padding: 5rem 1rem 4rem;
-    }
-
-    .hero h1 {
-        font-size: 4rem;
-    }
-
-    .tagline {
-        font-size: 1.15rem;
-    }
-
-    .subtitle {
-        font-size: 0.95rem;
-    }
-
-    nav {
-        padding: 1rem;
-    }
-
-    .nav-links {
-        gap: 1rem;
-    }
-
-    .nav-links a {
-        font-size: 0.85rem;
-    }
-
-    .apps {
-        padding: 3.5rem 1rem;
-    }
-
-    .apps-grid {
-        grid-template-columns: 1fr;
-    }
+.foot {
+    max-width: 980px;
+    margin: 30px auto 0;
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 26px;
+    color: #8c826b;
+    font-size: 13px;
 }
+.foot a { color: #b9ad90; }
+.foot a:hover { color: var(--phosphor); }
+
+/* The boot: each part of the screen appears in turn */
+.l1, .l2, .l3, .l4, .l5, .l6, .l7 { animation: appear 0.01s both; }
+.l1 { animation-delay: 0.2s; }
+.l2 { animation-delay: 0.9s; }
+.l3 { animation-delay: 1.5s; }
+.l4 { animation-delay: 1.75s; }
+.l5 { animation-delay: 1.95s; }
+.l6 { animation-delay: 2.15s; }
+.l7 { animation-delay: 2.5s; }
+@keyframes appear { from { visibility: hidden; } to { visibility: visible; } }
+
+@media (prefers-reduced-motion: reduce) {
+    .l1, .l2, .l3, .l4, .l5, .l6, .l7, .screen::after, .cursor { animation: none; }
+}
+
+@media (max-width: 640px) {
+    body { padding: 20px 10px 24px; }
+    .monitor { padding: 16px 14px 10px; border-radius: 16px; }
+    .screen { padding: 20px 16px 18px; border-radius: 18px / 14px; font-size: 13px; }
+    .cols, .catalog a { gap: 1ch; grid-template-columns: minmax(0, 1fr) 4ch 5ch; }
+    .boot { white-space: pre-wrap; }
+}
+
+/* Privacy policy and imprint: the same green screen */
+.legal-page {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 34px 40px;
+    background: var(--glass);
+    border-radius: 18px;
+    box-shadow: inset 0 0 0 8px #2b2a24, 0 20px 50px rgba(0, 0, 0, 0.6);
+    font-size: 15px;
+    line-height: 1.6;
+    text-shadow: var(--glow);
+}
+.legal-page h1 { font-size: 26px; font-weight: normal; margin: 18px 0 14px; }
+.legal-page h2 { font-size: 18px; font-weight: normal; margin: 22px 0 8px; color: var(--phosphor); }
+.legal-page p, .legal-page li { margin-bottom: 8px; }
+.legal-page ul { padding-left: 1.4em; }
+.legal-page strong { font-weight: normal; text-decoration: underline; }
+.back-link { color: var(--phosphor-dim); text-decoration: none; }
+.back-link:hover { color: var(--phosphor); }
