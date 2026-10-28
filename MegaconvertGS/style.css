@@ -305,11 +305,6 @@ legend { padding: 0 8px; color: var(--gold); }
 .foot a { color: var(--paper); }
 .foot a:hover { color: var(--gold); }
 
-/* Pages with a single panel (privacy, legal notice) */
-.page { padding-top: 104px; }
-.page dl { display: grid; grid-template-columns: max-content 1fr; gap: 8px 20px; }
-.page dt { color: var(--gold); }
-
 @media (max-width: 900px) {
     body { font-size: 20px; }
     .hero { grid-template-columns: 1fr; padding-top: 128px; gap: 28px; }
@@ -318,7 +313,6 @@ legend { padding: 0 8px; color: var(--gold); }
     .features { grid-template-columns: 1fr; }
     .shots { grid-template-columns: 1fr; }
     .bar-row { grid-template-columns: 1fr; gap: 6px; }
-    .page { padding-top: 128px; }
     html { scroll-padding-top: 110px; }
 }
 
