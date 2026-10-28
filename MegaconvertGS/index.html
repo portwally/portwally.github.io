@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MegaconvertGS - An image converter for the Apple IIgs</title>
+    <meta name="description" content="MegaconvertGS is an image converter that runs on the Apple IIgs itself, written from scratch in 65816 assembly. It opens over 60 picture formats from the Apple II, IIgs, Atari ST, Amiga, C64, Mac, PC, Amstrad CPC, MSX, ZX Spectrum and today's computers, remaps them to Super Hi-Res and saves them. A successor to SuperConvert.">
+    <meta name="keywords" content="MegaconvertGS, Apple IIgs, Super Hi-Res, SHR, image converter, SuperConvert, 65816 assembly, GS/OS, retro graphics, ZX Spectrum, MSX, Amstrad CPC, Commodore 64, Atari ST, Amiga">
+    <meta name="author" content="Walter Tengler">
+    <link rel="canonical" href="https://portwally.github.io/MegaconvertGS/">
+    <link rel="icon" type="image/png" href="img/icon-64.png">
+    <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="MegaconvertGS">
+    <meta property="og:description" content="An image converter for the Apple IIgs, written from scratch in 65816 assembly.">
+    <meta property="og:image" content="https://portwally.github.io/MegaconvertGS/img/title.png">
+    <meta property="og:url" content="https://portwally.github.io/MegaconvertGS/">
+    <meta name="twitter:card" content="summary_large_image">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "MegaconvertGS",
+      "description": "An image converter for the Apple IIgs, written from scratch in 65816 assembly. A successor to SuperConvert.",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "GS/OS (Apple IIgs)",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+      "author": { "@type": "Person", "name": "Walter Tengler" },
+      "image": "https://portwally.github.io/MegaconvertGS/img/title.png",
+      "url": "https://portwally.github.io/MegaconvertGS/"
+    }
+    </script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="rainbow" aria-hidden="true"></div>
+    <nav class="topbar" aria-label="Sections">
+        <a class="brand" href="#top"><img src="img/icon-64.png" alt="">MegaconvertGS</a>
+        <a href="#try">Try it</a>
+        <a href="#formats">Formats</a>
+        <a href="#speed">Speed</a>
+        <a href="#screens">Screens</a>
+        <a href="#download">Download</a>
+    </nav>
+
+    <header class="hero" id="top">
+        <div class="monitor">
+            <div class="screen">
+                <img src="img/title.png" width="640" height="400" alt="The MegaconvertGS title screen: pictures fly through a prism inside a computer and come out as a Super Hi-Res landscape">
+            </div>
+            <div class="badge">AppleColor RGB</div>
+        </div>
+        <div class="pitch">
+            <p class="kicker">For the Apple IIgs &middot; GS/OS &middot; free and open source</p>
+            <h1>Pictures from every computer, on your IIgs.</h1>
+            <p>MegaconvertGS opens over 60 picture formats from the Apple II and IIgs, the Atari ST, the Amiga, the Commodore 64, the Macintosh, the PC, the Amstrad CPC, the MSX, the ZX Spectrum and today's computers, and turns them into Super Hi-Res: 320 or 640 mode, or a palette for every line.</p>
+            <p>It runs on the IIgs itself, written from scratch in 65816 assembly, and it follows SuperConvert, the classic IIgs converter, window for window.</p>
+            <div class="actions">
+                <a class="btn primary" href="https://github.com/portwally/MegaconvertGS/releases/latest">Download the disk</a>
+                <a class="btn" href="https://github.com/portwally/MegaconvertGS">Source on GitHub</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="panel" id="try">
+            <h2><span>Try a conversion</span></h2>
+            <p class="intro">These are real results from MegaconvertGS, made in an emulated IIgs. Pick a picture, then a conversion.</p>
+            <div class="lab">
+                <figure class="viewer">
+                    <img id="labImage" src="img/examples/butterfly.png" width="640" height="400" alt="A butterfly on a flower, the original Super Hi-Res picture">
+                    <figcaption id="labCaption">The original Super Hi-Res picture: 320 mode, 16 colours on each line.</figcaption>
+                </figure>
+                <div class="controls">
+                    <fieldset>
+                        <legend>Picture</legend>
+                        <div id="pictures" class="radios"></div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Conversion</legend>
+                        <div id="modes" class="radios"></div>
+                    </fieldset>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel" id="features">
+            <h2><span>What it does</span></h2>
+            <ul class="features">
+                <li><b class="c1">Open</b> over 60 formats from a dozen kinds of computer, chosen in the Load formats window or recognised by File &gt; Open.</li>
+                <li><b class="c2">Remap</b> to 320 x 200 in 16 colours, 640 x 200 in 4, 640 dither mode or multipalette, with SuperConvert's palettes, dithering and error diffusion.</li>
+                <li><b class="c3">Filter</b> true colour pictures: equalize, median, sigma, emboss, blur, sharpen, solarize, find edges, contrast, rotate and flip.</li>
+                <li><b class="c4">Monochrome</b> with error diffusion, pattern dither, threshold or halftone, and back again.</li>
+                <li><b class="c5">Batch</b> many files or whole folders with Load &amp; convert, saved automatically if you like.</li>
+                <li><b class="c6">Save</b> as Apple Preferred, $C1, PackBytes, PaintWorks, Finder icons, icon resources, a desktop picture, GIF, PNG, TIFF and BMP.</li>
+            </ul>
+        </section>
+
+        <section class="panel" id="formats">
+            <h2><span>Load formats</span></h2>
+            <p class="intro">The computer types of the Load formats window. <span class="new">New</span> marks formats SuperConvert didn't have.</p>
+            <div class="disks">
+                <article class="disk"><h3>Apple II family</h3><p>HiRes and Double HiRes, Print Shop graphics, ThunderScan scans, Works of Art pages, TDM text screens</p></article>
+                <article class="disk"><h3>Apple IIgs</h3><p>Super Hi-Res ($C0, $C1, Apple Preferred), PaintWorks, Paintworks Gold, DreamGrafix, "3200 color", Print Shop IIgs, Finder icons, AST and ComputerEyes</p></article>
+                <article class="disk"><h3>Atari ST</h3><p>Degas, Degas Elite, Neochrome, Tiny, Spectrum 512</p></article>
+                <article class="disk"><h3>Amiga</h3><p>IFF ILBM with HAM, Extra HalfBrite and 24-bit</p></article>
+                <article class="disk"><h3>Commodore 64</h3><p>Doodle, Koala, Print Shop, <span class="new">New</span> Art Studio, <span class="new">New</span> Advanced Art Studio</p></article>
+                <article class="disk"><h3>Macintosh</h3><p>MacPaint, ScreenMaker, <span class="new">New</span> QuickDraw PICT</p></article>
+                <article class="disk"><h3>PC</h3><p>BMP, PC Paintbrush, GEM/Ventura IMG, DeluxePaint LBM, FliAway frames</p></article>
+                <article class="disk"><h3>Unix</h3><p>Sun Rasterfile, SGI, PBM, PGM, PPM</p></article>
+                <article class="disk"><h3><span class="new">New</span> Amstrad CPC</h3><p>Screens in mode 0, 1 and 2, with or without the AMSDOS header</p></article>
+                <article class="disk"><h3><span class="new">New</span> MSX</h3><p>Screen 2, 5, 7 and 8, with the file's palette</p></article>
+                <article class="disk"><h3><span class="new">New</span> ZX Spectrum</h3><p>Screens (.SCR), in the Spectrum's 15 colours</p></article>
+                <article class="disk"><h3>Any computer</h3><p>JPEG (also <span class="new">New</span> progressive), PNG, GIF, CompuServe RLE, IPI, QRT, <span class="new">New</span> TIFF, <span class="new">New</span> Targa</p></article>
+            </div>
+        </section>
+
+        <section class="panel" id="speed">
+            <h2><span>Speed</span></h2>
+            <p class="intro">Made several times faster without changing a single result. Seconds on a 2.8 MHz IIgs (emulated):</p>
+            <div class="bars">
+                <div class="bar-row"><span class="what">Remap a 640 mode screen to 320 mode</span><div class="track"><i class="before" style="width:100%"></i><i class="after" style="width:11.4%"></i></div><span class="nums">95.5 &rarr; 10.9 s <b>8.8x</b></span></div>
+                <div class="bar-row"><span class="what">Remap a picture to 640 mode</span><div class="track"><i class="before" style="width:100%"></i><i class="after" style="width:18.2%"></i></div><span class="nums">54.4 &rarr; 9.9 s <b>5.5x</b></span></div>
+                <div class="bar-row"><span class="what">The remap test suite (43 remaps)</span><div class="track"><i class="before" style="width:100%"></i><i class="after" style="width:24.4%"></i></div><span class="nums">1585 &rarr; 387 s <b>4.1x</b></span></div>
+                <div class="bar-row"><span class="what">Monochrome image back to a screen</span><div class="track"><i class="before" style="width:100%"></i><i class="after" style="width:26.3%"></i></div><span class="nums">75.3 &rarr; 19.8 s <b>3.8x</b></span></div>
+                <div class="bar-row"><span class="what">Open a 700 x 500 PNG</span><div class="track"><i class="before" style="width:100%"></i><i class="after" style="width:36.1%"></i></div><span class="nums">177 &rarr; 64 s <b>2.8x</b></span></div>
+                <div class="bar-row"><span class="what">Save as PNG</span><div class="track"><i class="before" style="width:100%"></i><i class="after" style="width:44.5%"></i></div><span class="nums">62.0 &rarr; 27.6 s <b>2.2x</b></span></div>
+            </div>
+            <p class="legend"><i class="before"></i> before <i class="after"></i> now</p>
+        </section>
+
+        <section class="panel" id="screens">
+            <h2><span>On the desktop</span></h2>
+            <div class="shots">
+                <figure><img src="img/main.png" width="640" height="400" alt="The Load formats and Save formats windows, with the Macintosh formats listed"><figcaption>Load formats and Save formats, as in SuperConvert</figcaption></figure>
+                <figure><img src="img/remap.png" width="640" height="400" alt="The Remap dialog with the graphic mode, palette, rendering and size"><figcaption>The Remap dialog: mode, palette, rendering, size</figcaption></figure>
+                <figure><img src="img/image-window.png" width="640" height="400" alt="A picture in the image window beside the format windows"><figcaption>A picture in the image window</figcaption></figure>
+            </div>
+        </section>
+
+        <section class="panel" id="download">
+            <h2><span>Download</span></h2>
+            <div class="get">
+                <div>
+                    <p><b>MegaconvertGS.po</b> is an 800K ProDOS disk with the program, its help text and its title picture. Free and open source.</p>
+                    <ol class="steps">
+                        <li>Boot GS/OS (tested with System 6.0.4).</li>
+                        <li>Open the MegaconvertGS disk and double-click <b>MegaconvertGS</b>.</li>
+                        <li>To keep it on a hard disk, copy its three files into one folder.</li>
+                    </ol>
+                    <p class="small">On a real IIgs, write the image to a 3.5" disk or use a FloppyEmu or BlueSCSI. In MAME (on a Mac, easiest through Ample), boot your System 6 disk and put the image in a 3.5" drive.</p>
+                </div>
+                <div class="actions column">
+                    <a class="btn primary" href="https://github.com/portwally/MegaconvertGS/releases/latest">Download from GitHub</a>
+                    <a class="btn" href="https://github.com/portwally/MegaconvertGS">Source code</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="foot">
+        <p>MegaconvertGS &copy; 2026 Walter Tengler. A successor to SuperConvert by Jason Harper and Ian Brumby, published with the kind permission of Ian Brumby. Its code is new, written from scratch. Shaston font by <a href="https://www.kreativekorp.com/software/fonts/apple2/">Kreative Software</a>. Apple IIgs is a trademark of Apple Inc.</p>
+        <p class="links">
+            <a href="privacy.html" rel="nofollow">Privacy Policy</a>
+            <a href="imprint.html" rel="nofollow">Legal Notice</a>
+            <a href="mailto:walter.tengler@gmail.com">Email</a>
+            <a href="../">More apps</a>
+        </p>
+        <p>More apps by Walter Tengler</p>
+        <p class="links apps">
+            <a href="../AppleIIASCIIArt/">1977</a>
+            <a href="../Adsensemonitor/">AdSense Monitor</a>
+            <a href="../Aichive/">Aichive</a>
+            <a href="../Alerta/">Alerta</a>
+            <a href="../BeerTag/">BeerTag</a>
+            <a href="../Bitpast/">BitPast</a>
+            <a href="../Bomba/">Bomba</a>
+            <a href="../CertificadoEnergetico/">Certificado Energético</a>
+            <a href="../climaviva/">Clima Viva</a>
+            <a href="../Comboiotreck/">Comboio Treck</a>
+            <a href="../Conquer GS/">Conquer GS</a>
+            <a href="../coresdoamor/">Cores do Amor</a>
+            <a href="../CyanHero/">CyanHero</a>
+            <a href="../EasyDup/">EasyDup</a>
+            <a href="../emergengy-reminder/">Emergency Reminder</a>
+            <a href="../EUEnergyMonitor/">EU Energy Monitor</a>
+            <a href="../ExifEasy/">ExifEasy</a>
+            <a href="../FCPXClean/">FCPX Clean</a>
+            <a href="../File%20Vortex/">File Vortex</a>
+            <a href="../Fire/">Fire — EU Fires</a>
+            <a href="../Flipside/">Flipside</a>
+            <a href="../Fluvio/">Fluvio</a>
+            <a href="../Fugiu/">Fugiu!</a>
+            <a href="../GSRemap/">GS Remap</a>
+            <a href="../Pibup/">PIBUP</a>
+            <a href="../RetroGraphicsConverter/">Retro Graphics Converter</a>
+            <a href="../RetroTube/">Retro Tube</a>
+            <a href="../RetroTV/">Retro TV</a>
+            <a href="../RetroBrowse/">RetroBrowse</a>
+            <a href="../Scanora/">Scanora</a>
+            <a href="../Screen2Store/">Screen2Store</a>
+            <a href="../SlimPix/">SlimPix</a>
+            <a href="../Sobrium/">Sobrium</a>
+            <a href="../SOSIberico/">SOS Ibérica</a>
+            <a href="../Terramoto/">Terramoto</a>
+        </p>
+    </footer>
+
+    <script>
+    // Each picture's conversions, all made by MegaconvertGS in an emulated IIgs.
+    const LAB = {
+        butterfly: { name: "Butterfly", what: "A butterfly on a flower", modes: [
+            ["butterfly", "Original", "The original Super Hi-Res picture: 320 mode, 16 colours on each line."],
+            ["butterfly-640", "640 mode", "640 x 200 in 4 colours: the calculated palette, pattern dither."],
+            ["butterfly-640-dither", "640 dither", "640 dither mode: pairs of 640 mode pixels mixed into more colours."],
+            ["butterfly-greys", "Greys", "320 mode in 16 greys, pattern dither."],
+            ["butterfly-halftone", "Halftone", "A monochrome image made with halftone, shown as a screen."],
+            ["butterfly-emboss", "Emboss", "The Emboss filter, then remapped to 320 mode."],
+            ["butterfly-find-edges", "Find edges", "The Find edges filter, then remapped to 320 mode."]]},
+        owl: { name: "Owl", what: "An owl's face", modes: [
+            ["owl", "Original", "The original Super Hi-Res picture."],
+            ["owl-mono-diffusion", "Mono diffusion", "A monochrome image with error diffusion."],
+            ["owl-mono-halftone", "Mono halftone", "A monochrome image with halftone."],
+            ["owl-greys-diffusion", "Grey diffusion", "320 mode in 16 greys with error diffusion."]]},
+        eagle: { name: "Eagle", what: "An eagle at sunset", modes: [
+            ["eagle", "Original", "The original Super Hi-Res picture."],
+            ["eagle-emboss", "Emboss", "The Emboss filter, then remapped."],
+            ["eagle-solarize", "Solarize", "The Solarize filter, then remapped."],
+            ["eagle-multipalette", "Multipalette", "Remapped to multipalette: a palette of its own for every line."]]}
+    };
+    const img = document.getElementById("labImage"), cap = document.getElementById("labCaption");
+    const picBox = document.getElementById("pictures"), modeBox = document.getElementById("modes");
+    function radio(box, group, value, label, checked, onPick) {
+        const id = group + "-" + value;
+        const l = document.createElement("label");
+        l.className = "radio";
+        l.innerHTML = `<input type="radio" name="${group}" id="${id}" value="${value}"${checked ? " checked" : ""}><span>${label}</span>`;
+        l.querySelector("input").addEventListener("change", onPick);
+        box.appendChild(l);
+    }
+    function show(pic, k) {
+        const [file, , text] = LAB[pic].modes[k];
+        img.src = "img/examples/" + file + ".png";
+        img.alt = LAB[pic].what + ": " + LAB[pic].modes[k][1].toLowerCase();
+        cap.textContent = text;
+    }
+    function pick(pic) {
+        modeBox.innerHTML = "";
+        LAB[pic].modes.forEach(([, label], k) => radio(modeBox, "mode", k, label, k === 0, () => show(pic, k)));
+        show(pic, 0);
+    }
+    Object.keys(LAB).forEach((p, i) => radio(picBox, "pic", p, LAB[p].name, i === 0, () => pick(p)));
+    pick("butterfly");
+    </script>
+</body>
+</html>
