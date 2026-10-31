@@ -17,6 +17,7 @@
     <nav class="menubar" aria-label="Sections">
         <a href="#top" aria-label="GS Remap"><img src="img/icon-64.png" alt=""></a>
         <a href="#about">About</a>
+        <a href="#try">Try</a>
         <a href="#pictures">Pictures</a>
         <a href="#formats">Formats</a>
         <a href="#download">Download</a>
@@ -63,6 +64,29 @@
                     <li>Saves files a real IIgs can open</li>
                     <li>Saves Apple II HiRes, Double HiRes and LoRes screens</li>
                 </ul>
+            </div>
+        </section>
+
+        <section class="window" id="try">
+            <h2><span>Try a conversion</span></h2>
+            <div class="body">
+                <p>These are real results from GS Remap. Pick a picture, then a conversion.</p>
+                <div class="lab">
+                    <figure class="viewer">
+                        <img id="labImage" src="img/examples/dawn.png" width="640" height="480" alt="A field with a fence, the original picture">
+                        <figcaption id="labCaption" class="caption"></figcaption>
+                    </figure>
+                    <div class="controls">
+                        <fieldset>
+                            <legend>Picture</legend>
+                            <div id="pictures-radios" class="radios"></div>
+                        </fieldset>
+                        <fieldset>
+                            <legend>Conversion</legend>
+                            <div id="modes" class="radios"></div>
+                        </fieldset>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -332,6 +356,60 @@
             });
         });
         pick(2);
+    })();
+    </script>
+    <script>
+    // Every conversion was made by GS Remap (sc4 lab) from the pictures' originals.
+    (function () {
+        var MODES = [
+            ["", "Original", "The original picture: true color, %s."],
+            ["-320", "320 mode", "Remapped to 320 mode: 16 colors on each line, the calculated palette, pattern dither."],
+            ["-320-diffusion", "320 diffusion", "320 mode with error diffusion."],
+            ["-greys", "Greys", "320 mode in 16 greys."],
+            ["-640", "640 mode", "640 x 200 in 4 colors: the calculated palette, pattern dither."],
+            ["-640-dither", "640 dither", "640 dither mode: pairs of 640 mode pixels mixed into more colors."],
+            ["-multipalette", "Multipalette", "Remapped to multipalette: a palette of its own for every line."],
+            ["-emboss", "Emboss", "The Emboss filter, then remapped to 320 mode."],
+            ["-find-edges", "Find edges", "The Find edges filter, then remapped to 320 mode."],
+            ["-solarize", "Solarize", "The Solarize filter, then remapped to 320 mode."],
+            ["-halftone", "Mono halftone", "A monochrome image made with halftone."],
+            ["-mono-diffusion", "Mono diffusion", "A monochrome image with error diffusion."]
+        ];
+        var PICS = {
+            dawn: { name: "Dawn", what: "A field with a fence", size: "320 x 240" },
+            lane: { name: "Lane", what: "Trees at sunset", size: "320 x 240" },
+            brook: { name: "Brook", what: "A brook between mossy stones", size: "320 x 200" }
+        };
+        var DIMS = {"dawn":[640,480],"dawn-320":[640,480],"dawn-320-diffusion":[640,480],"dawn-greys":[640,480],"dawn-640":[640,480],"dawn-640-dither":[640,480],"dawn-multipalette":[640,480],"dawn-emboss":[640,480],"dawn-find-edges":[640,480],"dawn-solarize":[640,480],"dawn-halftone":[640,480],"dawn-mono-diffusion":[640,480],"lane":[640,480],"lane-320":[640,480],"lane-320-diffusion":[640,480],"lane-greys":[640,480],"lane-640":[640,480],"lane-640-dither":[640,480],"lane-multipalette":[640,480],"lane-emboss":[640,480],"lane-find-edges":[640,480],"lane-solarize":[640,480],"lane-halftone":[640,480],"lane-mono-diffusion":[640,480],"brook":[640,400],"brook-320":[640,400],"brook-320-diffusion":[640,400],"brook-greys":[640,400],"brook-640":[640,400],"brook-640-dither":[640,400],"brook-multipalette":[640,400],"brook-emboss":[640,400],"brook-find-edges":[640,400],"brook-solarize":[640,400],"brook-halftone":[640,400],"brook-mono-diffusion":[640,400]};
+        var img = document.getElementById("labImage"), cap = document.getElementById("labCaption");
+        var picBox = document.getElementById("pictures-radios"), modeBox = document.getElementById("modes");
+        function radio(box, group, value, label, checked, onPick) {
+            var l = document.createElement("label"), input = document.createElement("input"), span = document.createElement("span");
+            l.className = "choice";
+            input.type = "radio";
+            input.name = group;
+            input.checked = checked;
+            span.textContent = label;
+            input.addEventListener("change", onPick);
+            l.appendChild(input);
+            l.appendChild(span);
+            box.appendChild(l);
+        }
+        function show(pic, k) {
+            var key = pic + MODES[k][0];
+            img.src = "img/examples/" + key + ".png";
+            img.width = DIMS[key][0];
+            img.height = DIMS[key][1];
+            img.alt = PICS[pic].what + ": " + MODES[k][1].toLowerCase();
+            cap.textContent = MODES[k][2].replace("%s", PICS[pic].size);
+        }
+        function pick(pic) {
+            modeBox.textContent = "";
+            MODES.forEach(function (m, k) { radio(modeBox, "mode", k, m[1], k === 0, function () { show(pic, k); }); });
+            show(pic, 0);
+        }
+        Object.keys(PICS).forEach(function (p, i) { radio(picBox, "pic", p, PICS[p].name, i === 0, function () { pick(p); }); });
+        pick("dawn");
     })();
     </script>
 </body>

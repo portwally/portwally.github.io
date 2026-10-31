@@ -172,3 +172,28 @@ footer .links.apps { gap: 4px 16px; font-size: 0.9em; }
     .buttons { justify-content: center; }
     html { scroll-padding-top: 100px; }
 }
+
+/* Try a conversion */
+.lab { display: grid; grid-template-columns: minmax(0, 2fr) minmax(200px, 1fr); gap: 22px; align-items: start; }
+.viewer { margin: 0; }
+.viewer img { display: block; width: 100%; height: auto; border: 2px solid var(--ink); image-rendering: pixelated; }
+.viewer .caption { min-height: 3.8em; }
+.controls fieldset { border: 2px solid var(--ink); padding: 6px 12px 10px; min-width: 0; }
+.controls fieldset + fieldset { margin-top: 14px; }
+.controls legend { padding: 0 8px; }
+.radios { display: flex; flex-direction: column; gap: 2px; }
+.choice { display: flex; align-items: center; gap: 8px; cursor: pointer; padding: 1px 2px; }
+.choice input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.choice span::before {
+    content: "";
+    display: inline-block;
+    width: 14px; height: 14px;
+    margin-right: 8px;
+    border: 2px solid var(--ink);
+    border-radius: 50%;
+    vertical-align: -2px;
+}
+.choice input:checked + span::before { background: radial-gradient(circle, var(--ink) 0 38%, var(--paper) 42%); }
+.choice input:focus-visible + span { outline: 2px dotted var(--ink); outline-offset: 2px; }
+.choice:hover span { text-decoration: underline; }
+@media (max-width: 760px) { .lab { grid-template-columns: 1fr; } }
