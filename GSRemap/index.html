@@ -25,7 +25,7 @@
 
     <main class="desktop" id="top">
         <section class="window active" id="about">
-            <h1>GS Remap</h1>
+            <h1><span>GS Remap</span></h1>
             <div class="body">
                 <div class="hero">
                     <img src="img/icon.png" alt="GS Remap icon: an Apple IIgs window holding a picture, half smooth and half dithered">
@@ -44,7 +44,7 @@
         </section>
 
         <section class="window two-thirds">
-            <h2>Desktop</h2>
+            <h2><span>Desktop</span></h2>
             <div class="body">
                 <img class="shot" src="img/desktop.png" width="1280" height="800" alt="The GS Remap desktop with the Load formats, Save formats and Image windows">
                 <p class="caption">Pick a computer and a format on the left, press Load, and the picture appears in the Image window. Pick a format on the right and press Save.</p>
@@ -52,7 +52,7 @@
         </section>
 
         <section class="window third">
-            <h2>What it does</h2>
+            <h2><span>What it does</span></h2>
             <div class="body">
                 <ul class="plain">
                     <li>Loads 70 picture formats from 14 kinds of computer</li>
@@ -68,7 +68,7 @@
         </section>
 
         <section class="window half" id="pictures">
-            <h2>Remap</h2>
+            <h2><span>Remap</span></h2>
             <div class="body">
                 <img class="shot" src="img/remap.png" width="1280" height="800" alt="The Remap dialog with graphic mode, palette and rendering choices and a diagram of the picture size">
                 <p class="caption">Choose the graphic mode, the palette and the rendering. The diagram shows how large the result is against a grid of screens.</p>
@@ -76,7 +76,7 @@
         </section>
 
         <section class="window half">
-            <h2>640 dither mode</h2>
+            <h2><span>640 dither mode</span></h2>
             <div class="body">
                 <img class="shot" src="img/640-dither.png" width="1280" height="800" alt="A landscape photo rendered in Apple IIgs 640 dither mode with the default palette">
                 <p class="caption">A landscape in 640 x 200 dither mode with the standard palette: eight colors, used the way IIgs desktop programs use them.</p>
@@ -84,7 +84,7 @@
         </section>
 
         <section class="window half">
-            <h2>Image window</h2>
+            <h2><span>Image window</span></h2>
             <div class="body">
                 <img class="shot" src="img/image-window.png" width="1280" height="800" alt="The Image window with a landscape photo and a selection frame, the info bar showing the selection size">
                 <p class="caption">Drag a selection; it snaps to whole bytes or pixels and shows its size. Zoom from 1/8 to 8X, peek at pixel values, or crop to the selection.</p>
@@ -92,7 +92,7 @@
         </section>
 
         <section class="window half">
-            <h2>Pop-up menus</h2>
+            <h2><span>Pop-up menus</span></h2>
             <div class="body">
                 <img class="shot" src="img/image-popup.png" width="1280" height="800" alt="The image type pop-up menu of the Image window">
                 <p class="caption">The info bar's pop-ups choose the kind of image shown, its pixel size, the zoom, the tool and the actions.</p>
@@ -100,7 +100,7 @@
         </section>
 
         <section class="window half">
-            <h2>Filters</h2>
+            <h2><span>Filters</span></h2>
             <div class="body">
                 <img class="shot" src="img/filters-menu.png" width="1280" height="800" alt="The True color menu listing the filters">
                 <p class="caption">Equalize, median, emboss, blur, sharpen, solarize, find edges and contrast, plus mirror, flip and rotate.</p>
@@ -108,7 +108,7 @@
         </section>
 
         <section class="window half">
-            <h2>Monochrome</h2>
+            <h2><span>Monochrome</span></h2>
             <div class="body">
                 <img class="shot" src="img/monochrome.png" width="1280" height="800" alt="A tree silhouette as a monochrome image made with error diffusion, shown in the Image window">
                 <p class="caption">One bit per pixel, with error diffusion, pattern dither, halftone or a plain threshold.</p>
@@ -116,29 +116,41 @@
         </section>
 
         <section class="window half" id="formats">
-            <h2>Load formats</h2>
+            <h2><span>Load formats</span></h2>
             <div class="body">
-                <ul class="list">
-                    <li>Apple II family</li>
-                    <li class="selected">Apple IIgs specific</li>
-                    <li>Atari ST</li>
-                    <li>Amiga</li>
-                    <li>Commodore 64/128</li>
-                    <li>Macintosh</li>
-                    <li>IBM PC &amp; compatibles</li>
-                    <li>Unix machines</li>
-                    <li>Amstrad CPC</li>
-                    <li>Atari 8-bit</li>
-                    <li>MSX</li>
-                    <li>ZX Spectrum</li>
-                    <li>Computer-independent</li>
+                <ul class="list systems" id="systems" role="listbox" aria-label="Computer type">
+                    <li role="option" tabindex="0" data-sys="a2">Apple II family</li>
+                    <li role="option" tabindex="0" data-sys="gs" class="selected" aria-selected="true">Apple IIgs specific</li>
+                    <li role="option" tabindex="0" data-sys="st">Atari ST</li>
+                    <li role="option" tabindex="0" data-sys="amiga">Amiga</li>
+                    <li role="option" tabindex="0" data-sys="c64">Commodore 64/128</li>
+                    <li role="option" tabindex="0" data-sys="mac">Macintosh</li>
+                    <li role="option" tabindex="0" data-sys="ibm">IBM PC &amp; compatibles</li>
+                    <li role="option" tabindex="0" data-sys="unix">Unix machines</li>
+                    <li role="option" tabindex="0" data-sys="cpc">Amstrad CPC</li>
+                    <li role="option" tabindex="0" data-sys="a8">Atari 8-bit</li>
+                    <li role="option" tabindex="0" data-sys="msx">MSX</li>
+                    <li role="option" tabindex="0" data-sys="zx">ZX Spectrum</li>
+                    <li role="option" tabindex="0" data-sys="ind">Computer-independent</li>
                 </ul>
-                <p class="small">Apple II: HiRes and Double HiRes (also packed, LZ4FH, .BIN + .AUX pairs and bmp2dhr pieces), LoRes and Double LoRes, Print Shop, ThunderScan, text screens, Works of Art pages. Apple IIgs: Super Hi-Res in every common variant, Apple Preferred, 3200 color, DreamGrafix, Paintworks Gold, Print Shop IIgs, Finder icons, AST and ComputerEyes. Atari ST: Degas, Degas Elite, Neochrome, Tiny, Spectrum 512. Atari 8-bit: MicroPainter, Graphics 8 and 9. Amiga: IFF with HAM and HalfBrite. C64: Doodle, Koala, Print Shop, Art Studio, Advanced Art Studio, FLI Graph, Amica Paint. Macintosh: MacPaint, ScreenMaker, PICT. PC: BMP, PCX, GEM IMG, DeluxePaint. Unix: Sun, SGI, PBM, PGM, PPM. Amstrad CPC: mode 0, 1 and 2 screens with their .PAL colours. MSX: Screen 2, 5, 7 and 8. ZX Spectrum screens. And JPEG, PNG, GIF, TIFF, Targa, CompuServe RLE, IPI and QRT.</p>
+                <p class="label">&#9650; Computer type</p>
+                <ul class="list formats" id="formats-list" role="listbox" aria-label="Specific type"></ul>
+                <p class="label right">Specific type &#9660;</p>
+                <p class="small" id="format-info"></p>
+                <noscript><p class="small">Apple II: HiRes and Double HiRes (also packed, LZ4FH, .BIN + .AUX pairs and bmp2dhr pieces), LoRes and Double LoRes, Print Shop, ThunderScan, text screens, Works of Art pages. Apple IIgs: Super Hi-Res in every common variant, Apple Preferred, 3200 color, DreamGrafix, Paintworks Gold, Print Shop IIgs, Finder icons, AST and ComputerEyes. Atari ST: Degas, Degas Elite, Neochrome, Tiny, Spectrum 512. Atari 8-bit: MicroPainter, Graphics 8 and 9. Amiga: IFF with HAM and HalfBrite. C64: Doodle, Koala, Print Shop, Art Studio, Advanced Art Studio, FLI Graph, Amica Paint. Macintosh: MacPaint, ScreenMaker, PICT. PC: BMP, PCX, GEM IMG, DeluxePaint. Unix: Sun, SGI, PBM, PGM, PPM. Amstrad CPC: mode 0, 1 and 2 screens with their .PAL colours. MSX: Screen 2, 5, 7 and 8. ZX Spectrum screens. And JPEG, PNG, GIF, TIFF, Targa, CompuServe RLE, IPI and QRT.</p></noscript>
             </div>
         </section>
 
-        <section class="window half">
-            <h2>Save formats</h2>
+        <section class="window half" id="example">
+            <h2 id="example-title"><span>Example</span></h2>
+            <div class="body">
+                <img class="shot example" id="example-img" src="img/formats/gs.png" width="640" height="480" alt="An example picture from an Apple IIgs">
+                <p class="caption" id="example-caption">An Apple Preferred picture with 3200 colors, as it came from an Apple IIgs.</p>
+            </div>
+        </section>
+
+        <section class="window">
+            <h2><span>Save formats</span></h2>
             <div class="body">
                 <ul class="list">
                     <li>$C0,0 PaintWorks</li>
@@ -157,7 +169,7 @@
         </section>
 
         <section class="window active" id="download">
-            <h2>Download</h2>
+            <h2><span>Download</span></h2>
             <div class="body">
                 <p class="radio on">Version 1.1 for macOS 13 or later, Apple Silicon and Intel. Free and open source under the MIT license.</p>
                 <p class="radio">The download is not notarized. The first time, macOS will not open it with a double-click: try once, then go to System Settings, Privacy &amp; Security, and click Open Anyway.</p>
@@ -170,7 +182,7 @@
         </section>
 
         <footer class="window">
-            <h2>About this program</h2>
+            <h2><span>About this program</span></h2>
             <div class="body small">
                 <p>GS Remap is based on SuperConvert 4.0 for the Apple IIgs, by Jason Harper with updates by Ian Brumby, published by Seven Hills Software. SuperConvert is their trademark. GS Remap is an independent project and is not affiliated with or endorsed by them.</p>
                 <p>Shaston and Print Char 21 fonts by Kreative Software.</p>
@@ -222,5 +234,72 @@
             </div>
         </footer>
     </main>
+
+    <script type="application/json" id="load-data">[{"formats":[{"id":"hgrbw","info":"HiRes black & white: the Apple II high resolution screen (8192 bytes, usually a BIN or FOT file) as a monochrome monitor shows it, each of its 280 x 192 dots white or black.\nLoaded as 280 x 192 in 320 mode.","name":"HiRes black & white"},{"id":"hgr","info":"HiRes color: the Apple II high resolution screen, 8192 bytes: 280 x 192 dots in black, white, violet, green, blue and orange, worked out from the dots and their neighbors as on a color monitor.\nLoaded as 280 x 192 in 320 mode. Also packed (PackBytes: $08, $4000; LZ4FH: $08, $8066); a $08 file with byte 120 set to black & white or Double HiRes opens so.","name":"HiRes color"},{"id":"dhrbw","info":"Double HiRes black & white: the Apple II double high resolution screen (16384 bytes, the auxiliary half first) as a monochrome monitor shows it, each of its 560 x 192 dots white or black.\nLoaded as 560 x 192 in 640 mode. Also NAME.BIN with NAME.AUX, and bmp2dhr’s .DHM masks.","name":"DoubleHiRes black & white"},{"id":"dhr","info":"Double HiRes color: the double high resolution screen of the Apple IIe, IIc and IIgs, 16384 bytes, the auxiliary memory half first: 140 x 192 pixels in 16 colors, each pixel made of 4 dots.\nLoaded in 320 mode, each pixel doubled across: 280 x 192. Also read packed with PackBytes ($08, $4001), as two files (NAME.BIN, main, and NAME.AUX) and as bmp2dhr pieces (.DHR).","name":"DoubleHiRes color"},{"id":"psbw","info":"Print Shop graphic: a graphic from Broderbund’s original Print Shop for the Apple II, 88 x 52 dots in black and white, 572 bytes. Print Shop keeps them on DOS 3.3 disks, so copy them to ProDOS first.\nLoaded as 88 x 52 in 320 mode.","name":"Print Shop B & W graphic"},{"id":"tscan","info":"ThunderScan raw scan: a scan from Thunderware’s ThunderScan, the scanner that takes the place of the ribbon in an ImageWriter printer: a 256-byte header, then rows of 4-bit gray samples.\nIt becomes a gray true color picture, which the Remap dialog then turns into a screen image.","name":"*ThunderScan raw scan file"},{"id":"woa","info":"Works of Art: black and white clip art from Springboard Publishing’s Works of Art collections.\nEach page chosen becomes a monochrome image.","name":"Works of Art (Springboard Publ.)"},{"id":"tdm40","info":"TDM 40-column text screen: the Apple II text screen memory saved as a BIN file, as On Three’s The Desktop Manager (TDM) captures it: 1024 bytes, 40 columns by 24 lines.\nDrawn with the Apple II characters, normal and inverse, as 280 x 192 in 320 mode.","name":"TDM 40-column text screen capture"},{"id":"tdm80","info":"TDM 80-column text screen: the Apple II 80-column text screen memory saved as a BIN file, as TDM (The Desktop Manager) captures it: 2048 bytes, the auxiliary memory half first.\nDrawn with the Apple II characters, normal and inverse, as 560 x 192 in 640 mode.","name":"TDM 80-column text screen capture"},{"id":"lores","info":"LoRes: the Apple II low resolution screen, 1024 bytes (the text page, usually a BIN file): 40 x 48 blocks in 16 colors.\nLoaded as 280 x 192 in 320 mode, each block 7 x 4 pixels.","name":"LoRes (40 x 48)"},{"id":"dlores","info":"Double LoRes: the 80-column low resolution screen of the Apple IIe, IIc and IIgs, 2048 bytes, the auxiliary memory half first: 80 x 48 blocks in 16 colors.\nLoaded as 280 x 192 in 320 mode, each block 3 or 4 pixels across and 4 down.","name":"Double LoRes (80 x 48)"}],"id":"a2","name":"Apple II family","img":"img/formats/a2.png","w":560,"h":384,"caption":"A Double HiRes picture from an Apple II, loaded as a screen image."},{"formats":[{"id":"shr","info":"SuperHiRes ($C0 PNT, $C1 PIC): reads the common Super Hi-Res files and works out by itself which kind each one is: ProDOS type $C0 with aux type $0000 (PaintWorks), $0001 (PackBytes) or $0002 (Apple Preferred), or type $C1 with aux type $0000 (a plain screen).\nLoaded as it is, at its whole size; an Apple Preferred picture with 3200 colors keeps a color table for every line.","name":"SuperHiRes ($C0/PNT, $C1/PIC)"},{"id":"c1","info":"$C1 screen: the Super Hi-Res screen saved byte for byte, 32768 bytes: the pixels, the 200 SCBs (each line’s mode and color table) and 16 color tables. ProDOS type $C1 (PIC), aux type $0000, though early pictures were often BIN files.\nLoaded unchanged. Any file of at least 32000 bytes can be read this way.","name":"Uncompressed SHR screen ($C1, BIN)"},{"id":"drm","info":"DreamGrafix: pictures from the DreamGrafix paint program, ProDOS type $C0 (PNT), aux type $8005, LZW compressed. This is the 256 color kind, a screen using all 16 color tables.\nUnpacked and loaded unchanged, in 320 or 640 mode, whichever most of its lines use.","name":"DreamGrafix SHR screen"},{"id":"drm3200","info":"DreamGrafix \"3200 color\": the DreamGrafix kind with its own palette on each of the 200 lines, ProDOS type $C0 (PNT), aux type $8005, LZW compressed.\nIt becomes a 320 x 200 true color picture, which the Remap dialog then turns into a screen image. Remap’s multipalette mode keeps more of its colors.","name":"*DreamGrafix \"3200 color\" screen"},{"id":"pwgold","info":"PaintWorks Gold 640 mode: PaintWorks Gold saves 640 mode pictures with 320 mode headers, in all of its formats, so other programs show them at half width in the wrong colors.\nThis reads them as the 640 x 200 pictures they are. Save them again, as Apple Preferred for example.","name":"Paintworks Gold 640 mode files"},{"id":"psgs","info":"Print Shop IIgs color graphic: a graphic from Broderbund’s Print Shop IIgs, 88 x 52 dots in 8 colors (black, white, red, orange, yellow, green, blue and purple) made of yellow, magenta and cyan planes, 1716 bytes.\nLoaded as 88 x 52 in 320 mode with the standard colors.","name":"Print Shop IIgs color graphic"},{"id":"cgt","info":"Print Shop IIgs built-in graphics: the libraries GRAPHIC.CGT0 to GRAPHIC.CGT7 that come with Print Shop IIgs, each a series of 88 x 52 color graphics followed by their names.\nThe first graphic in the file is loaded, as 88 x 52 in 320 mode.","name":"PS IIgs built-in (GRAPHIC.CGT0-7)"},{"id":"icon","info":"Finder icon file: the IIgs Finder’s icons, ProDOS type $CA (ICN). Each entry says which files it is for and holds a large and a small icon, each with a mask, in up to 16 colors.\nThe first entry’s large icon is shown in 640 mode with the standard colors, on white.","name":"Finder icon file"},{"id":"ast","info":"AST picture data: a full color picture from VisionEffects, the software of AST’s VisionPlus video digitizer, saved as picture data from 320 mode: red, green and blue planes of 4-bit samples, 96000 bytes.\nIt becomes a 320 x 200 true color picture, which the Remap dialog then turns into a screen image.","name":"*AST picture data file (color only)"},{"id":"ceyes","info":"ComputerEyes GS raw data: a full color capture from the ComputerEyes GS video digitizer: red, green and blue planes of 6-bit samples, stored column by column, about 192000 bytes.\nIt becomes a 320 x 200 true color picture, which the Remap dialog then turns into a screen image.","name":"*ComputerEyes GS raw data file"},{"id":"3200","info":"\"3200 color\" picture: 320 mode pixels followed by a color table for each of the 200 lines, 38400 bytes, ProDOS type $C1 (PIC), aux type $0002, called Brooks format after John Brooks. Special viewers show them, changing the palette on every line.\nIt becomes a 320 x 200 true color picture, which the Remap dialog then turns into a screen image.","name":"*\"3200 color\" uncompressed picture"},{"id":"3200c","info":"\"3200 color\" picture, compressed: two packed kinds are read: .3201 files (an APP header, the 200 color tables, then the pixels packed with PackBytes) and a run coded kind with a 7-byte header.\nIt becomes a 320 x 200 true color picture, which the Remap dialog then turns into a screen image.","name":"*\"3200 color\" compressed picture"}],"id":"gs","name":"Apple IIgs specific","img":"img/formats/gs.png","w":640,"h":480,"caption":"An Apple Preferred picture with 3200 colors, as it came from an Apple IIgs."},{"formats":[{"id":"degas","info":"Degas (.PI1, .PI2, .PI3): Atari ST pictures from Degas and Degas Elite, 32034 bytes. Low resolution (320 x 200, 16 colors) loads in 320 mode, medium (640 x 200, 4 colors) in 640 mode, with their own colors.\nHigh resolution (640 x 400, black & white) becomes a monochrome image.","name":"Degas (.PI1, .PI2, .PI3)"},{"id":"degaselite","info":"Degas Elite (.PC1, .PC2, .PC3): the compressed Atari ST pictures of Degas Elite. Low resolution (320 x 200, 16 colors) loads in 320 mode, medium (640 x 200, 4 colors) in 640 mode, with their own colors.\nHigh resolution (640 x 400, black & white) becomes a monochrome image.","name":"Degas Elite (.PC1, .PC2, .PC3)"},{"id":"neo","info":"Neochrome (.NEO): Atari ST pictures from the Neochrome paint program, 32128 bytes, nearly always low resolution: 320 x 200 in 16 colors, loaded in 320 mode with their own colors.\nMedium and high resolution ones are read as Degas pictures are.","name":"Neochrome (.NEO)"},{"id":"tiny","info":"Tiny (.TNY, .TN1 to .TN3): compressed Atari ST pictures. Low resolution (320 x 200, 16 colors) loads in 320 mode, medium (640 x 200, 4 colors) in 640 mode, with their own colors.\nHigh resolution (640 x 400, black & white) becomes a monochrome image.","name":"Tiny (.TNY)"},{"id":"spu","info":"Spectrum 512 (.SPU): Atari ST pictures from Spectrum 512, which changes palettes three times along each line to show up to 512 colors: 51104 bytes, the top line always black.\nIt becomes a 320 x 200 true color picture, which the Remap dialog then turns into a screen image.","name":"*Spectrum 512 uncompressed (.SPU)"},{"id":"spc","info":"Spectrum 512 compressed (.SPC): Spectrum 512 pictures with the bit planes and each line’s palettes packed: 320 x 200 with up to 512 colors, the top line black.\nIt becomes a 320 x 200 true color picture, which the Remap dialog then turns into a screen image.","name":"*Spectrum 512 compressed (.SPC)"}],"id":"st","name":"Atari ST","img":"img/formats/st.png","w":640,"h":400,"caption":"A Degas picture from an Atari ST."},{"formats":[{"id":"iff","info":"IFF: the Amiga’s standard picture file (FORM ILBM), also used by DeluxePaint on the PC (FORM PBM, .LBM): 1 to 8 bit planes, Extra HalfBrite, HAM and 24-bit, packed or not, found anywhere in the file.\nIt becomes a true color picture, which the Remap dialog then turns into a screen image.","name":"*IFF (FORM ILBM only)"}],"id":"amiga","name":"Amiga","img":"img/formats/amiga.png","w":320,"h":200,"caption":"An IFF picture from an Amiga (HAM colors), loaded as a true color image."},{"formats":[{"id":"doodle","info":"Doodle: Commodore 64 pictures from the Doodle paint program, whose file names usually start with DD: 320 x 200 dots, with two colors in each 8 x 8 cell.\nLoaded as 320 x 200 in 320 mode with the Commodore 64 colors.","name":"Doodle (DDxxx)"},{"id":"koala","info":"Koala: Commodore 64 multicolor pictures from the KoalaPad’s paint program (.KOA, .KLA), 10003 bytes: 160 x 200 double-wide pixels, with four colors in each 4 x 8 cell.\nLoaded as 320 x 200 in 320 mode with the Commodore 64 colors.","name":"Koala Illustrator"},{"id":"c64ps","info":"C64 Print Shop screen: a Commodore 64 Print Shop screen, a load address and then a 320 x 200 bitmap (8000 bytes) in black and white.\nLoaded as 320 x 200 in 320 mode, white on black. Other C64 bitmaps can be viewed this way too, without their colors.","name":"Print Shop screen"},{"id":"artst","info":"Art Studio (OCP): hires pictures from the Commodore 64’s Art Studio, 9009 bytes: 320 x 200 dots, a color pair for each 8 x 8 cell; and the same pictures of 9002 bytes (Interpaint, Gigapaint and others).\nIt becomes a screen image in the C64’s 16 colors.","name":"Art Studio, Interpaint hires"},{"id":"aas","info":"Advanced Art Studio (OCP): multicolor pictures from the Commodore 64’s Advanced Art Studio, 10018 bytes: 160 x 200 wide dots in four colors for each cell.\nIt becomes a screen image in the C64’s 16 colors.","name":"Advanced Art Studio (OCP)"},{"id":"fli","info":"FLI Graph (.FLI): Commodore 64 multicolor pictures with new screen colors on every line, 17409 bytes.\nIt becomes a screen image in the C64’s 16 colors; the first three columns, which the C64 can’t show, are black.","name":"FLI Graph (.FLI)"},{"id":"amica","info":"Amica Paint (.AMI): packed Commodore 64 multicolor pictures, as Koala pictures.\nIt becomes a screen image in the C64’s 16 colors.","name":"Amica Paint (.AMI)"}],"id":"c64","name":"Commodore 64/128","img":"img/formats/c64.png","w":640,"h":400,"caption":"A Doodle picture from a Commodore 64."},{"formats":[{"id":"mpnt640","info":"MacPaint as 640 mode grays: MacPaint documents (Mac file type PNTG) are 576 x 720 dots, black and white, packed with PackBits. A MacBinary header is skipped.\nEach pair of lines becomes a line of four grays: the top 400 lines as 576 x 200 in 640 mode.","name":"MacPaint => 640 mode grayscale"},{"id":"mpnt320","info":"MacPaint as 320 mode black & white: MacPaint documents (Mac file type PNTG) are 576 x 720 dots, black and white, packed with PackBits. A MacBinary header is skipped.\nThe top left 320 x 200 dots are loaded in 320 mode, black on white.","name":"MacPaint => 320 mode black & white"},{"id":"mpntmono","info":"MacPaint as monochrome image: MacPaint documents (Mac file type PNTG) are 576 x 720 dots, black and white, packed with PackBits. A MacBinary header is skipped.\nThe whole page becomes a true color picture, which the Remap dialog then turns into a screen image.","name":"MacPaint, as monochrome image"},{"id":"macsm","info":"ScreenMaker: the startup screen of early Macintoshes, made with ScreenMaker: a plain 512 x 342 bitmap in black and white, 21888 bytes. A MacBinary header is skipped.\nIt becomes a true color picture, which the Remap dialog then turns into a screen image.","name":"ScreenMaker (old startup screen)"},{"id":"pict","info":"QuickDraw picture (PICT): the Macintosh’s picture format, version 1 or 2, with or without the 512 bytes a Mac file starts with.\nReads the pictures in it: bitmaps and pixel maps, packed or not, of 1 to 32 bits a pixel; the lines, shapes and text it may also draw are left out.","name":"*QuickDraw picture (PICT)"}],"id":"mac","name":"Macintosh","img":"img/formats/mac.png","w":576,"h":720,"caption":"A MacPaint picture from a Macintosh."},{"formats":[{"id":"bmp","info":"Windows or OS/2 bitmap (.BMP): the plain picture file of Windows PCs.\nRead by macOS, every kind it knows. It becomes a true color picture, which the Remap dialog then turns into a screen image.","name":"*Windows or OS/2 bitmap (.BMP)"},{"id":"gem","info":"GEM IMG: the bitmap pictures (.IMG) of Digital Research’s GEM and of Ventura Publisher, with 1 to 8 bit planes, run coded.\nShown in grays, 0 as white and the highest value as black: a true color picture, which the Remap dialog then turns into a screen image.","name":"*Ventura Publisher (.IMG, .GEM)"},{"id":"pcx","info":"PC Paintbrush (.PCX, .PCC): ZSoft’s PC paint program format, run coded: 2 to 16 colors in bit planes, 256 colors with a palette at the end, or 24-bit color. PCC files are clippings.\nIt becomes a true color picture, which the Remap dialog then turns into a screen image.","name":"*PC Paintbrush (.PCX, .PCC)"},{"id":"lbm","info":"IFF: the Amiga’s standard picture file (FORM ILBM), also used by DeluxePaint on the PC (FORM PBM, .LBM): 1 to 8 bit planes, Extra HalfBrite, HAM and 24-bit, packed or not, found anywhere in the file.\nIt becomes a true color picture, which the Remap dialog then turns into a screen image.","name":"*DeluxePaint, not Enhanced (.LBM)"},{"id":"fliaway","info":"FliAway frame: one frame of an Autodesk Animator animation (.FLI, PC), saved by the FliAway utility: 256 colors and the 320 x 200 frame, packed with PackBytes or not.\nIt becomes a 320 x 200 true color picture, which the Remap dialog then turns into a screen image.","name":"*AutoDesk Animator frame file from FliAway"}],"id":"ibm","name":"IBM PC & compatibles","img":"img/formats/ibm.png","w":400,"h":372,"caption":"A PCX picture from a PC."},{"formats":[{"id":"sun","info":"Sun Rasterfile: the bitmap format of Sun workstations (.RAS): 1, 8, 24 or 32 bits a pixel, with or without a color map, plain or run coded.\nIt becomes a true color picture of its own size (up to 4096 x 4096), which the Remap dialog then turns into a screen image.","name":"*Sun Rasterfile"},{"id":"sgi","info":"SGI image: the picture format of Silicon Graphics workstations (.SGI, .RGB, .BW): gray or RGB (alpha is ignored), 8 or 16 bits a sample, plain or run coded.\nIt becomes a true color picture, which the Remap dialog then turns into a screen image.","name":"*SGI Iris"},{"id":"pnm","info":"PBM, PGM, PPM: the portable bitmap, graymap and pixmap files of the Unix PBMPLUS (Netpbm) tools: black & white, gray or color, as text (P1 to P3) or binary (P4 to P6).\nIt becomes a true color picture, which the Remap dialog then turns into a screen image.","name":"*Portable Pixelmap"}],"id":"unix","name":"Unix machines","img":"img/formats/unix.png","w":320,"h":240,"caption":"A PPM picture, as Unix tools write them."},{"formats":[{"id":"cpc0","info":"Amstrad CPC mode 0 screen (.SCR): the CPC’s 16K of screen memory, with or without its AMSDOS header or packed by OCP Art Studio, as mode 0: 160 x 200 in 16 colors.\nIt becomes a screen image in the colors of the .PAL file beside it, or the CPC’s start-up colors.","name":"Mode 0 screen (.SCR)"},{"id":"cpc1","info":"Amstrad CPC mode 1 screen (.SCR): the CPC’s 16K of screen memory, with or without its AMSDOS header or packed by OCP Art Studio, as mode 1: 320 x 200 in 4 colors (a .PAL file beside it can say another mode).\nIt becomes a screen image in the colors of the .PAL file, or the CPC’s start-up colors.","name":"Mode 1 screen (.SCR)"},{"id":"cpc2","info":"Amstrad CPC mode 2 screen (.SCR): the CPC’s 16K of screen memory, with or without its AMSDOS header or packed by OCP Art Studio, as mode 2: 640 x 200 in 2 colors.\nIt becomes a 640 mode screen image.","name":"Mode 2 screen (.SCR)"}],"id":"cpc","name":"Amstrad CPC","img":"img/formats/cpc.png","w":640,"h":400,"caption":"A mode 1 screen from an Amstrad CPC."},{"formats":[{"id":"mic","info":"MicroPainter (.MIC): Atari 8-bit pictures, 160 x 192 in 4 colors (7680 bytes, and the 4 color registers if the file has them; else grays).\nIt becomes a screen image in close to the Atari’s colors.","name":"MicroPainter (.MIC)"},{"id":"gr8","info":"Atari Graphics 8 screen (.GR8): 320 x 192 in 2 colors, 7680 bytes.\nIt becomes a black and white screen image.","name":"Graphics 8 screen (.GR8)"},{"id":"gr9","info":"Atari Graphics 9 screen (.GR9): 80 x 192 in 16 grays, 7680 bytes.\nIt becomes a screen image in 16 grays, its dots four times as wide.","name":"Graphics 9 screen (.GR9)"}],"id":"a8","name":"Atari 8-bit","img":"img/formats/a8.png","w":640,"h":384,"caption":"A Graphics 8 picture from an Atari 8-bit computer."},{"formats":[{"id":"msx2","info":"MSX Screen 2 (.SC2): the MSX’s 256 x 192 graphics screen saved with BSAVE, a color pair for each line of each 8 x 8 cell.\nIt becomes a screen image in the MSX’s 16 colors.","name":"Screen 2 (.SC2)"},{"id":"msx5","info":"MSX2 Screen 5 (.SC5, .GE5): 256 x 212 in 16 colors from a palette of 512, saved with BSAVE (the palette from the file if it holds it, else the MSX2’s own).\nIt becomes a true color picture, which the Remap dialog then turns into a screen image.","name":"*Screen 5 (.SC5, .GE5)"},{"id":"msx7","info":"MSX2 Screen 7 (.SC7): 512 x 212 in 16 colors from a palette of 512, saved with BSAVE; its dots are half as wide as tall.\nIt becomes a true color picture, which the Remap dialog then turns into a screen image.","name":"*Screen 7 (.SC7)"},{"id":"msx8","info":"MSX2 Screen 8 (.SC8): 256 x 212 in 256 colors (3 bits of green, 3 of red, 2 of blue), saved with BSAVE.\nIt becomes a true color picture, which the Remap dialog then turns into a screen image.","name":"*Screen 8 (.SC8)"}],"id":"msx","name":"MSX","img":"img/formats/msx.png","w":256,"h":212,"caption":"A Screen 8 picture from an MSX."},{"formats":[{"id":"zx","info":"ZX Spectrum screen (.SCR): the Sinclair ZX Spectrum’s screen, 6912 bytes: 256 x 192 dots and a color pair for each 8 x 8 cell (a 6144-byte file: the dots alone, black on white).\nIt becomes a screen image in the Spectrum’s 15 colors.","name":"Screen (.SCR)"}],"id":"zx","name":"ZX Spectrum","img":"img/formats/zx.png","w":512,"h":384,"caption":"A screen from a ZX Spectrum."},{"formats":[{"id":"jpeg","info":"JPEG (JFIF): the usual format for photographs (.JPG), compressed with some loss.\nRead by macOS, every kind it knows. It becomes a true color picture, which the Remap dialog then turns into a screen image.","name":"*JPEG (JFIF)"},{"id":"gif","info":"GIF: CompuServe’s Graphics Interchange Format (87a and 89a), up to 256 colors.\nRead by macOS, every kind it knows. It becomes a true color picture, which the Remap dialog then turns into a screen image.","name":"*GIF (Graphics Interchange Format)"},{"id":"png","info":"PNG (Portable Network Graphics): the lossless picture format of today’s computers.\nRead by macOS, every kind it knows. It becomes a true color picture, which the Remap dialog then turns into a screen image.","name":"*PNG (Portable Network Graphics)"},{"id":"rle","info":"RLE: CompuServe’s run-length coded pictures (.RLE), 256 x 192 or 128 x 96 dots in black and white, kept as plain text that may start anywhere in the file, so a terminal’s capture buffer will do.\nLoaded in 320 mode.","name":"RLE (Run Length Encoding)"},{"id":"ipi","info":"IPI image: a format of the Image Processing Institute (University of Southern California): three files named alike but ending .R, .G and .B, squares of 8-bit samples, 256 or 512 a side. Pick any one, the other two are read with it.\nIt becomes a true color picture, which the Remap dialog then turns into a screen image.","name":"*IPI image (.R + .G + .B)"},{"id":"qrt","info":"QRT raw image: the output of QRT, the Quick Ray Tracer: width and height, then each line’s number and its rows of red, green and blue samples, 8 bits each.\nIt becomes a true color picture, which the Remap dialog then turns into a screen image.","name":"*QRT raw image file"},{"id":"tiff","info":"TIFF: the Tagged Image File Format of desktop publishing and scanners.\nRead by macOS, every kind it knows. It becomes a true color picture, which the Remap dialog then turns into a screen image.","name":"*TIFF (Tagged Image File Format)"},{"id":"tga","info":"Truevision Targa (.TGA): pictures from paint and video programs, usually ProDOS type $06 (BIN).\nReads color-mapped, true color and gray pictures, run-length coded or not, of 8, 15, 16, 24 or 32 bits a pixel; an alpha channel is left out.","name":"*Truevision Targa (.TGA)"},{"id":"any","info":"Anything macOS can open: any picture file macOS reads, such as HEIC, WebP or PDF.\nRead by macOS, every kind it knows. It becomes a true color picture, which the Remap dialog then turns into a screen image.","name":"*Anything macOS can open"}],"id":"ind","name":"Computer-independent","img":"img/formats/ind.png","w":640,"h":480,"caption":"A PNG picture. JPEG, GIF, PNG, TIFF and Targa load as true color images."}]</script>
+    <script>
+    (function () {
+        var data = JSON.parse(document.getElementById("load-data").textContent);
+        var systems = document.getElementById("systems"), list = document.getElementById("formats-list");
+        var info = document.getElementById("format-info"), img = document.getElementById("example-img");
+        var caption = document.getElementById("example-caption"), title = document.getElementById("example-title");
+
+        function mark(ul, li) {
+            Array.prototype.forEach.call(ul.children, function (x) {
+                var on = x === li;
+                x.classList.toggle("selected", on);
+                x.setAttribute("aria-selected", on ? "true" : "false");
+            });
+        }
+        function showFormat(li, f) {
+            mark(list, li);
+            info.textContent = f.info || "";
+        }
+        function showSystem(id) {
+            var cat = data.filter(function (c) { return c.id === id; })[0];
+            if (!cat) return;
+            mark(systems, systems.querySelector('[data-sys="' + id + '"]'));
+            list.textContent = "";
+            cat.formats.forEach(function (f) {
+                var li = document.createElement("li");
+                li.textContent = f.name;
+                li.tabIndex = 0;
+                li.setAttribute("role", "option");
+                li.addEventListener("click", function () { showFormat(li, f); });
+                li.addEventListener("keydown", function (e) {
+                    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); showFormat(li, f); }
+                });
+                list.appendChild(li);
+            });
+            list.scrollTop = 0;
+            showFormat(list.firstChild, cat.formats[0]);
+            img.src = cat.img;
+            img.width = cat.w;
+            img.height = cat.h;
+            img.alt = cat.caption;
+            caption.textContent = cat.caption;
+            title.firstChild.textContent = cat.name;
+        }
+        function step(ul, e, pick) {
+            var items = Array.prototype.slice.call(ul.children), i = items.indexOf(document.activeElement);
+            if (e.key === "ArrowDown" && i < items.length - 1) i++;
+            else if (e.key === "ArrowUp" && i > 0) i--;
+            else return;
+            e.preventDefault();
+            items[i].focus();
+            pick(items[i]);
+        }
+        Array.prototype.forEach.call(systems.children, function (li) {
+            li.addEventListener("click", function () { showSystem(li.getAttribute("data-sys")); });
+            li.addEventListener("keydown", function (e) {
+                if (e.key === "Enter" || e.key === " ") { e.preventDefault(); showSystem(li.getAttribute("data-sys")); }
+            });
+        });
+        systems.addEventListener("keydown", function (e) {
+            step(systems, e, function (li) { showSystem(li.getAttribute("data-sys")); });
+        });
+        list.addEventListener("keydown", function (e) { step(list, e, function (li) { li.click(); }); });
+        showSystem("gs");
+    })();
+    </script>
 </body>
 </html>

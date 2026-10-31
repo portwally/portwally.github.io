@@ -77,14 +77,24 @@ a { color: inherit; }
     box-shadow: 4px 4px 0 var(--ink);
     min-width: 0;
 }
+/* Title bar with the classic pinstripes; the title sits on a white label. */
 .window > h1, .window > h2 {
     font-size: 24px;
     font-weight: normal;
     text-align: center;
-    padding: 3px 10px 1px;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 10px;
     border-bottom: 2px solid var(--ink);
+    background: repeating-linear-gradient(to bottom, var(--ink) 0 2px, var(--paper) 2px 4px);
 }
-.window.active > h1, .window.active > h2 { background: var(--ink); color: var(--paper); }
+.window > h1 > span, .window > h2 > span {
+    display: inline-block;
+    background: var(--paper);
+    padding: 0 14px;
+    line-height: 26px;
+    vertical-align: middle;
+}
 .window .body { padding: 14px 18px 18px; }
 .window .body > * + * { margin-top: 12px; }
 .half { grid-column: span 6; }
@@ -116,6 +126,17 @@ a { color: inherit; }
 .list { list-style: none; border: 2px solid var(--ink); }
 .list li { padding: 1px 8px 0; }
 .list li.selected { background: var(--ink); color: var(--paper); }
+
+/* The interactive Load formats window: system list, then that system's formats. */
+.systems, .formats { cursor: default; }
+.systems li, .formats li { cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.systems li:hover:not(.selected), .formats li:hover:not(.selected) { background: var(--dim-bg, #ddd); }
+.systems li:focus-visible, .formats li:focus-visible { outline: 2px dotted var(--ink); outline-offset: -4px; }
+.formats { height: 8.4em; overflow-y: auto; }
+.label { font-size: 20px; }
+.label.right { text-align: right; }
+.example { max-height: 440px; width: auto; max-width: 100%; margin: 0 auto; }
+#format-info { min-height: 6.5em; white-space: pre-line; }
 .plain { list-style: none; }
 .plain li { padding-left: 1.1em; text-indent: -1.1em; }
 .plain li::before { content: "\25B6\00a0"; font-size: 0.6em; vertical-align: middle; }
