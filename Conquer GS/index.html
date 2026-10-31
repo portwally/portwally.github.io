@@ -186,6 +186,19 @@
         }
         @keyframes sweep { to { transform: translate(-50%, -50%) rotate(360deg); } }
 
+        /* ---- version 1 vs 2: the table ---- */
+        .compare-wrap { padding: 12px; }
+        .compare-wrap .well { overflow-x: auto; }
+        .compare { width: 100%; border-collapse: collapse; font-size: 1rem; }
+        .compare th, .compare td { padding: 9px 14px; text-align: left; vertical-align: top; border-bottom: 1px solid #26262f; }
+        .compare thead th { font-family: var(--term); font-weight: 400; font-size: 1.45rem; color: var(--gold); border-bottom: 2px solid var(--steel-d); white-space: nowrap; }
+        .compare tbody th { font-weight: 600; color: var(--light); }
+        .compare td { color: var(--text); }
+        .compare td.no { color: var(--dim); }
+        .compare .v2 { background: rgba(68, 238, 119, 0.06); color: var(--ore); }
+        .compare thead th.v2 { color: var(--ore); }
+        .compare tbody tr:last-child th, .compare tbody tr:last-child td { border-bottom: none; }
+
         /* ---- intel: the screenshots ---- */
         .gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
         .shot { padding: 10px; }
@@ -326,6 +339,10 @@
             .hud nav { order: 3; width: 100%; margin: 0; padding-bottom: 2px; }
             html { scroll-padding-top: 96px; }
             .gallery { grid-template-columns: minmax(0, 1fr); }
+            .compare-wrap { padding: 6px; }
+            .compare { font-size: 0.85rem; }
+            .compare th, .compare td { padding: 7px 6px; }
+            .compare thead th { font-size: 1.15rem; white-space: normal; }
             .hq { grid-template-columns: minmax(0, 1fr); justify-items: center; text-align: center; }
             .hq .pair { justify-content: center; }
             section { padding-top: 54px; }
@@ -348,6 +365,7 @@
         <div class="readout credits">CREDITS: <span id="credits">2500</span></div>
         <nav aria-label="Sections">
             <a href="#gs2">CONQUER GS 2</a>
+            <a href="#compare">1 VS 2</a>
             <a href="#briefing">BRIEFING</a>
             <a href="#intel">INTEL</a>
             <a href="#arsenal">ARSENAL</a>
@@ -373,14 +391,16 @@
                     <div class="label"><span>CONQUER.GS 2</span><b>NEW: 2 MB EDITION</b></div>
                 </div>
                 <div class="briefing steel">
-                    <div class="head"><span>NEW ORDERS</span><span class="blink">&#9679; ON SALE</span></div>
+                    <div class="head"><span>NEW ORDERS</span><span class="blink">&#9679; COMING SOON</span></div>
                     <div class="well">
                         <p>Commander. The Red Legion has crossed the border.</p>
                         <p>Eight missions, each with a briefing and a goal of its own: destroy their base, hold out until help arrives, mine the ore we need, or knock out one key building.</p>
-                        <p>Nine kinds of units - light tanks, artillery, flame troopers and engineers that take over enemy buildings - on eight maps, with three save slots.</p>
+                        <p>Nine kinds of units - light tanks, artillery, flame troopers and engineers that take over enemy buildings - on eight maps more than twice the size, with three save slots.</p>
+                        <p>A repair bay for your vehicles, a command center you can build again, and a map editor: paint the land, set out both bases, and play your own battlefields.</p>
                     </div>
                     <div class="cta">
-                        <a class="btn" href="https://portwally.itch.io/conquer-gs-2" target="_blank" rel="noopener">BUY ON ITCH.IO</a>
+                        <span class="btn off" role="link" aria-disabled="true">SOON ON ITCH.IO</span>
+                        <a class="btn" href="Conquer-GS-2-Manual.pdf" target="_blank" rel="noopener">MANUAL (PDF)</a>
                         <a class="btn" href="#gs2-intel">SEE IT</a>
                         <a class="btn" href="#briefing">FREE VERSION 1</a>
                     </div>
@@ -388,9 +408,9 @@
             </div>
             <div class="ticker">
                 <div class="steel"><b>8 MISSIONS</b><span>with briefings</span></div>
-                <div class="steel"><b>8 MAPS</b><span>for skirmish</span></div>
+                <div class="steel"><b>8 MAPS</b><span>48 x 36 tiles</span></div>
+                <div class="steel"><b>MAP EDITOR</b><span>make your own</span></div>
                 <div class="steel"><b>9 UNITS</b><span>engineers capture</span></div>
-                <div class="steel"><b>96 UNITS</b><span>and structures at once</span></div>
                 <div class="steel"><b>APPLE IIGS</b><span>ROM 01 or 3, 2 MB</span></div>
             </div>
         </div>
@@ -404,20 +424,78 @@
             <div class="gallery">
                 <figure class="shot steel"><a href="screens/gs2-briefing.png" data-caption="A mission briefing: the map, the story, the objective, the enemy's strength and what is still locked"><div class="well"><img src="screens/gs2-briefing.png" alt="The briefing of mission 1, First Strike: the map Green Valley, the story, the objective and the locked units" width="640" height="400" loading="lazy"></div></a><figcaption><span class="tag">REC 01</span><span>Eight missions, each with its briefing</span></figcaption></figure>
                 <figure class="shot steel"><a href="screens/gs2-mission.png" data-caption="Hold the Ford: the time left to hold out counts down in the top bar"><div class="well"><img src="screens/gs2-mission.png" alt="A campaign mission with HOLD OUT 4:58 in the top bar" width="640" height="400" loading="lazy"></div></a><figcaption><span class="tag">REC 02</span><span>Goals of their own: hold out, mine ore, take out a target</span></figcaption></figure>
-                <figure class="shot steel"><a href="screens/gs2-units.png" data-caption="The build menu's UNITS page: nine kinds of units, each with its name and price"><div class="well"><img src="screens/gs2-units.png" alt="The sidebar's UNITS page with the tag ARTILLERY 900" width="640" height="400" loading="lazy"></div></a><figcaption><span class="tag">REC 03</span><span>Light tanks, artillery, flame troopers, engineers</span></figcaption></figure>
-                <figure class="shot steel"><a href="screens/gs2-setup.png" data-caption="Mission setup: the campaign, eight maps for skirmish, loading a saved game"><div class="well"><img src="screens/gs2-setup.png" alt="The mission setup screen with CAMPAIGN, LOAD GAME and HOW TO PLAY" width="640" height="400" loading="lazy"></div></a><figcaption><span class="tag">REC 04</span><span>Campaign, eight maps, saved games</span></figcaption></figure>
-                <figure class="shot steel"><a href="screens/gs2-save.png" data-caption="Save from the pause panel: pick one of three slots"><div class="well"><img src="screens/gs2-save.png" alt="The pause panel with the buttons SLOT 1, SLOT 2 and SLOT 3" width="640" height="400" loading="lazy"></div></a><figcaption><span class="tag">REC 05</span><span>Save from the pause panel, in one of three slots</span></figcaption></figure>
-                <figure class="shot steel"><a href="screens/gs2-load.png" data-caption="Load a saved game: each slot shows its map and the time played"><div class="well"><img src="screens/gs2-load.png" alt="The load panel with three save slots" width="640" height="400" loading="lazy"></div></a><figcaption><span class="tag">REC 06</span><span>Load it again from the mission setup</span></figcaption></figure>
+                <figure class="shot steel"><a href="screens/gs2-bigmap.png" data-caption="The fight at the enemy's base on a 48 x 36 map: the radar shows all of it, a pixel a tile"><div class="well"><img src="screens/gs2-bigmap.png" alt="Our tanks and soldiers attacking the Red Legion's barracks; the radar shows the whole bigger map" width="640" height="400" loading="lazy"></div></a><figcaption><span class="tag">REC 03</span><span>Maps more than twice the size, the radar shows them whole</span></figcaption></figure>
+                <figure class="shot steel"><a href="screens/gs2-units.png" data-caption="The build menu's UNITS page: nine kinds of units, each with its name and price"><div class="well"><img src="screens/gs2-units.png" alt="The sidebar's UNITS page with the tag ARTILLERY 900" width="640" height="400" loading="lazy"></div></a><figcaption><span class="tag">REC 04</span><span>Light tanks, artillery, flame troopers, engineers</span></figcaption></figure>
+                <figure class="shot steel"><a href="screens/gs2-repairbay.png" data-caption="The repair bay: a damaged tank beside it is repaired, its wrench blinking, its health bar showing"><div class="well"><img src="screens/gs2-repairbay.png" alt="A repair bay with a tank beside it, its health bar and a blinking wrench; the BASE page has nine buildings" width="640" height="400" loading="lazy"></div></a><figcaption><span class="tag">REC 05</span><span>The repair bay: damaged vehicles beside it are mended</span></figcaption></figure>
+                <figure class="shot steel"><a href="screens/gs2-rally.png" data-caption="Setting a rally point: the cursor is a flag, and a flag marks the spot"><div class="well"><img src="screens/gs2-rally.png" alt="The cursor over open ground is a gold flag, a second flag stands where the barracks' new units will gather" width="640" height="400" loading="lazy"></div></a><figcaption><span class="tag">REC 06</span><span>Rally points: a flag cursor, a flag on the spot</span></figcaption></figure>
+                <figure class="shot steel"><a href="screens/gs2-setup.png" data-caption="The mission setup: the Iron Guard against the Red Legion, the campaign, skirmish, saved games, settings and the map editor"><div class="well"><img src="screens/gs2-setup.png" alt="The mission setup screen: the difficulty, a column of buttons, the Iron Guard and Red Legion emblems" width="640" height="400" loading="lazy"></div></a><figcaption><span class="tag">REC 07</span><span>The mission setup: campaign, skirmish, load, settings, editor</span></figcaption></figure>
+                <figure class="shot steel"><a href="screens/gs2-skirmish.png" data-caption="Skirmish: pick a map from the list - the eight that come with the game, then your own - its preview beside it"><div class="well"><img src="screens/gs2-skirmish.png" alt="The SKIRMISH page: a list of maps on the left, the chosen map's preview and name on the right" width="640" height="400" loading="lazy"></div></a><figcaption><span class="tag">REC 08</span><span>Skirmish: a list of every map, with its preview</span></figcaption></figure>
+                <figure class="shot steel"><a href="screens/gs2-settings.png" data-caption="Settings: music and effects volume, scroll speed, mouse speed and three colour schemes, kept on the disk"><div class="well"><img src="screens/gs2-settings.png" alt="The SETTINGS page with rows for music, effects, scroll, mouse and colours" width="640" height="400" loading="lazy"></div></a><figcaption><span class="tag">REC 09</span><span>Settings: volumes, scroll and mouse speed, colours</span></figcaption></figure>
+                <figure class="shot steel"><a href="screens/gs2-editor-title.png" data-caption="The map editor's start picture"><div class="well"><img src="screens/gs2-editor-title.png" alt="The CONQUER GS MAP EDITOR title picture: a battle map on a field table at sunset" width="640" height="400" loading="lazy"></div></a><figcaption><span class="tag">REC 10</span><span>The map editor: start it from the game or from GS/OS</span></figcaption></figure>
+                <figure class="shot steel"><a href="screens/gs2-editor.png" data-caption="The map editor: paint the land, place both sides' buildings and units, name the map and save it"><div class="well"><img src="screens/gs2-editor.png" alt="The map editor with a pond, the HQ, a war factory and a tank placed, the UNITS page in the panel" width="640" height="400" loading="lazy"></div></a><figcaption><span class="tag">REC 11</span><span>Paint the land, place both bases, save, play</span></figcaption></figure>
+                <figure class="shot steel"><a href="screens/gs2-load.png" data-caption="Load a saved game: each slot shows its map and the time played"><div class="well"><img src="screens/gs2-load.png" alt="The load panel with three save slots" width="640" height="400" loading="lazy"></div></a><figcaption><span class="tag">REC 12</span><span>Three save slots, saved from the pause panel</span></figcaption></figure>
             </div>
             <div class="tech" style="margin-top: 26px;">
                 <div class="steel"><div class="well"><h3>The campaign</h3><p>Eight missions against the Red Legion with briefings, goals of their own and new units unlocking as you go. The game remembers how far you got.</p></div></div>
                 <div class="steel"><div class="well"><h3>New units</h3><p>Fast light tanks, artillery that out-ranges turrets, flame troopers, and engineers that walk into an enemy power plant, war factory or refinery and take it over. The enemy uses them too.</p></div></div>
-                <div class="steel"><div class="well"><h3>Eight maps</h3><p>Forest Run, Islands, Canyon and The Lake join the four maps of version 1. Units turn to face eight ways, and up to 96 units and structures fight at once.</p></div></div>
+                <div class="steel"><div class="well"><h3>Bigger maps</h3><p>Eight maps of 48 x 36 tiles - more than twice the ground of version 1: Forest Run, Islands, Canyon and The Lake join the four from version 1. Units turn to face eight ways, and up to 96 units and structures fight at once.</p></div></div>
+                <div class="steel"><div class="well"><h3>Map editor</h3><p>Paint grass, roads, water, trees, rocks and ore, set out your base and the enemy's, place both sides' units, name the map and save it. Start it from the mission setup or from the GS/OS Finder; your maps show up in the skirmish list.</p></div></div>
+                <div class="steel"><div class="well"><h3>Repair bay</h3><p>A ninth building on the BASE page: damaged vehicles parked beside it are mended, a few hit points for a few credits, with the wrench blinking. Click it with vehicles selected to send them there.</p></div></div>
+                <div class="steel"><div class="well"><h3>Rebuild your base</h3><p>Lose the command center and the game goes on - until every building is gone. Build a new one on its old pad for 1000 credits. It has 800 hit points, and health bars show on any building under the mouse or clicked.</p></div></div>
+                <div class="steel"><div class="well"><h3>An enemy that fights</h3><p>It gathers an army at home and sends waves that grow every time, mines with several harvesters, and rebuilds what you destroy - the last missions on hard are tougher than hard.</p></div></div>
+                <div class="steel"><div class="well"><h3>Rally flags and icons</h3><p>Setting a rally point turns the cursor into a flag and plants one on the spot. The game and the map editor show the Iron Guard's fist in the GS/OS Finder.</p></div></div>
+                <div class="steel"><div class="well"><h3>Settings</h3><p>Music and effects volume, scroll speed, mouse speed and three colour schemes - standard, desert and high contrast - kept on the disk for next time.</p></div></div>
                 <div class="steel"><div class="well"><h3>Saved games and groups</h3><p>Three save slots from the pause menu, unit groups on Control-1 to 9, and five music tracks on the Ensoniq chip.</p></div></div>
-                <div class="steel"><div class="well"><h3>What you need</h3><p>An Apple IIgs (ROM 01 or ROM 3) with at least 2 MB of memory and a mouse - or MAME. One 800K ProDOS disk image.</p></div></div>
+                <div class="steel"><div class="well"><h3>What you need</h3><p>An Apple IIgs (ROM 01 or ROM 3) with at least 2 MB of memory and a mouse - or MAME. One 800K ProDOS disk image, the map editor on it.</p></div></div>
             </div>
             <div class="cta" style="margin-top: 24px;">
-                <a class="btn" href="https://portwally.itch.io/conquer-gs-2" target="_blank" rel="noopener">BUY CONQUER GS 2 ON ITCH.IO</a>
+                <span class="btn off" role="link" aria-disabled="true">SOON ON ITCH.IO</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= VERSION 1 VS 2 ================= -->
+    <section id="compare">
+        <div class="container">
+            <div class="plate"><h2 class="steel">VERSION 1 VS 2</h2><span class="code">SIDE BY SIDE</span><span class="rule"></span></div>
+            <p class="lead">Version 1 stays free. Version 2 builds on it - here is what each one has.</p>
+            <div class="steel compare-wrap">
+                <div class="well">
+                    <table class="compare">
+                        <thead>
+                            <tr><th scope="col">Feature</th><th scope="col">Conquer GS</th><th scope="col" class="v2">Conquer GS 2</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><th scope="row">Price</th><td>Free, open source</td><td class="v2">Soon on itch.io</td></tr>
+                            <tr><th scope="row">Memory</th><td>1 MB</td><td class="v2">2 MB</td></tr>
+                            <tr><th scope="row">Campaign</th><td class="no">-</td><td class="v2">8 missions with briefings and goals</td></tr>
+                            <tr><th scope="row">Maps</th><td>4</td><td class="v2">8, and your own</td></tr>
+                            <tr><th scope="row">Map size</th><td>32 x 24 tiles</td><td class="v2">48 x 36 tiles</td></tr>
+                            <tr><th scope="row">Map editor</th><td class="no">-</td><td class="v2">Yes - from the game or GS/OS</td></tr>
+                            <tr><th scope="row">Kinds of units</th><td>5</td><td class="v2">9</td></tr>
+                            <tr><th scope="row">Engineers take over buildings</th><td class="no">-</td><td class="v2">Yes</td></tr>
+                            <tr><th scope="row">Units face</th><td>4 ways</td><td class="v2">8 ways</td></tr>
+                            <tr><th scope="row">Units and structures at once</th><td>48</td><td class="v2">96</td></tr>
+                            <tr><th scope="row">Repair bay</th><td class="no">-</td><td class="v2">Yes - mends vehicles</td></tr>
+                            <tr><th scope="row">Rebuild a lost command center</th><td class="no">-</td><td class="v2">Yes - 1000 credits</td></tr>
+                            <tr><th scope="row">Health bars on buildings</th><td class="no">-</td><td class="v2">Mouse over or click</td></tr>
+                            <tr><th scope="row">Rally points</th><td>Yes</td><td class="v2">Yes - with a flag cursor and a flag</td></tr>
+                            <tr><th scope="row">Enemy harvesters</th><td>1</td><td class="v2">2 (3 in the toughest missions)</td></tr>
+                            <tr><th scope="row">Saved games</th><td class="no">-</td><td class="v2">3 slots</td></tr>
+                            <tr><th scope="row">Unit groups (Control-1 to 9)</th><td class="no">-</td><td class="v2">Yes</td></tr>
+                            <tr><th scope="row">Music tracks</th><td>2</td><td class="v2">5</td></tr>
+                            <tr><th scope="row">Settings</th><td>Music and effects volume</td><td class="v2">Volumes, scroll and mouse speed, 3 colour schemes - saved</td></tr>
+                            <tr><th scope="row">Difficulty</th><td>Easy, normal, hard</td><td class="v2">Easy, normal, hard (and brutal in the campaign) - waves grow every time</td></tr>
+                            <tr><th scope="row">Fog of war, radar</th><td>Yes</td><td class="v2">Yes</td></tr>
+                            <tr><th scope="row">Quits to ProDOS or GS/OS</th><td>Yes</td><td class="v2">Yes</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="cta" style="margin-top: 24px;">
+                <span class="btn off" role="link" aria-disabled="true">SOON ON ITCH.IO</span>
+                <a class="btn" href="Conquer-GS-2-Manual.pdf" target="_blank" rel="noopener">MANUAL (PDF)</a>
+                <a class="btn" href="#briefing">FREE VERSION 1</a>
             </div>
         </div>
     </section>
