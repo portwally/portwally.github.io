@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GS Remap - Apple IIgs picture converter for the Mac</title>
-    <meta name="description" content="GS Remap converts pictures to and from Apple IIgs Super Hi-Res on a Mac. It loads Apple II, Apple IIgs, Atari ST, Amiga, Commodore 64, Macintosh, PC and Unix picture formats and looks like an Apple IIgs desktop.">
-    <meta name="keywords" content="Apple IIgs, Super Hi-Res, SHR, image converter, retro graphics, Apple II, HiRes, Double HiRes, 3200 color, Atari ST, Amiga IFF, Commodore 64, MacPaint, macOS">
+    <meta name="description" content="GS Remap converts pictures to and from Apple IIgs Super Hi-Res on a Mac. It loads Apple II, Apple IIgs, Atari ST and 8-bit, Amiga, Commodore 64, Macintosh, PC, Unix, Amstrad CPC, MSX and ZX Spectrum picture formats, saves IIgs, Apple II and modern files, and looks like an Apple IIgs desktop.">
+    <meta name="keywords" content="Apple IIgs, Super Hi-Res, SHR, image converter, retro graphics, Apple II, HiRes, Double HiRes, 3200 color, LoRes, Atari ST, Atari 8-bit, Amiga IFF, Commodore 64, MacPaint, PICT, TGA, Amstrad CPC, MSX, ZX Spectrum, macOS">
     <meta property="og:title" content="GS Remap">
     <meta property="og:description" content="An Apple IIgs picture converter for the Mac, with the look of the IIgs desktop.">
     <meta property="og:image" content="https://portwally.github.io/GSRemap/img/desktop.png">
@@ -55,13 +55,14 @@
             <h2>What it does</h2>
             <div class="body">
                 <ul class="plain">
-                    <li>Loads more than 50 picture formats</li>
+                    <li>Loads 70 picture formats from 14 kinds of computer</li>
                     <li>Remaps to 320 mode, 640 mode, 640 dither mode or multipalette</li>
                     <li>Calculates the best palette for each picture</li>
                     <li>Pattern dither and error diffusion</li>
                     <li>Ten true color filters</li>
                     <li>Black &amp; white images with halftone</li>
                     <li>Saves files a real IIgs can open</li>
+                    <li>Saves Apple II HiRes, Double HiRes and LoRes screens</li>
                 </ul>
             </div>
         </section>
@@ -110,9 +111,13 @@
                     <li>Macintosh</li>
                     <li>IBM PC &amp; compatibles</li>
                     <li>Unix machines</li>
+                    <li>Amstrad CPC</li>
+                    <li>Atari 8-bit</li>
+                    <li>MSX</li>
+                    <li>ZX Spectrum</li>
                     <li>Computer-independent</li>
                 </ul>
-                <p class="small">Apple II: HiRes, Double HiRes, Print Shop, ThunderScan, text screens. Apple IIgs: Super Hi-Res in every common variant, Apple Preferred, 3200 color, DreamGrafix, Paintworks Gold, Print Shop IIgs, Finder icons, AST and ComputerEyes. Atari ST: Degas, Degas Elite, Neochrome, Tiny, Spectrum 512. Amiga: IFF with HAM and HalfBrite. C64: Doodle, Koala, Print Shop. Macintosh: MacPaint, ScreenMaker. PC: BMP, PCX, GEM IMG, DeluxePaint. Unix: Sun, SGI, PBM, PGM, PPM. And JPEG, PNG, GIF, TIFF, CompuServe RLE, IPI and QRT.</p>
+                <p class="small">Apple II: HiRes and Double HiRes (also packed, LZ4FH, .BIN + .AUX pairs and bmp2dhr pieces), LoRes and Double LoRes, Print Shop, ThunderScan, text screens, Works of Art pages. Apple IIgs: Super Hi-Res in every common variant, Apple Preferred, 3200 color, DreamGrafix, Paintworks Gold, Print Shop IIgs, Finder icons, AST and ComputerEyes. Atari ST: Degas, Degas Elite, Neochrome, Tiny, Spectrum 512. Atari 8-bit: MicroPainter, Graphics 8 and 9. Amiga: IFF with HAM and HalfBrite. C64: Doodle, Koala, Print Shop, Art Studio, Advanced Art Studio, FLI Graph, Amica Paint. Macintosh: MacPaint, ScreenMaker, PICT. PC: BMP, PCX, GEM IMG, DeluxePaint. Unix: Sun, SGI, PBM, PGM, PPM. Amstrad CPC: mode 0, 1 and 2 screens with their .PAL colours. MSX: Screen 2, 5, 7 and 8. ZX Spectrum screens. And JPEG, PNG, GIF, TIFF, Targa, CompuServe RLE, IPI and QRT.</p>
             </div>
         </section>
 
@@ -127,9 +132,11 @@
                     <li>Finder icon</li>
                     <li>Icon resource</li>
                     <li>Hex data</li>
-                    <li>GIF, PNG, TIFF</li>
+                    <li>GIF, PNG, TIFF, BMP</li>
+                    <li>Apple II HiRes, Double HiRes</li>
+                    <li>Apple II LoRes, Double LoRes</li>
                 </ul>
-                <p class="small">Apple IIgs files are saved with a suffix such as #C00002, so CiderPress and cadius give them the right ProDOS file type when you copy them to a disk image.</p>
+                <p class="small">Apple IIgs and Apple II files are saved with a suffix such as #C00002, so CiderPress and cadius give them the right ProDOS file type when you copy them to a disk image. The Apple II screens are dithered in the Apple II colors (error diffusion, a pattern or none), plain or packed, filling the screen or keeping the picture's proportions.</p>
             </div>
         </section>
 
