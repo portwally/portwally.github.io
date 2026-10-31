@@ -217,7 +217,8 @@ legend { padding: 0 8px; color: var(--gold); }
 .radio:hover span { color: var(--gold); }
 
 /* What it does: a coloured word for each */
-.features { list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 30px; }
+.features { list-style: none; column-count: 2; column-gap: 30px; }
+.features li { break-inside: avoid; margin-bottom: 16px; }
 .features b { font-weight: normal; padding: 0 6px; margin-right: 6px; color: var(--ink); }
 .c1 { background: var(--r1); color: var(--paper) !important; }
 .c2 { background: var(--r2); }
@@ -310,7 +311,7 @@ legend { padding: 0 8px; color: var(--gold); }
     .hero { grid-template-columns: 1fr; padding-top: 128px; gap: 28px; }
     .pitch h1 { font-size: 36px; }
     .lab, .get { grid-template-columns: 1fr; }
-    .features { grid-template-columns: 1fr; }
+    .features { column-count: 1; }
     .shots { grid-template-columns: 1fr; }
     .bar-row { grid-template-columns: 1fr; gap: 6px; }
     html { scroll-padding-top: 110px; }
