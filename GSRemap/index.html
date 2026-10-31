@@ -149,21 +149,35 @@
             </div>
         </section>
 
-        <section class="window">
+        <section class="window" id="save-formats">
             <h2><span>Save formats</span></h2>
             <div class="body">
-                <ul class="list">
-                    <li>$C0,0 PaintWorks</li>
-                    <li>$C0,1 PackBytes</li>
-                    <li class="selected">$C0,2 Apple Preferred</li>
-                    <li>$C1 uncompressed screen</li>
-                    <li>Finder icon</li>
-                    <li>Icon resource</li>
-                    <li>Hex data</li>
-                    <li>GIF, PNG, TIFF, BMP</li>
-                    <li>Apple II HiRes, Double HiRes</li>
-                    <li>Apple II LoRes, Double LoRes</li>
+                <ul class="list formats save" id="save-list" role="listbox" aria-label="Save formats">
+                    <li role="option" tabindex="0">$C0,0 PaintWorks+ 1.0 (obsolete)</li>
+                    <li role="option" tabindex="0">$C0,1 PackBytes (obsolete)</li>
+                    <li role="option" tabindex="0" class="selected" aria-selected="true">$C0,2 Apple Preferred</li>
+                    <li role="option" tabindex="0">$C1 uncompressed screen</li>
+                    <li role="option" tabindex="0">Finder icon (new file)</li>
+                    <li role="option" tabindex="0">Finder icon (add to file)</li>
+                    <li role="option" tabindex="0">Icon resource (new resource file)</li>
+                    <li role="option" tabindex="0">Icon resource (add to resource file)</li>
+                    <li role="option" tabindex="0">Hex data (for programmers only)</li>
+                    <li role="option" tabindex="0">GIF (Graphics Interchange Format)</li>
+                    <li role="option" tabindex="0">PNG (Portable Network Graphics)</li>
+                    <li role="option" tabindex="0">TIFF (Tagged Image File Format)</li>
+                    <li role="option" tabindex="0">BMP (Windows bitmap)</li>
+                    <li role="option" tabindex="0">Apple II HiRes color</li>
+                    <li role="option" tabindex="0">Apple II HiRes black &amp; white</li>
+                    <li role="option" tabindex="0">Apple II Double HiRes color</li>
+                    <li role="option" tabindex="0">Apple II Double HiRes b &amp; w</li>
+                    <li role="option" tabindex="0">Apple II LoRes</li>
+                    <li role="option" tabindex="0">Apple II Double LoRes</li>
+                    <li role="option" tabindex="0">Apple II HiRes color, packed</li>
+                    <li role="option" tabindex="0">Apple II HiRes b &amp; w, packed</li>
+                    <li role="option" tabindex="0">Apple II Double HiRes color, packed</li>
+                    <li role="option" tabindex="0">Apple II Double HiRes b &amp; w, packed</li>
                 </ul>
+                <p class="small" id="save-info"></p>
                 <p class="small">Apple IIgs and Apple II files are saved with a suffix such as #C00002, so CiderPress and cadius give them the right ProDOS file type when you copy them to a disk image. The Apple II screens are dithered in the Apple II colors (error diffusion, a pattern or none), plain or packed, filling the screen or keeping the picture's proportions.</p>
             </div>
         </section>
@@ -299,6 +313,33 @@
         });
         list.addEventListener("keydown", function (e) { step(list, e, function (li) { li.click(); }); });
         showSystem("gs");
+    })();
+    </script>
+    <script type="application/json" id="save-data">[{"id":"c00","info":"PaintWorks: the format of the first PaintWorks Plus, ProDOS type $C0 (PNT), aux type $0000: color table 0, empty painting patterns, then the lines packed with PackBytes.\nFor 320 mode pictures only. Lines using other color tables change color.","name":"$C0,0 PaintWorks+ 1.0 (obsolete)"},{"id":"c01","info":"PackBytes screen: the whole 32768-byte screen, SCBs and color tables included, packed with the toolbox routine PackBytes, ProDOS type $C0 (PNT), aux type $0001.\nSmaller than a $C1 screen with nothing lost, but few programs read it.","name":"$C0,1 PackBytes (obsolete)"},{"id":"c02","info":"Apple Preferred: the standard IIgs picture format, ProDOS type $C0 (PNT), aux type $0002, read by nearly all IIgs graphics programs: the best choice in most cases.\nA MAIN block with the 16 color tables and all 200 lines, 320 or 640 pixels wide, each packed with PackBytes and keeping its SCB.","name":"$C0,2 Apple Preferred"},{"id":"c1","info":"$C1 screen: the whole Super Hi-Res screen as it is in memory, 32768 bytes (pixels, SCBs and 16 color tables), ProDOS type $C1 (PIC), aux type $0000.\nEvery IIgs graphics program reads it, though it is not packed. Always a whole screen.","name":"$C1 uncompressed screen"},{"id":"icon","info":"Finder icon, new file: an icon file, ProDOS type $CA (ICN), with one icon for any file: the picture as the large icon and a reduced copy as the small one.\nThe picture must be 640 mode, at most 160 x 50 (80 x 25 is usual), and should use the standard colors, as the Finder does.","name":"Finder icon (new file)"},{"id":"iconadd","info":"Finder icon, add to a file: the same icon, added after the last one in an icon file you choose, so several icons can share one file. Same limits: 640 mode, at most 160 x 50.\nLeave the system disk’s own icon files alone: new system software replaces them.","name":"Finder icon (add to file)"},{"id":"ricon","info":"Icon resource, new file: a new file (ProDOS type $06, BIN) whose resource fork holds the picture as an rIcon ($8001) resource, ID 1, for use in programs.\n320 or 640 mode, at most a quarter of the screen (8000 bytes of pixels).","name":"Icon resource (new resource file)"},{"id":"riconadd","info":"Icon resource, add to a file: the picture as one more rIcon ($8001) resource, with the lowest free ID, added to a resource file you choose, such as a program of your own.\n320 or 640 mode, at most a quarter of the screen (8000 bytes of pixels).","name":"Icon resource (add to resource file)"},{"id":"hex","info":"Hex data, for programmers: a text file (ProDOS type $04, TXT) with an assembler line for each picture line, its pixel bytes in hexadecimal, as in dc h’00 11 22’.\nOnly the picture’s own size, two pixels a byte in 320 mode and four in 640 mode, without SCBs or colors.","name":"Hex data (for programmers only)"},{"id":"gif","info":"GIF: a GIF file for other computers, written by macOS.\nWritten as it looks, with square pixels: lines twice and 320 mode pixels twice across (a full screen gives 640 x 400). Each pixel keeps the color it shows, whatever its palette.","name":"GIF (Graphics Interchange Format)"},{"id":"png","info":"PNG: a PNG file for today’s computers, written by macOS.\nWritten as it looks, with square pixels: lines twice and 320 mode pixels twice across (a full screen gives 640 x 400). Each pixel keeps the color it shows, whatever its palette.","name":"PNG (Portable Network Graphics)"},{"id":"tiff","info":"TIFF: a TIFF file for desktop publishing and other programs, written by macOS.\nWritten as it looks, with square pixels: lines twice and 320 mode pixels twice across (a full screen gives 640 x 400). Each pixel keeps the color it shows, whatever its palette.","name":"TIFF (Tagged Image File Format)"},{"id":"bmp","info":"BMP: a Windows bitmap for today’s computers, written by macOS.\nWritten as it looks, with square pixels: lines twice and 320 mode pixels twice across (a full screen gives 640 x 400). Each pixel keeps the color it shows, whatever its palette.","name":"BMP (Windows bitmap)"},{"id":"hgr","info":"HiRes color: the Apple II high resolution screen, ProDOS type $06 (BIN), aux type $2000, 8192 bytes: 280 x 192 dots in black, white, violet, green, blue and orange.\nThe picture is fitted to the Apple II screen and dithered, a pair of dots at a time; each byte of 7 dots shows blue and orange or violet and green, whichever its part of the picture is closer to. Apple II save options choose the dithering (error diffusion, pattern or none) and whether the picture fills the screen or keeps its proportions.","name":"Apple II HiRes color"},{"id":"hgrbw","info":"HiRes black & white: the Apple II high resolution screen, ProDOS type $06 (BIN), aux type $2000, 8192 bytes: 280 x 192 dots.\nThe picture is fitted to the Apple II screen and dithered; a black & white picture keeps its dots where they fit. Apple II save options choose the dithering (error diffusion, pattern or none) and whether the picture fills the screen or keeps its proportions.","name":"Apple II HiRes black & white"},{"id":"dhr","info":"Double HiRes color: the double high resolution screen of the Apple IIe, IIc and IIgs, ProDOS type $06 (BIN), aux type $2000, 16384 bytes, the auxiliary memory half first: 140 x 192 pixels in 16 colors.\nThe picture is fitted to the Apple II screen and dithered; a picture in the Apple II colors keeps them. Apple II save options choose the dithering (error diffusion, pattern or none) and whether the picture fills the screen or keeps its proportions.","name":"Apple II Double HiRes color"},{"id":"dhrbw","info":"Double HiRes black & white: the Apple II double high resolution screen, ProDOS type $06 (BIN), aux type $2000, 16384 bytes, the auxiliary half first: 560 x 192 dots.\nThe picture is fitted to the Apple II screen and dithered. Apple II save options choose the dithering (error diffusion, pattern or none) and whether the picture fills the screen or keeps its proportions.","name":"Apple II Double HiRes b & w"},{"id":"lores","info":"LoRes: the Apple II low resolution screen, ProDOS type $06 (BIN), aux type $0400, 1024 bytes (the text page): 40 x 48 blocks in 16 colors.\nThe picture is fitted to the Apple II screen and dithered; a picture in the Apple II colors keeps them. Apple II save options choose the dithering (error diffusion, pattern or none) and whether the picture fills the screen or keeps its proportions.","name":"Apple II LoRes"},{"id":"dlores","info":"Double LoRes: the low resolution screen of the Apple IIe, IIc and IIgs with 80 columns, ProDOS type $06 (BIN), aux type $0400, 2048 bytes, the auxiliary memory half first: 80 x 48 blocks in 16 colors.\nThe picture is fitted to the Apple II screen and dithered; a picture in the Apple II colors keeps them. Apple II save options choose the dithering (error diffusion, pattern or none) and whether the picture fills the screen or keeps its proportions.","name":"Apple II Double LoRes"},{"id":"hgrp","info":"HiRes color, packed: the Apple II high resolution screen packed with PackBytes, ProDOS type $08 (FOT), aux type $4000, as Apple’s File Type Note has it.\nThe picture is made as for HiRes color (280 x 192, dithered in its six colors), then packed.","name":"Apple II HiRes color, packed"},{"id":"hgrbwp","info":"HiRes black & white, packed: the Apple II high resolution screen packed with PackBytes, ProDOS type $08 (FOT), aux type $4000.\nThe picture is made as for HiRes black & white, then packed.","name":"Apple II HiRes b & w, packed"},{"id":"dhrp","info":"Double HiRes color, packed: the double high resolution screen packed with PackBytes, the auxiliary memory half first, ProDOS type $08 (FOT), aux type $4001, as Apple’s File Type Note has it.\nThe picture is made as for Double HiRes color (140 x 192 in 16 colors), then packed.","name":"Apple II Double HiRes color, packed"},{"id":"dhrbwp","info":"Double HiRes black & white, packed: the double high resolution screen packed with PackBytes, the auxiliary half first, ProDOS type $08 (FOT), aux type $4001.\nThe picture is made as for Double HiRes black & white, then packed.","name":"Apple II Double HiRes b & w, packed"}]</script>
+    <script>
+    (function () {
+        var data = JSON.parse(document.getElementById("save-data").textContent);
+        var list = document.getElementById("save-list"), info = document.getElementById("save-info");
+        function pick(i) {
+            Array.prototype.forEach.call(list.children, function (x, k) {
+                x.classList.toggle("selected", k === i);
+                x.setAttribute("aria-selected", k === i ? "true" : "false");
+            });
+            info.textContent = data[i].info || "";
+        }
+        Array.prototype.forEach.call(list.children, function (li, i) {
+            li.addEventListener("click", function () { pick(i); });
+            li.addEventListener("keydown", function (e) {
+                if (e.key === "Enter" || e.key === " ") { e.preventDefault(); pick(i); }
+                else if ((e.key === "ArrowDown" && i < data.length - 1) || (e.key === "ArrowUp" && i > 0)) {
+                    e.preventDefault();
+                    var n = i + (e.key === "ArrowDown" ? 1 : -1);
+                    list.children[n].focus();
+                    pick(n);
+                }
+            });
+        });
+        pick(2);
     })();
     </script>
 </body>

@@ -136,7 +136,8 @@ a { color: inherit; }
 .label { font-size: 20px; }
 .label.right { text-align: right; }
 .example { max-height: 440px; width: auto; max-width: 100%; margin: 0 auto; }
-#format-info { min-height: 6.5em; white-space: pre-line; }
+#format-info, #save-info { min-height: 6.5em; white-space: pre-line; }
+.formats.save { height: 11em; }
 .plain { list-style: none; }
 .plain li { padding-left: 1.1em; text-indent: -1.1em; }
 .plain li::before { content: "\25B6\00a0"; font-size: 0.6em; vertical-align: middle; }
