@@ -335,6 +335,18 @@
             color: var(--neon-green);
         }
 
+        .rank-gap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            padding: 20px 0;
+            line-height: 1;
+            font-size: 1.6em;
+            color: var(--neon-yellow);
+            text-shadow: 0 0 10px var(--neon-yellow), 0 0 20px var(--neon-yellow);
+        }
+
         .vote-error {
             text-align: center;
             color: var(--neon-orange);
@@ -484,10 +496,11 @@
             if (totalEl) totalEl.textContent = total + (total === 1 ? ' vote' : ' votes') + ' cast';
 
             container.innerHTML = sorted.map((p, pos) => {
+                const gap = pos === 1 ? '<div class="rank-gap" aria-hidden="true"><span>&bull;</span><span>&bull;</span><span>&bull;</span></div>' : '';
                 const pct = total ? Math.round(counts[p.id] / total * 100) : 0;
                 const mine = myVote === p.id;
                 const disabled = !configured || myVote;
-                return `
+                return gap + `
             <div class="rank-card rank-${pos + 1}">
                 <img src="${p.photo}" alt="${p.name}" class="photo">
                 <div class="rank-info">
