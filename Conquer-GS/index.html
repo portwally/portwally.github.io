@@ -207,7 +207,8 @@
         .shot img { width: 100%; height: auto; aspect-ratio: 640 / 400; transition: transform 0.25s, filter 0.25s; }
         #gs2-box .gallery { max-width: 900px; margin: 0 auto; }
         #gs2-box .shot img { aspect-ratio: 672 / 760; }
-        .video { padding: 10px; max-width: 960px; }
+        .video { padding: 10px; margin: 0; }
+        .video-grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 22px; align-items: start; max-width: 1000px; }
         .video .well { position: relative; aspect-ratio: 4 / 3; overflow: hidden; }
         .video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
         .shot a:hover img { transform: scale(1.025); filter: brightness(1.08); }
@@ -332,7 +333,7 @@
 
         /* ---- small screens ---- */
         @media (max-width: 900px) {
-            .hero-grid, .enemy, .manual, .deploy { grid-template-columns: minmax(0, 1fr); }
+            .hero-grid, .video-grid, .enemy, .manual, .deploy { grid-template-columns: minmax(0, 1fr); }
             .ticker { grid-template-columns: repeat(2, minmax(0, 1fr)); }
             .ticker div:last-child { grid-column: 1 / -1; }
             .type { min-height: 0; }
@@ -427,11 +428,20 @@
     <section id="gs2-video">
         <div class="container">
             <div class="plate"><h2 class="steel">IN ACTION</h2><span class="code">REC 00</span><span class="rule"></span></div>
-            <p class="lead">The demo mode: leave the title alone and the computer plays both sides on brutal. Ten minutes in MAME, with the game's own music and sound.</p>
-            <figure class="shot video steel">
-                <div class="well"><iframe src="https://www.youtube-nocookie.com/embed/Jn_ktHYb6e4?rel=0" title="Conquer GS 2: the demo mode" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
-                <figcaption><span class="tag">VIDEO</span><span>The computer against itself - <a href="https://youtu.be/Jn_ktHYb6e4" target="_blank" rel="noopener" style="color: var(--ore);">watch on YouTube</a></span></figcaption>
-            </figure>
+            <div class="video-grid">
+                <figure class="shot video steel">
+                    <div class="well"><iframe src="https://www.youtube-nocookie.com/embed/Jn_ktHYb6e4?rel=0" title="Conquer GS 2: the demo mode" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+                    <figcaption><span class="tag">VIDEO</span><span>The computer against itself - <a href="https://youtu.be/Jn_ktHYb6e4" target="_blank" rel="noopener" style="color: var(--ore);">watch on YouTube</a></span></figcaption>
+                </figure>
+                <div class="briefing steel">
+                    <div class="head"><span>DEMO MODE</span><span>REC 00</span></div>
+                    <div class="well">
+                        <p>Leave the title alone for 10 seconds, or the mission setup for 30, and the computer plays both sides - on brutal, a different map each time.</p>
+                        <p>Both bases build up, harvesters bring in the ore, and tanks and troops march out in waves. The view follows the fighting.</p>
+                        <p>Ten minutes in MAME, with the game's own music and sound. A click or a key, and you take over.</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
