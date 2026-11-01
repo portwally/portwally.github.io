@@ -207,6 +207,9 @@
         .shot img { width: 100%; height: auto; aspect-ratio: 640 / 400; transition: transform 0.25s, filter 0.25s; }
         #gs2-box .gallery { max-width: 900px; margin: 0 auto; }
         #gs2-box .shot img { aspect-ratio: 672 / 760; }
+        .video { padding: 10px; max-width: 960px; }
+        .video .well { position: relative; aspect-ratio: 4 / 3; overflow: hidden; }
+        .video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
         .shot a:hover img { transform: scale(1.025); filter: brightness(1.08); }
         .shot figcaption { padding: 9px 4px 2px; display: flex; gap: 10px; align-items: baseline; color: var(--light); text-shadow: 1px 1px 0 var(--ink); }
         .shot figcaption .tag { font-family: var(--term); font-size: 1.15rem; color: var(--ore); white-space: nowrap; }
@@ -367,6 +370,7 @@
         <div class="readout credits">CREDITS: <span id="credits">2500</span></div>
         <nav aria-label="Sections">
             <a href="#gs2">CONQUER GS 2</a>
+            <a href="#gs2-video">VIDEO</a>
             <a href="#compare">1 VS 2</a>
             <a href="#briefing">BRIEFING</a>
             <a href="#intel">INTEL</a>
@@ -403,6 +407,7 @@
                     <div class="cta">
                         <span class="btn off" role="link" aria-disabled="true">SOON ON ITCH.IO</span>
                         <a class="btn" href="Conquer-GS-2-Manual.pdf" target="_blank" rel="noopener">MANUAL (PDF)</a>
+                        <a class="btn" href="#gs2-video">WATCH IT</a>
                         <a class="btn" href="#gs2-intel">SEE IT</a>
                         <a class="btn" href="#briefing">FREE VERSION 1</a>
                     </div>
@@ -415,6 +420,18 @@
                 <div class="steel"><b>9 UNITS</b><span>engineers capture</span></div>
                 <div class="steel"><b>APPLE IIGS</b><span>ROM 01 or 3, 2 MB</span></div>
             </div>
+        </div>
+    </section>
+
+    <!-- ================= CONQUER GS 2: VIDEO ================= -->
+    <section id="gs2-video">
+        <div class="container">
+            <div class="plate"><h2 class="steel">IN ACTION</h2><span class="code">REC 00</span><span class="rule"></span></div>
+            <p class="lead">The demo mode: leave the title alone and the computer plays both sides on brutal. Ten minutes in MAME, with the game's own music and sound.</p>
+            <figure class="shot video steel">
+                <div class="well"><iframe src="https://www.youtube-nocookie.com/embed/Jn_ktHYb6e4?rel=0" title="Conquer GS 2: the demo mode" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+                <figcaption><span class="tag">VIDEO</span><span>The computer against itself - <a href="https://youtu.be/Jn_ktHYb6e4" target="_blank" rel="noopener" style="color: var(--ore);">watch on YouTube</a></span></figcaption>
+            </figure>
         </div>
     </section>
 
