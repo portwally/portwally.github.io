@@ -208,6 +208,34 @@
         <p>Apple-K duplicates, Apple-J adds up the size of folders, and the menus add Same Folder in Both Panes, Swap Panes and Show Invisible Files.</p>
     </div>
 
+    <section class="spread boxshot" aria-labelledby="box-title">
+        <div class="spread-head">
+            <h2 id="box-title">In the box</h2>
+            <p>As it would have stood on the dealer&rsquo;s shelf.</p>
+        </div>
+        <div class="box-row">
+            <figure class="box-stage">
+                <div class="box3d" id="box3d" role="img" aria-label="The GS Commander box: on its front a monitor showing the two panes and a 3.5-inch disk; on its back screenshots and the features">
+                    <div class="bf b-front"><img src="img/box/front.png" width="900" height="1180" alt=""></div>
+                    <div class="bf b-back"><img src="img/box/back.png" width="900" height="1180" alt="" loading="lazy"></div>
+                    <div class="bf b-left"><img src="img/box/spine.png" width="170" height="1180" alt=""></div>
+                    <div class="bf b-right"><img src="img/box/spine.png" width="170" height="1180" alt=""></div>
+                    <div class="bf b-top"><img src="img/box/top.png" width="900" height="170" alt=""></div>
+                    <div class="bf b-bottom"></div>
+                </div>
+                <div class="box-floor" aria-hidden="true"></div>
+                <figcaption><b>Fig. 13</b> The box. Drag it to turn it around.</figcaption>
+            </figure>
+            <div class="box-text">
+                <p>Software came in a box then: a disk, a manual and a promise on the cover. GS Commander&rsquo;s would have looked like this, set in Apple Garamond like the IIgs&rsquo;s own software, with a monitor on the front and the screens on the back.</p>
+                <p>What you get is the same as what is on the box: one 3.5-inch disk image with the program, its ReadMe and its Finder icon. The box itself you will have to imagine.</p>
+                <div class="buttons">
+                    <a href="#" class="main" id="boxTurn" role="button">Turn it over</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="coupon" id="order" aria-labelledby="order-title">
         <span class="scissors" aria-hidden="true">&#9986;</span>
         <div>
@@ -316,5 +344,36 @@
         <span>&copy; 2026 Walter Tengler</span>
     </footer>
 </article>
+<script>
+// The box: drag to turn it; "Turn it over" shows the other side.
+(function () {
+    var box = document.getElementById("box3d"), turn = document.getElementById("boxTurn");
+    if (!box) return;
+    var ry = 28, rx = 10, sx = 0, sy = 0, r0 = 0, x0 = 0, dragging = false;
+    function draw() {
+        box.style.transform = "rotateX(" + rx + "deg) rotateY(" + ry + "deg)";
+        turn.textContent = Math.cos(ry * Math.PI / 180) > 0 ? "Turn it over" : "Back to the front";
+    }
+    box.addEventListener("pointerdown", function (e) {
+        dragging = true; sx = e.clientX; sy = e.clientY; r0 = ry; x0 = rx;
+        box.classList.add("dragging"); box.setPointerCapture(e.pointerId);
+    });
+    box.addEventListener("pointermove", function (e) {
+        if (!dragging) return;
+        ry = r0 + (e.clientX - sx) * 0.5;
+        rx = Math.max(-25, Math.min(35, x0 - (e.clientY - sy) * 0.3));
+        draw();
+    });
+    function up() { dragging = false; box.classList.remove("dragging"); }
+    box.addEventListener("pointerup", up);
+    box.addEventListener("pointercancel", up);
+    turn.addEventListener("click", function (e) {
+        e.preventDefault();
+        ry += 180;
+        draw();
+    });
+    draw();
+})();
+</script>
 </body>
 </html>

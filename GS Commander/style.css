@@ -512,3 +512,63 @@ figcaption b {
 .index-group a:hover::after { border-color: var(--red); }
 @media (max-width: 900px) { .index-cols { column-count: 3; } }
 @media (max-width: 620px) { .index-cols { column-count: 2; } }
+
+/* the box in 3D (its faces are pictures made by GS Commander's docs/boxart) */
+.box-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    gap: 40px;
+    align-items: center;
+}
+.box-stage {
+    --W: min(300px, 62vw);
+    --H: calc(var(--W) * 1180 / 900);
+    --D: calc(var(--W) * 170 / 900);
+    position: relative;
+    margin: 0;
+    padding: 50px 0 10px;
+    perspective: 1600px;
+    background: radial-gradient(ellipse 70% 60% at 50% 45%, #fbf7ec 0%, rgba(244,237,220,0) 70%);
+}
+.box3d {
+    position: relative;
+    width: var(--W);
+    height: var(--H);
+    margin: 0 auto;
+    transform-style: preserve-3d;
+    transition: transform .9s cubic-bezier(.3,.1,.2,1);
+    cursor: grab;
+    touch-action: pan-y;
+    user-select: none;
+    -webkit-user-select: none;
+}
+.box3d.dragging { transition: none; cursor: grabbing; }
+.bf { position: absolute; overflow: hidden; backface-visibility: hidden; background: #f4f0e6; }
+.bf img { display: block; width: 100%; height: 100%; pointer-events: none; -webkit-user-drag: none; }
+.bf::after { content: ""; position: absolute; inset: 0; pointer-events: none; }
+.b-front, .b-back { width: var(--W); height: var(--H); }
+.b-front { transform: translateZ(calc(var(--D) / 2)); }
+.b-back { transform: rotateY(180deg) translateZ(calc(var(--D) / 2)); }
+.b-left, .b-right { width: var(--D); height: var(--H); left: calc((var(--W) - var(--D)) / 2); }
+.b-left { transform: rotateY(-90deg) translateZ(calc(var(--W) / 2)); }
+.b-right { transform: rotateY(90deg) translateZ(calc(var(--W) / 2)); }
+.b-top, .b-bottom { width: var(--W); height: var(--D); top: calc((var(--H) - var(--D)) / 2); }
+.b-top { transform: rotateX(90deg) translateZ(calc(var(--H) / 2)); }
+.b-bottom { transform: rotateX(-90deg) translateZ(calc(var(--H) / 2)); background: #d9d2c2; }
+/* light from the front right: the sides darker, the top lighter */
+.b-front::after { background: linear-gradient(105deg, rgba(0,0,0,.08), rgba(255,255,255,0) 40%, rgba(255,255,255,.12) 100%); }
+.b-back::after { background: rgba(0,0,0,.06); }
+.b-left::after { background: rgba(40,30,20,.28); }
+.b-right::after { background: rgba(40,30,20,.12); }
+.b-top::after { background: rgba(255,255,255,.18); }
+.box-floor {
+    width: calc(var(--W) * 1.25);
+    height: 34px;
+    margin: 14px auto 0;
+    background: radial-gradient(ellipse at center, rgba(40,30,20,.45) 0%, rgba(40,30,20,0) 70%);
+    filter: blur(3px);
+}
+.box-stage figcaption { text-align: center; margin-top: 10px; }
+.box-text p { margin: 0 0 .8em; font-size: 18px; }
+@media (prefers-reduced-motion: reduce) { .box3d { transition: none; } }
+@media (max-width: 900px) { .box-row { grid-template-columns: 1fr; } }
