@@ -1,0 +1,395 @@
+/* index2.html: the home page set as a 1986 software catalog
+   (the same paper, ink and type as the GS Commander page) */
+:root {
+    --desk: #3a332c;
+    --paper: #f4eddc;
+    --paper-dark: #e8dcc0;
+    --card: #fbf7ec;
+    --ink: #1f1b16;
+    --ink-soft: #4a4238;
+    --red: #c3261f;
+    --blue: #1f3f8f;
+    --rule: #1f1b16;
+    --g1: #5ebd3e; --g2: #ffb900; --g3: #f78200;
+    --g4: #e23838; --g5: #973999; --g6: #009cdf;
+    /* the departments' spot colours, printed on paper */
+    --c-mac: #6b3fc4; --c-pt: #d2561a; --c-eu: #0a7f95;
+    --c-util: #0f7f58; --c-game: #c8253f; --c-iigs: #1f1b16;
+    --serif: "Source Serif 4", "Times New Roman", Georgia, serif;
+    --head: "Archivo", "Helvetica Neue", Arial, sans-serif;
+}
+* { box-sizing: border-box; }
+html { background: var(--desk); }
+body {
+    margin: 0;
+    padding: 40px 16px 60px;
+    background: radial-gradient(ellipse at 30% 0%, rgba(255,255,255,.06), transparent 60%), var(--desk);
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: 17px;
+    line-height: 1.5;
+}
+.page {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 30px 48px 40px;
+    background-color: var(--paper);
+    background-image:
+        radial-gradient(rgba(80,60,30,.05) 1px, transparent 1px),
+        radial-gradient(rgba(80,60,30,.04) 1px, transparent 1px);
+    background-size: 7px 7px, 11px 11px;
+    background-position: 0 0, 3px 5px;
+    box-shadow: 0 2px 0 #d9ceb4, 0 20px 50px rgba(0,0,0,.45);
+}
+a { color: var(--blue); }
+a:hover { color: var(--red); }
+
+/* masthead */
+.folio {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    font-family: var(--head);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 6px;
+}
+.masthead {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    padding: 10px 0 8px;
+}
+.masthead .title {
+    font-family: var(--head);
+    font-stretch: 62%;
+    font-weight: 900;
+    font-size: clamp(40px, 8vw, 92px);
+    line-height: .85;
+    letter-spacing: -.01em;
+    text-transform: uppercase;
+    margin: 0;
+}
+.masthead .title span { color: var(--red); }
+.masthead .issue {
+    font-family: var(--head);
+    font-stretch: 75%;
+    font-weight: 700;
+    font-size: 15px;
+    text-align: right;
+    text-transform: uppercase;
+    line-height: 1.25;
+    margin: 0;
+}
+.stripes {
+    height: 18px;
+    background: linear-gradient(to bottom,
+        var(--g1) 0 16.66%, var(--g2) 16.66% 33.33%, var(--g3) 33.33% 50%,
+        var(--g4) 50% 66.66%, var(--g5) 66.66% 83.33%, var(--g6) 83.33% 100%);
+    border-top: 3px solid var(--rule);
+    border-bottom: 3px solid var(--rule);
+}
+
+/* the language menu: a small edition picker */
+#lang-switcher { position: relative; }
+#lang-btn {
+    font: inherit;
+    letter-spacing: .14em;
+    background: var(--ink);
+    color: var(--paper);
+    border: 0;
+    padding: 4px 10px 3px;
+    cursor: pointer;
+}
+#lang-btn::before { content: "Edition: "; opacity: .7; }
+#lang-btn::after { content: " \25BE"; }
+#lang-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: calc(100% + 4px);
+    z-index: 10;
+    list-style: none;
+    margin: 0;
+    padding: 6px 0;
+    min-width: 170px;
+    background: var(--card);
+    border: 2px solid var(--ink);
+    box-shadow: 4px 4px 0 rgba(31,27,22,.25);
+    font-family: var(--head);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    text-transform: none;
+}
+#lang-menu.open { display: block; }
+#lang-menu li { padding: 5px 14px; cursor: pointer; }
+#lang-menu li:hover { background: var(--paper-dark); }
+#lang-menu li.active { color: var(--red); }
+[dir="rtl"] #lang-menu { right: auto; left: 0; }
+
+/* the cover */
+.cover {
+    display: grid;
+    grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
+    gap: 40px;
+    align-items: start;
+    padding: 26px 0 30px;
+    border-bottom: 3px double var(--rule);
+}
+.kicker {
+    display: inline-block;
+    padding: 3px 10px 2px;
+    background: var(--red);
+    color: var(--paper);
+    font-family: var(--head);
+    font-weight: 800;
+    font-size: 13px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+}
+h1 {
+    font-family: var(--head);
+    font-stretch: 68%;
+    font-weight: 900;
+    font-size: clamp(54px, 10vw, 124px);
+    line-height: .88;
+    letter-spacing: -.015em;
+    text-transform: uppercase;
+    margin: 14px 0 16px;
+}
+.dek {
+    font-style: italic;
+    font-size: clamp(20px, 2.4vw, 26px);
+    line-height: 1.3;
+    margin: 0;
+    max-width: 680px;
+}
+.box {
+    background: var(--paper-dark);
+    border-top: 6px solid var(--rule);
+    padding: 14px 18px 14px;
+    font-family: var(--head);
+}
+.box h3 {
+    font-family: var(--head);
+    font-weight: 800;
+    font-size: 15px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    margin: 0 0 8px;
+}
+.contents ol { list-style: none; margin: 0 0 14px; padding: 0; }
+.contents li { font-size: 16px; line-height: 1.9; }
+.contents li a { display: flex; align-items: baseline; gap: 6px; color: var(--ink); text-decoration: none; }
+.contents li a i { flex: 1; border-bottom: 2px dotted rgba(31,27,22,.45); }
+.contents li a b { font-weight: 800; color: var(--red); }
+.contents li a:hover { color: var(--red); }
+.stats { margin: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; border-top: 1px solid var(--rule); padding-top: 10px; }
+.stats dt { font-weight: 800; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--red); }
+.stats dd { margin: 2px 0 0; font-size: 14px; line-height: 1.25; }
+
+/* a department: one category */
+.dept { --spot: var(--ink); margin: 34px 0 10px; }
+.dept.c-mac { --spot: var(--c-mac); }
+.dept.c-pt { --spot: var(--c-pt); }
+.dept.c-eu { --spot: var(--c-eu); }
+.dept.c-util { --spot: var(--c-util); }
+.dept.c-game { --spot: var(--c-game); }
+.dept.c-iigs { --spot: var(--c-iigs); }
+.dept-head {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    flex-wrap: wrap;
+    border-top: 6px solid var(--spot);
+    border-bottom: 1px solid var(--rule);
+    padding: 8px 0 6px;
+    margin-bottom: 18px;
+}
+.dept-mark { width: 16px; height: 16px; background: var(--spot); align-self: center; flex: none; }
+.c-iigs .dept-mark {
+    background: linear-gradient(to bottom,
+        var(--g1) 0 16.66%, var(--g2) 16.66% 33.33%, var(--g3) 33.33% 50%,
+        var(--g4) 50% 66.66%, var(--g5) 66.66% 83.33%, var(--g6) 83.33% 100%);
+}
+.dept-head h2 {
+    margin: 0;
+    font-family: var(--head);
+    font-stretch: 75%;
+    font-weight: 900;
+    font-size: 34px;
+    line-height: 1;
+    text-transform: uppercase;
+}
+.dept-head .count { font-style: italic; font-size: 18px; }
+.dept-head .pg {
+    margin-left: auto;
+    font-family: var(--head);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+}
+[dir="rtl"] .dept-head .pg { margin-left: 0; margin-right: auto; }
+
+/* the listings: each program as a catalog entry */
+.listings {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0 30px;
+}
+.item {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 14px 0 16px;
+    border-bottom: 1px solid rgba(31,27,22,.3);
+    color: var(--ink);
+    text-decoration: none;
+}
+.photo {                              /* the product shot, mounted */
+    flex: none;
+    width: 78px;
+    height: 78px;
+    padding: 6px;
+    background: var(--card);
+    border: 1px solid rgba(31,27,22,.25);
+    box-shadow: 3px 3px 0 rgba(31,27,22,.15);
+    transform: rotate(-1.5deg);
+}
+.item:nth-child(even) .photo { transform: rotate(1.2deg); }
+.photo img { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 12px; }
+.txt { display: flex; flex-direction: column; min-width: 0; }
+.no {
+    font-family: var(--head);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--spot);
+}
+.name {
+    font-family: var(--head);
+    font-stretch: 75%;
+    font-weight: 900;
+    font-size: 23px;
+    line-height: 1.05;
+    text-transform: uppercase;
+    margin: 2px 0 4px;
+}
+.tag { font-size: 15.5px; line-height: 1.35; }
+.cta {
+    margin-top: 6px;
+    font-family: var(--head);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--spot);
+}
+.item:hover { color: var(--ink); }
+.item:hover .name, .item:focus-visible .name { color: var(--red); }
+.item:hover .photo { box-shadow: 4px 5px 0 rgba(31,27,22,.25); }
+.item:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+.more { margin: 14px 0 0; font-family: var(--head); font-weight: 700; font-size: 15px; }
+
+/* the colophon: contact links and the copyright */
+.colophon { margin: 40px 0 16px; border-top: 6px solid var(--rule); padding-top: 12px; }
+.foot { font-family: var(--head); font-size: 15px; }
+.foot .footer-links { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
+.foot .footer-links a {
+    padding: 8px 16px 7px;
+    border: 2px solid var(--ink);
+    color: var(--ink);
+    font-weight: 800;
+    font-size: 13px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+.foot .footer-links a:hover { background: var(--red); border-color: var(--red); color: var(--paper); }
+.foot p { margin: 8px 0 0; color: var(--ink-soft); }
+.note { font-size: 13.5px; color: var(--ink-soft); font-style: italic; margin: 0 0 14px; }
+.footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    border-top: 1px solid var(--rule);
+    padding-top: 8px;
+    font-family: var(--head);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+}
+
+@media (max-width: 900px) {
+    .page { padding: 26px 26px 30px; }
+    .cover { grid-template-columns: 1fr; }
+    .listings { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 620px) {
+    body { padding: 0 0 30px; font-size: 16.5px; }
+    .page { padding: 18px 16px 24px; box-shadow: none; }
+    .listings { grid-template-columns: 1fr; }
+    .masthead .issue { text-align: left; }
+    .dept-head h2 { font-size: 28px; }
+    .stats { grid-template-columns: 1fr 1fr 1fr; }
+}
+
+/* the headline: a little smaller than on a single program's page */
+
+h1 { font-size: clamp(54px, 9vw, 112px); }
+/* the cover story: GS Commander's box */
+.cover-story {
+    display: flex;
+    gap: 22px;
+    align-items: center;
+    margin-top: 26px;
+    padding: 16px 18px;
+    background: var(--card);
+    border: 1px solid rgba(31,27,22,.25);
+    color: var(--ink);
+    text-decoration: none;
+    max-width: 560px;
+}
+.cover-story img {
+    width: 120px;
+    height: auto;
+    flex: none;
+    transform: rotate(-3deg);
+    box-shadow: 6px 8px 0 rgba(31,27,22,.18), 0 10px 20px rgba(31,27,22,.25);
+}
+.cover-story span { font-size: 16px; line-height: 1.4; }
+.cover-story b {
+    display: block;
+    font-family: var(--head);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--red);
+}
+.cover-story strong {
+    display: block;
+    font-family: var(--head);
+    font-stretch: 75%;
+    font-weight: 900;
+    font-size: 30px;
+    line-height: 1.05;
+    text-transform: uppercase;
+    margin: 2px 0 4px;
+}
+.cover-story em { font-family: var(--head); font-style: normal; font-weight: 800; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: var(--red); white-space: nowrap; }
+.cover-story:hover strong { color: var(--red); }
+@media (max-width: 620px) { .cover-story img { width: 84px; } .cover-story strong { font-size: 24px; } }
