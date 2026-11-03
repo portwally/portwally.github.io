@@ -205,8 +205,31 @@
         .shot a { display: block; text-decoration: none; }
         .shot .well { overflow: hidden; }
         .shot img { width: 100%; height: auto; aspect-ratio: 640 / 400; transition: transform 0.25s, filter 0.25s; }
-        #gs2-box .gallery { max-width: 900px; margin: 0 auto; }
-        #gs2-box .shot img { aspect-ratio: 672 / 760; }
+        /* ---- the box: one in 3D, dragged to turn ---- */
+        .boxstage { max-width: 900px; margin: 0 auto; padding: 22px 10px 16px; text-align: center;
+            background: radial-gradient(ellipse 60% 55% at 50% 45%, #3a2a55 0%, #1a1426 60%, #0d0c12 100%); }
+        .box3d-view { --bw: min(320px, 62vw); --bh: calc(var(--bw) * 1180 / 900); --bd: calc(var(--bw) * 170 / 900);
+            position: relative; width: 100%; height: calc(var(--bh) * 1.22); perspective: calc(var(--bw) * 5);
+            cursor: grab; touch-action: pan-y; user-select: none; -webkit-user-select: none; outline: none; }
+        .box3d-view.drag { cursor: grabbing; }
+        .box3d-view:focus-visible { box-shadow: 0 0 0 2px var(--ore); }
+        .box3d-view::after { content: ""; position: absolute; left: 50%; bottom: 2%; width: calc(var(--bw) * 1.3); height: 9%;
+            transform: translateX(-50%); background: radial-gradient(ellipse at center, rgba(0,0,0,.8) 0%, rgba(0,0,0,0) 70%); }
+        .box3d { position: absolute; left: 50%; top: 50%; width: var(--bw); height: var(--bh);
+            margin: calc(var(--bh) / -2) 0 0 calc(var(--bw) / -2); transform-style: preserve-3d; }
+        .box3d .bf { position: absolute; left: 0; top: 0; width: var(--bw); height: var(--bh); backface-visibility: hidden;
+            background: #14121a center / 100% 100% no-repeat; }
+        .box3d .bf i { position: absolute; inset: 0; background: #000; opacity: 0; pointer-events: none; }
+        .box3d .f { background-image: url(screens/box-front.jpg); transform: translateZ(calc(var(--bd) / 2)); }
+        .box3d .b { background-image: url(screens/box-back.jpg); transform: rotateY(180deg) translateZ(calc(var(--bd) / 2)); }
+        .box3d .l, .box3d .r { width: var(--bd); left: calc((var(--bw) - var(--bd)) / 2); background-image: url(screens/box-spine.jpg); }
+        .box3d .l { transform: rotateY(-90deg) translateZ(calc(var(--bw) / 2)); }
+        .box3d .r { transform: rotateY(90deg) translateZ(calc(var(--bw) / 2)); }
+        .box3d .t, .box3d .u { height: var(--bd); top: calc((var(--bh) - var(--bd)) / 2); }
+        .box3d .t { background-image: url(screens/box-top.jpg); transform: rotateX(90deg) translateZ(calc(var(--bh) / 2)); }
+        .box3d .u { background: #0b0a10; transform: rotateX(-90deg) translateZ(calc(var(--bh) / 2)); }
+        .boxbar { display: flex; justify-content: center; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 6px; }
+        .boxbar .btn { padding: 7px 14px 5px; font-size: 0.95rem; }
         .video { padding: 10px; margin: 0; }
         .video-grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 22px; align-items: start; max-width: 1000px; }
         .video .well { position: relative; aspect-ratio: 4 / 3; overflow: hidden; }
@@ -912,10 +935,15 @@
     <!-- ================= CONQUER GS 2: THE BOX ================= -->
     <section id="gs2-box">
         <div class="container">
-            <div class="plate"><h2 class="steel">THE BOX</h2><span class="code">FRONT &amp; BACK</span><span class="rule"></span></div>
-            <div class="gallery">
-                <figure class="shot steel"><a href="screens/box-3d.jpg" data-caption="The Conquer GS 2 box: the title art, the Iron Guard against the Red Legion"><div class="well"><img src="screens/box-3d.jpg" alt="The Conquer GS 2 box in 3D: the desert title art with a harvester and tanks, a gold 2, the Iron Guard and Red Legion emblems" width="672" height="760" loading="lazy"></div></a><figcaption><span class="tag">FRONT</span><span>The Iron Guard against the Red Legion</span></figcaption></figure>
-                <figure class="shot steel"><a href="screens/box-back-3d.jpg" data-caption="The back of the box: four screenshots, the nine units, the features and what you need"><div class="well"><img src="screens/box-back-3d.jpg" alt="The back of the Conquer GS 2 box: screenshots, the nine units and the features" width="672" height="760" loading="lazy"></div></a><figcaption><span class="tag">BACK</span><span>Screenshots, units and what you need</span></figcaption></figure>
+            <div class="plate"><h2 class="steel">THE BOX</h2><span class="code">DRAG TO TURN</span><span class="rule"></span></div>
+            <div class="boxstage steel">
+                <div class="box3d-view" id="box3d" tabindex="0" role="img" aria-label="The Conquer GS 2 box in 3D, turned by dragging or with the arrow keys. The front: the desert title art with a harvester and tanks, a gold 2, the Iron Guard against the Red Legion. The back: four screenshots, the nine units, the features and what you need.">
+                    <div class="box3d"><div class="bf f"><i></i></div><div class="bf b"><i></i></div><div class="bf l"><i></i></div><div class="bf r"><i></i></div><div class="bf t"><i></i></div><div class="bf u"><i></i></div></div>
+                </div>
+                <div class="boxbar">
+                    <button class="btn" type="button" data-turn="0">FRONT</button>
+                    <button class="btn" type="button" data-turn="180">BACK</button>
+                </div>
             </div>
         </div>
     </section>
@@ -978,6 +1006,82 @@
             if (ci >= paras[pi].length) { pi++; ci = 0; cur = null; setTimeout(step, 380); }
             else setTimeout(step, 22);
         })();
+    }
+
+    /* the box: dragged (or the arrow keys, or FRONT / BACK) to turn; it
+       swings gently until touched; each side lit by how much it faces the
+       light (front right, a little above) */
+    var view = document.getElementById('box3d');
+    if (view) {
+        var cube = view.querySelector('.box3d');
+        var faces = ['f', 'b', 'l', 'r', 't', 'u'].map(function (k) { return view.querySelector('.' + k + ' i'); });
+        var normals = [[0, 0, 1], [0, 0, -1], [-1, 0, 0], [1, 0, 0], [0, -1, 0], [0, 1, 0]];
+        var light = [0.4, -0.3, 0.87];
+        var ry = 28, rx = -8, vy = 0, goal = null, held = false, touched = false, t0 = performance.now();
+        var px = 0, py = 0, lastT = 0;
+        var draw = function () {
+            cube.style.transform = 'rotateX(' + rx + 'deg) rotateY(' + ry + 'deg)';
+            var a = rx * Math.PI / 180, b = ry * Math.PI / 180;
+            var ca = Math.cos(a), sa = Math.sin(a), cb = Math.cos(b), sb = Math.sin(b);
+            normals.forEach(function (n, i) {
+                var x = n[0] * cb + n[2] * sb, z1 = -n[0] * sb + n[2] * cb;   /* rotateY */
+                var y = n[1] * ca - z1 * sa, z = n[1] * sa + z1 * ca;           /* rotateX */
+                var lit = Math.max(0, x * light[0] - y * light[1] + z * light[2]);
+                faces[i].style.opacity = (0.62 * (1 - lit)).toFixed(3);
+            });
+        };
+        var tick = function (now) {
+            if (!held) {
+                if (goal !== null) {
+                    var d = goal - ry;
+                    ry += d * 0.12;
+                    rx += (-8 - rx) * 0.12;
+                    if (Math.abs(d) < 0.2) { ry = goal; goal = null; }
+                } else if (Math.abs(vy) > 0.02) {
+                    ry += vy; vy *= 0.94;
+                } else if (!touched && !still) {
+                    ry = 28 + Math.sin((now - t0) / 1600) * 16;
+                }
+                rx += (-8 - rx) * 0.04;
+            }
+            draw();
+            requestAnimationFrame(tick);
+        };
+        var near = function (target) {                /* the same side, the shortest way */
+            return target + Math.round((ry - target) / 360) * 360;
+        };
+        view.addEventListener('pointerdown', function (e) {
+            held = touched = true; goal = null; vy = 0;
+            px = e.clientX; py = e.clientY; lastT = e.timeStamp;
+            view.classList.add('drag');
+            view.setPointerCapture(e.pointerId);
+        });
+        view.addEventListener('pointermove', function (e) {
+            if (!held) return;
+            var dx = e.clientX - px, dy = e.clientY - py;
+            ry += dx * 0.5;
+            rx = Math.max(-35, Math.min(30, rx - dy * 0.35));
+            var dt = Math.max(1, e.timeStamp - lastT);
+            vy = dx * 0.5 * Math.min(1, 16 / dt);
+            px = e.clientX; py = e.clientY; lastT = e.timeStamp;
+        });
+        var letgo = function () { held = false; view.classList.remove('drag'); };
+        view.addEventListener('pointerup', letgo);
+        view.addEventListener('pointercancel', letgo);
+        view.addEventListener('keydown', function (e) {
+            if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+                e.preventDefault(); touched = true; vy = 0;
+                goal = (goal === null ? ry : goal) + (e.key === 'ArrowLeft' ? -30 : 30);
+            }
+        });
+        document.querySelectorAll('[data-turn]').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                touched = true; vy = 0;
+                goal = near(+btn.dataset.turn + 28);
+            });
+        });
+        draw();
+        requestAnimationFrame(tick);
     }
 
     /* screenshots open large */
