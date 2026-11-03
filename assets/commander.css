@@ -1,0 +1,170 @@
+/* index3.html: the home page as a Norton Commander screen, 1986:
+   CGA colours, double-line panels, the key bar along the bottom. */
+:root {
+    --blue: #0000aa;
+    --cyan: #55ffff;
+    --teal: #00aaaa;
+    --white: #ffffff;
+    --grey: #aaaaaa;
+    --yellow: #ffff55;
+    --black: #000000;
+    --dos: "VT323", "Courier New", monospace;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: #000; }
+body { font-family: var(--dos); font-size: 22px; line-height: 1.05; color: var(--cyan); }
+
+/* without JavaScript: the plain list */
+.data { max-width: 900px; margin: 0 auto; padding: 24px 16px; background: var(--blue); }
+.data a { color: var(--yellow); }
+.data h1, .data h2 { color: var(--white); font-weight: normal; }
+.data .tg { color: var(--cyan); }
+.data footer, .data footer a { color: var(--grey); }
+.screen { display: none; }
+html.js .data { display: none; }
+html.js .screen { display: flex; }
+
+.screen {
+    flex-direction: column;
+    max-width: 1100px;
+    height: 100vh;
+    min-height: 560px;
+    margin: 0 auto;
+    background: var(--blue);
+    box-shadow: 0 0 0 100vmax #000;
+}
+/* the top line */
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--teal);
+    color: var(--black);
+    padding: 0 10px;
+    height: 28px;
+    flex: none;
+}
+.t-right { display: flex; align-items: center; gap: 16px; }
+#lang-switcher { position: relative; }
+#lang-btn {
+    font: inherit;
+    background: var(--black);
+    color: var(--cyan);
+    border: 0;
+    padding: 0 8px;
+    cursor: pointer;
+}
+#lang-btn::before { content: "Lang: "; color: var(--grey); }
+#lang-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 26px;
+    z-index: 20;
+    list-style: none;
+    margin: 0;
+    padding: 4px 0;
+    min-width: 180px;
+    background: var(--teal);
+    color: var(--black);
+    border: 4px double var(--black);
+    box-shadow: 10px 10px 0 rgba(0,0,0,.6);
+}
+#lang-menu.open { display: block; }
+#lang-menu li { padding: 1px 12px; cursor: pointer; }
+#lang-menu li:hover, #lang-menu li.active { background: var(--black); color: var(--white); }
+[dir="rtl"] #lang-menu { right: auto; left: 0; }
+
+/* the two panels */
+.panels { flex: 1; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); min-height: 0; }
+.panel {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    margin: 12px 4px 4px;
+    border: 6px double var(--cyan);
+    padding: 6px 4px 0;
+}
+.ptitle {
+    position: absolute;
+    top: -16px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--blue);
+    color: var(--white);
+    padding: 0 8px;
+    white-space: nowrap;
+}
+.cols { display: grid; grid-template-columns: minmax(0, 1fr) 9.5em; color: var(--yellow); padding: 0 6px 2px; border-bottom: 2px solid var(--cyan); }
+.cols span:last-child { text-align: right; }
+.files { list-style: none; margin: 0; padding: 2px 0; overflow-y: auto; flex: 1; scrollbar-width: none; }
+.files li {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 9.5em;
+    padding: 0 6px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+.files li .nm { overflow: hidden; text-overflow: clip; text-transform: uppercase; }
+.files li .kd { text-align: right; }
+.files li.dir, .files li.up, .files li.link { color: var(--white); }
+.files li.on { background: var(--teal); color: var(--black); }
+.pfoot { border-top: 2px solid var(--cyan); padding: 2px 6px 4px; color: var(--grey); white-space: nowrap; overflow: hidden; }
+
+/* the info panel */
+.view { padding: 6px 10px; overflow-y: auto; flex: 1; }
+.view p { margin: 0 0 10px; }
+.v-h { color: var(--yellow); font-size: 30px; line-height: 1; }
+.v-dim { color: var(--grey); }
+.v-app { display: flex; gap: 14px; align-items: center; margin-bottom: 12px; }
+.v-app img { width: 96px; height: 96px; border: 4px double var(--cyan); padding: 4px; background: var(--black); image-rendering: auto; border-radius: 0; }
+.v-kind { color: var(--grey); }
+.v-tag { color: var(--white); font-size: 24px; line-height: 1.15; }
+.v-open { display: inline-block; background: var(--teal); color: var(--black); text-decoration: none; padding: 0 10px; }
+.v-open:hover, .v-open:focus-visible { background: var(--yellow); }
+.v-list { list-style: none; margin: 0; padding: 0; columns: 2; color: var(--cyan); }
+.v-list li { text-transform: uppercase; white-space: nowrap; overflow: hidden; }
+.v-keys { border-collapse: collapse; }
+.v-keys td { padding: 1px 12px 1px 0; vertical-align: top; }
+.v-keys td:first-child { color: var(--yellow); white-space: nowrap; }
+
+/* the command line and the key bar */
+.cmdline { flex: none; padding: 2px 10px; color: var(--grey); background: var(--black); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cmdline .rem { color: var(--grey); margin-left: 6px; }
+.cursor { color: var(--white); animation: blink 1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .cursor { animation: none; } }
+.fkeys { flex: none; display: grid; grid-template-columns: repeat(10, 1fr); background: var(--black); }
+.fkeys button {
+    font: inherit;
+    border: 0;
+    margin: 0 3px 0 0;
+    padding: 1px 0;
+    background: var(--teal);
+    color: var(--black);
+    text-align: left;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.fkeys button b { font-weight: normal; color: var(--white); background: var(--black); padding: 0 3px 0 4px; margin-right: 2px; }
+.fkeys button:hover { background: var(--cyan); }
+.fkeys button.dim { color: #006666; cursor: default; }
+.fkeys button.dim:hover { background: var(--teal); }
+
+/* narrow screens: the panels one above the other */
+@media (max-width: 760px) {
+    body { font-size: 20px; }
+    .screen { height: auto; min-height: 100vh; }
+    .panels { grid-template-columns: minmax(0, 1fr); }
+    .panel { min-height: 0; }
+    #left .files { max-height: 50vh; }
+    .fkeys { grid-template-columns: repeat(5, 1fr); row-gap: 3px; }
+    .cmdline .rem { display: none; }
+    .cols, .files li { grid-template-columns: minmax(0, 1fr) 7em; }
+    .t-title { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; min-width: 0; }
+    .topbar { gap: 8px; }
+    .fkeys button { min-width: 0; }
+    .v-list { columns: 1; }
+}
