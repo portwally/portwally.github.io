@@ -468,3 +468,47 @@ figcaption b {
     .monitor .glass { padding: 6px; border-radius: 7px; }
     .keybar { font-size: 12px; }
 }
+
+/* the index: more software by the author, as a magazine's index page */
+.index {
+    margin: 0 0 26px;
+    border-top: 6px solid var(--rule);
+}
+.index-head {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--rule);
+    padding: 8px 0 6px;
+    margin-bottom: 14px;
+}
+.index-head h2 { margin: 0; font-size: 34px; }
+.index-head h2::before { display: none; }
+.index-head p { margin: 0; font-style: italic; font-size: 18px; }
+.index-cols {
+    column-count: 4;
+    column-gap: 30px;
+    column-rule: 1px solid rgba(31,27,22,.35);
+}
+.index-group { break-inside: avoid; margin-bottom: 14px; }
+.index-group h3 { color: var(--red); font-size: 12.5px; margin-bottom: 4px; }
+.index-group ul { list-style: none; margin: 0; padding: 0; }
+.index-group li { font-family: var(--head); font-size: 14.5px; line-height: 1.75; }
+.index-group a {
+    display: flex;
+    gap: 6px;
+    color: var(--ink);
+    text-decoration: none;
+}
+.index-group a::after {          /* a dotted leader to the arrow */
+    content: "";
+    flex: 1;
+    border-bottom: 2px dotted rgba(31,27,22,.45);
+    margin-bottom: 7px;
+}
+.index-group a span { order: 0; }
+.index-group a:hover { color: var(--red); }
+.index-group a:hover::after { border-color: var(--red); }
+@media (max-width: 900px) { .index-cols { column-count: 3; } }
+@media (max-width: 620px) { .index-cols { column-count: 2; } }
