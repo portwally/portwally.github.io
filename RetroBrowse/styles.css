@@ -880,3 +880,51 @@ kbd {
   .hero-actions { flex-direction: column; align-items: stretch; }
   .btn { text-align: center; }
 }
+
+/* Sound — speaker with a note */
+.icn-sound { background: var(--iigs-white); }
+.icn-sound::before {
+  left: 4px; top: 9px; width: 6px; height: 9px;
+  background: var(--iigs-black);
+  box-shadow: 6px -4px 0 -1px var(--iigs-black), 6px 4px 0 -1px var(--iigs-black);
+}
+.icn-sound::after {
+  content: "♪";
+  right: 2px; top: 0;
+  font-size: 16px;
+  line-height: 1;
+  color: var(--iigs-blue-dark);
+}
+
+/* Quick Look — the space bar */
+.icn-space { background: var(--iigs-white); }
+.icn-space::before {
+  left: 3px; right: 3px; top: 10px; height: 8px;
+  background: var(--iigs-grey-light);
+  border: 1px solid var(--iigs-black);
+  box-shadow: 1px 1px 0 var(--iigs-black);
+}
+
+/* Skins — a blue Norton Commander panel */
+.icn-skin { background: #0000AA; }
+.icn-skin::before {
+  left: 3px; top: 3px; right: 3px; bottom: 3px;
+  border: 3px double #55FFFF;
+}
+.icn-skin::after {
+  left: 6px; right: 6px; top: 12px; height: 4px;
+  background: #00AAAA;
+}
+
+/* Expand / collapse — an outline tree */
+.icn-tree { background: var(--iigs-white); }
+.icn-tree::before {
+  left: 6px; top: 5px; width: 2px; height: 16px;
+  background: var(--iigs-black);
+  box-shadow: 4px 0 0 -2px transparent;
+}
+.icn-tree::after {
+  left: 8px; top: 9px; width: 12px; height: 2px;
+  background: var(--iigs-black);
+  box-shadow: 0 8px 0 var(--iigs-black), 10px -3px 0 1px var(--iigs-yellow), 10px 5px 0 1px var(--iigs-yellow);
+}

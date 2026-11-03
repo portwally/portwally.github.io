@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>RetroBrowse — Apple II disk image browser for modern macOS</title>
-<meta name="description" content="RetroBrowse is a modern macOS dual-pane file manager for Apple II disk images. ProDOS, DOS 3.3, UCSD Pascal, ShrinkIt, Binary II. Inspect BASIC, fonts, graphics, icons, AppleWorks, Teach.">
+<meta name="description" content="RetroBrowse is a modern macOS dual-pane file manager for Apple II disk images. ProDOS, DOS 3.3, UCSD Pascal, ShrinkIt, Binary II. Inspect BASIC, fonts, graphics, icons, AppleWorks, Teach, and play Apple IIgs sounds and music.">
 <link rel="stylesheet" href="styles.css">
 <script data-goatcounter="https://portwally.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
@@ -35,7 +35,7 @@
       <div class="hero-overlay">
         <p class="hero-kicker">For Apple II disk images · macOS 14+</p>
         <h2 class="hero-headline">Browse the past.<br>Manage with the present.</h2>
-        <p class="hero-sub">A modern dual-pane file manager for ProDOS, DOS 3.3, UCSD Pascal, ShrinkIt and Binary II disk images — built natively in Swift &amp; SwiftUI.</p>
+        <p class="hero-sub">A modern dual-pane file manager for ProDOS, DOS 3.3, UCSD Pascal, ShrinkIt and Binary II disk images — with a built-in player for Apple IIgs sounds and music. Built natively in Swift &amp; SwiftUI.</p>
         <p class="hero-actions">
           <a class="btn btn-primary" href="https://apps.apple.com/us/app/retrobrowse/id6770329892" target="_blank" rel="noopener">&#128462; Mac App Store</a>
         </p>
@@ -71,6 +71,7 @@
       <ul class="feature-grid">
         <li><span class="icn icn-folders"></span><strong>Dual-Pane Browser</strong><span class="desc">Work with two disk images at once.</span></li>
         <li><span class="icn icn-inspect"></span><strong>File Inspector</strong><span class="desc">View any file with <kbd>⌘ I</kbd> or right-click.</span></li>
+        <li><span class="icn icn-space"></span><strong>Quick Look</strong><span class="desc">Press <kbd>Space</kbd> to preview, again to close.</span></li>
         <li><span class="icn icn-prodos"></span><strong>Native ProDOS</strong><span class="desc">Read &amp; write in pure Swift.</span></li>
         <li><span class="icn icn-dos33"></span><strong>DOS 3.3</strong><span class="desc">Full read &amp; write support.</span></li>
         <li><span class="icn icn-pascal"></span><strong>UCSD Pascal</strong><span class="desc">Read-only volume support.</span></li>
@@ -87,6 +88,9 @@
         <li><span class="icn icn-cpu"></span><strong>Disassembler</strong><span class="desc">6502 and 65816 machine code.</span></li>
         <li><span class="icn icn-aw"></span><strong>AppleWorks</strong><span class="desc">Classic &amp; GS word, DB, spreadsheet.</span></li>
         <li><span class="icn icn-teach"></span><strong>Teach Viewer</strong><span class="desc">IIgs Teach docs — fonts, styles, color.</span></li>
+        <li><span class="icn icn-sound"></span><strong>Sound &amp; Music Player</strong><span class="desc">SoundSmith, NinjaTracker, MOD, rSound, ASIF, MIDI — plays on open.</span></li>
+        <li><span class="icn icn-tree"></span><strong>Expand / Collapse All</strong><span class="desc">Open or close every folder in a pane at once.</span></li>
+        <li><span class="icn icn-skin"></span><strong>Skins</strong><span class="desc">Light, Dark — or Norton Commander, DOS font included.</span></li>
         <li><span class="icn icn-date"></span><strong>Dates &amp; Times</strong><span class="desc">ProDOS create / modify timestamps.</span></li>
         <li><span class="icn icn-export"></span><strong>Export</strong><span class="desc">Extract files to your modern Mac.</span></li>
       </ul>
@@ -145,6 +149,7 @@
           <tr><td>DOS Order</td><td><code>.do</code></td><td class="yes">●</td><td class="yes">●</td></tr>
           <tr><td>Universal 2IMG</td><td><code>.2mg</code></td><td class="yes">●</td><td class="yes">●</td></tr>
           <tr><td>Hard Disk Volume</td><td><code>.hdv</code></td><td class="yes">●</td><td class="yes">●</td></tr>
+          <tr><td>Raw image / DiskCopy 4.2</td><td><code>.img</code></td><td class="yes">●</td><td class="yes">●</td></tr>
           <tr><td>Generic DSK</td><td><code>.dsk</code></td><td class="yes">●</td><td class="yes">●</td></tr>
           <tr><td>UCSD Pascal Volume</td><td><code>.vol</code></td><td class="yes">●</td><td class="no">○</td></tr>
         </tbody>
@@ -163,6 +168,22 @@
         </tbody>
       </table>
       <p class="fineprint">All archive formats are handled natively — no external tools required.</p>
+
+      <h3 class="table-caption">Sound &amp; Music Formats</h3>
+      <table class="iigs-table">
+        <thead><tr><th>Format</th><th>File type</th><th>Plays</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>SoundSmith songs</td><td><code>$D5/$0007</code></td><td class="yes">●</td><td>With their wave bank or ASIF instrument files, on an emulated Ensoniq DOC</td></tr>
+          <tr><td>NinjaTracker Plus</td><td><code>$D5/$0008</code></td><td class="yes">●</td><td>4–15 tracks, stereo</td></tr>
+          <tr><td>ProTracker / NoiseTracker MOD</td><td>any (<code>M.K.</code>)</td><td class="yes">●</td><td>4, 6 and 8 channels</td></tr>
+          <tr><td>Sound resources (rSound)</td><td><code>$D8/$0003</code></td><td class="yes">●</td><td>Every sound in the file, by name</td></tr>
+          <tr><td>HyperStudio sounds</td><td><code>$D8/$8001</code></td><td class="yes">●</td><td>Including Sound Shop files</td></tr>
+          <tr><td>ASIF instruments</td><td><code>$D8/$0002</code></td><td class="yes">●</td><td>Instrument waves</td></tr>
+          <tr><td>AIFF / AIFF-C</td><td><code>$D8/$0000</code> <code>$0001</code></td><td class="yes">●</td><td></td></tr>
+          <tr><td>Standard MIDI files</td><td><code>$D7</code></td><td class="yes">●</td><td>General MIDI instruments</td></tr>
+          <tr><td>MIDI Synth songs</td><td><code>$D5/$0001</code></td><td class="no">○</td><td>Not yet</td></tr>
+        </tbody>
+      </table>
 
       <h3 class="table-caption">File Systems</h3>
       <table class="iigs-table">
@@ -190,10 +211,11 @@
         <ol class="quick-list">
           <li>Open two disk images — one per pane.</li>
           <li>Browse files with full directory support.</li>
-          <li>Press <kbd>⌘ I</kbd> to inspect any file — BASIC, graphics, hex.</li>
+          <li>Press <kbd>Space</kbd> or <kbd>⌘ I</kbd> to inspect any file — BASIC, graphics, sound, hex.</li>
           <li>Drag &amp; drop files between images.</li>
           <li>Export files to your Mac.</li>
-          <li>View Apple II graphics inline.</li>
+          <li>View Apple II graphics and play IIgs music inline.</li>
+          <li>Pick a skin under RetroBrowse › Settings.</li>
         </ol>
       </div>
     </section>
@@ -251,7 +273,8 @@
       <a href="#support">Support</a> &nbsp;·&nbsp;
       <a href="privacy.html">Privacy Policy</a> &nbsp;·&nbsp;
       <a href="imprint.html">Imprint</a> &nbsp;·&nbsp;
-      Shaston font by <a href="https://www.kreativekorp.com/software/fonts/apple2/" target="_blank" rel="noopener">KreativeKorp</a>
+      Shaston font by <a href="https://www.kreativekorp.com/software/fonts/apple2/" target="_blank" rel="noopener">KreativeKorp</a> &nbsp;·&nbsp;
+      SoundSmith player based on <a href="https://github.com/mrkite/soundsmith" target="_blank" rel="noopener">Sean Kasun's</a>
     </p>
 
     <div class="footer-apps">
