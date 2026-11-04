@@ -64,13 +64,15 @@
         <li><span class="icn icn-folders"></span><strong>Dual-Pane Browser</strong><span class="desc">Work with two disk images at once.</span></li>
         <li><span class="icn icn-inspect"></span><strong>File Inspector</strong><span class="desc">View any file with <kbd>⌘ I</kbd> or right-click.</span></li>
         <li><span class="icn icn-space"></span><strong>Quick Look</strong><span class="desc">Press <kbd>Space</kbd> to preview, again to close.</span></li>
+        <li><span class="icn icn-inspect"></span><strong>Preview Pane</strong><span class="desc">The other pane shows the selected file live — content, info, resource forks.</span></li>
         <li><span class="icn icn-prodos"></span><strong>Native ProDOS</strong><span class="desc">Read &amp; write in pure Swift.</span></li>
         <li><span class="icn icn-dos33"></span><strong>DOS 3.3</strong><span class="desc">Full read &amp; write support.</span></li>
         <li><span class="icn icn-pascal"></span><strong>UCSD Pascal</strong><span class="desc">Read-only volume support.</span></li>
+        <li><span class="icn icn-dos33"></span><strong>WOZ Images</strong><span class="desc">Applesauce bit images, decoded natively — title &amp; publisher too.</span></li>
         <li><span class="icn icn-shk"></span><strong>ShrinkIt Archives</strong><span class="desc">Browse, extract, create .shk / .sdk / .bxy.</span></li>
         <li><span class="icn icn-bny"></span><strong>Binary II</strong><span class="desc">Read &amp; write .bny / .bqy.</span></li>
         <li><span class="icn icn-drag"></span><strong>Drag &amp; Drop</strong><span class="desc">Copy between images or import from Finder.</span></li>
-        <li><span class="icn icn-type"></span><strong>Change File Type</strong><span class="desc">Right-click to edit type &amp; aux type.</span></li>
+        <li><span class="icn icn-type"></span><strong>Change File Type</strong><span class="desc">Edit type &amp; aux type — right-click or in the preview.</span></li>
         <li><span class="icn icn-db"></span><strong>200+ File Types</strong><span class="desc">Complete ProDOS file-type database.</span></li>
         <li><span class="icn icn-gfx"></span><strong>Graphics Preview</strong><span class="desc">HGR, DHGR, SHR and APF — inline.</span></li>
         <li><span class="icn icn-font"></span><strong>Font Preview</strong><span class="desc">Apple IIgs fonts &amp; hi-res screen fonts.</span></li>
@@ -152,6 +154,7 @@
           <tr><td>Raw image / DiskCopy 4.2</td><td><code>.img</code></td><td class="yes">●</td><td class="yes">●*</td></tr>
           <tr><td>Generic DSK</td><td><code>.dsk</code></td><td class="yes">●</td><td class="yes">●</td></tr>
           <tr><td>UCSD Pascal Volume</td><td><code>.vol</code></td><td class="yes">●</td><td class="no">○</td></tr>
+          <tr><td>WOZ (5.25" and 3.5")</td><td><code>.woz</code></td><td class="yes">●</td><td class="no">○</td></tr>
         </tbody>
       </table>
       <p class="fineprint">* Only plain <code>.img</code> images are writable; DiskCopy 4.2 images open read-only.</p>
@@ -176,7 +179,7 @@
         <tbody>
           <tr><td>SoundSmith songs</td><td><code>$D5/$0007</code></td><td class="yes">●</td><td>With their wave bank or ASIF instrument files, on an emulated Ensoniq DOC</td></tr>
           <tr><td>NinjaTracker Plus</td><td><code>$D5/$0008</code></td><td class="yes">●</td><td>4–15 tracks, stereo</td></tr>
-          <tr><td>ProTracker / NoiseTracker MOD</td><td>any (<code>M.K.</code>)</td><td class="yes">●</td><td>4, 6 and 8 channels</td></tr>
+          <tr><td>ProTracker / NoiseTracker MOD</td><td>any (<code>M.K.</code>)</td><td class="yes">●</td><td>4 to 32 channels; song and sample texts can be edited</td></tr>
           <tr><td>Sound resources (rSound)</td><td><code>$D8/$0003</code></td><td class="yes">●</td><td>Every sound in the file, by name</td></tr>
           <tr><td>HyperStudio sounds</td><td><code>$D8/$8001</code></td><td class="yes">●</td><td>Including Sound Shop files</td></tr>
           <tr><td>ASIF instruments</td><td><code>$D8/$0002</code></td><td class="yes">●</td><td>Instrument waves</td></tr>
@@ -213,6 +216,7 @@
           <li>Open two disk images — one per pane.</li>
           <li>Browse files with full directory support.</li>
           <li>Press <kbd>Space</kbd> or <kbd>⌘ I</kbd> to inspect any file — BASIC, graphics, sound, hex.</li>
+          <li>Click <strong>Preview</strong> above a pane to see the other pane's selected file there, live.</li>
           <li>Drag &amp; drop files between images.</li>
           <li>Export files to your Mac.</li>
           <li>View Apple II graphics and play IIgs music inline.</li>
@@ -230,6 +234,7 @@
       <div class="window-body">
         <ul class="limit-list">
           <li>UCSD Pascal volumes are <strong>read-only</strong>.</li>
+          <li>WOZ images are <strong>read-only</strong>; copy-protected disks open as far as they can be read, 13-sector DOS 3.2 disks not yet.</li>
           <li>Gzip and ZIP archives are <strong>read-only</strong>.</li>
         </ul>
         <p class="requirements"><strong>Requires:</strong> macOS 14 (Sonoma) or later · Apple Silicon or Intel.</p>
