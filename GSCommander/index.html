@@ -58,10 +58,14 @@
                 <dd>65816 assembly, with Merlin 32</dd>
                 <dt>Opens</dt>
                 <dd>ProDOS disk images, DOS 3.3 disks, ShrinkIt, Binary II and ZIP archives</dd>
+                <dt>Makes</dt>
+                <dd>ProDOS disk images and ShrinkIt archives from a folder; real disks from images</dd>
+                <dt>Looks</dt>
+                <dd>Norton blue, Apple IIgs white or MS-DOS black, with an IBM PC font if you like</dd>
                 <dt>Shows</dt>
                 <dd>Pictures in dozens of formats, sounds, SoundSmith and MOD songs, BASIC, documents, code</dd>
                 <dt>Manual</dt>
-                <dd><a href="GSCommander-Manual.pdf" download>User&rsquo;s Guide</a>, 55 pages (PDF)</dd>
+                <dd><a href="GSCommander-Manual.pdf" download>User&rsquo;s Guide</a>, 68 pages (PDF)</dd>
                 <dt>Price</dt>
                 <dd>Free. Open source.</dd>
             </dl>
@@ -90,7 +94,9 @@
                 <tr><td><kbd>7</kbd> <kbd>8</kbd></td><td>New folder, Delete</td></tr>
                 <tr><td><kbd>+</kbd> <kbd>-</kbd> <kbd>*</kbd></td><td>Tag matching, untag matching, invert</td></tr>
                 <tr><td><kbd>&#63743;K</kbd></td><td>Duplicate</td></tr>
-                <tr><td><kbd>&#63743;F</kbd></td><td>Find</td></tr>
+                <tr><td><kbd>&#63743;F</kbd></td><td>Find, by name or by words</td></tr>
+                <tr><td><kbd>&#63743;S</kbd></td><td>Save as Text</td></tr>
+                <tr><td><kbd>&#63743;G</kbd></td><td>Rename Tagged</td></tr>
                 <tr><td><kbd>&#63743;I</kbd></td><td>Info pane</td></tr>
                 <tr><td><kbd>&#63743;P</kbd></td><td>Compare panes</td></tr>
             </table>
@@ -100,13 +106,28 @@
         <h2>The mouse, too</h2>
         <p>A click puts the bar on an item and a double click opens it. Apple-click tags an item, Shift-click tags a whole range; the Select menu has all the ways to tag. Press on an item and drag it onto the other pane, or onto a folder in either pane, and it is copied there at once. Hold Option and it is moved instead.</p>
 
+        <h2>Three looks</h2>
+        <p>Blue is the Norton way, but not the only one. The Panes menu also has Apple IIgs Colors, white panes like the Finder&rsquo;s with the folders in blue, and MS-DOS Colors, gray on black. Choose IBM PC Font, and the panes, Quick Look and the boxes are drawn in IBM Klone, a IIgs font that looks like the PC&rsquo;s own. GS Commander remembers your choice for the next time.</p>
+        <figure>
+            <div class="monitor"><div class="glass">
+                <img src="img/skin-iigs.png" width="640" height="400" alt="GS Commander in Apple IIgs Colors: white panes, black text, folders in blue, a black bar" loading="lazy">
+            </div></div>
+            <figcaption><b>Fig. 2</b> Apple IIgs Colors: the same folders as Fig. 1, in the Finder&rsquo;s black and white.</figcaption>
+        </figure>
+        <figure>
+            <div class="monitor"><div class="glass">
+                <img src="img/skin-dos.png" width="640" height="400" alt="GS Commander in MS-DOS Colors with the IBM PC Font: gray text on black, tagged files marked with arrows" loading="lazy">
+            </div></div>
+            <figcaption><b>Fig. 3</b> MS-DOS Colors with the IBM PC Font.</figcaption>
+        </figure>
+
         <h2>Look before you leap</h2>
         <p>Press <kbd>Space</kbd> and Quick Look tells you what the item is (its kind, size, dates and access) and shows what is in it: text, a listing, the names in a folder, or the picture itself. The arrow keys move on to the next file with Quick Look still open, so you can leaf through a disk of unknown files in a minute.</p>
         <figure>
             <div class="monitor"><div class="glass">
                 <img src="img/basic.png" width="640" height="400" alt="Quick Look on an Applesoft program: its listing under the file's kind, size and dates" loading="lazy">
             </div></div>
-            <figcaption><b>Fig. 2</b> An Applesoft program in Quick Look, listed as BASIC would list it.</figcaption>
+            <figcaption><b>Fig. 4</b> An Applesoft program in Quick Look, listed as BASIC would list it.</figcaption>
         </figure>
         <p>It knows 448 kinds of files by their type and aux type, from CiderPress II's table and the a2infinitum list. BASIC programs come out as listings (Applesoft, Integer and Business BASIC), Merlin and S-C assembler source in columns, and program files as their segments, with the code disassembled as 65816 or 6502 and the Toolbox, GS/OS and ProDOS calls named.</p>
     </div>
@@ -121,25 +142,25 @@
                 <div class="monitor"><div class="glass">
                     <img src="img/tiger.png" width="640" height="400" alt="A Super Hi-Res picture of a tiger's face, shown on the whole screen" loading="lazy">
                 </div></div>
-                <figcaption><b>Fig. 3</b> TIGER.256, a Super Hi-Res screen, on the whole screen from Quick Look.</figcaption>
+                <figcaption><b>Fig. 5</b> TIGER.256, a Super Hi-Res screen, on the whole screen from Quick Look.</figcaption>
             </figure>
             <figure>
                 <div class="monitor"><div class="glass">
                     <img src="img/pirate3200.png" width="640" height="400" alt="A 3200-colour picture of a pirate with a skull" loading="lazy">
                 </div></div>
-                <figcaption><b>Fig. 4</b> A Brooks "3200 color" picture, shown with up to 256 colours: the screen's 16 colour tables, each made for its lines.</figcaption>
+                <figcaption><b>Fig. 6</b> A Brooks "3200 color" picture, shown with up to 256 colours: the screen's 16 colour tables, each made for its lines.</figcaption>
             </figure>
             <figure>
                 <div class="monitor"><div class="glass">
                     <img src="img/mahjong.png" width="640" height="400" alt="Two men playing mahjong, in warm red and brown tones" loading="lazy">
                 </div></div>
-                <figcaption><b>Fig. 5</b> TITLESCREEN in the viewer. Press any key and you are back in the panes.</figcaption>
+                <figcaption><b>Fig. 7</b> TITLESCREEN in the viewer. Press any key and you are back in the panes.</figcaption>
             </figure>
             <figure>
                 <div class="monitor"><div class="glass">
                     <img src="img/sunset.png" width="640" height="400" alt="A drawing of a woman's face beside a sunset over the sea, with birds and a sailing boat" loading="lazy">
                 </div></div>
-                <figcaption><b>Fig. 6</b> HOLIDAYS.16P in the viewer: every screen line can have a colour table of its own.</figcaption>
+                <figcaption><b>Fig. 8</b> HOLIDAYS.16P in the viewer: every screen line can have a colour table of its own.</figcaption>
             </figure>
         </div>
     </section>
@@ -154,7 +175,7 @@
             <div class="monitor"><div class="glass">
                 <img src="img/sound.png" width="640" height="400" alt="Quick Look on a sound file: its rate and length and its waveform" loading="lazy">
             </div></div>
-            <figcaption><b>Fig. 7</b> LASER plays on the Ensoniq chip as soon as Quick Look opens it, and its waveform is drawn.</figcaption>
+            <figcaption><b>Fig. 9</b> LASER plays on the Ensoniq chip as soon as Quick Look opens it, and its waveform is drawn.</figcaption>
         </figure>
         <p>Sounds play in Quick Look at once, on the IIgs' own Ensoniq chip: sampled sounds, rSoundSample resources, HyperStudio and Sound Shop sounds, ASIF instruments, and Audio IFF. A big sound starts at once and loads while it plays.</p>
         <p>SoundSmith songs (and NoiseTracker GS's) play too, the way SoundSmith's own player plays them: fourteen tracks, with their instruments taken from the wave bank next to the song or from the ASIF files it names. And so do MOD songs from the Amiga and the PC, whatever their file type, their samples fitted into the Ensoniq&rsquo;s 64K.</p>
@@ -162,23 +183,23 @@
             <div class="monitor"><div class="glass">
                 <img src="img/song.png" width="640" height="400" alt="Quick Look on a SoundSmith song: two positions, tempo 6, three instruments" loading="lazy">
             </div></div>
-            <figcaption><b>Fig. 8</b> A SoundSmith song with its instruments, playing round until a key stops it.</figcaption>
+            <figcaption><b>Fig. 10</b> A SoundSmith song with its instruments, playing round until a key stops it.</figcaption>
         </figure>
 
         <h2>The documents</h2>
-        <p>Word processor files show their text: AppleWorks and AppleWorks GS, Teach, MultiScribe and BeagleWrite (also their GS versions), and GraphicWriter 1.x and III, with long paragraphs wrapped to the window. AppleWorks data bases and spreadsheets, Apple Pascal files and random-access text come out readable too. <kbd>H</kbd> shows any file in hex instead.</p>
+        <p>Word processor files show their text: AppleWorks and AppleWorks GS, Teach, MultiScribe and BeagleWrite (also their GS versions), and GraphicWriter 1.x and III, with long paragraphs wrapped to the window. <kbd>&#63743;S</kbd> saves any of them as a plain text file in the other pane, for another computer or another program. AppleWorks data bases and spreadsheets, Apple Pascal files and random-access text come out readable too. <kbd>H</kbd> shows any file in hex instead.</p>
         <figure>
             <div class="monitor"><div class="glass">
                 <img src="img/graphicwriter.png" width="640" height="400" alt="Quick Look on a GraphicWriter III document: its text" loading="lazy">
             </div></div>
-            <figcaption><b>Fig. 9</b> The text frames of a GraphicWriter III document.</figcaption>
+            <figcaption><b>Fig. 11</b> A GraphicWriter III document in Quick Look, in its own fonts.</figcaption>
         </figure>
-        <p>AppleWorks GS and Teach documents go one better: View shows them as they were written, in their own fonts and sizes, bold, italic and underlined, centred or aligned right, a page at a time. The fonts come from your System&rsquo;s Fonts folder, and a font you don&rsquo;t have is shown in Geneva. <kbd>H</kbd> gives the plain text.</p>
+        <p>AppleWorks GS, Teach, AppleWorks and GraphicWriter III documents go one better: View and Quick Look show them as they were written, in their own fonts and sizes, bold, italic and underlined, superscript and subscript, in colour, centred or aligned right, a page at a time. The fonts come from your System&rsquo;s Fonts folder, and a font you don&rsquo;t have is shown in Geneva. <kbd>H</kbd> gives the plain text.</p>
         <figure>
             <div class="monitor"><div class="glass">
                 <img src="img/styled.png" width="640" height="400" alt="View showing an AppleWorks GS document in Times, Helvetica, Courier and Geneva, with bold, italic, underlined and centred text" loading="lazy">
             </div></div>
-            <figcaption><b>Fig. 10</b> An AppleWorks GS document in its own fonts.</figcaption>
+            <figcaption><b>Fig. 12</b> An AppleWorks GS document in its own fonts and colours.</figcaption>
         </figure>
 
         <h2>Archives open like folders</h2>
@@ -193,17 +214,24 @@
             <div class="monitor"><div class="glass">
                 <img src="img/shrinkit.png" width="640" height="400" alt="The inside of a ShrinkIt archive shown as a folder in the left pane" loading="lazy">
             </div></div>
-            <figcaption><b>Fig. 11</b> Inside PICT2.SHK. Copy (<kbd>5</kbd>) takes the files out, with their types, dates and resource forks.</figcaption>
+            <figcaption><b>Fig. 13</b> Inside PICT2.SHK. Copy (<kbd>5</kbd>) takes the files out, with their types, dates and resource forks.</figcaption>
         </figure>
         <p>Inside, Quick Look and View work as anywhere else, and names ProDOS does not allow are made legal on the way out.</p>
+        <p>And you can make your own. The Tools menu turns the folder under the bar into a ProDOS disk image (140K or 800K when it fits, bigger when not) or a ShrinkIt archive, with folders, dates and resource forks. Write Image to Disk puts a disk image onto a real 3.5" or 5.25" disk, block by block, and never onto the disk you started from.</p>
+        <figure>
+            <div class="monitor"><div class="glass">
+                <img src="img/make-image.png" width="640" height="400" alt="The Make Disk Image box: make a disk image of TEST in the DEST folder" loading="lazy">
+            </div></div>
+            <figcaption><b>Fig. 14</b> Make Disk Image: the TEST folder as TEST.PO, in the other pane.</figcaption>
+        </figure>
 
         <h2>Finding things</h2>
-        <p>Apple-F finds files and folders whose names match a pattern (<kbd>*</kbd> for any characters, <kbd>?</kbd> for one) in the active folder and every folder in it. The results stay in the pane, each with its path, and you can copy, delete, view and tag them right there.</p>
+        <p>Apple-F finds files and folders whose names match a pattern (<kbd>*</kbd> for any characters, <kbd>?</kbd> for one) in the active folder and every folder in it, and, if you like, only the files with certain words in them. The results stay in the pane, each with its path, and you can copy, delete, view and tag them right there.</p>
         <figure>
             <div class="monitor"><div class="glass">
                 <img src="img/find.png" width="640" height="400" alt="Find results for *.3200: seven pictures with their paths" loading="lazy">
             </div></div>
-            <figcaption><b>Fig. 12</b> Every *.3200 file on the disk, found.</figcaption>
+            <figcaption><b>Fig. 15</b> Every *.3200 file in the GOLDEN.STANDARD folder, found.</figcaption>
         </figure>
 
         <h2>All about a file</h2>
@@ -212,24 +240,24 @@
             <div class="monitor"><div class="glass">
                 <img src="img/info.png" width="640" height="400" alt="The Info pane beside the file list, describing a Super Hi-Res picture" loading="lazy">
             </div></div>
-            <figcaption><b>Fig. 13</b> The Info pane on a Super Hi-Res picture.</figcaption>
+            <figcaption><b>Fig. 16</b> The Info pane on a Super Hi-Res picture.</figcaption>
         </figure>
         <p>Don&rsquo;t know the number for a type? Type a word into <i>Find a kind</i>: <i>song</i>, <i>picture</i>, a type&rsquo;s letters like <i>MUS</i>, or <i>$D5</i>. GS Commander lists the kinds that match, from its table of 448, and a Return or a click fills in the type and aux type. Even files the IIgs never had a type for are covered: <i>mod</i> lists the music kinds first.</p>
         <figure>
             <div class="monitor"><div class="glass">
                 <img src="img/kind-search.png" width="640" height="400" alt="The Get Info box: MOD typed into Find a kind, the music kinds listed, one highlighted" loading="lazy">
             </div></div>
-            <figcaption><b>Fig. 14</b> &ldquo;MOD&rdquo; lists the music kinds first; Return fills one in.</figcaption>
+            <figcaption><b>Fig. 17</b> &ldquo;MOD&rdquo; lists the music kinds first; Return fills one in.</figcaption>
         </figure>
-        <p>Apple-K duplicates, Apple-J adds up the size of folders, and the menus add Same Folder in Both Panes, Swap Panes and Show Invisible Files.</p>
+        <p>Apple-K duplicates, Apple-J adds up the size of folders, Apple-G renames the tagged files by a pattern (<i>PIC.##</i>: PIC.01, PIC.02&hellip;), and the menus add Same Folder in Both Panes, Swap Panes and Show Invisible Files. The Volumes list shows how full each disk is.</p>
 
         <h2>Help at hand</h2>
-        <p>Press <kbd>1</kbd> for Keyboard Shortcuts: every key, Apple-key command and mouse action in one list. And the Help menu&rsquo;s File Types lists every file type and aux type RetroBrowse knows, 277 of them, with its number, its three-letter name and what it is. Type to narrow it down: a name like <i>PIC</i>, a word like <i>sound</i>, or a number like <i>$C1</i> or <i>$8006</i>.</p>
+        <p>Press <kbd>1</kbd> for Keyboard Shortcuts: every key, Apple-key command and mouse action in one list. And the Help menu&rsquo;s File Types lists every file type and aux type RetroBrowse knows, 277 of them, with its number, its three-letter name and what it is. Type to narrow it down: a name like <i>PIC</i>, a word like <i>sound</i>, or a number like <i>$C1</i> or <i>$8006</i>. Or press <kbd>?</kbd> on a file to see its own type there.</p>
         <figure>
             <div class="monitor"><div class="glass">
                 <img src="img/help-types.png" width="640" height="400" alt="The File Types window: PIC typed into Find, five picture types listed" loading="lazy">
             </div></div>
-            <figcaption><b>Fig. 15</b> File Types: &ldquo;pic&rdquo; finds the five picture types.</figcaption>
+            <figcaption><b>Fig. 18</b> File Types: &ldquo;pic&rdquo; finds the five picture types.</figcaption>
         </figure>
     </div>
 
@@ -249,7 +277,7 @@
                     <div class="bf b-bottom"></div>
                 </div>
                 <div class="box-floor" aria-hidden="true"></div>
-                <figcaption><b>Fig. 16</b> The box. Drag it to turn it around.</figcaption>
+                <figcaption><b>Fig. 19</b> The box. Drag it to turn it around.</figcaption>
             </figure>
             <div class="box-text">
                 <p>Software came in a box then: a disk, a manual and a promise on the cover. GS Commander&rsquo;s would have looked like this, set in Apple Garamond like the IIgs&rsquo;s own software, with a monitor on the front and the screens on the back.</p>
