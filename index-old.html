@@ -5,496 +5,674 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Walter Tengler — Apps</title>
     <meta name="description" content="38 apps for macOS, iOS and the Apple IIgs — utilities, real-time data, retro computing, creative tools, and more.">
-    <meta property="og:title" content="Walter Tengler — Apps">
-    <meta property="og:description" content="38 apps for macOS, iOS and the Apple IIgs — utilities, real-time data, retro computing, creative tools, and more.">
-    <meta property="og:type" content="website">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,700;1,8..60,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/catalog.css">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #07070f;
+            --bg-card: rgba(255,255,255,0.04);
+            --border: rgba(255,255,255,0.08);
+            --text: #f0f0ff;
+            --muted: #8888aa;
+            --c-mac:  #8B5CF6;
+            --c-pt:   #F97316;
+            --c-eu:   #06B6D4;
+            --c-util: #10B981;
+            --c-game: #F43F5E;
+            --c-iigs: linear-gradient(180deg, #61BB46 0 17%, #FDB827 17% 34%, #F5821F 34% 50%, #E03A3E 50% 67%, #963D97 67% 84%, #009DDC 84% 100%);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ── Hero ── */
+        .hero {
+            text-align: center;
+            padding: 120px 20px 80px;
+            background: radial-gradient(ellipse 90% 60% at 50% 0%,
+                rgba(139,92,246,0.18) 0%, transparent 70%);
+        }
+
+        .hero-eyebrow {
+            display: inline-block;
+            font-size: 0.8em;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 28px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.8rem, 8vw, 5.5rem);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.05;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, #ffffff 30%, #a78bfa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
+            color: var(--muted);
+            max-width: 520px;
+            margin: 0 auto 56px;
+            line-height: 1.7;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 48px;
+            flex-wrap: wrap;
+        }
+
+        .hero-stat strong {
+            display: block;
+            font-size: 2.2em;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+        }
+
+        .hero-stat span {
+            font-size: 0.82em;
+            color: var(--muted);
+            letter-spacing: 0.05em;
+        }
+
+        /* ── Category sections ── */
+        .category {
+            padding: 72px 20px;
+            max-width: 1320px;
+            margin: 0 auto;
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 36px;
+            flex-wrap: wrap;
+        }
+
+        .category-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .category-header h2 {
+            font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .category-count {
+            margin-left: auto;
+            font-size: 0.82em;
+            color: var(--muted);
+            font-weight: 500;
+            letter-spacing: 0.05em;
+        }
+
+        .divider {
+            height: 1px;
+            background: var(--border);
+            max-width: 1320px;
+            margin: 0 auto;
+        }
+
+        /* ── App Grid ── */
+        .app-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 18px;
+        }
+
+        /* ── App Card ── */
+        .app-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px 22px 20px;
+            text-decoration: none;
+            color: var(--text);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            transition: transform 0.22s ease, border-color 0.22s ease, background 0.22s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .app-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            border-radius: 16px 16px 0 0;
+        }
+
+        .app-card:hover {
+            transform: translateY(-6px);
+            background: rgba(255,255,255,0.07);
+        }
+
+        .app-card .icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 13px;
+            display: block;
+            margin-bottom: 6px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.35);
+            background: #1a1a24;
+        }
+
+        .app-card .name {
+            font-size: 1.08em;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+
+        .app-card .tagline {
+            font-size: 0.88em;
+            color: var(--muted);
+            line-height: 1.55;
+            flex: 1;
+        }
+
+        .app-card .cta {
+            margin-top: 6px;
+            font-size: 0.78em;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            opacity: 0.45;
+            transition: opacity 0.2s;
+        }
+
+        .app-card:hover .cta { opacity: 1; }
+
+        /* category colour themes */
+        .c-mac::before  { background: linear-gradient(90deg, #8B5CF6, #C084FC); }
+        .c-mac:hover    { border-color: rgba(139,92,246,0.45); }
+        .c-mac .cta     { color: #a78bfa; }
+
+        .c-pt::before   { background: linear-gradient(90deg, #F97316, #FBBF24); }
+        .c-pt:hover     { border-color: rgba(249,115,22,0.45); }
+        .c-pt .cta      { color: #fb923c; }
+
+        .c-eu::before   { background: linear-gradient(90deg, #06B6D4, #818CF8); }
+        .c-eu:hover     { border-color: rgba(6,182,212,0.45); }
+        .c-eu .cta      { color: #22d3ee; }
+
+        .c-util::before { background: linear-gradient(90deg, #10B981, #34D399); }
+        .c-util:hover   { border-color: rgba(16,185,129,0.45); }
+        .c-util .cta    { color: #34d399; }
+
+        .c-game::before { background: linear-gradient(90deg, #F43F5E, #FBBF24); }
+        .c-game:hover   { border-color: rgba(244,63,94,0.45); }
+        .c-game .cta    { color: #fb7185; }
+
+        .c-iigs::before { background: linear-gradient(90deg, #61BB46, #FDB827, #F5821F, #E03A3E, #963D97, #009DDC); }
+        .c-iigs:hover   { border-color: rgba(253,184,39,0.45); }
+        .c-iigs .cta    { color: #FDB827; }
+        .category-more  { margin-top: 18px; font-size: 0.95rem; }
+        .category-more a { color: #FDB827; text-decoration: none; }
+        .category-more a:hover { text-decoration: underline; }
+
+        /* ── Footer ── */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 48px 20px;
+            text-align: center;
+            color: var(--muted);
+            font-size: 0.88em;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 28px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+
+        footer a {
+            color: var(--muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        footer a:hover { color: var(--text); }
+
+        /* ── Language Switcher ── */
+        #lang-switcher {
+            position: fixed;
+            top: 16px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        #lang-btn {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(255,255,255,0.14);
+            color: var(--text);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.75em;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-family: inherit;
+        }
+
+        #lang-btn:hover { background: rgba(255,255,255,0.13); }
+
+        #lang-menu {
+            display: none;
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            background: #12121e;
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 12px;
+            list-style: none;
+            min-width: 170px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+        }
+
+        #lang-menu.open { display: block; }
+
+        #lang-menu li {
+            padding: 10px 18px;
+            font-size: 0.84em;
+            cursor: pointer;
+            transition: background 0.15s;
+            color: var(--text);
+            white-space: nowrap;
+        }
+
+        #lang-menu li:hover { background: rgba(255,255,255,0.06); }
+        #lang-menu li.active { color: #a78bfa; font-weight: 600; }
+
+        [dir="rtl"] #lang-switcher { right: auto; left: 20px; }
+        [dir="rtl"] #lang-menu { right: auto; left: 0; }
+
+        @media (max-width: 640px) {
+            .hero { padding: 80px 20px 60px; }
+            .hero-stats { gap: 28px; }
+            .category-count { margin-left: 0; }
+        }
+    </style>
     <script data-goatcounter="https://portwally.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
 <body>
-<article class="page">
-    <header>
-        <div class="folio">
-            <span>Special issue &middot; The software catalog</span>
-            <span>November 1986 &middot; Vol. 1, No. 3</span>
-            <div id="lang-switcher">
-                <button id="lang-btn" aria-haspopup="true">EN</button>
-                <ul id="lang-menu">
-                    <li data-lang="en">English</li>
-                    <li data-lang="pt-PT">Português</li>
-                    <li data-lang="es">Español</li>
-                    <li data-lang="fr">Français</li>
-                    <li data-lang="de">Deutsch</li>
-                    <li data-lang="pl">Polski</li>
-                    <li data-lang="cs">Čeština</li>
-                    <li data-lang="sv">Svenska</li>
-                    <li data-lang="no">Norsk</li>
-                    <li data-lang="nl">Nederlands</li>
-                    <li data-lang="ar">العربية</li>
-                    <li data-lang="ko">한국어</li>
-                </ul>
-            </div>
-        </div>
-        <div class="masthead">
-            <p class="title">The Sixteen&#8209;Bit <span>Gazette</span></p>
-            <p class="issue">38 programs<br>Mac &middot; iOS &middot; IIgs</p>
-        </div>
-        <div class="stripes" role="presentation"></div>
-    </header>
 
-    <section class="cover">
-        <div class="cover-text">
-            <span class="kicker">Walter Tengler</span>
-            <h1 data-i18n="hero.tagline">Apps that get<br>things done</h1>
-            <p class="dek" data-i18n="hero.description">38 apps for macOS, iOS and the Apple IIgs — utilities, real-time data, retro computing, creative tools, and more.</p>
-            <a class="cover-story" href="GSCommander/">
-                <img src="GSCommander/img/box/front.png" width="900" height="1180" alt="The GS Commander box">
-                <span><b>Cover story</b><strong>GS Commander</strong>Two panes, ten keys, and every file on your Apple IIgs. <em>Page 12 &rarr;</em></span>
-            </a>
-        </div>
-        <aside class="box contents" aria-label="In this issue">
-            <h3>In this issue</h3>
-            <ol>
-                <li><a href="#mac"><span data-i18n="cat.mac">Mac Utilities &amp; Creative</span><i></i><b>4</b></a></li>
-                <li><a href="#iigs"><span data-i18n="cat.iigs">Apple IIgs</span><i></i><b>12</b></a></li>
-                <li><a href="#portugal"><span data-i18n="cat.pt">Portugal</span><i></i><b>15</b></a></li>
-                <li><a href="#europe"><span data-i18n="cat.eu">Europe &amp; Global</span><i></i><b>20</b></a></li>
-                <li><a href="#utilities"><span data-i18n="cat.util">Utilities &amp; Planning</span><i></i><b>23</b></a></li>
-                <li><a href="#games"><span data-i18n="cat.games">Games</span><i></i><b>25</b></a></li>
-            </ol>
-            <dl class="stats">
-                <div><dt data-i18n="stat.apps">Apps</dt><dd>38</dd></div>
-                <div><dt data-i18n="stat.platforms">Platforms</dt><dd>Mac, iOS &amp; IIgs</dd></div>
-                <div><dt data-i18n="stat.available">Available</dt><dd>App Store &amp; GitHub</dd></div>
-            </dl>
-        </aside>
-    </section>
+<!-- ── Language Switcher ── -->
+<div id="lang-switcher">
+    <button id="lang-btn">EN</button>
+    <ul id="lang-menu">
+        <li data-lang="en">English</li>
+        <li data-lang="pt-PT">Português</li>
+        <li data-lang="es">Español</li>
+        <li data-lang="fr">Français</li>
+        <li data-lang="de">Deutsch</li>
+        <li data-lang="pl">Polski</li>
+        <li data-lang="cs">Čeština</li>
+        <li data-lang="sv">Svenska</li>
+        <li data-lang="no">Norsk</li>
+        <li data-lang="nl">Nederlands</li>
+        <li data-lang="ar">العربية</li>
+        <li data-lang="ko">한국어</li>
+    </ul>
+</div>
 
-    <section class="dept c-mac" id="mac">
-        <div class="dept-head">
-            <span class="dept-mark" aria-hidden="true"></span>
-            <h2 data-i18n="cat.mac">Mac Utilities &amp; Creative</h2>
-            <span class="count" data-i18n="cat.mac.count">18 apps</span>
-            <span class="pg">Page 4</span>
+<!-- ── Hero ── -->
+<section class="hero">
+    <span class="hero-eyebrow">Walter Tengler</span>
+    <h1 data-i18n="hero.tagline">Apps that get<br>things done</h1>
+    <p data-i18n="hero.description">38 apps for macOS, iOS and the Apple IIgs — utilities, real-time data, retro computing, creative tools, and more.</p>
+    <div class="hero-stats">
+        <div class="hero-stat">
+            <strong>38</strong>
+            <span data-i18n="stat.apps">Apps</span>
         </div>
-        <div class="listings">
-            <a class="item" href="Screen2Store/">
-                <span class="photo"><img src="assets/icons/screen2store.png" alt="" loading="lazy" width="64" height="64"></span>
-                <span class="txt">
-                    <span class="no">No. 01</span>
-                    <span class="name">Screen2Store</span>
-                    <span class="tag" data-i18n="tag.screen2store">Design beautiful App Store &amp; Play Store screenshots in minutes &mdash; every size, every language</span>
-                    <span class="cta" data-i18n="cta">View app →</span>
-                </span>
-            </a>
-            <a class="item" href="RetroTV/">
-                <span class="photo"><img src="assets/icons/retro-tv.png" alt="" loading="lazy" width="64" height="64"></span>
-                <span class="txt">
-                    <span class="no">No. 02</span>
-                    <span class="name">Retro TV</span>
-                    <span class="tag" data-i18n="tag.retrotv">A century of television, on your Mac &mdash; play any video through six TVs from 1928 to 2024</span>
-                    <span class="cta" data-i18n="cta">View app →</span>
-                </span>
-            </a>
-            <a class="item" href="RetroTube/">
-                <span class="photo"><img src="assets/icons/retro-tube.png" alt="" loading="lazy" width="64" height="64"></span>
-                <span class="txt">
-                    <span class="no">No. 03</span>
-                    <span class="name">Retro Tube</span>
-                    <span class="tag" data-i18n="tag.retrotube">Watch any video through 1980s computer graphics &mdash; Apple II, C64, Game Boy, NES, MSX and more</span>
-                    <span class="cta" data-i18n="cta">View app →</span>
-                </span>
-            </a>
-            <a class="item" href="RetroGraphicsConverter/">
-                <span class="photo"><img src="assets/icons/retro-graphics-converter.png" alt="" loading="lazy" width="64" height="64"></span>
-                <span class="txt">
-                    <span class="no">No. 04</span>
-                    <span class="name">Retro Graphics Converter</span>
-                    <span class="tag" data-i18n="tag.retrogfx">Convert &amp; view vintage computer graphics from Apple II, C64, Amiga, Atari, and more</span>
-                    <span class="cta" data-i18n="cta">View app →</span>
-                </span>
-            </a>
-            <a class="item" href="Bitpast/">
-                <span class="photo"><img src="assets/icons/bitpast.png" alt="" loading="lazy" width="64" height="64"></span>
-                <span class="txt">
-                    <span class="no">No. 05</span>
-                    <span class="name">BitPast</span>
-                    <span class="tag" data-i18n="tag.bitpast">Transform modern images into authentic retro graphics for 15 classic computer systems</span>
-                    <span class="cta" data-i18n="cta">View app →</span>
-                </span>
-            </a>
-            <a class="item" href="GSRemap/">
-                <span class="photo"><img src="assets/icons/gsremap.png" alt="" loading="lazy" width="64" height="64"></span>
-                <span class="txt">
-                    <span class="no">No. 06</span>
-                    <span class="name">GS Remap</span>
-                    <span class="tag" data-i18n="tag.gsremap">Convert pictures to and from Apple IIgs Super Hi-Res, with the look of the IIgs desktop</span>
-                    <span class="cta" data-i18n="cta">View app →</span>
-                </span>
-            </a>
-            <a class="item" href="AppleIIASCIIArt/">
-                <span class="photo"><img src="assets/icons/apple-ii-ascii-art.png" alt="" loading="lazy" width="64" height="64"></span>
-                <span class="txt">
-                    <span class="no">No. 07</span>
-                    <span class="name">1977</span>
-                    <span class="tag" data-i18n="tag.ascii">Convert any image into Apple II ASCII art with live phosphor-screen preview &mdash; open source</span>
-                    <span class="cta" data-i18n="cta">View app →</span>
-                </span>
-            </a>
-            <a class="item" href="RetroBrowse/">
-                <span class="photo"><img src="assets/icons/retrobrowse.png" alt="" loading="lazy" width="64" height="64"></span>
-                <span class="txt">
-                    <span class="no">No. 08</span>
-                    <span class="name">RetroBrowse</span>
-                    <span class="tag" data-i18n="tag.retrobrowse">A modern dual-pane file manager for Apple II disk images &mdash; ProDOS, DOS 3.3, ShrinkIt and more</span>
-                    <span class="cta" data-i18n="cta">View app →</span>
-                </span>
-            </a>
-            <a class="item" href="CyanHero/">
-                <span class="photo"><img src="assets/icons/cyanhero.png" alt="" loading="lazy" width="64" height="64"></span>
-                <span class="txt">
-                    <span class="no">No. 09</span>
-                    <span class="name">CyanHero</span>
-                    <span class="tag" data-i18n="tag.cyanhero">Digital negatives for cyanotype and alternative process UV art printing</span>
-                    <span class="cta" data-i18n="cta">View app →</span>
-                </span>
-            </a>
-            <a class="item" href="Aichive/">
-                <span class="photo"><img src="assets/icons/aichive.png" alt="" loading="lazy" width="64" height="64"></span>
-                <span class="txt">
-                    <span class="no">No. 10</span>
-                    <span class="name">Aichive</span>
-                    <span class="tag" data-i18n="tag.aichive">Reclaim the disk space your AI tools forgot to clean up</span>
-                    <span class="cta" data-i18n="cta">View app →</span>
-                </span>
-            </a>
-            <a class="item" href="FCPXClean/">
-                <span class="photo"><img src="assets/icons/fcpx-clean.png" alt="" loading="lazy" width="64" height="64"></span>
-                <span class="txt">
-                    <span class="no">No. 11</span>
-                    <span class="name">FCPX Clean</span>
-                    <span class="tag" data-i18n="tag.fcpx">Reclaim the space Final Cut Pro forgot &mdash; safely and selectively</span>
-                    <span class="cta" data-i18n="cta">View app →</span>
-                </span>
-            </a>
-            <a class="item" href="EasyDup/">
-                <span class="photo"><img src="assets/icons/easydup.png" alt="" loading="lazy" width="64" height="64"></span>
-                <span class="txt">
-                    <span class="no">No. 12</span>
-                    <span class="name">EasyDup</span>
-                    <span class="tag" data-i18n="tag.easydup">Find and remove duplicate files from your Mac with ease</span>
-                    <span class="cta" data-i18n="cta">View app →</span>
-                </span>
-            </a>
-            <a class="item" href="ExifEasy/">
-                <span class="photo"><img src="assets/icons/exifeasy.png" alt="" loading="lazy" width="64" height="64"></span>
-                <span class="txt">
-                    <span class="no">No. 13</span>
-                    <span class="name">ExifEasy</span>
-                    <span class="tag" data-i18n="tag.exifeasy">View and edit photo metadata and EXIF data directly on macOS</span>
-                    <span class="cta" data-i18n="cta">View app →</span>
-                </span>
-            </a>
-            <a class="item" href="File%20Vortex/">
-                <span class="photo"><img src="assets/icons/file-vortex.png" alt="" loading="lazy" width="64" height="64"></span>
-                <span class="txt">
-                    <span class="no">No. 14</span>
-                    <span class="name">File Vortex</span>
-                    <span class="tag" data-i18n="tag.filevortex">Smart file organizer that automatically sorts your Mac's chaos</span>
-                    <span class="cta" data-i18n="cta">View app →</span>
-                </span>
-            </a>
-            <a class="item" href="SlimPix/">
-                <span class="photo"><img src="assets/icons/slimpix.png" alt="" loading="lazy" width="64" height="64"></span>
-                <span class="txt">
-                    <span class="no">No. 15</span>
-                    <span class="name">SlimPix</span>
-                    <span class="tag" data-i18n="tag.slimpix">Smart image compression for Mac &mdash; smaller files, same quality</span>
-                    <span class="cta" data-i18n="cta">View app →</span>
-                </span>
-            </a>
-            <a class="item" href="coresdoamor/">
-                <span class="photo"><img src="assets/icons/cores-do-amor.png" alt="" loading="lazy" width="64" height="64"></span>
-                <span class="txt">
-                    <span class="no">No. 16</span>
-                    <span class="name">Cores do Amor</span>
-                    <span class="tag" data-i18n="tag.cores">Extract beautiful color palettes from any image on macOS</span>
-                    <span class="cta" data-i18n="cta">View app →</span>
-                </span>
-            </a>
-            <a class="item" href="Scanora/">
-                <span class="photo"><img src="assets/icons/scanora.jpg" alt="" loading="lazy" width="64" height="64"></span>
-                <span class="txt">
-                    <span class="no">No. 17</span>
-                    <span class="name">Scanora</span>
-                    <span class="tag" data-i18n="tag.scanora">Smart food scanner &mdash; scan barcodes and know what you eat</span>
-                    <span class="cta" data-i18n="cta">View app →</span>
-                </span>
-            </a>
-            <a class="item" href="Adsensemonitor/">
-                <span class="photo"><img src="assets/icons/adsensemonitor.jpg" alt="" loading="lazy" width="64" height="64"></span>
-                <span class="txt">
-                    <span class="no">No. 18</span>
-                    <span class="name">AdSense Monitor</span>
-                    <span class="tag" data-i18n="tag.adsense">Track your ad revenue from mobile apps in real time</span>
-                    <span class="cta" data-i18n="cta">View app →</span>
-                </span>
-            </a>
+        <div class="hero-stat">
+            <strong>Mac, iOS<br>&amp; IIgs</strong>
+            <span data-i18n="stat.platforms">Platforms</span>
         </div>
-    </section>
+        <div class="hero-stat">
+            <strong>App Store<br>&amp; GitHub</strong>
+            <span data-i18n="stat.available">Available</span>
+        </div>
+    </div>
+</section>
 
-    <section class="dept c-iigs" id="iigs">
-        <div class="dept-head">
-            <span class="dept-mark" aria-hidden="true"></span>
-            <h2 data-i18n="cat.iigs">Apple IIgs</h2>
-            <span class="count" data-i18n="cat.iigs.count">3 apps</span>
-            <span class="pg">Page 12</span>
-        </div>
-        <div class="listings">
-            <a class="item" href="MegaconvertGS/">
-                <span class="photo"><img src="assets/icons/megaconvertgs.png" alt="" loading="lazy" width="64" height="64"></span>
-                <span class="txt">
-                    <span class="no">No. 19</span>
-                    <span class="name">MegaconvertGS</span>
-                    <span class="tag" data-i18n="tag.megaconvertgs">An image converter that runs on the Apple IIgs itself &mdash; over 60 retro and modern formats to Super Hi-Res</span>
-                    <span class="cta" data-i18n="cta">View app →</span>
-                </span>
-            </a>
-            <a class="item" href="Conquer-GS/">
-                <span class="photo"><img src="assets/icons/conquer-gs.png" alt="" loading="lazy" width="64" height="64"></span>
-                <span class="txt">
-                    <span class="no">No. 20</span>
-                    <span class="name">Conquer GS</span>
-                    <span class="tag" data-i18n="tag.conquergs">Real-time strategy for the Apple IIgs &mdash; build a base, harvest ore, conquer the enemy</span>
-                    <span class="cta" data-i18n="cta">View app →</span>
-                </span>
-            </a>
-            <a class="item" href="GSCommander/">
-                <span class="photo"><img src="assets/icons/gscommander.png" alt="" loading="lazy" width="64" height="64"></span>
-                <span class="txt">
-                    <span class="no">No. 21</span>
-                    <span class="name">GS Commander</span>
-                    <span class="tag" data-i18n="tag.gscommander">A Norton Commander style file manager for the Apple IIgs &mdash; two panes, archives and disk images, previews of pictures, sounds and documents</span>
-                    <span class="cta" data-i18n="cta">View app →</span>
-                </span>
-            </a>
-        </div>
-        <p class="more"><a href="Retro%20Computing/index.html">More retro computing, for the Mac and the Apple IIgs: 1977 &rarr;</a></p>
-    </section>
+<!-- ── Mac Utilities & Creative ── -->
+<div class="divider"></div>
+<div class="category">
+    <div class="category-header">
+        <span class="category-dot" style="background:var(--c-mac)"></span>
+        <h2 data-i18n="cat.mac">Mac Utilities &amp; Creative</h2>
+        <span class="category-count" data-i18n="cat.mac.count">18 apps</span>
+    </div>
+    <div class="app-grid">
+        <a href="Screen2Store/" class="app-card c-mac">
+            <img class="icon" src="assets/icons/screen2store.png" alt="" loading="lazy">
+            <div class="name">Screen2Store</div>
+            <div class="tagline" data-i18n="tag.screen2store">Design beautiful App Store &amp; Play Store screenshots in minutes &mdash; every size, every language</div>
+            <div class="cta" data-i18n="cta">View app →</div>
+        </a>
+        <a href="RetroTV/" class="app-card c-mac">
+            <img class="icon" src="assets/icons/retro-tv.png" alt="" loading="lazy">
+            <div class="name">Retro TV</div>
+            <div class="tagline" data-i18n="tag.retrotv">A century of television, on your Mac &mdash; play any video through six TVs from 1928 to 2024</div>
+            <div class="cta" data-i18n="cta">View app →</div>
+        </a>
+        <a href="RetroTube/" class="app-card c-mac">
+            <img class="icon" src="assets/icons/retro-tube.png" alt="" loading="lazy">
+            <div class="name">Retro Tube</div>
+            <div class="tagline" data-i18n="tag.retrotube">Watch any video through 1980s computer graphics &mdash; Apple II, C64, Game Boy, NES, MSX and more</div>
+            <div class="cta" data-i18n="cta">View app →</div>
+        </a>
+        <a href="RetroGraphicsConverter/" class="app-card c-mac">
+            <img class="icon" src="assets/icons/retro-graphics-converter.png" alt="" loading="lazy">
+            <div class="name">Retro Graphics Converter</div>
+            <div class="tagline" data-i18n="tag.retrogfx">Convert &amp; view vintage computer graphics from Apple II, C64, Amiga, Atari, and more</div>
+            <div class="cta" data-i18n="cta">View app →</div>
+        </a>
+        <a href="Bitpast/" class="app-card c-mac">
+            <img class="icon" src="assets/icons/bitpast.png" alt="" loading="lazy">
+            <div class="name">BitPast</div>
+            <div class="tagline" data-i18n="tag.bitpast">Transform modern images into authentic retro graphics for 15 classic computer systems</div>
+            <div class="cta" data-i18n="cta">View app →</div>
+        </a>
+        <a href="GSRemap/" class="app-card c-mac">
+            <img class="icon" src="assets/icons/gsremap.png" alt="" loading="lazy">
+            <div class="name">GS Remap</div>
+            <div class="tagline" data-i18n="tag.gsremap">Convert pictures to and from Apple IIgs Super Hi-Res, with the look of the IIgs desktop</div>
+            <div class="cta" data-i18n="cta">View app →</div>
+        </a>
+        <a href="AppleIIASCIIArt/" class="app-card c-mac">
+            <img class="icon" src="assets/icons/apple-ii-ascii-art.png" alt="" loading="lazy">
+            <div class="name">1977</div>
+            <div class="tagline" data-i18n="tag.ascii">Convert any image into Apple II ASCII art with live phosphor-screen preview &mdash; open source</div>
+            <div class="cta" data-i18n="cta">View app →</div>
+        </a>
+        <a href="RetroBrowse/" class="app-card c-mac">
+            <img class="icon" src="assets/icons/retrobrowse.png" alt="" loading="lazy">
+            <div class="name">RetroBrowse</div>
+            <div class="tagline" data-i18n="tag.retrobrowse">A modern dual-pane file manager for Apple II disk images &mdash; ProDOS, DOS 3.3, ShrinkIt and more</div>
+            <div class="cta" data-i18n="cta">View app →</div>
+        </a>
+        <a href="CyanHero/" class="app-card c-mac">
+            <img class="icon" src="assets/icons/cyanhero.png" alt="" loading="lazy">
+            <div class="name">CyanHero</div>
+            <div class="tagline" data-i18n="tag.cyanhero">Digital negatives for cyanotype and alternative process UV art printing</div>
+            <div class="cta" data-i18n="cta">View app →</div>
+        </a>
+        <a href="Aichive/" class="app-card c-mac">
+            <img class="icon" src="assets/icons/aichive.png" alt="" loading="lazy">
+            <div class="name">Aichive</div>
+            <div class="tagline" data-i18n="tag.aichive">Reclaim the disk space your AI tools forgot to clean up</div>
+            <div class="cta" data-i18n="cta">View app →</div>
+        </a>
+        <a href="FCPXClean/" class="app-card c-mac">
+            <img class="icon" src="assets/icons/fcpx-clean.png" alt="" loading="lazy">
+            <div class="name">FCPX Clean</div>
+            <div class="tagline" data-i18n="tag.fcpx">Reclaim the space Final Cut Pro forgot &mdash; safely and selectively</div>
+            <div class="cta" data-i18n="cta">View app →</div>
+        </a>
+        <a href="EasyDup/" class="app-card c-mac">
+            <img class="icon" src="assets/icons/easydup.png" alt="" loading="lazy">
+            <div class="name">EasyDup</div>
+            <div class="tagline" data-i18n="tag.easydup">Find and remove duplicate files from your Mac with ease</div>
+            <div class="cta" data-i18n="cta">View app →</div>
+        </a>
+        <a href="ExifEasy/" class="app-card c-mac">
+            <img class="icon" src="assets/icons/exifeasy.png" alt="" loading="lazy">
+            <div class="name">ExifEasy</div>
+            <div class="tagline" data-i18n="tag.exifeasy">View and edit photo metadata and EXIF data directly on macOS</div>
+            <div class="cta" data-i18n="cta">View app →</div>
+        </a>
+        <a href="File%20Vortex/" class="app-card c-mac">
+            <img class="icon" src="assets/icons/file-vortex.png" alt="" loading="lazy">
+            <div class="name">File Vortex</div>
+            <div class="tagline" data-i18n="tag.filevortex">Smart file organizer that automatically sorts your Mac's chaos</div>
+            <div class="cta" data-i18n="cta">View app →</div>
+        </a>
+        <a href="SlimPix/" class="app-card c-mac">
+            <img class="icon" src="assets/icons/slimpix.png" alt="" loading="lazy">
+            <div class="name">SlimPix</div>
+            <div class="tagline" data-i18n="tag.slimpix">Smart image compression for Mac &mdash; smaller files, same quality</div>
+            <div class="cta" data-i18n="cta">View app →</div>
+        </a>
+        <a href="coresdoamor/" class="app-card c-mac">
+            <img class="icon" src="assets/icons/cores-do-amor.png" alt="" loading="lazy">
+            <div class="name">Cores do Amor</div>
+            <div class="tagline" data-i18n="tag.cores">Extract beautiful color palettes from any image on macOS</div>
+            <div class="cta" data-i18n="cta">View app →</div>
+        </a>
+        <a href="Scanora/" class="app-card c-mac">
+            <img class="icon" src="assets/icons/scanora.jpg" alt="" loading="lazy">
+            <div class="name">Scanora</div>
+            <div class="tagline" data-i18n="tag.scanora">Smart food scanner &mdash; scan barcodes and know what you eat</div>
+            <div class="cta" data-i18n="cta">View app →</div>
+        </a>
+        <a href="Adsensemonitor/" class="app-card c-mac">
+            <img class="icon" src="assets/icons/adsensemonitor.jpg" alt="" loading="lazy">
+            <div class="name">AdSense Monitor</div>
+            <div class="tagline" data-i18n="tag.adsense">Track your ad revenue from mobile apps in real time</div>
+            <div class="cta" data-i18n="cta">View app →</div>
+        </a>
+    </div>
+</div>
 
-    <section class="dept c-pt" id="portugal">
-        <div class="dept-head">
-            <span class="dept-mark" aria-hidden="true"></span>
-            <h2 data-i18n="cat.pt">Portugal</h2>
-            <span class="count" data-i18n="cat.pt.count">9 apps</span>
-            <span class="pg">Page 15</span>
-        </div>
-        <div class="listings">
-            <a class="item" href="Alerta/">
-                <span class="photo"><img src="assets/icons/alerta.jpg" alt="" loading="lazy" width="64" height="64"></span>
-                <span class="txt">
-                    <span class="no">No. 22</span>
-                    <span class="name">Alerta</span>
-                    <span class="tag" data-i18n="tag.alerta">Civil protection incidents across Portugal, updated in real time</span>
-                    <span class="cta" data-i18n="cta">View app →</span>
-                </span>
-            </a>
-            <a class="item" href="Bomba/">
-                <span class="photo"><img src="assets/icons/bomba.jpg" alt="" loading="lazy" width="64" height="64"></span>
-                <span class="txt">
-                    <span class="no">No. 23</span>
-                    <span class="name">Bomba</span>
-                    <span class="tag" data-i18n="tag.bomba">Real-time fuel prices at every petrol station in Portugal</span>
-                    <span class="cta" data-i18n="cta">View app →</span>
-                </span>
-            </a>
-            <a class="item" href="Comboiotreck/">
-                <span class="photo"><img src="assets/icons/comboio-treck.jpg" alt="" loading="lazy" width="64" height="64"></span>
-                <span class="txt">
-                    <span class="no">No. 24</span>
-                    <span class="name">Comboio Treck</span>
-                    <span class="tag" data-i18n="tag.comboio">Live train tracking for Portugal's entire rail network</span>
-                    <span class="cta" data-i18n="cta">View app →</span>
-                </span>
-            </a>
-            <a class="item" href="climaviva/">
-                <span class="photo"><img src="assets/icons/clima-viva.jpg" alt="" loading="lazy" width="64" height="64"></span>
-                <span class="txt">
-                    <span class="no">No. 25</span>
-                    <span class="name">Clima Viva</span>
-                    <span class="tag" data-i18n="tag.clima">Real-time climate data across Portugal, beautifully visualized</span>
-                    <span class="cta" data-i18n="cta">View app →</span>
-                </span>
-            </a>
-            <a class="item" href="Fluvio/">
-                <span class="photo"><img src="assets/icons/fluvio.png" alt="" loading="lazy" width="64" height="64"></span>
-                <span class="txt">
-                    <span class="no">No. 26</span>
-                    <span class="name">Fluvio</span>
-                    <span class="tag" data-i18n="tag.fluvio">Real-time flood monitoring and river level tracking in Portugal</span>
-                    <span class="cta" data-i18n="cta">View app →</span>
-                </span>
-            </a>
-            <a class="item" href="Fugiu/">
-                <span class="photo"><img src="assets/icons/fugiu.jpg" alt="" loading="lazy" width="64" height="64"></span>
-                <span class="txt">
-                    <span class="no">No. 27</span>
-                    <span class="name">Fugiu!</span>
-                    <span class="tag" data-i18n="tag.fugiu">The essential fishing guide for Portuguese fishermen</span>
-                    <span class="cta" data-i18n="cta">View app →</span>
-                </span>
-            </a>
-            <a class="item" href="Pibup/">
-                <span class="photo"><img src="assets/icons/pibup.jpg" alt="" loading="lazy" width="64" height="64"></span>
-                <span class="txt">
-                    <span class="no">No. 28</span>
-                    <span class="name">PIBUP</span>
-                    <span class="tag" data-i18n="tag.pibup">Building boundaries and property limits on an interactive map</span>
-                    <span class="cta" data-i18n="cta">View app →</span>
-                </span>
-            </a>
-            <a class="item" href="CertificadoEnergetico/">
-                <span class="photo"><img src="assets/icons/certificado-energetico.jpg" alt="" loading="lazy" width="64" height="64"></span>
-                <span class="txt">
-                    <span class="no">No. 29</span>
-                    <span class="name">Certificado Energético</span>
-                    <span class="tag" data-i18n="tag.cert">Calculate your home's energy efficiency class in Portugal</span>
-                    <span class="cta" data-i18n="cta">View app →</span>
-                </span>
-            </a>
-            <a class="item" href="SOSIberico/">
-                <span class="photo"><img src="assets/icons/sos-iberica.png" alt="" loading="lazy" width="64" height="64"></span>
-                <span class="txt">
-                    <span class="no">No. 30</span>
-                    <span class="name">SOS Ibérica</span>
-                    <span class="tag" data-i18n="tag.sos">Emergency services and public contacts for Portugal and Spain</span>
-                    <span class="cta" data-i18n="cta">View app →</span>
-                </span>
-            </a>
-        </div>
-    </section>
+<!-- ── Apple IIgs ── -->
+<div class="divider"></div>
+<div class="category">
+    <div class="category-header">
+        <span class="category-dot" style="background:var(--c-iigs)"></span>
+        <h2 data-i18n="cat.iigs">Apple IIgs</h2>
+        <span class="category-count" data-i18n="cat.iigs.count">3 apps</span>
+    </div>
+    <div class="app-grid">
+        <a href="MegaconvertGS/" class="app-card c-iigs">
+            <img class="icon" src="assets/icons/megaconvertgs.png" alt="" loading="lazy">
+            <div class="name">MegaconvertGS</div>
+            <div class="tagline" data-i18n="tag.megaconvertgs">An image converter that runs on the Apple IIgs itself &mdash; over 60 retro and modern formats to Super Hi-Res</div>
+            <div class="cta" data-i18n="cta">View app →</div>
+        </a>
+        <a href="Conquer-GS/" class="app-card c-iigs">
+            <img class="icon" src="assets/icons/conquer-gs.png" alt="" loading="lazy">
+            <div class="name">Conquer GS</div>
+            <div class="tagline" data-i18n="tag.conquergs">Real-time strategy for the Apple IIgs &mdash; build a base, harvest ore, conquer the enemy</div>
+            <div class="cta" data-i18n="cta">View app →</div>
+        </a>
+        <a href="GSCommander/" class="app-card c-iigs">
+            <img class="icon" src="assets/icons/gscommander.png" alt="" loading="lazy">
+            <div class="name">GS Commander</div>
+            <div class="tagline" data-i18n="tag.gscommander">A Norton Commander style file manager for the Apple IIgs &mdash; two panes, archives and disk images, previews of pictures, sounds and documents</div>
+            <div class="cta" data-i18n="cta">View app →</div>
+        </a>
+    </div>
+    <p class="category-more"><a href="Retro%20Computing/index.html">More retro computing, for the Mac and the Apple IIgs: 1977 &rarr;</a></p>
+</div>
 
-    <section class="dept c-eu" id="europe">
-        <div class="dept-head">
-            <span class="dept-mark" aria-hidden="true"></span>
-            <h2 data-i18n="cat.eu">Europe &amp; Global</h2>
-            <span class="count" data-i18n="cat.eu.count">5 apps</span>
-            <span class="pg">Page 20</span>
-        </div>
-        <div class="listings">
-            <a class="item" href="Fire/">
-                <span class="photo"><img src="assets/icons/eu-fires.jpg" alt="" loading="lazy" width="64" height="64"></span>
-                <span class="txt">
-                    <span class="no">No. 31</span>
-                    <span class="name">Fire — EU Fires</span>
-                    <span class="tag" data-i18n="tag.fire">Real-time wildfire tracking across Europe, powered by NASA FIRMS satellite data</span>
-                    <span class="cta" data-i18n="cta">View app →</span>
-                </span>
-            </a>
-            <a class="item" href="EUEnergyMonitor/">
-                <span class="photo"><img src="assets/icons/eu-energy-monitor.jpg" alt="" loading="lazy" width="64" height="64"></span>
-                <span class="txt">
-                    <span class="no">No. 32</span>
-                    <span class="name">EU Energy Monitor</span>
-                    <span class="tag" data-i18n="tag.energy">Real-time European energy market data and power generation at a glance</span>
-                    <span class="cta" data-i18n="cta">View app →</span>
-                </span>
-            </a>
-            <a class="item" href="Terramoto/">
-                <span class="photo"><img src="assets/icons/terramoto.jpg" alt="" loading="lazy" width="64" height="64"></span>
-                <span class="txt">
-                    <span class="no">No. 33</span>
-                    <span class="name">Terramoto</span>
-                    <span class="tag" data-i18n="tag.terramoto">Earthquake &amp; tsunami physics simulation and live seismic tracking</span>
-                    <span class="cta" data-i18n="cta">View app →</span>
-                </span>
-            </a>
-            <a class="item" href="Bomba/abastece.html">
-                <span class="photo"><img src="assets/icons/abastece.png" alt="" loading="lazy" width="64" height="64"></span>
-                <span class="txt">
-                    <span class="no">No. 34</span>
-                    <span class="name">Abastece</span>
-                    <span class="tag" data-i18n="tag.abastece">Real-time fuel prices at every station in Chile, Brazil and Argentina</span>
-                    <span class="cta" data-i18n="cta">View app →</span>
-                </span>
-            </a>
-            <a class="item" href="MissileTag/">
-                <span class="photo"><img src="assets/icons/beertag.png" alt="" loading="lazy" width="64" height="64"></span>
-                <span class="txt">
-                    <span class="no">No. 35</span>
-                    <span class="name">Missile Tag</span>
-                    <span class="tag" data-i18n="tag.beertag">Launch virtual missiles at your friends' real locations &mdash; run or shield up before it lands</span>
-                    <span class="cta" data-i18n="cta">View app →</span>
-                </span>
-            </a>
-        </div>
-    </section>
+<!-- ── Portugal ── -->
+<div class="divider"></div>
+<div class="category">
+    <div class="category-header">
+        <span class="category-dot" style="background:var(--c-pt)"></span>
+        <h2 data-i18n="cat.pt">Portugal</h2>
+        <span class="category-count" data-i18n="cat.pt.count">9 apps</span>
+    </div>
+    <div class="app-grid">
+        <a href="Alerta/" class="app-card c-pt">
+            <img class="icon" src="assets/icons/alerta.jpg" alt="" loading="lazy">
+            <div class="name">Alerta</div>
+            <div class="tagline" data-i18n="tag.alerta">Civil protection incidents across Portugal, updated in real time</div>
+            <div class="cta" data-i18n="cta">View app →</div>
+        </a>
+        <a href="Bomba/" class="app-card c-pt">
+            <img class="icon" src="assets/icons/bomba.jpg" alt="" loading="lazy">
+            <div class="name">Bomba</div>
+            <div class="tagline" data-i18n="tag.bomba">Real-time fuel prices at every petrol station in Portugal</div>
+            <div class="cta" data-i18n="cta">View app →</div>
+        </a>
+        <a href="Comboiotreck/" class="app-card c-pt">
+            <img class="icon" src="assets/icons/comboio-treck.jpg" alt="" loading="lazy">
+            <div class="name">Comboio Treck</div>
+            <div class="tagline" data-i18n="tag.comboio">Live train tracking for Portugal's entire rail network</div>
+            <div class="cta" data-i18n="cta">View app →</div>
+        </a>
+        <a href="climaviva/" class="app-card c-pt">
+            <img class="icon" src="assets/icons/clima-viva.jpg" alt="" loading="lazy">
+            <div class="name">Clima Viva</div>
+            <div class="tagline" data-i18n="tag.clima">Real-time climate data across Portugal, beautifully visualized</div>
+            <div class="cta" data-i18n="cta">View app →</div>
+        </a>
+        <a href="Fluvio/" class="app-card c-pt">
+            <img class="icon" src="assets/icons/fluvio.png" alt="" loading="lazy">
+            <div class="name">Fluvio</div>
+            <div class="tagline" data-i18n="tag.fluvio">Real-time flood monitoring and river level tracking in Portugal</div>
+            <div class="cta" data-i18n="cta">View app →</div>
+        </a>
+        <a href="Fugiu/" class="app-card c-pt">
+            <img class="icon" src="assets/icons/fugiu.jpg" alt="" loading="lazy">
+            <div class="name">Fugiu!</div>
+            <div class="tagline" data-i18n="tag.fugiu">The essential fishing guide for Portuguese fishermen</div>
+            <div class="cta" data-i18n="cta">View app →</div>
+        </a>
+        <a href="Pibup/" class="app-card c-pt">
+            <img class="icon" src="assets/icons/pibup.jpg" alt="" loading="lazy">
+            <div class="name">PIBUP</div>
+            <div class="tagline" data-i18n="tag.pibup">Building boundaries and property limits on an interactive map</div>
+            <div class="cta" data-i18n="cta">View app →</div>
+        </a>
+        <a href="CertificadoEnergetico/" class="app-card c-pt">
+            <img class="icon" src="assets/icons/certificado-energetico.jpg" alt="" loading="lazy">
+            <div class="name">Certificado Energético</div>
+            <div class="tagline" data-i18n="tag.cert">Calculate your home's energy efficiency class in Portugal</div>
+            <div class="cta" data-i18n="cta">View app →</div>
+        </a>
+        <a href="SOSIberico/" class="app-card c-pt">
+            <img class="icon" src="assets/icons/sos-iberica.png" alt="" loading="lazy">
+            <div class="name">SOS Ibérica</div>
+            <div class="tagline" data-i18n="tag.sos">Emergency services and public contacts for Portugal and Spain</div>
+            <div class="cta" data-i18n="cta">View app →</div>
+        </a>
+    </div>
+</div>
 
-    <section class="dept c-util" id="utilities">
-        <div class="dept-head">
-            <span class="dept-mark" aria-hidden="true"></span>
-            <h2 data-i18n="cat.util">Utilities &amp; Planning</h2>
-            <span class="count" data-i18n="cat.util.count">2 apps</span>
-            <span class="pg">Page 23</span>
-        </div>
-        <div class="listings">
-            <a class="item" href="Sobrium/">
-                <span class="photo"><img src="assets/icons/sobrium.png" alt="" loading="lazy" width="64" height="64"></span>
-                <span class="txt">
-                    <span class="no">No. 36</span>
-                    <span class="name">Sobrium</span>
-                    <span class="tag" data-i18n="tag.sobrium">Lock the apps you'd regret using when drinking &mdash; pass a quick sobriety test to unlock</span>
-                    <span class="cta" data-i18n="cta">View app →</span>
-                </span>
-            </a>
-            <a class="item" href="emergengy-reminder/">
-                <span class="photo"><img src="assets/icons/emergency-reminder.jpg" alt="" loading="lazy" width="64" height="64"></span>
-                <span class="txt">
-                    <span class="no">No. 37</span>
-                    <span class="name">Emergency Reminder</span>
-                    <span class="tag" data-i18n="tag.emergency">Plan and manage your emergency supply kit &mdash; be prepared when it matters</span>
-                    <span class="cta" data-i18n="cta">View app →</span>
-                </span>
-            </a>
-        </div>
-    </section>
+<!-- ── Europe & Global ── -->
+<div class="divider"></div>
+<div class="category">
+    <div class="category-header">
+        <span class="category-dot" style="background:var(--c-eu)"></span>
+        <h2 data-i18n="cat.eu">Europe &amp; Global</h2>
+        <span class="category-count" data-i18n="cat.eu.count">5 apps</span>
+    </div>
+    <div class="app-grid">
+        <a href="Fire/" class="app-card c-eu">
+            <img class="icon" src="assets/icons/eu-fires.jpg" alt="" loading="lazy">
+            <div class="name">Fire — EU Fires</div>
+            <div class="tagline" data-i18n="tag.fire">Real-time wildfire tracking across Europe, powered by NASA FIRMS satellite data</div>
+            <div class="cta" data-i18n="cta">View app →</div>
+        </a>
+        <a href="EUEnergyMonitor/" class="app-card c-eu">
+            <img class="icon" src="assets/icons/eu-energy-monitor.jpg" alt="" loading="lazy">
+            <div class="name">EU Energy Monitor</div>
+            <div class="tagline" data-i18n="tag.energy">Real-time European energy market data and power generation at a glance</div>
+            <div class="cta" data-i18n="cta">View app →</div>
+        </a>
+        <a href="Terramoto/" class="app-card c-eu">
+            <img class="icon" src="assets/icons/terramoto.jpg" alt="" loading="lazy">
+            <div class="name">Terramoto</div>
+            <div class="tagline" data-i18n="tag.terramoto">Earthquake &amp; tsunami physics simulation and live seismic tracking</div>
+            <div class="cta" data-i18n="cta">View app →</div>
+        </a>
+        <a href="Bomba/abastece.html" class="app-card c-eu">
+            <img class="icon" src="assets/icons/abastece.png" alt="" loading="lazy">
+            <div class="name">Abastece</div>
+            <div class="tagline" data-i18n="tag.abastece">Real-time fuel prices at every station in Chile, Brazil and Argentina</div>
+            <div class="cta" data-i18n="cta">View app →</div>
+        </a>
+        <a href="MissileTag/" class="app-card c-eu">
+            <img class="icon" src="assets/icons/beertag.png" alt="" loading="lazy">
+            <div class="name">Missile Tag</div>
+            <div class="tagline" data-i18n="tag.beertag">Launch virtual missiles at your friends' real locations &mdash; run or shield up before it lands</div>
+            <div class="cta" data-i18n="cta">View app →</div>
+        </a>
+    </div>
+</div>
 
-    <section class="dept c-game" id="games">
-        <div class="dept-head">
-            <span class="dept-mark" aria-hidden="true"></span>
-            <h2 data-i18n="cat.games">Games</h2>
-            <span class="count" data-i18n="cat.games.count">1 app</span>
-            <span class="pg">Page 25</span>
-        </div>
-        <div class="listings">
-            <a class="item" href="Flipside/">
-                <span class="photo"><img src="assets/icons/flipside.png" alt="" loading="lazy" width="64" height="64"></span>
-                <span class="txt">
-                    <span class="no">No. 38</span>
-                    <span class="name">Flipside</span>
-                    <span class="tag" data-i18n="tag.flipside">A tap-to-clear puzzle where you flip gravity &mdash; plan the fall, chain the gems</span>
-                    <span class="cta" data-i18n="cta">View app →</span>
-                </span>
-            </a>
-        </div>
-    </section>
+<!-- ── Utilities & Planning ── -->
+<div class="divider"></div>
+<div class="category">
+    <div class="category-header">
+        <span class="category-dot" style="background:var(--c-util)"></span>
+        <h2 data-i18n="cat.util">Utilities &amp; Planning</h2>
+        <span class="category-count" data-i18n="cat.util.count">2 apps</span>
+    </div>
+    <div class="app-grid">
+        <a href="Sobrium/" class="app-card c-util">
+            <img class="icon" src="assets/icons/sobrium.png" alt="" loading="lazy">
+            <div class="name">Sobrium</div>
+            <div class="tagline" data-i18n="tag.sobrium">Lock the apps you'd regret using when drinking &mdash; pass a quick sobriety test to unlock</div>
+            <div class="cta" data-i18n="cta">View app →</div>
+        </a>
+        <a href="emergengy-reminder/" class="app-card c-util">
+            <img class="icon" src="assets/icons/emergency-reminder.jpg" alt="" loading="lazy">
+            <div class="name">Emergency Reminder</div>
+            <div class="tagline" data-i18n="tag.emergency">Plan and manage your emergency supply kit &mdash; be prepared when it matters</div>
+            <div class="cta" data-i18n="cta">View app →</div>
+        </a>
+    </div>
+</div>
 
-    <section class="colophon">
-        <footer class="foot">
-            <div class="footer-links">
-                <a href="mailto:walter.tengler@gmail.com" data-i18n="footer.contact">Contact</a>
-                <a href="https://github.com/portwally" target="_blank">GitHub</a>
-                <a href="privacy.html" rel="nofollow" data-i18n="footer.privacy">Privacy</a>
-            </div>
-            <p data-i18n="footer.copy">© 2026 Walter Tengler · Apps on the Apple App Store, Apple IIgs programs on GitHub</p>
-        </footer>
-    </section>
-    <p class="note">This catalog is dressed as 1986, the year of the Apple IIgs. The programs in it are from today.</p>
-    <div class="footer"><span>2</span><span>The Sixteen-Bit Gazette &middot; November 1986</span><span>&copy; 2026 Walter Tengler</span></div>
-</article>
+<!-- ── Games ── -->
+<div class="divider"></div>
+<div class="category">
+    <div class="category-header">
+        <span class="category-dot" style="background:var(--c-game)"></span>
+        <h2 data-i18n="cat.games">Games</h2>
+        <span class="category-count" data-i18n="cat.games.count">1 app</span>
+    </div>
+    <div class="app-grid">
+        <a href="Flipside/" class="app-card c-game">
+            <img class="icon" src="assets/icons/flipside.png" alt="" loading="lazy">
+            <div class="name">Flipside</div>
+            <div class="tagline" data-i18n="tag.flipside">A tap-to-clear puzzle where you flip gravity &mdash; plan the fall, chain the gems</div>
+            <div class="cta" data-i18n="cta">View app →</div>
+        </a>
+    </div>
+</div>
+
+<!-- ── Footer ── -->
+<footer>
+    <div class="footer-links">
+        <a href="mailto:walter.tengler@gmail.com" data-i18n="footer.contact">Contact</a>
+        <a href="https://github.com/portwally" target="_blank">GitHub</a>
+        <a href="privacy.html" rel="nofollow" data-i18n="footer.privacy">Privacy</a>
+    </div>
+    <p data-i18n="footer.copy">© 2026 Walter Tengler · Apps on the Apple App Store, Apple IIgs programs on GitHub</p>
+</footer>
 
 <script>
 const T = {
@@ -1161,16 +1339,5 @@ document.addEventListener('click', () => menu.classList.remove('open'));
 
 applyLang(detectLang());
 </script>
-
-<script>
-// The headline flows on this page: its line break (for the old page) becomes a space, in every language.
-(function () {
-    var apply = applyLang;
-    function flow() { document.querySelectorAll("h1 br").forEach(function (b) { b.replaceWith(" "); }); }
-    applyLang = function (code) { apply(code); flow(); };
-    flow();
-})();
-</script>
-
 </body>
 </html>
