@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wally's Manager - a retro project organizer for App Store and Apple IIgs developers</title>
-    <meta name="description" content="Wally's Manager keeps every app you ship in one place: App Store and Google Play versions, review status, sales, downloads, App Analytics, reviews and earnings, Xcode and Android Studio versions, GitHub releases, links, and Apple IIgs disk images you can boot in MAME. In the look of the Apple IIgs, Amiga, Atari ST, MS-DOS, Windows 3.1 or Windows 95.">
-    <meta name="keywords" content="project organizer, indie developer, App Store Connect, Google Play Console, app sales, app analytics, Android, app versions, review status, Apple IIgs, GS/OS, Amiga Workbench, Atari ST GEM, MS-DOS, Windows 95, retro, macOS, MAME, Ample">
+    <meta name="description" content="Wally's Manager keeps every app you ship in one place: App Store and Google Play versions, review status, sales, downloads, App Analytics, reviews and earnings, Xcode and Android Studio versions, GitHub releases, links, and Apple IIgs disk images you can boot in MAME. In the look of the Apple IIgs, Mac OS System 7, Apple II, Commodore 64, ZX Spectrum, Amstrad CPC, Amiga, Atari ST, NeXTSTEP, BeOS, MS-DOS, Windows 3.1 or Windows 95.">
+    <meta name="keywords" content="project organizer, indie developer, App Store Connect, Google Play Console, app sales, app analytics, Android, app versions, review status, Apple IIgs, GS/OS, Amiga Workbench, Atari ST GEM, Commodore 64, ZX Spectrum, Amstrad CPC, Mac OS System 7, NeXTSTEP, BeOS, MS-DOS, Windows 95, retro, macOS, MAME, Ample">
     <meta property="og:title" content="Wally's Manager">
     <meta property="og:description" content="Every app you ship, in one retro desktop.">
     <meta property="og:image" content="https://portwally.github.io/Wallys%20Manager/screens/iigs.png">
@@ -16,7 +16,7 @@
         // Apply the saved skin before the page paints, so it does not flash.
         try {
             var s = new URLSearchParams(location.search).get("skin") || localStorage.getItem("wm-skin");
-            if (s && /^(iigs|amiga|atari|dos|win31|win95)$/.test(s)) document.documentElement.dataset.skin = s;
+            if (s && /^(iigs|mac|apple2|c64|spectrum|cpc|amiga|atari|next|beos|dos|win31|win95)$/.test(s)) document.documentElement.dataset.skin = s;
         } catch (e) {}
     </script>
     <script data-goatcounter="https://portwally.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
@@ -35,8 +35,15 @@
             <button type="button" id="skin-button" aria-haspopup="menu" aria-expanded="false" aria-controls="skin-list">Skin</button>
             <ul id="skin-list" role="menu" aria-label="Page skin" hidden>
                 <li role="none"><button type="button" role="menuitemradio" data-skin="iigs">Apple IIgs  GS/OS</button></li>
+                <li role="none"><button type="button" role="menuitemradio" data-skin="mac">Mac OS System 7</button></li>
+                <li role="none"><button type="button" role="menuitemradio" data-skin="apple2">Apple II</button></li>
+                <li role="none"><button type="button" role="menuitemradio" data-skin="c64">Commodore 64</button></li>
+                <li role="none"><button type="button" role="menuitemradio" data-skin="spectrum">ZX Spectrum</button></li>
+                <li role="none"><button type="button" role="menuitemradio" data-skin="cpc">Amstrad CPC</button></li>
                 <li role="none"><button type="button" role="menuitemradio" data-skin="amiga">Amiga Workbench 1.3</button></li>
                 <li role="none"><button type="button" role="menuitemradio" data-skin="atari">Atari ST  GEM</button></li>
+                <li role="none"><button type="button" role="menuitemradio" data-skin="next">NeXTSTEP</button></li>
+                <li role="none"><button type="button" role="menuitemradio" data-skin="beos">BeOS</button></li>
                 <li role="none"><button type="button" role="menuitemradio" data-skin="dos">MS-DOS</button></li>
                 <li role="none"><button type="button" role="menuitemradio" data-skin="win31">Windows 3.1</button></li>
                 <li role="none"><button type="button" role="menuitemradio" data-skin="win95">Windows 95</button></li>
@@ -58,7 +65,7 @@
                         <p class="chips">
                             <span>macOS 15 or later</span>
                             <span>App Store + Google Play</span>
-                            <span>Six skins</span>
+                            <span>Thirteen skins</span>
                             <span>Not released yet</span>
                         </p>
                         <p><a class="cta" href="mailto:walter.tengler@gmail.com?subject=Wally%27s%20Manager%3A%20tell%20me%20when%20it%27s%20out&amp;body=Hi%20Walter%2C%0A%0AI%27d%20like%20to%20try%20Wally%27s%20Manager%20when%20it%27s%20ready.%0A%0AHow%20many%20apps%20do%20you%20have%20on%20the%20App%20Store%3F%0AWhich%20skin%20would%20you%20use%3F%0AWould%20you%20pay%20for%20it%2C%20and%20what%20price%20would%20feel%20fair%3F%0AWhat%20must%20it%20do%20for%20you%3F%0A%0A" data-goatcounter-click="wm-interest-hero" data-goatcounter-title="Wally's Manager: interested">Tell me when it&rsquo;s out</a></p>
@@ -164,13 +171,20 @@
         </section>
 
         <section class="window" id="skins" aria-labelledby="skins-title">
-            <h2 class="tb" id="skins-title"><i class="gl"></i><span>Six skins</span><i class="gr"></i></h2>
+            <h2 class="tb" id="skins-title"><i class="gl"></i><span>Thirteen skins</span><i class="gr"></i></h2>
             <div class="body">
                 <p>The whole app is drawn by the skin you pick: windows, menus, buttons, fonts and colours. So is this page. Click one to try it.</p>
                 <div class="gallery">
                     <button type="button" class="thumb" data-skin="iigs"><img src="screens/thumbs/iigs.png" width="480" height="308" alt="" loading="lazy"><span>Apple IIgs GS/OS</span></button>
+                    <button type="button" class="thumb" data-skin="mac"><img src="screens/thumbs/mac.png" width="480" height="308" alt="" loading="lazy"><span>Mac OS System 7</span></button>
+                    <button type="button" class="thumb" data-skin="apple2"><img src="screens/thumbs/apple2.png" width="480" height="308" alt="" loading="lazy"><span>Apple II</span></button>
+                    <button type="button" class="thumb" data-skin="c64"><img src="screens/thumbs/c64.png" width="480" height="308" alt="" loading="lazy"><span>Commodore 64</span></button>
+                    <button type="button" class="thumb" data-skin="spectrum"><img src="screens/thumbs/spectrum.png" width="480" height="308" alt="" loading="lazy"><span>ZX Spectrum</span></button>
+                    <button type="button" class="thumb" data-skin="cpc"><img src="screens/thumbs/cpc.png" width="480" height="308" alt="" loading="lazy"><span>Amstrad CPC</span></button>
                     <button type="button" class="thumb" data-skin="amiga"><img src="screens/thumbs/amiga.png" width="480" height="308" alt="" loading="lazy"><span>Amiga Workbench 1.3</span></button>
                     <button type="button" class="thumb" data-skin="atari"><img src="screens/thumbs/atari.png" width="480" height="308" alt="" loading="lazy"><span>Atari ST GEM</span></button>
+                    <button type="button" class="thumb" data-skin="next"><img src="screens/thumbs/next.png" width="480" height="308" alt="" loading="lazy"><span>NeXTSTEP</span></button>
+                    <button type="button" class="thumb" data-skin="beos"><img src="screens/thumbs/beos.png" width="480" height="308" alt="" loading="lazy"><span>BeOS</span></button>
                     <button type="button" class="thumb" data-skin="dos"><img src="screens/thumbs/dos.png" width="480" height="308" alt="" loading="lazy"><span>MS-DOS</span></button>
                     <button type="button" class="thumb" data-skin="win31"><img src="screens/thumbs/win31.png" width="480" height="308" alt="" loading="lazy"><span>Windows 3.1</span></button>
                     <button type="button" class="thumb" data-skin="win95"><img src="screens/thumbs/win95.png" width="480" height="308" alt="" loading="lazy"><span>Windows 95</span></button>
@@ -192,7 +206,7 @@
             <h2 class="tb" id="about-title"><i class="gl"></i><span>About this program</span><i class="gr"></i></h2>
             <div class="body small">
                 <p>Wally's Manager is written in Swift and SwiftUI by Walter Tengler. It is not released yet.</p>
-                <p>Apple IIgs, Macintosh and App Store are trademarks of Apple Inc. Amiga, Atari ST, MS-DOS and Windows are trademarks of their owners. The skins are drawn from scratch as a tribute; Wally's Manager is not affiliated with or endorsed by any of them. Shaston font by Kreative Software.</p>
+                <p>Apple II, Apple IIgs, Macintosh and App Store are trademarks of Apple Inc. Commodore, Amiga, Atari ST, Sinclair and ZX Spectrum, Amstrad, NeXT and NeXTSTEP, BeOS (Be Inc.), MS-DOS and Windows are trademarks of their respective owners. The skins are drawn from scratch as a tribute; Wally's Manager is not affiliated with or endorsed by any of them. Shaston, PR Number 3 and Pet Me 64 fonts by Kreative Software. Amstrad CPC464 font by Wesley Clarke, <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener">CC BY-SA 3.0</a>.</p>
                 <p><a href="privacy.html">Privacy</a> &middot; <a href="imprint.html">Imprint</a> &middot; <a href="../">More apps by Walter Tengler</a></p>
                 <p class="links apps">
                     <a href="../AppleIIASCIIArt/">1977</a>
@@ -258,12 +272,19 @@
     <script>
     (function () {
         var SKINS = {
-            iigs:  { name: "Apple IIgs GS/OS",     logo: "" },
-            amiga: { name: "Amiga Workbench 1.3",  logo: "Workbench" },
-            atari: { name: "Atari ST GEM",         logo: "Desk" },
-            dos:   { name: "MS-DOS",               logo: "≡" },
-            win31: { name: "Windows 3.1",          logo: "" },
-            win95: { name: "Windows 95",           logo: "" }
+            iigs: { name: "Apple IIgs GS/OS", logo: "" },
+            mac: { name: "Mac OS System 7", logo: "" },
+            apple2: { name: "Apple II", logo: "" },
+            c64: { name: "Commodore 64", logo: "C=" },
+            spectrum: { name: "ZX Spectrum", logo: "ZX" },
+            cpc: { name: "Amstrad CPC", logo: "CPC" },
+            amiga: { name: "Amiga Workbench 1.3", logo: "Workbench" },
+            atari: { name: "Atari ST GEM", logo: "Desk" },
+            next: { name: "NeXTSTEP", logo: "NeXT" },
+            beos: { name: "BeOS", logo: "Be" },
+            dos: { name: "MS-DOS", logo: "≡" },
+            win31: { name: "Windows 3.1", logo: "" },
+            win95: { name: "Windows 95", logo: "" }
         };
         var ORDER = Object.keys(SKINS);
         var root = document.documentElement;

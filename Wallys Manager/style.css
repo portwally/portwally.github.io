@@ -1,11 +1,28 @@
-/* Wally's Manager homepage: the page wears the same six skins as the app.
-   <html data-skin="iigs|amiga|atari|dos|win31|win95"> picks one. Each skin sets
-   the variables below and then redraws the menu bar, windows and buttons.
-   Type: Shaston 640 (Kreative Software) for the IIgs; system fonts for the rest. */
+/* Wally's Manager homepage: the page wears the same thirteen skins as the app.
+   <html data-skin="iigs|mac|apple2|c64|spectrum|cpc|amiga|atari|next|beos|dos|win31|win95"> picks one.
+   Each skin sets the variables below and then redraws the menu bar, windows and buttons.
+   Type: Shaston 640 (IIgs), PR Number 3 (Apple II) and Pet Me 64 (C64), all by
+   Kreative Software; system fonts for the rest. */
 
 @font-face {
     font-family: "Shaston";
     src: url("fonts/Shaston640.ttf") format("truetype");
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "PR Number 3";
+    src: url("fonts/PRNumber3.ttf") format("truetype");
+    font-display: swap;
+}
+@font-face {
+    font-family: "Amstrad CPC464";
+    src: url("fonts/amstrad_cpc464.ttf") format("truetype");
+    font-display: swap;
+}
+@font-face {
+    font-family: "Pet Me 64";
+    src: url("fonts/PetMe642Y.ttf") format("truetype");
     font-display: swap;
 }
 
@@ -198,9 +215,16 @@ button { font: inherit; color: inherit; }
     cursor: pointer;
 }
 .cta:hover, .cta:focus-visible { background: var(--face); color: var(--ink); outline: 2px solid var(--border); outline-offset: 2px; }
-[data-skin="iigs"] .cta { border-radius: 12px; box-shadow: 0 0 0 3px #fff, 0 0 0 5px #000; margin: 5px; }
+[data-skin="iigs"] .cta, [data-skin="mac"] .cta { border-radius: 12px; box-shadow: 0 0 0 3px #fff, 0 0 0 5px #000; margin: 5px; }
 [data-skin="amiga"] .cta { border: 0; box-shadow: inset 2px 2px 0 #fff, inset -2px -2px 0 #000022; }
 [data-skin="atari"] .cta { border-width: 3px; }
+[data-skin="next"] .cta { background: #333; color: #fff; border: 1px solid #000; box-shadow: inset 1px 1px 0 #777, inset -1px -1px 0 #111; }
+[data-skin="next"] .cta:hover, [data-skin="next"] .cta:focus-visible { background: #aaa; color: #000; box-shadow: inset 2px 2px 0 #fff, inset -2px -2px 0 #555; }
+[data-skin="beos"] .cta { border: 1px solid #000; background: #3366cc; color: #fff; box-shadow: inset 1px 1px 0 #7799dd, inset -1px -1px 0 #1f4499; }
+[data-skin="beos"] .cta:hover, [data-skin="beos"] .cta:focus-visible { background: #d8d8d8; color: #000; box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #8f8f8f; }
+:is([data-skin="apple2"], [data-skin="c64"], [data-skin="spectrum"], [data-skin="cpc"]) .cta { border: 0; box-shadow: 6px 6px 0 var(--sh); }
+:is([data-skin="apple2"], [data-skin="c64"], [data-skin="spectrum"], [data-skin="cpc"]) .cta::before { content: "\25C4  "; }
+:is([data-skin="apple2"], [data-skin="c64"], [data-skin="spectrum"], [data-skin="cpc"]) .cta::after { content: "  \25BA"; }
 [data-skin="dos"] .cta { border: 0; background: #00aa00; color: #fff; box-shadow: 6px 6px 0 #000; }
 [data-skin="dos"] .cta::before { content: "\25C4  "; } [data-skin="dos"] .cta::after { content: "  \25BA"; }
 [data-skin="win31"] .cta, [data-skin="win95"] .cta {
@@ -504,6 +528,150 @@ button { font: inherit; color: inherit; }
 [data-skin="win95"] .taskbar img { width: 18px; height: 18px; }
 [data-skin="win95"] .taskbar .clock { padding: 0 10px; height: 28px; box-shadow: inset 1px 1px #808080, inset -1px -1px #fff; }
 
+/* ═════════════ Mac OS System 7 ═════════════ */
+[data-skin="mac"] {
+    --desk: #fff;
+    --desk-bg: repeating-conic-gradient(#000 0 25%, #fff 0 50%) 0 0 / 2px 2px;
+    --dim: #555;
+    --font: "ChiKareGo2", Geneva, "Lucida Grande", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --size: 17px;
+    --line: 1.45;
+    --menu-h: 30px;
+}
+[data-skin="mac"] .menubar { border-bottom-width: 1px; border-radius: 0; }
+[data-skin="mac"] .window { border-width: 1px; box-shadow: 2px 2px 0 #000; }
+[data-skin="mac"] .tb {
+    border-bottom-width: 1px;
+    background: repeating-linear-gradient(to bottom, #000 0 1px, #fff 1px 3px) 0 7px / 100% 16px no-repeat, #fff;
+}
+[data-skin="mac"] .tb span { background: #fff; }
+[data-skin="mac"] .tb i { width: 16px; height: 16px; background: #fff; border: 1px solid #000; box-shadow: 0 0 0 4px #fff; }
+[data-skin="mac"] .tb .gr::after { content: ""; position: absolute; left: 2px; top: 2px; width: 8px; height: 8px; border: 1px solid #000; }
+[data-skin="mac"] .chips span, [data-skin="mac"] .thumb { border-radius: 8px; border-width: 1px; box-shadow: 1px 1px 0 #000; }
+[data-skin="mac"] .chips span:last-child { border-width: 3px; }
+[data-skin="mac"] .thumb img { border-radius: 2px; }
+[data-skin="mac"] #skin-list { border-width: 1px; box-shadow: 2px 2px 0 #000; }
+
+/* ═════════════ Text-mode skins: Apple II, Commodore 64, ZX Spectrum, Amstrad CPC ═════════════
+   Same idea as MS-DOS: a character-cell screen, double-line frames, inverse-video bars.
+   --sh is the drop shadow of a frame. */
+[data-skin="apple2"] {
+    --desk: #000; --desk-bg: #000; --win: #000;
+    --ink: #33ff66; --dim: #1fa040; --border: #33ff66;
+    --title: #000; --title-ink: #000;
+    --hi: #33ff66; --hi-ink: #000;
+    --menu: #33ff66; --menu-ink: #000; --face: #000; --sh: #0b4d1c;
+    --good: #33ff66; --warn: #ccff66; --bad: #fff;
+    --font: "PR Number 3", "Print Char 21", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    --size: 16px; --line: 1.55; --menu-h: 28px;
+}
+[data-skin="c64"] {
+    --desk: #40318d; --desk-bg: #40318d; --win: #40318d;
+    --ink: #aea3f2; --dim: #9c90e8; --border: #aea3f2;
+    --title: #40318d; --title-ink: #40318d;
+    --hi: #aea3f2; --hi-ink: #40318d;
+    --menu: #aea3f2; --menu-ink: #40318d; --face: #40318d; --sh: #2a1f66;
+    --good: #9ad284; --warn: #c9d487; --bad: #e59a91;
+    --font: "Pet Me 64", "PetMe642Y", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    --size: 16px; --line: 1.55; --menu-h: 28px;
+}
+[data-skin="spectrum"] {
+    --desk: #cdcdcd; --desk-bg: #cdcdcd; --win: #cdcdcd;
+    --ink: #000; --dim: #4a4a4a; --border: #000;
+    --title: #cdcdcd; --title-ink: #fff;
+    --hi: #0000cd; --hi-ink: #fff;
+    --menu: #0000cd; --menu-ink: #fff; --face: #cdcdcd; --sh: #5a5a5a;
+    --good: #006a00; --warn: #7a5200; --bad: #b00000;
+    --font: "ZX Spectrum", ui-monospace, "SF Mono", Menlo, Consolas, "Courier New", monospace;
+    --size: 15px; --line: 1.5; --menu-h: 28px;
+}
+[data-skin="cpc"] {
+    --desk: #000080; --desk-bg: #000080; --win: #000080;
+    --ink: #ffff00; --dim: #00c8c8; --border: #ffff00;
+    --title: #000080; --title-ink: #000080;
+    --hi: #ffff00; --hi-ink: #000080;
+    --menu: #ffff00; --menu-ink: #000080; --face: #000080; --sh: #000050;
+    --good: #00ff00; --warn: #ff8000; --bad: #ff6060;
+    --font: "Amstrad CPC464", ui-monospace, "SF Mono", Menlo, Consolas, "Courier New", monospace;
+    --size: 15px; --line: 1.5; --menu-h: 28px;
+}
+:is([data-skin="apple2"], [data-skin="c64"], [data-skin="spectrum"], [data-skin="cpc"]) :is(.menubar, #skin-list, .thumb span, .tb) { text-transform: uppercase; }
+:is([data-skin="apple2"], [data-skin="c64"], [data-skin="spectrum"], [data-skin="cpc"]) .menubar { border-bottom: 0; }
+:is([data-skin="apple2"], [data-skin="c64"], [data-skin="spectrum"], [data-skin="cpc"]) .window { border: 0; outline: 4px double var(--border); outline-offset: -10px; box-shadow: 10px 10px 0 var(--sh); padding: 4px; }
+:is([data-skin="apple2"], [data-skin="c64"], [data-skin="spectrum"], [data-skin="cpc"]) .tb { background: none; border: 0; height: 26px; margin-top: -2px; }
+:is([data-skin="apple2"], [data-skin="c64"], [data-skin="spectrum"], [data-skin="cpc"]) .tb span { background: var(--hi); color: var(--hi-ink); padding: 0 8px; }
+:is([data-skin="apple2"], [data-skin="c64"], [data-skin="spectrum"], [data-skin="cpc"]) .tb i { width: auto; height: auto; background: var(--win); padding: 0 2px; color: var(--ink); font-style: normal; }
+:is([data-skin="apple2"], [data-skin="c64"], [data-skin="spectrum"], [data-skin="cpc"]) .tb .gl::before { content: "[*]"; }
+:is([data-skin="apple2"], [data-skin="c64"], [data-skin="spectrum"], [data-skin="cpc"]) .tb .gr::before { content: "[^]"; }
+:is([data-skin="apple2"], [data-skin="c64"], [data-skin="spectrum"], [data-skin="cpc"]) .body { padding: 10px 26px 24px; }
+:is([data-skin="apple2"], [data-skin="c64"], [data-skin="spectrum"], [data-skin="cpc"]) .chips span { border: 0; background: var(--face); box-shadow: inset 0 0 0 1px var(--border), 4px 4px 0 var(--sh); }
+:is([data-skin="apple2"], [data-skin="c64"], [data-skin="spectrum"], [data-skin="cpc"]) .chips span:last-child { background: var(--hi); box-shadow: 4px 4px 0 var(--sh); }
+:is([data-skin="apple2"], [data-skin="c64"], [data-skin="spectrum"], [data-skin="cpc"]) .thumb { border: 0; box-shadow: inset 0 0 0 1px var(--border); }
+:is([data-skin="apple2"], [data-skin="c64"], [data-skin="spectrum"], [data-skin="cpc"]) .thumb span::before { content: "["; }
+:is([data-skin="apple2"], [data-skin="c64"], [data-skin="spectrum"], [data-skin="cpc"]) .thumb span::after { content: "]"; }
+:is([data-skin="apple2"], [data-skin="c64"], [data-skin="spectrum"], [data-skin="cpc"]) .attention { border-width: 1px; }
+:is([data-skin="apple2"], [data-skin="c64"], [data-skin="spectrum"], [data-skin="cpc"]) #skin-list { border: 0; outline: 4px double var(--menu-ink); outline-offset: -6px; padding: 8px 0; box-shadow: 8px 8px 0 var(--sh); }
+[data-skin="spectrum"] .tb i { color: #000; }
+
+/* ═════════════ NeXTSTEP ═════════════ */
+[data-skin="next"] {
+    --desk: #555; --desk-bg: #555;
+    --win: #aaa; --ink: #000; --dim: #383838; --border: #000;
+    --title: #333; --title-ink: #fff;
+    --hi: #333; --hi-ink: #fff;
+    --menu: #aaa; --menu-ink: #000; --face: #aaa;
+    --good: #005500; --warn: #8a4a00; --bad: #a00000;
+    --font: Helvetica, "Helvetica Neue", Arial, sans-serif;
+    --size: 16px; --line: 1.5; --menu-h: 28px;
+}
+[data-skin="next"] .menubar { border-bottom-width: 1px; box-shadow: inset 0 -2px 0 #555, inset 0 -1px 0 #fff; }
+[data-skin="next"] .window { border-width: 1px; padding: 3px; box-shadow: inset 2px 2px 0 #fff, inset -2px -2px 0 #555, 4px 4px 0 rgba(0, 0, 0, .5); }
+[data-skin="next"] .tb { height: 26px; padding: 0 6px; border-bottom: 0; }
+[data-skin="next"] .tb span { background: none; }
+[data-skin="next"] .tb i { width: 14px; height: 14px; background: #aaa; border: 1px solid #000; box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #555; }
+[data-skin="next"] .tb .gl::after { content: ""; position: absolute; left: 3px; top: 7px; width: 6px; height: 2px; background: #000; }
+[data-skin="next"] .tb .gr::after { content: "\00D7"; position: absolute; inset: 0; text-align: center; font: bold 13px/12px Helvetica, Arial, sans-serif; color: #000; }
+[data-skin="next"] .shot img, [data-skin="next"] .thumb img, [data-skin="next"] .feature figure img { border-width: 1px; }
+[data-skin="next"] .attention { border-width: 1px; background: #aaa; box-shadow: inset 1px 1px 0 #555, inset -1px -1px 0 #fff; }
+[data-skin="next"] .chips span, [data-skin="next"] .thumb { border-width: 1px; box-shadow: inset 2px 2px 0 #fff, inset -2px -2px 0 #555; padding: 2px 10px; }
+[data-skin="next"] .thumb { padding: 8px; }
+[data-skin="next"] .chips span:last-child { background: #333; color: #fff; box-shadow: inset 1px 1px 0 #777, inset -1px -1px 0 #111; }
+[data-skin="next"] .thumb[aria-pressed="true"], [data-skin="next"] .thumb:hover { box-shadow: inset 2px 2px 0 #111, inset -2px -2px 0 #555; }
+[data-skin="next"] #skin-list { border-width: 1px; box-shadow: inset 2px 2px 0 #fff, inset -2px -2px 0 #555, 4px 4px 0 rgba(0, 0, 0, .5); padding: 6px 0; }
+
+/* ═════════════ BeOS ═════════════ */
+[data-skin="beos"] {
+    --desk: #336699; --desk-bg: #336699;
+    --win: #d8d8d8; --ink: #000; --dim: #555; --border: #000;
+    --title: #ffcb00; --title-ink: #000;
+    --hi: #3366cc; --hi-ink: #fff;
+    --menu: #d8d8d8; --menu-ink: #000; --face: #d8d8d8; --shade: #8f8f8f;
+    --good: #006400; --warn: #8a5600; --bad: #b00000;
+    --font: Verdana, "Bitstream Vera Sans", "DejaVu Sans", Geneva, sans-serif;
+    --size: 15px; --line: 1.55; --menu-h: 28px;
+}
+[data-skin="beos"] .menubar { border-bottom: 1px solid #000; box-shadow: inset 0 1px 0 #fff, inset 0 -1px 0 #8f8f8f; }
+/* The yellow tab sits on top of each window, at its left edge. */
+[data-skin="beos"] .window { position: relative; border-width: 1px; padding: 3px; box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #8f8f8f; }
+[data-skin="beos"] body { padding-top: calc(var(--menu-h) + 40px); }
+[data-skin="beos"] .body { background: #d8d8d8; }
+[data-skin="beos"] .tb {
+    position: absolute; left: -1px; top: -25px; max-width: calc(100% - 20px);
+    height: 25px; padding: 0 10px 0 8px; gap: 8px;
+    background: #ffcb00; border: 1px solid #000; border-bottom: 0;
+    box-shadow: inset 1px 1px 0 #ffe680, inset -1px 0 0 #b38f00;
+}
+[data-skin="beos"] .tb span { margin: 0; padding: 0; background: none; font-weight: bold; }
+[data-skin="beos"] .tb i { width: 11px; height: 11px; background: #ffcb00; border: 1px solid #000; box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #b38f00; }
+[data-skin="beos"] .tb .gr { display: none; }
+[data-skin="beos"] .shot img, [data-skin="beos"] .thumb img, [data-skin="beos"] .feature figure img { border-width: 1px; }
+[data-skin="beos"] .attention { border-width: 1px; background: #fff; }
+[data-skin="beos"] .chips span, [data-skin="beos"] .thumb { border-width: 1px; box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #8f8f8f; padding: 2px 10px; }
+[data-skin="beos"] .thumb { padding: 8px; }
+[data-skin="beos"] .chips span:last-child { box-shadow: inset 1px 1px 0 #7799dd, inset -1px -1px 0 #1f4499; }
+[data-skin="beos"] .thumb[aria-pressed="true"], [data-skin="beos"] .thumb:hover { box-shadow: inset 1px 1px 0 #7799dd, inset -1px -1px 0 #1f4499; }
+[data-skin="beos"] #skin-list { border-width: 1px; box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #8f8f8f, 3px 3px 0 rgba(0, 0, 0, .4); padding: 4px 0; }
+
 /* ───────────── Small screens ───────────── */
 @media (max-width: 860px) {
     .span7, .span5, .span6 { grid-column: span 12; }
@@ -514,6 +682,10 @@ button { font: inherit; color: inherit; }
 @media (max-width: 560px) {
     :root { --size: 19px; }
     [data-skin="amiga"], [data-skin="atari"], [data-skin="dos"] { --size: 15px; }
+    [data-skin="apple2"], [data-skin="c64"] { --size: 16px; }
+    [data-skin="spectrum"], [data-skin="cpc"] { --size: 14px; }
+    [data-skin="mac"], [data-skin="next"], [data-skin="beos"] { --size: 16px; }
+    :is([data-skin="apple2"], [data-skin="c64"], [data-skin="spectrum"], [data-skin="cpc"]) .body { padding: 8px 16px 18px; }
     [data-skin="win31"], [data-skin="win95"] { --size: 14px; }
     body { padding-left: 16px; padding-right: 16px; }
     .hero-head { flex-direction: column; align-items: flex-start; gap: 14px; }
