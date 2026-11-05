@@ -374,25 +374,39 @@
 
     <section class="alt" id="whats-new">
         <div class="container">
-            <h2>New in Version 4.5</h2>
-            <p class="lead">Better colors, disk images that load on real machines, and an app that stays responsive while it works.</p>
+            <h2>What's New</h2>
+            <p class="lead">Version 4.6 lets you choose how a photo fills the screen and brings Per-Line palettes to the Apple IIgs. Version 4.5 brought better colors, disk images that load on real machines, and an app that stays responsive while it works.</p>
             <div class="panel terminal">
                 <div class="panel-title">whats_new.txt<span class="bars"></span></div>
                 <div class="panel-body">
-                    <div class="group">BETTER COLORS</div>
+                    <div class="group">4.6 - FIT AND ASPECT</div>
+                    <ul>
+                        <li>Fit for every machine: Stretch, Contain (black bars), Cover (crop) or None (no scaling)</li>
+                        <li>Aspect: allow for each machine's non-square pixels, so circles stay round</li>
+                    </ul>
+                    <div class="group">4.6 - APPLE IIGS</div>
+                    <ul>
+                        <li>New SCB Mode for 256 colors: Per-Line lets every line pick the best of its 16 palettes</li>
+                        <li>Palette editor changes are now saved in the file, in batch exports and on disk images</li>
+                    </ul>
+                    <div class="group">4.6 - FIXES</div>
+                    <ul>
+                        <li>H-Flip and V-Flip now flip the saved file and disk images too, not just the preview</li>
+                    </ul>
+                    <div class="group">4.5 - BETTER COLORS</div>
                     <ul>
                         <li>Smarter color selection for Atari 800, Atari ST, Amiga 500/1200, PC (EGA 64) and MSX Screen 5 - small details keep their color</li>
                         <li>Atari 800 Graphics 8 uses two shades of one hue, exactly like the real hardware</li>
                         <li>The same picture with the same settings always converts the same way</li>
                     </ul>
-                    <div class="group">DISK IMAGES</div>
+                    <div class="group">4.5 - DISK IMAGES</div>
                     <ul>
                         <li>New: Spectrum +3 disk images (180 KB .dsk)</li>
                         <li>Fixed BBC Micro, TRS-80 CoCo, Amiga ADF, Atari ATR and ZX Spectrum TRD disks</li>
                         <li>Amstrad CPC files use the correct colors on a real CPC</li>
                         <li>Double-sided CoCo disks and DOS 2.5 for 130 KB Atari disks</li>
                     </ul>
-                    <div class="group">FASTER AND SMOOTHER</div>
+                    <div class="group">4.5 - FASTER AND SMOOTHER</div>
                     <ul>
                         <li>Conversions run in the background - the app stays responsive</li>
                         <li>A progress indicator shows while a new picture is calculated</li>
@@ -481,9 +495,10 @@
                 <div class="feature panel"><div class="panel-body"><div class="icon">🖥️</div><h3>15 Classic Computers</h3><p>Apple II and IIgs, Amiga 500 and 1200, Amstrad CPC, Atari 800 and ST, BBC Micro, C64, MSX, IBM PC, Plus/4, TRS-80 CoCo, VIC-20 and ZX Spectrum.</p></div></div>
                 <div class="feature panel"><div class="panel-body"><div class="icon">🌈</div><h3>Real Palettes and Modes</h3><p>Each machine's own colors, resolutions and limits - from Apple IIgs 3200 colors and Amiga HAM to Spectrum attribute cells and C64 multicolor.</p></div></div>
                 <div class="feature panel"><div class="panel-body"><div class="icon">🎯</div><h3>Smart Color Selection</h3><p>Colors are chosen to cover the whole picture, so small details keep their color even when a machine can only show a handful.</p></div></div>
+                <div class="feature panel"><div class="panel-body"><div class="icon">🖼️</div><h3>Fit and Aspect</h3><p>Stretch, letterbox, crop or keep the original size - and allow for each machine's non-square pixels so circles stay round.</p></div></div>
                 <div class="feature panel"><div class="panel-body"><div class="icon">⚙️</div><h3>Fine-Tuning</h3><p>15+ dithering algorithms, HE, CLAHE and SWAHE contrast, filters, color matching modes, saturation and gamma - with live preview.</p></div></div>
                 <div class="feature panel"><div class="panel-body"><div class="icon">💾</div><h3>Native Files and Disks</h3><p>Save .SHR, .3200, .IFF, .PI1, .KLA, .ART, .PRG, .SCR, .PCX, .SC5 and more, and put them on disk images for every machine.</p></div></div>
-                <div class="feature panel"><div class="panel-body"><div class="icon">🎨</div><h3>Palette Editor</h3><p>Edit the palettes of Apple IIgs pictures line by line, copy and paste palettes, with full undo and redo.</p></div></div>
+                <div class="feature panel"><div class="panel-body"><div class="icon">🎨</div><h3>Palette Editor</h3><p>Edit the palettes of Apple IIgs pictures line by line, copy and paste palettes, with full undo and redo. Your changes go into the saved file.</p></div></div>
                 <div class="feature panel"><div class="panel-body"><div class="icon">📦</div><h3>Batch Conversion</h3><p>Drag in many pictures at once, lock settings per picture, and export them all - or straight onto a disk.</p></div></div>
                 <div class="feature panel"><div class="panel-body"><div class="icon">📺</div><h3>Retro Themes</h3><p>Work in the GS/OS look, Apple II green phosphor or Commodore 64 blue - or a clean modern interface.</p></div></div>
             </div>
@@ -497,7 +512,7 @@
             <div class="formats">
                 <div class="platform panel"><div class="panel-title">apple ii / iigs<span class="bars"></span></div><div class="panel-body"><ul>
                     <li><b>Apple II:</b> Double Hi-Res, Hi-Res, Lo-Res and Double Lo-Res (.BIN)</li>
-                    <li><b>Apple IIgs:</b> 3200 colors, 320 and 640 modes (.SHR, .3200)</li>
+                    <li><b>Apple IIgs:</b> 3200 colors, 256 colors with Banded or Per-Line palettes, 320 and 640 modes (.SHR, .3200)</li>
                 </ul></div></div>
                 <div class="platform panel"><div class="panel-title">commodore<span class="bars"></span></div><div class="panel-body"><ul>
                     <li><b>C64:</b> Hi-Res, Multicolor and PETSCII (.ART, .KLA, .PRG)</li>
