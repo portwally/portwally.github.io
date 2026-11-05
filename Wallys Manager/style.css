@@ -187,6 +187,28 @@ button { font: inherit; color: inherit; }
 .shot { margin-top: 22px; }
 .shot img { display: block; width: 100%; border: 2px solid var(--border); background: var(--desk); }
 .shot figcaption { margin-top: 8px; font-size: .82em; display: flex; flex-wrap: wrap; gap: 4px 14px; align-items: baseline; }
+/* Call to action: drawn like each skin's default button */
+.cta {
+    display: inline-block;
+    padding: 4px 18px;
+    text-decoration: none;
+    background: var(--hi);
+    color: var(--hi-ink);
+    border: 2px solid var(--border);
+    cursor: pointer;
+}
+.cta:hover, .cta:focus-visible { background: var(--face); color: var(--ink); outline: 2px solid var(--border); outline-offset: 2px; }
+[data-skin="iigs"] .cta { border-radius: 12px; box-shadow: 0 0 0 3px #fff, 0 0 0 5px #000; margin: 5px; }
+[data-skin="amiga"] .cta { border: 0; box-shadow: inset 2px 2px 0 #fff, inset -2px -2px 0 #000022; }
+[data-skin="atari"] .cta { border-width: 3px; }
+[data-skin="dos"] .cta { border: 0; background: #00aa00; color: #fff; box-shadow: 6px 6px 0 #000; }
+[data-skin="dos"] .cta::before { content: "\25C4  "; } [data-skin="dos"] .cta::after { content: "  \25BA"; }
+[data-skin="win31"] .cta, [data-skin="win95"] .cta {
+    background: #c0c0c0; color: #000; border: 1px solid #000; font-weight: bold;
+    box-shadow: inset -2px -2px 0 #808080, inset 2px 2px 0 #fff;
+}
+[data-skin="win31"] .cta:hover, [data-skin="win95"] .cta:hover { box-shadow: inset 2px 2px 0 #808080; outline: 1px dotted #000; outline-offset: -5px; }
+
 .link { background: none; border: 0; text-decoration: underline; cursor: pointer; padding: 0; }
 
 /* Attention lines */
