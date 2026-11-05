@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wally's Manager - a retro project organizer for App Store and Apple IIgs developers</title>
-    <meta name="description" content="Wally's Manager keeps every app you ship in one place: App Store versions and review status, Xcode and homepage versions, GitHub releases, links, and Apple IIgs disk images you can boot in MAME. In the look of the Apple IIgs, Amiga, Atari ST, MS-DOS, Windows 3.1 or Windows 95.">
-    <meta name="keywords" content="project organizer, indie developer, App Store Connect, app versions, review status, Apple IIgs, GS/OS, Amiga Workbench, Atari ST GEM, MS-DOS, Windows 95, retro, macOS, MAME, Ample">
+    <meta name="description" content="Wally's Manager keeps every app you ship in one place: App Store and Google Play versions, review status, sales, downloads, App Analytics, reviews and earnings, Xcode and Android Studio versions, GitHub releases, links, and Apple IIgs disk images you can boot in MAME. In the look of the Apple IIgs, Amiga, Atari ST, MS-DOS, Windows 3.1 or Windows 95.">
+    <meta name="keywords" content="project organizer, indie developer, App Store Connect, Google Play Console, app sales, app analytics, Android, app versions, review status, Apple IIgs, GS/OS, Amiga Workbench, Atari ST GEM, MS-DOS, Windows 95, retro, macOS, MAME, Ample">
     <meta property="og:title" content="Wally's Manager">
     <meta property="og:description" content="Every app you ship, in one retro desktop.">
     <meta property="og:image" content="https://portwally.github.io/Wallys%20Manager/screens/iigs.png">
@@ -25,7 +25,8 @@
     <nav class="menubar" aria-label="Sections">
         <a class="logo" href="#top" aria-label="Wally's Manager, top of page"><img src="img/icon-64.png" alt=""><span class="logo-text"></span></a>
         <a href="#what">Features</a>
-        <a href="#attention">Attention</a>
+        <a href="#stats">Stats</a>
+        <a href="#android">Android</a>
         <a href="#iigs">IIgs</a>
         <a href="#skins">Skins</a>
         <a href="#data">Privacy</a>
@@ -53,9 +54,10 @@
                     <img class="app-icon" src="img/icon.png" width="512" height="512" alt="The Wally's Manager icon: a pixel-art window with a project list and a 3.5 inch floppy disk">
                     <div>
                         <p class="tagline">Every app you ship, in one retro desktop.</p>
-                        <p>A project organizer for the Mac. It lists all your apps with their App Store version, review status, Xcode version, homepage and GitHub release, tells you which of them need attention, and keeps your Apple IIgs disk images one click away from booting in MAME.</p>
+                        <p>A project organizer for the Mac. It lists all your apps with their App Store and Google Play versions, review status, sales, downloads and reviews, compares them with Xcode, Android Studio, your homepage and GitHub, tells you which of them need attention, and keeps your Apple IIgs disk images one click away from booting in MAME.</p>
                         <p class="chips">
                             <span>macOS 15 or later</span>
+                            <span>App Store + Google Play</span>
                             <span>Six skins</span>
                             <span>Not released yet</span>
                         </p>
@@ -73,11 +75,11 @@
             <h2 class="tb" id="what-title"><i class="gl"></i><span>What it shows</span><i class="gr"></i></h2>
             <div class="body">
                 <ul class="list">
-                    <li><b>Every project in one list.</b> App Store apps, Mac apps sold elsewhere, Apple IIgs programs and plain websites, with icon, version, status and the date of the last release.</li>
-                    <li><b>Four versions side by side.</b> The one live in the App Store, the one in your Xcode project, the one your homepage mentions, and the latest GitHub release.</li>
-                    <li><b>Review status.</b> With an App Store Connect API key it shows Waiting for Review, In Review, Rejected and Ready for Sale, without opening the website.</li>
-                    <li><b>One click away.</b> App Store page, homepage, GitHub, source folder and Xcode project, from every project.</li>
-                    <li><b>Set up in seconds.</b> On first launch it reads your homepage folder and finds the App Store IDs, GitHub repos, versions and source folders by itself.</li>
+                    <li><b>Every project in one list.</b> App Store apps, Android apps, Mac apps sold elsewhere, Apple IIgs programs and plain websites, with icon, version, status, downloads of the last 7 days and the date of the last release.</li>
+                    <li><b>All the versions side by side.</b> Live in the App Store and on Google Play, in Xcode and Android Studio, on your homepage, and the latest GitHub release.</li>
+                    <li><b>Review status.</b> Waiting for Review, In Review, Rejected and Ready for Sale from App Store Connect; tracks, staged rollouts and halted releases from Google Play.</li>
+                    <li><b>One click away.</b> App Store, Google Play, homepage, GitHub, source folder, Xcode and Android Studio, from every project.</li>
+                    <li><b>Set up in seconds.</b> It reads your homepage folder, matches your App Store Connect apps by ID, bundle ID or name, and finds your Xcode and Android projects by itself.</li>
                 </ul>
             </div>
         </section>
@@ -90,10 +92,47 @@
                     <li><span class="warn">!</span> Xcode is at 3.0, but 2.22 is live: not submitted yet?</li>
                     <li><span class="warn">!</span> Homepage shows 4.5, current is 4.6</li>
                     <li><span class="info">&middot;</span> Waiting for review 1.0</li>
+                    <li><span class="warn">!</span> Android Studio is at 2.5, but Google Play has 2.4</li>
+                    <li><span class="warn">!</span> Downloads down 45% this week</li>
+                    <li><span class="warn">!</span> New &#9733;&#9733; review</li>
                     <li><span class="bad">!!</span> 1 disk image missing on disk</li>
-                    <li><span class="info">&middot;</span> No update for 214 days</li>
                 </ul>
                 <p class="small">The kinds of lines the Dashboard shows. Click one and the project it is about opens.</p>
+            </div>
+        </section>
+
+        <section class="window" id="stats" aria-labelledby="stats-title">
+            <h2 class="tb" id="stats-title"><i class="gl"></i><span>Sales and statistics</span><i class="gr"></i></h2>
+            <div class="body feature">
+                <figure>
+                    <img src="screens/stats.png" width="1200" height="714" loading="lazy" alt="The Statistics window for one app in the Apple IIgs skin: App Store and Google Play tabs, 30-day tiles for downloads, proceeds, updates, re-downloads and in-app purchases, a bar chart of downloads per day, top countries and devices">
+                    <figcaption class="small">The Statistics window, one per app, with a tab for each store.</figcaption>
+                </figure>
+                <ul class="list">
+                    <li><b>Downloads and proceeds.</b> First downloads, updates, re-downloads and in-app purchases over 7, 30 or 90 days or a year, with the change against the period before and a bar chart per day or month.</li>
+                    <li><b>Where and on what.</b> Top countries and the split between iPhone, iPad and Mac.</li>
+                    <li><b>App Analytics.</b> Impressions, product page views, conversion, where downloads come from, sessions, active devices, crashes and deletions.</li>
+                    <li><b>Reviews and earnings.</b> The latest written reviews, and what each month&rsquo;s financial report says you earned, converted to your currency.</li>
+                    <li><b>This week.</b> The Dashboard adds it all up: downloads and proceeds of the week, the apps that grew or dropped, and earnings of the last 12 months.</li>
+                    <li><b>Fetched once, kept for good.</b> Every report is downloaded once and stays on your Mac, so the history keeps growing.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="window" id="android" aria-labelledby="android-title">
+            <h2 class="tb" id="android-title"><i class="gl"></i><span>Google Play and Android</span><i class="gr"></i></h2>
+            <div class="body feature">
+                <ul class="list">
+                    <li><b>One project, two stores.</b> The Android version of an app lives in the same project as the iOS one, with its own Google Play button and its own tab in the statistics.</li>
+                    <li><b>Android Studio projects found.</b> Package name, versionName and versionCode are read from your Gradle files; one click opens the project in Android Studio.</li>
+                    <li><b>Tracks and rollouts.</b> Production, beta, alpha, internal and closed tests with their versions and status, read without touching your listing.</li>
+                    <li><b>Installs and health.</b> Installs per country, updates, uninstalls, active devices, crashes, ANRs, ratings and earnings from Play Console&rsquo;s reports.</li>
+                    <li><b>Google Play reviews</b> are kept as they come in, and bad ones show up on the Dashboard next to the App Store&rsquo;s.</li>
+                </ul>
+                <figure>
+                    <img src="screens/google-play.png" width="1100" height="818" loading="lazy" alt="The Info window for Fire: App Store, Google Play and Android Studio buttons, the App Store version and state, the Google Play package, release and tracks, and the Android Studio version">
+                    <figcaption class="small">App Store, Xcode, Google Play and Android Studio in one Info window.</figcaption>
+                </figure>
             </div>
         </section>
 
@@ -113,10 +152,12 @@
             <h2 class="tb" id="data-title"><i class="gl"></i><span>Where the numbers come from</span><i class="gr"></i></h2>
             <div class="body">
                 <ul class="list">
-                    <li><b>Your Mac:</b> the homepage folder, your Xcode projects and your disk images. Nothing is copied or uploaded.</li>
+                    <li><b>Your Mac:</b> the homepage folder, your Xcode and Android Studio projects and your disk images. Nothing is copied or uploaded.</li>
                     <li><b>Apple&rsquo;s public App Store lookup</b> for versions, dates, release notes, ratings and icons.</li>
-                    <li><b>GitHub&rsquo;s API</b> for the latest releases.</li>
-                    <li><b>App Store Connect</b>, only if you add your own API key. The key stays in your Keychain.</li>
+                    <li><b>App Store Connect</b>, with your own API key: review states, sales and financial reports, App Analytics and reviews.</li>
+                    <li><b>Google Play</b>, with your own service account: tracks, reviews and Play Console&rsquo;s reports.</li>
+                    <li><b>GitHub&rsquo;s API</b> for the latest releases, and the European Central Bank&rsquo;s exchange rates for proceeds.</li>
+                    <li>Your keys stay in your Keychain.</li>
                 </ul>
                 <p>No account, no tracking, no server of its own. The data lives in a file on your Mac.</p>
             </div>
@@ -201,9 +242,10 @@
     <nav class="fkeys" aria-label="Function keys">
         <a href="#top"><b>1</b>Top</a>
         <a href="#what"><b>2</b>Features</a>
-        <a href="#iigs"><b>3</b>IIgs</a>
-        <a href="#skins"><b>4</b>Skins</a>
-        <a href="#data"><b>5</b>Privacy</a>
+        <a href="#stats"><b>3</b>Stats</a>
+        <a href="#android"><b>4</b>Android</a>
+        <a href="#skins"><b>5</b>Skins</a>
+        <a href="#data"><b>6</b>Privacy</a>
         <button type="button" class="fk-skin"><b>9</b>Skin</button>
         <a href="../"><b>10</b>Exit</a>
     </nav>

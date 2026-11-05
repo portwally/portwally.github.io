@@ -211,6 +211,13 @@ button { font: inherit; color: inherit; }
 
 .link { background: none; border: 0; text-decoration: underline; cursor: pointer; padding: 0; }
 
+/* Feature windows: screenshot next to the list */
+.feature { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+.feature > * + * { margin-top: 0; }
+#android .feature { grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); }
+.feature figure img { display: block; width: 100%; border: 2px solid var(--border); }
+.feature figcaption { margin-top: 6px; }
+
 /* Attention lines */
 .attention { list-style: none; border: 2px solid var(--border); padding: 10px 12px; background: var(--win); }
 .attention li { display: flex; gap: 10px; }
@@ -500,6 +507,8 @@ button { font: inherit; color: inherit; }
 /* ───────────── Small screens ───────────── */
 @media (max-width: 860px) {
     .span7, .span5, .span6 { grid-column: span 12; }
+    .feature, #android .feature { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+    #android .feature figure { order: -1; }
     .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 560px) {

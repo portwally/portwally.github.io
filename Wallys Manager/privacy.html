@@ -25,21 +25,24 @@
         <section class="window legal" aria-labelledby="t">
             <h1 class="tb" id="t"><i class="gl"></i><span>Privacy Policy</span><i class="gr"></i></h1>
             <div class="body">
-                <p><em>Last updated: 5 November 2026</em></p>
+                <p><em>Last updated: 5 November 2026 (Google Play and statistics added)</em></p>
                 <p>Wally's Manager is a macOS app that organizes your own software projects. It runs on your Mac and has no server of its own.</p>
 
                 <h2>Data the app uses</h2>
                 <ul>
-                    <li>Folders and files on your Mac that you point it to: your homepage folder, your source folders and Xcode projects, and Apple IIgs disk images. They are read, not uploaded.</li>
-                    <li>The list of projects it builds is stored in a file in your Library folder, on your Mac only.</li>
-                    <li>An optional App Store Connect API key and GitHub token are stored in your macOS Keychain.</li>
+                    <li>Folders and files on your Mac that you point it to: your homepage folder, your source folders, Xcode and Android Studio projects, and Apple IIgs disk images. They are read, not uploaded.</li>
+                    <li>The list of projects, and the sales, statistics, reviews and earnings it downloads for your own apps, are stored in a file in your Library folder, on your Mac only.</li>
+                    <li>Your optional App Store Connect API key, Google service account key and GitHub token are stored in your macOS Keychain.</li>
                 </ul>
 
                 <h2>Network requests the app makes</h2>
                 <ul>
                     <li>Apple's public App Store lookup (itunes.apple.com), with the App Store IDs of your apps, to read versions, dates, ratings and icons.</li>
                     <li>GitHub's API (api.github.com), with the names of your repositories, to read the latest releases.</li>
-                    <li>App Store Connect (api.appstoreconnect.apple.com), only if you add your own API key, to read the review status of your apps.</li>
+                    <li>App Store Connect (api.appstoreconnect.apple.com), only if you add your own API key: review status, sales and financial reports, App Analytics reports and customer reviews of your apps. If you allow it, the app asks Apple once per app to prepare App Analytics reports.</li>
+                    <li>Google (oauth2.googleapis.com, androidpublisher.googleapis.com, storage.googleapis.com), only if you add your own service account: to sign in, to read your Google Play tracks and reviews, and to read the reports Play Console keeps for your account. Tracks are read through a temporary edit that is deleted right away; nothing on your listings changes.</li>
+                    <li>The public Google Play page of each package (play.google.com), to see whether an app is published.</li>
+                    <li>The European Central Bank (www.ecb.europa.eu), for daily exchange rates to convert proceeds.</li>
                 </ul>
                 <p>Nothing else is sent anywhere. The app has no analytics, no advertising, no account and no tracking.</p>
 
