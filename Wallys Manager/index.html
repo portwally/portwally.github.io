@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en" data-skin="iigs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wally's Manager - a retro project organizer for App Store and Apple IIgs developers</title>
+    <meta name="description" content="Wally's Manager keeps every app you ship in one place: App Store versions and review status, Xcode and homepage versions, GitHub releases, links, and Apple IIgs disk images you can boot in MAME. In the look of the Apple IIgs, Amiga, Atari ST, MS-DOS, Windows 3.1 or Windows 95.">
+    <meta name="keywords" content="project organizer, indie developer, App Store Connect, app versions, review status, Apple IIgs, GS/OS, Amiga Workbench, Atari ST GEM, MS-DOS, Windows 95, retro, macOS, MAME, Ample">
+    <meta property="og:title" content="Wally's Manager">
+    <meta property="og:description" content="Every app you ship, in one retro desktop.">
+    <meta property="og:image" content="https://portwally.github.io/Wallys%20Manager/screens/iigs.png">
+    <meta property="og:type" content="website">
+    <link rel="icon" href="img/icon-64.png">
+    <link rel="stylesheet" href="style.css">
+    <script>
+        // Apply the saved skin before the page paints, so it does not flash.
+        try {
+            var s = new URLSearchParams(location.search).get("skin") || localStorage.getItem("wm-skin");
+            if (s && /^(iigs|amiga|atari|dos|win31|win95)$/.test(s)) document.documentElement.dataset.skin = s;
+        } catch (e) {}
+    </script>
+    <script data-goatcounter="https://portwally.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+    <nav class="menubar" aria-label="Sections">
+        <a class="logo" href="#top" aria-label="Wally's Manager, top of page"><img src="img/icon-64.png" alt=""><span class="logo-text"></span></a>
+        <a href="#what">Features</a>
+        <a href="#attention">Attention</a>
+        <a href="#iigs">IIgs</a>
+        <a href="#skins">Skins</a>
+        <a href="#data">Privacy</a>
+        <div class="skinmenu">
+            <button type="button" id="skin-button" aria-haspopup="menu" aria-expanded="false" aria-controls="skin-list">Skin</button>
+            <ul id="skin-list" role="menu" aria-label="Page skin" hidden>
+                <li role="none"><button type="button" role="menuitemradio" data-skin="iigs">Apple IIgs  GS/OS</button></li>
+                <li role="none"><button type="button" role="menuitemradio" data-skin="amiga">Amiga Workbench 1.3</button></li>
+                <li role="none"><button type="button" role="menuitemradio" data-skin="atari">Atari ST  GEM</button></li>
+                <li role="none"><button type="button" role="menuitemradio" data-skin="dos">MS-DOS</button></li>
+                <li role="none"><button type="button" role="menuitemradio" data-skin="win31">Windows 3.1</button></li>
+                <li role="none"><button type="button" role="menuitemradio" data-skin="win95">Windows 95</button></li>
+            </ul>
+        </div>
+        <span class="clock" aria-hidden="true"></span>
+    </nav>
+
+    <main class="desktop" id="top">
+
+        <section class="window hero" aria-labelledby="hero-title">
+            <h1 class="tb" id="hero-title"><i class="gl"></i><span>Wally's Manager</span><i class="gr"></i></h1>
+            <div class="body">
+                <div class="hero-head">
+                    <img class="app-icon" src="img/icon.png" width="512" height="512" alt="The Wally's Manager icon: a pixel-art window with a project list and a 3.5 inch floppy disk">
+                    <div>
+                        <p class="tagline">Every app you ship, in one retro desktop.</p>
+                        <p>A project organizer for the Mac. It lists all your apps with their App Store version, review status, Xcode version, homepage and GitHub release, tells you which of them need attention, and keeps your Apple IIgs disk images one click away from booting in MAME.</p>
+                        <p class="chips">
+                            <span>macOS 15 or later</span>
+                            <span>Six skins</span>
+                            <span>Not released yet</span>
+                        </p>
+                    </div>
+                </div>
+                <figure class="shot">
+                    <img id="hero-shot" src="screens/iigs.png" width="1600" height="1025" alt="Wally's Manager in the Apple IIgs skin: the project list, the Info window for Fire and the Dashboard">
+                    <figcaption><span>Shown in the <b class="skin-name">Apple IIgs GS/OS</b> skin.</span> <button type="button" class="link next-skin">Next skin &rarr;</button></figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <section class="window span7" id="what" aria-labelledby="what-title">
+            <h2 class="tb" id="what-title"><i class="gl"></i><span>What it shows</span><i class="gr"></i></h2>
+            <div class="body">
+                <ul class="list">
+                    <li><b>Every project in one list.</b> App Store apps, Mac apps sold elsewhere, Apple IIgs programs and plain websites, with icon, version, status and the date of the last release.</li>
+                    <li><b>Four versions side by side.</b> The one live in the App Store, the one in your Xcode project, the one your homepage mentions, and the latest GitHub release.</li>
+                    <li><b>Review status.</b> With an App Store Connect API key it shows Waiting for Review, In Review, Rejected and Ready for Sale, without opening the website.</li>
+                    <li><b>One click away.</b> App Store page, homepage, GitHub, source folder and Xcode project, from every project.</li>
+                    <li><b>Set up in seconds.</b> On first launch it reads your homepage folder and finds the App Store IDs, GitHub repos, versions and source folders by itself.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="window span5" id="attention" aria-labelledby="attention-title">
+            <h2 class="tb" id="attention-title"><i class="gl"></i><span>Needs attention</span><i class="gr"></i></h2>
+            <div class="body">
+                <p>The Dashboard answers one question: what should I look at today?</p>
+                <ul class="attention">
+                    <li><span class="warn">!</span> Xcode is at 3.0, but 2.22 is live: not submitted yet?</li>
+                    <li><span class="warn">!</span> Homepage shows 4.5, current is 4.6</li>
+                    <li><span class="info">&middot;</span> Waiting for review 1.0</li>
+                    <li><span class="bad">!!</span> 1 disk image missing on disk</li>
+                    <li><span class="info">&middot;</span> No update for 214 days</li>
+                </ul>
+                <p class="small">The kinds of lines the Dashboard shows. Click one and the project it is about opens.</p>
+            </div>
+        </section>
+
+        <section class="window span6" id="iigs" aria-labelledby="iigs-title">
+            <h2 class="tb" id="iigs-title"><i class="gl"></i><span>For the Apple IIgs</span><i class="gr"></i></h2>
+            <div class="body">
+                <p>Software that never sees an App Store gets the same care.</p>
+                <ul class="list">
+                    <li><b>Disk images per project.</b> Drop in .2mg, .po, .hdv, .dsk, .woz or .shk files. Mark one as the boot disk. A missing file is flagged, and Find&hellip; points it to where it went.</li>
+                    <li><b>Boot in MAME.</b> One click starts the IIgs in MAME from your Ample install, with ROM 3, ROM 1 or ROM 0 and any extra arguments. Floppies go in the 3.5&quot; drive, hard disk images on a CFFA2 card.</li>
+                    <li><b>Releases and places.</b> The latest GitHub release, the ProDOS file type, and links to the sites where the program is published.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="window span6" id="data" aria-labelledby="data-title">
+            <h2 class="tb" id="data-title"><i class="gl"></i><span>Where the numbers come from</span><i class="gr"></i></h2>
+            <div class="body">
+                <ul class="list">
+                    <li><b>Your Mac:</b> the homepage folder, your Xcode projects and your disk images. Nothing is copied or uploaded.</li>
+                    <li><b>Apple&rsquo;s public App Store lookup</b> for versions, dates, release notes, ratings and icons.</li>
+                    <li><b>GitHub&rsquo;s API</b> for the latest releases.</li>
+                    <li><b>App Store Connect</b>, only if you add your own API key. The key stays in your Keychain.</li>
+                </ul>
+                <p>No account, no tracking, no server of its own. The data lives in a file on your Mac.</p>
+            </div>
+        </section>
+
+        <section class="window" id="skins" aria-labelledby="skins-title">
+            <h2 class="tb" id="skins-title"><i class="gl"></i><span>Six skins</span><i class="gr"></i></h2>
+            <div class="body">
+                <p>The whole app is drawn by the skin you pick: windows, menus, buttons, fonts and colours. So is this page. Click one to try it.</p>
+                <div class="gallery">
+                    <button type="button" class="thumb" data-skin="iigs"><img src="screens/thumbs/iigs.png" width="480" height="308" alt="" loading="lazy"><span>Apple IIgs GS/OS</span></button>
+                    <button type="button" class="thumb" data-skin="amiga"><img src="screens/thumbs/amiga.png" width="480" height="308" alt="" loading="lazy"><span>Amiga Workbench 1.3</span></button>
+                    <button type="button" class="thumb" data-skin="atari"><img src="screens/thumbs/atari.png" width="480" height="308" alt="" loading="lazy"><span>Atari ST GEM</span></button>
+                    <button type="button" class="thumb" data-skin="dos"><img src="screens/thumbs/dos.png" width="480" height="308" alt="" loading="lazy"><span>MS-DOS</span></button>
+                    <button type="button" class="thumb" data-skin="win31"><img src="screens/thumbs/win31.png" width="480" height="308" alt="" loading="lazy"><span>Windows 3.1</span></button>
+                    <button type="button" class="thumb" data-skin="win95"><img src="screens/thumbs/win95.png" width="480" height="308" alt="" loading="lazy"><span>Windows 95</span></button>
+                </div>
+                <p class="small">Scale 1&times; to 2&times;, CRT scanlines, an Amiga Guru Meditation for errors, a Norton Commander layout with F-keys in DOS, and a taskbar in Windows 95.</p>
+            </div>
+        </section>
+
+        <footer class="window" aria-labelledby="about-title">
+            <h2 class="tb" id="about-title"><i class="gl"></i><span>About this program</span><i class="gr"></i></h2>
+            <div class="body small">
+                <p>Wally's Manager is written in Swift and SwiftUI by Walter Tengler. It is not released yet.</p>
+                <p>Apple IIgs, Macintosh and App Store are trademarks of Apple Inc. Amiga, Atari ST, MS-DOS and Windows are trademarks of their owners. The skins are drawn from scratch as a tribute; Wally's Manager is not affiliated with or endorsed by any of them. Shaston font by Kreative Software.</p>
+                <p><a href="privacy.html">Privacy</a> &middot; <a href="imprint.html">Imprint</a> &middot; <a href="../">More apps by Walter Tengler</a></p>
+                <p class="links apps">
+                    <a href="../AppleIIASCIIArt/">1977</a>
+                    <a href="../Bomba/abastece.html">Abastece</a>
+                    <a href="../Adsensemonitor/">AdSense Monitor</a>
+                    <a href="../Aichive/">Aichive</a>
+                    <a href="../Alerta/">Alerta</a>
+                    <a href="../MissileTag/">Missile Tag</a>
+                    <a href="../Bitpast/">BitPast</a>
+                    <a href="../Bomba/">Bomba</a>
+                    <a href="../CertificadoEnergetico/">Certificado Energético</a>
+                    <a href="../climaviva/">Clima Viva</a>
+                    <a href="../Comboiotreck/">Comboio Treck</a>
+                    <a href="../Conquer-GS/">Conquer GS</a>
+                    <a href="../coresdoamor/">Cores do Amor</a>
+                    <a href="../CyanHero/">CyanHero</a>
+                    <a href="../EasyDup/">EasyDup</a>
+                    <a href="../emergengy-reminder/">Emergency Reminder</a>
+                    <a href="../EUEnergyMonitor/">EU Energy Monitor</a>
+                    <a href="../ExifEasy/">ExifEasy</a>
+                    <a href="../FCPXClean/">FCPX Clean</a>
+                    <a href="../File Vortex/">File Vortex</a>
+                    <a href="../Fire/">Fire</a>
+                    <a href="../Flipside/">Flipside</a>
+                    <a href="../Fluvio/">Fluvio</a>
+                    <a href="../Fugiu/">Fugiu!</a>
+                    <a href="../GSCommander/">GS Commander</a>
+                    <a href="../GSRemap/">GS Remap</a>
+                    <a href="../MegaconvertGS/">MegaconvertGS</a>
+                    <a href="../Pibup/">PIBUP</a>
+                    <a href="../RetroBrowse/">Retro Browse</a>
+                    <a href="../RetroGraphicsConverter/">Retro Graphics Converter</a>
+                    <a href="../RetroTube/">Retro Tube</a>
+                    <a href="../RetroTV/">Retro TV</a>
+                    <a href="../Scanora/">Scanora</a>
+                    <a href="../Screen2Store/">Screen2Store</a>
+                    <a href="../SlimPix/">SlimPix</a>
+                    <a href="../Sobrium/">Sobrium</a>
+                    <a href="../SOSIberico/">SOS Ibérica</a>
+                    <a href="../Terramoto/">Terramoto</a>
+                </p>
+            </div>
+        </footer>
+    </main>
+
+    <!-- MS-DOS: function key bar. Windows 95: taskbar. Hidden in the other skins. -->
+    <nav class="fkeys" aria-label="Function keys">
+        <a href="#top"><b>1</b>Top</a>
+        <a href="#what"><b>2</b>Features</a>
+        <a href="#iigs"><b>3</b>IIgs</a>
+        <a href="#skins"><b>4</b>Skins</a>
+        <a href="#data"><b>5</b>Privacy</a>
+        <button type="button" class="fk-skin"><b>9</b>Skin</button>
+        <a href="../"><b>10</b>Exit</a>
+    </nav>
+    <div class="taskbar" aria-hidden="true">
+        <button type="button" class="start" tabindex="-1"><img src="img/icon-64.png" alt="">Start</button>
+        <span class="task">Wally's Manager</span>
+        <span class="clock"></span>
+    </div>
+
+    <script>
+    (function () {
+        var SKINS = {
+            iigs:  { name: "Apple IIgs GS/OS",     logo: "" },
+            amiga: { name: "Amiga Workbench 1.3",  logo: "Workbench" },
+            atari: { name: "Atari ST GEM",         logo: "Desk" },
+            dos:   { name: "MS-DOS",               logo: "≡" },
+            win31: { name: "Windows 3.1",          logo: "" },
+            win95: { name: "Windows 95",           logo: "" }
+        };
+        var ORDER = Object.keys(SKINS);
+        var root = document.documentElement;
+        var shot = document.getElementById("hero-shot");
+        var button = document.getElementById("skin-button");
+        var list = document.getElementById("skin-list");
+
+        function setSkin(id, save) {
+            if (!SKINS[id]) return;
+            root.dataset.skin = id;
+            shot.src = "screens/" + id + ".png";
+            shot.alt = "Wally's Manager in the " + SKINS[id].name + " skin: the project list, the Info window for Fire and the Dashboard";
+            document.querySelectorAll(".skin-name").forEach(function (el) { el.textContent = SKINS[id].name; });
+            document.querySelectorAll(".logo-text").forEach(function (el) { el.textContent = SKINS[id].logo; });
+            list.querySelectorAll("[data-skin]").forEach(function (b) { b.setAttribute("aria-checked", b.dataset.skin === id ? "true" : "false"); });
+            document.querySelectorAll(".thumb").forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.skin === id ? "true" : "false"); });
+            if (save) { try { localStorage.setItem("wm-skin", id); } catch (e) {} }
+        }
+
+        function openMenu(open) {
+            if (open && window.innerWidth > 560) {
+                list.style.left = Math.min(button.getBoundingClientRect().left, window.innerWidth - 296) + "px";
+            } else { list.style.left = ""; }
+            list.hidden = !open;
+            button.setAttribute("aria-expanded", open ? "true" : "false");
+            if (open) { var cur = list.querySelector('[aria-checked="true"]') || list.querySelector("button"); cur.focus(); }
+        }
+
+        button.addEventListener("click", function (e) { e.stopPropagation(); openMenu(list.hidden); });
+        list.addEventListener("click", function (e) {
+            var b = e.target.closest("[data-skin]");
+            if (!b) return;
+            setSkin(b.dataset.skin, true);
+            openMenu(false);
+            button.focus();
+        });
+        list.addEventListener("keydown", function (e) {
+            var items = Array.prototype.slice.call(list.querySelectorAll("button"));
+            var i = items.indexOf(document.activeElement);
+            if (e.key === "ArrowDown") { e.preventDefault(); items[(i + 1) % items.length].focus(); }
+            if (e.key === "ArrowUp") { e.preventDefault(); items[(i - 1 + items.length) % items.length].focus(); }
+            if (e.key === "Escape") { openMenu(false); button.focus(); }
+        });
+        document.addEventListener("click", function (e) { if (!list.hidden && !e.target.closest(".skinmenu")) openMenu(false); });
+
+        document.querySelectorAll(".thumb").forEach(function (b) {
+            b.addEventListener("click", function () {
+                setSkin(b.dataset.skin, true);
+                document.getElementById("top").scrollIntoView({ behavior: "smooth" });
+            });
+        });
+        document.querySelectorAll(".next-skin").forEach(function (b) {
+            b.addEventListener("click", function () {
+                setSkin(ORDER[(ORDER.indexOf(root.dataset.skin) + 1) % ORDER.length], true);
+            });
+        });
+        document.querySelectorAll(".fk-skin, .taskbar .start").forEach(function (b) {
+            b.addEventListener("click", function (e) { e.stopPropagation(); openMenu(true); });
+        });
+
+        function tick() {
+            var d = new Date(), t = String(d.getHours()).padStart(2, "0") + ":" + String(d.getMinutes()).padStart(2, "0");
+            document.querySelectorAll(".clock").forEach(function (el) { el.textContent = t; });
+        }
+        tick();
+        setInterval(tick, 30000);
+
+        // Preload the other screenshots so switching is instant.
+        window.addEventListener("load", function () {
+            ORDER.forEach(function (id) { var im = new Image(); im.src = "screens/" + id + ".png"; });
+        });
+
+        setSkin(SKINS[root.dataset.skin] ? root.dataset.skin : "iigs", false);
+    })();
+    </script>
+</body>
+</html>

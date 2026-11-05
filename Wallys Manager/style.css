@@ -1,0 +1,499 @@
+/* Wally's Manager homepage: the page wears the same six skins as the app.
+   <html data-skin="iigs|amiga|atari|dos|win31|win95"> picks one. Each skin sets
+   the variables below and then redraws the menu bar, windows and buttons.
+   Type: Shaston 640 (Kreative Software) for the IIgs; system fonts for the rest. */
+
+@font-face {
+    font-family: "Shaston";
+    src: url("fonts/Shaston640.ttf") format("truetype");
+    font-display: swap;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+    --desk: #2244bb;
+    --desk-bg: repeating-conic-gradient(#2244bb 0 25%, #3355cc 0 50%) 0 0 / 4px 4px;
+    --win: #fff;
+    --ink: #000;
+    --dim: #555;
+    --border: #000;
+    --title: #fff;
+    --title-ink: #000;
+    --hi: #000;
+    --hi-ink: #fff;
+    --menu: #fff;
+    --menu-ink: #000;
+    --face: #fff;
+    --light: #fff;
+    --shade: #777;
+    --good: #00aa00;
+    --warn: #ff6600;
+    --bad: #dd0000;
+    --font: "Shaston", "Geneva", "Verdana", sans-serif;
+    --size: 22px;
+    --line: 1.3;
+    --menu-h: 34px;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--menu-h) + 16px);
+    background: var(--desk-bg);
+    background-color: var(--desk);
+}
+
+body {
+    min-height: 100vh;
+    font-family: var(--font);
+    font-size: var(--size);
+    line-height: var(--line);
+    color: var(--ink);
+    background: var(--desk-bg);
+    background-color: var(--desk);
+    padding: calc(var(--menu-h) + 22px) 16px 40px;
+}
+
+a { color: inherit; }
+img { max-width: 100%; height: auto; }
+button { font: inherit; color: inherit; }
+
+/* ───────────── Menu bar ───────────── */
+
+.menubar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 20;
+    height: var(--menu-h);
+    display: flex;
+    align-items: stretch;
+    background: var(--menu);
+    color: var(--menu-ink);
+    border-bottom: 2px solid var(--border);
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+.menubar::-webkit-scrollbar { display: none; }
+.menubar > a, .skinmenu > button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 14px;
+    text-decoration: none;
+    white-space: nowrap;
+    background: none;
+    border: 0;
+    cursor: pointer;
+}
+.menubar > a:hover, .menubar > a:focus-visible,
+.skinmenu > button:hover, .skinmenu > button:focus-visible,
+.skinmenu > button[aria-expanded="true"] {
+    background: var(--hi);
+    color: var(--hi-ink);
+    outline: none;
+}
+.logo img { width: 22px; height: 22px; image-rendering: pixelated; display: block; }
+.logo-text:empty { display: none; }
+.skinmenu { display: flex; }
+.skinmenu > button::after { content: " \25BE"; }
+.clock { margin-left: auto; display: flex; align-items: center; padding: 0 14px; white-space: nowrap; }
+
+/* The drop-down list sits outside the scrolling bar so it is never clipped. */
+#skin-list {
+    position: fixed;
+    top: var(--menu-h);
+    z-index: 30;
+    list-style: none;
+    min-width: 280px;
+    padding: 4px 0;
+    background: var(--menu);
+    color: var(--menu-ink);
+    border: 2px solid var(--border);
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, .45);
+}
+#skin-list button {
+    display: block;
+    width: 100%;
+    text-align: left;
+    white-space: pre;
+    padding: 4px 16px 4px 34px;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    position: relative;
+}
+#skin-list button[aria-checked="true"]::before { content: "\2713"; position: absolute; left: 12px; }
+#skin-list button:hover, #skin-list button:focus-visible { background: var(--hi); color: var(--hi-ink); outline: none; }
+
+/* ───────────── Desktop and windows ───────────── */
+
+.desktop {
+    max-width: 1180px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 24px;
+    align-items: start;
+}
+
+.window {
+    grid-column: span 12;
+    background: var(--win);
+    color: var(--ink);
+    border: 2px solid var(--border);
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, .55);
+    min-width: 0;
+}
+.span7 { grid-column: span 7; }
+.span5 { grid-column: span 5; }
+.span6 { grid-column: span 6; }
+
+/* Title bar: left gadget, title label, right gadget. */
+.tb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 32px;
+    padding: 0 8px;
+    font: inherit;
+    font-weight: normal;
+    color: var(--title-ink);
+    background: var(--title);
+    border-bottom: 2px solid var(--border);
+    white-space: nowrap;
+    overflow: hidden;
+}
+.tb span { margin: 0 auto; padding: 0 12px; background: var(--title); overflow: hidden; text-overflow: ellipsis; }
+.tb i { flex: none; display: block; width: 18px; height: 18px; position: relative; }
+
+.body { padding: 20px 22px 22px; }
+.body > * + * { margin-top: 14px; }
+.small { font-size: .82em; }
+.dim { color: var(--dim); }
+
+.list { list-style: none; }
+.list li { padding-left: 1.1em; position: relative; }
+.list li + li { margin-top: 10px; }
+.list li::before { content: "\2022"; position: absolute; left: 0; }
+
+/* Hero */
+.hero-head { display: flex; gap: 26px; align-items: center; }
+.app-icon { width: 150px; height: 150px; flex: none; }
+.tagline { font-size: 1.6em; line-height: 1.15; margin-bottom: 10px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chips span { border: 2px solid var(--border); padding: 0 10px; background: var(--face); color: var(--ink); }
+.chips span:last-child { background: var(--hi); color: var(--hi-ink); }
+
+.shot { margin-top: 22px; }
+.shot img { display: block; width: 100%; border: 2px solid var(--border); background: var(--desk); }
+.shot figcaption { margin-top: 8px; font-size: .82em; display: flex; flex-wrap: wrap; gap: 4px 14px; align-items: baseline; }
+.link { background: none; border: 0; text-decoration: underline; cursor: pointer; padding: 0; }
+
+/* Attention lines */
+.attention { list-style: none; border: 2px solid var(--border); padding: 10px 12px; background: var(--win); }
+.attention li { display: flex; gap: 10px; }
+.attention li + li { margin-top: 6px; }
+.attention span { flex: none; width: 1.4em; font-weight: bold; }
+.warn { color: var(--warn); }
+.bad { color: var(--bad); }
+.info { color: var(--dim); }
+
+/* Skin gallery */
+.gallery { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+.thumb {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 6px;
+    background: var(--face);
+    color: var(--ink);
+    border: 2px solid var(--border);
+    cursor: pointer;
+    text-align: center;
+}
+.thumb img { display: block; width: 100%; border: 1px solid var(--border); }
+.thumb:hover, .thumb:focus-visible, .thumb[aria-pressed="true"] { background: var(--hi); color: var(--hi-ink); outline: none; }
+
+/* Footer app list */
+.links { display: flex; flex-wrap: wrap; gap: 4px 16px; }
+
+/* Privacy and imprint pages */
+.legal { max-width: 860px; margin: 0 auto; grid-column: span 12; }
+.legal h2 { font: inherit; font-weight: bold; margin-top: 22px; }
+.legal h3 { font: inherit; text-decoration: underline; margin-top: 16px; }
+.legal ul { padding-left: 1.4em; }
+.legal hr { border: 0; border-top: 2px solid var(--border); margin: 26px 0; }
+
+/* Bars only some skins use */
+.fkeys, .taskbar { display: none; }
+
+/* ═════════════ Apple IIgs  GS/OS ═════════════ */
+[data-skin="iigs"] body { -webkit-font-smoothing: none; }
+[data-skin="iigs"] .tb {
+    background:
+        repeating-linear-gradient(to bottom, #000 0 2px, #fff 2px 4px) 6px 7px / calc(100% - 12px) 18px no-repeat,
+        #fff;
+}
+[data-skin="iigs"] .tb span { background: #fff; }
+[data-skin="iigs"] .tb i { background: #fff; border: 2px solid #000; box-shadow: 0 0 0 3px #fff; }
+[data-skin="iigs"] .window { box-shadow: 4px 4px 0 rgba(0, 0, 0, .55); }
+[data-skin="iigs"] .chips span { border-radius: 10px; }
+[data-skin="iigs"] .thumb { border-radius: 10px; }
+[data-skin="iigs"] .thumb img { border-radius: 4px; }
+
+/* ═════════════ Amiga Workbench 1.3 ═════════════ */
+[data-skin="amiga"] {
+    --desk: #0055aa;
+    --desk-bg: #0055aa;
+    --win: #0055aa;
+    --ink: #fff;
+    --dim: #aaccff;
+    --border: #fff;
+    --title: #fff;
+    --title-ink: #0055aa;
+    --hi: #ff8800;
+    --hi-ink: #000022;
+    --menu: #fff;
+    --menu-ink: #0055aa;
+    --face: #0055aa;
+    --good: #fff;
+    --warn: #ff8800;
+    --bad: #ff4444;
+    --font: "Topaz a600a1200a400", "Topaz", ui-monospace, "SF Mono", Menlo, "Courier New", monospace;
+    --size: 17px;
+    --line: 1.5;
+    --menu-h: 30px;
+}
+[data-skin="amiga"] .window { outline: 1px solid #000022; box-shadow: none; }
+[data-skin="amiga"] .tb { padding: 0; gap: 0; height: 28px; }
+[data-skin="amiga"] .tb span { margin: 0; flex: 1; padding-left: 10px; }
+[data-skin="amiga"] .tb .gl { width: 34px; height: 100%; border-right: 2px solid #000022; }
+[data-skin="amiga"] .tb .gl::after { content: ""; position: absolute; left: 11px; top: 8px; width: 10px; height: 10px; background: #fff; border: 2px solid #000022; }
+[data-skin="amiga"] .tb .gr { width: 44px; height: 100%; border-left: 2px solid #000022; }
+[data-skin="amiga"] .tb .gr::before { content: ""; position: absolute; left: 8px; top: 5px; width: 18px; height: 12px; border: 2px solid #000022; }
+[data-skin="amiga"] .tb .gr::after { content: ""; position: absolute; left: 16px; top: 11px; width: 18px; height: 12px; background: #fff; border: 2px solid #000022; }
+[data-skin="amiga"] .shot img, [data-skin="amiga"] .thumb img { border-color: #000022; }
+[data-skin="amiga"] .chips span { border-color: #fff; }
+[data-skin="amiga"] .thumb { box-shadow: inset 2px 2px 0 #fff, inset -2px -2px 0 #000022; border-color: transparent; }
+
+/* ═════════════ Atari ST  GEM ═════════════ */
+[data-skin="atari"] {
+    --desk: #00a000;
+    --desk-bg: radial-gradient(#007800 1px, transparent 1.3px) 0 0 / 4px 4px, #00a000;
+    --dim: #555;
+    --good: #008800;
+    --warn: #cc6600;
+    --bad: #cc0000;
+    --font: "Atari ST 8x16 System Font", Monaco, ui-monospace, Menlo, "Courier New", monospace;
+    --size: 16px;
+    --line: 1.55;
+    --menu-h: 30px;
+}
+[data-skin="atari"] .window { border-width: 1px; box-shadow: none; outline: 1px solid #000; outline-offset: 2px; }
+[data-skin="atari"] .menubar { border-bottom-width: 1px; }
+[data-skin="atari"] .tb {
+    border-bottom-width: 1px;
+    background: radial-gradient(#000 1px, transparent 1.2px) 0 0 / 4px 4px, #fff;
+}
+[data-skin="atari"] .tb span { background: #fff; }
+[data-skin="atari"] .tb i { background: #fff; border: 1px solid #000; }
+[data-skin="atari"] .tb .gl::after { content: ""; position: absolute; inset: 4px; background: linear-gradient(45deg, transparent 45%, #000 45% 55%, transparent 55%), linear-gradient(-45deg, transparent 45%, #000 45% 55%, transparent 55%); }
+[data-skin="atari"] .tb .gr::after { content: ""; position: absolute; inset: 4px; border: 1px solid #000; transform: rotate(45deg); }
+[data-skin="atari"] .chips span, [data-skin="atari"] .thumb, [data-skin="atari"] .attention { border-width: 1px; }
+[data-skin="atari"] .chips span:last-child { border-width: 3px; }
+
+/* ═════════════ MS-DOS ═════════════ */
+[data-skin="dos"] {
+    --desk: #000;
+    --desk-bg: #000;
+    --win: #0000aa;
+    --ink: #55ffff;
+    --dim: #aaaaaa;
+    --border: #55ffff;
+    --title: #0000aa;
+    --title-ink: #fff;
+    --hi: #00aaaa;
+    --hi-ink: #000;
+    --menu: #00aaaa;
+    --menu-ink: #000;
+    --face: #0000aa;
+    --good: #55ff55;
+    --warn: #ffff55;
+    --bad: #ff5555;
+    --font: "Px437 IBM VGA 8x16", "PxPlus IBM VGA8", "Perfect DOS VGA 437", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    --size: 17px;
+    --line: 1.45;
+    --menu-h: 28px;
+}
+[data-skin="dos"] body { padding-bottom: 70px; }
+[data-skin="dos"] .menubar { border-bottom: 0; }
+[data-skin="dos"] .menubar > a:not(.logo)::first-letter { color: #aa0000; }
+[data-skin="dos"] .window { border: 0; outline: 4px double #55ffff; outline-offset: -10px; box-shadow: 10px 10px 0 #555; padding: 4px; }
+[data-skin="dos"] .tb { background: none; border: 0; height: 26px; margin-top: -2px; }
+[data-skin="dos"] .tb span { background: var(--win); color: #fff; padding: 0 8px; }
+[data-skin="dos"] .window:hover .tb span, [data-skin="dos"] .hero .tb span { background: #00aaaa; color: #000; }
+[data-skin="dos"] .tb i { width: auto; height: auto; background: var(--win); padding: 0 2px; color: #55ffff; font-style: normal; }
+[data-skin="dos"] .tb .gl::before { content: "[\25A0]"; }
+[data-skin="dos"] .tb .gr::before { content: "[\2195]"; }
+[data-skin="dos"] .body { padding: 10px 26px 24px; }
+[data-skin="dos"] .shot img, [data-skin="dos"] .thumb img { border-color: #55ffff; }
+[data-skin="dos"] .chips span { border: 0; background: #00aa00; color: #000; box-shadow: 4px 4px 0 #000; }
+[data-skin="dos"] .chips span:last-child { background: #aa0000; color: #fff; }
+[data-skin="dos"] .thumb { border: 0; background: #0000aa; }
+[data-skin="dos"] .thumb span::before { content: "["; } [data-skin="dos"] .thumb span::after { content: "]"; }
+[data-skin="dos"] .attention { border: 1px solid #55ffff; }
+[data-skin="dos"] #skin-list { border: 0; outline: 4px double #000; outline-offset: -6px; padding: 8px 0; box-shadow: 8px 8px 0 #000; }
+[data-skin="dos"] .fkeys {
+    display: flex;
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    z-index: 20;
+    background: #000;
+    overflow-x: auto;
+}
+[data-skin="dos"] .fkeys > * {
+    flex: 1 0 auto;
+    display: flex;
+    text-decoration: none;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    padding: 0 10px 0 0;
+    color: #000;
+    background: #00aaaa;
+    white-space: nowrap;
+}
+[data-skin="dos"] .fkeys b { color: #fff; font-weight: normal; padding: 0 4px 0 8px; margin-right: 2px; background: #000; }
+[data-skin="dos"] .fkeys > *:hover, [data-skin="dos"] .fkeys > *:focus-visible { background: #55ffff; outline: none; }
+
+/* ═════════════ Windows 3.1 ═════════════ */
+[data-skin="win31"] {
+    --desk: #c0c0c0;
+    --desk-bg: repeating-conic-gradient(#c0c0c0 0 25%, #a8a8a8 0 50%) 0 0 / 4px 4px;
+    --dim: #808080;
+    --title: #000080;
+    --title-ink: #fff;
+    --hi: #000080;
+    --hi-ink: #fff;
+    --face: #c0c0c0;
+    --good: #008000;
+    --warn: #808000;
+    --bad: #c00000;
+    --font: "MS Sans Serif", "W95FA", Tahoma, Verdana, sans-serif;
+    --size: 15px;
+    --line: 1.5;
+    --menu-h: 28px;
+}
+[data-skin="win31"] body, [data-skin="win31"] .tb { font-weight: bold; }
+[data-skin="win31"] .menubar { border-bottom-width: 1px; }
+[data-skin="win31"] .window { border: 1px solid #000; outline: 4px solid #c0c0c0; box-shadow: 0 0 0 5px #000; margin: 5px; }
+[data-skin="win31"] .tb { height: 26px; padding: 0; gap: 0; border-bottom-width: 1px; }
+[data-skin="win31"] .tb span { background: none; }
+[data-skin="win31"] .tb i { width: 26px; height: 26px; background: #c0c0c0; border-right: 1px solid #000; box-shadow: inset -2px -2px 0 #808080, inset 2px 2px 0 #fff; }
+[data-skin="win31"] .tb .gl::after { content: ""; position: absolute; left: 6px; top: 11px; width: 14px; height: 4px; background: #fff; border: 1px solid #000; }
+[data-skin="win31"] .tb .gr { border-right: 0; border-left: 1px solid #000; }
+[data-skin="win31"] .tb .gr::after { content: "\25B2"; position: absolute; inset: 0; text-align: center; line-height: 26px; font-size: 11px; color: #000; }
+[data-skin="win31"] .chips span, [data-skin="win31"] .thumb {
+    background: #c0c0c0; color: #000; border: 1px solid #000;
+    box-shadow: inset -2px -2px 0 #808080, inset 2px 2px 0 #fff;
+}
+[data-skin="win31"] .thumb[aria-pressed="true"], [data-skin="win31"] .thumb:hover { box-shadow: inset 2px 2px 0 #808080; background: #c0c0c0; color: #000; outline: 2px solid #000080; }
+[data-skin="win31"] .chips span:last-child { background: #000080; color: #fff; box-shadow: none; }
+
+/* ═════════════ Windows 95 ═════════════ */
+[data-skin="win95"] {
+    --desk: #008080;
+    --desk-bg: #008080;
+    --win: #c0c0c0;
+    --dim: #808080;
+    --border: #000;
+    --title: #000080;
+    --title-ink: #fff;
+    --hi: #000080;
+    --hi-ink: #fff;
+    --menu: #c0c0c0;
+    --face: #c0c0c0;
+    --good: #008000;
+    --warn: #808000;
+    --bad: #c00000;
+    --font: Tahoma, "W95FA", "MS Sans Serif", Verdana, sans-serif;
+    --size: 15px;
+    --line: 1.5;
+    --menu-h: 28px;
+}
+[data-skin="win95"] body { padding-bottom: 60px; }
+[data-skin="win95"] .menubar { border-bottom: 0; box-shadow: inset 0 -1px 0 #808080, inset 0 -2px 0 #fff; }
+[data-skin="win95"] .window {
+    border: 0;
+    padding: 4px;
+    box-shadow: inset -1px -1px #000, inset 1px 1px #dfdfdf, inset -2px -2px #808080, inset 2px 2px #fff, 2px 2px 0 rgba(0, 0, 0, .25);
+}
+[data-skin="win95"] .tb { height: 26px; border: 0; padding: 0 3px 0 6px; font-weight: bold; gap: 2px; }
+[data-skin="win95"] .tb span { margin: 0; flex: 1; padding: 0; background: none; }
+[data-skin="win95"] .tb .gl { display: none; }
+[data-skin="win95"] .tb .gr { width: 58px; height: 18px; }
+[data-skin="win95"] .tb .gr::before, [data-skin="win95"] .tb .gr::after {
+    position: absolute; top: 0; height: 18px; background: #c0c0c0; color: #000;
+    box-shadow: inset -1px -1px #000, inset 1px 1px #fff, inset -2px -2px #808080;
+    font: bold 11px/17px Tahoma, sans-serif; text-align: center;
+}
+[data-skin="win95"] .tb .gr::before { content: "_  \25A1"; left: 0; width: 36px; letter-spacing: 2px; }
+[data-skin="win95"] .tb .gr::after { content: "\00D7"; right: 0; width: 18px; font-size: 14px; }
+[data-skin="win95"] .body { padding: 16px 16px 18px; }
+[data-skin="win95"] .shot img, [data-skin="win95"] .attention, [data-skin="win95"] .thumb img {
+    border: 0; box-shadow: inset 1px 1px #808080, 0 0 0 1px #fff, -1px -1px 0 1px #808080;
+}
+[data-skin="win95"] .attention { background: #fff; }
+[data-skin="win95"] .chips span, [data-skin="win95"] .thumb {
+    background: #c0c0c0; color: #000; border: 0;
+    box-shadow: inset -1px -1px #000, inset 1px 1px #fff, inset -2px -2px #808080, inset 2px 2px #dfdfdf;
+    padding: 2px 10px;
+}
+[data-skin="win95"] .thumb { padding: 8px; }
+[data-skin="win95"] .thumb[aria-pressed="true"], [data-skin="win95"] .thumb:hover { background: #c0c0c0; color: #000; box-shadow: inset 1px 1px #000, inset -1px -1px #fff, inset 2px 2px #808080; }
+[data-skin="win95"] .chips span:last-child { background: #000080; color: #fff; }
+[data-skin="win95"] #skin-list { border: 0; box-shadow: inset -1px -1px #000, inset 1px 1px #dfdfdf, inset -2px -2px #808080, inset 2px 2px #fff; padding: 4px; }
+[data-skin="win95"] .menubar .clock { display: none; }
+[data-skin="win95"] .taskbar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    z-index: 20;
+    height: 36px;
+    padding: 3px 4px;
+    background: #c0c0c0;
+    box-shadow: inset 0 1px #dfdfdf, inset 0 2px #fff;
+}
+[data-skin="win95"] .taskbar .start, [data-skin="win95"] .taskbar .task {
+    display: flex; align-items: center; gap: 5px; height: 28px; padding: 0 8px;
+    background: #c0c0c0; border: 0; font-weight: bold; cursor: pointer;
+    box-shadow: inset -1px -1px #000, inset 1px 1px #fff, inset -2px -2px #808080, inset 2px 2px #dfdfdf;
+}
+[data-skin="win95"] .taskbar .task { font-weight: normal; min-width: 160px; box-shadow: inset 1px 1px #000, inset -1px -1px #fff, inset 2px 2px #808080; background: #dfdfdf; }
+[data-skin="win95"] .taskbar img { width: 18px; height: 18px; }
+[data-skin="win95"] .taskbar .clock { padding: 0 10px; height: 28px; box-shadow: inset 1px 1px #808080, inset -1px -1px #fff; }
+
+/* ───────────── Small screens ───────────── */
+@media (max-width: 860px) {
+    .span7, .span5, .span6 { grid-column: span 12; }
+    .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 560px) {
+    :root { --size: 19px; }
+    [data-skin="amiga"], [data-skin="atari"], [data-skin="dos"] { --size: 15px; }
+    [data-skin="win31"], [data-skin="win95"] { --size: 14px; }
+    body { padding-left: 16px; padding-right: 16px; }
+    .hero-head { flex-direction: column; align-items: flex-start; gap: 14px; }
+    .app-icon { width: 96px; height: 96px; }
+    .body { padding: 16px; }
+    .gallery { grid-template-columns: minmax(0, 1fr); }
+    .clock { display: none; }
+    /* Phones: keep the logo, Skins and the Skin menu; the rest is one scroll away. */
+    .menubar > a[href^="#"]:not(.logo):not([href="#skins"]) { display: none; }
+    .skinmenu { margin-left: auto; }
+    #skin-list { left: 8px; right: 8px; min-width: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
