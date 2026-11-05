@@ -32,15 +32,16 @@
                 <ul>
                     <li>Folders and files on your Mac that you point it to: your homepage folder, your source folders, Xcode and Android Studio projects, and Apple IIgs disk images. They are read, not uploaded.</li>
                     <li>The list of projects, and the sales, statistics, reviews and earnings it downloads for your own apps, are stored in a file in your Library folder, on your Mac only.</li>
-                    <li>Your optional App Store Connect API key, Google service account key and GitHub token are stored in your macOS Keychain.</li>
+                    <li>Your optional App Store Connect API key, Google service account key, AdMob sign-in and GitHub token are stored in your macOS Keychain.</li>
                 </ul>
 
                 <h2>Network requests the app makes</h2>
                 <ul>
                     <li>Apple's public App Store lookup (itunes.apple.com), with the App Store IDs of your apps, to read versions, dates, ratings and icons.</li>
-                    <li>GitHub's API (api.github.com), with the names of your repositories, to read the latest releases.</li>
+                    <li>GitHub's API (api.github.com), with the names of your repositories, to read releases, visits, clones, stars and downloads (with your own token).</li>
                     <li>App Store Connect (api.appstoreconnect.apple.com), only if you add your own API key: review status, sales and financial reports, App Analytics reports and customer reviews of your apps. If you allow it, the app asks Apple once per app to prepare App Analytics reports.</li>
                     <li>Google (oauth2.googleapis.com, androidpublisher.googleapis.com, storage.googleapis.com), only if you add your own service account: to sign in, to read your Google Play tracks and reviews, and to read the reports Play Console keeps for your account. Tracks are read through a temporary edit that is deleted right away; nothing on your listings changes.</li>
+                    <li>Google AdMob (accounts.google.com, oauth2.googleapis.com, admob.googleapis.com), only if you sign in to AdMob: the app asks for read-only access to your AdMob reports and reads the earnings, impressions and clicks of your own apps. Nothing is changed in your AdMob account, and the data stays on your Mac.</li>
                     <li>The public Google Play page of each package (play.google.com), to see whether an app is published.</li>
                     <li>The European Central Bank (www.ecb.europa.eu), for daily exchange rates to convert proceeds.</li>
                 </ul>
