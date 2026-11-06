@@ -13,7 +13,7 @@
         <a href="index.html" class="back-link">&larr; Voltar ao Início</a>
 
         <h1>Política de Privacidade</h1>
-        <p><strong>Última atualização:</strong> 2 de setembro de 2026</p>
+        <p><strong>Última atualização:</strong> 6 de novembro de 2026</p>
 
         <h2>1. Introdução</h2>
         <p>A Alerta ("nós", "nosso" ou "a app") está empenhada em proteger a sua privacidade. Esta Política de Privacidade explica como recolhemos, utilizamos e protegemos as suas informações quando utiliza a nossa aplicação móvel.</p>
@@ -28,6 +28,7 @@
             <li>Filtrar localmente que ocorrências estão dentro do seu raio de alerta</li>
         </ul>
         <p>A localização permanece no seu dispositivo, exceto quando ativa explicitamente os <strong>Alertas de ocorrências</strong> (ver secção 2.3) ou quando submete uma denúncia cidadã (ver secção 2.5).</p>
+        <p>Se ativar a opção opcional <em>Atualizar localização em segundo plano</em> (desativada por predefinição), a Alerta pode também obter a sua localização quando a app está fechada ou não está a ser usada, para manter atualizado o ponto de monitorização descrito na secção 2.3. Para isso, o sistema pede-lhe a permissão de localização «Sempre». Pode desativar a opção ou revogar a permissão a qualquer momento.</p>
 
         <h3>2.2 Definições da App</h3>
         <p>As suas preferências de notificação (raio de alerta, tipos de ocorrência, definições de som, idioma) são armazenadas localmente no seu dispositivo utilizando mecanismos de armazenamento padrão da plataforma (UserDefaults no iOS, EncryptedSharedPreferences/DataStore no Android).</p>
@@ -36,11 +37,11 @@
         <p>Se ativar a opção <em>Alertas de ocorrências</em> nas Definições da app, transmitimos para o nosso servidor o mínimo necessário para entregar notificações enquanto a app está fechada:</p>
         <ul>
             <li><strong>Token de notificação push (FCM token)</strong> — identificador anónimo gerado pelo Firebase Cloud Messaging, válido apenas para esta instalação da app neste dispositivo</li>
-            <li><strong>Ponto de monitorização</strong> — uma única coordenada (lat/lng) que escolhe ao ativar a opção. Por predefinição, este ponto <em>não</em> é atualizado quando se desloca; só é reenviado se ativar adicionalmente "Atualizar localização automaticamente" e ultrapassar 2 km do último ponto enviado, com um limite mínimo de 1 hora entre atualizações.</li>
+            <li><strong>Ponto de monitorização</strong> — uma única coordenada (lat/lng) que escolhe ao ativar a opção. Por predefinição, este ponto <em>não</em> é atualizado quando se desloca; só é reenviado se ativar adicionalmente "Atualizar localização automaticamente" e ultrapassar 2 km do último ponto enviado, com um limite mínimo de 1 hora entre atualizações. Se ativar também <em>Atualizar localização em segundo plano</em>, o ponto pode ser reenviado mesmo com a app fechada, com os mesmos limites (mais de 2 km e no máximo uma vez por hora).</li>
             <li><strong>Raio de alerta</strong> e <strong>idioma preferido</strong> — para que o servidor envie a notificação localizada</li>
             <li><strong>Magnitude mínima de sismo</strong> (opcional) — se ativar os Alertas de Sismos, o limiar de magnitude que escolhe (1.0–6.0) é guardado para que o servidor saiba a partir de que ponto deve enviar uma notificação. Os dados sismológicos vêm do IPMA (fonte pública).</li>
             <li><strong>Identificador de utilizador</strong> (apenas se tiver iniciado sessão) — quando inicia sessão, o registo do dispositivo no servidor é associado à sua conta para que os operadores da Proteção Civil possam saber quem é o autor das denúncias cidadãs e para podermos preservar a sua reputação ao mudar de dispositivo. Se nunca iniciar sessão, este campo permanece vazio e o registo é completamente anónimo.</li>
-            <li><strong>Histórico de localização (7 dias)</strong> — para apoiar a operação dos serviços de emergência, sempre que o seu ponto de monitorização muda mais de 200 metros, gravamos o novo par lat/lng com um carimbo de tempo. Estes pontos são automaticamente eliminados ao fim de 7 dias. Permite ao painel dos operadores visualizar as deslocações dos dispositivos durante uma operação. Não é guardado um trilho contínuo (apenas as posições onde se moveu significativamente); o histórico é eliminado se desativar os Alertas de ocorrências ou eliminar a sua conta.</li>
+            <li><strong>Histórico de localização (7 dias)</strong> — para apoiar a operação dos serviços de emergência, sempre que o seu ponto de monitorização muda mais de 200 metros, gravamos o novo par lat/lng com um carimbo de tempo. Isto aplica-se também às atualizações enviadas com a app fechada, se ativar a atualização em segundo plano (no máximo uma vez por hora). Estes pontos são automaticamente eliminados ao fim de 7 dias. Permite ao painel dos operadores visualizar as deslocações dos dispositivos durante uma operação. Não é guardado um trilho contínuo (apenas as posições onde se moveu significativamente); o histórico é eliminado se desativar os Alertas de ocorrências ou eliminar a sua conta.</li>
         </ul>
         <p>Quando desativa os Alertas de ocorrências, o registo do dispositivo e o seu histórico de localização são eliminados do nosso servidor.</p>
 
@@ -172,7 +173,7 @@
         <hr style="margin: 3rem 0;">
 
         <h1>Privacy Policy</h1>
-        <p><strong>Last updated:</strong> September 2, 2026</p>
+        <p><strong>Last updated:</strong> November 6, 2026</p>
 
         <h2>1. Introduction</h2>
         <p>Alerta ("we", "our", or "the app") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard your information when you use our mobile application.</p>
@@ -187,6 +188,7 @@
             <li>Filter locally which incidents are within your alert radius</li>
         </ul>
         <p>Location stays on your device, except when you explicitly enable <strong>Incident alerts</strong> (see section 2.3) or submit a citizen report (see section 2.5).</p>
+        <p>If you turn on the optional <em>Update my location in the background</em> setting (off by default), Alerta may also obtain your location while the app is closed or not in use, to keep the monitoring point described in section 2.3 up to date. Your device asks for the "Always" location permission for this. You can turn the setting off or revoke the permission at any time.</p>
 
         <h3>2.2 App Settings</h3>
         <p>Your notification preferences (alert radius, incident types, sound settings, language) are stored locally on your device using the platform's standard storage mechanisms (UserDefaults on iOS, EncryptedSharedPreferences/DataStore on Android).</p>
@@ -195,11 +197,11 @@
         <p>If you enable <em>Incident alerts</em> in the app's Settings, we transmit the minimum data needed to deliver notifications while the app is closed:</p>
         <ul>
             <li><strong>Push notification token (FCM token)</strong> — an anonymous identifier issued by Firebase Cloud Messaging, valid only for this install of the app on this device</li>
-            <li><strong>Monitoring point</strong> — a single coordinate (lat/lng) chosen when you enable the option. By default this point is <em>not</em> updated as you move; it is only re-sent if you additionally enable "Auto-update my location" and you've moved more than 2 km from the last sent point, with a minimum 1-hour cool-down between updates.</li>
+            <li><strong>Monitoring point</strong> — a single coordinate (lat/lng) chosen when you enable the option. By default this point is <em>not</em> updated as you move; it is only re-sent if you additionally enable "Auto-update my location" and you've moved more than 2 km from the last sent point, with a minimum 1-hour cool-down between updates. If you also turn on <em>Update my location in the background</em>, the point can be re-sent while the app is closed, under the same limits (more than 2 km, at most once an hour).</li>
             <li><strong>Alert radius</strong> and <strong>preferred language</strong> — so the server can localize the notification</li>
             <li><strong>Earthquake minimum magnitude</strong> (optional) — if you enable Earthquake Alerts, the magnitude threshold you pick (1.0–6.0) is stored so the server knows when to push you. Earthquake data itself comes from IPMA (a public source).</li>
             <li><strong>User identifier</strong> (only if you have signed in) — when you sign in, the device row on the server is associated with your account so Civil Protection operators can attribute citizen reports to a known user and so your reputation is preserved across device changes. If you never sign in, this field stays empty and the device record is fully anonymous.</li>
-            <li><strong>Location history (7 days)</strong> — to support Civil Protection operations, every time your monitoring point moves more than 200 metres we record the new lat/lng pair with a timestamp. These points are automatically deleted after 7 days. The operator dashboard uses them to visualise device movement during an operation. We do not record a continuous trail (only positions where you've moved significantly); the history is deleted if you disable Incident alerts or delete your account.</li>
+            <li><strong>Location history (7 days)</strong> — to support Civil Protection operations, every time your monitoring point moves more than 200 metres we record the new lat/lng pair with a timestamp. This also applies to updates sent while the app is closed, if you turn on background updates (at most once an hour). These points are automatically deleted after 7 days. The operator dashboard uses them to visualise device movement during an operation. We do not record a continuous trail (only positions where you've moved significantly); the history is deleted if you disable Incident alerts or delete your account.</li>
         </ul>
         <p>When you turn Incident alerts off, the device record and its location history are deleted from our server.</p>
 
