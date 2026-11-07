@@ -313,6 +313,24 @@
         table.diff td { color: var(--light); }
         table.diff tbody th { color: var(--dim); }
 
+        /* ---- the manual reader ---- */
+        .reader { margin-bottom: 26px; }
+        .reader .steel { padding: 14px; }
+        .reader .stage { background: #14141a; border: 2px solid; border-color: #26262f #9a9aa8 #9a9aa8 #26262f; padding: 14px; display: flex; justify-content: center; gap: 14px; min-height: 120px; touch-action: pan-y; }
+        .reader .pg { margin: 0; flex: 0 1 auto; min-width: 0; max-width: 540px; width: 100%; position: relative; }
+        .reader .pg img { display: block; width: 100%; height: auto; aspect-ratio: 210 / 297; background: #fdf8ec; box-shadow: 0 6px 22px rgba(0, 0, 0, 0.6); }
+        .reader .stage.one .pg:nth-child(2) { display: none; }
+        .reader .stage.cover .pg:nth-child(2) { display: none; }
+        .reader .bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px; margin-top: 12px; }
+        .reader .bar .count { font-family: var(--term); color: var(--ore); font-size: 1.3rem; min-width: 11ch; text-align: center; }
+        .reader .bar button { font-family: var(--stencil); letter-spacing: 1px; font-size: 0.95rem; cursor: pointer; color: var(--gold); background: #1d1d26; padding: 7px 16px; border: 2px solid; border-color: #9a9aa8 #26262f #26262f #9a9aa8; }
+        .reader .bar button:hover:not(:disabled) { background: var(--gold); color: var(--light); text-shadow: 1px 1px 0 var(--gold-d); }
+        .reader .bar button:disabled { opacity: 0.35; cursor: default; }
+        .reader .thumbs { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-top: 12px; }
+        .reader .thumbs button { padding: 0; width: 42px; height: 30px; font-family: var(--term); font-size: 1.1rem; line-height: 26px; }
+        .reader .thumbs button.on { background: var(--gold); color: var(--light); }
+        .reader .note { text-align: center; margin-top: 10px; color: var(--dim); font-size: 0.92rem; }
+
         /* ---- field manual ---- */
         .manual { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 22px; }
         .manual .steel { padding: 14px; }
@@ -842,6 +860,20 @@
     <section id="manual">
         <div class="container">
             <div class="plate"><h2 class="steel">FIELD MANUAL</h2><span class="code">MOUSE + KEYS</span><span class="rule"></span></div>
+            <div class="reader" id="reader">
+                <div class="steel"><div class="well">
+                    <h3 style="font-family: var(--stencil); font-weight: 400; color: var(--gold); letter-spacing: 1px; font-size: 1.2rem; margin-bottom: 10px;">THE OFFICIAL MANUAL</h3>
+                    <div class="stage" id="rstage" aria-live="polite"></div>
+                    <div class="bar">
+                        <button type="button" id="rprev" aria-label="Previous page">&#9664; BACK</button>
+                        <span class="count" id="rcount"></span>
+                        <button type="button" id="rnext" aria-label="Next page">NEXT &#9654;</button>
+                        <a class="btn" href="Conquer-GS-2-Manual.pdf" target="_blank" rel="noopener">DOWNLOAD (PDF)</a>
+                    </div>
+                    <div class="thumbs" id="rthumbs"></div>
+                    <p class="note">Turn the pages with the buttons, the arrow keys, a click on the page's edge, or a swipe.</p>
+                </div></div>
+            </div>
             <div class="manual">
                 <div class="steel"><div class="well">
                     <h3>CONTROLS</h3>
@@ -859,7 +891,8 @@
                         <tr><td>RALLY POINT</td><td>Click your barracks or war factory, then ground: its rally point</td></tr>
                         <tr><td>SELL / REPAIR</td><td>Then click one of your structures</td></tr>
                         <tr><td>REST THE MOUSE</td><td>See what something is - and what it costs</td></tr>
-                        <tr><td>M</td><td>Music off or on (the volume of music and effects: on the mission setup screen)</td></tr>
+                        <tr><td>M / CTRL-S</td><td>Music off or on (the volume of music and effects: on the mission setup screen)</td></tr>
+                        <tr><td>CTRL-T</td><td>Show the song playing; press it again for the next song</td></tr>
                         <tr><td>ESC</td><td>Pause - the panel lists the controls; resume, or quit the mission</td></tr>
                     </table>
                 </div></div>
@@ -1113,6 +1146,69 @@
         }, { rootMargin: '-45% 0px -50% 0px' });
         document.querySelectorAll('main section[id]').forEach(function (s) { obs.observe(s); });
     }
+})();
+</script>
+<script>
+(function () {
+    var N = 10, stage = document.getElementById('rstage');
+    if (!stage) return;
+    var prev = document.getElementById('rprev'), next = document.getElementById('rnext');
+    var count = document.getElementById('rcount'), thumbs = document.getElementById('rthumbs');
+    var mq = window.matchMedia('(max-width: 820px)');
+    var cur = 1;                                   // the left (or only) page shown
+    function src(n) { return 'manual/p-' + (n < 10 ? '0' : '') + n + '.jpg'; }
+    function spread(n) {                           // pages shown together: 1 | 2-3 | 4-5 ... | 10
+        if (mq.matches || n === 1) return [n];
+        var a = n % 2 === 0 ? n : n - 1;
+        return a + 1 <= N ? [a, a + 1] : [a];
+    }
+    function show(n) {
+        n = Math.max(1, Math.min(N, n));
+        var pages = spread(n);
+        cur = pages[0];
+        stage.className = 'stage' + (pages.length === 1 ? ' one' : '');
+        stage.innerHTML = '';
+        pages.forEach(function (p) {
+            var f = document.createElement('div'); f.className = 'pg';
+            var i = document.createElement('img'); i.src = src(p); i.alt = 'Manual page ' + p; i.draggable = false;
+            f.appendChild(i); stage.appendChild(f);
+        });
+        var last = pages[pages.length - 1];
+        count.textContent = pages.length > 1 ? 'PAGES ' + pages[0] + '-' + last + ' / ' + N : 'PAGE ' + last + ' / ' + N;
+        prev.disabled = cur <= 1; next.disabled = last >= N;
+        Array.prototype.forEach.call(thumbs.children, function (b) {
+            var k = +b.getAttribute('data-p'); b.className = pages.indexOf(k) >= 0 ? 'on' : '';
+        });
+        [last + 1, cur - 1].forEach(function (q) { if (q >= 1 && q <= N) { (new Image()).src = src(q); } });
+    }
+    function step(d) {
+        var pages = spread(cur);
+        show(d > 0 ? pages[pages.length - 1] + 1 : cur - 1);
+    }
+    for (var k = 1; k <= N; k++) {
+        var b = document.createElement('button'); b.type = 'button'; b.textContent = k; b.setAttribute('data-p', k);
+        b.setAttribute('aria-label', 'Page ' + k);
+        b.addEventListener('click', (function (q) { return function () { show(q); }; })(k));
+        thumbs.appendChild(b);
+    }
+    prev.addEventListener('click', function () { step(-1); });
+    next.addEventListener('click', function () { step(1); });
+    stage.addEventListener('click', function (e) {
+        var r = stage.getBoundingClientRect(); step(e.clientX < r.left + r.width / 2 ? -1 : 1);
+    });
+    var x0 = null;
+    stage.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; }, { passive: true });
+    stage.addEventListener('touchend', function (e) {
+        if (x0 === null) return; var dx = e.changedTouches[0].clientX - x0; x0 = null;
+        if (Math.abs(dx) > 40) step(dx < 0 ? 1 : -1);
+    });
+    document.addEventListener('keydown', function (e) {
+        var r = document.getElementById('reader').getBoundingClientRect();
+        if (r.bottom < 0 || r.top > window.innerHeight || e.metaKey || e.ctrlKey || e.altKey) return;
+        if (e.key === 'ArrowRight') { step(1); e.preventDefault(); } else if (e.key === 'ArrowLeft') { step(-1); e.preventDefault(); }
+    });
+    (mq.addEventListener ? mq.addEventListener.bind(mq, 'change') : mq.addListener.bind(mq))(function () { show(cur); });
+    show(1);
 })();
 </script>
 </body>
