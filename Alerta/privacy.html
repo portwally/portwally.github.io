@@ -13,7 +13,7 @@
         <a href="index.html" class="back-link">&larr; Voltar ao Início</a>
 
         <h1>Política de Privacidade</h1>
-        <p><strong>Última atualização:</strong> 6 de novembro de 2026</p>
+        <p><strong>Última atualização:</strong> 7 de novembro de 2026</p>
 
         <h2>1. Introdução</h2>
         <p>A Alerta ("nós", "nosso" ou "a app") está empenhada em proteger a sua privacidade. Esta Política de Privacidade explica como recolhemos, utilizamos e protegemos as suas informações quando utiliza a nossa aplicação móvel.</p>
@@ -63,7 +63,7 @@
             <li>O <strong>tipo</strong> de ocorrência (categoria escolhida na app)</li>
             <li>A <strong>localização</strong> em coordenadas (lat/lng) do incidente — escolhida por si no mapa, não derivada da sua localização atual</li>
             <li>Uma <strong>descrição</strong> em texto livre que escreve (opcional, máximo 280 caracteres)</li>
-            <li>Uma ou mais <strong>fotografias</strong> (opcional) — armazenadas no Cloudflare R2; metadados EXIF são removidos pelo servidor antes do armazenamento</li>
+            <li>Uma ou mais <strong>fotografias</strong> (opcional) — armazenadas no Cloudflare R2; metadados EXIF são removidos pelo servidor antes do armazenamento, exceto a orientação da imagem (para que as fotografias na vertical apareçam direitas). Se a fotografia contiver coordenadas GPS, o servidor lê-as antes de as remover e guarda-as separadamente, apenas para os operadores verificarem o reporte; nunca ficam na fotografia nem em respostas públicas e são eliminadas juntamente com a fotografia</li>
             <li>Um <strong>indicador de anonimato</strong> que escolhe na submissão (publicar com o seu nome ou anonimamente)</li>
             <li>O instante (timestamp) de submissão</li>
             <li>O seu <strong>identificador de utilizador</strong> (não público se escolher anónimo)</li>
@@ -173,7 +173,7 @@
         <hr style="margin: 3rem 0;">
 
         <h1>Privacy Policy</h1>
-        <p><strong>Last updated:</strong> November 6, 2026</p>
+        <p><strong>Last updated:</strong> November 7, 2026</p>
 
         <h2>1. Introduction</h2>
         <p>Alerta ("we", "our", or "the app") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard your information when you use our mobile application.</p>
@@ -223,7 +223,7 @@
             <li>The <strong>type</strong> of incident (category you pick in the app)</li>
             <li>The <strong>location</strong> in coordinates (lat/lng) of the incident — chosen by you on the map, not derived from your current position</li>
             <li>A free-text <strong>description</strong> you write (optional, up to 280 characters)</li>
-            <li>One or more <strong>photos</strong> (optional) — stored in Cloudflare R2; EXIF metadata is stripped server-side before storage</li>
+            <li>One or more <strong>photos</strong> (optional) — stored in Cloudflare R2; EXIF metadata is stripped server-side before storage, except the image orientation (so portrait photos display upright). If the photo contains GPS coordinates, the server reads them before removing them and keeps them separately, only for operators to verify the report; they never remain in the photo or appear in public responses, and are deleted together with the photo</li>
             <li>An <strong>anonymity flag</strong> you set on submission (post under your name or anonymously)</li>
             <li>The submission <strong>timestamp</strong></li>
             <li>Your <strong>user identifier</strong> (not publicly displayed if you choose anonymous)</li>
