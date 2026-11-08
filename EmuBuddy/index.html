@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EmuBuddy - an Apple IIgs emulator you run with the mouse</title>
+    <meta name="description" content="EmuBuddy is an Apple IIgs emulator for macOS, Windows and Linux with menus, drag and drop, PDF printing, internet access and shared folders. Built on KEGS.">
+    <meta name="keywords" content="Apple IIgs, emulator, KEGS, GSplus, GS/OS, ProDOS, PDF printing, ImageWriter, PostScript, Uthernet II, macOS, Windows, Linux, retro computing">
+    <meta property="og:title" content="EmuBuddy">
+    <meta property="og:description" content="An Apple IIgs emulator you run with the mouse. Drag and drop, PDF printing, internet, shared folders.">
+    <meta property="og:image" content="https://portwally.github.io/EmuBuddy/img/desktop.png">
+    <meta property="og:type" content="website">
+    <link rel="icon" type="image/png" href="img/icon.png">
+    <link rel="apple-touch-icon" href="img/icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script data-goatcounter="https://portwally.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+
+<nav class="menubar">
+    <span class="apple" title="EmuBuddy"></span>
+    <a href="../">portwally.github.io</a>
+    <a href="#features">Features</a>
+    <a href="#printing">Printing</a>
+    <a href="#dragdrop">Drag &amp; Drop</a>
+    <a href="#cli">Command line</a>
+    <a class="right" href="#get">Get it</a>
+</nav>
+
+<div class="wrap">
+
+<!-- ================= hero ================= -->
+<section class="win" id="top">
+    <div class="title"><h2>Welcome to EmuBuddy</h2></div>
+    <div class="body">
+        <div class="hero">
+            <img class="icon" src="img/icon.png" alt="EmuBuddy icon">
+            <h1>EmuBuddy</h1>
+            <p class="tag">An Apple IIgs emulator you run with the mouse.</p>
+            <p class="sub">Menus, windows, drag and drop, printing to PDF, internet and file exchange with your computer &ndash; all without typing a command.</p>
+            <a class="btn default" href="#get">Get it</a>
+            <a class="btn" href="#features">See what it does</a>
+            <div class="stripes" role="presentation"></div>
+            <p class="platforms">macOS (Apple Silicon) &middot; Windows (x64) &middot; Linux (x64, arm64) &middot; free, GPL 3</p>
+        </div>
+        <figure>
+            <div class="monitor"><div class="glass"><img src="img/desktop.png" width="1000" height="713" alt="EmuBuddy running GS/OS System 6 on macOS, with the menu bar and status bar around the emulator picture"></div></div>
+            <figcaption><b>Fig. 1</b> System 6 on a Mac. The menu bar and status bar belong to EmuBuddy; everything between them is the IIgs.</figcaption>
+        </figure>
+        <p>EmuBuddy is built on <a href="http://kegs.sourceforge.net">KEGS</a>, Kent Dickey&rsquo;s Apple IIgs emulator, through the <a href="https://github.com/digarok/gsplus">GSplus</a> SDL3 build. The emulator core is the proven KEGS one. What EmuBuddy adds is everything around it: a menu bar, a status bar and tool windows, easy disk handling, a printer, network access, and several ways to move files between the IIgs and the computer it runs on.</p>
+    </div>
+</section>
+
+<!-- ================= features ================= -->
+<section class="win" id="features">
+    <div class="title"><h2>Features</h2></div>
+    <div class="body">
+        <div class="grid">
+            <div class="feature">
+                <h3>A real user interface</h3>
+                <p>Menus, a status bar and windows for drives, slots, the printer and more. On macOS you get the normal menu bar and the system&rsquo;s own file choosers.</p>
+            </div>
+            <div class="feature">
+                <h3>Printing to PDF</h3>
+                <p>Print from GS/OS to a virtual ImageWriter II or a PostScript printer. Pages appear in a preview window; save them as PDF or send them to a real printer.</p>
+            </div>
+            <div class="feature">
+                <h3>Drag and drop</h3>
+                <p>Drop a disk image on the window to mount it. Drop a file and it lands in the Finder window that is open in the IIgs.</p>
+            </div>
+            <div class="feature">
+                <h3>Disks on the fly</h3>
+                <p>Two 3.5&Prime; and two 5.25&Prime; drives plus a SCSI card with seven hard disks. <code>.po</code> <code>.2mg</code> <code>.hdv</code> <code>.dsk</code> <code>.do</code> <code>.woz</code> and more.</p>
+            </div>
+            <div class="feature">
+                <h3>Shared folders</h3>
+                <p>A folder on your computer becomes a ProDOS disk. What the IIgs saves is a normal file on your computer, and the other way round.</p>
+            </div>
+            <div class="feature">
+                <h3>Internet</h3>
+                <p>An Uthernet II card with a built-in network. Marinetti and TCP/IP programs get DHCP, DNS and a connection with no set-up on your side.</p>
+            </div>
+            <div class="feature">
+                <h3>Configurable slots</h3>
+                <p>Choose the card for every slot in a window, not in a text file: printer, modem, Mockingboard, Uthernet II, SCSI.</p>
+            </div>
+            <div class="feature">
+                <h3>Speed</h3>
+                <p>From the stock 1 and 2.8&nbsp;MHz through ZipGS speeds up to the full speed of your computer, switchable at any moment.</p>
+            </div>
+            <div class="feature">
+                <h3>Screenshots and video</h3>
+                <p>One key saves a screenshot; another records an MP4 with sound.</p>
+            </div>
+            <div class="feature">
+                <h3>Your keyboard</h3>
+                <p>German, French, Spanish and other keyboards type what their keys show. Paste text from your clipboard into the IIgs and copy text screens out.</p>
+            </div>
+            <div class="feature">
+                <h3>Disk Browser</h3>
+                <p>Look inside any ProDOS disk image and take files out, with their file type and size.</p>
+            </div>
+            <div class="feature">
+                <h3>A command line, too</h3>
+                <p>Every setting also works from the command line in the style of MAME&rsquo;s <code>apple2gs</code>. <a href="#cli">See below.</a></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ================= printing ================= -->
+<section class="win" id="printing">
+    <div class="title"><h2>Printing to PDF</h2></div>
+    <div class="body">
+        <figure>
+            <div class="monitor"><div class="glass"><img src="img/printer.png" width="1000" height="713" loading="lazy" alt="The Printer window showing a printed page with the buttons Save PDF, Print, Open, Clear and Eject"></div></div>
+            <figcaption><b>Fig. 2</b> The Printer window: every page that the IIgs prints, ready to save, print or open.</figcaption>
+        </figure>
+        <p>EmuBuddy has two virtual printers. Pick one for slot 1 in the Slots window. Every page lands in the <b>Printer</b> window, where you can flip through the pages, <b>Save PDF</b>, <b>Print</b> on a real printer, <b>Open</b> the PDF in your viewer, <b>Clear</b> the pages or <b>Eject</b> the page that is still being printed.</p>
+        <h3>ImageWriter II</h3>
+        <p>Choose the <i>ImageWriter</i> printer driver in GS/OS and the ImageWriter port. This is the dot matrix printer that most IIgs software supports; Applesoft <code>PR#1</code> prints on it too.</p>
+        <h3>PostScript</h3>
+        <p>In the GS/OS <b>DC Printer</b> control panel choose the printer port and the printer type <b>DC.PostScript</b>. The pages are drawn by <a href="https://ghostscript.com">Ghostscript</a>, which EmuBuddy finds by itself. <b>Save PDF</b> then writes a sharp, small <em>vector</em> PDF &ndash; real text, a few KB per page &ndash; instead of a picture of the page.</p>
+        <p class="note">Ghostscript is a separate program (<code>brew install ghostscript</code> on macOS). If it is missing, EmuBuddy keeps the print job and shows a window that explains how to get it.</p>
+    </div>
+</section>
+
+<!-- ================= drag and drop ================= -->
+<section class="win" id="dragdrop">
+    <div class="title"><h2>Drag and Drop</h2></div>
+    <div class="body">
+        <div class="shots">
+            <figure>
+                <div class="monitor"><div class="glass"><img src="img/dropdest.png" width="1000" height="713" loading="lazy" alt="The Drop Destination window"></div></div>
+                <figcaption><b>Fig. 3</b> Drop Destination: where dropped files go.</figcaption>
+            </figure>
+            <figure>
+                <div class="monitor"><div class="glass"><img src="img/drives.png" width="1000" height="713" loading="lazy" alt="The Drives window with floppies, a SCSI card with seven hard disks and shared folders"></div></div>
+                <figcaption><b>Fig. 4</b> Drives: drop disks or folders on a row.</figcaption>
+            </figure>
+        </div>
+        <h3>Drop a disk</h3>
+        <p>Drop a disk image anywhere on the window, or on a row in the Drives window, while the IIgs is running. EmuBuddy picks the right drive from the image&rsquo;s size and type. Disk images that hold several partitions ask which one to use. Ejecting waits if the disk is busy, so you can never pull a disk out in the middle of a write.</p>
+        <h3>Drop a file</h3>
+        <p>Drop any file on the emulator and it is copied into the shared folder. If the front window of the GS/OS Finder shows the shared disk or one of its folders, the file goes <b>into exactly that folder</b>. If it shows a folder on another disk, EmuBuddy stages the file and a small background helper inside the IIgs copies it into that folder by itself. Otherwise it goes where <b>Disks &rsaquo; Drop Destination&hellip;</b> says.</p>
+        <p class="note">The helper is one small file in <code>SYSTEM/SYSTEM.SETUP</code> of your startup disk. EmuBuddy asks once, at the first start, whether it may install it. You can delete it at any time.</p>
+        <h3>Drop a folder</h3>
+        <p>Drop a folder on the window and it is shared as a live ProDOS disk. A file you put in the folder shows up in the IIgs, and what the IIgs saves is a normal file in the folder.</p>
+        <h3>File types travel with the file</h3>
+        <p>ProDOS files have a type and an aux type that a normal file system does not. EmuBuddy keeps them in the file name: <code>GAME,t$B3,a$DB03</code> is a type $B3 file with aux type $DB03, <code>NOTES.txt</code> is a text file. The same convention is used everywhere, so a file can travel in both directions without losing its type.</p>
+    </div>
+</section>
+
+<!-- ================= more screens ================= -->
+<section class="win" id="more">
+    <div class="title"><h2>Windows and Menus</h2></div>
+    <div class="body">
+        <div class="shots">
+            <figure>
+                <div class="monitor"><div class="glass"><img src="img/slots.png" width="1000" height="713" loading="lazy" alt="The Slots window"></div></div>
+                <figcaption><b>Fig. 5</b> Slots: the card for each slot. The defaults suit internet and printing.</figcaption>
+            </figure>
+            <figure>
+                <div class="monitor"><div class="glass"><img src="img/browser.png" width="1000" height="713" loading="lazy" alt="The Disk Browser window"></div></div>
+                <figcaption><b>Fig. 6</b> Disk Browser: look inside any ProDOS disk image and take files out.</figcaption>
+            </figure>
+            <figure>
+                <div class="monitor"><div class="glass"><img src="img/machine.png" width="1000" height="713" loading="lazy" alt="The Machine menu"></div></div>
+                <figcaption><b>Fig. 7</b> Machine menu: soft and hard reset, pause, slots, printer.</figcaption>
+            </figure>
+        </div>
+        <h3>Speed and display</h3>
+        <p>The <b>Speed</b> menu switches between the stock <b>1.0</b> and <b>2.8 MHz</b>, a ZipGS accelerator at <b>8, 16, 32, 64 or 128 MHz</b>, or <b>Unlimited</b>. <b>View</b> offers window sizes 1x to 4x, full screen, a curved CRT effect and scanlines. The picture is always scaled evenly, so pixels stay square.</p>
+        <h3>Screenshots and video</h3>
+        <p><b>F10</b> saves a screenshot, <b>Shift-F10</b> the whole window, and <b>Ctrl-F10</b> starts and stops an MP4 recording with sound (needs <a href="https://ffmpeg.org">FFmpeg</a>).</p>
+        <h3>Keys</h3>
+        <table>
+            <tr><th>Key</th><th>Action</th></tr>
+            <tr><td><code>F1</code></td><td>Open-Apple, for keyboards without an Apple key</td></tr>
+            <tr><td><code>F2</code></td><td>Drives window</td></tr>
+            <tr><td><code>F3</code></td><td>Pause</td></tr>
+            <tr><td><code>F4</code></td><td>Slots window</td></tr>
+            <tr><td><code>F10</code> &middot; <code>Shift-F10</code> &middot; <code>Ctrl-F10</code></td><td>Screenshot &middot; window screenshot &middot; record video</td></tr>
+            <tr><td><code>F11</code> &middot; <code>Shift-F11</code> &middot; <code>Ctrl-F11</code></td><td>Full screen &middot; scanlines &middot; CRT effect</td></tr>
+            <tr><td><code>Ctrl-F12</code></td><td>Soft reset, like Ctrl-Reset on a real IIgs</td></tr>
+        </table>
+    </div>
+</section>
+
+<!-- ================= command line ================= -->
+<section class="win" id="cli">
+    <div class="title"><h2>Command Line</h2></div>
+    <div class="body">
+        <p>Everything the menus do also works from the command line, in the style of MAME&rsquo;s <code>apple2gs</code>. It is meant for scripts, launchers and shortcuts. Options last for <b>one run</b> only and nothing is written to your config file, so your normal set-up stays as it was &ndash; unless you add <code>-save</code>.</p>
+<pre><code>EmuBuddy [apple2gs] [options] [disk image or folder ...]</code></pre>
+        <p>On macOS the program is inside the app: <code>EmuBuddy.app/Contents/MacOS/EmuBuddy</code>.</p>
+
+        <h3>An example</h3>
+<pre><code>EmuBuddy apple2gs -rom ROM03 -hard1 System6.hdv -flop3 Game.2mg \
+         -sl1 imagewriter -sl4 uthernet2 -mhz 16 -scale 2 -share ~/IIgsFiles</code></pre>
+        <p>That starts a ROM 03 machine from a System 6 hard disk with a game in the first 3.5&Prime; drive, an ImageWriter on the printer port, internet on slot 4, 16&nbsp;MHz, a window twice the IIgs size, and a folder on your computer shared with the IIgs.</p>
+
+        <h3>Disks</h3>
+        <table>
+            <tr><th>Option</th><th>Meaning</th></tr>
+            <tr><td><code>-flop1 &lt;img&gt;</code> <code>-flop2 &lt;img&gt;</code></td><td>5.25&Prime; drives (slot 6, drive 1 and 2)</td></tr>
+            <tr><td><code>-flop3 &lt;img&gt;</code> <code>-flop4 &lt;img&gt;</code></td><td>3.5&Prime; drives (slot 5, drive 1 and 2)</td></tr>
+            <tr><td><code>-hard1 &lt;img&gt;</code> &hellip; <code>-hard7 &lt;img&gt;</code></td><td>SCSI hard disks (slot 7, drive 1 to 7)</td></tr>
+            <tr><td><code>-share &lt;folder&gt;</code></td><td>a folder on your computer as a live ProDOS volume</td></tr>
+            <tr><td><code>&lt;img or folder&gt;</code></td><td>goes into the first free drive that fits</td></tr>
+        </table>
+
+        <h3>Slots</h3>
+        <table>
+            <tr><th>Option</th><th>Cards</th></tr>
+            <tr><td><code>-sl1 &lt;card&gt;</code></td><td><code>imagewriter</code>, <code>postscript</code>, <code>modem</code>, <code>none</code> (printer port)</td></tr>
+            <tr><td><code>-sl2 &lt;card&gt;</code></td><td><code>modem</code>, <code>imagewriter</code>, <code>postscript</code>, <code>none</code> (modem port)</td></tr>
+            <tr><td><code>-sl3 &lt;card&gt;</code></td><td><code>uthernet2</code>, <code>voc</code>, <code>none</code></td></tr>
+            <tr><td><code>-sl4 &lt;card&gt;</code></td><td><code>mockingboard</code>, <code>uthernet2</code>, <code>none</code></td></tr>
+            <tr><td><code>-sl7 &lt;card&gt;</code></td><td><code>scsi</code>, <code>none</code></td></tr>
+        </table>
+        <p>Slots 5 and 6 hold the built-in drives. As on a real IIgs, a card is only used when its slot is set to &ldquo;Your Card&rdquo; in the IIgs Control Panel.</p>
+
+        <h3>Machine</h3>
+        <table>
+            <tr><th>Option</th><th>Meaning</th></tr>
+            <tr><td><code>-rom &lt;file&gt;</code></td><td>the IIgs ROM file (ROM 01 or ROM 03)</td></tr>
+            <tr><td><code>-rompath &lt;folder&gt;</code></td><td>look for the ROM file in this folder</td></tr>
+            <tr><td><code>-ramsize &lt;n&gt;M</code></td><td>memory expansion, <code>0M</code> to <code>8M</code></td></tr>
+            <tr><td><code>-mhz &lt;n&gt;</code></td><td><code>1</code>, <code>2.8</code> (stock), <code>8</code>, <code>16</code>, <code>32</code>, <code>64</code>, <code>128</code> (ZipGS) or <code>max</code></td></tr>
+            <tr><td><code>-nothrottle</code></td><td>as fast as possible (same as <code>-mhz max</code>)</td></tr>
+        </table>
+
+        <h3>Display</h3>
+        <table>
+            <tr><th>Option</th><th>Meaning</th></tr>
+            <tr><td><code>-window</code> <code>-nowindow</code></td><td>window or full screen</td></tr>
+            <tr><td><code>-resolution &lt;WxH&gt;</code></td><td>window size, for example <code>1408x1136</code></td></tr>
+            <tr><td><code>-scale &lt;n&gt;</code></td><td>window size as a multiple of the IIgs screen (made smaller if it does not fit)</td></tr>
+            <tr><td><code>-crt</code></td><td>curved CRT effect</td></tr>
+            <tr><td><code>-scanlines &lt;0-100&gt;</code></td><td>scanline strength</td></tr>
+        </table>
+
+        <h3>Other</h3>
+        <table>
+            <tr><th>Option</th><th>Meaning</th></tr>
+            <tr><td><code>-title &lt;text&gt;</code></td><td>the window title</td></tr>
+            <tr><td><code>-validate</code></td><td>check that the ROM, disks and folders named exist, print the result and exit (0 = fine, 1 = something is missing)</td></tr>
+            <tr><td><code>-showconfig</code></td><td>print the settings this command line stands for and exit</td></tr>
+            <tr><td><code>-bridge &lt;folder&gt;</code></td><td>a folder that programs inside the IIgs may read and write (the host bridge)</td></tr>
+            <tr><td><code>-save</code></td><td>also keep these settings in the config file</td></tr>
+            <tr><td><code>-cfg &lt;file&gt;</code></td><td>use another config file</td></tr>
+            <tr><td><code>-h</code> <code>-help</code></td><td>list all options</td></tr>
+        </table>
+        <p>All KEGS options (<code>-&lt;config variable&gt; &lt;value&gt;</code>) still work and are passed through. Exit codes: 0 fine, 1 error while running or <code>-validate</code> found a problem, 2 bad command line.</p>
+    </div>
+</section>
+
+<!-- ================= launcher teaser ================= -->
+<section class="win" id="launcher">
+    <div class="title"><h2>EmuBuddy Launcher</h2></div>
+    <div class="body">
+        <p>The download holds a second program, <b>EmuBuddy Launcher</b>: a picture-first front end. Your games &ndash; complete machine set-ups with ROM, memory, speed, slots and disks &ndash; show up as a row of big covers over a blurred background, and one key starts EmuBuddy with the right command line. It works with a game controller, can import your Attract-Mode lists and has favourites and sorting.</p>
+        <p><i>Screenshots and a full description follow soon.</i></p>
+    </div>
+</section>
+
+<!-- ================= get it ================= -->
+<section class="win" id="get">
+    <div class="title"><h2>Get EmuBuddy</h2></div>
+    <div class="body">
+        <p><i>Downloads are coming soon.</i> EmuBuddy runs on <b>macOS (Apple Silicon)</b>, <b>Windows (x64)</b> and <b>Linux (x64 and arm64)</b> and looks the same on all of them.</p>
+        <h3>You need a ROM</h3>
+        <p>Like every IIgs emulator, EmuBuddy needs an Apple IIgs ROM file. It is Apple&rsquo;s copyrighted firmware, so it cannot be included. Without one, EmuBuddy shows a <b>ROM Required</b> window. A <b>ROM 03</b> file (256&nbsp;KB) is the usual choice; a ROM 01 file (128&nbsp;KB) works too. Drop the file on the window or choose it with <b>File &rsaquo; Choose ROM File&hellip;</b>; EmuBuddy remembers it. The cleanest way to get one is to read it out of an Apple IIgs you own.</p>
+        <h3>First start</h3>
+        <p>The downloads are not code-signed or notarized, so your system warns you the first time. On macOS remove the quarantine mark once: <code>xattr -dr com.apple.quarantine /Applications/EmuBuddy.app</code>. On Windows click <b>More info</b>, then <b>Run anyway</b>. On Linux unpack the archive and run <code>EmuBuddy</code> (it needs the SDL3 library).</p>
+        <p>Then drop a disk image on the window. The IIgs boots from the first bootable disk, as a real one would.</p>
+    </div>
+</section>
+
+</div>
+
+<footer>
+    <div class="stripes" role="presentation" style="max-width:1000px;margin:0 auto 16px"></div>
+    <p>EmuBuddy is by <b>Walter Tengler</b> (<a href="https://github.com/portwally">portwally</a>), 2026. Free software under the GNU General Public License, version 3.</p>
+    <p>Built on <a href="http://kegs.sourceforge.net">KEGS</a> by Kent Dickey and <a href="https://github.com/digarok/gsplus">GSplus</a> by Dagen Brock. The Shaston font is the IIgs system font.<br>
+    Apple, Apple IIgs, GS/OS and ImageWriter are trademarks of Apple Inc. EmuBuddy is not affiliated with Apple.</p>
+    <p><a href="../">&larr; portwally.github.io</a></p>
+</footer>
+
+</body>
+</html>
