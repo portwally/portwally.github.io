@@ -68,7 +68,7 @@
                             <span>Thirteen skins</span>
                             <span>Not released yet</span>
                         </p>
-                        <p><a class="cta" href="mailto:walter.tengler@gmail.com?subject=Wally%27s%20Manager%3A%20tell%20me%20when%20it%27s%20out&amp;body=Hi%20Walter%2C%0A%0AI%27d%20like%20to%20try%20Wally%27s%20Manager%20when%20it%27s%20ready.%0A%0AHow%20many%20apps%20do%20you%20have%20on%20the%20App%20Store%3F%0AWhich%20skin%20would%20you%20use%3F%0AWould%20you%20pay%20for%20it%2C%20and%20what%20price%20would%20feel%20fair%3F%0AWhat%20must%20it%20do%20for%20you%3F%0A%0A" data-goatcounter-click="wm-interest-hero" data-goatcounter-title="Wally's Manager: interested">Tell me when it&rsquo;s out</a></p>
+                        <p><a class="cta" href="#interest" data-goatcounter-click="wm-interest-hero" data-goatcounter-title="Wally's Manager: hero button">I&rsquo;d use this &darr;</a></p>
                     </div>
                 </div>
                 <figure class="shot">
@@ -212,9 +212,19 @@
         <section class="window" id="interest" aria-labelledby="interest-title">
             <h2 class="tb" id="interest-title"><i class="gl"></i><span>Interested?</span><i class="gr"></i></h2>
             <div class="body">
-                <p>Wally&rsquo;s Manager is not released yet. If you ship apps and would use it, tell me: one email, no newsletter. I&rsquo;ll write back when there is a beta to try.</p>
-                <p><a class="cta" href="mailto:walter.tengler@gmail.com?subject=Wally%27s%20Manager%3A%20tell%20me%20when%20it%27s%20out&amp;body=Hi%20Walter%2C%0A%0AI%27d%20like%20to%20try%20Wally%27s%20Manager%20when%20it%27s%20ready.%0A%0AHow%20many%20apps%20do%20you%20have%20on%20the%20App%20Store%3F%0AWhich%20skin%20would%20you%20use%3F%0AWould%20you%20pay%20for%20it%2C%20and%20what%20price%20would%20feel%20fair%3F%0AWhat%20must%20it%20do%20for%20you%3F%0A%0A" data-goatcounter-click="wm-interest-bottom" data-goatcounter-title="Wally's Manager: interested">I&rsquo;d use this</a></p>
-                <p class="small">The button opens your mail app with a few short questions: how many apps you have, which skin you&rsquo;d pick, and what it&rsquo;s worth to you.</p>
+                <p>Wally&rsquo;s Manager is not released yet. If you ship apps and would use it, one click is enough: no email, no name, no form. It only adds one to a counter, so I can see whether it is worth finishing for others.</p>
+                <p id="vote-ask"><button type="button" class="cta" id="vote-btn">I&rsquo;d use this</button></p>
+                <div id="vote-price" hidden>
+                    <p><b>Thanks, counted!</b> One more tap, if you like: what would feel like a fair price?</p>
+                    <p class="choices">
+                        <button type="button" class="cta" data-price="free">Free</button>
+                        <button type="button" class="cta" data-price="5">&euro;5</button>
+                        <button type="button" class="cta" data-price="10">&euro;10</button>
+                        <button type="button" class="cta" data-price="20plus">&euro;20+</button>
+                    </p>
+                </div>
+                <p id="vote-done" hidden><b>Thank you!</b> Both answers are only counted, nothing about you is stored.</p>
+                <p class="small">The clicks are counted anonymously with GoatCounter, which sets no cookies and keeps no personal data. Want a beta invite when there is one? <a href="mailto:walter.tengler@gmail.com?subject=Wally%27s%20Manager%3A%20tell%20me%20when%20it%27s%20out" data-goatcounter-click="wm-interest-mail" data-goatcounter-title="Wally's Manager: mail">Write me</a>, that is the only case where I need your address.</p>
             </div>
         </section>
 
@@ -367,6 +377,32 @@
         }
         tick();
         setInterval(tick, 30000);
+
+
+        // Anonymous "I'd use this": counted by GoatCounter, nothing is stored about the visitor.
+        (function () {
+            var btn = document.getElementById("vote-btn");
+            if (!btn) return;
+            var ask = document.getElementById("vote-ask"), price = document.getElementById("vote-price"), done = document.getElementById("vote-done");
+            function count(path, title) {
+                try { if (window.goatcounter && window.goatcounter.count) window.goatcounter.count({ path: path, title: title, event: true }); } catch (e) {}
+            }
+            function remembered(k) { try { return localStorage.getItem(k) === "1"; } catch (e) { return false; } }
+            function remember(k) { try { localStorage.setItem(k, "1"); } catch (e) {} }
+            function showPrice() { ask.hidden = true; price.hidden = false; }
+            function showDone() { ask.hidden = true; price.hidden = true; done.hidden = false; }
+            if (remembered("wmPrice")) showDone(); else if (remembered("wmVote")) showPrice();
+            btn.addEventListener("click", function () {
+                if (!remembered("wmVote")) { count("wm-vote", "Wally's Manager: I'd use this"); remember("wmVote"); }
+                showPrice();
+            });
+            price.querySelectorAll("[data-price]").forEach(function (b) {
+                b.addEventListener("click", function () {
+                    if (!remembered("wmPrice")) { count("wm-price-" + b.dataset.price, "Wally's Manager: fair price " + b.textContent); remember("wmPrice"); }
+                    showDone();
+                });
+            });
+        })();
 
         // Preload the other screenshots so switching is instant.
         window.addEventListener("load", function () {

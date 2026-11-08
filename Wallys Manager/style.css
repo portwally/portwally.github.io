@@ -700,3 +700,8 @@ button { font: inherit; color: inherit; }
 }
 
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+/* Anonymous vote buttons use the same look as .cta links */
+button.cta { font: inherit; line-height: inherit; }
+.choices { display: flex; flex-wrap: wrap; gap: 8px; }
+[hidden] { display: none !important; }
