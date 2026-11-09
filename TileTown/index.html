@@ -187,6 +187,11 @@
         .req ul { margin: 0; padding-left: 18px; }
         .req li { margin-bottom: 5px; }
 
+        .manual { display: flex; gap: 12px; align-items: center; margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--ink); color: var(--ink); text-decoration: none; }
+        .manual img { flex: none; width: 58px; height: auto; box-shadow: 2px 3px 0 rgba(26, 23, 20, 0.35); transform: rotate(-3deg); }
+        .manual b { display: block; font-family: var(--head); font-weight: 400; font-size: 1.15rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--red); }
+        .manual span { font-size: 0.86rem; line-height: 1.35; }
+        .manual:hover b, .manual:focus-visible b { text-decoration: underline; }
         /* ---- the foot of the ad: the coupon and the maker's mark ---- */
         .foot { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 30px; align-items: stretch; }
         .coupon { position: relative; border: 3px dashed var(--ink); padding: 18px 20px 16px; background: #fffaf0; }
@@ -365,7 +370,7 @@
                 <li>Mouse recommended; keyboard works too</li>
                 <li>Or an emulator such as MAME (on the Mac: Ample), set up as a IIgs with 8 MB</li>
             </ul>
-            <p style="margin:12px 0 0">Want the full player's guide - every key, every menu? See the <a href="index2.html">TileTown home page</a>.</p>
+            <a class="manual" href="TileTown-Manual.pdf"><img src="screens/manual-cover.png" width="384" height="576" alt="The cover of the TileTown manual" loading="lazy"><span><b>Read the manual</b>23 full-colour pages: getting started, your first town, every tool, key and menu. PDF, 1.7 MB.</span></a>
         </div>
     </div>
 
