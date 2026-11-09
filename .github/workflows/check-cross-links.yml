@@ -8,6 +8,10 @@
 #                            fails the build if any footer drifts from the
 #                            master root /index.html list. Cleanup pass on
 #                            2026-05-08 brought all 27 sub-apps into sync.
+#                            The Apple II pages (RETRO_REGEX) show only the
+#                            retro apps: their footers must match the apps
+#                            the 1977 page (Retro Computing/) lists, plus
+#                            that page itself (2026-11-09).
 
 name: Check cross-links
 
@@ -85,6 +89,12 @@ jobs:
           # "File%20Vortex" compare equal — they're the same folder.
           urldecode() { sed 's|%20| |g'; }
 
+          # The Apple II pages show a smaller footer: the retro apps, as the
+          # 1977 retro page lists them, and that page itself.
+          RETRO_REGEX='^(TileTown|Conquer-GS|GSCommander|MegaconvertGS|EmuBuddy)$'
+          RETRO_APPS=$( { grep -oE 'href="\.\./[^"]+/"' "Retro Computing/index.html" \
+            | sed 's|^href="\.\./||;s|/"$||'; echo "Retro Computing"; } | urldecode | sort -u)
+
           for dir in */; do
             app="${dir%/}"
             if echo "$app" | grep -qE "$SKIP_REGEX"; then continue; fi
@@ -99,7 +109,11 @@ jobs:
 
             checked=$((checked + 1))
 
-            EXPECTED=$(echo "$ROOT_APPS" | urldecode | grep -v "^$app$" | sort -u)
+            if echo "$app" | grep -qE "$RETRO_REGEX"; then
+              EXPECTED=$(echo "$RETRO_APPS" | grep -v "^$app$" | sort -u)
+            else
+              EXPECTED=$(echo "$ROOT_APPS" | urldecode | grep -v "^$app$" | sort -u)
+            fi
             ACTUAL=$(grep -oE 'href="\.\./[^"]+/"' "$dir/index.html" \
               | sed 's|^href="\.\./||;s|/"$||' \
               | urldecode \
