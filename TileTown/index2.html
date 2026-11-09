@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TileTown - A City Builder for the Apple IIgs</title>
+    <meta name="description" content="TileTown is a city-building game for the Apple IIgs, written from scratch in 65816 assembly. Lay out roads and power lines, zone homes, shops and industry, balance the budget and survive fires, floods, tornadoes, earthquakes and meltdowns - in Super Hi-Res with Ensoniq sound and music.">
+    <meta name="keywords" content="TileTown, Apple IIgs, city builder, city simulation, 65816 assembly, Super Hi-Res, Ensoniq, retro game, homebrew, ProDOS, MAME, Ample">
+    <meta name="author" content="Walter Tengler">
+    <link rel="canonical" href="https://portwally.github.io/TileTown/">
+    <link rel="icon" type="image/png" href="icon.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="TileTown">
+    <meta property="og:description" content="A city-building game for the Apple IIgs, written from scratch in 65816 assembly.">
+    <meta property="og:image" content="https://portwally.github.io/TileTown/screens/city.png">
+    <meta property="og:url" content="https://portwally.github.io/TileTown/">
+    <meta name="twitter:card" content="summary_large_image">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "VideoGame",
+      "name": "TileTown",
+      "description": "A city-building game for the Apple IIgs, written from scratch in 65816 assembly.",
+      "genre": "City-building simulation",
+      "gamePlatform": "Apple IIgs",
+      "author": { "@type": "Person", "name": "Walter Tengler" },
+      "image": "https://portwally.github.io/TileTown/screens/city.png",
+      "url": "https://portwally.github.io/TileTown/"
+    }
+    </script>
+    <style>
+        /* A home page as they looked in 1995: grey background, Times, blue
+           links, bevelled lines, tables with borders */
+        :root {
+            --page: #c0c0c0;
+            --ink: #000000;
+            --link: #0000ee;
+            --visited: #551a8b;
+            --hot: #ff0000;
+            --navy: #000080;
+            --light: #ffffff;
+            --shade: #808080;
+            --dark: #404040;
+            --cell: #d4d0c8;
+            --yellow: #ffff00;
+            --lcd: #00ff00;
+        }
+        * { box-sizing: border-box; }
+        html { color-scheme: light; }
+        body {
+            margin: 0;
+            padding: 12px 16px 24px;
+            background: var(--page);
+            color: var(--ink);
+            font-family: "Times New Roman", Times, serif;
+            font-size: 17px;
+            line-height: 1.35;
+            overflow-x: hidden;
+        }
+        .page { max-width: 780px; margin: 0 auto; }
+        a { color: var(--link); }
+        a:visited { color: var(--visited); }
+        a:hover { color: var(--hot); }
+        h1, h2, h3 { font-family: "Times New Roman", Times, serif; }
+        h1 { font-size: 2.1rem; text-align: center; margin: 14px 0 4px; color: var(--navy); }
+        h2 { font-size: 1.55rem; margin: 26px 0 8px; color: var(--navy); }
+        h3 { font-size: 1.15rem; margin: 18px 0 6px; }
+        img { max-width: 100%; height: auto; }
+        .px { image-rendering: pixelated; image-rendering: crisp-edges; }
+        .center { text-align: center; }
+        .small { font-size: 0.85rem; }
+        hr { border: 0; border-top: 1px solid var(--shade); border-bottom: 1px solid var(--light); margin: 18px 0; }
+        hr.rainbow { height: 6px; border: 0; background: linear-gradient(90deg, #f00, #f80, #ff0, #0c0, #00f, #808); }
+        .title-img { display: block; margin: 0 auto; border: 2px outset var(--light); width: 640px; }
+
+        /* the scrolling news line (a <marquee>, as it was) */
+        .marquee { overflow: hidden; white-space: nowrap; background: var(--navy); color: var(--yellow); font-family: "Courier New", Courier, monospace; font-weight: bold; padding: 4px 0; border: 2px inset var(--light); margin: 12px 0; }
+        .marquee span { display: inline-block; padding-left: 100%; animation: scroll 22s linear infinite; }
+        @keyframes scroll { to { transform: translateX(-100%); } }
+
+        .new { color: var(--hot); font-weight: bold; font-size: 0.8rem; font-family: Arial, Helvetica, sans-serif; animation: blink 1s steps(2, start) infinite; }
+        @keyframes blink { to { visibility: hidden; } }
+
+        @media (prefers-reduced-motion: reduce) {
+            .marquee span { animation: none; padding-left: 8px; white-space: normal; }
+            .new { animation: none; }
+        }
+
+        .toc { background: var(--cell); border: 2px outset var(--light); padding: 8px 14px; }
+        .toc ul { margin: 4px 0; padding-left: 22px; columns: 2; column-gap: 24px; }
+
+        table.grid { border-collapse: separate; border-spacing: 2px; border: 2px outset var(--light); background: var(--cell); width: 100%; }
+        table.grid th, table.grid td { border: 1px inset var(--light); padding: 4px 8px; vertical-align: top; text-align: left; }
+        table.grid th { background: var(--navy); color: var(--light); }
+        .kbd { font-family: "Courier New", Courier, monospace; font-weight: bold; white-space: nowrap; }
+
+        .shots { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+        .shots figure { margin: 0; background: var(--cell); border: 2px outset var(--light); padding: 6px; text-align: center; }
+        .shots img { display: block; width: 100%; border: 1px solid var(--ink); }
+        .shots figcaption { font-size: 0.9rem; margin-top: 4px; }
+
+        /* the "under construction" sign */
+        .construction { border: 3px solid var(--ink); background: repeating-linear-gradient(45deg, var(--yellow) 0 14px, var(--ink) 14px 28px); padding: 10px; margin: 14px 0; }
+        .construction div { background: var(--yellow); border: 2px solid var(--ink); padding: 10px 14px; text-align: center; }
+        .construction b { font-family: Arial, Helvetica, sans-serif; font-size: 1.3rem; letter-spacing: 1px; }
+
+        .ring { border: 2px outset var(--light); background: var(--cell); padding: 10px; text-align: center; }
+        .ring .links { font-family: Arial, Helvetica, sans-serif; font-weight: bold; margin-top: 6px; }
+
+        .counter { display: inline-flex; gap: 2px; background: var(--ink); padding: 3px; border: 2px inset var(--light); vertical-align: middle; }
+        .counter span { display: inline-block; width: 16px; text-align: center; background: #101010; color: var(--lcd); font-family: "Courier New", Courier, monospace; font-weight: bold; }
+
+        .badges { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 16px 0; }
+        .badge { width: 88px; height: 31px; border: 2px outset var(--light); display: flex; align-items: center; justify-content: center; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 9px; font-weight: bold; line-height: 1.05; text-transform: uppercase; }
+        .b1 { background: var(--navy); color: var(--yellow); }
+        .b2 { background: #008080; color: var(--light); }
+        .b3 { background: var(--ink); color: var(--lcd); font-family: "Courier New", Courier, monospace; }
+        .b4 { background: var(--light); color: var(--hot); }
+
+        footer { margin-top: 10px; text-align: center; }
+        footer .legal { font-size: 0.8rem; color: var(--dark); max-width: 640px; margin: 10px auto 0; }
+        .top { text-align: right; font-size: 0.85rem; }
+
+        @media (max-width: 600px) {
+            body { font-size: 16px; }
+            h1 { font-size: 1.6rem; }
+            .toc ul { columns: 1; }
+            .shots { grid-template-columns: 1fr; }
+            table.grid th, table.grid td { padding: 3px 5px; }
+        }
+    </style>
+</head>
+<body>
+<div class="page" id="top">
+
+    <img class="title-img px" src="screens/title.png" width="640" height="427" alt="The TileTown title screen">
+
+    <h1>Welcome to the TileTown Home Page!</h1>
+    <p class="center"><i>A city-building game for the Apple IIgs</i></p>
+
+    <div class="marquee" aria-hidden="true"><span>*** NEW: Quit in the City menu! *** Menus, pause and three speeds *** Tornadoes, earthquakes and meltdowns *** Five goals to play for *** Coming soon for your Apple IIgs ***</span></div>
+
+    <p class="center small">Last updated: November 9, 2026</p>
+
+    <hr class="rainbow">
+
+    <div class="toc">
+        <b>On this page:</b>
+        <ul>
+            <li><a href="#about">What is TileTown?</a></li>
+            <li><a href="#new">What's New</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#screens">Screenshots</a></li>
+            <li><a href="#need">What you need</a></li>
+            <li><a href="#first">Your first town</a></li>
+            <li><a href="#keys">Keys and menus</a></li>
+            <li><a href="#build">What you can build</a></li>
+            <li><a href="#goals">Goals</a></li>
+            <li><a href="#get">Get TileTown</a></li>
+        </ul>
+    </div>
+
+    <h2 id="about">What is TileTown?</h2>
+    <p>
+        <b>TileTown</b> lets you build a city on your Apple IIgs, from a few dirt roads to a
+        busy metropolis. You lay out roads and power lines, mark land for homes, shops and
+        industry, and watch your town grow. As mayor you set the taxes, balance the budget and
+        keep crime and pollution down, while fires, floods, tornadoes and earthquakes do their
+        best to undo your work.
+    </p>
+    <p>
+        It is written from scratch in 65816 assembly for the IIgs's Super Hi-Res screen, with
+        colourful 16-colour pixel art, sound effects and an original soundtrack on the IIgs's
+        Ensoniq sound chip.
+    </p>
+    <p class="center"><img class="px" src="screens/city.png" width="640" height="427" alt="A powered town by the sea, cars on its roads" style="border:2px outset #fff"></p>
+
+    <p class="top"><a href="#top">[Back to top]</a></p>
+    <hr>
+
+    <h2 id="new">What's New</h2>
+    <ul>
+        <li><span class="new">NEW!</span> <b>Quit</b> in the City menu (or press Q) takes you back to ProDOS.</li>
+        <li><span class="new">NEW!</span> A <b>menu bar</b> (City, Options, Disasters), <b>pause</b> and three speeds, and a help screen.</li>
+        <li><b>Milestones and advice:</b> your town becomes a city, a capital, a metropolis - and your advisers tell you what's wrong.</li>
+        <li><b>Five goals</b> with a deadline, from Boomtown to Rich town.</li>
+        <li><b>Tornadoes, earthquakes and nuclear meltdowns</b> join the fires and floods.</li>
+        <li><b>Maps and graphs:</b> heat maps of your city and graphs of its history.</li>
+        <li>A <b>budget with sliders</b> for taxes, roads, police and fire.</li>
+        <li>A new <b>title screen</b> and a friendlier font.</li>
+    </ul>
+
+    <p class="top"><a href="#top">[Back to top]</a></p>
+    <hr>
+
+    <h2 id="features">Features</h2>
+    <ul>
+        <li><b>A living city on a 128 &times; 128 map.</b> Homes, shops and factories grow in three sizes once they have power, a road and people who want them. Busy roads fill with cars.</li>
+        <li><b>16 maps to start on:</b> rivers, lakes, coasts, islands, forests, fjords and marshes, or open plains for an easy start.</li>
+        <li><b>14 things to build:</b> roads, power lines, three kinds of zones, coal and nuclear power plants, police and fire stations, parks, a stadium, a seaport and an airport. Drag a road or power line out over water and it becomes a bridge.</li>
+        <li><b>A city with a mind of its own:</b> land value, traffic, pollution and crime spread through the neighbourhoods, and people ask for what the city lacks.</li>
+        <li><b>Maps and graphs:</b> see the whole city at once, or as a heat map of pollution, crime, land value, traffic, police, fire cover, population or power. Graphs show your city over 10 or 100 years.</li>
+        <li><b>A budget with sliders</b> for the tax rate and for roads, police and fire.</li>
+        <li><b>Five disasters:</b> fires, floods, tornadoes, earthquakes and nuclear meltdowns.</li>
+        <li><b>Five goals</b> with a deadline, or free play for as long as you like.</li>
+        <li><b>Menus, pause and three speeds,</b> a help screen, mouse and keyboard.</li>
+        <li><b>Eight save slots,</b> each city under its own name.</li>
+    </ul>
+
+    <p class="top"><a href="#top">[Back to top]</a></p>
+    <hr>
+
+    <h2 id="screens">Screenshots</h2>
+    <p>Click a picture to see it full size. <i>(Each is about 30K - fine even on a 14.4 modem!)</i></p>
+    <div class="shots">
+        <figure><a href="screens/chooser.png"><img class="px" src="screens/chooser.png" width="960" height="640" loading="lazy" alt="Choosing a map and a goal"></a><figcaption>Choose one of 16 maps and a goal (16K)</figcaption></figure>
+        <figure><a href="screens/menus.png"><img class="px" src="screens/menus.png" width="960" height="640" loading="lazy" alt="The Options menu"></a><figcaption>The menus: pause, speed, music (31K)</figcaption></figure>
+        <figure><a href="screens/graphs.png"><img class="px" src="screens/graphs.png" width="960" height="640" loading="lazy" alt="Maps and graphs"></a><figcaption>Heat maps and your city's history (18K)</figcaption></figure>
+        <figure><a href="screens/budget.png"><img class="px" src="screens/budget.png" width="960" height="640" loading="lazy" alt="The budget with sliders"></a><figcaption>The budget, with sliders (12K)</figcaption></figure>
+        <figure><a href="screens/tornado.png"><img class="px" src="screens/tornado.png" width="960" height="640" loading="lazy" alt="A tornado in town"></a><figcaption>Tornado! (30K)</figcaption></figure>
+        <figure><a href="screens/meltdown.png"><img class="px" src="screens/meltdown.png" width="960" height="640" loading="lazy" alt="A nuclear meltdown"></a><figcaption>A meltdown leaves radiation behind (29K)</figcaption></figure>
+        <figure><a href="screens/milestone.png"><img class="px" src="screens/milestone.png" width="960" height="640" loading="lazy" alt="A milestone message"></a><figcaption>Your village becomes a town (30K)</figcaption></figure>
+        <figure><a href="screens/help.png"><img class="px" src="screens/help.png" width="960" height="640" loading="lazy" alt="The help screen"></a><figcaption>Help is one key away (21K)</figcaption></figure>
+    </div>
+    <h3>The 16 maps</h3>
+    <p class="center"><a href="screens/maps-sheet.png"><img class="px" src="screens/maps-sheet.png" width="652" height="412" loading="lazy" alt="All 16 maps" style="border:2px outset #fff"></a></p>
+    <p class="small center">Green Valley, River Bend, Twin Rivers, Lake District, Coast, Bay City, Islands, Peninsula, Forest Edge, Great Lake, Delta, Pine Woods, Marshes, Fjords, Plains and Classic.</p>
+
+    <p class="top"><a href="#top">[Back to top]</a></p>
+    <hr>
+
+    <h2 id="need">What you need</h2>
+    <ul>
+        <li>An <b>Apple IIgs with 8 MB</b> of memory and a drive that can boot an 800K 3.5" ProDOS disk, <i>or</i></li>
+        <li>an <b>emulator</b> such as MAME (on the Mac it comes with Ample), set up as an Apple IIgs with 8 MB.</li>
+        <li>A mouse. You can play with the keyboard too, but the mouse is easier.</li>
+    </ul>
+
+    <h2 id="first">Your first town</h2>
+    <ol>
+        <li><b>Build a power plant</b> (tool 6) on open land.</li>
+        <li><b>Lay roads:</b> pick the road tool, then click or drag on the map.</li>
+        <li><b>Zone land</b> next to the roads: <b>R</b> for homes, <b>C</b> for shops, <b>I</b> for factories. Every zone needs a road within 2 tiles.</li>
+        <li><b>Bring power:</b> run a power line from the plant to your zones. Zones pass power on to their neighbours. A yellow lightning bolt marks a zone without power.</li>
+        <li><b>Watch the R C I bars</b> at the bottom right: build more of whatever is high.</li>
+        <li><b>Keep an eye on your money,</b> and open the budget (B) now and then.</li>
+    </ol>
+
+    <p class="top"><a href="#top">[Back to top]</a></p>
+    <hr>
+
+    <h2 id="keys">Keys and menus</h2>
+    <table class="grid">
+        <tr><th>Key</th><th>What it does</th></tr>
+        <tr><td class="kbd">1 - 9</td><td>Road, power line, residential, commercial, industrial, power plant, police station, fire station, bulldozer</td></tr>
+        <tr><td class="kbd">Arrows</td><td>Scroll the map (or move the pointer to an edge)</td></tr>
+        <tr><td class="kbd">+ / -</td><td>Raise or lower taxes</td></tr>
+        <tr><td class="kbd">B</td><td>The budget</td></tr>
+        <tr><td class="kbd">O</td><td>Maps and graphs</td></tr>
+        <tr><td class="kbd">V</td><td>Show pollution, crime, land value or traffic on the map</td></tr>
+        <tr><td class="kbd">P</td><td>Pause, and play again</td></tr>
+        <tr><td class="kbd">&lt; / &gt;</td><td>Slower, faster</td></tr>
+        <tr><td class="kbd">S / L</td><td>Save / load a city</td></tr>
+        <tr><td class="kbd">N, N</td><td>Start a new city</td></tr>
+        <tr><td class="kbd">F W T E</td><td>Start a fire, flood, tornado or earthquake</td></tr>
+        <tr><td class="kbd">G</td><td>Go to the last disaster</td></tr>
+        <tr><td class="kbd">D / M</td><td>Random disasters on or off / music on or off</td></tr>
+        <tr><td class="kbd">H</td><td>Help</td></tr>
+        <tr><td class="kbd">Q</td><td>Quit TileTown (asks first)</td></tr>
+    </table>
+    <p>
+        <b>The menus:</b> <i>City</i> (New city, Load, Save, Budget, Maps and graphs, Help, Quit),
+        <i>Options</i> (Pause, Slow, Normal, Fast, Music, Random disasters) and
+        <i>Disasters</i> (Fire, Flood, Tornado, Earthquake, Meltdown).
+    </p>
+
+    <h2 id="build">What you can build</h2>
+    <table class="grid">
+        <tr><th>Tool</th><th>Price</th><th>What it does</th></tr>
+        <tr><td>Road</td><td>$10</td><td>Connects your zones. Over water it becomes a bridge (4 &times; the price)</td></tr>
+        <tr><td>Power line</td><td>$5</td><td>Carries power from the plants</td></tr>
+        <tr><td>Residential zone</td><td>$100</td><td>Homes: people move in</td></tr>
+        <tr><td>Commercial zone</td><td>$100</td><td>Shops and offices</td></tr>
+        <tr><td>Industrial zone</td><td>$100</td><td>Factories: jobs, but also pollution</td></tr>
+        <tr><td>Power plant</td><td>$3,000</td><td>Powers up to 60 zone tiles</td></tr>
+        <tr><td>Police station</td><td>$500</td><td>Holds crime down around it</td></tr>
+        <tr><td>Fire station</td><td>$500</td><td>Fires spread less nearby</td></tr>
+        <tr><td>Bulldozer</td><td>$1</td><td>Clears what you built, and rubble</td></tr>
+        <tr><td>Park</td><td>$50</td><td>Makes the land around it more valuable</td></tr>
+        <tr><td>Stadium</td><td>$3,000</td><td>A town of over 1,200 people needs one to keep growing</td></tr>
+        <tr><td>Seaport</td><td>$5,000</td><td>Built by water. Big industry needs one</td></tr>
+        <tr><td>Airport</td><td>$10,000</td><td>Big commerce needs one</td></tr>
+        <tr><td>Nuclear plant</td><td>$5,000</td><td>Powers up to 150 zone tiles</td></tr>
+    </table>
+
+    <h2 id="goals">Goals</h2>
+    <p>Pick a goal on the map chooser with the up and down arrows. At each new year the game checks how you're doing. Win or lose, you can keep playing.</p>
+    <table class="grid">
+        <tr><th>Goal</th><th>Money</th><th>To win</th><th>Time</th></tr>
+        <tr><td>Free play</td><td>$20,000</td><td>-</td><td>-</td></tr>
+        <tr><td>Boomtown</td><td>$20,000</td><td>10,000 people</td><td>10 years</td></tr>
+        <tr><td>Shoestring</td><td>$5,000</td><td>2,000 people</td><td>5 years</td></tr>
+        <tr><td>Clean air</td><td>$20,000</td><td>5,000 people, pollution under 20%</td><td>15 years</td></tr>
+        <tr><td>Safe streets</td><td>$20,000</td><td>5,000 people, crime under 15%</td><td>15 years</td></tr>
+        <tr><td>Rich town</td><td>$20,000</td><td>$50,000 in the bank</td><td>20 years</td></tr>
+    </table>
+
+    <p class="top"><a href="#top">[Back to top]</a></p>
+    <hr>
+
+    <h2 id="get">Get TileTown</h2>
+    <div class="construction">
+        <div>
+            <b>UNDER CONSTRUCTION</b><br>
+            TileTown is still being built. Watch this page - it will be here soon!
+        </div>
+    </div>
+
+    <hr class="rainbow">
+
+    <div class="ring">
+        This site is a member of the<br>
+        <b>Apple IIgs Projects Webring</b>
+        <div class="links">
+            [<a href="../Conquer-GS/">&lt;&lt; Prev</a>]
+            [<a href="../" id="ring-random">Random</a>]
+            [<a href="../GSCommander/">Next &gt;&gt;</a>]
+            [<a href="../">List sites</a>]
+        </div>
+    </div>
+
+    <p class="center">
+        You have visited this page
+        <span class="counter" id="counter" aria-label="visit count"><span>0</span><span>0</span><span>0</span><span>0</span><span>1</span></span>
+        times.
+    </p>
+
+    <div class="badges" aria-hidden="true">
+        <div class="badge b1">Made for<br>Apple IIgs</div>
+        <div class="badge b2">65816<br>Assembly</div>
+        <div class="badge b3">Super<br>Hi-Res</div>
+        <div class="badge b4">Best viewed<br>at 800 x 600</div>
+    </div>
+
+    <footer>
+        <hr>
+        <p><a href="../">More projects</a> &middot; <a href="../Conquer-GS/">Conquer GS</a> &middot; <a href="../GSCommander/">GS Commander</a> &middot; <a href="../MegaconvertGS/">MegaconvertGS</a> &middot; <a href="../EmuBuddy/">EmuBuddy</a></p>
+        <p>See this page as a <a href="index.html">1989 magazine ad</a></p>
+        <p>&copy; 2026 Walter Tengler</p>
+        <p class="legal">TileTown is an independent game inspired by the city-building classics of the late 1980s. All of its code, graphics and music are original. SimCity is a trademark of Electronic Arts Inc.; TileTown is not affiliated with or endorsed by Electronic Arts. Apple IIgs is a trademark of Apple Inc.</p>
+    </footer>
+</div>
+
+<script>
+(function () {
+    /* the counter: your own visits, kept in this browser */
+    var n = 1;
+    try {
+        n = (parseInt(localStorage.getItem('tiletown-visits'), 10) || 0) + 1;
+        localStorage.setItem('tiletown-visits', String(n));
+    } catch (e) {}
+    var digits = String(Math.min(n, 99999)).padStart(5, '0');
+    var box = document.getElementById('counter');
+    box.innerHTML = digits.split('').map(function (d) { return '<span>' + d + '</span>'; }).join('');
+    box.setAttribute('aria-label', n + ' visits');
+
+    /* the webring's Random: one of the other Apple II pages */
+    var ring = ['../Conquer-GS/', '../GSCommander/', '../MegaconvertGS/', '../GSRemap/', '../EmuBuddy/', '../AppleIIASCIIArt/', '../RetroGraphicsConverter/'];
+    document.getElementById('ring-random').href = ring[Math.floor(Math.random() * ring.length)];
+})();
+</script>
+</body>
+</html>
