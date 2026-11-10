@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GSLauncher - a program launcher for the Apple IIgs</title>
+    <link rel="icon" type="image/png" href="img/icon.png">
+    <link rel="apple-touch-icon" href="img/icon.png">
+    <meta name="description" content="GSLauncher is a program launcher for GS/OS on the Apple IIgs, written in 65816 assembly. It shows your applications as Finder icons in one window, starts one with a click and brings you back when it quits. It finds your apps for you, keeps them in pages, counts your launches, and can start with the computer.">
+    <meta name="keywords" content="Apple IIgs, GS/OS, program launcher, application launcher, Finder icons, System 6, 65816, Merlin 32, retro computing">
+    <meta property="og:title" content="GSLauncher">
+    <meta property="og:description" content="Your programs, one click away on the Apple IIgs.">
+    <meta property="og:image" content="https://portwally.github.io/GSLauncher/img/main.png">
+    <meta property="og:type" content="website">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,700;1,8..60,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script data-goatcounter="https://portwally.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+<a class="back" href="../">&larr; portwally.github.io</a>
+
+<article class="page">
+    <header>
+        <div class="folio">
+            <span>For Apple IIgs owners</span>
+            <span>December 1986 &middot; Vol. 1, No. 4</span>
+            <span>$2.95</span>
+        </div>
+        <div class="masthead">
+            <p class="title">The Sixteen&#8209;Bit <span>Gazette</span></p>
+            <p class="issue">New products<br>Utilities &middot; page 14</p>
+        </div>
+        <div class="stripes" role="presentation"></div>
+
+        <span class="kicker">New product &middot; Launchers</span>
+        <h1>GSLauncher</h1>
+        <p class="dek">Your programs, one click away. One window of icons starts your applications, and when you quit one, you are back where you started.</p>
+        <div class="byline">From the author, portwally &middot; Free &middot; Requires System 6</div>
+    </header>
+
+    <section class="lead">
+        <figure>
+            <div class="monitor"><div class="glass">
+                <img src="img/main.png" width="640" height="400" alt="GSLauncher's window on the desktop: three applications with their Finder icons, their names and the dates of their files under them">
+            </div></div>
+            <figcaption><b>Fig. 1</b> GSLauncher with three applications. Each has its own icon from the Finder, its name, and the date of the file under it. The small number is the key that starts it.</figcaption>
+        </figure>
+
+        <aside class="box" aria-label="At a glance">
+            <h3>At a glance</h3>
+            <dl>
+                <dt>Product</dt>
+                <dd>GSLauncher 1.1</dd>
+                <dt>What it is</dt>
+                <dd>A program launcher: one window of icons that starts your applications</dd>
+                <dt>Requires</dt>
+                <dd>Apple IIgs, System 6 (GS/OS)</dd>
+                <dt>Written in</dt>
+                <dd>65816 assembly, with Merlin 32</dd>
+                <dt>Starts</dt>
+                <dd>GS/OS applications (S16) and ProDOS 8 programs (SYS)</dd>
+                <dt>Holds</dt>
+                <dd>Up to 4 pages of 18 apps each</dd>
+                <dt>Finds</dt>
+                <dd>The programs on your disks, by itself, when you first start it</dd>
+                <dt>Keeps</dt>
+                <dd>Its list in a plain text file you can edit</dd>
+                <dt>Source</dt>
+                <dd><a href="https://github.com/portwally/GSLauncher">On GitHub</a></dd>
+                <dt>Price</dt>
+                <dd>Free.</dd>
+            </dl>
+            <a class="get" href="#order">Get it &rarr;</a>
+        </aside>
+    </section>
+
+    <div class="keybar" aria-label="The keys">
+        <span><b>1-9</b>Start</span><span><b>Tab</b>Next page</span><span><b>&#63743;N</b>Add app</span><span><b>&#63743;F</b>Find apps</span>
+        <span><b>&#63743;E</b>Edit slots</span><span><b>&#63743;R</b>Rename</span><span><b>&#63743;Q</b>Quit</span>
+    </div>
+
+    <div class="columns">
+        <p class="dropcap">The Finder is good at finding things, but most days you want the same handful of programs: the file manager, the picture converter, the game you cannot leave alone. To get to them you open a disk, open a folder, open another folder and double-click. GSLauncher puts them in one window instead. Click an icon, and the program starts. Quit the program, and you are back at the launcher, ready for the next one.</p>
+        <p>It can be the first thing you see when the computer starts. Set it as the startup application and GS/OS opens it in place of the Finder; the Finder is one menu item away. Nothing about your programs has to change, and nothing is copied: a slot only remembers where the program is.</p>
+
+        <h2>Click, and it starts</h2>
+        <p>Each slot shows the program&rsquo;s own icon, taken from the Finder&rsquo;s icon files in the program&rsquo;s folder or on its disk, so it looks the way it does in the Finder. A program with no icon gets a plain one. Under the icon is its name, and under that a line you can choose: the date of the file, when you last started the program from the launcher, or how many times you have started it.</p>
+        <p>GS/OS applications and ProDOS 8 programs both work, and both come back to the launcher when they quit. The first nine slots of a page can be started from the keyboard too: press <kbd>1</kbd> for the first, <kbd>2</kbd> for the second, and so on. If a program has been moved or deleted, its icon is dimmed and says &ldquo;not found&rdquo; instead of failing when you click.</p>
+
+        <h2>It finds your programs for you</h2>
+        <p>The first time GSLauncher starts there is nothing in it yet, so it offers to look. First you check the disks to scan: the disk you started from is checked already, and <i>All</i> checks every disk in the machine. Then you click <i>Scan</i>. <kbd>Escape</kbd> stops it if a disk is large.</p>
+        <div class="grid2">
+            <figure>
+                <div class="monitor"><div class="glass">
+                    <img src="img/find1.png" width="640" height="400" alt="The Find Apps window: which disks to look at, with the boot disk checked and Scan, All, None and Cancel buttons" loading="lazy">
+                </div></div>
+                <figcaption><b>Fig. 2</b> Find Apps, step one: which disks to look at.</figcaption>
+            </figure>
+            <figure>
+                <div class="monitor"><div class="glass">
+                    <img src="img/find2.png" width="640" height="400" alt="The Find Apps window listing ten applications with check boxes, three of them checked" loading="lazy">
+                </div></div>
+                <figcaption><b>Fig. 3</b> Step two: the programs it found, each with a check box.</figcaption>
+            </figure>
+        </div>
+        <p>It lists every GS/OS application and ProDOS 8 program it finds, with its path. Check the ones you want and click <i>Add Selected</i>. The System folder and ProDOS itself are left out, and a program already in the launcher is not added twice. You can do all this again at any time with Find Apps in the File menu.</p>
+
+        <h2>Slots, your way</h2>
+        <p>Add App asks for a program in the usual file dialog. To change what you have, choose Edit Slots: a click now picks a slot, with a frame round it, instead of starting it. Then Change Slot gives it another program, Rename Slot changes the name under the icon, Remove Slot takes it out, and Move Left and Move Right change the order. Choose Edit Slots again, or press <kbd>Escape</kbd>, to go back to starting programs.</p>
+        <div class="grid2">
+            <figure>
+                <div class="monitor"><div class="glass">
+                    <img src="img/edit.png" width="640" height="400" alt="GSLauncher in Edit Slots mode: the second slot has a frame round it, and the title says Edit Slots" loading="lazy">
+                </div></div>
+                <figcaption><b>Fig. 4</b> Edit Slots: the second slot is picked.</figcaption>
+            </figure>
+            <figure>
+                <div class="monitor"><div class="glass">
+                    <img src="img/menu.png" width="640" height="400" alt="The File menu: Add App, Find Apps, Edit Slots, Change Slot, Rename Slot, Remove Slot, Remove Missing Slots, Move Left, Move Right, Restart, Shut Down and Quit to Finder" loading="lazy">
+                </div></div>
+                <figcaption><b>Fig. 5</b> The File menu has everything, and the shortcuts next to it.</figcaption>
+            </figure>
+        </div>
+        <p>Remove Missing Slots tidies up after you have moved or deleted programs: it removes every slot on the page whose program is gone.</p>
+
+        <h2>Pages</h2>
+        <p>One window is plenty for ten programs, but not for forty. The Page menu adds pages: up to four, each with its own name and up to eighteen slots. As soon as there is a second page, tabs appear across the top of the window. Click a tab, or press <kbd>Tab</kbd>, to change page. Rename Page changes a name, Remove Page removes the page and its slots (never the programs themselves), and Move Slot to Next Page sends the picked slot to the next page.</p>
+        <figure>
+            <div class="monitor"><div class="glass">
+                <img src="img/pages.png" width="640" height="400" alt="GSLauncher with two tabs, Tools and Games, the Tools page shown with three programs and how many times each was started" loading="lazy">
+            </div></div>
+            <figcaption><b>Fig. 6</b> Two pages, Tools and Games. The View menu has been set to Show Launch Count.</figcaption>
+        </figure>
+
+        <h2>How often, and when</h2>
+        <p>Every time you start a program from the launcher, GSLauncher counts it and notes the time. The View menu chooses what the line under each name shows: <i>Show File Date</i>, <i>Show Last Used</i> or <i>Show Launch Count</i>. It remembers your choice. The date of the file is handy if you write programs yourself: it shows at a glance that the new build has arrived.</p>
+
+        <h2>Start it with the computer</h2>
+        <p>Open the Control Panel, choose Set Start, then Select Application, and pick GSLauncher. From then on GS/OS starts GSLauncher when the machine starts. Quit to Finder in the File menu goes to the Finder whenever you want it.</p>
+        <p>The File menu also has Restart and Shut Down. Both ask first, and both use GS/OS&rsquo;s own shutdown call, so every disk is closed properly before the machine restarts or tells you it is safe to switch off.</p>
+        <div class="grid2">
+            <figure>
+                <div class="monitor"><div class="glass">
+                    <img src="img/confirm.png" width="640" height="400" alt="The question: Restart the computer now? with the buttons Restart and Cancel" loading="lazy">
+                </div></div>
+                <figcaption><b>Fig. 7</b> Restart asks first.</figcaption>
+            </figure>
+            <figure>
+                <div class="monitor"><div class="glass">
+                    <img src="img/shutdown.png" width="640" height="400" alt="A black screen with the message You may now switch off your Apple IIgs safely and a Restart button" loading="lazy">
+                </div></div>
+                <figcaption><b>Fig. 8</b> Shut Down ends with GS/OS&rsquo;s own message.</figcaption>
+            </figure>
+        </div>
+
+        <h2>Help at hand</h2>
+        <p>The Help menu explains it all, a page at a time: starting programs, editing the slots, what each menu entry does, the slots file, finding programs, and pages and views.</p>
+        <figure>
+            <div class="monitor"><div class="glass">
+                <img src="img/help-menu.png" width="640" height="400" alt="A help window listing the menu entries and what each does" loading="lazy">
+            </div></div>
+            <figcaption><b>Fig. 9</b> The Menu Entries page of the help.</figcaption>
+        </figure>
+
+        <h2>A list you can read</h2>
+        <p>The slots are kept in one text file, <i>Launcher.Slots</i>, next to the program. You can edit it with any text editor, or copy it to another disk. A star at the start of a path stands for the disk you started from, so the list keeps working if the disk is renamed.</p>
+        <div class="card">
+            <h3>Launcher.Slots</h3>
+            <table>
+                <tr><td><kbd>@view=2</kbd></td><td>What the third line shows: 0 file date, 1 last used, 2 launch count</td></tr>
+                <tr><td><kbd>[Tools]</kbd></td><td>A page; the slots below it belong to it</td></tr>
+                <tr><td><kbd>Name=*:Folder:Program</kbd></td><td>A slot: its name, and the path of the program</td></tr>
+                <tr><td><kbd>|42|10 Nov 09:56</kbd></td><td>After the path: launches, and the last time (written by GSLauncher)</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <section class="coupon" id="order" aria-labelledby="order-title">
+        <span class="scissors" aria-hidden="true">&#9986;</span>
+        <div>
+            <h2 id="order-title">Yes! I want GSLauncher.</h2>
+            <p>No check, no money order, no stamp. GSLauncher is free. Download the disk image, copy the GSLauncher folder to your System 6 disk, and double-click. The first time, it offers to find your programs.</p>
+            <div class="buttons">
+                <a class="main" href="GSLauncher-1.1.zip" download data-goatcounter-click="download-gslauncher-1.1" data-goatcounter-title="GSLauncher 1.1 download">Download 1.1</a>
+                <a href="https://github.com/portwally/GSLauncher">Source on GitHub</a>
+            </div>
+        </div>
+        <div>
+            <div class="check">
+                <div><span>[X]</span>Apple IIgs</div>
+                <div><span>[X]</span>System 6 (GS/OS)</div>
+                <div><span>[X]</span>Or an emulator, such as MAME</div>
+            </div>
+            <div class="lines" aria-hidden="true">
+                <div>Name</div>
+                <div>Address</div>
+                <div>City, State, ZIP</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="index" aria-labelledby="index-title">
+        <div class="index-head">
+            <h2 id="index-title">Index</h2>
+            <p>More for Apple II fans by Walter Tengler. <a href="../">All of it on one page &rarr;</a></p>
+        </div>
+        <div class="index-cols">
+            <div class="index-group">
+                <h3>Apple IIgs</h3>
+                <ul>
+                    <li><a href="../Conquer-GS/"><span>Conquer GS</span></a></li>
+                    <li><a href="../GSCommander/"><span>GS Commander</span></a></li>
+                    <li><a href="../MegaconvertGS/"><span>MegaconvertGS</span></a></li>
+                    <li><a href="../TileTown/"><span>TileTown</span></a></li>
+                </ul>
+            </div>
+            <div class="index-group">
+                <h3>Apple II tools for the Mac</h3>
+                <ul>
+                    <li><a href="../EmuBuddy/"><span>EmuBuddy</span></a></li>
+                    <li><a href="../GSRemap/"><span>GS Remap</span></a></li>
+                    <li><a href="../RetroBrowse/"><span>RetroBrowse</span></a></li>
+                    <li><a href="../AppleIIASCIIArt/"><span>1977 ASCII Art</span></a></li>
+                </ul>
+            </div>
+            <div class="index-group">
+                <h3>More retro for the Mac</h3>
+                <ul>
+                    <li><a href="../RetroGraphicsConverter/"><span>Retro Graphics Converter</span></a></li>
+                    <li><a href="../Bitpast/"><span>BitPast</span></a></li>
+                    <li><a href="../RetroTube/"><span>Retro Tube</span></a></li>
+                    <li><a href="../RetroTV/"><span>Retro TV</span></a></li>
+                    <li><a href="../Retro%20Computing/"><span>1977: all retro tools</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <p class="note">This page is dressed as 1986, the year of the Apple IIgs and of Norton Commander.</p>
+
+    <footer class="footer">
+        <span>14</span>
+        <span>The Sixteen-Bit Gazette &middot; December 1986</span>
+        <span>&copy; 2026 Walter Tengler</span>
+    </footer>
+</article>
+</body>
+</html>
