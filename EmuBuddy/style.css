@@ -122,6 +122,10 @@ figcaption b { font-family: var(--screen); font-weight: normal; }
 .shots { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; }
 .shots figure { margin: 0; }
 
+/* a tall (portrait) screenshot with text beside it */
+.side { display: grid; grid-template-columns: minmax(0, 300px) 1fr; gap: 30px; align-items: start; }
+.side figure { margin: 0; }
+
 /* terminal-like code */
 pre, code { font-family: var(--screen); }
 pre {
@@ -149,7 +153,8 @@ footer a:hover { background: #fff; color: var(--blue); }
 @media (max-width: 760px) {
     body { font-size: 19px; }
     .win .body { padding: 20px 18px 24px; }
-    .grid, .shots { grid-template-columns: 1fr; }
+    .grid, .shots, .side { grid-template-columns: 1fr; }
+    .side figure { max-width: 300px; margin: 0 auto; }
     .menubar { gap: 10px; font-size: 15px; }
     td:first-child { white-space: normal; }
 }

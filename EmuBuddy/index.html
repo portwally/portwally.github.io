@@ -27,6 +27,7 @@
     <a href="#printing">Printing</a>
     <a href="#dragdrop">Drag &amp; Drop</a>
     <a href="#cli">Command line</a>
+    <a href="#launcher">Launcher</a>
     <a class="right" href="#get">Get it</a>
 </nav>
 
@@ -248,6 +249,7 @@
         <table>
             <tr><th>Option</th><th>Meaning</th></tr>
             <tr><td><code>-title &lt;text&gt;</code></td><td>the window title</td></tr>
+            <tr><td><code>-quitshot &lt;file.png&gt;</code></td><td>save a picture of the IIgs screen to this file when EmuBuddy quits (the Launcher uses it as the picture of a game)</td></tr>
             <tr><td><code>-validate</code></td><td>check that the ROM, disks and folders named exist, print the result and exit (0 = fine, 1 = something is missing)</td></tr>
             <tr><td><code>-showconfig</code></td><td>print the settings this command line stands for and exit</td></tr>
             <tr><td><code>-bridge &lt;folder&gt;</code></td><td>a folder that programs inside the IIgs may read and write (the host bridge)</td></tr>
@@ -259,12 +261,63 @@
     </div>
 </section>
 
-<!-- ================= launcher teaser ================= -->
+<!-- ================= launcher ================= -->
 <section class="win" id="launcher">
     <div class="title"><h2>EmuBuddy Launcher</h2></div>
     <div class="body">
-        <p>The download holds a second program, <b>EmuBuddy Launcher</b>: a picture-first front end. Your games &ndash; complete machine set-ups with ROM, memory, speed, slots and disks &ndash; show up as a row of big covers over a blurred background, and one key starts EmuBuddy with the right command line. It works with a game controller, can import your Attract-Mode lists and has favourites and sorting.</p>
-        <p><i>Screenshots and a full description follow soon.</i></p>
+        <p>The download holds a second program, <b>EmuBuddy Launcher</b>: a picture-first front end in the style of Attract-Mode&rsquo;s Arcadeflow. Your games &ndash; complete machine set-ups with ROM, memory, speed, slots and disks &ndash; show up as a row of big covers over a blurred background, and one key starts EmuBuddy with the right command line.</p>
+        <figure>
+            <div class="monitor"><div class="glass"><img src="img/launcher.jpg" width="1280" height="720" loading="lazy" alt="The EmuBuddy Launcher: a row of large game covers, the selected one in the middle with its name, a short description and facts such as memory and speed"></div></div>
+            <figcaption><b>Fig. 8</b> The Arcade view: Left and Right move, Return plays.</figcaption>
+        </figure>
+        <div class="grid">
+            <div class="feature">
+                <h3>Keyboard, mouse or controller</h3>
+                <p>Arrow keys and Return, the mouse, or a game controller: D-pad or stick to move, A plays, Y opens the menu. The dialogs work with the controller too. Type a few letters to search.</p>
+            </div>
+            <div class="feature">
+                <h3>Pictures for every game</h3>
+                <p>Use your own covers (PNG, JPG or BMP) or the artwork folders of Attract-Mode. A game without a picture gets one by itself: EmuBuddy keeps the last IIgs screen when it quits.</p>
+            </div>
+            <div class="feature">
+                <h3>A simple editor</h3>
+                <p>Name, picture, a main disk and a floppy, and switches for sound card, internet, printer and speed. &ldquo;More settings&rdquo; shows every slot and all drives.</p>
+            </div>
+            <div class="feature">
+                <h3>Favourites and sorting</h3>
+                <p>Mark favourites with a star and sort by name, favourites first, last played or most played. After a minute without input a slideshow walks through your games.</p>
+            </div>
+            <div class="feature">
+                <h3>Disks and ROMs library</h3>
+                <p>Name the folders that hold your ROMs and disk images. The library lists them with disk type and ProDOS volume name and shows which game uses each file.</p>
+            </div>
+            <div class="feature">
+                <h3>Import from Attract-Mode</h3>
+                <p>Reads <code>~/.attract</code>, makes a game of every entry of a system&rsquo;s list and takes over the options of its start script. Your Attract-Mode folder is not changed.</p>
+            </div>
+        </div>
+        <div class="shots" style="margin-top:26px">
+            <figure>
+                <div class="monitor"><div class="glass"><img src="img/launcher-menu.jpg" width="1280" height="720" loading="lazy" alt="The menu of the launcher over the row of covers: Play, Details, Favourites, Sort, Edit, New Game and more"></div></div>
+                <figcaption><b>Fig. 9</b> Space (or Y on a controller) opens the menu.</figcaption>
+            </figure>
+            <figure>
+                <div class="monitor"><div class="glass"><img src="img/launcher-edit.jpg" width="1280" height="720" loading="lazy" alt="The Edit Game window with name, picture, main disk, floppy disk and switches"></div></div>
+                <figcaption><b>Fig. 10</b> The simple editor.</figcaption>
+            </figure>
+        </div>
+        <h3>Portrait screens and German</h3>
+        <div class="side">
+            <figure class="tall">
+                <div class="monitor"><div class="glass"><img src="img/launcher-portrait.jpg" width="483" height="859" loading="lazy" alt="The launcher on a portrait screen with German texts: a big picture on top, the row of covers below"></div></div>
+                <figcaption><b>Fig. 11</b> Portrait layout, here in German.</figcaption>
+            </figure>
+            <div>
+                <p>When the window is taller than wide, the view changes to a <b>portrait layout</b>: a big picture of the selected game on top, the row of covers below. It does so by itself on a turned screen, for example in an arcade cabinet; <i>Portrait Window</i> in the menu opens an upright window on a normal screen.</p>
+                <p>The launcher speaks <b>English and German</b>. It follows the language of your system, and the menu switches it.</p>
+                <p>A <b>Classic view</b> with windows, a menu bar and fourteen skins (Retro, Modern, MacOS&nbsp;7, Commodore&nbsp;64, ZX&nbsp;Spectrum, Amstrad&nbsp;CPC, NeXT, BeOS and more) is one menu item away. It shows the command line of every game.</p>
+            </div>
+        </div>
     </div>
 </section>
 
