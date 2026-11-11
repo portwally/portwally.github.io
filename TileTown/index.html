@@ -163,6 +163,14 @@
         .checks li { break-inside: avoid; position: relative; padding-left: 26px; margin-bottom: 9px; line-height: 1.4; }
         .checks li::before { content: "\2714"; position: absolute; left: 0; top: 0; width: 18px; height: 18px; border: 2px solid var(--ink); font-family: var(--sans); font-size: 0.85rem; line-height: 15px; text-align: center; color: var(--red); background: #fff; }
         .checks b { font-family: var(--sans); font-weight: 700; }
+        .tunes { border-top: 3px double var(--rule); border-bottom: 3px double var(--rule); padding: 16px 0 6px; margin: 26px 0; }
+        .tunes p { margin: 0 0 12px; }
+        .tunes ol { list-style: none; margin: 0; padding: 0; columns: 2 280px; column-gap: 28px; }
+        .tunes li { break-inside: avoid; margin-bottom: 12px; }
+        .tunes .t { display: block; font-family: var(--sans); font-weight: 700; font-size: 0.92rem; margin-bottom: 4px; }
+        .tunes .t b { color: var(--red); margin-right: 8px; }
+        .tunes .t i { font-weight: 400; font-style: normal; color: var(--soft); margin-left: 6px; }
+        .tunes audio { display: block; width: 100%; height: 32px; }
         .panel { background: #fff; border: 3px solid var(--ink); box-shadow: 6px 6px 0 var(--ink); padding: 16px 18px; }
         .panel h2 { font-size: 1.45rem; border-bottom: 2px solid var(--ink); padding-bottom: 6px; }
         .prices { width: 100%; border-collapse: collapse; font-family: var(--sans); font-size: 0.92rem; }
@@ -304,7 +312,7 @@
         <p>TileTown's city lives on a 128 by 128 map, drawn in colourful Super Hi-Res. Land value, traffic, pollution and crime spread from street to street, and your citizens tell you what they want: more homes, more shops, a hospital, a school, a stadium, an airport, a seaport. Lay rail to take the traffic off the roads.</p>
         <p>Open the maps to see the whole city at once - or as heat maps of pollution, crime, traffic and more. Graphs show how your city has grown over 10 years, or 100. The budget's sliders let you set taxes and decide how much to spend on roads, police and fire.</p>
         <p>And when you think you have it all under control - a fire. A flood. A tornado tearing through downtown. An earthquake. Or, if you built that nuclear plant, a meltdown.</p>
-        <p>Written from scratch in 65816 assembly for the Apple IIgs, with sound effects and an original soundtrack on the Ensoniq sound chip.</p>
+        <p>Written from scratch in 65816 assembly for the Apple IIgs, with sound effects and an original soundtrack on the Ensoniq sound chip: eight relaxed tunes that play in turn while you build.</p>
     </div>
 
     <div class="get">
@@ -325,6 +333,7 @@
                 <li><b>A city evaluation</b> and a query tool</li>
                 <li><b>Pause and 3 speeds,</b> menus and help</li>
                 <li><b>8 save slots,</b> each city under its own name</li>
+                <li><b>8 relaxed tunes</b> on the Ensoniq chip</li>
             </ul>
         </div>
         <aside class="panel">
@@ -352,6 +361,21 @@
         <figure><a href="screens/budget.png"><img class="px" src="screens/budget.png" width="960" height="640" loading="lazy" alt="The budget with sliders"></a><figcaption><b>2</b>Slide the taxes up, the roads budget down. Live with it.</figcaption></figure>
         <figure><a href="screens/tornado.png"><img class="px" src="screens/tornado.png" width="960" height="640" loading="lazy" alt="A tornado in town"></a><figcaption><b>3</b>Tornado! It wrecks whatever it passes.</figcaption></figure>
         <figure><a href="screens/milestone.png"><img class="px" src="screens/milestone.png" width="960" height="640" loading="lazy" alt="A village becomes a town"></a><figcaption><b>4</b>2,000 people: your village is a town. Next stop, metropolis.</figcaption></figure>
+    </div>
+
+    <div class="tunes">
+        <h2>Music to build a city by</h2>
+        <p>Eight original tunes play in turn while you build, on the IIgs's Ensoniq sound chip: seven voices of synthesized instruments - electric piano, vibraphone, guitar, flute, strings - over soft drums. These recordings are the chip's own sound, made from the game's music data.</p>
+        <ol>
+                <li><span class="t"><b>1</b>Sunrise Over the Valley <i>1:36</i></span><audio controls preload="none" src="music/1-sunrise.m4a"></audio></li>
+                <li><span class="t"><b>2</b>Morning Commute <i>1:31</i></span><audio controls preload="none" src="music/2-commute.m4a"></audio></li>
+                <li><span class="t"><b>3</b>Quiet Suburbs <i>1:20</i></span><audio controls preload="none" src="music/3-suburbs.m4a"></audio></li>
+                <li><span class="t"><b>4</b>Downtown Stroll <i>1:31</i></span><audio controls preload="none" src="music/4-downtown.m4a"></audio></li>
+                <li><span class="t"><b>5</b>Workshops and Warehouses <i>1:31</i></span><audio controls preload="none" src="music/5-workshops.m4a"></audio></li>
+                <li><span class="t"><b>6</b>City Lights <i>2:03</i></span><audio controls preload="none" src="music/6-nightlights.m4a"></audio></li>
+                <li><span class="t"><b>7</b>Market Day <i>1:25</i></span><audio controls preload="none" src="music/7-market.m4a"></audio></li>
+                <li><span class="t"><b>8</b>A Fine City <i>1:47</i></span><audio controls preload="none" src="music/8-cityhall.m4a"></audio></li>
+        </ol>
     </div>
 
     <div class="lower">
