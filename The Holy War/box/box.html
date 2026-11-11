@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>The Holy War - box art</title>
+<meta name="robots" content="noindex">
+<!-- The box's faces, drawn here and rendered to pictures by render.sh
+     (front.jpg, back.jpg, spine.jpg, top.jpg: the 3D box on the homepage
+     wears them). box.html?face=front (back, spine, top) shows one face at
+     its size: 900 x 1180, the spine 170 x 1180, the top 900 x 170. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800;900&family=Alegreya+Sans:wght@400;500;700;800&family=Pixelify+Sans:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root { --ink: #1c130a; --wall: #4a2f16; --wall-d: #2e1c0c; --stone: #e8cf96; --stone-d: #b98f4c; --sand: #cc9955;
+        --gold: #f2c02e; --gold-d: #8a6212; --red: #d22a22; --blue: #3a7bd5; --green: #36b34a; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #20150b; font-family: 'Alegreya Sans', sans-serif; color: var(--ink); display: flex; gap: 30px; padding: 30px; align-items: flex-start; }
+img { display: block; }
+.px { image-rendering: pixelated; }
+.face { position: relative; width: 900px; height: 1180px; flex: none; overflow: hidden;
+  background-color: var(--wall);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='72'%3E%3Cpath d='M0 1h96M0 37h96M1 0v36M49 36v36' stroke='%23000' stroke-opacity='.3' stroke-width='2' fill='none'/%3E%3Cpath d='M0 3h96M0 39h96' stroke='%23fff' stroke-opacity='.05' stroke-width='2' fill='none'/%3E%3C/svg%3E"),
+    radial-gradient(ellipse at 50% 30%, #6a4520 0%, var(--wall) 55%, var(--wall-d) 100%); }
+.face.spine { width: 170px; }
+.face.top { height: 170px; }
+.gold { font-family: 'Cinzel', serif; font-weight: 900; color: var(--gold);
+  text-shadow: 0 2px 0 var(--gold-d), 0 4px 0 #3a2706, 0 0 18px rgba(0,0,0,.6); letter-spacing: 2px; }
+.strip { position: absolute; left: 0; right: 0; height: 64px; display: flex; align-items: center; justify-content: space-between; padding: 0 30px;
+  background: linear-gradient(180deg, #2a190a, #1b1007); border-bottom: 3px solid var(--gold-d); color: var(--stone);
+  font-family: 'Cinzel', serif; font-weight: 800; letter-spacing: 3px; font-size: 19px; }
+.strip.bottom { bottom: 0; border-bottom: 0; border-top: 3px solid var(--gold-d); font-size: 15px; letter-spacing: 2px; height: 54px; }
+.badge { border: 2px solid var(--gold); color: var(--gold); padding: 3px 12px 1px; border-radius: 3px; font-size: 17px; }
+.tablet { background: linear-gradient(180deg, #f1dcaa, #dfbf7c); border: 3px solid; border-color: #fff1c9 #8f6a2e #8f6a2e #fff1c9;
+  box-shadow: 0 0 0 2px var(--ink), 0 10px 24px rgba(0,0,0,.5); }
+
+/* ---- front ---- */
+.front .art { position: absolute; left: 0; top: 64px; width: 900px; height: 506px; border-bottom: 4px solid var(--gold-d); }
+.front .tag { position: absolute; left: 0; right: 0; top: 596px; text-align: center; font-size: 52px; line-height: 1; }
+.front .sub { position: absolute; left: 60px; right: 60px; top: 664px; text-align: center; color: #f3e2b8; font-size: 25px; font-weight: 500; }
+.front .armies { position: absolute; left: 40px; right: 40px; top: 730px; display: flex; justify-content: space-between; }
+.front .army { width: 256px; text-align: center; padding: 18px 8px 16px; }
+.front .army img { width: 110px; height: 120px; margin: 0 auto 8px; }
+.front .army b { display: block; font-family: 'Cinzel', serif; font-weight: 900; font-size: 19px; letter-spacing: .5px; white-space: nowrap; }
+.front .army span { display: block; font-size: 18px; font-weight: 500; color: #4a3413; margin-top: 2px; }
+.c-order { color: #b3160f; } .c-defence { color: #1c4fa3; } .c-riders { color: #1d7a2c; }
+.parade { position: absolute; left: 0; right: 0; top: 968px; height: 138px; background: url(../img/sand.png) 0 0 / 192px 192px; image-rendering: pixelated;
+  border-top: 4px solid var(--ink); border-bottom: 4px solid var(--ink); display: flex; flex-wrap: wrap; align-content: center; justify-content: center; gap: 6px 10px; padding: 0 20px; }
+.parade img { width: 48px; height: 48px; }
+
+/* ---- back ---- */
+.back .head { position: absolute; left: 40px; right: 40px; top: 28px; text-align: center; font-size: 37px; line-height: 1.12; }
+.back .blurb { position: absolute; left: 50px; right: 50px; top: 128px; color: #f3e2b8; font-size: 20.5px; line-height: 1.32; text-align: center; font-weight: 500; }
+.back .shots { position: absolute; left: 40px; right: 40px; top: 226px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px 20px; }
+.back .shot { padding: 6px 6px 4px; }
+.back .shot img { width: 388px; height: 242.5px; border: 2px solid var(--ink); }
+.back .shot span { display: block; text-align: center; font-size: 15.5px; font-weight: 700; padding-top: 3px; color: #3d2a0e; }
+.back .cols { position: absolute; left: 40px; right: 40px; top: 812px; display: flex; gap: 14px; }
+.back .col { flex: 1; padding: 10px 10px 8px; }
+.back .col h3 { font-family: 'Cinzel', serif; font-weight: 900; font-size: 17.5px; display: flex; align-items: center; gap: 8px; letter-spacing: .5px; }
+.back .col h3 img { width: 33px; height: 36px; }
+.back .col p { font-size: 15.5px; line-height: 1.22; margin: 5px 0 6px; color: #3d2a0e; font-weight: 500; min-height: 76px; }
+.back .col .row { display: flex; justify-content: space-between; background: url(../img/sand.png) 0 0 / 128px 128px; image-rendering: pixelated; border: 2px solid var(--ink); padding: 3px 4px; }
+.back .col .row img { width: 26px; height: 26px; }
+.back .need { position: absolute; left: 40px; right: 40px; top: 1020px; display: flex; gap: 18px; color: #f3e2b8; font-size: 16.5px; line-height: 1.26; }
+.back .need div { flex: 1; }
+.back .need b { color: var(--gold); font-family: 'Cinzel', serif; letter-spacing: 1px; font-size: 14px; display: block; }
+
+/* ---- spine, top ---- */
+.spine .word { position: absolute; left: 50%; top: 50%; width: 900px; margin-left: -450px; text-align: center; transform: translateY(-50%) rotate(90deg); font-size: 60px; white-space: nowrap; margin-top: 40px; }
+.spine .sh { position: absolute; left: 0; right: 0; top: 34px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.spine .sh img { width: 66px; height: 72px; }
+.spine .sys { position: absolute; left: 0; right: 0; bottom: 34px; text-align: center; font-family: 'Cinzel', serif; font-weight: 800; color: var(--stone); letter-spacing: 2px; font-size: 17px; line-height: 1.35; }
+.top .word { position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-50%); text-align: center; font-size: 78px; line-height: 1; }
+.top .l, .top .r { position: absolute; top: 50%; transform: translateY(-50%); font-family: 'Cinzel', serif; font-weight: 800; color: var(--stone); letter-spacing: 2px; font-size: 15px; }
+.top .l { left: 26px; } .top .r { right: 26px; }
+
+body.one { padding: 0; background: none; display: block; }
+body.one .face { display: none; }
+body.front .face.front, body.back .face.back, body.spine .face.spine, body.top .face.top { display: block; }
+</style>
+</head>
+<body>
+
+<div class="face front">
+  <div class="strip" style="top:0"><span class="badge">APPLE IIGS</span><span>REAL-TIME STRATEGY</span><span class="badge">8 MB</span></div>
+  <img class="art" src="../art/title.jpg" alt="">
+  <div class="tag gold">THREE ARMIES. ONE DESERT.</div>
+  <div class="sub">Build your base, pump the oil, raise your army &mdash; and take the land.</div>
+  <div class="armies">
+    <div class="army tablet"><img class="px" src="../img/shield-order.png" alt=""><b class="c-order">THE ORDER</b><span>Stone walls, heavy armour</span></div>
+    <div class="army tablet"><img class="px" src="../img/shield-defence.png" alt=""><b class="c-defence">THE DEFENCE FORCE</b><span>Long reach, high tech</span></div>
+    <div class="army tablet"><img class="px" src="../img/shield-riders.png" alt=""><b class="c-riders">THE DESERT RIDERS</b><span>Fast, many, unseen</span></div>
+  </div>
+  <div class="parade" id="parade"></div>
+  <div class="strip bottom"><span>&copy; 2026 WALTER TENGLER</span><span>65816 ASSEMBLY &middot; ENSONIQ SOUND</span><span>3.5" DISK</span></div>
+</div>
+
+<div class="face back">
+  <div class="head gold">THE DESERT IS NOT BIG<br>ENOUGH FOR THREE</div>
+  <p class="blurb">Three armies want the same sand and the oil under it. Choose one &mdash; knights and stone walls, snipers and drones, or camel riders out of hidden tunnels &mdash; and fight the other two at once. No two of them play alike.</p>
+  <div class="shots">
+    <div class="shot tablet"><img class="px" src="../screens/order-column.png" alt=""><span>The Order on the march: tanks, trebuchets, knights</span></div>
+    <div class="shot tablet"><img class="px" src="../screens/three-armies.png" alt=""><span>Three armies, one crossroads</span></div>
+    <div class="shot tablet"><img class="px" src="../screens/riders-base.png" alt=""><span>The Riders' palace, camp, bazaar and oil well</span></div>
+    <div class="shot tablet"><img class="px" src="../screens/defence-siege.png" alt=""><span>The Defence Force's base under siege</span></div>
+  </div>
+  <div class="cols">
+    <div class="col tablet"><h3 class="c-order"><img class="px" src="../img/shield-order.png" alt="">THE ORDER</h3><p>Slow, dear and very hard to kill. Castle towers, stone walls, a hospital &mdash; and the Crusade, when every unit charges.</p><div class="row" data-f="order"></div></div>
+    <div class="col tablet"><h3 class="c-defence"><img class="px" src="../img/shield-defence.png" alt="">DEFENCE FORCE</h3><p>Few but far-reaching: snipers, howitzers, a drone that sees everything, mines, interceptors &mdash; and the Airstrike.</p><div class="row" data-f="defence"></div></div>
+    <div class="col tablet"><h3 class="c-riders"><img class="px" src="../img/shield-riders.png" alt="">DESERT RIDERS</h3><p>Cheap, fast and everywhere: camels, rocket buggies, tunnels, camouflage, saboteurs &mdash; and the Sandstorm.</p><div class="row" data-f="riders"></div></div>
+  </div>
+  <div class="need">
+    <div><b>IN THE BOX</b>27 kinds of units and 30 buildings &middot; skirmish for three, free for all or two against you &middot; survival &middot; 16 maps and a map editor</div>
+    <div><b>ALSO</b>fog of war and radar &middot; special powers &middot; three save slots &middot; eight tunes, all synthesized on the Ensoniq chip</div>
+    <div><b>YOU NEED</b>an Apple IIgs with 8 MB of memory, a mouse and a 3.5" drive &mdash; or an emulator such as MAME</div>
+  </div>
+  <div class="strip bottom"><span>&copy; 2026 WALTER TENGLER</span><span>WRITTEN IN 65816 ASSEMBLY</span><span>PORTWALLY.GITHUB.IO</span></div>
+</div>
+
+<div class="face spine">
+  <div class="sh"><img class="px" src="../img/shield-order.png" alt=""><img class="px" src="../img/shield-defence.png" alt=""><img class="px" src="../img/shield-riders.png" alt=""></div>
+  <div class="word gold">THE HOLY WAR</div>
+  <div class="sys">APPLE<br>IIGS</div>
+</div>
+
+<div class="face top">
+  <span class="l">APPLE IIGS</span>
+  <div class="word gold">THE HOLY WAR</div>
+  <span class="r">8 MB &middot; 3.5"</span>
+</div>
+
+<script>
+var KINDS = ['sold', 'rock', 'flame', 'eng', 'buggy', 'ltank', 'tank', 'arty', 'harv'];
+var parade = document.getElementById('parade');
+['order', 'defence', 'riders'].forEach(function (f) {
+  KINDS.forEach(function (k) {
+    var i = new Image(); i.src = '../img/u-' + f + '-' + k + '.png'; i.className = 'px'; parade.appendChild(i);
+  });
+});
+[].forEach.call(document.querySelectorAll('.row[data-f]'), function (row) {
+  KINDS.forEach(function (k) {
+    var i = new Image(); i.src = '../img/u-' + row.dataset.f + '-' + k + '.png'; i.className = 'px'; row.appendChild(i);
+  });
+});
+var m = location.search.match(/face=(\w+)/);
+if (m) document.body.className = 'one ' + m[1];
+</script>
+</body>
+</html>
