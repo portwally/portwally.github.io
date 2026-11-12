@@ -217,7 +217,7 @@
         .terminal .group:first-child { margin-top: 0; }
 
         /* ---------- One photo, 15 machines ---------- */
-        .machines { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 22px; }
+        .machines { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; }
         .machine { padding: 0; }
         .machine .tv { background: #000; padding: 10px; border-bottom: 4px solid var(--edge); }
         .machine img { width: 100%; aspect-ratio: 4 / 3; image-rendering: pixelated; }
@@ -238,7 +238,7 @@
         .shot.wide { grid-column: 1 / -1; }
 
         /* ---------- Features ---------- */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 26px; }
+        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
         .feature .panel-body p { color: var(--dim); }
         .icon { font-size: 2rem; margin-bottom: 8px; }
 
@@ -272,8 +272,13 @@
         .ready { font-family: var(--pixel); font-size: 0.65rem; color: var(--phosphor); margin: 24px 0 12px; }
         .legal { font-size: 1.05rem; max-width: 860px; margin: 18px auto 0; opacity: 0.75; }
 
+        @media (max-width: 1000px) {
+            .machines { grid-template-columns: repeat(3, 1fr); }
+            .grid { grid-template-columns: repeat(2, 1fr); }
+        }
         @media (max-width: 640px) {
             body { font-size: 1.3rem; }
+            .grid { grid-template-columns: 1fr; }
             .bezel { padding: 14px 14px 34px; border-radius: 16px; }
             .gallery, .formats { grid-template-columns: 1fr; }
             .machines { grid-template-columns: repeat(2, 1fr); gap: 14px; }
@@ -306,7 +311,7 @@
             <div class="monitor">
                 <div class="bezel">
                     <div class="screen">
-                        <img src="screens/main-window.jpg" alt="BitPast converting a beach sunset into a 3200-color Apple IIgs picture" width="1600" height="954">
+                        <img src="screens/main-window.jpg" alt="BitPast converting a sunset above the clouds into a 3200-color Apple IIgs picture" width="1600" height="953">
                     </div>
                     <div class="led"></div>
                 </div>
@@ -324,6 +329,159 @@
                 <div class="stat panel"><b>3200</b><span>colors on the Apple IIgs</span></div>
                 <div class="stat panel"><b>20+</b><span>native file formats</span></div>
                 <div class="stat panel"><b>11</b><span>disk image types</span></div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="alt" id="machines">
+        <div class="container">
+            <h2>One Photo, 18 Machines</h2>
+            <p class="lead">The same photo, converted with each machine's default settings - exactly as BitPast saves it, shown on a 4:3 screen like the original hardware.</p>
+            <div class="panel original">
+                <div class="panel-title">original.jpg<span class="bars"></span></div>
+                <div class="panel-body">
+                    <img src="screens/machines/original.jpg" alt="The original photo of a red rose" loading="lazy" width="640" height="480">
+                    <p>The original photo</p>
+                </div>
+            </div>
+            <div class="machines">
+                <figure class="machine panel"><div class="tv"><img src="screens/machines/appleii.jpg" alt="Rose on the Apple II" loading="lazy" width="640" height="480"></div><figcaption class="caption"><strong>Apple II</strong><span>Double Hi-Res, 16 colors</span></figcaption></figure>
+                <figure class="machine panel"><div class="tv"><img src="screens/machines/appleiigs.jpg" alt="Rose on the Apple IIgs" loading="lazy" width="640" height="480"></div><figcaption class="caption"><strong>Apple IIgs</strong><span>3200 colors, a palette per line</span></figcaption></figure>
+                <figure class="machine panel"><div class="tv"><img src="screens/machines/amiga500.jpg" alt="Rose on the Amiga 500" loading="lazy" width="640" height="480"></div><figcaption class="caption"><strong>Amiga 500</strong><span>32 of 4096 colors</span></figcaption></figure>
+                <figure class="machine panel"><div class="tv"><img src="screens/machines/amiga1200.jpg" alt="Rose on the Amiga 1200" loading="lazy" width="640" height="480"></div><figcaption class="caption"><strong>Amiga 1200</strong><span>256 colors (AGA)</span></figcaption></figure>
+                <figure class="machine panel"><div class="tv"><img src="screens/machines/amstradcpc.jpg" alt="Rose on the Amstrad CPC" loading="lazy" width="640" height="480"></div><figcaption class="caption"><strong>Amstrad CPC</strong><span>Mode 1, 4 of 27 colors</span></figcaption></figure>
+                <figure class="machine panel"><div class="tv"><img src="screens/machines/atari800.jpg" alt="Rose on the Atari 800" loading="lazy" width="640" height="480"></div><figcaption class="caption"><strong>Atari 800</strong><span>Graphics 15, 4 of 128 colors</span></figcaption></figure>
+                <figure class="machine panel"><div class="tv"><img src="screens/machines/atarist.jpg" alt="Rose on the Atari ST" loading="lazy" width="640" height="480"></div><figcaption class="caption"><strong>Atari ST</strong><span>Low Res, 16 of 512 colors</span></figcaption></figure>
+                <figure class="machine panel"><div class="tv"><img src="screens/machines/bbcmicro.jpg" alt="Rose on the BBC Micro" loading="lazy" width="640" height="480"></div><figcaption class="caption"><strong>BBC Micro</strong><span>Mode 2, 8 colors</span></figcaption></figure>
+                <figure class="machine panel"><div class="tv"><img src="screens/machines/c64.jpg" alt="Rose on the Commodore 64" loading="lazy" width="640" height="480"></div><figcaption class="caption"><strong>Commodore 64</strong><span>Multicolor, 16 colors</span></figcaption></figure>
+                <figure class="machine panel"><div class="tv"><img src="screens/machines/msx.jpg" alt="Rose on the MSX2" loading="lazy" width="640" height="480"></div><figcaption class="caption"><strong>MSX2</strong><span>Screen 5, 16 of 512 colors</span></figcaption></figure>
+                <figure class="machine panel"><div class="tv"><img src="screens/machines/pc.jpg" alt="Rose on the IBM PC" loading="lazy" width="640" height="480"></div><figcaption class="caption"><strong>IBM PC</strong><span>VGA, 256 colors</span></figcaption></figure>
+                <figure class="machine panel"><div class="tv"><img src="screens/machines/plus4.jpg" alt="Rose on the Commodore Plus/4" loading="lazy" width="640" height="480"></div><figcaption class="caption"><strong>Plus/4</strong><span>Hi-Res, 121-color TED palette</span></figcaption></figure>
+                <figure class="machine panel"><div class="tv"><img src="screens/machines/trs80coco.jpg" alt="Rose on the TRS-80 Color Computer" loading="lazy" width="640" height="480"></div><figcaption class="caption"><strong>TRS-80 CoCo</strong><span>PMODE 3, fixed 4-color set</span></figcaption></figure>
+                <figure class="machine panel"><div class="tv"><img src="screens/machines/vic20.jpg" alt="Rose on the VIC-20" loading="lazy" width="640" height="480"></div><figcaption class="caption"><strong>VIC-20</strong><span>Hi-Res, custom characters</span></figcaption></figure>
+                <figure class="machine panel"><div class="tv"><img src="screens/machines/zxspectrum.jpg" alt="Rose on the ZX Spectrum" loading="lazy" width="640" height="480"></div><figcaption class="caption"><strong>ZX Spectrum</strong><span>2 colors per 8x8 cell</span></figcaption></figure>
+                <figure class="machine panel"><div class="tv"><img src="screens/machines/colecovision.jpg" alt="Rose on the ColecoVision" loading="lazy" width="640" height="480"></div><figcaption class="caption"><strong>ColecoVision</strong><span>2 colors per 8x1 stretch, 16 colors</span></figcaption></figure>
+                <figure class="machine panel"><div class="tv"><img src="screens/machines/pet.jpg" alt="Rose on the Commodore PET" loading="lazy" width="640" height="480"></div><figcaption class="caption"><strong>Commodore PET</strong><span>40 columns, Atkinson dither</span></figcaption></figure>
+                <figure class="machine panel"><div class="tv"><img src="screens/machines/atari2600.jpg" alt="Rose on the Atari 2600" loading="lazy" width="640" height="480"></div><figcaption class="caption"><strong>Atari 2600</strong><span>2 of 128 colors per line</span></figcaption></figure>
+            </div>
+        </div>
+    </section>
+
+    <section id="screenshots">
+        <div class="container">
+            <h2>Screenshots</h2>
+            <p class="lead">Drop in your pictures, pick a machine, tune the look - and pick a theme that matches.</p>
+            <div class="gallery">
+                <figure class="shot panel wide">
+                    <div class="panel-title">gs_os_theme<span class="bars"></span></div>
+                    <a href="screens/theme-gsos.jpg"><img src="screens/theme-gsos.jpg" alt="BitPast in the GS/OS theme converting a fruit basket to Apple IIgs 3200 colors" loading="lazy" width="1600" height="953"></a>
+                    <figcaption class="caption"><strong>Apple IIgs in the GS/OS theme</strong><span>Near-photographic 3200-color pictures, with a 16-color palette on every one of the 200 lines.</span></figcaption>
+                </figure>
+                <figure class="shot panel">
+                    <div class="panel-title">green_phosphor<span class="bars"></span></div>
+                    <a href="screens/theme-apple2.jpg"><img src="screens/theme-apple2.jpg" alt="BitPast in the Apple II green phosphor theme with a Double Hi-Res conversion of balloons" loading="lazy" width="1600" height="953"></a>
+                    <figcaption class="caption"><strong>Apple II green phosphor</strong><span>Double Hi-Res with b2d dithering and authentic NTSC palettes.</span></figcaption>
+                </figure>
+                <figure class="shot panel">
+                    <div class="panel-title">commodore_blue<span class="bars"></span></div>
+                    <a href="screens/theme-c64.jpg"><img src="screens/theme-c64.jpg" alt="BitPast in the Commodore 64 theme with a Multicolor conversion of a toucan" loading="lazy" width="1600" height="953"></a>
+                    <figcaption class="caption"><strong>Commodore 64 blue</strong><span>Multicolor and Hi-Res, saved as Koala Painter or Art Studio files.</span></figcaption>
+                </figure>
+                <figure class="shot panel wide">
+                    <div class="panel-title">amiga_1200<span class="bars"></span></div>
+                    <a href="screens/amiga.jpg"><img src="screens/amiga.jpg" alt="BitPast converting colourful canal houses to 256 Amiga AGA colors" loading="lazy" width="1600" height="953"></a>
+                    <figcaption class="caption"><strong>Amiga 1200, 256 colors</strong><span>Standard, HAM6 and HAM8 modes, saved as IFF/ILBM - with dithering, contrast, filters, saturation and gamma.</span></figcaption>
+                </figure>
+                <figure class="shot panel">
+                    <div class="panel-title">palette_editor<span class="bars"></span></div>
+                    <a href="screens/palette-editor.jpg"><img src="screens/palette-editor.jpg" alt="Palette editor showing the line palettes of a 3200-color picture" loading="lazy" width="1520" height="1304"></a>
+                    <figcaption class="caption"><strong>Palette editor</strong><span>Fine-tune every line palette of a 3200-color picture, with undo and redo.</span></figcaption>
+                </figure>
+                <figure class="shot panel">
+                    <div class="panel-title">create_disk<span class="bars"></span></div>
+                    <a href="screens/create-disk.jpg"><img src="screens/create-disk.jpg" alt="Create Disk Image window with an Amiga ADF disk selected" loading="lazy" width="1600" height="981"></a>
+                    <figcaption class="caption"><strong>Disk images for every computer</strong><span>Put all your converted pictures on a disk image, ready for an emulator or real hardware. The consoles get cartridges.</span></figcaption>
+                </figure>
+            </div>
+        </div>
+    </section>
+
+    <section class="alt" id="features">
+        <div class="container">
+            <h2>Features</h2>
+            <p class="lead">Everything you need to create authentic retro graphics.</p>
+            <div class="grid">
+                <div class="feature panel"><div class="panel-body"><div class="icon">🖥️</div><h3>18 Classic Machines</h3><p>Apple II and IIgs, Amiga 500 and 1200, Amstrad CPC, Atari 800, ST and 2600, BBC Micro, C64, ColecoVision, MSX, IBM PC, PET, Plus/4, TRS-80 CoCo, VIC-20 and ZX Spectrum.</p></div></div>
+                <div class="feature panel"><div class="panel-body"><div class="icon">🌈</div><h3>Real Palettes and Modes</h3><p>Each machine's own colors, resolutions and limits - from Apple IIgs 3200 colors and Amiga HAM to Spectrum attribute cells and C64 multicolor.</p></div></div>
+                <div class="feature panel"><div class="panel-body"><div class="icon">🎯</div><h3>Smart Color Selection</h3><p>Colors are chosen to cover the whole picture, so small details keep their color even when a machine can only show a handful.</p></div></div>
+                <div class="feature panel"><div class="panel-body"><div class="icon">🖼️</div><h3>Fit and Aspect</h3><p>Stretch, letterbox, crop or keep the original size - and allow for each machine's non-square pixels so circles stay round.</p></div></div>
+                <div class="feature panel"><div class="panel-body"><div class="icon">⚙️</div><h3>Fine-Tuning</h3><p>15+ dithering algorithms, HE, CLAHE and SWAHE contrast, filters, color matching modes, saturation and gamma - with live preview.</p></div></div>
+                <div class="feature panel"><div class="panel-body"><div class="icon">💾</div><h3>Native Files and Disks</h3><p>Save .SHR, .3200, .IFF, .PI1, .KLA, .ART, .PRG, .SCR, .PCX, .SC5 and more, make cartridges for the ColecoVision and Atari 2600, and put pictures on disk images for the computers.</p></div></div>
+                <div class="feature panel"><div class="panel-body"><div class="icon">🎨</div><h3>Palette Editor</h3><p>Edit the palettes of Apple IIgs pictures line by line, copy and paste palettes, with full undo and redo. Your changes go into the saved file.</p></div></div>
+                <div class="feature panel"><div class="panel-body"><div class="icon">📦</div><h3>Batch Conversion</h3><p>Drag in many pictures at once, lock settings per picture, and export them all - or straight onto a disk.</p></div></div>
+                <div class="feature panel"><div class="panel-body"><div class="icon">📺</div><h3>Retro Themes</h3><p>Work in the GS/OS look, Apple II green phosphor or Commodore 64 blue - or a clean modern interface.</p></div></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="systems">
+        <div class="container">
+            <h2>Supported Systems</h2>
+            <p class="lead">Modes and native file formats for every machine.</p>
+            <div class="formats">
+                <div class="platform panel"><div class="panel-title">apple ii / iigs<span class="bars"></span></div><div class="panel-body"><ul>
+                    <li><b>Apple II:</b> Double Hi-Res, Hi-Res, Lo-Res and Double Lo-Res (.BIN)</li>
+                    <li><b>Apple IIgs:</b> 3200 colors, 256 colors with Banded or Per-Line palettes, 320 and 640 modes (.SHR, .3200)</li>
+                </ul></div></div>
+                <div class="platform panel"><div class="panel-title">commodore<span class="bars"></span></div><div class="panel-body"><ul>
+                    <li><b>C64:</b> Hi-Res, Multicolor and PETSCII (.ART, .KLA, .PRG)</li>
+                    <li><b>VIC-20:</b> Hi-Res and Low-Res (.PRG)</li>
+                    <li><b>Plus/4:</b> Hi-Res and Multicolor (.PRG)</li>
+                    <li><b>PET:</b> 40 and 80 columns of block graphics (.PRG)</li>
+                </ul></div></div>
+                <div class="platform panel"><div class="panel-title">amiga<span class="bars"></span></div><div class="panel-body"><ul>
+                    <li><b>Amiga 500:</b> OCS/ECS up to 32 colors and HAM6 (.IFF)</li>
+                    <li><b>Amiga 1200:</b> AGA 256 colors and HAM8 (.IFF)</li>
+                </ul></div></div>
+                <div class="platform panel"><div class="panel-title">atari<span class="bars"></span></div><div class="panel-body"><ul>
+                    <li><b>Atari 800:</b> Graphics 8, 9, 10, 11 and 15 (.GR8 to .GR15)</li>
+                    <li><b>Atari ST:</b> 16 of 512 colors, Low and High Res (.PI1 Degas)</li>
+                    <li><b>Atari 2600:</b> 40x192 playfield, 2 of 128 colors per line (.BIN cartridge)</li>
+                </ul></div></div>
+                <div class="platform panel"><div class="panel-title">british micros<span class="bars"></span></div><div class="panel-body"><ul>
+                    <li><b>ZX Spectrum:</b> 256x192 with attribute cells (.SCR)</li>
+                    <li><b>BBC Micro:</b> Modes 0, 1, 2, 4 and 5</li>
+                    <li><b>Amstrad CPC:</b> Mode 0 and Mode 1 (.SCR)</li>
+                </ul></div></div>
+                <div class="platform panel"><div class="panel-title">pc / msx / coco / coleco<span class="bars"></span></div><div class="panel-body"><ul>
+                    <li><b>IBM PC:</b> CGA, EGA, VGA and ANSI text modes (.PCX, .ANS)</li>
+                    <li><b>MSX / MSX2:</b> Screen 2, 5 and 8 (.SC2, .SC5, .SC8)</li>
+                    <li><b>TRS-80 CoCo:</b> PMODE 1-4 and CoCo 3 (.BIN, .CM3)</li>
+                    <li><b>ColecoVision:</b> 256x192, 16 colors (.COL cartridge)</li>
+                </ul></div></div>
+            </div>
+
+            <h2 style="margin-top: 70px;">Disk Images</h2>
+            <p class="lead">Create disk images for every supported computer. The ColecoVision and Atari 2600 pictures are cartridges, so they need no disk.</p>
+            <div class="panel table-wrap">
+                <div class="panel-title">disk_formats<span class="bars"></span></div>
+                <div class="panel-body">
+                    <table>
+                        <tr><th>Extension</th><th>Machine</th><th>Sizes</th></tr>
+                        <tr><td>.po .2mg .hdv</td><td>Apple II / IIgs (ProDOS)</td><td>140 KB, 800 KB, 32 MB</td></tr>
+                        <tr><td>.d64 .d71 .d81</td><td>C64, VIC-20, Plus/4, PET (.d64 only)</td><td>170 KB, 340 KB, 800 KB</td></tr>
+                        <tr><td>.adf</td><td>Amiga 500 / 1200</td><td>880 KB, 1.76 MB</td></tr>
+                        <tr><td>.atr</td><td>Atari 800 (DOS 2 / 2.5)</td><td>90 KB, 130 KB, 180 KB, 360 KB</td></tr>
+                        <tr><td>.st</td><td>Atari ST</td><td>360 KB, 720 KB, 1.44 MB</td></tr>
+                        <tr><td>.ssd .dsd</td><td>BBC Micro (DFS)</td><td>100 KB, 200 KB, 400 KB</td></tr>
+                        <tr><td>.dsk</td><td>MSX</td><td>360 KB, 720 KB</td></tr>
+                        <tr><td>.dsk</td><td>Amstrad CPC</td><td>180 KB, 360 KB</td></tr>
+                        <tr><td>.trd .dsk</td><td>ZX Spectrum (TR-DOS, +3)</td><td>640 KB, 180 KB</td></tr>
+                        <tr><td>.img</td><td>IBM PC</td><td>360 KB, 720 KB, 1.2 MB, 1.44 MB</td></tr>
+                        <tr><td>.dsk</td><td>TRS-80 CoCo (RS-DOS)</td><td>180 KB, 360 KB</td></tr>
+                    </table>
+                </div>
             </div>
         </div>
     </section>
@@ -387,158 +545,6 @@
                         <li>A progress indicator shows while a new picture is calculated</li>
                         <li>Much faster PC 256-color conversion</li>
                     </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="machines">
-        <div class="container">
-            <h2>One Photo, 18 Machines</h2>
-            <p class="lead">The same photo, converted with each machine's default settings - exactly as BitPast saves it, shown on a 4:3 screen like the original hardware.</p>
-            <div class="panel original">
-                <div class="panel-title">original.jpg<span class="bars"></span></div>
-                <div class="panel-body">
-                    <img src="screens/machines/original.jpg" alt="The original photo of a red rose" loading="lazy" width="640" height="480">
-                    <p>The original photo</p>
-                </div>
-            </div>
-            <div class="machines">
-                <figure class="machine panel"><div class="tv"><img src="screens/machines/appleii.jpg" alt="Rose on the Apple II" loading="lazy" width="640" height="480"></div><figcaption class="caption"><strong>Apple II</strong><span>Double Hi-Res, 16 colors</span></figcaption></figure>
-                <figure class="machine panel"><div class="tv"><img src="screens/machines/appleiigs.jpg" alt="Rose on the Apple IIgs" loading="lazy" width="640" height="480"></div><figcaption class="caption"><strong>Apple IIgs</strong><span>3200 colors, a palette per line</span></figcaption></figure>
-                <figure class="machine panel"><div class="tv"><img src="screens/machines/amiga500.jpg" alt="Rose on the Amiga 500" loading="lazy" width="640" height="480"></div><figcaption class="caption"><strong>Amiga 500</strong><span>32 of 4096 colors</span></figcaption></figure>
-                <figure class="machine panel"><div class="tv"><img src="screens/machines/amiga1200.jpg" alt="Rose on the Amiga 1200" loading="lazy" width="640" height="480"></div><figcaption class="caption"><strong>Amiga 1200</strong><span>256 colors (AGA)</span></figcaption></figure>
-                <figure class="machine panel"><div class="tv"><img src="screens/machines/amstradcpc.jpg" alt="Rose on the Amstrad CPC" loading="lazy" width="640" height="480"></div><figcaption class="caption"><strong>Amstrad CPC</strong><span>Mode 1, 4 of 27 colors</span></figcaption></figure>
-                <figure class="machine panel"><div class="tv"><img src="screens/machines/atari800.jpg" alt="Rose on the Atari 800" loading="lazy" width="640" height="480"></div><figcaption class="caption"><strong>Atari 800</strong><span>Graphics 15, 4 of 128 colors</span></figcaption></figure>
-                <figure class="machine panel"><div class="tv"><img src="screens/machines/atarist.jpg" alt="Rose on the Atari ST" loading="lazy" width="640" height="480"></div><figcaption class="caption"><strong>Atari ST</strong><span>Low Res, 16 of 512 colors</span></figcaption></figure>
-                <figure class="machine panel"><div class="tv"><img src="screens/machines/bbcmicro.jpg" alt="Rose on the BBC Micro" loading="lazy" width="640" height="480"></div><figcaption class="caption"><strong>BBC Micro</strong><span>Mode 2, 8 colors</span></figcaption></figure>
-                <figure class="machine panel"><div class="tv"><img src="screens/machines/c64.jpg" alt="Rose on the Commodore 64" loading="lazy" width="640" height="480"></div><figcaption class="caption"><strong>Commodore 64</strong><span>Multicolor, 16 colors</span></figcaption></figure>
-                <figure class="machine panel"><div class="tv"><img src="screens/machines/msx.jpg" alt="Rose on the MSX2" loading="lazy" width="640" height="480"></div><figcaption class="caption"><strong>MSX2</strong><span>Screen 5, 16 of 512 colors</span></figcaption></figure>
-                <figure class="machine panel"><div class="tv"><img src="screens/machines/pc.jpg" alt="Rose on the IBM PC" loading="lazy" width="640" height="480"></div><figcaption class="caption"><strong>IBM PC</strong><span>VGA, 256 colors</span></figcaption></figure>
-                <figure class="machine panel"><div class="tv"><img src="screens/machines/plus4.jpg" alt="Rose on the Commodore Plus/4" loading="lazy" width="640" height="480"></div><figcaption class="caption"><strong>Plus/4</strong><span>Hi-Res, 121-color TED palette</span></figcaption></figure>
-                <figure class="machine panel"><div class="tv"><img src="screens/machines/trs80coco.jpg" alt="Rose on the TRS-80 Color Computer" loading="lazy" width="640" height="480"></div><figcaption class="caption"><strong>TRS-80 CoCo</strong><span>PMODE 3, fixed 4-color set</span></figcaption></figure>
-                <figure class="machine panel"><div class="tv"><img src="screens/machines/vic20.jpg" alt="Rose on the VIC-20" loading="lazy" width="640" height="480"></div><figcaption class="caption"><strong>VIC-20</strong><span>Hi-Res, custom characters</span></figcaption></figure>
-                <figure class="machine panel"><div class="tv"><img src="screens/machines/zxspectrum.jpg" alt="Rose on the ZX Spectrum" loading="lazy" width="640" height="480"></div><figcaption class="caption"><strong>ZX Spectrum</strong><span>2 colors per 8x8 cell</span></figcaption></figure>
-                <figure class="machine panel"><div class="tv"><img src="screens/machines/colecovision.jpg" alt="Rose on the ColecoVision" loading="lazy" width="640" height="480"></div><figcaption class="caption"><strong>ColecoVision</strong><span>2 colors per 8x1 stretch, 16 colors</span></figcaption></figure>
-                <figure class="machine panel"><div class="tv"><img src="screens/machines/pet.jpg" alt="Rose on the Commodore PET" loading="lazy" width="640" height="480"></div><figcaption class="caption"><strong>Commodore PET</strong><span>40 columns, Atkinson dither</span></figcaption></figure>
-                <figure class="machine panel"><div class="tv"><img src="screens/machines/atari2600.jpg" alt="Rose on the Atari 2600" loading="lazy" width="640" height="480"></div><figcaption class="caption"><strong>Atari 2600</strong><span>2 of 128 colors per line</span></figcaption></figure>
-            </div>
-        </div>
-    </section>
-
-    <section class="alt" id="screenshots">
-        <div class="container">
-            <h2>Screenshots</h2>
-            <p class="lead">Drop in your pictures, pick a machine, tune the look - and pick a theme that matches.</p>
-            <div class="gallery">
-                <figure class="shot panel wide">
-                    <div class="panel-title">gs_os_theme<span class="bars"></span></div>
-                    <a href="screens/theme-gsos.jpg"><img src="screens/theme-gsos.jpg" alt="BitPast in the GS/OS theme converting a rose to Apple IIgs 3200 colors" loading="lazy" width="1600" height="954"></a>
-                    <figcaption class="caption"><strong>Apple IIgs in the GS/OS theme</strong><span>Near-photographic 3200-color pictures, with a 16-color palette on every one of the 200 lines.</span></figcaption>
-                </figure>
-                <figure class="shot panel">
-                    <div class="panel-title">green_phosphor<span class="bars"></span></div>
-                    <a href="screens/theme-apple2.jpg"><img src="screens/theme-apple2.jpg" alt="BitPast in the Apple II green phosphor theme with a Double Hi-Res conversion" loading="lazy" width="1600" height="954"></a>
-                    <figcaption class="caption"><strong>Apple II green phosphor</strong><span>Double Hi-Res with b2d dithering and authentic NTSC palettes.</span></figcaption>
-                </figure>
-                <figure class="shot panel">
-                    <div class="panel-title">commodore_blue<span class="bars"></span></div>
-                    <a href="screens/theme-c64.jpg"><img src="screens/theme-c64.jpg" alt="BitPast in the Commodore 64 theme with a Multicolor conversion of a fort by the sea" loading="lazy" width="1600" height="954"></a>
-                    <figcaption class="caption"><strong>Commodore 64 blue</strong><span>Multicolor and Hi-Res, saved as Koala Painter or Art Studio files.</span></figcaption>
-                </figure>
-                <figure class="shot panel wide">
-                    <div class="panel-title">amiga_1200<span class="bars"></span></div>
-                    <a href="screens/amiga.jpg"><img src="screens/amiga.jpg" alt="BitPast converting a red flowering tree to 256 Amiga AGA colors" loading="lazy" width="1600" height="954"></a>
-                    <figcaption class="caption"><strong>Amiga 1200, 256 colors</strong><span>Standard, HAM6 and HAM8 modes, saved as IFF/ILBM - with dithering, contrast, filters, saturation and gamma.</span></figcaption>
-                </figure>
-                <figure class="shot panel">
-                    <div class="panel-title">palette_editor<span class="bars"></span></div>
-                    <a href="screens/palette-editor.jpg"><img src="screens/palette-editor.jpg" alt="Palette editor showing the line palettes of a 3200-color picture" loading="lazy" width="1520" height="1304"></a>
-                    <figcaption class="caption"><strong>Palette editor</strong><span>Fine-tune every line palette of a 3200-color picture, with undo and redo.</span></figcaption>
-                </figure>
-                <figure class="shot panel">
-                    <div class="panel-title">create_disk<span class="bars"></span></div>
-                    <a href="screens/create-disk.jpg"><img src="screens/create-disk.jpg" alt="Create Disk Image window with an Amiga ADF disk selected" loading="lazy" width="1600" height="981"></a>
-                    <figcaption class="caption"><strong>Disk images for every machine</strong><span>Put all your converted pictures on a disk image, ready for an emulator or real hardware.</span></figcaption>
-                </figure>
-            </div>
-        </div>
-    </section>
-
-    <section id="features">
-        <div class="container">
-            <h2>Features</h2>
-            <p class="lead">Everything you need to create authentic retro graphics.</p>
-            <div class="grid">
-                <div class="feature panel"><div class="panel-body"><div class="icon">🖥️</div><h3>18 Classic Machines</h3><p>Apple II and IIgs, Amiga 500 and 1200, Amstrad CPC, Atari 800, ST and 2600, BBC Micro, C64, ColecoVision, MSX, IBM PC, PET, Plus/4, TRS-80 CoCo, VIC-20 and ZX Spectrum.</p></div></div>
-                <div class="feature panel"><div class="panel-body"><div class="icon">🌈</div><h3>Real Palettes and Modes</h3><p>Each machine's own colors, resolutions and limits - from Apple IIgs 3200 colors and Amiga HAM to Spectrum attribute cells and C64 multicolor.</p></div></div>
-                <div class="feature panel"><div class="panel-body"><div class="icon">🎯</div><h3>Smart Color Selection</h3><p>Colors are chosen to cover the whole picture, so small details keep their color even when a machine can only show a handful.</p></div></div>
-                <div class="feature panel"><div class="panel-body"><div class="icon">🖼️</div><h3>Fit and Aspect</h3><p>Stretch, letterbox, crop or keep the original size - and allow for each machine's non-square pixels so circles stay round.</p></div></div>
-                <div class="feature panel"><div class="panel-body"><div class="icon">⚙️</div><h3>Fine-Tuning</h3><p>15+ dithering algorithms, HE, CLAHE and SWAHE contrast, filters, color matching modes, saturation and gamma - with live preview.</p></div></div>
-                <div class="feature panel"><div class="panel-body"><div class="icon">💾</div><h3>Native Files and Disks</h3><p>Save .SHR, .3200, .IFF, .PI1, .KLA, .ART, .PRG, .SCR, .PCX, .SC5 and more, make cartridges for the ColecoVision and Atari 2600, and put pictures on disk images for the computers.</p></div></div>
-                <div class="feature panel"><div class="panel-body"><div class="icon">🎨</div><h3>Palette Editor</h3><p>Edit the palettes of Apple IIgs pictures line by line, copy and paste palettes, with full undo and redo. Your changes go into the saved file.</p></div></div>
-                <div class="feature panel"><div class="panel-body"><div class="icon">📦</div><h3>Batch Conversion</h3><p>Drag in many pictures at once, lock settings per picture, and export them all - or straight onto a disk.</p></div></div>
-                <div class="feature panel"><div class="panel-body"><div class="icon">📺</div><h3>Retro Themes</h3><p>Work in the GS/OS look, Apple II green phosphor or Commodore 64 blue - or a clean modern interface.</p></div></div>
-            </div>
-        </div>
-    </section>
-
-    <section class="alt" id="systems">
-        <div class="container">
-            <h2>Supported Systems</h2>
-            <p class="lead">Modes and native file formats for every machine.</p>
-            <div class="formats">
-                <div class="platform panel"><div class="panel-title">apple ii / iigs<span class="bars"></span></div><div class="panel-body"><ul>
-                    <li><b>Apple II:</b> Double Hi-Res, Hi-Res, Lo-Res and Double Lo-Res (.BIN)</li>
-                    <li><b>Apple IIgs:</b> 3200 colors, 256 colors with Banded or Per-Line palettes, 320 and 640 modes (.SHR, .3200)</li>
-                </ul></div></div>
-                <div class="platform panel"><div class="panel-title">commodore<span class="bars"></span></div><div class="panel-body"><ul>
-                    <li><b>C64:</b> Hi-Res, Multicolor and PETSCII (.ART, .KLA, .PRG)</li>
-                    <li><b>VIC-20:</b> Hi-Res and Low-Res (.PRG)</li>
-                    <li><b>Plus/4:</b> Hi-Res and Multicolor (.PRG)</li>
-                    <li><b>PET:</b> 40 and 80 columns of block graphics (.PRG)</li>
-                </ul></div></div>
-                <div class="platform panel"><div class="panel-title">amiga<span class="bars"></span></div><div class="panel-body"><ul>
-                    <li><b>Amiga 500:</b> OCS/ECS up to 32 colors and HAM6 (.IFF)</li>
-                    <li><b>Amiga 1200:</b> AGA 256 colors and HAM8 (.IFF)</li>
-                </ul></div></div>
-                <div class="platform panel"><div class="panel-title">atari<span class="bars"></span></div><div class="panel-body"><ul>
-                    <li><b>Atari 800:</b> Graphics 8, 9, 10, 11 and 15 (.GR8 to .GR15)</li>
-                    <li><b>Atari ST:</b> 16 of 512 colors, Low and High Res (.PI1 Degas)</li>
-                    <li><b>Atari 2600:</b> 40x192 playfield, 2 of 128 colors per line (.BIN cartridge)</li>
-                </ul></div></div>
-                <div class="platform panel"><div class="panel-title">british micros<span class="bars"></span></div><div class="panel-body"><ul>
-                    <li><b>ZX Spectrum:</b> 256x192 with attribute cells (.SCR)</li>
-                    <li><b>BBC Micro:</b> Modes 0, 1, 2, 4 and 5</li>
-                    <li><b>Amstrad CPC:</b> Mode 0 and Mode 1 (.SCR)</li>
-                </ul></div></div>
-                <div class="platform panel"><div class="panel-title">pc / msx / coco / coleco<span class="bars"></span></div><div class="panel-body"><ul>
-                    <li><b>IBM PC:</b> CGA, EGA, VGA and ANSI text modes (.PCX, .ANS)</li>
-                    <li><b>MSX / MSX2:</b> Screen 2, 5 and 8 (.SC2, .SC5, .SC8)</li>
-                    <li><b>TRS-80 CoCo:</b> PMODE 1-4 and CoCo 3 (.BIN, .CM3)</li>
-                    <li><b>ColecoVision:</b> 256x192, 16 colors (.COL cartridge)</li>
-                </ul></div></div>
-            </div>
-
-            <h2 style="margin-top: 70px;">Disk Images</h2>
-            <p class="lead">Create disk images for every supported computer. The ColecoVision and Atari 2600 pictures are cartridges, so they need no disk.</p>
-            <div class="panel table-wrap">
-                <div class="panel-title">disk_formats<span class="bars"></span></div>
-                <div class="panel-body">
-                    <table>
-                        <tr><th>Extension</th><th>Machine</th><th>Sizes</th></tr>
-                        <tr><td>.po .2mg .hdv</td><td>Apple II / IIgs (ProDOS)</td><td>140 KB, 800 KB, 32 MB</td></tr>
-                        <tr><td>.d64 .d71 .d81</td><td>C64, VIC-20, Plus/4, PET (.d64 only)</td><td>170 KB, 340 KB, 800 KB</td></tr>
-                        <tr><td>.adf</td><td>Amiga 500 / 1200</td><td>880 KB, 1.76 MB</td></tr>
-                        <tr><td>.atr</td><td>Atari 800 (DOS 2 / 2.5)</td><td>90 KB, 130 KB, 180 KB, 360 KB</td></tr>
-                        <tr><td>.st</td><td>Atari ST</td><td>360 KB, 720 KB, 1.44 MB</td></tr>
-                        <tr><td>.ssd .dsd</td><td>BBC Micro (DFS)</td><td>100 KB, 200 KB, 400 KB</td></tr>
-                        <tr><td>.dsk</td><td>MSX</td><td>360 KB, 720 KB</td></tr>
-                        <tr><td>.dsk</td><td>Amstrad CPC</td><td>180 KB, 360 KB</td></tr>
-                        <tr><td>.trd .dsk</td><td>ZX Spectrum (TR-DOS, +3)</td><td>640 KB, 180 KB</td></tr>
-                        <tr><td>.img</td><td>IBM PC</td><td>360 KB, 720 KB, 1.2 MB, 1.44 MB</td></tr>
-                        <tr><td>.dsk</td><td>TRS-80 CoCo (RS-DOS)</td><td>180 KB, 360 KB</td></tr>
-                    </table>
                 </div>
             </div>
         </div>
