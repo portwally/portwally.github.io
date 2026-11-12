@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Release Notes &mdash; RetroBrowse</title>
+<meta name="description" content="What's new in each version of RetroBrowse, the Apple II disk image browser for macOS.">
+<link rel="stylesheet" href="styles.css">
+<script data-goatcounter="https://portwally.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+
+<div class="menubar" role="banner">
+  <span class="apple">&#63743;</span>
+  <span class="menu">File</span>
+  <span class="menu">Edit</span>
+  <span class="menu">View</span>
+  <span class="menu">Special</span>
+  <span class="menu">Color</span>
+  <span class="menu-right">RetroBrowse</span>
+</div>
+
+<main class="desktop">
+  <section class="window">
+    <header class="titlebar">
+      <button class="closebox" aria-label="Close"></button>
+      <h1 class="titletext">Release Notes</h1>
+      <button class="zoombox" aria-label="Zoom"></button>
+    </header>
+    <div class="window-body legal-body releases-body">
+
+      <a class="back-link" href="index.html">&larr; Back to RetroBrowse</a>
+
+      <p class="intro">What changed in each version of RetroBrowse, newest first.</p>
+
+      <ul class="release-toc">
+        <li><a href="#next">Next version</a></li>
+        <li><a href="#v1-9">1.9</a></li>
+        <li><a href="#v1-8">1.8</a></li>
+        <li><a href="#earlier">Earlier</a></li>
+      </ul>
+
+      <!-- ================= NEXT ================= -->
+      <article class="release" id="next">
+        <div class="release-head">
+          <h2>Next version</h2>
+          <span class="release-badge">In development</span>
+        </div>
+        <h3>New</h3>
+        <ul>
+          <li><strong>Quick Look in the Finder</strong> &mdash; Press Space on a disk image (.po, .2mg, .hdv, .dsk, .do, .woz) or a ShrinkIt or Binary II archive in the Finder to see its volume, format, size and every file with type, aux type, size and date.</li>
+          <li><strong>Finder icons</strong> &mdash; Disk images show as a 5.25&Prime; or 3.5&Prime; floppy or a hard disk, archives as a box, labelled with the volume name.</li>
+          <li><strong>Drop into folders</strong> &mdash; Drop files on a folder to copy them into it, or on a file inside an open folder to copy them next to it. The folder lights up while you drag.</li>
+          <li><strong>Open Recent</strong> &mdash; File &rsaquo; Open Recent lists the last ten pairs of disks you had open; pick one to open both again, each in its own pane.</li>
+          <li><strong>Folders from the keyboard</strong> &mdash; Return opens or closes the highlighted folder; the right and left arrows open and close it.</li>
+        </ul>
+        <h3 class="fixed">Fixed</h3>
+        <ul>
+          <li>The main window no longer jumps up when the inspector opens.</li>
+          <li>The disk's file name stays in view in narrow panes, and the window can no longer be made narrower than its toolbar.</li>
+        </ul>
+      </article>
+
+      <!-- ================= 1.9 ================= -->
+      <article class="release" id="v1-9">
+        <div class="release-head">
+          <h2>Version 1.9</h2>
+          <span class="release-date">7 November 2026</span>
+        </div>
+        <h3>New</h3>
+        <ul>
+          <li><strong>Sortable columns</strong> &mdash; Click Name, Type, Size or Modified to sort the file list; click again to reverse it, a third time for the order on the disk. Open folders, the arrow keys and Shift-click follow the order shown, and dates sort as dates.</li>
+        </ul>
+      </article>
+
+      <!-- ================= 1.8 ================= -->
+      <article class="release" id="v1-8">
+        <div class="release-head">
+          <h2>Version 1.8</h2>
+          <span class="release-date">5 November 2026</span>
+        </div>
+        <h3>New</h3>
+        <ul>
+          <li><strong>Preview pane</strong> &mdash; The Preview button turns a pane into a live preview of the file selected in the other pane: its content, every directory field, IIgs resource forks and a hex dump.</li>
+          <li><strong>Edit in the preview</strong> &mdash; Change a file's type and aux type; edit and save a MOD file's song title and sample names.</li>
+          <li><strong>WOZ disk images</strong> &mdash; Read-only. 5.25&Prime; and 3.5&Prime; bit images are decoded natively; copy-protected disks open as far as they can be read; title, publisher and other details in Disk Image Info.</li>
+          <li><strong>.img disk images</strong> &mdash; Raw images read and write; DiskCopy 4.2 read-only.</li>
+          <li><strong>Sound and music</strong> &mdash; IIgs sampled sounds, rSound resources, HyperStudio, ASIF, AIFF, SoundSmith, NinjaTracker Plus, MOD and MIDI play when opened.</li>
+          <li><strong>Skins</strong> &mdash; System, Light, Dark, Norton Commander and Apple IIGS 640 (RetroBrowse &rsaquo; Settings).</li>
+          <li><strong>Welcome</strong> on first launch, with the backup warning; again from the Help menu.</li>
+          <li><strong>Archives dropped on an open disk</strong> &mdash; Choose to copy it as a file, unpack its files, or open it.</li>
+          <li><strong>Browse ShrinkIt and Binary II archives</strong> that hold files rather than a disk, as a read-only catalog.</li>
+          <li><strong>Keyboard</strong> &mdash; The arrow keys move through a pane and the inspector follows; Space opens and closes the inspector; Delete deletes after asking; &#8984;O and &#8679;&#8984;O open a disk in the left or right pane.</li>
+          <li><strong>Expand / Collapse All</strong> buttons in each pane.</li>
+          <li><strong>Help</strong> &mdash; A table of every file and aux type with what RetroBrowse can show; a Sound &amp; Music topic.</li>
+          <li><strong>Pictures fit</strong> the inspector and preview by default (Fit, 1x, 2x, 3x).</li>
+          <li><strong>Errors are shown</strong> &mdash; Failed imports, copies, deletes and loads say what went wrong. Several files can be dropped from the Finder at once.</li>
+          <li><strong>More previews</strong> &mdash; PaintWorks animations, packed 3200-color pictures, Apple's packed Hi-Res and Double Hi-Res files, and 65C02 instructions in the disassembler.</li>
+        </ul>
+        <h3 class="changed">Changed</h3>
+        <ul>
+          <li>Files exported or dragged to the Finder get their file type as extension (PRODOS.sys, FONT.fon).</li>
+          <li>A disk changed from the preview or by a copy keeps the same files selected after it reloads.</li>
+          <li>The Super Hi-Res decoders are now the ones from Retro Graphics Converter, so both apps show the same pictures.</li>
+          <li>The disk writers never use a block or sector that a file already uses, even if the disk's own free map says it is free. Full subdirectories grow.</li>
+        </ul>
+        <h3 class="fixed">Fixed</h3>
+        <ul>
+          <li><strong>DOS 3.3 writing</strong> could overwrite existing data, because the free-sector map was read with its bytes swapped.</li>
+          <li><strong>DOS-ordered ProDOS images</strong> (.dsk, .do) read and wrote one block per track from the wrong sector.</li>
+          <li><strong>Disk images dropped from the Finder</strong> are opened in place even when another app claims their type; before, changes could go to a temporary copy and be lost.</li>
+          <li><strong>Files with the same name in different folders</strong> &mdash; Delete, rename and change type act on the selected file.</li>
+          <li><strong>Cut and paste</strong> only removes a file from the source after it was copied; deleting a folder deletes its contents and frees their blocks.</li>
+          <li><strong>ShrinkIt, Binary II and ZIP archives</strong> open correctly, including ZIP files made by the Finder.</li>
+          <li><strong>Rows dragged to the Finder</strong> arrive as files instead of a text clipping.</li>
+          <li><strong>Dates</strong> from 2000 to 2039 and hour/minute order; new .2mg images get a proper 2IMG header.</li>
+          <li><strong>Viewers</strong> &mdash; 640-mode and DreamGrafix pictures, large Apple Preferred Format pictures, Finder icon colors, AppleWorks GS documents read in full, Merlin columns, DOS 3.3 BASIC and binary files, AppleWorks characters and Teach styles.</li>
+          <li><strong>Crashes</strong> in the 65816 disassembler, with large DOS 3.3 files, dates from 2028 on, and several damaged files.</li>
+        </ul>
+      </article>
+
+      <!-- ================= EARLIER ================= -->
+      <article class="release" id="earlier">
+        <div class="release-head">
+          <h2>Earlier development</h2>
+        </div>
+        <p class="release-note">Before version 1.8, development builds used their own numbers; they are listed here by date.</p>
+
+        <h3>January 2026</h3>
+        <ul>
+          <li><strong>File Inspector</strong> with Content, Hex and Info tabs (&#8984;I or right-click).</li>
+          <li><strong>Viewers</strong> &mdash; Applesoft and Integer BASIC listings with syntax colors, Merlin assembler source, a 6502 disassembler, Hi-Res, Double Hi-Res and Super Hi-Res pictures, IIgs and Hi-Res fonts, IIgs icons, AppleWorks (word processor, database, spreadsheet, GS), Teach documents, and a hex dump.</li>
+          <li><strong>Files with resource forks</strong> are read, so Teach and other IIgs documents open.</li>
+          <li><strong>Disk image verification</strong> and a detailed File Info panel.</li>
+          <li><strong>Change file type and aux type</strong> by right-clicking a file.</li>
+          <li><strong>Built-in Help</strong> with shortcuts, formats and troubleshooting.</li>
+          <li><strong>ShrinkIt archives</strong> and <strong>UCSD Pascal</strong> volumes (read-only).</li>
+          <li>Long BASIC and Merlin lines wrap neatly; files dropped from the Finder keep their names.</li>
+          <li>No external tools needed: everything is done natively in Swift.</li>
+        </ul>
+
+        <h3>2024 &ndash; 2025</h3>
+        <ul>
+          <li><strong>The first versions</strong> &mdash; Dual-pane browser, drag and drop between disk images, ProDOS and DOS 3.3 reading and writing, copy, cut, paste and delete, folders, 200+ file types, dates, graphics preview and export to the Finder.</li>
+        </ul>
+      </article>
+
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <p>&copy; 2026 Walter Tengler &middot; RetroBrowse is an independent project, not affiliated with Apple Inc.</p>
+  <p class="footer-credit"><a href="index.html">Home</a> &nbsp;·&nbsp; <a href="privacy.html">Privacy Policy</a> &nbsp;·&nbsp; <a href="imprint.html">Imprint</a></p>
+</footer>
+
+</body>
+</html>

@@ -866,6 +866,70 @@ kbd {
 .back-link:hover { background: var(--iigs-yellow); text-decoration: none; }
 
 /* =========================================================
+   RELEASE NOTES PAGE
+   ========================================================= */
+.releases-body { white-space: normal; }
+.releases-body .intro { margin-bottom: 18px; }
+.release { margin: 0 0 28px; }
+.release-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 12px;
+  border-bottom: 2px solid var(--iigs-black);
+  padding-bottom: 4px;
+  margin-bottom: 10px;
+}
+.release-head h2 {
+  margin: 0;
+  border: none;
+  padding: 0;
+  font-size: 18px;
+  text-transform: none;
+  letter-spacing: 0;
+}
+.release-date { color: #555; font-size: 13px; }
+.release-badge {
+  font-size: 11px;
+  padding: 1px 7px;
+  border: 1px solid var(--iigs-black);
+  background: var(--iigs-yellow);
+}
+.release h3 {
+  display: inline-block;
+  margin: 12px 0 6px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 1px 8px;
+  color: var(--iigs-white);
+  background: var(--iigs-blue-dark);
+}
+.release h3.changed { background: var(--iigs-orange); }
+.release h3.fixed { background: var(--iigs-green); }
+.release ul { margin: 0 0 6px; padding-left: 22px; }
+.release li { margin-bottom: 5px; }
+.release-note { color: #555; font-style: italic; }
+.release-toc {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0 0 24px;
+  padding: 0;
+  list-style: none;
+}
+.release-toc a {
+  display: inline-block;
+  border: 1px solid var(--iigs-black);
+  padding: 1px 8px;
+  background: var(--iigs-grey-light);
+  color: var(--iigs-black);
+  text-decoration: none;
+  box-shadow: 1px 1px 0 var(--iigs-black);
+}
+.release-toc a:hover { background: var(--iigs-yellow); }
+
+/* =========================================================
    Responsive
    ========================================================= */
 @media (max-width: 760px) {
