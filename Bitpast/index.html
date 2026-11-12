@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BitPast - Turn Pictures into Retro Computer Graphics</title>
-    <meta name="description" content="macOS app that converts modern pictures into authentic graphics for 15 classic computers - Apple II and IIgs, C64, Amiga, Atari, BBC Micro, ZX Spectrum, MSX, PC and more - with their real palettes, native file formats and disk images.">
-    <meta name="keywords" content="retro graphics, image converter, Apple II, Apple IIgs, Commodore 64, C64, Amiga 500, Amiga 1200, Atari 800, Atari ST, BBC Micro, MSX, IBM PC, CGA, EGA, VGA, ZX Spectrum, Amstrad CPC, VIC-20, Plus/4, TRS-80 CoCo, dithering, pixel art, disk image, macOS">
+    <meta name="description" content="macOS app that converts modern pictures into authentic graphics for 18 classic computers and consoles - Apple II and IIgs, C64, PET, Amiga, Atari, BBC Micro, ZX Spectrum, MSX, ColecoVision, PC and more - with their real palettes, native file formats and disk images.">
+    <meta name="keywords" content="retro graphics, image converter, Apple II, Apple IIgs, Commodore 64, C64, Amiga 500, Amiga 1200, Atari 800, Atari ST, Atari 2600, BBC Micro, MSX, IBM PC, CGA, EGA, VGA, ZX Spectrum, Amstrad CPC, VIC-20, Plus/4, Commodore PET, ColecoVision, TRS-80 CoCo, dithering, pixel art, disk image, macOS">
     <meta property="og:title" content="BitPast">
-    <meta property="og:description" content="Turn modern pictures into authentic graphics for 15 classic computers on your Mac.">
+    <meta property="og:description" content="Turn modern pictures into authentic graphics for 18 classic computers and consoles on your Mac.">
     <meta property="og:image" content="https://portwally.github.io/Bitpast/screens/main-window.jpg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -294,9 +294,9 @@
         <div class="container">
             <div class="prompt">] BRUN BITPAST<span class="cursor"></span></div>
             <h1 class="logo">BITPAST</h1>
-            <p class="lead" style="margin-bottom: 0;">Turn modern pictures into authentic graphics for 15 classic computers - with their real palettes, resolutions, file formats and disk images.</p>
+            <p class="lead" style="margin-bottom: 0;">Turn modern pictures into authentic graphics for 18 classic computers and consoles - with their real palettes, resolutions, file formats and disk images.</p>
             <span class="badge">macOS 15.7+</span>
-            <span class="badge">Version 4.6</span>
+            <span class="badge">Version 4.7</span>
 
             <div class="buttons">
                 <a href="https://apps.apple.com/us/app/bitpast/id6756894753" class="btn btn-amber">Buy on App Store</a>
@@ -320,7 +320,7 @@
     <section>
         <div class="container">
             <div class="stats">
-                <div class="stat panel"><b>15</b><span>classic computers</span></div>
+                <div class="stat panel"><b>18</b><span>classic computers and consoles</span></div>
                 <div class="stat panel"><b>3200</b><span>colors on the Apple IIgs</span></div>
                 <div class="stat panel"><b>20+</b><span>native file formats</span></div>
                 <div class="stat panel"><b>11</b><span>disk image types</span></div>
@@ -331,10 +331,27 @@
     <section class="alt" id="whats-new">
         <div class="container">
             <h2>What's New</h2>
-            <p class="lead">Version 4.6 lets you choose how a photo fills the screen and brings Per-Line palettes to the Apple IIgs. Version 4.5 brought better colors, disk images that load on real machines, and an app that stays responsive while it works.</p>
+            <p class="lead">Version 4.7 adds three machines - the ColecoVision, the Commodore PET and the Atari 2600 - and makes it quicker to open your pictures. Version 4.6 lets you choose how a photo fills the screen and brings Per-Line palettes to the Apple IIgs. Version 4.5 brought better colors, disk images that load on real machines, and an app that stays responsive while it works.</p>
             <div class="panel terminal">
                 <div class="panel-title">whats_new.txt<span class="bars"></span></div>
                 <div class="panel-body">
+                    <div class="group">4.7 - THREE NEW MACHINES</div>
+                    <ul>
+                        <li>ColecoVision: 256x192 in 16 colors, saved as a cartridge (.col) that shows the picture when you start it</li>
+                        <li>Commodore PET: 40 or 80 columns of block graphics in green or white, as a program (.prg) for the 4032 or 8032</li>
+                        <li>Atari 2600: 40x192 blocks, two of 128 colors per line, as a 4 KB cartridge (.bin)</li>
+                        <li>The system bar adapts to the window and scrolls when it is too narrow</li>
+                    </ul>
+                    <div class="group">4.7 - OPENING PICTURES</div>
+                    <ul>
+                        <li>An Open Images button in the empty image browser</li>
+                        <li>File &gt; Open Recent with the last 10 pictures</li>
+                    </ul>
+                    <div class="group">4.7 - FIXES</div>
+                    <ul>
+                        <li>Plus/4 colors: red and blue were swapped</li>
+                        <li>MSX Screen 2 files (.sc2) now load correctly with BLOAD</li>
+                    </ul>
                     <div class="group">4.6 - FIT AND ASPECT</div>
                     <ul>
                         <li>Fit for every machine: Stretch, Contain (black bars), Cover (crop) or None (no scaling)</li>
@@ -377,7 +394,7 @@
 
     <section id="machines">
         <div class="container">
-            <h2>One Photo, 15 Machines</h2>
+            <h2>One Photo, 18 Machines</h2>
             <p class="lead">The same photo, converted with each machine's default settings - exactly as BitPast saves it, shown on a 4:3 screen like the original hardware.</p>
             <div class="panel original">
                 <div class="panel-title">original.jpg<span class="bars"></span></div>
@@ -402,6 +419,9 @@
                 <figure class="machine panel"><div class="tv"><img src="screens/machines/trs80coco.jpg" alt="Rose on the TRS-80 Color Computer" loading="lazy" width="640" height="480"></div><figcaption class="caption"><strong>TRS-80 CoCo</strong><span>PMODE 3, fixed 4-color set</span></figcaption></figure>
                 <figure class="machine panel"><div class="tv"><img src="screens/machines/vic20.jpg" alt="Rose on the VIC-20" loading="lazy" width="640" height="480"></div><figcaption class="caption"><strong>VIC-20</strong><span>Hi-Res, custom characters</span></figcaption></figure>
                 <figure class="machine panel"><div class="tv"><img src="screens/machines/zxspectrum.jpg" alt="Rose on the ZX Spectrum" loading="lazy" width="640" height="480"></div><figcaption class="caption"><strong>ZX Spectrum</strong><span>2 colors per 8x8 cell</span></figcaption></figure>
+                <figure class="machine panel"><div class="tv"><img src="screens/machines/colecovision.jpg" alt="Rose on the ColecoVision" loading="lazy" width="640" height="480"></div><figcaption class="caption"><strong>ColecoVision</strong><span>2 colors per 8x1 stretch, 16 colors</span></figcaption></figure>
+                <figure class="machine panel"><div class="tv"><img src="screens/machines/pet.jpg" alt="Rose on the Commodore PET" loading="lazy" width="640" height="480"></div><figcaption class="caption"><strong>Commodore PET</strong><span>40 columns, block graphics</span></figcaption></figure>
+                <figure class="machine panel"><div class="tv"><img src="screens/machines/atari2600.jpg" alt="Rose on the Atari 2600" loading="lazy" width="640" height="480"></div><figcaption class="caption"><strong>Atari 2600</strong><span>2 of 128 colors per line</span></figcaption></figure>
             </div>
         </div>
     </section>
@@ -450,12 +470,12 @@
             <h2>Features</h2>
             <p class="lead">Everything you need to create authentic retro graphics.</p>
             <div class="grid">
-                <div class="feature panel"><div class="panel-body"><div class="icon">🖥️</div><h3>15 Classic Computers</h3><p>Apple II and IIgs, Amiga 500 and 1200, Amstrad CPC, Atari 800 and ST, BBC Micro, C64, MSX, IBM PC, Plus/4, TRS-80 CoCo, VIC-20 and ZX Spectrum.</p></div></div>
+                <div class="feature panel"><div class="panel-body"><div class="icon">🖥️</div><h3>18 Classic Machines</h3><p>Apple II and IIgs, Amiga 500 and 1200, Amstrad CPC, Atari 800, ST and 2600, BBC Micro, C64, ColecoVision, MSX, IBM PC, PET, Plus/4, TRS-80 CoCo, VIC-20 and ZX Spectrum.</p></div></div>
                 <div class="feature panel"><div class="panel-body"><div class="icon">🌈</div><h3>Real Palettes and Modes</h3><p>Each machine's own colors, resolutions and limits - from Apple IIgs 3200 colors and Amiga HAM to Spectrum attribute cells and C64 multicolor.</p></div></div>
                 <div class="feature panel"><div class="panel-body"><div class="icon">🎯</div><h3>Smart Color Selection</h3><p>Colors are chosen to cover the whole picture, so small details keep their color even when a machine can only show a handful.</p></div></div>
                 <div class="feature panel"><div class="panel-body"><div class="icon">🖼️</div><h3>Fit and Aspect</h3><p>Stretch, letterbox, crop or keep the original size - and allow for each machine's non-square pixels so circles stay round.</p></div></div>
                 <div class="feature panel"><div class="panel-body"><div class="icon">⚙️</div><h3>Fine-Tuning</h3><p>15+ dithering algorithms, HE, CLAHE and SWAHE contrast, filters, color matching modes, saturation and gamma - with live preview.</p></div></div>
-                <div class="feature panel"><div class="panel-body"><div class="icon">💾</div><h3>Native Files and Disks</h3><p>Save .SHR, .3200, .IFF, .PI1, .KLA, .ART, .PRG, .SCR, .PCX, .SC5 and more, and put them on disk images for every machine.</p></div></div>
+                <div class="feature panel"><div class="panel-body"><div class="icon">💾</div><h3>Native Files and Disks</h3><p>Save .SHR, .3200, .IFF, .PI1, .KLA, .ART, .PRG, .SCR, .PCX, .SC5 and more, make cartridges for the ColecoVision and Atari 2600, and put pictures on disk images for the computers.</p></div></div>
                 <div class="feature panel"><div class="panel-body"><div class="icon">🎨</div><h3>Palette Editor</h3><p>Edit the palettes of Apple IIgs pictures line by line, copy and paste palettes, with full undo and redo. Your changes go into the saved file.</p></div></div>
                 <div class="feature panel"><div class="panel-body"><div class="icon">📦</div><h3>Batch Conversion</h3><p>Drag in many pictures at once, lock settings per picture, and export them all - or straight onto a disk.</p></div></div>
                 <div class="feature panel"><div class="panel-body"><div class="icon">📺</div><h3>Retro Themes</h3><p>Work in the GS/OS look, Apple II green phosphor or Commodore 64 blue - or a clean modern interface.</p></div></div>
@@ -476,6 +496,7 @@
                     <li><b>C64:</b> Hi-Res, Multicolor and PETSCII (.ART, .KLA, .PRG)</li>
                     <li><b>VIC-20:</b> Hi-Res and Low-Res (.PRG)</li>
                     <li><b>Plus/4:</b> Hi-Res and Multicolor (.PRG)</li>
+                    <li><b>PET:</b> 40 and 80 columns of block graphics (.PRG)</li>
                 </ul></div></div>
                 <div class="platform panel"><div class="panel-title">amiga<span class="bars"></span></div><div class="panel-body"><ul>
                     <li><b>Amiga 500:</b> OCS/ECS up to 32 colors and HAM6 (.IFF)</li>
@@ -484,28 +505,30 @@
                 <div class="platform panel"><div class="panel-title">atari<span class="bars"></span></div><div class="panel-body"><ul>
                     <li><b>Atari 800:</b> Graphics 8, 9, 10, 11 and 15 (.GR8 to .GR15)</li>
                     <li><b>Atari ST:</b> 16 of 512 colors, Low and High Res (.PI1 Degas)</li>
+                    <li><b>Atari 2600:</b> 40x192 playfield, 2 of 128 colors per line (.BIN cartridge)</li>
                 </ul></div></div>
                 <div class="platform panel"><div class="panel-title">british micros<span class="bars"></span></div><div class="panel-body"><ul>
                     <li><b>ZX Spectrum:</b> 256x192 with attribute cells (.SCR)</li>
                     <li><b>BBC Micro:</b> Modes 0, 1, 2, 4 and 5</li>
                     <li><b>Amstrad CPC:</b> Mode 0 and Mode 1 (.SCR)</li>
                 </ul></div></div>
-                <div class="platform panel"><div class="panel-title">pc / msx / coco<span class="bars"></span></div><div class="panel-body"><ul>
+                <div class="platform panel"><div class="panel-title">pc / msx / coco / coleco<span class="bars"></span></div><div class="panel-body"><ul>
                     <li><b>IBM PC:</b> CGA, EGA, VGA and ANSI text modes (.PCX, .ANS)</li>
                     <li><b>MSX / MSX2:</b> Screen 2, 5 and 8 (.SC2, .SC5, .SC8)</li>
                     <li><b>TRS-80 CoCo:</b> PMODE 1-4 and CoCo 3 (.BIN, .CM3)</li>
+                    <li><b>ColecoVision:</b> 256x192, 16 colors (.COL cartridge)</li>
                 </ul></div></div>
             </div>
 
             <h2 style="margin-top: 70px;">Disk Images</h2>
-            <p class="lead">Create disk images for every supported machine.</p>
+            <p class="lead">Create disk images for every supported computer. The ColecoVision and Atari 2600 pictures are cartridges, so they need no disk.</p>
             <div class="panel table-wrap">
                 <div class="panel-title">disk_formats<span class="bars"></span></div>
                 <div class="panel-body">
                     <table>
                         <tr><th>Extension</th><th>Machine</th><th>Sizes</th></tr>
                         <tr><td>.po .2mg .hdv</td><td>Apple II / IIgs (ProDOS)</td><td>140 KB, 800 KB, 32 MB</td></tr>
-                        <tr><td>.d64 .d71 .d81</td><td>C64, VIC-20, Plus/4</td><td>170 KB, 340 KB, 800 KB</td></tr>
+                        <tr><td>.d64 .d71 .d81</td><td>C64, VIC-20, Plus/4, PET (.d64 only)</td><td>170 KB, 340 KB, 800 KB</td></tr>
                         <tr><td>.adf</td><td>Amiga 500 / 1200</td><td>880 KB, 1.76 MB</td></tr>
                         <tr><td>.atr</td><td>Atari 800 (DOS 2 / 2.5)</td><td>90 KB, 130 KB, 180 KB, 360 KB</td></tr>
                         <tr><td>.st</td><td>Atari ST</td><td>360 KB, 720 KB, 1.44 MB</td></tr>
@@ -601,7 +624,7 @@
             </nav>
             <div class="ready">READY.<span class="cursor"></span></div>
             <div>Made with ❤️ for retro computing enthusiasts - Walter Tengler</div>
-            <p class="legal">Apple II, Apple IIgs and Macintosh are trademarks of Apple Inc. Amiga, Commodore 64, VIC-20, Plus/4, Atari 800, Atari ST, ZX Spectrum, Amstrad CPC, MSX, BBC Micro, IBM PC, TRS-80 and other names are trademarks of their respective owners. BitPast is an independent app and is not affiliated with or endorsed by any of them.</p>
+            <p class="legal">Apple II, Apple IIgs and Macintosh are trademarks of Apple Inc. Amiga, Commodore 64, Commodore PET, VIC-20, Plus/4, Atari 800, Atari ST, Atari 2600, ColecoVision, ZX Spectrum, Amstrad CPC, MSX, BBC Micro, IBM PC, TRS-80 and other names are trademarks of their respective owners. BitPast is an independent app and is not affiliated with or endorsed by any of them.</p>
         </div>
     </footer>
 </body>
