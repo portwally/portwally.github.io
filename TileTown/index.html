@@ -200,6 +200,12 @@
         .coupon p { margin: 0 0 10px; font-size: 0.95rem; }
         .coupon .lines { margin-top: 12px; font-family: var(--sans); font-size: 0.78rem; color: var(--soft); text-transform: uppercase; letter-spacing: 1px; }
         .coupon .lines div { border-bottom: 1px solid var(--ink); padding-top: 14px; }
+        .coupon .try { margin: 4px 0 12px; }
+        .coupon .btn { display: inline-block; font-family: var(--head); font-size: 1.1rem; letter-spacing: 0.5px; background: var(--red); color: #fff;
+            padding: 6px 16px; text-decoration: none; border: 2px solid var(--ink); box-shadow: 3px 3px 0 var(--ink); }
+        .coupon .btn:hover { background: var(--blue); }
+        .coupon .btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
+        .coupon .size { display: inline-block; white-space: nowrap; font-family: var(--sans); font-size: 0.75rem; color: var(--soft); margin: 6px 0 0 8px; }
         .coupon .soon { display: inline-block; font-family: var(--head); background: var(--ink); color: var(--gold); padding: 3px 10px; letter-spacing: 1px; transform: rotate(-3deg); margin: 2px 0 8px; }
         .mark { display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-end; text-align: right; }
         .mark .logo { display: flex; align-items: center; gap: 10px; }
@@ -386,6 +392,8 @@
             <h2>Coming soon!</h2>
             <span class="soon">Not in stores yet</span>
             <p>TileTown is still being built. Price and release date to be announced - watch this page.</p>
+            <p class="try"><b>Try it now, free:</b> the demo is the whole game for 10 minutes (no saving).</p>
+            <a class="btn" href="TileTown-Demo.zip" download>Download the demo</a><span class="size">800K ProDOS disk, zipped, 95 KB</span>
             <div class="lines" aria-hidden="true">
                 <div>Name</div>
                 <div>Address</div>
