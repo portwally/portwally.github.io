@@ -78,8 +78,9 @@ jobs:
             | sed 's|^href="||;s|/"$||' \
             | sort -u)
 
-          # Folders we explicitly skip — not sub-apps.
-          SKIP_REGEX='^(\.github|casalilli|node_modules|assets|Fire)$'
+          # Folders we explicitly skip — not sub-apps ("The Holy War" only
+          # sends its old address on to Conquer3).
+          SKIP_REGEX='^(\.github|casalilli|node_modules|assets|Fire|The Holy War)$'
 
           drifted=0
           checked=0
@@ -91,7 +92,7 @@ jobs:
 
           # The Apple II pages show a smaller footer: the retro apps, as the
           # 1977 retro page lists them, and that page itself.
-          RETRO_REGEX='^(TileTown|Conquer-GS|GSCommander|GSLauncher|MegaconvertGS|EmuBuddy|The Holy War)$'
+          RETRO_REGEX='^(TileTown|Conquer-GS|GSCommander|GSLauncher|MegaconvertGS|EmuBuddy|Conquer3)$'
           RETRO_APPS=$( { grep -oE 'href="\.\./[^"]+/"' "Retro Computing/index.html" \
             | sed 's|^href="\.\./||;s|/"$||'; echo "Retro Computing"; } | urldecode | sort -u)
 
