@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BitPast Release Notes</title>
+    <meta name="description" content="What changed in every version of BitPast, the Mac app that turns modern pictures into graphics for 18 classic computers and consoles.">
+        <meta property="og:title" content="BitPast Release Notes">
+    <meta property="og:description" content="What changed in every version of BitPast.">
+    <meta property="og:image" content="https://portwally.github.io/Bitpast/screens/main-window.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0e0b1f;
+            --bg-2: #141030;
+            --panel: #1b1640;
+            --edge: #3b3478;
+            --ink: #ecebff;
+            --dim: #a7a3d6;
+            --phosphor: #6dff9b;
+            --amber: #ffbf3c;
+            --cyan: #5ce6ff;
+            --magenta: #ff5bd8;
+            /* Rainbow stripe colors */
+            --r1: #61bb46; --r2: #fdb827; --r3: #f5821f; --r4: #e03a3e; --r5: #963d97; --r6: #009ddc;
+            --pixel: 'Press Start 2P', monospace;
+            --term: 'VT323', 'Menlo', monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--bg);
+            background-image: radial-gradient(ellipse at top, #231c55 0%, var(--bg) 60%);
+            color: var(--ink);
+            font-family: var(--term);
+            font-size: 1.45rem;
+            line-height: 1.35;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* CRT scanlines over the whole page */
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background: repeating-linear-gradient(to bottom, rgba(0,0,0,0.18) 0px, rgba(0,0,0,0.18) 1px, transparent 2px, transparent 3px);
+            z-index: 100;
+        }
+
+        a { color: var(--cyan); }
+        img { max-width: 100%; height: auto; display: block; }
+        .container { max-width: 1160px; margin: 0 auto; padding: 0 16px; }
+
+        /* Rainbow stripes */
+        .stripes {
+            height: 18px;
+            background: linear-gradient(to bottom,
+                var(--r1) 0 16.66%, var(--r2) 16.66% 33.33%, var(--r3) 33.33% 50%,
+                var(--r4) 50% 66.66%, var(--r5) 66.66% 83.33%, var(--r6) 83.33% 100%);
+        }
+        .stripes.thin { height: 9px; }
+
+        /* Pixel panels: hard edges and a stepped drop shadow */
+        .panel {
+            background: var(--panel);
+            border: 4px solid var(--edge);
+            box-shadow: 8px 8px 0 #000;
+            position: relative;
+        }
+        .panel-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--edge);
+            padding: 6px 12px;
+            font-family: var(--pixel);
+            font-size: 0.62rem;
+            letter-spacing: 1px;
+            color: var(--ink);
+            text-transform: uppercase;
+        }
+        .panel-title::before {
+            content: "";
+            width: 14px; height: 14px;
+            background: var(--bg);
+            border: 2px solid var(--ink);
+            flex-shrink: 0;
+        }
+        .panel-title .bars {
+            flex: 1;
+            height: 10px;
+            background: repeating-linear-gradient(to bottom, var(--ink) 0 2px, transparent 2px 4px);
+            opacity: 0.35;
+        }
+        .panel-body { padding: 22px; }
+
+        h1, h2, h3 { font-family: var(--pixel); font-weight: normal; line-height: 1.5; }
+        h2 {
+            font-size: clamp(1.05rem, 2.6vw, 1.6rem);
+            text-align: center;
+            margin-bottom: 14px;
+            color: var(--amber);
+            text-shadow: 3px 3px 0 #000;
+        }
+        h3 { font-size: 0.8rem; color: var(--cyan); margin-bottom: 10px; }
+        .lead {
+            text-align: center;
+            color: var(--dim);
+            max-width: 760px;
+            margin: 0 auto 40px;
+            font-size: 1.5rem;
+        }
+        section { padding: 70px 0; }
+        section.alt { background: rgba(0,0,0,0.25); }
+
+        /* ---------- Header ---------- */
+        header { text-align: center; padding: 40px 0 30px; }
+        .logo {
+            font-family: var(--pixel);
+            font-size: clamp(1.8rem, 7vw, 4rem);
+            line-height: 1.35;
+            color: var(--ink);
+            text-shadow: 4px 4px 0 var(--r4), 8px 8px 0 var(--r6);
+            margin: 10px 0 24px;
+        }
+        .prompt {
+            font-size: clamp(1.4rem, 3vw, 2rem);
+            color: var(--phosphor);
+            text-shadow: 0 0 8px rgba(109,255,155,0.6);
+        }
+        .cursor { display: inline-block; width: 0.6em; height: 1em; background: var(--phosphor); vertical-align: -0.12em; animation: blink 1s steps(1) infinite; }
+        @keyframes blink { 50% { opacity: 0; } }
+
+        .app-links { margin: 26px auto 8px; max-width: 980px; }
+        .app-links .row { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 20px; margin-top: 6px; }
+        .app-links a { color: var(--dim); text-decoration: none; font-size: 1.25rem; }
+        .app-links a:hover { color: var(--ink); text-decoration: underline; }
+
+        .badge {
+            display: inline-block;
+            font-family: var(--pixel);
+            font-size: 0.6rem;
+            padding: 8px 12px;
+            border: 3px solid var(--amber);
+            color: var(--amber);
+            margin: 18px 6px 0;
+        }
+
+        /* Pixel buttons */
+        .buttons { display: flex; flex-wrap: wrap; gap: 18px; justify-content: center; margin: 34px 0 10px; }
+        .btn {
+            font-family: var(--pixel);
+            font-size: 0.72rem;
+            text-decoration: none;
+            padding: 16px 22px;
+            border: 4px solid #000;
+            box-shadow: 6px 6px 0 #000;
+            transition: transform 0.08s, box-shadow 0.08s;
+            display: inline-block;
+        }
+        .btn:hover { transform: translate(-2px, -2px); box-shadow: 8px 8px 0 #000; }
+        .btn:active { transform: translate(6px, 6px); box-shadow: 0 0 0 #000; }
+        .btn-green { background: var(--phosphor); color: #06210f; }
+        .btn-amber { background: var(--amber); color: #2a1a00; }
+
+        /* CRT monitor around the hero screenshot */
+        .monitor { max-width: 1060px; margin: 40px auto 0; padding: 0 6px; }
+        .bezel {
+            background: linear-gradient(#cfc6a8, #b8ae8c);
+            border-radius: 26px;
+            padding: 28px 28px 44px;
+            box-shadow: 10px 10px 0 #000, inset 0 -6px 0 rgba(0,0,0,0.18);
+            position: relative;
+        }
+        .bezel::after {
+            /* badge strip and power LED */
+            content: "BITPAST";
+            position: absolute;
+            left: 34px; bottom: 12px;
+            font-family: var(--pixel);
+            font-size: 0.55rem;
+            color: #6b6248;
+        }
+        .led { position: absolute; right: 34px; bottom: 16px; width: 12px; height: 12px; background: var(--phosphor); box-shadow: 0 0 10px var(--phosphor); }
+        .screen { position: relative; border-radius: 14px; overflow: hidden; background: #000; box-shadow: inset 0 0 40px rgba(0,0,0,0.9); }
+        .screen img { width: 100%; }
+        .screen::after {
+            /* soft CRT vignette, above the screenshot */
+            content: "";
+            position: absolute; inset: 0;
+            background: radial-gradient(ellipse at center, transparent 60%, rgba(0,0,0,0.45) 100%);
+            pointer-events: none;
+            z-index: 102;
+        }
+        /* Screenshots sit above the page's scanline overlay so they stay clean */
+        .screen img, .shot img, .machine img, .original img { position: relative; z-index: 101; }
+
+        /* ---------- Stats ---------- */
+        .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 18px; }
+        .stat { text-align: center; padding: 20px 10px; }
+        .stat b { display: block; font-family: var(--pixel); font-size: 1.7rem; color: var(--phosphor); text-shadow: 0 0 10px rgba(109,255,155,0.5); margin-bottom: 10px; font-weight: normal; }
+        .stat span { color: var(--dim); }
+
+        /* ---------- What's new ---------- */
+        .terminal { max-width: 900px; margin: 0 auto; }
+        .terminal .panel-body { background: #05040d; color: var(--phosphor); font-size: 1.4rem; }
+        .terminal ul { list-style: none; }
+        .terminal li { padding-left: 1.6em; text-indent: -1.6em; margin: 4px 0; color: var(--ink); }
+        .terminal li::before { content: "> "; color: var(--amber); }
+        .terminal .group { color: var(--cyan); margin: 18px 0 6px; }
+        .terminal .group:first-child { margin-top: 0; }
+
+        /* ---------- One photo, 15 machines ---------- */
+        .machines { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; }
+        .machine { padding: 0; }
+        .machine .tv { background: #000; padding: 10px; border-bottom: 4px solid var(--edge); }
+        .machine img { width: 100%; aspect-ratio: 4 / 3; image-rendering: pixelated; }
+        .machine .caption { padding: 10px 12px 12px; }
+        .machine .caption strong { display: block; font-family: var(--pixel); font-size: 0.6rem; color: var(--amber); margin-bottom: 6px; line-height: 1.6; font-weight: normal; }
+        .machine .caption span { color: var(--dim); font-size: 1.2rem; }
+        .original { max-width: 520px; margin: 0 auto 40px; }
+        .original .panel-body { padding: 14px; }
+        .original p { text-align: center; color: var(--dim); margin-top: 10px; }
+
+        /* ---------- Screenshots ---------- */
+        .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr)); gap: 30px; }
+        .shot a { display: block; }
+        .shot img { width: 100%; }
+        .shot .caption { padding: 14px 18px 18px; }
+        .shot .caption strong { display: block; font-family: var(--pixel); font-size: 0.7rem; color: var(--amber); margin-bottom: 8px; line-height: 1.6; font-weight: normal; }
+        .shot .caption span { color: var(--dim); }
+        .shot.wide { grid-column: 1 / -1; }
+
+        /* ---------- Features ---------- */
+        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
+        .feature .panel-body p { color: var(--dim); }
+        .icon { font-size: 2rem; margin-bottom: 8px; }
+
+        /* ---------- Systems ---------- */
+        .formats { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+        .platform .panel-body { padding: 16px 20px; }
+        .platform ul { list-style: none; color: var(--dim); }
+        .platform li { padding-left: 1.2em; text-indent: -1.2em; }
+        .platform li::before { content: "\25A0  "; color: var(--magenta); font-size: 0.8em; }
+        .platform li b { color: var(--ink); font-weight: normal; }
+
+        table { width: 100%; border-collapse: collapse; font-size: 1.35rem; }
+        th, td { text-align: left; padding: 8px 12px; border-bottom: 2px dashed var(--edge); }
+        th { font-family: var(--pixel); font-size: 0.6rem; color: var(--amber); font-weight: normal; }
+        td:first-child { color: var(--phosphor); white-space: nowrap; }
+        .table-wrap { overflow-x: auto; }
+
+        /* ---------- Download ---------- */
+        .download { text-align: center; max-width: 900px; margin: 0 auto; }
+        .download p { color: var(--dim); margin: 0 auto 10px; max-width: 760px; }
+        .download strong { color: var(--ink); font-weight: normal; }
+
+        .requirements { display: flex; flex-wrap: wrap; gap: 14px 40px; justify-content: center; }
+        .requirements span::before { content: "\2665\00a0"; color: var(--r4); }
+
+        /* ---------- Footer ---------- */
+        footer { padding: 40px 0 30px; text-align: center; color: var(--dim); }
+        footer .row { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 22px; margin: 8px 0; }
+        footer a { color: var(--dim); text-decoration: none; }
+        footer a:hover { color: var(--ink); text-decoration: underline; }
+        .ready { font-family: var(--pixel); font-size: 0.65rem; color: var(--phosphor); margin: 24px 0 12px; }
+        .legal { font-size: 1.05rem; max-width: 860px; margin: 18px auto 0; opacity: 0.75; }
+
+        @media (max-width: 1000px) {
+            .machines { grid-template-columns: repeat(3, 1fr); }
+            .grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 640px) {
+            body { font-size: 1.3rem; }
+            .grid { grid-template-columns: 1fr; }
+            .bezel { padding: 14px 14px 34px; border-radius: 16px; }
+            .gallery, .formats { grid-template-columns: 1fr; }
+            .machines { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+            .panel { box-shadow: 5px 5px 0 #000; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .cursor { animation: none; }
+            html { scroll-behavior: auto; }
+            .btn { transition: none; }
+        }
+
+        /* ---------- Release notes ---------- */
+        .notes-head { padding: 50px 0 30px; text-align: center; }
+        .notes-head .logo { font-size: clamp(1.6rem, 6vw, 3rem); }
+        .back { font-family: var(--pixel); font-size: 0.6rem; color: var(--cyan); text-decoration: none; }
+        .back:hover { text-decoration: underline; }
+        .toc { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 26px auto 0; max-width: 900px; }
+        .toc a { font-family: var(--pixel); font-size: 0.55rem; color: var(--amber); text-decoration: none; border: 2px solid var(--edge); padding: 8px 10px; background: var(--panel); }
+        .toc a:hover { border-color: var(--amber); }
+        .release { margin: 0 auto 34px; scroll-margin-top: 20px; }
+        .release .panel-title b { color: var(--amber); font-weight: normal; }
+        .release .date { color: var(--dim); margin-bottom: 14px; display: block; }
+        .release .intro { color: var(--ink); margin-bottom: 6px; }
+    </style>
+    <script data-goatcounter="https://portwally.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+    <div class="stripes"></div>
+
+    <header class="notes-head">
+        <div class="container">
+            <a class="back" href="./">&lt; BACK TO BITPAST</a>
+            <div class="prompt" style="margin-top:22px">] CATALOG RELEASE.NOTES<span class="cursor"></span></div>
+            <h1 class="logo">RELEASE NOTES</h1>
+            <p class="lead" style="margin-bottom:0">What changed in every version of BitPast.</p>
+            <nav class="toc" aria-label="Versions">
+                <a href="#v4-7">4.7</a>
+                <a href="#v4-6">4.6</a>
+                <a href="#v4-5">4.5</a>
+                <a href="#v4-3">4.3</a>
+                <a href="#v4-2">4.2</a>
+                <a href="#v4-1">4.1</a>
+                <a href="#v4-0">4.0</a>
+                <a href="#jan-30-2026">Jan 30</a>
+                <a href="#v3-4">3.4</a>
+                <a href="#v3-3">3.3</a>
+                <a href="#v3-2">3.2</a>
+                <a href="#v3-1">3.1</a>
+                <a href="#v3-0">3.0</a>
+                <a href="#v2-9">2.9</a>
+                <a href="#v2-8">2.8</a>
+                <a href="#v2-7">2.7</a>
+                <a href="#v2-2">2.2</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="stripes thin"></div>
+
+    <section>
+        <div class="container">
+            <article class="release panel terminal" id="v4-7">
+                <div class="panel-title">version_4_7.txt<span class="bars"></span></div>
+                <div class="panel-body">
+                    <h2 class="group" style="font-size:inherit;font-weight:normal;margin-top:0"><b>Version 4.7</b></h2>
+                    <span class="date">November 12, 2026</span>
+                    <p class="intro">Three new machines bring BitPast to 18 systems, and opening pictures is quicker.</p>
+                    <div class="group">NEW MACHINES</div>
+                    <ul>
+                        <li>ColecoVision: 256x192 pictures in 15 colors, saved as a 16 KB cartridge (.col) that shows your picture as soon as the console starts</li>
+                        <li>Commodore PET: 40 or 80 columns of block graphics in green or white, saved as a program (.prg) for the PET 2001, 3000, 4000 or 8032 - and they go on D64 disks</li>
+                        <li>Atari 2600: 40x192 playfield pictures with two of 128 colors on every line, saved as a 4 KB cartridge (.bin)</li>
+                    </ul>
+                    <div class="group">NEW</div>
+                    <ul>
+                        <li>An Open Images button in the empty image browser, and File &gt; Open Images (Cmd-O)</li>
+                        <li>File &gt; Open Recent lists the last 10 pictures you opened</li>
+                        <li>The system bar fits any window size and scrolls when there isn't room for every machine</li>
+                        <li>A free 91-page User's Guide (PDF) covering every system, mode and setting</li>
+                    </ul>
+                    <div class="group">CHANGED</div>
+                    <ul>
+                        <li>Create Disk is dimmed for the consoles, whose pictures are cartridges</li>
+                    </ul>
+                    <div class="group">FIXED</div>
+                    <ul>
+                        <li>Plus/4: red and blue were swapped</li>
+                        <li>MSX Screen 2 files (.sc2) now load correctly with BLOAD</li>
+                    </ul>
+                </div>
+            </article>
+            <article class="release panel terminal" id="v4-6">
+                <div class="panel-title">version_4_6.txt<span class="bars"></span></div>
+                <div class="panel-body">
+                    <h2 class="group" style="font-size:inherit;font-weight:normal;margin-top:0"><b>Version 4.6</b></h2>
+                    <span class="date">November 5, 2026</span>
+                    <p class="intro">Choose how a photo fills the screen, and better palettes on the Apple IIgs.</p>
+                    <div class="group">NEW</div>
+                    <ul>
+                        <li>Fit for every machine: Stretch, Contain (black bars), Cover (crop) or None (no scaling)</li>
+                        <li>Aspect: takes each machine's non-square pixels into account, so circles stay round</li>
+                        <li>Drag the preview to choose which part of the picture shows</li>
+                        <li>Apple IIgs 256 colors: new SCB Mode - Per-Line lets every line pick the best of the 16 palettes</li>
+                    </ul>
+                    <div class="group">FIXED</div>
+                    <ul>
+                        <li>Palette editor changes are now saved in the file, in batch exports and on disk images</li>
+                        <li>H-Flip and V-Flip now flip the saved file and disk images too, not just the preview</li>
+                        <li>Apple II and IIgs results no longer depend on the screens attached to your Mac</li>
+                    </ul>
+                </div>
+            </article>
+            <article class="release panel terminal" id="v4-5">
+                <div class="panel-title">version_4_5.txt<span class="bars"></span></div>
+                <div class="panel-body">
+                    <h2 class="group" style="font-size:inherit;font-weight:normal;margin-top:0"><b>Version 4.5</b></h2>
+                    <span class="date">October 25, 2026</span>
+                    <p class="intro">Better colors, disk images that load on real machines, and an app that stays responsive while it works.</p>
+                    <div class="group">NEW</div>
+                    <ul>
+                        <li>ZX Spectrum +3 disk images (180 KB .dsk)</li>
+                        <li>Double-sided 360 KB TRS-80 CoCo disks, and DOS 2.5 support for 130 KB Atari disks</li>
+                        <li>A Converting... indicator over the preview while a new picture is calculated</li>
+                    </ul>
+                    <div class="group">CHANGED</div>
+                    <ul>
+                        <li>Smarter color selection for the Atari 800, Atari ST, Amiga 500 and 1200, PC (EGA 64) and MSX Screen 5: small details keep their own color instead of turning grey</li>
+                        <li>Atari 800 Graphics 8 uses two shades of one hue, exactly like the real hardware</li>
+                        <li>Conversions run in the background, so the window stays responsive</li>
+                        <li>Much faster PC 256-color and Amiga 1200 conversions</li>
+                    </ul>
+                    <div class="group">FIXED</div>
+                    <ul>
+                        <li>C64 PETSCII programs now run on a real C64</li>
+                        <li>BBC Micro, TRS-80 CoCo, Amiga ADF, Atari ATR and ZX Spectrum TRD disks are now read correctly by the real machines and emulators</li>
+                        <li>Amstrad CPC files use the correct colors on a real CPC</li>
+                        <li>Locked settings are now used by the Atari 800, Atari ST and BBC Micro in batch exports</li>
+                        <li>The same picture with the same settings always converts the same way</li>
+                        <li>Saving over an existing file keeps the original if the save fails</li>
+                    </ul>
+                </div>
+            </article>
+            <article class="release panel terminal" id="v4-3">
+                <div class="panel-title">version_4_3.txt<span class="bars"></span></div>
+                <div class="panel-body">
+                    <h2 class="group" style="font-size:inherit;font-weight:normal;margin-top:0"><b>Version 4.3</b></h2>
+                    <span class="date">February 26, 2026</span>
+                    <p class="intro">Reliability: clearer errors and safer disk images.</p>
+                    <div class="group">FIXED</div>
+                    <ul>
+                        <li>Failed saves and batch exports now tell you which files could not be written</li>
+                        <li>Rapid slider changes no longer flash an outdated preview</li>
+                        <li>The disk progress bar now reaches 100%</li>
+                        <li>Disk images report files that don't fit instead of writing damaged ones</li>
+                        <li>Amiga disks: large files (over about 35 KB) and files with similar names are no longer lost</li>
+                        <li>Plus/4 now uses Shift-Cmd-L, which no longer clashes with the Amiga 1200</li>
+                        <li>Amiga 1200 320x512 pictures have the correct proportions</li>
+                        <li>Several rare crashes with unusual pictures</li>
+                    </ul>
+                </div>
+            </article>
+            <article class="release panel terminal" id="v4-2">
+                <div class="panel-title">version_4_2.txt<span class="bars"></span></div>
+                <div class="panel-body">
+                    <h2 class="group" style="font-size:inherit;font-weight:normal;margin-top:0"><b>Version 4.2</b></h2>
+                    <span class="date">February 4, 2026</span>
+                    <p class="intro">Locked settings work everywhere.</p>
+                    <div class="group">FIXED</div>
+                    <ul>
+                        <li>Pictures with locked settings now show those settings in the live preview, not only in batch export</li>
+                    </ul>
+                    <div class="group">CHANGED</div>
+                    <ul>
+                        <li>Changing system releases all locked pictures, since their settings belong to the previous system</li>
+                    </ul>
+                </div>
+            </article>
+            <article class="release panel terminal" id="v4-1">
+                <div class="panel-title">version_4_1.txt<span class="bars"></span></div>
+                <div class="panel-body">
+                    <h2 class="group" style="font-size:inherit;font-weight:normal;margin-top:0"><b>Version 4.1</b></h2>
+                    <span class="date">February 3, 2026</span>
+                    <p class="intro">Different settings for different pictures.</p>
+                    <div class="group">NEW</div>
+                    <ul>
+                        <li>Lock settings for a single picture with the padlock button: batch export and Create Disk use each picture's own settings, marked by an orange lock on its thumbnail</li>
+                    </ul>
+                </div>
+            </article>
+            <article class="release panel terminal" id="v4-0">
+                <div class="panel-title">version_4_0.txt<span class="bars"></span></div>
+                <div class="panel-body">
+                    <h2 class="group" style="font-size:inherit;font-weight:normal;margin-top:0"><b>Version 4.0</b></h2>
+                    <span class="date">January 31, 2026</span>
+                    <p class="intro">Disk images for every system.</p>
+                    <div class="group">NEW</div>
+                    <ul>
+                        <li>Create Disk for every system: D64/D71/D81, ADF, ATR, ST, SSD/DSD, MSX and CPC DSK, TRD, PC IMG and ProDOS</li>
+                        <li>A new Create Disk sheet with all systems, formats, sizes and volume-name checks</li>
+                        <li>A progress bar while disks are created</li>
+                        <li>Atari ST medium (640x200) and high (640x400) resolution</li>
+                    </ul>
+                    <div class="group">FIXED</div>
+                    <ul>
+                        <li>VIC-20 Hi-Res: no more stray dots in flat areas</li>
+                        <li>Commodore disks: correct file names and much better use of disk space</li>
+                        <li>Disks now contain every selected picture, not just one</li>
+                        <li>Amiga disks with several pictures, long Amstrad CPC files and Atari ST high resolution no longer fail</li>
+                        <li>Apple IIgs 3200-color pictures on ProDOS disks are recognised by other viewers</li>
+                    </ul>
+                </div>
+            </article>
+            <article class="release panel terminal" id="jan-30-2026">
+                <div class="panel-title">update_jan_30.txt<span class="bars"></span></div>
+                <div class="panel-body">
+                    <h2 class="group" style="font-size:inherit;font-weight:normal;margin-top:0"><b>Update</b></h2>
+                    <span class="date">January 30, 2026</span>
+                    <p class="intro">PETSCII for the Commodore 64.</p>
+                    <div class="group">NEW</div>
+                    <ul>
+                        <li>C64 PETSCII mode: pictures made of 40x25 characters, saved as a program that shows the picture</li>
+                    </ul>
+                    <div class="group">FIXED</div>
+                    <ul>
+                        <li>PC text modes: ANSI files now display correctly in ANSI art viewers</li>
+                        <li>The retro themes now use their proper fonts</li>
+                    </ul>
+                </div>
+            </article>
+            <article class="release panel terminal" id="v3-4">
+                <div class="panel-title">version_3_4.txt<span class="bars"></span></div>
+                <div class="panel-body">
+                    <h2 class="group" style="font-size:inherit;font-weight:normal;margin-top:0"><b>Version 3.4</b></h2>
+                    <span class="date">January 29, 2026</span>
+                    <p class="intro">BBC Micro.</p>
+                    <div class="group">NEW</div>
+                    <ul>
+                        <li>BBC Micro: Modes 0, 1, 2, 4 and 5 with the 8-color palette</li>
+                    </ul>
+                </div>
+            </article>
+            <article class="release panel terminal" id="v3-3">
+                <div class="panel-title">version_3_3.txt<span class="bars"></span></div>
+                <div class="panel-body">
+                    <h2 class="group" style="font-size:inherit;font-weight:normal;margin-top:0"><b>Version 3.3</b></h2>
+                    <span class="date">January 29, 2026</span>
+                    <p class="intro">Atari 800.</p>
+                    <div class="group">NEW</div>
+                    <ul>
+                        <li>Atari 800: Graphics 8, 9, 10, 11 and 15 with the 128-color palette</li>
+                    </ul>
+                </div>
+            </article>
+            <article class="release panel terminal" id="v3-2">
+                <div class="panel-title">version_3_2.txt<span class="bars"></span></div>
+                <div class="panel-body">
+                    <h2 class="group" style="font-size:inherit;font-weight:normal;margin-top:0"><b>Version 3.2</b></h2>
+                    <span class="date">January 29, 2026</span>
+                    <p class="intro">MSX and IBM PC.</p>
+                    <div class="group">NEW</div>
+                    <ul>
+                        <li>MSX: Screen 2, 5 and 8</li>
+                        <li>IBM PC: CGA, EGA, EGA 64, VGA and two ANSI text modes</li>
+                        <li>Hue color matching, for pictures with saturated colors</li>
+                        <li>More dithers and a Lowpass filter for the Apple IIgs</li>
+                    </ul>
+                    <div class="group">FIXED</div>
+                    <ul>
+                        <li>CGA PCX files are written correctly</li>
+                    </ul>
+                </div>
+            </article>
+            <article class="release panel terminal" id="v3-1">
+                <div class="panel-title">version_3_1.txt<span class="bars"></span></div>
+                <div class="panel-body">
+                    <h2 class="group" style="font-size:inherit;font-weight:normal;margin-top:0"><b>Version 3.1</b></h2>
+                    <span class="date">January 29, 2026</span>
+                    <p class="intro">Amiga.</p>
+                    <div class="group">NEW</div>
+                    <ul>
+                        <li>Amiga 500 (32 colors and HAM6) and Amiga 1200 (256 colors and HAM8), saved as IFF pictures</li>
+                    </ul>
+                </div>
+            </article>
+            <article class="release panel terminal" id="v3-0">
+                <div class="panel-title">version_3_0.txt<span class="bars"></span></div>
+                <div class="panel-body">
+                    <h2 class="group" style="font-size:inherit;font-weight:normal;margin-top:0"><b>Version 3.0</b></h2>
+                    <span class="date">January 29, 2026</span>
+                    <p class="intro">Four new machines and a new layout.</p>
+                    <div class="group">NEW</div>
+                    <ul>
+                        <li>ZX Spectrum, Amstrad CPC, Commodore Plus/4 and Atari ST</li>
+                    </ul>
+                    <div class="group">CHANGED</div>
+                    <ul>
+                        <li>The systems moved to a bar across the top of the window, with larger icons</li>
+                        <li>A new info panel shows facts about the picture and the result</li>
+                    </ul>
+                </div>
+            </article>
+            <article class="release panel terminal" id="v2-9">
+                <div class="panel-title">version_2_9.txt<span class="bars"></span></div>
+                <div class="panel-body">
+                    <h2 class="group" style="font-size:inherit;font-weight:normal;margin-top:0"><b>Version 2.9</b></h2>
+                    <span class="date">January 29, 2026</span>
+                    <p class="intro">VIC-20.</p>
+                    <div class="group">NEW</div>
+                    <ul>
+                        <li>VIC-20: Hi-Res and Low-Res</li>
+                    </ul>
+                    <div class="group">FIXED</div>
+                    <ul>
+                        <li>SWAHE contrast is about 40 times faster</li>
+                    </ul>
+                </div>
+            </article>
+            <article class="release panel terminal" id="v2-8">
+                <div class="panel-title">version_2_8.txt<span class="bars"></span></div>
+                <div class="panel-body">
+                    <h2 class="group" style="font-size:inherit;font-weight:normal;margin-top:0"><b>Version 2.8</b></h2>
+                    <span class="date">January 28, 2026</span>
+                    <p class="intro">Commodore 64.</p>
+                    <div class="group">NEW</div>
+                    <ul>
+                        <li>Commodore 64: Hi-Res (Art Studio) and Multicolor (Koala Painter)</li>
+                        <li>A System menu with keyboard shortcuts</li>
+                        <li>Dithering, contrast, filters, color matching, pixel merge, saturation and gamma for the C64</li>
+                    </ul>
+                </div>
+            </article>
+            <article class="release panel terminal" id="v2-7">
+                <div class="panel-title">version_2_7.txt<span class="bars"></span></div>
+                <div class="panel-body">
+                    <h2 class="group" style="font-size:inherit;font-weight:normal;margin-top:0"><b>Version 2.7</b></h2>
+                    <span class="date">January 25, 2026</span>
+                    <p class="intro">Filters and a better palette editor.</p>
+                    <div class="group">NEW</div>
+                    <ul>
+                        <li>Preprocessing filters for the Apple IIgs: Median, Sharpen, Sigma, Solarize, Emboss and Find Edges</li>
+                        <li>Palette editor: undo and redo, and copy and paste whole palettes</li>
+                        <li>Help explains every filter; Help &gt; Visit GitHub Page</li>
+                    </ul>
+                    <div class="group">FIXED</div>
+                    <ul>
+                        <li>640x200 pictures are no longer shown stretched in the preview</li>
+                    </ul>
+                </div>
+            </article>
+            <article class="release panel terminal" id="v2-2">
+                <div class="panel-title">version_2_2.txt<span class="bars"></span></div>
+                <div class="panel-body">
+                    <h2 class="group" style="font-size:inherit;font-weight:normal;margin-top:0"><b>Version 2.2</b></h2>
+                    <span class="date">January 24, 2026</span>
+                    <p class="intro">Preview tools.</p>
+                    <div class="group">NEW</div>
+                    <ul>
+                        <li>Palette editor for the Apple IIgs, in its own window</li>
+                        <li>H-Flip, V-Flip and a histogram with red, green, blue and brightness channels</li>
+                    </ul>
+                    <div class="group">FIXED</div>
+                    <ul>
+                        <li>A crash when choosing the 320x200 mode</li>
+                    </ul>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <div class="stripes thin"></div>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <a href="privacy.html" rel="nofollow">Privacy Policy</a>
+                <a href="imprint.html" rel="nofollow">Legal Notice</a>
+                <a href="./">BitPast</a>
+                <a href="https://github.com/portwally/BitPast/raw/main/Manual/BitPast-Manual.pdf">User's Guide (PDF)</a>
+                <a href="mailto:walter.tengler@gmail.com">Email</a>
+                <a href="https://github.com/portwally/BitPast" target="_blank" rel="noopener">GitHub</a>
+            </div>
+            <nav class="app-links" aria-label="More apps">
+                <div class="row">
+                    <a href="../Adsensemonitor/">AdSense Monitor</a>
+                    <a href="../Aichive/">Aichive</a>
+                    <a href="../Alerta/">Alerta</a>
+                    <a href="../AppleIIASCIIArt/">1977</a>
+                    <a href="../MissileTag/">Missile Tag</a>
+                    <a href="../Bomba/">Bomba</a>
+                    <a href="../CertificadoEnergetico/">Certificado Energético</a>
+                    <a href="../Comboiotreck/">Comboiotreck</a>
+                    <a href="../Conquer-GS/">Conquer GS</a>
+                    <a href="../CyanHero/">CyanHero</a>
+                    <a href="../EUEnergyMonitor/">EU Energy Monitor</a>
+                </div>
+                <div class="row">
+                    <a href="../EasyDup/">EasyDup</a>
+                    <a href="../ExifEasy/">ExifEasy</a>
+                    <a href="../FCPXClean/">FCPX Clean</a>
+                    <a href="../File Vortex/">File Vortex</a>
+                    <a href="../Fire/">Fire</a>
+                    <a href="../Flipside/">Flipside</a>
+                    <a href="../Fluvio/">Fluvio</a>
+                    <a href="../Fugiu/">Fugiu!</a>
+                    <a href="../MegaconvertGS/">MegaconvertGS</a>
+                    <a href="../Pibup/">PIBUP</a>
+                    <a href="../RetroBrowse/">Retro Browse</a>
+                    <a href="../RetroGraphicsConverter/">Retro Graphics</a>
+                </div>
+                <div class="row">
+                    <a href="../RetroTube/">Retro Tube</a>
+                    <a href="../RetroTV/">Retro TV</a>
+                    <a href="../SOSIberico/">SOS Ibérica</a>
+                    <a href="../Scanora/">Scanora</a>
+                    <a href="../Screen2Store/">Screen2Store</a>
+                    <a href="../SlimPix/">SlimPix</a>
+                    <a href="../Sobrium/">Sobrium</a>
+                    <a href="../Terramoto/">Terramoto</a>
+                    <a href="../TileTown/">TileTown</a>
+                    <a href="../Wallys Manager/">Wally's Manager</a>
+                    <a href="../climaviva/">Clima Viva</a>
+                    <a href="../coresdoamor/">Cores do Amor</a>
+                    <a href="../emergengy-reminder/">Emergency Reminder</a>
+                    <a href="../GSRemap/">GS Remap</a>
+                    <a href="../GSCommander/">GS Commander</a>
+                    <a href="../GSLauncher/">GSLauncher</a>
+                    <a href="../Conquer3/">Conquer 3: Sandstorm</a>
+                    <a href="../EmuBuddy/">EmuBuddy</a>
+                </div>
+            </nav>
+            <div class="ready">READY.<span class="cursor"></span></div>
+            <div>Made with ❤️ for retro computing enthusiasts - Walter Tengler</div>
+            <p class="legal">Apple II, Apple IIgs and Macintosh are trademarks of Apple Inc. Amiga, Commodore 64, Commodore PET, VIC-20, Plus/4, Atari 800, Atari ST, Atari 2600, ColecoVision, ZX Spectrum, Amstrad CPC, MSX, BBC Micro, IBM PC, TRS-80 and other names are trademarks of their respective owners. BitPast is an independent app and is not affiliated with or endorsed by any of them.</p>
+        </div>
+    </footer>
+</body>
+</html>
