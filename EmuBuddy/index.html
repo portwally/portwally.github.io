@@ -325,11 +325,19 @@
 <section class="win" id="get">
     <div class="title"><h2>Get EmuBuddy</h2></div>
     <div class="body">
-        <p><i>Downloads are coming soon.</i> EmuBuddy runs on <b>macOS (Apple Silicon)</b>, <b>Windows (x64)</b> and <b>Linux (x64 and arm64)</b> and looks the same on all of them.</p>
+        <p>EmuBuddy <b>1.0</b> is free. It runs on <b>macOS (Apple Silicon)</b>, <b>Windows (x64)</b> and <b>Linux (x64 and arm64)</b> and looks the same on all of them. Each download holds EmuBuddy and EmuBuddy Launcher.</p>
+        <table>
+            <tr><th>Your computer</th><th>Download</th></tr>
+            <tr><td>Mac with Apple Silicon, macOS&nbsp;15 or newer</td><td><a href="https://github.com/portwally/EmuBuddy/releases/download/v1.0.0/EmuBuddy-1.0.0-macOS-arm64.dmg">EmuBuddy-1.0.0-macOS-arm64.dmg</a> (3.7&nbsp;MB)</td></tr>
+            <tr><td>Windows&nbsp;10 or newer, 64-bit</td><td><a href="https://github.com/portwally/EmuBuddy/releases/download/v1.0.0/EmuBuddy-1.0.0-win64.zip">EmuBuddy-1.0.0-win64.zip</a> (5.9&nbsp;MB)</td></tr>
+            <tr><td>Linux, 64-bit Intel or AMD</td><td><a href="https://github.com/portwally/EmuBuddy/releases/download/v1.0.0/EmuBuddy-1.0.0-Linux-x86_64.tar.gz">EmuBuddy-1.0.0-Linux-x86_64.tar.gz</a> (3.1&nbsp;MB)</td></tr>
+            <tr><td>Linux, 64-bit ARM</td><td><a href="https://github.com/portwally/EmuBuddy/releases/download/v1.0.0/EmuBuddy-1.0.0-Linux-aarch64.tar.gz">EmuBuddy-1.0.0-Linux-aarch64.tar.gz</a> (2.8&nbsp;MB)</td></tr>
+        </table>
+        <p>Newer versions, the release notes and the source code are on <a href="https://github.com/portwally/EmuBuddy/releases">GitHub</a>. The Windows and Linux versions are new and little tested; if something does not work, please <a href="https://github.com/portwally/EmuBuddy/issues">report it there</a>.</p>
         <h3>You need a ROM</h3>
         <p>Like every IIgs emulator, EmuBuddy needs an Apple IIgs ROM file. It is Apple&rsquo;s copyrighted firmware, so it cannot be included. Without one, EmuBuddy shows a <b>ROM Required</b> window. A <b>ROM 03</b> file (256&nbsp;KB) is the usual choice; a ROM 01 file (128&nbsp;KB) works too. Drop the file on the window or choose it with <b>File &rsaquo; Choose ROM File&hellip;</b>; EmuBuddy remembers it. The cleanest way to get one is to read it out of an Apple IIgs you own.</p>
         <h3>First start</h3>
-        <p>The downloads are not code-signed or notarized, so your system warns you the first time. On macOS remove the quarantine mark once: <code>xattr -dr com.apple.quarantine /Applications/EmuBuddy.app</code>. On Windows click <b>More info</b>, then <b>Run anyway</b>. On Linux unpack the archive and run <code>EmuBuddy</code> (it needs the SDL3 library).</p>
+        <p>The downloads are not code-signed or notarized, so your system warns you the first time. On macOS move the two apps to Applications and remove the quarantine mark once: <code>xattr -dr com.apple.quarantine "/Applications/EmuBuddy.app" "/Applications/EmuBuddy Launcher.app"</code>. On Windows unpack the whole zip into a folder and keep the files together; when SmartScreen appears, click <b>More info</b>, then <b>Run anyway</b>. On Linux unpack the archive and run <code>./EmuBuddy</code>; SDL3 and the network library come with it.</p>
         <p>Then drop a disk image on the window. The IIgs boots from the first bootable disk, as a real one would.</p>
     </div>
 </section>
