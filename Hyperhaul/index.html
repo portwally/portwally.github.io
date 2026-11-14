@@ -151,6 +151,30 @@
         footer .crosslinks b { color: var(--text); }
         footer .legal { max-width: 760px; margin: 14px auto 0; font-size: .86rem; line-height: 1.5; color: #7480b0; }
 
+        /* ---- the box: as it would have stood on the shelf (box/box.html, render.sh) ---- */
+        .boxstage { position: relative; max-width: 760px; margin: 0 auto; padding-bottom: 6px; }
+        .box3d-view { --bw: min(300px, 60vw); --bh: calc(var(--bw) * 1180 / 900); --bd: calc(var(--bw) * 170 / 900);
+            position: relative; width: 100%; height: calc(var(--bh) * 1.24); perspective: calc(var(--bw) * 5); cursor: grab; touch-action: pan-y; outline: none; user-select: none; -webkit-user-select: none; }
+        .box3d-view.drag { cursor: grabbing; }
+        .box3d-view:focus-visible { box-shadow: 0 0 0 2px var(--or); }
+        .box3d-view::before { content: ""; position: absolute; left: 50%; top: 50%; width: calc(var(--bw) * 2.4); height: calc(var(--bw) * 2.4); margin: calc(var(--bw) * -1.2); border-radius: 50%; pointer-events: none;
+            background: radial-gradient(circle, rgba(255, 136, 0, .16) 0, rgba(255, 136, 0, 0) 62%); }
+        .box3d-view::after { content: ""; position: absolute; left: 50%; bottom: 1%; width: calc(var(--bw) * 1.35); height: 9%; margin-left: calc(var(--bw) * -.675); border-radius: 50%; pointer-events: none;
+            background: radial-gradient(ellipse, rgba(0, 0, 0, .7) 0, rgba(0, 0, 0, 0) 68%); }
+        .box3d { position: absolute; left: 50%; top: 50%; width: var(--bw); height: var(--bh); margin: calc(var(--bh) / -2) 0 0 calc(var(--bw) / -2); transform-style: preserve-3d; transform: rotateX(-6deg) rotateY(-28deg); }
+        .box3d .bf { position: absolute; left: 0; top: 0; width: var(--bw); height: var(--bh); backface-visibility: hidden; background: #000011 center / 100% 100% no-repeat; }
+        .box3d .bf i { position: absolute; inset: 0; background: #000; opacity: 0; pointer-events: none; }
+        .box3d .f { background-image: url(box/front.jpg); transform: translateZ(calc(var(--bd) / 2)); }
+        .box3d .b { background-image: url(box/back.jpg); transform: rotateY(180deg) translateZ(calc(var(--bd) / 2)); }
+        .box3d .l, .box3d .r { width: var(--bd); left: calc((var(--bw) - var(--bd)) / 2); background-image: url(box/spine.jpg); }
+        .box3d .l { transform: rotateY(-90deg) translateZ(calc(var(--bw) / 2)); }
+        .box3d .r { transform: rotateY(90deg) translateZ(calc(var(--bw) / 2)); }
+        .box3d .t, .box3d .u { height: var(--bd); top: calc((var(--bh) - var(--bd)) / 2); }
+        .box3d .t { background-image: url(box/top.jpg); transform: rotateX(90deg) translateZ(calc(var(--bh) / 2)); }
+        .box3d .u { transform: rotateX(-90deg) translateZ(calc(var(--bh) / 2)); }
+        .boxbar { display: flex; justify-content: center; gap: 14px; margin-top: 8px; }
+        .boxnote { text-align: center; font-size: 1rem; color: var(--dim); margin-top: 14px; }
+
         @media (max-width: 900px) {
             .hero-grid, .manual { grid-template-columns: 1fr; }
             .ticker { grid-template-columns: repeat(3, 1fr); }
@@ -177,6 +201,7 @@
             <a href="#screens">Screenshots</a>
             <a href="#music">Music</a>
             <a href="#manual">Manual</a>
+            <a href="#box">Box</a>
             <a href="#inside">Inside</a>
         </nav>
         <span class="pill">APPLE IIGS</span>
@@ -331,7 +356,28 @@
     </div>
 </section>
 
-<section id="inside">
+<section id="box">
+    <div class="container">
+        <div class="title">
+            <div class="kicker">Drag to turn</div>
+            <h2>The box</h2>
+            <p>As it would have stood on the shelf.</p>
+        </div>
+        <div class="boxstage">
+            <div class="box3d-view" id="box3d" tabindex="0" role="img" aria-label="Hyperhaul's box in 3D; drag it or use the arrow keys to turn it. The front: the title picture, the words Eight galaxies, one ship, the Kestrel, a pirate and the Shard, and a parade of every ship. The back: four screenshots, trade, fight and explore, and what you need.">
+                <div class="box3d"><div class="bf f"><i></i></div><div class="bf b"><i></i></div><div class="bf l"><i></i></div><div class="bf r"><i></i></div><div class="bf t"><i></i></div><div class="bf u"><i></i></div></div>
+            </div>
+            <div class="boxbar">
+                <button class="btn" type="button" data-turn="-28">Front</button>
+                <button class="btn" type="button" data-turn="152">Back</button>
+                <button class="btn" type="button" data-turn="-90">Spine</button>
+            </div>
+            <p class="boxnote">A picture of a box: the game will come as a disk image.</p>
+        </div>
+    </div>
+</section>
+
+<section class="band" id="inside">
     <div class="container">
         <div class="title">
             <div class="kicker">How it is made</div>
@@ -374,6 +420,65 @@
         i.addEventListener('click', function () { lb.querySelector('img').src = i.src; lb.classList.add('on'); });
     });
     lb.addEventListener('click', function () { lb.classList.remove('on'); });
+
+    /* the box: drag it round (or the arrow keys, or the buttons); it sways a little while idle */
+    var view = document.getElementById('box3d');
+    if (view) {
+        var cube = view.querySelector('.box3d');
+        var shade = {};
+        ['f', 'b', 'l', 'r', 't', 'u'].forEach(function (k) { shade[k] = cube.querySelector('.' + k + ' i'); });
+        var ry = -28, rx = -6, goal = null, drag = null, idle = true, t0 = null;
+        var still = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+        function paint() {
+            cube.style.transform = 'rotateX(' + rx + 'deg) rotateY(' + ry + 'deg)';
+            var y = ry * Math.PI / 180, c = Math.cos(y), s = Math.sin(y);
+            shade.f.style.opacity = 0.55 * (1 - Math.max(0, c));
+            shade.b.style.opacity = 0.55 * (1 - Math.max(0, -c));
+            shade.r.style.opacity = 0.15 + 0.5 * (1 - Math.max(0, -s));
+            shade.l.style.opacity = 0.15 + 0.5 * (1 - Math.max(0, s));
+            shade.t.style.opacity = 0.2;
+        }
+        function frame(t) {
+            if (goal !== null) {
+                var d = ((((goal - ry + 180) % 360) + 360) % 360) - 180;
+                if (Math.abs(d) < 0.5) { ry = goal; goal = null; } else ry += d * 0.14;
+                paint();
+            } else if (idle && !still && !drag) {
+                if (t0 === null) t0 = t;
+                ry = -28 + 9 * Math.sin((t - t0) / 1900);
+                paint();
+            }
+            requestAnimationFrame(frame);
+        }
+        view.addEventListener('pointerdown', function (ev) {
+            drag = { x: ev.clientX, y: ev.clientY, ry: ry, rx: rx };
+            idle = false; goal = null;
+            view.classList.add('drag');
+            view.setPointerCapture(ev.pointerId);
+        });
+        view.addEventListener('pointermove', function (ev) {
+            if (!drag) return;
+            ry = drag.ry + (ev.clientX - drag.x) * 0.6;
+            rx = Math.max(-40, Math.min(40, drag.rx - (ev.clientY - drag.y) * 0.35));
+            paint();
+        });
+        function drop() { drag = null; view.classList.remove('drag'); }
+        view.addEventListener('pointerup', drop);
+        view.addEventListener('pointercancel', drop);
+        view.addEventListener('keydown', function (ev) {
+            var k = { ArrowLeft: [-15, 0], ArrowRight: [15, 0], ArrowUp: [0, 6], ArrowDown: [0, -6] }[ev.key];
+            if (!k) return;
+            ev.preventDefault();
+            idle = false; goal = null;
+            ry += k[0]; rx = Math.max(-40, Math.min(40, rx + k[1]));
+            paint();
+        });
+        [].forEach.call(document.querySelectorAll('.boxbar [data-turn]'), function (b) {
+            b.addEventListener('click', function () { idle = false; rx = -6; goal = +b.dataset.turn; });
+        });
+        paint();
+        requestAnimationFrame(frame);
+    }
 </script>
 </body>
 </html>
