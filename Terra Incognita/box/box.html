@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Terra Incognita - box art</title>
+<meta name="robots" content="noindex">
+<!-- The box's faces, drawn here and rendered to pictures by render.sh
+     (front.jpg, back.jpg, spine.jpg, top.jpg: the 3D box on the homepage
+     wears them). box.html?face=front (back, spine, top) shows one face at
+     its size: 900 x 1180, the spine 170 x 1180, the top 900 x 170. The
+     pictures are the game's own (its title, screens, sprites, a world
+     drawn as a chart: tools/webart.py). -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root { --ink: #3b240f; --ink-2: #5a3a1c; --red: #8e1d12; --gold: #b07d1e; --parch: #e9d6a6; --leather: #2a170b; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #120a04; font-family: 'IM Fell English', Georgia, serif; color: var(--ink); display: flex; gap: 30px; padding: 30px; align-items: flex-start; }
+img { display: block; }
+.px { image-rendering: pixelated; }
+.face { position: relative; width: 900px; height: 1180px; flex: none; overflow: hidden;
+  background: radial-gradient(120% 90% at 50% 40%, #4a2a13 0%, #2a170b 60%, #160c05 100%); }
+.face::after { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .22;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' seed='4'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .9 0'/></filter><rect width='300' height='300' filter='url(%23n)'/></svg>"); }
+.face.spine { width: 170px; }
+.face.top { height: 170px; }
+/* a sheet of parchment, its edges burnt: the paper drawn displaced by
+   noise (#burn), a charred rim inside it */
+.sheet { position: absolute; }
+.sheet .paper { position: absolute; inset: 0; filter: url(#burn);
+  background:
+    radial-gradient(40% 30% at 22% 28%, rgba(150, 100, 40, .16), transparent 70%),
+    radial-gradient(30% 24% at 78% 70%, rgba(130, 80, 30, .18), transparent 70%),
+    radial-gradient(18% 14% at 64% 18%, rgba(120, 70, 20, .12), transparent 70%),
+    linear-gradient(160deg, #f0dfb2, #e3cc93 55%, #d9bd80);
+  box-shadow: inset 0 0 0 3px #1c0e04, inset 0 0 16px 6px rgba(40, 18, 2, .9), inset 0 0 70px 18px rgba(120, 66, 18, .55), 0 18px 40px rgba(0, 0, 0, .55); }
+.sheet .paper::after { content: ""; position: absolute; inset: 0; opacity: .35; mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.035' numOctaves='5' seed='9'/><feColorMatrix values='0 0 0 0 .55  0 0 0 0 .4  0 0 0 0 .2  0 0 0 1.2 -.35'/></filter><rect width='400' height='400' filter='url(%23n)'/></svg>"); }
+.sheet .in { position: absolute; inset: 0; }
+.sc { font-family: 'IM Fell English SC', Georgia, serif; }
+.title { font-family: 'IM Fell English SC', Georgia, serif; color: var(--ink); letter-spacing: 2px; line-height: .95;
+  text-shadow: 0 1px 0 rgba(255, 240, 200, .5); }
+.title em { font-style: normal; color: var(--red); }
+.rule { height: 2px; background: linear-gradient(90deg, transparent, var(--ink-2), transparent); }
+.plate { border: 2px solid var(--ink); box-shadow: 0 0 0 4px rgba(233, 214, 166, .9), 0 0 0 5px var(--ink-2), 0 8px 18px rgba(40, 20, 4, .45); background: #000; }
+.cap { font-style: italic; font-size: 19px; color: var(--ink-2); text-align: center; margin-top: 8px; }
+.strip { position: absolute; left: 0; right: 0; height: 58px; display: flex; align-items: center; justify-content: space-between; padding: 0 34px;
+  color: #e9d6a6; font-family: 'IM Fell English SC', Georgia, serif; font-size: 21px; letter-spacing: 2px; }
+.strip.bottom { bottom: 0; font-size: 17px; }
+.badge { border: 2px solid #c79a4a; color: #e8c27a; padding: 2px 12px 0; }
+.seal { position: absolute; width: 150px; height: 150px; border-radius: 50%;
+  background: radial-gradient(circle at 38% 34%, #c8402c 0%, #9a2014 45%, #6a1008 100%);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, .55), inset 0 -6px 12px rgba(0, 0, 0, .35), inset 0 6px 10px rgba(255, 160, 120, .25);
+  display: grid; place-items: center; color: #f3c9a8; text-align: center; font-family: 'IM Fell English SC', Georgia, serif; }
+.seal::before { content: ""; position: absolute; inset: 12px; border-radius: 50%; border: 2px solid rgba(255, 200, 170, .35); }
+.seal b { font-size: 46px; display: block; line-height: 1; }
+.seal span { font-size: 17px; letter-spacing: 2px; }
+.rose { position: absolute; opacity: .55; }
+
+/* ---- front ---- */
+.front .sheet { left: 40px; top: 74px; width: 820px; height: 1030px; transform: rotate(-.6deg); }
+.front .head { position: absolute; left: 0; right: 0; top: 46px; text-align: center; }
+.front .head .kick { font-size: 24px; letter-spacing: 6px; color: var(--ink-2); }
+.front .head .title { font-size: 100px; margin-top: 6px; }
+.front .art { position: absolute; left: 70px; top: 238px; width: 680px; height: 425px; }
+.front .art img { width: 100%; height: 100%; }
+.front .tag { position: absolute; left: 50px; right: 50px; top: 700px; text-align: center; font-size: 44px; color: var(--red); font-family: 'IM Fell English SC', Georgia, serif; letter-spacing: 1px; }
+.front .sub { position: absolute; left: 80px; right: 80px; top: 758px; text-align: center; font-size: 24px; font-style: italic; color: var(--ink-2); line-height: 1.3; }
+.front .trio { position: absolute; left: 70px; right: 70px; top: 818px; display: flex; justify-content: space-between; align-items: flex-end; }
+.front .trio div { width: 200px; text-align: center; }
+.front .trio img { margin: 0 auto; }
+.front .trio b { display: block; font-family: 'IM Fell English SC', Georgia, serif; font-size: 25px; letter-spacing: 1px; margin-top: 8px; }
+.front .trio span { display: block; font-style: italic; font-size: 18px; color: var(--ink-2); }
+.front .seal { right: 50px; top: 650px; transform: rotate(-12deg); }
+
+/* ---- back ---- */
+.back .sheet { left: 36px; top: 70px; width: 828px; height: 1040px; transform: rotate(.5deg); }
+.back .head { position: absolute; left: 40px; right: 40px; top: 44px; text-align: center; }
+.back .head .title { font-size: 56px; }
+.back .blurb { position: absolute; left: 70px; right: 70px; top: 128px; text-align: center; font-size: 22px; line-height: 1.34; }
+.back .shots { position: absolute; left: 62px; right: 62px; top: 262px; display: grid; grid-template-columns: 1fr 1fr; gap: 26px 34px; }
+.back .shots img { width: 335px; height: 209px; }
+.back .shots .cap { font-size: 17px; margin-top: 6px; }
+.back .cols { position: absolute; left: 62px; right: 62px; top: 818px; display: flex; gap: 26px; }
+.back .col { flex: 1; }
+.back .col h3 { font-family: 'IM Fell English SC', Georgia, serif; font-size: 27px; color: var(--red); font-weight: normal; letter-spacing: 1px; }
+.back .col p { font-size: 17px; line-height: 1.28; margin-top: 3px; }
+.back .need { position: absolute; left: 62px; right: 62px; top: 960px; font-size: 16.5px; line-height: 1.3; text-align: center; color: var(--ink-2); }
+.back .need b { font-family: 'IM Fell English SC', Georgia, serif; color: var(--ink); letter-spacing: 1px; font-weight: normal; }
+
+/* ---- spine, top ---- */
+.spine .sheet { left: 14px; top: 20px; width: 142px; height: 1140px; }
+.spine .word { position: absolute; left: 50%; top: 50%; width: 1000px; margin-left: -500px; text-align: center; transform: translateY(-50%) rotate(90deg); font-size: 76px; white-space: nowrap; }
+.spine .sh { position: absolute; left: 0; right: 0; top: 44px; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.spine .sys { position: absolute; left: 0; right: 0; bottom: 46px; text-align: center; font-family: 'IM Fell English SC', Georgia, serif; font-size: 19px; letter-spacing: 1px; line-height: 1.3; }
+.top .sheet { left: 22px; top: 16px; width: 856px; height: 138px; }
+.top .word { position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-50%); text-align: center; font-size: 64px; white-space: nowrap; }
+.top .l, .top .r { position: absolute; top: 50%; transform: translateY(-50%); font-family: 'IM Fell English SC', Georgia, serif; font-size: 19px; letter-spacing: 1px; }
+.top .l { left: 34px; } .top .r { right: 34px; }
+
+body.one { padding: 0; background: none; display: block; }
+body.one .face { display: none; }
+body.front .face.front, body.back .face.back, body.spine .face.spine, body.top .face.top { display: block; }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <filter id="burn" x="-4%" y="-4%" width="108%" height="108%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.022" numOctaves="4" seed="11" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="34" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+  <symbol id="rose" viewBox="-100 -100 200 200">
+    <g fill="none" stroke="#3b240f" stroke-width="1.2"><circle r="92"/><circle r="84"/><circle r="40"/></g>
+    <g fill="#3b240f"><path d="M0-96 L9-9 L0 0 Z"/><path d="M96 0 L9 9 L0 0 Z"/><path d="M0 96 L-9 9 L0 0 Z"/><path d="M-96 0 L-9-9 L0 0 Z"/></g>
+    <g fill="#8e1d12"><path d="M0-96 L-9-9 L0 0 Z"/><path d="M96 0 L9-9 L0 0 Z"/><path d="M0 96 L9 9 L0 0 Z"/><path d="M-96 0 L-9 9 L0 0 Z"/></g>
+    <g fill="#5a3a1c" opacity=".8"><path d="M62-62 L6-14 L0 0 Z"/><path d="M62 62 L14 6 L0 0 Z"/><path d="M-62 62 L-6 14 L0 0 Z"/><path d="M-62-62 L-14-6 L0 0 Z"/></g>
+    <text y="-70" text-anchor="middle" font-family="IM Fell English SC, Georgia, serif" font-size="22" fill="#3b240f" dy="-26">N</text>
+  </symbol>
+</svg>
+
+<div class="face front">
+  <div class="strip" style="top:0"><span class="badge">APPLE IIGS</span><span>Exploration &amp; Trade</span><span class="badge">8 MB</span></div>
+  <div class="sheet"><div class="paper"></div><div class="in">
+    <div class="head"><div class="kick">A VOYAGE TO THE NEW WORLD &middot; 1495</div><div class="title">Terra <em>Incognita</em></div></div>
+    <div class="art plate"><img class="px" src="../art/title.jpg" alt=""></div>
+    <div class="tag">Sail west. Chart the unknown.</div>
+    <div class="sub">Outfit your caravels in Lisboa, cross the ocean sea, meet the peoples of a land<br>no chart has shown &mdash; and bring gold and maps home to the King.</div>
+    <div class="trio">
+      <div><img class="px" src="../art/caravel-2.png" width="108" height="108" alt=""><b>Your Caravel</b><span>by wind and stars</span></div>
+      <div><img class="px" src="../art/captain.png" width="80" height="80" alt=""><b>The Captain</b><span>from Escudeiro to Vice-Rei</span></div>
+      <div><img class="px" src="../screens/city.png" style="width:150px; height:94px; border:2px solid #3b240f" alt=""><b>Golden Cities</b><span>rumoured, far inland</span></div>
+    </div>
+  </div></div>
+  <div class="seal"><div><b>1495</b><span>EL-REI</span></div></div>
+  <div class="strip bottom"><span>&copy; 2026 Walter Tengler</span><span>65816 Assembly &middot; Ensoniq Sound</span><span>3.5" Disk</span></div>
+</div>
+
+<div class="face back">
+  <div class="sheet"><div class="paper"></div><div class="in">
+    <div class="head"><div class="title">Beyond the Edge <em>of the Map</em></div></div>
+    <p class="blurb">The year is 1495. The King gives you a caravel, a purse of cruzados and one order: sail west. A new continent waits beyond the ocean sea &mdash; a different one in every game, hidden under the fog until your lookouts see it.</p>
+    <div class="shots">
+      <div><img class="px plate" src="../screens/sight.png" alt=""><div class="cap">Land in sight! The fog lifts as you sail</div></div>
+      <div><img class="px plate" src="../screens/tents.png" alt=""><div class="cap">Six peoples, each with its own ways</div></div>
+      <div><img class="px plate" src="../screens/storm.png" alt=""><div class="cap">Storms, scurvy and hunger at sea</div></div>
+      <div><img class="px plate" src="../screens/audience.png" alt=""><div class="cap">The King takes his fifth</div></div>
+    </div>
+    <div class="cols">
+      <div class="col"><h3>Sail</h3><p>The westerlies blow in the north, the trade winds in the south. Read the wind or crawl against it.</p></div>
+      <div class="col"><h3>Trade</h3><p>Goods for gold and food, gifts for friendship, feitorias that send gold home every voyage.</p></div>
+      <div class="col"><h3>Discover</h3><p>Rivers, mountains, jungles and the golden cities. Every league you chart is paid for in Lisboa.</p></div>
+    </div>
+    <div class="need"><b>Also:</b> painted scenes, six tunes and a dozen sounds on the Ensoniq chip, all made for this game &middot; saves itself at home<br><b>You need:</b> an Apple IIgs with 8 MB and a 3.5" drive (an accelerator is best) &mdash; or MAME</div>
+  </div></div>
+  <div class="strip bottom"><span>&copy; 2026 Walter Tengler</span><span>Written in 65816 Assembly</span><span>portwally.github.io</span></div>
+</div>
+
+<div class="face spine">
+  <div class="sheet"><div class="paper"></div><div class="in">
+    <div class="sh"><img class="px" src="../art/caravel-6.png" width="110" height="110" alt=""></div>
+    <div class="word title">Terra <em>Incognita</em></div>
+    <div class="sys">Apple<br>IIgs</div>
+  </div></div>
+</div>
+
+<div class="face top">
+  <div class="sheet"><div class="paper"></div><div class="in">
+    <div class="l">Apple IIgs</div>
+    <div class="word title">Terra <em>Incognita</em></div>
+    <div class="r">1495</div>
+  </div></div>
+</div>
+
+<script>
+  var f = new URLSearchParams(location.search).get('face');
+  if (f) document.body.className = 'one ' + f;
+</script>
+</body>
+</html>

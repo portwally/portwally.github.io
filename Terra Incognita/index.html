@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terra Incognita - Exploration and Trade for the Apple IIgs</title>
+    <meta name="description" content="Terra Incognita is an exploration and trade game for the Apple IIgs: sail west from Lisboa in 1495, chart a new continent under the fog of war, trade with its peoples, found trading posts and find the golden cities. Written in 65816 assembly.">
+    <meta name="keywords" content="Terra Incognita, Apple IIgs, exploration game, trade, age of discovery, caravel, 65816 assembly, Super Hi-Res, Ensoniq, retro game, homebrew, ProDOS">
+    <meta name="author" content="Walter Tengler">
+    <link rel="canonical" href="https://portwally.github.io/Terra%20Incognita/">
+    <link rel="icon" type="image/png" href="icon.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Terra Incognita - exploration and trade for the Apple IIgs">
+    <meta property="og:description" content="1495: sail west into the unknown, chart a new world, trade with its peoples and bring gold home to the King - on an Apple IIgs.">
+    <meta property="og:image" content="https://portwally.github.io/Terra%20Incognita/art/title.jpg">
+    <meta property="og:url" content="https://portwally.github.io/Terra%20Incognita/">
+    <meta name="twitter:card" content="summary_large_image">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "VideoGame",
+      "name": "Terra Incognita",
+      "description": "An exploration and trade game for the Apple IIgs: sail west from Lisboa in 1495, chart a new continent under the fog of war, trade with its peoples, found trading posts and find the golden cities. Written in 65816 assembly.",
+      "genre": ["Exploration", "Trading", "Strategy"],
+      "gamePlatform": "Apple IIgs",
+      "author": { "@type": "Person", "name": "Walter Tengler" },
+      "image": "https://portwally.github.io/Terra%20Incognita/art/title.jpg",
+      "url": "https://portwally.github.io/Terra%20Incognita/"
+    }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+    <style>
+        /* An old chart: a long sheet of parchment, its edges burnt and
+           weathered (the paper displaced by noise: #burn), laid on dark
+           leather; ink in sepia, rubrics in red, a compass rose and its
+           rhumb lines. */
+        :root {
+            --ink: #3b240f; --ink-2: #5a3a1c; --ink-3: #7a5530; --red: #8e1d12; --gold: #a8741a;
+            --parch: #ead7a7; --parch-2: #dcc189; --leather: #1d1007;
+            --display: 'IM Fell English SC', Georgia, 'Times New Roman', serif;
+            --body: 'IM Fell English', Georgia, 'Times New Roman', serif;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--body); font-size: 19px; line-height: 1.5; color: var(--ink);
+            background: radial-gradient(120% 60% at 50% 0%, #3d2412 0%, #24140a 45%, #120a04 100%) fixed, #120a04; overflow-x: hidden; }
+        body::before { content: ""; position: fixed; inset: 0; pointer-events: none; opacity: .18; z-index: 0;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' seed='4'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .9 0'/></filter><rect width='300' height='300' filter='url(%23n)'/></svg>"); }
+        img { display: block; max-width: 100%; }
+        .px { image-rendering: pixelated; }
+        a { color: var(--red); }
+        .sc { font-family: var(--display); }
+
+        /* the sheet */
+        .chart { position: relative; z-index: 1; max-width: 1080px; margin: 34px auto 40px; padding: 70px 76px 80px; }
+        .chart > .paper { position: absolute; inset: 0; filter: url(#burn); z-index: -1;
+            background:
+                radial-gradient(30% 9% at 18% 7%, rgba(150, 95, 35, .2), transparent 70%),
+                radial-gradient(24% 6% at 82% 31%, rgba(130, 80, 30, .2), transparent 70%),
+                radial-gradient(34% 8% at 30% 58%, rgba(140, 90, 35, .16), transparent 70%),
+                radial-gradient(22% 7% at 74% 84%, rgba(120, 70, 25, .2), transparent 70%),
+                linear-gradient(170deg, #f1e1b6, #e6d09c 40%, #dcc28a 75%, #d6b97d);
+            box-shadow: inset 0 0 0 3px #1c0e04, inset 0 0 18px 7px rgba(40, 18, 2, .92), inset 0 0 90px 24px rgba(120, 66, 18, .5), 0 30px 70px rgba(0, 0, 0, .7); }
+        .chart > .paper::after { content: ""; position: absolute; inset: 0; opacity: .4; mix-blend-mode: multiply;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='500' height='500'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.03' numOctaves='5' seed='9'/><feColorMatrix values='0 0 0 0 .55  0 0 0 0 .4  0 0 0 0 .2  0 0 0 1.2 -.35'/></filter><rect width='500' height='500' filter='url(%23n)'/></svg>"); }
+        .rhumbs { position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: .32; overflow: hidden; }
+        .rhumbs svg { position: absolute; left: 50%; top: 520px; width: 2400px; height: 2400px; margin: -1200px 0 0 -1200px; }
+        .rose { position: absolute; right: 34px; top: 30px; width: 110px; height: 110px; opacity: .8; }
+
+        /* the head */
+        header.top { text-align: center; padding-top: 6px; }
+        .kick { font-family: var(--display); letter-spacing: 6px; color: var(--ink-2); font-size: 1.05rem; }
+        h1 { font-family: var(--display); font-weight: normal; font-size: clamp(3rem, 9vw, 6.6rem); line-height: .95; letter-spacing: 2px; margin-top: 6px;
+            text-shadow: 0 1px 0 rgba(255, 240, 200, .5); }
+        h1 em { font-style: normal; color: var(--red); }
+        .tagline { font-style: italic; font-size: 1.35rem; color: var(--ink-2); margin-top: 10px; }
+        nav { display: flex; justify-content: center; flex-wrap: wrap; gap: 6px 24px; margin-top: 22px; font-family: var(--display); font-size: 1.08rem; }
+        nav a { color: var(--ink); text-decoration: none; border-bottom: 1px solid transparent; }
+        nav a:hover { color: var(--red); border-bottom-color: var(--red); }
+        .flourish { display: block; width: 260px; height: 18px; margin: 18px auto 0; }
+
+        .hero { display: grid; grid-template-columns: 1.15fr .85fr; gap: 46px; align-items: center; margin-top: 46px; }
+        .plate { background: #000; border: 2px solid var(--ink); box-shadow: 0 0 0 5px rgba(234, 215, 167, .95), 0 0 0 6px var(--ink-2), 0 12px 26px rgba(50, 25, 5, .45); }
+        .plate img { width: 100%; height: auto; }
+        .hero .plate { transform: rotate(-1deg); }
+        .hero p { font-size: 1.12rem; }
+        .hero p + p { margin-top: 12px; }
+        .status { margin-top: 20px; display: inline-block; font-family: var(--display); letter-spacing: 1px; color: var(--red); border: 2px solid var(--red); padding: 4px 14px 2px; transform: rotate(-2deg); }
+        .btns { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
+        .btn { font-family: var(--display); font-size: 1.05rem; letter-spacing: 1px; color: #f3e3bd; background: var(--ink); text-decoration: none; padding: 9px 18px 7px; border: 0; cursor: pointer;
+            box-shadow: 0 0 0 2px var(--ink), inset 0 0 0 2px #c79a4a; }
+        .btn:hover { background: var(--red); }
+        .btn.ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 2px var(--ink); }
+        .btn.ghost:hover { color: var(--red); box-shadow: inset 0 0 0 2px var(--red); }
+
+        section { margin-top: 78px; scroll-margin-top: 24px; }
+        .title { text-align: center; margin-bottom: 30px; }
+        .title .kicker { font-family: var(--display); letter-spacing: 4px; color: var(--ink-3); font-size: .95rem; }
+        h2 { font-family: var(--display); font-weight: normal; font-size: clamp(2rem, 5vw, 2.9rem); line-height: 1.05; }
+        h2 em { font-style: normal; color: var(--red); }
+        .title p { font-style: italic; color: var(--ink-2); margin-top: 6px; }
+        h3 { font-family: var(--display); font-weight: normal; font-size: 1.45rem; color: var(--red); }
+
+        /* the legend: features as a chart's key */
+        .legend { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px 34px; }
+        .legend .item { padding-left: 46px; position: relative; }
+        .legend .item::before { content: attr(data-n); position: absolute; left: 0; top: 2px; width: 32px; height: 32px; border-radius: 50%;
+            border: 2px solid var(--ink); font-family: var(--display); font-size: 1.05rem; display: grid; place-items: center; color: var(--ink); }
+        .legend p { font-size: 1.02rem; margin-top: 4px; }
+
+        /* the world */
+        .world { display: grid; grid-template-columns: 1.25fr .75fr; gap: 40px; align-items: center; }
+        .atlas { position: relative; padding: 14px; border: 2px solid var(--ink); background: rgba(240, 225, 185, .4);
+            box-shadow: inset 0 0 0 4px rgba(234, 215, 167, .8), inset 0 0 0 5px var(--ink-3); }
+        .atlas img { width: 100%; image-rendering: pixelated; mix-blend-mode: multiply; }
+        .atlas .lbl { position: absolute; font-style: italic; color: var(--ink-2); font-size: 1.05rem; }
+        .atlas .mare { right: 13%; top: 44%; font-family: var(--display); letter-spacing: 3px; font-style: normal; font-size: 1.2rem; color: var(--ink-3); transform: rotate(-8deg); }
+        .atlas .mini-rose { position: absolute; right: 7%; bottom: 9%; width: 70px; height: 70px; opacity: .75; }
+        .world ul { list-style: none; }
+        .world li { padding: 6px 0 6px 26px; position: relative; font-size: 1.02rem; }
+        .world li::before { content: "\2726"; position: absolute; left: 0; top: 6px; color: var(--red); }
+        .fleet { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 10px; margin-top: 24px; }
+        .fleet img { width: 72px; height: 72px; }
+
+        /* the plates */
+        .gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 34px 30px; }
+        .gallery figure:nth-child(3n+1) .plate { transform: rotate(-.8deg); }
+        .gallery figure:nth-child(3n+2) .plate { transform: rotate(.6deg); }
+        .gallery figure:nth-child(3n) .plate { transform: rotate(-.3deg); }
+        .gallery img { cursor: zoom-in; }
+        figcaption { font-style: italic; text-align: center; color: var(--ink-2); font-size: .98rem; margin-top: 12px; line-height: 1.3; }
+        .peoples { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 10px; }
+
+        /* the music */
+        .tunes { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 22px 30px; }
+        .tune { border-top: 2px solid var(--ink); padding-top: 10px; }
+        .tune b { font-family: var(--display); font-weight: normal; font-size: 1.3rem; display: block; }
+        .tune span { font-style: italic; color: var(--ink-2); font-size: .98rem; display: block; margin-bottom: 8px; }
+        audio { width: 100%; height: 34px; filter: sepia(.6) saturate(.8); }
+        .note { text-align: center; font-style: italic; color: var(--ink-2); margin-top: 22px; }
+
+        /* the box: as it would have stood on the shelf (box/box.html, render.sh) */
+        .boxstage { position: relative; max-width: 760px; margin: 0 auto; padding-bottom: 6px; }
+        .box3d-view { --bw: min(300px, 60vw); --bh: calc(var(--bw) * 1180 / 900); --bd: calc(var(--bw) * 170 / 900);
+            position: relative; height: calc(var(--bh) * 1.25); perspective: 1600px; cursor: grab; touch-action: none; outline: none; }
+        .box3d-view.drag { cursor: grabbing; }
+        .box3d-view:focus-visible { box-shadow: 0 0 0 2px var(--red); }
+        .box3d-view::after { content: ""; position: absolute; left: 50%; bottom: 1%; width: calc(var(--bw) * 1.35); height: 9%; margin-left: calc(var(--bw) * -.675); border-radius: 50%; pointer-events: none;
+            background: radial-gradient(closest-side, rgba(40, 20, 4, .45), transparent); }
+        .box3d { position: absolute; left: 50%; top: 50%; width: var(--bw); height: var(--bh); margin: calc(var(--bh) / -2) 0 0 calc(var(--bw) / -2); transform-style: preserve-3d; transform: rotateX(-6deg) rotateY(-28deg); }
+        .box3d .bf { position: absolute; left: 0; top: 0; width: var(--bw); height: var(--bh); backface-visibility: hidden; background: #1d1007 center / 100% 100% no-repeat; }
+        .box3d .bf i { position: absolute; inset: 0; background: #000; opacity: 0; pointer-events: none; }
+        .box3d .f { background-image: url(box/front.jpg); transform: translateZ(calc(var(--bd) / 2)); }
+        .box3d .b { background-image: url(box/back.jpg); transform: rotateY(180deg) translateZ(calc(var(--bd) / 2)); }
+        .box3d .l, .box3d .r { width: var(--bd); left: calc((var(--bw) - var(--bd)) / 2); background-image: url(box/spine.jpg); }
+        .box3d .l { transform: rotateY(-90deg) translateZ(calc(var(--bw) / 2)); }
+        .box3d .r { transform: rotateY(90deg) translateZ(calc(var(--bw) / 2)); }
+        .box3d .t, .box3d .u { height: var(--bd); top: calc((var(--bh) - var(--bd)) / 2); }
+        .box3d .t { background-image: url(box/top.jpg); transform: rotateX(90deg) translateZ(calc(var(--bh) / 2)); }
+        .box3d .u { transform: rotateX(-90deg) translateZ(calc(var(--bh) / 2)); }
+        .boxbar { display: flex; justify-content: center; gap: 14px; margin-top: 8px; }
+        .boxnote { text-align: center; font-style: italic; color: var(--ink-2); margin-top: 14px; }
+
+        /* how it is made */
+        .inside { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px 34px; }
+        .fact p { font-size: 1rem; margin-top: 4px; }
+        .keys { display: grid; grid-template-columns: auto 1fr; gap: 6px 18px; max-width: 760px; margin: 0 auto; font-size: 1.02rem; }
+        .keys dt { font-family: var(--display); color: var(--red); }
+
+        .lightbox { position: fixed; inset: 0; background: rgba(18, 10, 4, .94); display: none; place-items: center; z-index: 100; cursor: zoom-out; padding: 20px; }
+        .lightbox.on { display: grid; }
+        .lightbox img { max-width: min(1280px, 96vw); max-height: 90vh; width: auto; image-rendering: pixelated; border: 3px solid #c79a4a; }
+
+        footer { position: relative; z-index: 1; padding: 10px 20px 46px; text-align: center; color: #cdb88e; font-size: 1rem; }
+        footer .banner { font-family: var(--display); letter-spacing: 6px; font-size: 1.6rem; color: #e8c27a; }
+        footer .row { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px 22px; margin-top: 12px; font-family: var(--display); }
+        footer a { color: #f0dfb4; }
+        footer .crosslinks { margin-top: 20px; font-size: .98rem; line-height: 1.75; }
+        footer .crosslinks a { color: #d9c39a; }
+        footer .crosslinks b { color: #f0dfb4; font-family: var(--display); font-weight: normal; letter-spacing: 1px; }
+        footer .legal { max-width: 760px; margin: 14px auto 0; font-size: .9rem; line-height: 1.5; color: #a58d64; font-style: italic; }
+
+        @media (max-width: 860px) {
+            .chart { margin: 16px 10px 30px; padding: 54px 26px 60px; }
+            .rose { width: 90px; height: 90px; right: 22px; top: 26px; }
+            .hero, .world { grid-template-columns: 1fr; gap: 30px; }
+            .legend, .inside, .gallery, .peoples { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 560px) {
+            body { font-size: 18px; }
+            .chart { margin: 10px 4px 24px; padding: 46px 18px 54px; }
+            .legend, .inside, .gallery, .peoples { grid-template-columns: 1fr; }
+            .rose { display: none; }
+            .keys { grid-template-columns: 1fr; gap: 0 0; }
+            .keys dd { margin-bottom: 8px; }
+        }
+        @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+    </style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <filter id="burn" x="-3%" y="-1%" width="106%" height="102%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="4" seed="11" result="n"/>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="40" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <symbol id="rose" viewBox="-100 -100 200 200">
+        <g fill="none" stroke="#3b240f" stroke-width="1.2"><circle r="92"/><circle r="85"/><circle r="40"/></g>
+        <g stroke="#3b240f" stroke-width=".8">
+            <line x1="0" y1="-85" x2="0" y2="-92"/><line x1="0" y1="85" x2="0" y2="92"/><line x1="-85" y1="0" x2="-92" y2="0"/><line x1="85" y1="0" x2="92" y2="0"/>
+        </g>
+        <g fill="#5a3a1c" opacity=".85"><path d="M60-60 L6-14 L0 0 Z"/><path d="M60 60 L14 6 L0 0 Z"/><path d="M-60 60 L-6 14 L0 0 Z"/><path d="M-60-60 L-14-6 L0 0 Z"/></g>
+        <g fill="#3b240f"><path d="M0-96 L10-10 L0 0 Z"/><path d="M96 0 L10 10 L0 0 Z"/><path d="M0 96 L-10 10 L0 0 Z"/><path d="M-96 0 L-10-10 L0 0 Z"/></g>
+        <g fill="#8e1d12"><path d="M0-96 L-10-10 L0 0 Z"/><path d="M96 0 L10-10 L0 0 Z"/><path d="M0 96 L10 10 L0 0 Z"/><path d="M-96 0 L-10 10 L0 0 Z"/></g>
+        <circle r="5" fill="#ead7a7" stroke="#3b240f" stroke-width="1.2"/>
+    </symbol>
+</svg>
+
+<main class="chart">
+    <div class="paper"></div>
+    <div class="rhumbs" aria-hidden="true">
+        <svg viewBox="-1200 -1200 2400 2400"><g stroke="#5a3a1c" stroke-width="1.2">
+            <line x1="0" y1="-1200" x2="0" y2="1200"/><line x1="-1200" y1="0" x2="1200" y2="0"/>
+            <line x1="-1200" y1="-1200" x2="1200" y2="1200"/><line x1="-1200" y1="1200" x2="1200" y2="-1200"/>
+            <line x1="-497" y1="-1200" x2="497" y2="1200"/><line x1="497" y1="-1200" x2="-497" y2="1200"/>
+            <line x1="-1200" y1="-497" x2="1200" y2="497"/><line x1="-1200" y1="497" x2="1200" y2="-497"/>
+        </g><g stroke="#8e1d12" stroke-width=".8" opacity=".7">
+            <line x1="-1200" y1="-238" x2="1200" y2="238"/><line x1="-1200" y1="238" x2="1200" y2="-238"/>
+            <line x1="-238" y1="-1200" x2="238" y2="1200"/><line x1="238" y1="-1200" x2="-238" y2="1200"/>
+        </g></svg>
+    </div>
+    <svg class="rose" aria-hidden="true"><use href="#rose"/></svg>
+
+    <header class="top">
+        <div class="kick">A VOYAGE TO THE NEW WORLD &middot; MCCCCXCV</div>
+        <h1>Terra <em>Incognita</em></h1>
+        <p class="tagline">An exploration and trade game for the Apple IIgs</p>
+        <nav aria-label="Sections">
+            <a href="#voyage">The Voyage</a>
+            <a href="#world">The New World</a>
+            <a href="#screens">Plates</a>
+            <a href="#peoples">The Peoples</a>
+            <a href="#music">Music</a>
+            <a href="#box">The Box</a>
+            <a href="#inside">How it is Made</a>
+        </nav>
+        <svg class="flourish" viewBox="0 0 260 18" aria-hidden="true"><g fill="none" stroke="#5a3a1c" stroke-width="1.4">
+            <path d="M2 9 H100 M160 9 H258"/><path d="M100 9 C112 -2, 122 20, 130 9 C138 -2, 148 20, 160 9"/></g>
+            <circle cx="130" cy="9" r="2.6" fill="#8e1d12"/></svg>
+    </header>
+
+    <div class="hero">
+        <div class="plate"><img class="px" src="screens/title.png" alt="The title screen: a caravel under full sail at dawn off an unknown coast, the words Terra Incognita in gold."></div>
+        <div>
+            <p>It is 1495. The King of Portugal gives you a caravel, a purse of cruzados and one order: <em>sail west.</em></p>
+            <p>Beyond the ocean sea lies a continent no chart has shown &mdash; a different one in every game, hidden under the fog until your lookouts see it. Land your men, meet its peoples, trade, found trading posts, look for the golden cities, and bring gold and charts home to Lisboa. Rise from Escudeiro to Vice-Rei before the age of discovery ends.</p>
+            <div class="status">IN DEVELOPMENT</div>
+            <div class="btns">
+                <a class="btn" href="#screens">See the plates</a>
+                <a class="btn ghost" href="#box">The box</a>
+            </div>
+        </div>
+    </div>
+
+    <section id="voyage">
+        <div class="title">
+            <div class="kicker">THE LEGEND OF THIS CHART</div>
+            <h2>The <em>Voyage</em></h2>
+            <p>What a captain of the King must reckon with.</p>
+        </div>
+        <div class="legend">
+            <div class="item" data-n="I"><h3>Lisboa</h3><p>Fit out your fleet in the yards: caravels, men, food and trade goods. The King grants you more the higher you rise.</p></div>
+            <div class="item" data-n="II"><h3>The Wind</h3><p>Sail with the wind behind you or crawl into it. The westerlies blow in the north, the trade winds in the south &mdash; as they did for the real navigators.</p></div>
+            <div class="item" data-n="III"><h3>The Fog</h3><p>The map starts black. What your lookouts see is charted for good, and every new league is paid for by the King's cartographers.</p></div>
+            <div class="item" data-n="IV"><h3>Ashore</h3><p>Land your men and march: forests, hills, jungle and swamps slow you, mountains most of all. Every man eats a ration a day.</p></div>
+            <div class="item" data-n="V"><h3>The Peoples</h3><p>Trade goods for gold or food, give gifts, found a <em>feitoria</em> &mdash; or attack. Word of your deeds travels from village to village.</p></div>
+            <div class="item" data-n="VI"><h3>Perils</h3><p>Storms spoil food and sink caravels. Too long at sea brings scurvy, and hostile peoples ambush you on their land.</p></div>
+            <div class="item" data-n="VII"><h3>Golden Cities</h3><p>Rumoured, far inland, rich beyond measure &mdash; and well defended.</p></div>
+            <div class="item" data-n="VIII"><h3>The Audience</h3><p>Home again, the King takes his fifth, pays for your charts and your feitorias' gold, and promotes the bold.</p></div>
+            <div class="item" data-n="IX"><h3>Fame</h3><p>From Escudeiro to Cavaleiro, Fidalgo, Capit&atilde;o, Capit&atilde;o-Mor, Almirante, Governador and Vice-Rei. The game ends in 1550.</p></div>
+        </div>
+    </section>
+
+    <section id="world">
+        <div class="title">
+            <div class="kicker">AN ATLAS IN EIGHT PLATES</div>
+            <h2>A <em>New World</em> each game</h2>
+            <p>Eight continents on the disk, drawn by the game's own tools; one is chosen when you set out.</p>
+        </div>
+        <div class="world">
+            <div class="atlas">
+                <img src="art/chart.png" alt="A whole world of the game drawn as an old chart: a continent with mountain ranges, rivers, forests and deserts, villages in red and golden cities in gold, the open ocean to the east.">
+                <span class="lbl mare">MARE OCEANUM</span>
+                <svg class="mini-rose" aria-hidden="true"><use href="#rose"/></svg>
+            </div>
+            <ul>
+                <li>Coasts, bays and islands, mountain ranges along their ridges, rivers wandering down to the sea, lakes.</li>
+                <li>Forest and prairie, pine woods in the north, jungle in the south, deserts, swamps, tundra and snow.</li>
+                <li>Six peoples with names and ways of their own: round huts, tents of hides, houses of sun-dried brick.</li>
+                <li>About seventy-five villages, and four or five golden cities hidden deep inland.</li>
+                <li>Rivers deep enough for your caravels to sail up.</li>
+            </ul>
+        </div>
+        <div class="fleet" aria-label="The caravel in its eight headings">
+            <img class="px" src="art/caravel-0.png" alt=""><img class="px" src="art/caravel-1.png" alt=""><img class="px" src="art/caravel-2.png" alt=""><img class="px" src="art/caravel-3.png" alt="">
+            <img class="px" src="art/caravel-4.png" alt=""><img class="px" src="art/caravel-5.png" alt=""><img class="px" src="art/caravel-6.png" alt=""><img class="px" src="art/caravel-7.png" alt="">
+        </div>
+    </section>
+
+    <section id="screens">
+        <div class="title">
+            <div class="kicker">TAKEN FROM THE GAME</div>
+            <h2>The <em>Plates</em></h2>
+            <p>Screens from an Apple IIgs (in the MAME emulator). Click one to see it large.</p>
+        </div>
+        <div class="gallery">
+            <figure><div class="plate"><img class="px" src="screens/yard.png" alt="Lisboa's harbour above the yards: caravels, men, food and trade goods to buy."></div><figcaption>Lisboa: fitting out the fleet</figcaption></figure>
+            <figure><div class="plate"><img class="px" src="screens/sail.png" alt="The caravel on the open sea, the fog of the unknown all round."></div><figcaption>Into the unknown: the fog lifts as you sail</figcaption></figure>
+            <figure><div class="plate"><img class="px" src="screens/sight.png" alt="A forested coast comes into view at the edge of the fog: LAND IN SIGHT!"></div><figcaption>Land in sight!</figcaption></figure>
+            <figure><div class="plate"><img class="px" src="screens/landho.png" alt="The caravel at a beach: LAND HO! RETURN: GO ASHORE."></div><figcaption>Land ho! The men go ashore</figcaption></figure>
+            <figure><div class="plate"><img class="px" src="screens/ashore.png" alt="The captain on the shore by the anchored caravel."></div><figcaption>The ships at anchor, the captain ashore</figcaption></figure>
+            <figure><div class="plate"><img class="px" src="screens/storm.png" alt="A painted storm at sea, lightning, a caravel heeled over: a man is washed overboard."></div><figcaption>A storm at sea</figcaption></figure>
+            <figure><div class="plate"><img class="px" src="screens/battle.png" alt="Soldiers in morion helmets against warriors with feathers and shields under a red sky."></div><figcaption>Battle: steel and powder against spears</figcaption></figure>
+            <figure><div class="plate"><img class="px" src="screens/worldmap.png" alt="The world map: the charted part of the continent, the rest still black."></div><figcaption>The world as charted so far</figcaption></figure>
+            <figure><div class="plate"><img class="px" src="screens/audience.png" alt="The Royal Audience: gold brought home, the King's fifth, the cartographers' pay, and a promotion to Fidalgo."></div><figcaption>The Royal Audience: the King names you Fidalgo</figcaption></figure>
+        </div>
+    </section>
+
+    <section id="peoples">
+        <div class="title">
+            <div class="kicker">OF THE INHABITANTS</div>
+            <h2>The <em>Peoples</em></h2>
+            <p>Walk into a village to trade, give gifts, found a trading post &mdash; or make war.</p>
+        </div>
+        <div class="peoples">
+            <figure><div class="plate"><img class="px" src="screens/huts.png" alt="A village of round thatched huts among palms, a fire, people; the trading choices below."></div><figcaption>Round huts on the warm coasts</figcaption></figure>
+            <figure><div class="plate"><img class="px" src="screens/tents.png" alt="Painted tents of hides on golden plains under blue mountains."></div><figcaption>Tents of hides on the plains</figcaption></figure>
+            <figure><div class="plate"><img class="px" src="screens/adobe.png" alt="Houses of sun-dried brick with ladders before red mesas."></div><figcaption>Houses of brick in the desert</figcaption></figure>
+        </div>
+        <div class="peoples" style="margin-top:30px">
+            <figure><div class="plate"><img class="px" src="screens/city.png" alt="A stepped temple with a shrine of gold in the jungle: a golden city of the Momoko."></div><figcaption>A golden city, far inland</figcaption></figure>
+            <figure><div class="plate"><img class="px" src="screens/trade.png" alt="After a trade: they take your goods gladly."></div><figcaption>Goods for gold</figcaption></figure>
+            <figure><div class="plate"><img class="px" src="screens/help.png" alt="How to play: the keys, the winds, food and scurvy."></div><figcaption>How to play (H in the game)</figcaption></figure>
+        </div>
+    </section>
+
+    <section id="music">
+        <div class="title">
+            <div class="kicker">FOR LUTE, RECORDER AND TABOR</div>
+            <h2>The <em>Music</em></h2>
+            <p>Written for the game in the manner of the age of discovery.</p>
+        </div>
+        <div class="tunes">
+            <div class="tune"><b>Terra Incognita</b><span>The title: a processional in D dorian</span><audio controls preload="none" src="music/title.mp3"></audio></div>
+            <div class="tune"><b>Mar Oceano</b><span>Under sail: a lilting tune in 6/8</span><audio controls preload="none" src="music/sea.mp3"></audio></div>
+            <div class="tune"><b>Terra Nova</b><span>Ashore, the unknown all round</span><audio controls preload="none" src="music/land.mp3"></audio></div>
+            <div class="tune"><b>Aldeia</b><span>A village: drums and a flute</span><audio controls preload="none" src="music/village.mp3"></audio></div>
+            <div class="tune"><b>Lisboa</b><span>Home: a galliard over the old folia</span><audio controls preload="none" src="music/lisboa.mp3"></audio></div>
+        </div>
+        <p class="note">Six tunes and eleven sound effects &mdash; surf, thunder, drums, coins, a fanfare, a gull &mdash; all synthesized by the game's own Python tools and played by the Ensoniq chip. Nothing is sampled.</p>
+    </section>
+
+    <section id="box">
+        <div class="title">
+            <div class="kicker">DRAG TO TURN</div>
+            <h2>The <em>Box</em></h2>
+            <p>As it would have stood on the shelf.</p>
+        </div>
+        <div class="boxstage">
+            <div class="box3d-view" id="box3d" tabindex="0" role="img" aria-label="Terra Incognita's box in 3D; drag it or use the arrow keys to turn it. The front: a burnt parchment with the title, the title screen, a wax seal reading 1495, the caravel, the captain and a golden city. The back: four screenshots, sail, trade and discover, and what you need.">
+                <div class="box3d"><div class="bf f"><i></i></div><div class="bf b"><i></i></div><div class="bf l"><i></i></div><div class="bf r"><i></i></div><div class="bf t"><i></i></div><div class="bf u"><i></i></div></div>
+            </div>
+            <div class="boxbar">
+                <button class="btn" type="button" data-turn="-28">Front</button>
+                <button class="btn" type="button" data-turn="152">Back</button>
+                <button class="btn" type="button" data-turn="-90">Spine</button>
+            </div>
+            <p class="boxnote">A picture of a box: the game will come as a disk image.</p>
+        </div>
+    </section>
+
+    <section id="inside">
+        <div class="title">
+            <div class="kicker">THE SHIPWRIGHT'S NOTES</div>
+            <h2>How it is <em>Made</em></h2>
+        </div>
+        <div class="inside">
+            <div class="fact"><h3>65816 assembly</h3><p>Written for Merlin 32: the map and its fog, sailing and walking, the peoples, the pages, the yards and the audience. The game boots from one 800K ProDOS disk.</p></div>
+            <div class="fact"><h3>Super Hi-Res</h3><p>16 &times; 16 tiles drawn into a hidden buffer and copied to the screen in one go, so nothing flickers. 109 tiles: the shores in 47 shapes, rivers that curve, a caravel in eight headings.</p></div>
+            <div class="fact"><h3>Worlds from noise</h3><p>The continents come from integer-only value noise, ridges and steepest-descent rivers, written so the generator can one day run on the IIgs itself.</p></div>
+            <div class="fact"><h3>Painted by program</h3><p>The tiles, sprites, the title and every scene are drawn by Python tools and fitted to the IIgs's 16 colours a line, 16 palettes a screen.</p></div>
+            <div class="fact"><h3>The Ensoniq</h3><p>The tunes and the sound effects are synthesized in Python and laid out in the chip's 64K of sound memory; the music player is Grand Theft Apple's.</p></div>
+            <div class="fact"><h3>Played in MAME</h3><p>Test scripts play the game in the emulator through its keys &mdash; to Lisboa, across the sea, into a village and home &mdash; and check its numbers and its sounds.</p></div>
+        </div>
+        <div class="title" style="margin-top:50px"><h2>The <em>Keys</em></h2></div>
+        <dl class="keys">
+            <dt>Arrows, W A S D, joystick</dt><dd>sail, or walk ashore (Q E Z C and the keypad slant)</dd>
+            <dt>Return</dt><dd>go ashore, board the ships, sail home at the east edge</dd>
+            <dt>M</dt><dd>the world map</dd>
+            <dt>I</dt><dd>the expedition: men, food, goods, gold, charts, rank</dd>
+            <dt>H</dt><dd>how to play</dd>
+            <dt>In a village</dt><dd>T trade for gold, F for food, G gifts, A attack, P found a feitoria, L leave</dd>
+        </dl>
+    </section>
+</main>
+
+<div class="lightbox" id="lb"><img alt=""></div>
+
+<footer>
+    <div class="banner">TERRA INCOGNITA</div>
+    <div class="row">
+        <a href="../">More projects</a>
+    </div>
+    <div class="crosslinks">
+        <p><b>Apple IIgs:</b> <a href="../Conquer3/">Conquer 3: Sandstorm</a> &middot; <a href="../Conquer-GS/">Conquer GS</a> &middot; <a href="../GTApple/">Grand Theft Apple</a> &middot; <a href="../GSCommander/">GS Commander</a> &middot; <a href="../GSLauncher/">GSLauncher</a> &middot; <a href="../Hyperhaul/">Hyperhaul</a> &middot; <a href="../MegaconvertGS/">MegaconvertGS</a> &middot; <a href="../TileTown/">TileTown</a> &middot; <a href="../TileTown%202/">TileTown 2</a></p>
+        <p><b>Apple II tools for the Mac:</b> <a href="../EmuBuddy/">EmuBuddy</a> &middot; <a href="../Demos/">IIgs Demos</a> &middot; <a href="../GSRemap/">GS Remap</a> &middot; <a href="../RetroBrowse/">RetroBrowse</a> &middot; <a href="../AppleIIASCIIArt/">1977 ASCII Art</a></p>
+        <p><b>More retro:</b> <a href="../RetroGraphicsConverter/">Retro Graphics Converter</a> &middot; <a href="../Bitpast/">BitPast</a> &middot; <a href="../RetroTube/">Retro Tube</a> &middot; <a href="../RetroTV/">Retro TV</a> &middot; <a href="../Retro%20Computing/">1977: all retro tools</a></p>
+    </div>
+    <div style="margin-top: 14px;">&copy; 2026 Walter Tengler</div>
+    <p class="legal">Terra Incognita is an independent game in development, in the spirit of the classic exploration games of the 1980s. Its code, worlds, peoples, words, pictures, music and sounds are original. Apple IIgs is a trademark of Apple Inc.</p>
+</footer>
+
+<script>
+    // a plate clicked: shown big; a click anywhere closes it
+    var lb = document.getElementById('lb');
+    document.querySelectorAll('.gallery img, .peoples img').forEach(function (i) {
+        i.addEventListener('click', function () { lb.querySelector('img').src = i.src; lb.querySelector('img').alt = i.alt; lb.classList.add('on'); });
+    });
+    lb.addEventListener('click', function () { lb.classList.remove('on'); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') lb.classList.remove('on'); });
+
+    /* the box: drag it round (or the arrow keys, or the buttons); it sways a little while idle (Hyperhaul's) */
+    var view = document.getElementById('box3d');
+    if (view) {
+        var cube = view.querySelector('.box3d');
+        var shade = {};
+        ['f', 'b', 'l', 'r', 't', 'u'].forEach(function (k) { shade[k] = cube.querySelector('.' + k + ' i'); });
+        var ry = -28, rx = -6, goal = null, drag = null, idle = true, t0 = null;
+        var still = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+        function paint() {
+            cube.style.transform = 'rotateX(' + rx + 'deg) rotateY(' + ry + 'deg)';
+            var y = ry * Math.PI / 180, c = Math.cos(y), s = Math.sin(y);
+            shade.f.style.opacity = 0.55 * (1 - Math.max(0, c));
+            shade.b.style.opacity = 0.55 * (1 - Math.max(0, -c));
+            shade.r.style.opacity = 0.15 + 0.5 * (1 - Math.max(0, -s));
+            shade.l.style.opacity = 0.15 + 0.5 * (1 - Math.max(0, s));
+            shade.t.style.opacity = 0.2;
+        }
+        function frame(t) {
+            if (goal !== null) {
+                var d = ((((goal - ry + 180) % 360) + 360) % 360) - 180;
+                if (Math.abs(d) < 0.5) { ry = goal; goal = null; } else ry += d * 0.14;
+                paint();
+            } else if (idle && !still && !drag) {
+                if (t0 === null) t0 = t;
+                ry = -28 + 9 * Math.sin((t - t0) / 1900);
+                paint();
+            }
+            requestAnimationFrame(frame);
+        }
+        view.addEventListener('pointerdown', function (ev) {
+            drag = { x: ev.clientX, y: ev.clientY, ry: ry, rx: rx };
+            idle = false; goal = null;
+            view.classList.add('drag');
+            view.setPointerCapture(ev.pointerId);
+        });
+        view.addEventListener('pointermove', function (ev) {
+            if (!drag) return;
+            ry = drag.ry + (ev.clientX - drag.x) * 0.6;
+            rx = Math.max(-40, Math.min(40, drag.rx - (ev.clientY - drag.y) * 0.35));
+            paint();
+        });
+        function drop() { drag = null; view.classList.remove('drag'); }
+        view.addEventListener('pointerup', drop);
+        view.addEventListener('pointercancel', drop);
+        view.addEventListener('keydown', function (ev) {
+            var k = { ArrowLeft: [-15, 0], ArrowRight: [15, 0], ArrowUp: [0, 6], ArrowDown: [0, -6] }[ev.key];
+            if (!k) return;
+            ev.preventDefault();
+            idle = false; goal = null;
+            ry += k[0]; rx = Math.max(-40, Math.min(40, rx + k[1]));
+            paint();
+        });
+        [].forEach.call(document.querySelectorAll('.boxbar [data-turn]'), function (b) {
+            b.addEventListener('click', function () { idle = false; rx = -6; goal = +b.dataset.turn; });
+        });
+        paint();
+        requestAnimationFrame(frame);
+    }
+</script>
+</body>
+</html>
