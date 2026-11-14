@@ -15,13 +15,9 @@
 
 name: Check cross-links
 
+# Manual only (since 2026-11-15): run it from the Actions tab (Run workflow).
+# Locally, .github/check-footers.sh runs the same checks before every push.
 on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
-  # Manual trigger from the Actions tab when you want to re-verify without
-  # making a commit.
   workflow_dispatch:
 
 jobs:
