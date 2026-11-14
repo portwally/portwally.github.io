@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>TileTown 2 - box art</title>
+<meta name="robots" content="noindex">
+<!-- The box's faces, drawn here and rendered to pictures by render.sh
+     (front.jpg, back.jpg, spine.jpg, top.jpg: the 3D box on the pages
+     wears them). box.html?face=front (back, spine, top) shows one face at
+     its size: 900 x 1180, the spine 170 x 1180, the top 900 x 170. The look
+     is the manual's cover: a navy-to-violet night, the six-colour stripe,
+     gold letters, a starburst, a glowing grid floor; the pictures are the
+     game's own screens. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Michroma&family=Nunito+Sans:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold1: #ffe65a; --gold2: #f6a531; --gold-edge: #4a2300; --burst: #ffd51f; --red: #d8312c;
+  --text: #e8eaff; --muted: #b9bfeb; --grid: 196, 104, 255;
+  --rainbow: linear-gradient(90deg, #61bb46 0 16.67%, #fdb827 0 33.33%, #f5821f 0 50%, #e03a3e 0 66.67%, #963d97 0 83.33%, #2f8fe0 0);
+  --rainbow-v: linear-gradient(180deg, #61bb46 0 16.67%, #fdb827 0 33.33%, #f5821f 0 50%, #e03a3e 0 66.67%, #963d97 0 83.33%, #2f8fe0 0);
+  --chunky: "Lilita One", "Arial Black", sans-serif;
+  --wide: "Michroma", Arial, sans-serif;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #05061a; font-family: "Nunito Sans", Arial, sans-serif; color: var(--text);
+  display: flex; flex-wrap: wrap; gap: 30px; padding: 30px; align-items: flex-start; }
+img { display: block; height: auto; }
+.px { image-rendering: pixelated; }
+.face { position: relative; width: 900px; height: 1180px; flex: none; overflow: hidden;
+  background: linear-gradient(180deg, #0b1140 0%, #18206a 42%, #35197c 100%); }
+.face.spine { width: 170px; }
+.face.top { height: 170px; }
+.gold { font-family: var(--chunky); font-weight: 400;
+  background: linear-gradient(180deg, var(--gold1) 0%, #ffd23a 48%, var(--gold2) 52%, #e98a22 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  -webkit-text-stroke: 0.035em var(--gold-edge);
+  filter: drop-shadow(0.035em 0.05em 0 #2a1300) drop-shadow(0 0 0.2em rgba(255, 200, 60, 0.25)); }
+.stripe { position: absolute; left: 0; right: 0; height: 28px; background: var(--rainbow); }
+.floor { position: absolute; left: -10%; right: -10%; bottom: 0; height: 330px; overflow: hidden; }
+.floor::before { content: ""; position: absolute; left: 0; right: 0; bottom: -40px; height: 520px;
+  transform: perspective(380px) rotateX(62deg); transform-origin: 50% 100%;
+  background:
+    repeating-linear-gradient(90deg, rgba(var(--grid), .85) 0 2px, transparent 2px 64px),
+    repeating-linear-gradient(180deg, rgba(var(--grid), .85) 0 2px, transparent 2px 52px),
+    linear-gradient(180deg, #241056, #3a1478); }
+.floor::after { content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, #35197c 0%, rgba(53, 25, 124, 0) 45%); }
+.stars { position: absolute; inset: 0; background:
+  radial-gradient(1.5px 1.5px at 8% 12%, #fff, transparent), radial-gradient(1.5px 1.5px at 22% 30%, #cfd6ff, transparent),
+  radial-gradient(2px 2px at 41% 9%, #fff, transparent), radial-gradient(1.5px 1.5px at 63% 22%, #cfd6ff, transparent),
+  radial-gradient(1.5px 1.5px at 78% 6%, #fff, transparent), radial-gradient(2px 2px at 92% 28%, #fff, transparent),
+  radial-gradient(1.5px 1.5px at 12% 46%, #cfd6ff, transparent), radial-gradient(1.5px 1.5px at 86% 44%, #cfd6ff, transparent),
+  radial-gradient(1.5px 1.5px at 55% 40%, #fff, transparent), radial-gradient(1.5px 1.5px at 33% 52%, #cfd6ff, transparent); opacity: .7; }
+.burst { position: absolute; display: flex; align-items: center; justify-content: center; text-align: center; }
+.burst::before { content: ""; position: absolute; inset: 0; background: var(--burst);
+  clip-path: polygon(50% 0, 59% 14%, 75% 6%, 76% 23%, 93% 21%, 87% 37%, 100% 46%, 87% 56%, 95% 72%, 78% 74%, 76% 92%, 61% 85%, 50% 100%, 39% 85%, 24% 92%, 22% 74%, 5% 72%, 13% 56%, 0 46%, 13% 37%, 7% 21%, 24% 23%, 25% 6%, 41% 14%);
+  filter: drop-shadow(5px 7px 0 rgba(0, 0, 0, .45)); }
+.burst span { position: relative; font-family: var(--chunky); color: var(--red); text-transform: uppercase; line-height: 1.02; transform: rotate(10deg); }
+.shot { border: 10px solid #fff; box-shadow: 10px 16px 30px rgba(0, 0, 0, .6); }
+.redtag { position: absolute; background: var(--red); color: #fff; font-family: var(--wide); letter-spacing: .16em;
+  box-shadow: 6px 6px 0 #5a0c0a; }
+
+/* ---- front ---- */
+.front .stripe { top: 34px; }
+.front .redtag { right: 70px; top: 96px; font-size: 17px; padding: 11px 18px 9px; }
+.front .name { position: absolute; left: 0; right: 0; top: 140px; text-align: center; font-size: 172px; line-height: 1; white-space: nowrap; letter-spacing: .01em; }
+.front .sub { position: absolute; left: 0; right: 0; top: 342px; text-align: center; font-weight: 800; font-size: 34px; letter-spacing: .02em; color: #fff;
+  text-shadow: 0 3px 0 rgba(0, 0, 0, .5); }
+.front .t1 { position: absolute; left: 70px; top: 420px; width: 560px; transform: rotate(-4deg); }
+.front .t2 { position: absolute; right: 62px; top: 640px; width: 480px; transform: rotate(3.5deg); }
+.front .burst { right: 44px; top: 380px; width: 250px; height: 250px; }
+.front .burst span { font-size: 36px; }
+.front .badge { position: absolute; left: 50%; bottom: 112px; transform: translateX(-50%); white-space: nowrap; color: #fff; font-family: var(--wide);
+  font-size: 22px; letter-spacing: .3em; padding: 16px 30px 14px; border-top: 3px solid var(--gold1); border-bottom: 3px solid var(--gold1); background: rgba(9, 12, 44, .85); }
+.front .by { position: absolute; left: 0; right: 0; bottom: 56px; text-align: center; color: var(--muted); font-family: var(--wide); font-size: 16px; letter-spacing: .4em; }
+
+/* ---- back ---- */
+.back .stripe { top: 0; height: 22px; }
+.back h2 { position: absolute; left: 56px; right: 56px; top: 50px; font-size: 64px; line-height: 1.02; }
+.back .lede { position: absolute; left: 58px; right: 60px; top: 196px; font-size: 23px; line-height: 1.4; color: #fff; }
+.back .big { position: absolute; left: 110px; top: 278px; width: 680px; }
+.back .row { position: absolute; left: 56px; right: 56px; top: 772px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.back .row img { width: 100%; border: 5px solid #fff; box-shadow: 4px 6px 14px rgba(0, 0, 0, .5); }
+.back ul { position: absolute; left: 56px; right: 56px; top: 968px; list-style: none; columns: 2; column-gap: 34px; font-size: 17px; line-height: 1.25; color: #fff; }
+.back li { padding-left: 24px; position: relative; margin-bottom: 5px; break-inside: avoid; }
+.back li::before { content: ""; position: absolute; left: 2px; top: 6px; width: 11px; height: 11px; background: var(--burst); }
+.back .burst { right: 22px; top: 230px; width: 170px; height: 170px; }
+.back .burst span { font-size: 25px; }
+
+.back .reqbar { position: absolute; left: 0; right: 0; bottom: 0; height: 66px; background: #fff; color: #0b1140; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 0 40px 0 56px; font-size: 17px; }
+.back .reqbar b { font-family: var(--wide); font-weight: 400; letter-spacing: .15em; text-transform: uppercase; margin-right: 14px; }
+.back .barcode { flex: none; width: 120px; height: 46px; background: repeating-linear-gradient(90deg, #000 0 3px, #fff 3px 5px, #000 5px 10px, #fff 10px 12px, #000 12px 13px, #fff 13px 17px, #000 17px 19px, #fff 19px 22px); }
+
+/* ---- spine and top ---- */
+.spine { display: flex; flex-direction: column; align-items: center; }
+.spine .vs { width: 100%; height: 240px; background: var(--rainbow-v); flex: none; }
+.spine .vname { writing-mode: vertical-rl; font-size: 92px; line-height: 1; margin-top: 46px; }
+.spine .v2 { margin-top: auto; writing-mode: vertical-rl; font-family: var(--wide); font-size: 17px; letter-spacing: .3em; color: #fff; }
+.spine .vby { margin: 40px 0 46px; writing-mode: vertical-rl; font-family: var(--wide); font-size: 12px; letter-spacing: .3em; color: var(--muted); }
+.top { display: flex; align-items: center; justify-content: space-between; padding: 0 56px; }
+.top .stripe { top: 0; height: 18px; }
+.top .tname { font-size: 84px; line-height: 1; margin-top: 12px; }
+.top .tsub { font-family: var(--wide); font-size: 15px; letter-spacing: .3em; color: #fff; margin-top: 12px; text-align: right; line-height: 1.7; }
+
+/* one face at its size (render.sh) */
+body.one { padding: 0; gap: 0; display: block; }
+body.one .face { position: absolute; left: 0; top: 0; }
+body.one .face { display: none; }
+body.front .front, body.back .back, body.spine .spine, body.top .top { display: flex; }
+body.one .front, body.one .back { display: none; }
+body.front .front, body.back .back { display: block; }
+</style>
+</head>
+<body>
+
+<div class="face front">
+  <div class="stars"></div>
+  <div class="floor"></div>
+  <div class="stripe"></div>
+  <span class="redtag">FOR THE APPLE IIGS</span>
+  <div class="name gold">TileTown 2</div>
+  <div class="sub">The City-Building Simulation</div>
+  <img class="shot t1 px" src="../screens/title.png" width="960" height="640" alt="">
+  <img class="shot t2 px" src="../screens/city.png" width="960" height="640" alt="">
+  <div class="burst"><span>A city<br>in 3D<br>16 maps<br>3 levels</span></div>
+  <div class="badge">8 MB &middot; ACCELERATOR &middot; 3.5" DISK</div>
+  <div class="by">WALTER TENGLER</div>
+</div>
+
+<div class="face back">
+  <div class="stars"></div>
+  <div class="stripe"></div>
+  <h2 class="gold">Your city stands up<br>from the map.</h2>
+  <p class="lede">Lay the roads, run the power, zone homes, shops and factories - and watch them rise. Then keep it all running.</p>
+  <img class="shot big px" src="../screens/iso-town.png" width="960" height="640" alt="">
+  <div class="burst"><span>4 designs<br>for every<br>building</span></div>
+  <div class="row">
+    <img class="px" src="../screens/iso-tornado.png" width="960" height="640" alt="">
+    <img class="px" src="../screens/iso-industry.png" width="960" height="640" alt="">
+    <img class="px" src="../screens/graphs.png" width="960" height="640" alt="">
+  </div>
+  <ul>
+    <li>Cars, trains and tornadoes go behind the buildings</li>
+    <li>Cars, buses and vans face the way they drive</li>
+    <li>Lakes ripple, chimneys smoke, beacons flash</li>
+    <li>Press I for the flat map, smooth scrolling</li>
+    <li>16 maps, 17 things to build, rail and bridges</li>
+    <li>Heat maps, graphs and a budget with sliders</li>
+    <li>Fire, flood, tornado, earthquake, meltdown</li>
+    <li>5 goals, 3 levels, 8 save slots, 8 tunes</li>
+  </ul>
+  <div class="reqbar">
+    <span><b>Requires</b>Apple IIgs &middot; 8 MB &middot; accelerator (16 MHz best) &middot; 3.5" drive &middot; mouse</span>
+    <span class="barcode"></span>
+  </div>
+</div>
+
+<div class="face spine">
+  <div class="vs"></div>
+  <div class="vname gold">TileTown 2</div>
+  <div class="v2">APPLE IIGS</div>
+  <div class="vby">TENGLER</div>
+</div>
+
+<div class="face top">
+  <div class="stripe"></div>
+  <div class="tname gold">TileTown 2</div>
+  <div class="tsub">THE CITY-BUILDING<br>SIMULATION</div>
+</div>
+
+<script>
+var m = location.search.match(/face=(\w+)/);
+if (m) document.body.className = 'one ' + m[1];
+</script>
+</body>
+</html>

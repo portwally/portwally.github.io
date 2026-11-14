@@ -1,5 +1,5 @@
 /* The TileTown 2 box in 3D, shared by the page's three looks (index.html,
-   gazette.html; box.html has its own copy): box3d.js builds it into each
+   gazette.html, box.html): box3d.js builds it into each
    <div class="tt2box"></div> and turns it. Its own colours and fonts, so it
    looks the same on the blueprint, the newspaper and the night sky. */
 @import url("https://fonts.googleapis.com/css2?family=Lilita+One&family=Michroma&display=swap");
@@ -102,3 +102,11 @@
     -webkit-text-stroke: 0.035em var(--gold-edge);
     filter: drop-shadow(0.035em 0.045em 0 #2a1300) drop-shadow(0.03em 0.04em 0 #120a00);
 }
+
+/* the faces: the box art (box/box.html, rendered by box/render.sh) */
+.tt2box .boxview { --bh: calc(var(--bw) * 1180 / 900); --bd: calc(var(--bw) * 170 / 900); }
+.tt2box .box3d .bf { background-size: 100% 100%; }
+.tt2box .box3d .f { background-image: url(box/front.jpg); }
+.tt2box .box3d .b { background-image: url(box/back.jpg); }
+.tt2box .box3d .l, .tt2box .box3d .r { background-image: url(box/spine.jpg); }
+.tt2box .box3d .t { background-image: url(box/top.jpg); }
