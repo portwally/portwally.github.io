@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hyperhaul - Space Trading and Combat for the Apple IIgs</title>
+    <meta name="description" content="Hyperhaul is a space trading and combat game for the Apple IIgs in the spirit of the first Elite: eight charts of 256 star systems, filled and shaded ships in real time, trading, pirates, police, two missions, music and sound. Written in 65816 assembly.">
+    <meta name="keywords" content="Hyperhaul, Apple IIgs, space trading, space combat, Elite, 65816 assembly, Super Hi-Res, fill mode, Ensoniq, retro game, homebrew, ProDOS">
+    <meta name="author" content="Walter Tengler">
+    <link rel="canonical" href="https://portwally.github.io/Hyperhaul/">
+    <link rel="icon" type="image/png" href="icon.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Hyperhaul - space trading and combat for the Apple IIgs">
+    <meta property="og:description" content="Eight galaxies, two thousand worlds, one ship: trade, fight and haul across the stars on an Apple IIgs.">
+    <meta property="og:image" content="https://portwally.github.io/Hyperhaul/art/title.jpg">
+    <meta property="og:url" content="https://portwally.github.io/Hyperhaul/">
+    <meta name="twitter:card" content="summary_large_image">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "VideoGame",
+      "name": "Hyperhaul",
+      "description": "A space trading and combat game for the Apple IIgs in the spirit of the first Elite: eight charts of 256 star systems, filled and shaded ships in real time, trading, pirates, police and two missions. Written in 65816 assembly.",
+      "genre": ["Space trading", "Space combat"],
+      "gamePlatform": "Apple IIgs",
+      "author": { "@type": "Person", "name": "Walter Tengler" },
+      "image": "https://portwally.github.io/Hyperhaul/art/title.jpg",
+      "url": "https://portwally.github.io/Hyperhaul/"
+    }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,500;0,700;0,800;0,900;1,500&family=Pixelify+Sans:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Space, as the game shows it: its dark blue sky and white stars,
+           the logo's orange, the dashboard's green; the colours are the
+           game's where they can be. */
+        :root {
+            --space: #000011; --deep: #070b22; --navy: #0b1233; --navy-2: #18224d; --line: #26315f;
+            --text: #dfe6ff; --dim: #9aa6d6; --or: #ff8800; --or-d: #c25a00; --green: #44dd66; --red: #ff4433; --blue: #66ccff; --yellow: #ffdd44;
+            --display: 'Exo 2', 'Segoe UI', system-ui, sans-serif;
+            --pixel: 'Pixelify Sans', ui-monospace, monospace;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+        body { background: var(--space) url(screens/stars.png) 0 0 / 640px 400px; color: var(--text); font-family: var(--display); font-weight: 500; font-size: 1.08rem; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+        img { display: block; max-width: 100%; height: auto; }
+        .px { image-rendering: pixelated; image-rendering: crisp-edges; }
+        a { color: var(--or); }
+        .container { max-width: 1160px; margin: 0 auto; padding: 0 18px; }
+
+        .top { position: sticky; top: 0; z-index: 50; background: rgba(0, 0, 17, .92); border-bottom: 2px solid var(--or); backdrop-filter: blur(6px); }
+        .top .container { display: flex; align-items: center; gap: 14px; height: 58px; }
+        .brand { flex: none; font-weight: 900; font-size: 1.25rem; letter-spacing: 3px; color: var(--or); text-decoration: none; display: flex; align-items: center; gap: 10px; text-transform: uppercase; font-style: italic; }
+        .brand img { width: 28px; height: 28px; }
+        .top nav { display: flex; gap: 2px; margin-left: auto; overflow-x: auto; scrollbar-width: none; min-width: 0; }
+        .top nav::-webkit-scrollbar { display: none; }
+        .top nav a { font-weight: 800; font-size: .8rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--dim); text-decoration: none; padding: 8px 9px 6px; white-space: nowrap; border-bottom: 2px solid transparent; }
+        .top nav a:hover { color: var(--or); border-bottom-color: var(--or); }
+        .pill { font-family: var(--pixel); font-size: .84rem; letter-spacing: 1px; color: var(--space); background: var(--green); padding: 3px 9px 2px; white-space: nowrap; }
+
+        section { position: relative; padding: 76px 0; }
+        .band { background: linear-gradient(180deg, rgba(11, 18, 51, .92), rgba(7, 11, 34, .96)); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+        .title { text-align: center; margin: 0 auto 38px; max-width: 860px; }
+        .kicker { font-family: var(--pixel); letter-spacing: 3px; font-size: .92rem; color: var(--green); text-transform: uppercase; }
+        .title h2 { font-weight: 900; font-size: clamp(1.9rem, 4.8vw, 3rem); line-height: 1.1; color: #fff; margin-top: 4px; }
+        .title h2 em { color: var(--or); font-style: italic; }
+        .title p { margin-top: 14px; font-size: 1.16rem; color: var(--dim); }
+
+        .hero { padding: 34px 0 70px; }
+        .hero .frame { max-width: 1010px; margin: 0 auto; border: 2px solid var(--navy-2); box-shadow: 0 0 0 1px #000, 0 20px 60px rgba(255, 136, 0, .12); }
+        .hero .frame img { width: 100%; }
+        .hero-grid { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 34px; align-items: start; margin-top: 40px; }
+        .hero h1 { font-weight: 900; font-size: clamp(2.1rem, 5.6vw, 3.7rem); line-height: 1.04; color: #fff; margin: 6px 0 16px; }
+        .hero h1 span { display: block; color: var(--or); font-style: italic; }
+        .hero .lead { font-size: 1.22rem; line-height: 1.55; color: var(--text); max-width: 34em; }
+        .cta { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 24px; }
+        .btn { display: inline-block; font-weight: 800; letter-spacing: 1.5px; font-size: .9rem; text-transform: uppercase; text-decoration: none; color: var(--space); padding: 11px 20px 10px; background: var(--or); border: 0; box-shadow: 0 4px 0 var(--or-d); }
+        .btn:hover { background: #ffa033; }
+        .btn.ghost { background: transparent; color: var(--or); box-shadow: inset 0 0 0 2px var(--or); }
+        .btn.ghost:hover { background: rgba(255, 136, 0, .12); }
+        .status { padding: 22px 22px 20px; background: var(--navy); border: 1px solid var(--line); border-left: 6px solid var(--green); }
+        .status .flag { display: inline-block; font-family: var(--pixel); font-weight: 700; letter-spacing: 2px; font-size: .95rem; color: var(--space); background: var(--green); padding: 3px 12px 2px; }
+        .status h2 { font-weight: 900; font-size: 1.45rem; line-height: 1.2; margin: 12px 0 8px; color: #fff; }
+        .status p { font-size: 1.02rem; line-height: 1.5; color: var(--dim); }
+        .status p + p { margin-top: 8px; }
+        .ticker { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin-top: 42px; }
+        .ticker div { text-align: center; padding: 14px 6px 12px; background: rgba(11, 18, 51, .85); border: 1px solid var(--line); }
+        .ticker b { display: block; font-weight: 900; font-size: 1.8rem; line-height: 1; color: var(--or); }
+        .ticker span { display: block; font-family: var(--pixel); font-size: .82rem; letter-spacing: 1px; text-transform: uppercase; color: var(--dim); margin-top: 6px; }
+
+        .ways { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+        .way { background: var(--navy); border: 1px solid var(--line); overflow: hidden; display: flex; flex-direction: column; }
+        .way img { width: 100%; border-bottom: 2px solid var(--or); }
+        .way div { padding: 18px 20px 20px; }
+        .way h3 { font-weight: 900; font-size: 1.35rem; color: #fff; }
+        .way h3 small { display: block; font-family: var(--pixel); font-weight: 500; font-size: .82rem; letter-spacing: 2px; text-transform: uppercase; color: var(--green); }
+        .way p { margin-top: 8px; color: var(--dim); font-size: 1.02rem; line-height: 1.5; }
+
+        .fleet { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 14px; }
+        .ship { background: rgba(11, 18, 51, .9); border: 1px solid var(--line); padding: 12px 14px 14px; }
+        .ship .well { height: 120px; display: grid; place-items: center; background: var(--space); border: 1px solid var(--navy-2); margin-bottom: 10px; }
+        .ship .well img { max-height: 104px; max-width: 92%; width: auto; }
+        .ship h4 { font-weight: 900; font-size: 1.12rem; color: #fff; display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+        .ship h4 small { font-family: var(--pixel); font-weight: 500; font-size: .76rem; letter-spacing: 1px; text-transform: uppercase; color: var(--dim); }
+        .ship.foe h4 { color: var(--red); } .ship.law h4 { color: var(--blue); } .ship.shard h4 { color: #8fd8ff; } .ship.you h4 { color: var(--or); }
+        .ship p { color: var(--dim); font-size: .96rem; line-height: 1.4; margin-top: 4px; }
+        .ship dl { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; margin-top: 10px; font-family: var(--pixel); font-size: .78rem; text-transform: uppercase; letter-spacing: .5px; }
+        .ship dl div { background: var(--deep); padding: 4px 6px; text-align: center; }
+        .ship dt { color: var(--dim); } .ship dd { color: var(--green); font-size: .95rem; }
+        .fleet-h { font-weight: 900; font-size: 1.1rem; letter-spacing: 3px; text-transform: uppercase; color: var(--or); margin: 30px 0 12px; display: flex; align-items: center; gap: 12px; }
+        .fleet-h::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, var(--or-d), transparent); }
+        .fleet-h:first-child { margin-top: 0; }
+
+        .gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+        .gallery figure { background: var(--navy); border: 1px solid var(--line); }
+        .gallery img { width: 100%; cursor: zoom-in; }
+        .gallery figcaption { padding: 9px 12px 11px; font-size: .95rem; color: var(--dim); line-height: 1.4; }
+        .gallery figcaption b { color: #fff; }
+        .lightbox { position: fixed; inset: 0; background: rgba(0, 0, 10, .94); display: none; place-items: center; z-index: 100; cursor: zoom-out; padding: 20px; }
+        .lightbox.on { display: grid; }
+        .lightbox img { max-width: min(1280px, 96vw); max-height: 90vh; width: auto; border: 2px solid var(--navy-2); }
+
+        .tunes { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; max-width: 920px; margin: 0 auto; }
+        .tune { background: var(--navy); border: 1px solid var(--line); border-top: 4px solid var(--or); padding: 20px 22px 22px; }
+        .tune h3 { font-weight: 900; font-size: 1.3rem; color: #fff; }
+        .tune h3 small { display: block; font-family: var(--pixel); font-size: .82rem; letter-spacing: 2px; color: var(--green); text-transform: uppercase; font-weight: 500; }
+        .tune p { color: var(--dim); margin: 8px 0 14px; font-size: 1rem; line-height: 1.5; }
+        .tune audio { width: 100%; }
+
+        .manual { display: grid; grid-template-columns: 300px 1fr; gap: 34px; align-items: center; max-width: 960px; margin: 0 auto; }
+        .manual .cover { border: 1px solid var(--line); box-shadow: 0 18px 40px rgba(0, 0, 0, .6); }
+        .manual ul { list-style: none; margin: 14px 0 22px; }
+        .manual li { position: relative; padding-left: 20px; margin-top: 6px; color: var(--dim); }
+        .manual li::before { content: ""; position: absolute; left: 2px; top: .62em; width: 8px; height: 8px; background: var(--or); }
+        .manual h3 { font-weight: 900; font-size: 1.6rem; color: #fff; line-height: 1.15; }
+
+        .inside { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+        .fact { background: rgba(11, 18, 51, .9); border: 1px solid var(--line); padding: 18px 20px 20px; }
+        .fact b { display: block; font-weight: 900; font-size: 1.15rem; color: var(--or); margin-bottom: 6px; }
+        .fact p { color: var(--dim); font-size: 1rem; line-height: 1.5; }
+        .fact code { font-family: var(--pixel); color: var(--green); font-size: .95em; }
+
+        footer { padding: 54px 0 46px; text-align: center; background: var(--deep); border-top: 2px solid var(--or); color: var(--dim); font-size: .98rem; }
+        footer .banner { font-weight: 900; font-style: italic; letter-spacing: 4px; font-size: 1.5rem; color: var(--or); }
+        footer .row { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px 22px; margin-top: 14px; }
+        footer .row a { color: var(--text); }
+        footer .crosslinks { margin-top: 20px; font-size: .92rem; line-height: 1.7; }
+        footer .crosslinks a { color: var(--dim); }
+        footer .crosslinks b { color: var(--text); }
+        footer .legal { max-width: 760px; margin: 14px auto 0; font-size: .86rem; line-height: 1.5; color: #7480b0; }
+
+        @media (max-width: 900px) {
+            .hero-grid, .manual { grid-template-columns: 1fr; }
+            .ticker { grid-template-columns: repeat(3, 1fr); }
+            .ways, .inside, .gallery { grid-template-columns: 1fr 1fr; }
+            .tunes { grid-template-columns: 1fr; }
+            .manual .cover { max-width: 260px; }
+        }
+        @media (max-width: 600px) {
+            .ways, .inside, .gallery { grid-template-columns: 1fr; }
+            .ticker { grid-template-columns: repeat(2, 1fr); }
+            .pill { display: none; }
+            section { padding: 56px 0; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="top">
+    <div class="container">
+        <a class="brand" href="#"><img class="px" src="icon.png" alt="">Hyperhaul</a>
+        <nav aria-label="Sections">
+            <a href="#game">The game</a>
+            <a href="#ships">Ships</a>
+            <a href="#screens">Screenshots</a>
+            <a href="#music">Music</a>
+            <a href="#manual">Manual</a>
+            <a href="#inside">Inside</a>
+        </nav>
+        <span class="pill">APPLE IIGS</span>
+    </div>
+</header>
+
+<section class="hero">
+    <div class="container">
+        <div class="frame"><img class="px" src="art/title.jpg" alt="Hyperhaul: the title picture - the player's ship, a blue-green planet and its station" width="960" height="480"></div>
+        <div class="hero-grid">
+            <div>
+                <div class="kicker">Space trading and combat for the Apple IIgs</div>
+                <h1>Eight galaxies. <span>One ship.</span></h1>
+                <p class="lead">Trade grain for gold and computers for credits. Hunt pirates for their bounties, or run guns for the warlords and stay a jump ahead of the police. Earn your rating from Greenhorn to Legend, and when the Guild calls, answer. Hyperhaul is a new game in the spirit of the first Elite, written for the Apple IIgs in 65816 assembly, its ships drawn as filled, shaded polygons in real time.</p>
+                <div class="cta">
+                    <a class="btn" href="Hyperhaul-Manual.pdf">Read the manual (PDF)</a>
+                    <a class="btn ghost" href="#screens">Screenshots</a>
+                </div>
+            </div>
+            <div class="status">
+                <span class="flag">IN DEVELOPMENT</span>
+                <h2>The whole game plays, from the title to the missions</h2>
+                <p>Trading, the charts and hyperspace, combat, the police, the Shard, both missions, music and sound, saving and loading: all there, every frame checked against a model of the game.</p>
+                <p>Still to come before the release: balancing from long test runs, and a run on real hardware. The disk follows then.</p>
+            </div>
+        </div>
+        <div class="ticker">
+            <div><b>8</b><span>Charts</span></div>
+            <div><b>2,048</b><span>Star systems</span></div>
+            <div><b>17</b><span>Goods</span></div>
+            <div><b>14</b><span>Ships to meet</span></div>
+            <div><b>9</b><span>Ratings</span></div>
+            <div><b>2</b><span>Missions</span></div>
+        </div>
+    </div>
+</section>
+
+<section class="band" id="game">
+    <div class="container">
+        <div class="title">
+            <div class="kicker">What you do</div>
+            <h2>Trade, fight, <em>haul</em></h2>
+            <p>You start docked at the station of Kaniveda with a Kestrel freighter, a pulse laser and a hundred credits. What you make of it is up to you.</p>
+        </div>
+        <div class="ways">
+            <div class="way"><img class="px" src="screens/market.png" alt="The market screen" loading="lazy"><div>
+                <h3><small>Trade</small>Buy low, sell high</h3>
+                <p>Every system has its economy, from rich forge worlds to poor frontier farms, and its market follows it. Seventeen goods, two of them illegal; prices that move with every visit.</p></div></div>
+            <div class="way"><img class="px" src="screens/laser.png" alt="A laser hit on a pirate" loading="lazy"><div>
+                <h3><small>Fight</small>Pirates and bounties</h3>
+                <p>Pulse, beam, mining and military lasers on four mounts, homing missiles, an E.C.M., a nova charge. Every kill counts towards your rating; pirates carry a price on their heads.</p></div></div>
+            <div class="way"><img class="px" src="screens/local.png" alt="The local chart" loading="lazy"><div>
+                <h3><small>Explore</small>2,048 worlds</h3>
+                <p>Eight charts of 256 systems, each with its planet, people, government and tech level, generated by the game as the first Elite did. Hyperspace takes you there; a mis-jump drops you among the Shard.</p></div></div>
+        </div>
+    </div>
+</section>
+
+<section id="ships">
+    <div class="container">
+        <div class="title">
+            <div class="kicker">Drawn in real time</div>
+            <h2>The ships you will meet</h2>
+            <p>Every ship is a filled, lit polygon model, drawn by the game frame after frame in the IIgs's own fill mode. These pictures are made by the same code.</p>
+        </div>
+        <div class="fleet-h">Yours</div>
+        <div class="fleet">
+            <div class="ship you"><div class="well"><img class="px" src="img/ship-kestrel.png" alt="" loading="lazy"></div><h4>Kestrel <small>freighter</small></h4><p>The Guild's freighter, and yours: 20 tonnes of hold, a pulse laser, three missiles.</p><dl><div><dt>Speed</dt><dd>28</dd></div><div><dt>Energy</dt><dd>150</dd></div><div><dt>Laser</dt><dd>16</dd></div><div><dt>Missiles</dt><dd>3</dd></div></dl></div>
+        </div>
+        <div class="fleet-h">Pirates</div>
+        <div class="fleet">
+            <div class="ship foe"><div class="well"><img class="px" src="img/ship-shrike.png" alt="" loading="lazy"></div><h4>Shrike <small>light fighter</small></h4><p>Fast and cheap; pirates fly them in packs of up to four.</p><dl><div><dt>Speed</dt><dd>36</dd></div><div><dt>Energy</dt><dd>70</dd></div><div><dt>Laser</dt><dd>8</dd></div><div><dt>Bounty</dt><dd>5</dd></div></dl></div>
+            <div class="ship foe"><div class="well"><img class="px" src="img/ship-raven.png" alt="" loading="lazy"></div><h4>Raven <small>heavy fighter</small></h4><p>A hard laser and two missiles. Take it seriously.</p><dl><div><dt>Speed</dt><dd>30</dd></div><div><dt>Energy</dt><dd>140</dd></div><div><dt>Laser</dt><dd>24</dd></div><div><dt>Bounty</dt><dd>15</dd></div></dl></div>
+            <div class="ship foe"><div class="well"><img class="px" src="img/ship-goshawk.png" alt="" loading="lazy"></div><h4>Goshawk <small>bounty hunter</small></h4><p>Quick and well armed, and after you if your record is bad.</p><dl><div><dt>Speed</dt><dd>38</dd></div><div><dt>Energy</dt><dd>150</dd></div><div><dt>Laser</dt><dd>20</dd></div><div><dt>Bounty</dt><dd>20</dd></div></dl></div>
+        </div>
+        <div class="fleet-h">Traders and police</div>
+        <div class="fleet">
+            <div class="ship"><div class="well"><img class="px" src="img/ship-heron.png" alt="" loading="lazy"></div><h4>Heron <small>freighter</small></h4><p>The common trader. It fights back, and the police take its side.</p><dl><div><dt>Speed</dt><dd>24</dd></div><div><dt>Energy</dt><dd>110</dd></div><div><dt>Laser</dt><dd>8</dd></div><div><dt>Missiles</dt><dd>1</dd></div></dl></div>
+            <div class="ship"><div class="well"><img class="px" src="img/ship-pelican.png" alt="" loading="lazy"></div><h4>Pelican <small>bulk freighter</small></h4><p>Slow, with a big hold, often loaded with cargo canisters.</p><dl><div><dt>Speed</dt><dd>16</dd></div><div><dt>Energy</dt><dd>200</dd></div><div><dt>Laser</dt><dd>8</dd></div><div><dt>Missiles</dt><dd>2</dd></div></dl></div>
+            <div class="ship"><div class="well"><img class="px" src="img/ship-swift.png" alt="" loading="lazy"></div><h4>Swift <small>courier</small></h4><p>The fastest ship in space. Hard to catch.</p><dl><div><dt>Speed</dt><dd>42</dd></div><div><dt>Energy</dt><dd>90</dd></div><div><dt>Laser</dt><dd>8</dd></div><div><dt>Missiles</dt><dd>1</dd></div></dl></div>
+            <div class="ship"><div class="well"><img class="px" src="img/ship-magpie.png" alt="" loading="lazy"></div><h4>Magpie <small>salvager</small></h4><p>Built with a scoop for what floats free.</p><dl><div><dt>Speed</dt><dd>22</dd></div><div><dt>Energy</dt><dd>100</dd></div><div><dt>Laser</dt><dd>8</dd></div><div><dt>Missiles</dt><dd>0</dd></div></dl></div>
+            <div class="ship"><div class="well"><img class="px" src="img/ship-albatross.png" alt="" loading="lazy"></div><h4>Albatross <small>giant transport</small></h4><p>Rare, slow and well shielded.</p><dl><div><dt>Speed</dt><dd>12</dd></div><div><dt>Energy</dt><dd>250</dd></div><div><dt>Laser</dt><dd>16</dd></div><div><dt>Missiles</dt><dd>4</dd></div></dl></div>
+            <div class="ship"><div class="well"><img class="px" src="img/ship-petrel.png" alt="" loading="lazy"></div><h4>Petrel <small>shuttle</small></h4><p>Between the station and the planet. Unarmed.</p><dl><div><dt>Speed</dt><dd>8</dd></div><div><dt>Energy</dt><dd>32</dd></div><div><dt>Laser</dt><dd>0</dd></div><div><dt>Missiles</dt><dd>0</dd></div></dl></div>
+            <div class="ship"><div class="well"><img class="px" src="img/ship-gannet.png" alt="" loading="lazy"></div><h4>Gannet <small>miner</small></h4><p>Out among the rocks.</p><dl><div><dt>Speed</dt><dd>18</dd></div><div><dt>Energy</dt><dd>120</dd></div><div><dt>Laser</dt><dd>12</dd></div><div><dt>Missiles</dt><dd>0</dd></div></dl></div>
+            <div class="ship law"><div class="well"><img class="px" src="img/ship-lanner.png" alt="" loading="lazy"></div><h4>Lanner <small>police</small></h4><p>It attacks the wanted, and anyone who fires on it.</p><dl><div><dt>Speed</dt><dd>34</dd></div><div><dt>Energy</dt><dd>120</dd></div><div><dt>Laser</dt><dd>16</dd></div><div><dt>Missiles</dt><dd>1</dd></div></dl></div>
+        </div>
+        <div class="fleet-h">The Shard</div>
+        <div class="fleet">
+            <div class="ship shard"><div class="well"><img class="px" src="img/ship-spindle.png" alt="" loading="lazy"></div><h4>Spindle <small>Shard warship</small></h4><p>Crystal, fast and tough; it launches Needles when it is hurt.</p><dl><div><dt>Speed</dt><dd>36</dd></div><div><dt>Energy</dt><dd>240</dd></div><div><dt>Laser</dt><dd>22</dd></div><div><dt>Bounty</dt><dd>50</dd></div></dl></div>
+            <div class="ship shard"><div class="well"><img class="px" src="img/ship-needle.png" alt="" loading="lazy"></div><h4>Needle <small>Shard drone</small></h4><p>Without its Spindle it drifts: scoop it for Shard relics.</p><dl><div><dt>Speed</dt><dd>30</dd></div><div><dt>Energy</dt><dd>20</dd></div><div><dt>Laser</dt><dd>8</dd></div><div><dt>Bounty</dt><dd>5</dd></div></dl></div>
+            <div class="ship"><div class="well"><img class="px" src="img/ship-hub.png" alt="" loading="lazy"></div><h4>Hub <small>station</small></h4><p>Every system's station, turning slowly. Dock through its slot.</p><dl><div><dt>Speed</dt><dd>0</dd></div><div><dt>Energy</dt><dd>240</dd></div><div><dt>Laser</dt><dd>0</dd></div><div><dt>Missiles</dt><dd>0</dd></div></dl></div>
+        </div>
+    </div>
+</section>
+
+<section class="band" id="screens">
+    <div class="container">
+        <div class="title">
+            <div class="kicker">As the IIgs shows them</div>
+            <h2>Screenshots</h2>
+            <p>Every picture here is a screen of the game, taken in the emulator byte for byte: the 320 x 200 Super Hi-Res screen, shown three times as big.</p>
+        </div>
+        <div class="gallery">
+            <figure><img class="px" src="screens/arrival.png" alt="" loading="lazy"><figcaption><b>Arriving</b> from hyperspace, the planet ahead.</figcaption></figure>
+            <figure><img class="px" src="screens/station.png" alt="" loading="lazy"><figcaption><b>The station</b> and its traffic.</figcaption></figure>
+            <figure><img class="px" src="screens/slot.png" alt="" loading="lazy"><figcaption><b>Docking:</b> the slot dead ahead and level.</figcaption></figure>
+            <figure><img class="px" src="screens/dogfight.png" alt="" loading="lazy"><figcaption><b>A dogfight</b>, the laser hot, the scanner busy.</figcaption></figure>
+            <figure><img class="px" src="screens/missile.png" alt="" loading="lazy"><figcaption><b>A missile</b> on its way.</figcaption></figure>
+            <figure><img class="px" src="screens/nova.png" alt="" loading="lazy"><figcaption><b>The nova charge:</b> nothing left but wreckage.</figcaption></figure>
+            <figure><img class="px" src="screens/galaxy.png" alt="" loading="lazy"><figcaption><b>The galactic chart:</b> 256 systems.</figcaption></figure>
+            <figure><img class="px" src="screens/data.png" alt="" loading="lazy"><figcaption><b>Data on a system</b>, and a clue.</figcaption></figure>
+            <figure><img class="px" src="screens/equip.png" alt="" loading="lazy"><figcaption><b>Equip ship:</b> fourteen items, by tech level.</figcaption></figure>
+            <figure><img class="px" src="screens/sunscoop.png" alt="" loading="lazy"><figcaption><b>Skimming a sun</b> for fuel.</figcaption></figure>
+            <figure><img class="px" src="screens/witch.png" alt="" loading="lazy"><figcaption><b>Witchspace:</b> the Shard on the scanner.</figcaption></figure>
+            <figure><img class="px" src="screens/status.png" alt="" loading="lazy"><figcaption><b>The status screen</b> of a new commander.</figcaption></figure>
+        </div>
+    </div>
+</section>
+
+<section id="music">
+    <div class="container">
+        <div class="title">
+            <div class="kicker">On the Ensoniq</div>
+            <h2>The music</h2>
+            <p>Two original tunes, synthesized for the IIgs's Ensoniq sound chip: nothing sampled. These recordings are the chip's own sound, rendered from the game's music data. As in the first Elite, there is no music in flight, except while the docking computer flies you in.</p>
+        </div>
+        <div class="tunes">
+            <div class="tune"><h3><small>The title screen</small>Overdrive</h3><p>Rock in E minor at 150: chugging power chords, a saw bass, a rock beat and a screaming lead.</p><audio controls preload="none" src="music/title.mp3"></audio></div>
+            <div class="tune"><h3><small>The docking computer</small>Orbit Waltz</h3><p>D major, 3/4: a lilting lead with its echo, plucked chords, the bass on the first beat.</p><audio controls preload="none" src="music/orbit.mp3"></audio></div>
+        </div>
+    </div>
+</section>
+
+<section class="band" id="manual">
+    <div class="container">
+        <div class="manual">
+            <a href="Hyperhaul-Manual.pdf"><img class="cover px" src="art/manual.jpg" alt="The manual's cover" loading="lazy"></a>
+            <div>
+                <div class="kicker">32 pages, A5</div>
+                <h3>The instruction manual</h3>
+                <ul>
+                    <li>Getting started, and your first trip step by step</li>
+                    <li>Flying, the dashboard, docking by hand</li>
+                    <li>Trading, with a first trade run worked out from the game's markets</li>
+                    <li>Every piece of equipment, the charts and hyperspace</li>
+                    <li>Combat and tactics, the law, every ship you will meet</li>
+                    <li>Every key on one page</li>
+                </ul>
+                <a class="btn" href="Hyperhaul-Manual.pdf">Download the manual (PDF, 1.9 MB)</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="inside">
+    <div class="container">
+        <div class="title">
+            <div class="kicker">How it is made</div>
+            <h2>Inside</h2>
+        </div>
+        <div class="inside">
+            <div class="fact"><b>Filled polygons in fill mode</b><p>The IIgs's Super Hi-Res screen can fill a line's colour by itself to the next change. Hyperhaul draws only the edges of its shaded ships, and the hardware fills them in: the vector engine of FILLHARMONIC, grown into a game.</p></div>
+            <div class="fact"><b>65816 assembly</b><p>About 18,000 lines of assembly for Merlin 32: the renderer, the flight model, the galaxy generator, the screens, the music player. The game runs from one 800K disk in 1 MB.</p></div>
+            <div class="fact"><b>Checked byte for byte</b><p>A Python model of the whole game runs beside it. Every test scene, over 700 frames of flight, combat, docking and screens, is played in the emulator and compared with the model to the last byte of the screen and the game's state.</p></div>
+            <div class="fact"><b>A galaxy from seeds</b><p>The 2,048 systems, their names, economies, governments and markets are generated by the game from three seeds, as the first Elite did, so the disk holds no star charts at all.</p></div>
+            <div class="fact"><b>Sound on the Ensoniq</b><p>Ten sound effects and two tunes, all synthesized in Python and laid out in the chip's 64K of sound memory; the music player runs in the video interrupt.</p></div>
+            <div class="fact"><b>Its own content</b><p>The rules follow the first Elite (Ian Bell and David Braben, 1984), as explained in Mark Moxon's annotated source. The ships, galaxies, names, words, pictures and music are Hyperhaul's own.</p></div>
+        </div>
+    </div>
+</section>
+
+<div class="lightbox" id="lb"><img alt=""></div>
+
+<footer>
+    <div class="container">
+        <div class="banner">HYPERHAUL</div>
+        <div class="row">
+            <a href="../">More projects</a>
+            <a href="Hyperhaul-Manual.pdf">The manual</a>
+        </div>
+        <div class="crosslinks">
+            <p><b>Apple IIgs:</b> <a href="../Conquer3/">Conquer 3: Sandstorm</a> &middot; <a href="../Conquer-GS/">Conquer GS</a> &middot; <a href="../GSCommander/">GS Commander</a> &middot; <a href="../GSLauncher/">GSLauncher</a> &middot; <a href="../MegaconvertGS/">MegaconvertGS</a> &middot; <a href="../TileTown/">TileTown</a></p>
+            <p><b>Apple II tools for the Mac:</b> <a href="../EmuBuddy/">EmuBuddy</a> &middot; <a href="../Demos/">IIgs Demos</a> &middot; <a href="../GSRemap/">GS Remap</a> &middot; <a href="../RetroBrowse/">RetroBrowse</a> &middot; <a href="../AppleIIASCIIArt/">1977 ASCII Art</a></p>
+            <p><b>More retro:</b> <a href="../RetroGraphicsConverter/">Retro Graphics Converter</a> &middot; <a href="../Bitpast/">BitPast</a> &middot; <a href="../RetroTube/">Retro Tube</a> &middot; <a href="../RetroTV/">Retro TV</a> &middot; <a href="../Retro%20Computing/">1977: all retro tools</a></p>
+        </div>
+        <div style="margin-top: 14px;">&copy; 2026 Walter Tengler</div>
+        <p class="legal">Hyperhaul is an independent game in development. Its code, ships, galaxies, words, pictures and music are original; its rules follow the first Elite, by Ian Bell and David Braben (Acornsoft, 1984), and it is not connected with Elite's authors or publishers. Apple IIgs is a trademark of Apple Inc.</p>
+    </div>
+</footer>
+
+<script>
+    // a screenshot clicked: shown big; a click anywhere closes it
+    var lb = document.getElementById('lb');
+    document.querySelectorAll('.gallery img').forEach(function (i) {
+        i.addEventListener('click', function () { lb.querySelector('img').src = i.src; lb.classList.add('on'); });
+    });
+    lb.addEventListener('click', function () { lb.classList.remove('on'); });
+</script>
+</body>
+</html>
