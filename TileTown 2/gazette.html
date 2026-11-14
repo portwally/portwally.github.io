@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TileTown 2 - An Isometric City Builder for the Apple IIgs</title>
+<meta name="description" content="TileTown 2 is an isometric city builder for the Apple IIgs, written from scratch in 65816 assembly. Buildings stand up from the map, every house comes in four designs and traffic faces the way it drives - plus 16 maps, five goals and five disasters. Coming soon.">
+<meta name="author" content="Walter Tengler">
+<link rel="canonical" href="https://portwally.github.io/TileTown%202/">
+<link rel="icon" type="image/png" href="icon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="TileTown 2 - An Isometric City Builder for the Apple IIgs">
+<meta property="og:description" content="The city rises into the third dimension: an isometric city builder for the Apple IIgs, written from scratch in 65816 assembly. Coming soon.">
+<meta property="og:image" content="https://portwally.github.io/TileTown%202/screens/city.png">
+<meta property="og:url" content="https://portwally.github.io/TileTown%202/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="TileTown 2 - An Isometric City Builder for the Apple IIgs">
+<meta name="twitter:description" content="The city rises into the third dimension: an isometric city builder for the Apple IIgs. Coming soon.">
+<meta name="twitter:image" content="https://portwally.github.io/TileTown%202/screens/city.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoGame",
+  "name": "TileTown 2",
+  "description": "An isometric city-building game for the Apple IIgs, written from scratch in 65816 assembly. The sequel to TileTown.",
+  "genre": "City-building simulation",
+  "gamePlatform": "Apple IIgs",
+  "author": { "@type": "Person", "name": "Walter Tengler" },
+  "copyrightYear": 2026,
+  "image": "https://portwally.github.io/TileTown%202/screens/city.png",
+  "url": "https://portwally.github.io/TileTown%202/"
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..700&family=UnifrakturMaguntia&family=Alfa+Slab+One&display=swap" rel="stylesheet">
+<style>
+/* The TileTown Gazette: the town's own broadsheet, February 1900.
+   Newsprint fills the window edge to edge; black ink, one spot red,
+   hairline column rules. The screenshots stay in full colour. */
+:root {
+  --paper: #efebe2;
+  --paper-2: #e4dfd2;
+  --ink: #151413;
+  --ink-2: #47423b;
+  --red: #a11d17;
+  --hed: "Bodoni Moda", "Didot", "Bodoni 72", Georgia, serif;
+  --text: "Newsreader", Georgia, "Times New Roman", serif;
+  --flag: "UnifrakturMaguntia", "Old English Text MT", serif;
+  --slab: "Alfa Slab One", "Rockwell", Georgia, serif;
+  --gut: 20px;
+}
+* { box-sizing: border-box; }
+html { color-scheme: light; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background-color: var(--paper);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .25 0 0 0 0 .22 0 0 0 0 .18 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  color: var(--ink);
+  font-family: var(--text);
+  font-size: 17px;
+  line-height: 1.5;
+  font-optical-sizing: auto;
+}
+img { display: block; max-width: 100%; height: auto; }
+.px { image-rendering: pixelated; }
+a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: .16em; }
+a:hover { color: var(--red); }
+:focus-visible { outline: 3px solid var(--red); outline-offset: 3px; }
+.skip { position: absolute; left: -9999px; top: 8px; }
+.skip:focus { left: 16px; z-index: 10; background: var(--ink); color: var(--paper); padding: 8px 12px; }
+.sheet { max-width: 1280px; margin: 0 auto; padding: 0 var(--gut) 32px; }
+.sc { text-transform: uppercase; letter-spacing: .08em; font-size: .82em; }
+
+/* ---------- top line ---------- */
+.topline {
+  display: flex; justify-content: space-between; align-items: center; gap: 8px 20px; flex-wrap: wrap;
+  padding: 10px 0 8px; border-bottom: 1px solid var(--ink);
+  font-family: var(--hed); font-size: .78rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+}
+.topline a { text-decoration: none; }
+.topline a:hover { text-decoration: underline; }
+.topline .inside { display: flex; gap: 6px 18px; flex-wrap: wrap; justify-content: center; }
+.topline .inside span { color: var(--ink-2); }
+
+/* ---------- flag ---------- */
+.flag { display: grid; grid-template-columns: 172px minmax(0, 1fr) 172px; gap: 20px; align-items: center; padding: 20px 0 12px; }
+.ear {
+  display: block; text-decoration: none; text-align: center;
+  border: 1px solid var(--ink); padding: 9px 10px 10px;
+  font-size: .86rem; line-height: 1.3; font-style: italic;
+}
+.ear b {
+  display: block; font-family: var(--hed); font-style: normal; font-weight: 900;
+  text-transform: uppercase; letter-spacing: .08em; font-size: 1rem;
+  border-bottom: 1px solid var(--ink); padding-bottom: 5px; margin-bottom: 6px;
+}
+.ear--extra b { color: var(--red); }
+.ear:hover { background: var(--ink); color: var(--paper); }
+.ear:hover b { color: var(--paper); border-color: var(--paper); }
+.nameplate {
+  margin: 0; text-align: center; font-family: var(--flag); font-weight: 400;
+  font-size: clamp(2.7rem, 7.2vw, 6.3rem); line-height: 1.02; letter-spacing: .01em;
+  text-wrap: balance;
+}
+.motto { margin: 4px 0 0; text-align: center; font-family: var(--hed); font-style: italic; font-size: 1rem; color: var(--ink-2); }
+.dateline-wrap { border-top: 3px solid var(--ink); padding-top: 2px; }
+.dateline {
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 2px 20px;
+  border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink);
+  padding: 5px 2px; font-family: var(--hed); font-weight: 600;
+  text-transform: uppercase; letter-spacing: .12em; font-size: .78rem;
+}
+
+/* ---------- banner ---------- */
+.banner {
+  margin: 26px 0 0; text-align: center; font-family: var(--hed); font-weight: 900;
+  text-transform: uppercase; font-size: clamp(2.2rem, 6.1vw, 5.3rem); line-height: .96;
+  letter-spacing: -.012em; text-wrap: balance;
+}
+.banner .kick {
+  display: block; font-size: max(.8rem, .2em); font-weight: 700; letter-spacing: .22em;
+  line-height: 1.3; color: var(--red); margin-bottom: .55em;
+}
+.deck-wide {
+  margin: 14px auto 20px; max-width: 48ch; text-align: center; text-wrap: balance;
+  font-family: var(--hed); font-style: italic; font-weight: 500;
+  font-size: clamp(1.15rem, 1.9vw, 1.55rem); line-height: 1.3;
+}
+
+/* ---------- column grid with hairline rules ---------- */
+.cols {
+  display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); grid-auto-flow: row dense;
+  margin: 0 calc(var(--gut) * -1); overflow: hidden;
+  border-bottom: 1px solid var(--ink);
+}
+.cols > * {
+  min-width: 0; margin: -1px 0 0 -1px;
+  padding: 18px var(--gut) 24px;
+  border-left: 1px solid var(--ink); border-top: 1px solid var(--ink);
+}
+.c3 { grid-column: span 3; } .c4 { grid-column: span 4; } .c6 { grid-column: span 6; }
+.c8 { grid-column: span 8; } .c12 { grid-column: span 12; }
+
+/* ---------- stories ---------- */
+.hed {
+  margin: 0 0 .3em; text-align: center; text-wrap: balance;
+  font-family: var(--hed); font-weight: 800; text-transform: uppercase;
+  font-size: 1.42rem; line-height: 1.06;
+}
+.hed--big { font-size: clamp(1.6rem, 2.6vw, 2.25rem); }
+.deck {
+  margin: 0 auto .8em; text-align: center; text-wrap: balance;
+  font-family: var(--hed); font-style: italic; font-weight: 500; font-size: 1.04rem; line-height: 1.28;
+}
+.deck::after { content: ""; display: block; width: 44px; margin: .7em auto 0; border-top: 1px solid var(--ink); }
+.story p { margin: 0; text-align: justify; hyphens: auto; -webkit-hyphens: auto; }
+.story p + p { text-indent: 1.1em; }
+.story p.flush { text-indent: 0; margin-top: .6em; }
+.story p.deck, .brief p.deck { text-align: center; text-indent: 0; margin: 0 auto .8em; hyphens: manual; font-size: 1.04rem; line-height: 1.28; }
+.dl { font-variant: small-caps; letter-spacing: .04em; font-weight: 600; }
+.lead-story > p:first-of-type::first-letter {
+  float: left; font-family: var(--hed); font-weight: 900;
+  font-size: 4.3em; line-height: .78; padding: .08em .09em 0 0;
+}
+.lead-story { font-size: 1.06rem; }
+
+figure { margin: 0; }
+.photo img { width: 100%; border: 1px solid var(--ink); background: #000; }
+.credit {
+  display: block; text-align: right; margin-top: 4px;
+  font-family: var(--hed); font-size: .66rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-2);
+}
+figcaption { font-size: .9rem; line-height: 1.38; }
+figcaption b { font-family: var(--hed); font-weight: 800; text-transform: uppercase; letter-spacing: .04em; font-size: .92em; }
+.story .photo { margin: 0 0 .9em; }
+
+.split { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 20px; align-items: start; }
+
+/* the EXTRA */
+.extra { margin-top: 20px; border: 4px double var(--ink); padding: 14px 16px 16px; text-align: center; }
+.extra .stamp {
+  display: inline-block; font-family: var(--slab); color: var(--red); font-size: 2.3rem; line-height: 1;
+  letter-spacing: .03em; border: 2px solid var(--red); padding: 4px 12px 2px; transform: rotate(-3deg); margin-bottom: 10px;
+}
+.extra h2 { margin: 0 0 6px; font-family: var(--hed); font-weight: 900; text-transform: uppercase; font-size: 1.5rem; line-height: 1.05; }
+.extra p { margin: 0 0 12px; font-size: .98rem; line-height: 1.42; }
+.btn {
+  display: inline-block; text-decoration: none; border: 1.5px solid var(--ink);
+  padding: 8px 14px 7px; font-family: var(--hed); font-weight: 700; font-size: .8rem;
+  letter-spacing: .1em; text-transform: uppercase; line-height: 1.2;
+}
+.btn:hover { background: var(--ink); color: var(--paper); }
+
+/* ---------- folios between pages ---------- */
+.folio {
+  display: flex; justify-content: space-between; gap: 12px; margin-top: 34px;
+  border-top: 3px solid var(--ink); border-bottom: 1px solid var(--ink); padding: 4px 2px;
+  font-family: var(--hed); font-weight: 600; font-size: .74rem; letter-spacing: .14em; text-transform: uppercase;
+}
+.section-name {
+  margin: 14px 0 14px; text-align: center; font-family: var(--flag); font-weight: 400;
+  font-size: clamp(2rem, 4.4vw, 3.4rem); line-height: 1.05;
+}
+.section-sub { margin: -8px auto 18px; text-align: center; font-style: italic; color: var(--ink-2); max-width: 72ch; text-wrap: balance; }
+
+/* ---------- boxes ---------- */
+.box-h {
+  margin: 0 0 4px; text-align: center; font-family: var(--hed); font-weight: 900;
+  text-transform: uppercase; font-size: 1.3rem; line-height: 1.1; letter-spacing: .03em;
+}
+.box-sub { margin: 0 0 12px; padding-bottom: 8px; border-bottom: 3px double var(--ink); text-align: center; font-style: italic; font-size: .92rem; color: var(--ink-2); }
+.box-note { margin: 12px 0 0; font-size: .92rem; line-height: 1.4; }
+
+.fc { list-style: none; margin: 0 0 4px; padding: 0; }
+.fc li { display: flex; align-items: center; gap: 10px; padding: 7px 0; border-bottom: 1px dotted var(--ink); }
+.fc li:last-child { border-bottom: 0; }
+.fc svg { flex: none; width: 26px; height: 26px; }
+.fc .k { font-family: var(--hed); font-weight: 800; text-transform: uppercase; letter-spacing: .05em; font-size: .86rem; }
+.fc .v { margin-left: auto; text-align: right; font-style: italic; font-size: .93rem; line-height: 1.25; }
+
+.prices { width: 100%; border-collapse: collapse; font-size: .96rem; font-variant-numeric: tabular-nums lining-nums; }
+.prices caption { caption-side: bottom; text-align: left; font-size: .86rem; font-style: italic; color: var(--ink-2); padding-top: 8px; }
+.prices th, .prices td { padding: 4px 0; border-bottom: 1px dotted var(--ink); vertical-align: baseline; }
+.prices th { text-align: left; font-weight: 400; }
+.prices td { text-align: right; font-weight: 600; white-space: nowrap; padding-left: 10px; }
+.prices tr.big td { color: var(--red); }
+
+.notice dl { margin: 0; }
+.notice dt { font-family: var(--hed); font-weight: 800; text-transform: uppercase; letter-spacing: .05em; font-size: .9rem; margin-top: 8px; }
+.notice dd { margin: 0; font-size: .95rem; line-height: 1.38; }
+.notice h4 { margin: 16px 0 2px; text-align: center; font-family: var(--hed); font-weight: 900; text-transform: uppercase; letter-spacing: .1em; font-size: .9rem; border-top: 1px solid var(--ink); padding-top: 10px; }
+.notice > p { margin: 0; font-size: .95rem; line-height: 1.4; }
+
+.official { border: 1px solid var(--ink); outline: 1px solid var(--ink); outline-offset: 4px; margin: 6px; padding: 14px 16px; }
+.official .seal { display: block; text-align: center; font-family: var(--flag); font-size: 1.9rem; line-height: 1; margin-bottom: 4px; }
+.official ul { margin: 0; padding: 0; list-style: none; }
+.official li { padding: 7px 0; border-bottom: 1px dotted var(--ink); font-size: .95rem; line-height: 1.4; }
+.official li:last-child { border-bottom: 0; }
+.official li b { font-family: var(--hed); font-weight: 800; }
+
+.brief p { margin: 0 0 .55em; text-align: justify; hyphens: auto; -webkit-hyphens: auto; font-size: .98rem; line-height: 1.45; }
+.brief p b { font-family: var(--hed); font-weight: 800; text-transform: uppercase; letter-spacing: .04em; font-size: .86em; }
+.brief .run { column-count: 2; column-gap: 40px; column-rule: 1px solid var(--ink); }
+
+/* ---------- pictures ---------- */
+.gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 20px; }
+.gallery figcaption { margin-top: 2px; }
+.report { text-align: center; }
+.report .cover { display: block; margin: 0 auto 14px; max-width: 320px; box-shadow: 6px 6px 0 var(--ink); text-decoration: none; }
+.report .cover img { width: 100%; border: 1px solid var(--ink); }
+.report p { margin: 0 0 12px; font-size: .98rem; }
+
+/* ---------- classifieds ---------- */
+.ads { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+.ads > li { min-width: 0; display: flex; }
+.ads > li.wide { grid-column: span 2; }
+.ad {
+  position: relative; display: flex; flex-direction: column; width: 100%;
+  text-decoration: none; border: 1px solid var(--ink); background: var(--paper);
+  padding: 14px 14px 12px; transition: background-color .15s, color .15s, transform .15s, box-shadow .15s;
+}
+.ad:hover, .ad:focus-visible { background: var(--ink); color: var(--paper); transform: translate(-2px, -2px); box-shadow: 4px 4px 0 var(--red); }
+.ad:focus-visible { outline-offset: 4px; }
+.ad .kick { display: block; font-family: var(--slab); font-size: 1.5rem; line-height: 1.02; text-transform: uppercase; margin-bottom: 8px; }
+.ad .body { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 12px; }
+.ad > .head { margin-bottom: 12px; }
+.ad img { flex: none; width: 64px; height: 64px; border: 1px solid currentColor; }
+.ad .head { display: block; font-family: var(--hed); font-style: italic; font-weight: 700; font-size: 1.12rem; line-height: 1.18; }
+.ad .name { display: block; margin-top: 6px; font-family: var(--hed); font-weight: 800; font-size: .8rem; text-transform: uppercase; letter-spacing: .08em; }
+.ad .desc { display: block; font-size: .92rem; line-height: 1.36; margin-top: 2px; }
+.ad .go {
+  display: flex; justify-content: space-between; gap: 8px; margin-top: auto; padding-top: 8px; border-top: 1px dotted currentColor;
+  font-family: var(--hed); font-weight: 700; font-size: .72rem; letter-spacing: .12em; text-transform: uppercase;
+}
+.ad .go span:last-child { white-space: nowrap; }
+/* typographic voices */
+.ad--frak .kick { font-family: var(--flag); text-transform: none; font-size: 1.9rem; }
+.ad--rev .kick { background: var(--ink); color: var(--paper); padding: 5px 8px 3px; margin: -14px -14px 10px; font-size: 1.25rem; letter-spacing: .04em; text-align: center; }
+.ad--rev:hover .kick, .ad--rev:focus-visible .kick { background: var(--red); }
+.ad--double { border: 4px double var(--ink); }
+.ad--double:hover { border-color: var(--paper); }
+.ad--didone .kick { font-family: var(--hed); font-weight: 900; font-size: 1.55rem; letter-spacing: .02em; }
+.ad--center { text-align: center; }
+.ad--center .body { flex-direction: column; align-items: center; }
+.ad--frame { box-shadow: inset 0 0 0 4px var(--paper), inset 0 0 0 5px var(--ink); padding: 18px 18px 14px; }
+.ad--frame:hover, .ad--frame:focus-visible { box-shadow: inset 0 0 0 4px var(--ink), inset 0 0 0 5px var(--paper), 4px 4px 0 var(--red); }
+.ad--big .kick { font-size: 2.1rem; }
+.ad--big .head { font-size: 1.4rem; }
+.ad--big img { width: 96px; height: 96px; }
+.ad--small .kick { font-size: 1.15rem; }
+.ad-red .kick { color: var(--red); }
+.ad:hover .kick, .ad:focus-visible .kick { color: inherit; }
+
+/* ---------- foot ---------- */
+.colophon { margin-top: 30px; border-top: 3px solid var(--ink); padding-top: 2px; }
+.colophon-in { border-top: 1px solid var(--ink); padding: 16px 0 0; text-align: center; }
+.colophon .end { font-family: var(--flag); font-size: 1.8rem; margin: 0 0 4px; }
+.colophon p { margin: 0 auto 10px; max-width: 78ch; font-size: .9rem; line-height: 1.45; }
+.colophon .legal { color: var(--ink-2); font-size: .84rem; }
+.colophon nav { display: flex; justify-content: center; flex-wrap: wrap; gap: 6px 22px; margin: 14px 0 6px; font-family: var(--hed); font-weight: 700; font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; }
+
+/* ---------- tablet ---------- */
+@media (max-width: 999px) {
+  .cols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .c3, .c4 { grid-column: span 1; }
+  .c6, .c8, .c12, .t-full { grid-column: span 2; }
+  .lead-story { column-count: 2; column-gap: 40px; column-rule: 1px solid var(--ink); }
+  .lead-story .extra { break-inside: avoid; }
+  .flag { grid-template-columns: 140px minmax(0, 1fr) 140px; gap: 14px; }
+  .ads { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .report-in { display: grid; grid-template-columns: minmax(0, 260px) minmax(0, 1fr); gap: 24px; align-items: center; text-align: left; }
+  .report .cover { margin: 0; }
+}
+/* ---------- phone ---------- */
+@media (max-width: 680px) {
+  :root { --gut: 16px; }
+  body { font-size: 17px; }
+  .cols { grid-template-columns: minmax(0, 1fr); }
+  .cols > * { grid-column: auto !important; }
+  .lead-story, .brief .run { column-count: 1; }
+  .story p, .brief p { text-align: left; hyphens: manual; -webkit-hyphens: manual; }
+  .split { grid-template-columns: minmax(0, 1fr); }
+  .gallery { grid-template-columns: minmax(0, 1fr); }
+  .flag { grid-template-columns: 1fr 1fr; gap: 12px; padding-top: 14px; }
+  .flag .np { grid-column: 1 / -1; order: -1; }
+  .ear { font-size: .82rem; }
+  .topline .inside { display: none; }
+  .dateline { justify-content: center; text-align: center; }
+  .folio span:nth-child(3) { display: none; }
+  .ads { grid-template-columns: minmax(0, 1fr); }
+  .ads > li.wide { grid-column: auto; }
+  .ad--big img { width: 72px; height: 72px; }
+  .report-in { display: block; text-align: center; }
+  .report .cover { margin: 0 auto 14px; max-width: 260px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+  .ad:hover, .ad:focus-visible { transform: none; }
+}
+/* the advertisement with the box in 3D (box3d.css draws the box) */
+.adbox{grid-column:1/-1;border:3px double var(--ink,#111);padding:10px 18px 18px;margin-top:8px}
+.adlabel{margin:0 0 6px;text-align:center;font-size:11px;letter-spacing:.3em;text-transform:uppercase}
+.adbox-in{display:grid;grid-template-columns:minmax(0,1fr);gap:10px 28px;align-items:center}
+.adbox .tt2box{background:#101642;padding:14px 0 16px;border:1px solid #111}
+.adbox .tt2box.on-light .boxbar{color:#ccd}
+.adbox .tt2box.on-light .boxbar button{color:#fff;background:transparent;border-color:#ccd}
+.adbox .tt2box.on-light .boxbar button:hover{background:#ffe65a;color:#111}
+.adbox-copy h2{margin:0;font-family:var(--hed);font-weight:900;font-size:clamp(34px,5vw,58px);line-height:1;text-align:center}
+.adsub{text-align:center;letter-spacing:.18em;text-transform:uppercase;font-size:12px;margin:8px 0 14px}
+.adsmall{font-size:13px;font-style:italic}
+@media (min-width:860px){.adbox-in{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+</style>
+<link rel="stylesheet" href="box3d.css">
+</head>
+<body>
+<a class="skip" href="#news">Skip to the news</a>
+<div class="sheet">
+
+<header>
+  <nav class="topline" aria-label="Site">
+    <a href="../">&lsaquo; All apps</a>
+    <div class="inside"><span>Inside today:</span>
+      <a href="#page-2">Town news, p. 2</a>
+      <a href="#page-3">Pictures &amp; the full report, p. 3</a>
+      <a href="#page-4">Classifieds, p. 4</a>
+    </div>
+    <a href="../TileTown/">The original TileTown &rsaquo;</a>
+  </nav>
+
+  <div class="flag">
+    <a class="ear" href="#weather"><b>Weather</b>Fair, with a chance of tornado. Full forecast, page 2.</a>
+    <div class="np">
+      <p class="nameplate">The TileTown Gazette</p>
+      <p class="motto">All the town that fits in 8 MB</p>
+    </div>
+    <a class="ear ear--extra" href="#extra"><b>Extra!</b>Coming soon. Price and release date to be announced.</a>
+  </div>
+
+  <div class="dateline-wrap">
+    <p class="dateline">
+      <span>Vol. II &middot; No. 1</span>
+      <span>TileTown, February 1900</span>
+      <span>The Apple IIgs Edition</span>
+      <span>Set in 65816 assembly</span>
+    </p>
+  </div>
+</header>
+
+<main id="news">
+
+<!-- ================= PAGE 1 ================= -->
+<section aria-labelledby="lead-h">
+  <h1 class="banner" id="lead-h"><span class="kick">TileTown 2 &middot; for the Apple IIgs</span>The City Rises Into the Third Dimension</h1>
+  <p class="deck-wide">Buildings stand up from the map, drawn in 32 &times; 16 diamonds&nbsp;- and cars, trains and tornadoes now pass behind them</p>
+
+  <div class="cols">
+    <figure class="photo c8">
+      <img class="px" src="screens/city.png" width="960" height="640" fetchpriority="high"
+        alt="TileTown 2's isometric city: blue and white skyscrapers by the sea, red-roofed houses, a stadium, smoking factories, a nuclear cooling tower and roads, with the toolbox of building icons on the right and the menu bar showing $20026 and Feb 1900.">
+      <span class="credit">Screen photograph &middot; Apple IIgs Super Hi-Res</span>
+      <figcaption><b>The new view.</b> Towers by the sea, factories smoking, a stadium in the middle of town and the toolbox on the right: a TileTown 2 city in its first month, February 1900.</figcaption>
+    </figure>
+
+    <article class="story lead-story c4 t-full">
+      <p><span class="dl">TileTown, February 1900.</span> - The city has stood up. In TileTown 2, homes, shops, factories and power plants rise from the map in an isometric view, drawn in 32 &times; 16 diamonds. Cars, trains and even tornadoes go behind the buildings, not over them.</p>
+      <p>TileTown 2 is the sequel to <a href="../TileTown/">TileTown</a>, the 2 MB original. It was written from scratch in 65816 assembly by Walter Tengler, 2026, for the Apple IIgs.</p>
+      <p>Everything from the first town is still here - the 128 &times; 128 map, 16 maps to start on, 17 things to build, five disasters and five goals - and there is far more to look at on every street. <a href="#page-2">Town news, page 2.</a></p>
+
+      <aside class="extra" id="extra" aria-labelledby="extra-h">
+        <span class="stamp" aria-hidden="true">Extra!</span>
+        <h2 id="extra-h">Coming soon</h2>
+        <p>Price and release date to be announced. There is no download yet. In the meantime, the original TileTown, for any 2 MB IIgs, has a free demo.</p>
+        <a class="btn" href="../TileTown/">Try the original TileTown &rsaquo;</a>
+      </aside>
+    </article>
+
+    <article class="story c3">
+      <h2 class="hed">Four Designs on Every Street</h2>
+      <p class="deck">No two streets look alike</p>
+      <figure class="photo">
+        <img class="px" src="screens/iso-suburbs.png" width="960" height="640" loading="lazy" alt="The edge of town in TileTown 2: the stadium, apartment blocks of different shapes and colours, and green fields with trees.">
+      </figure>
+      <p>Every house, shop and factory comes in four designs, and which one appears is picked by where it stands. Build a row of homes and you get a street, not a row of copies.</p>
+    </article>
+
+    <article class="story c3">
+      <h2 class="hed">Traffic Faces the Right Way</h2>
+      <p class="deck">Trains keep to the rails</p>
+      <figure class="photo">
+        <img class="px" src="screens/iso-town.png" width="960" height="640" loading="lazy" alt="A TileTown 2 town by a lake: a road bridge crosses the water to a downtown of tall towers, red-brick blocks and small houses.">
+      </figure>
+      <p>Cars, buses and vans face the way they drive, and trains run on the rails. The commuters still drive to work and back, as they did in the original - now seen from an angle.</p>
+    </article>
+
+    <article class="story c3">
+      <h2 class="hed">A Living Picture</h2>
+      <p class="deck">Lakes ripple, chimneys smoke</p>
+      <figure class="photo">
+        <img class="px" src="screens/iso-industry.png" width="960" height="640" loading="lazy" alt="An industrial quarter in TileTown 2: factories with tall red-and-white chimneys giving off white smoke, beside a rail line across green fields.">
+      </figure>
+      <p>Look closely and the town is never still. Lakes ripple, chimneys smoke and the nuclear plant steams. The airport's beacon flashes, and over at the stadium the score goes up.</p>
+    </article>
+
+    <article class="story c3">
+      <h2 class="hed">Smooth Scrolling Arrives</h2>
+      <p class="deck">A few pixels at a time</p>
+      <p>Move across the city and the map slides smoothly, a few pixels at a time, from the seaport to the factories and back.</p>
+      <p>It all runs on the Apple IIgs itself, with an accelerator: TileTown 2 runs from 8 MHz and is at its best at 16 MHz. <a href="#needs">What you need, page 2.</a></p>
+      <p class="flush"><span class="dl">Also in this issue:</span> the toolbox price list, the weather, and the goals for new mayors.</p>
+    </article>
+
+    <aside class="adbox" aria-labelledby="adbox-h">
+      <p class="adlabel">Advertisement</p>
+      <div class="adbox-in">
+        <div class="tt2box on-light"></div>
+        <div class="adbox-copy">
+          <h2 id="adbox-h">Now in a Box!</h2>
+          <p class="adsub">TileTown 2 &middot; The City-Building Simulation</p>
+          <p>Turn it round and see for yourself: the title picture on the front, the new isometric city on the back. A city in 3D, 16 maps, 3 levels, for the Apple IIgs with 8 MB and an accelerator.</p>
+          <p class="adsmall">Drag the box, or use the arrow keys. Coming soon - price and release date to be announced.</p>
+        </div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ================= PAGE 2 ================= -->
+<div class="folio" id="page-2"><span>Page 2</span><span>The TileTown Gazette</span><span>February 1900</span></div>
+<section aria-labelledby="p2-h">
+  <h2 class="section-name" id="p2-h">Town News</h2>
+  <div class="cols">
+    <article class="story c8">
+      <h3 class="hed hed--big">Press I for the Old Map</h3>
+      <p class="deck">The flat, top-down view is one key away</p>
+      <div class="split">
+        <figure class="photo">
+          <img class="px" src="screens/city-topdown.png" width="960" height="640" loading="lazy" alt="The same TileTown 2 city in the flat top-down view: a grid of roads with a fire station, police station, hospital, stadium, shops, factories and a rail line seen from straight above.">
+          <figcaption><b>Same town, from above.</b> The city on the front page, after one press of I.</figcaption>
+        </figure>
+        <div>
+          <p>Miss the old view? Press I and the city lies flat again, seen from straight above as in the original TileTown. Press I once more and the buildings stand back up.</p>
+          <p>Both views show the same town, with the same toolbox, menus and prices, so you can plan in one and admire the result in the other.</p>
+        </div>
+      </div>
+    </article>
+
+    <aside class="c4" id="weather" aria-labelledby="weather-h">
+      <h3 class="box-h" id="weather-h">Weather &amp; Disasters</h3>
+      <p class="box-sub">The forecast for your city</p>
+      <figure class="photo" style="margin-bottom:10px">
+        <img class="px" src="screens/iso-tornado.png" width="960" height="640" loading="lazy" alt="A grey tornado funnel tearing through the downtown towers of a TileTown 2 city by a lake, with rubble left behind it.">
+        <figcaption><b>Downtown.</b> A tornado among the towers.</figcaption>
+      </figure>
+      <ul class="fc">
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 22c-4 0-7-2.6-7-6.4 0-3.4 2.6-5.3 3.6-8.6 1.6 1.4 2.2 3 2.2 4.6C12.6 9 13.6 5.4 13 2c3.6 2.6 6 6.6 6 11 0 5.2-3 9-7 9z"/><path d="M12 22c-1.8 0-3-1.2-3-3 0-1.8 1.6-2.6 2-4.6 1.8 1.2 4 2.6 4 4.8 0 1.6-1.2 2.8-3 2.8z"/></svg><span class="k">Fire</span><span class="v">Possible</span></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 8c2.5-2 5-2 7.5 0s5 2 7.5 0 3.5-1.5 5 0M2 13c2.5-2 5-2 7.5 0s5 2 7.5 0 3.5-1.5 5 0M2 18c2.5-2 5-2 7.5 0s5 2 7.5 0 3.5-1.5 5 0"/></svg><span class="k">Flood</span><span class="v">Possible</span></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 3h20M4 7h15M6 11h11M8 15h7M10 19h4M11 22h2"/></svg><span class="k">Tornado</span><span class="v">Possible - now passes behind the towers</span></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 20h20M5 20l3-6 3 3 3-8 2 5 3-4"/></svg><span class="k">Earthquake</span><span class="v">Possible</span></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><circle cx="12" cy="12" r="2.2"/><path d="M12 9.2 8.6 3.4A10 10 0 0 0 3.4 12.4H10a2 2 0 0 1 2-3.2zM14 12.4h6.6a10 10 0 0 0-5.2-9L12 9.2a2 2 0 0 1 2 3.2zM11 14.8l-3.3 5.8a10 10 0 0 0 8.6 0L13 14.8a2 2 0 0 1-2 0z"/></svg><span class="k">Meltdown</span><span class="v">Only if you built one</span></li>
+      </ul>
+      <p class="box-note"><b>Outlook:</b> twice as many disasters on the hard level, fewer on easy. Switch them off and the skies stay fair all year.</p>
+    </aside>
+
+    <article class="brief c8">
+      <h3 class="hed hed--big">The Old Town&rsquo;s Ways All Return</h3>
+      <p class="deck">Everything from TileTown, too</p>
+      <div class="run">
+        <p><b>A living city.</b> On a 128 &times; 128 map, homes, shops and factories grow in three sizes once they have power, a road and people who want them. Commuters drive to work and back.</p>
+        <p><b>17 things to build.</b> Roads, rail, power lines, homes, shops, industry, coal and nuclear power plants, police and fire stations, hospitals, schools, parks, a stadium, a seaport and an airport. Bridges over water, level crossings, and rail tunnels under lakes and rivers.</p>
+        <p><b>Neighbourhoods.</b> Land value, traffic, pollution and crime spread through the neighbourhoods, and people ask for what the city lacks.</p>
+        <p><b>Maps and graphs.</b> Heat maps for pollution, crime, land value, traffic, police, fire, health, schools, population and power; graphs over 10 or 100 years.</p>
+        <p><b>The budget.</b> Sliders for taxes, roads, police and fire.</p>
+        <p><b>Advice.</b> Milestones and monthly advice, a city evaluation with a score, and a query tool.</p>
+        <p><b>At the controls.</b> Menus, pause and three speeds, a help screen, mouse and keyboard.</p>
+        <p><b>Saving.</b> Eight save slots, each city under its own name.</p>
+        <p><b>Music.</b> Sound effects and eight relaxed tunes on the Ensoniq sound chip.</p>
+      </div>
+    </article>
+
+    <aside class="c4" aria-labelledby="prices-h">
+      <h3 class="box-h" id="prices-h">Market Prices</h3>
+      <p class="box-sub">As quoted at the toolbox</p>
+      <table class="prices">
+        <caption>Rail is priced by the square; everything else by the piece.</caption>
+        <tbody>
+          <tr><th scope="row">Power line</th><td>$5</td></tr>
+          <tr><th scope="row">Road</th><td>$10</td></tr>
+          <tr><th scope="row">Rail, a square</th><td>$20</td></tr>
+          <tr><th scope="row">Park</th><td>$50</td></tr>
+          <tr><th scope="row">A zone: homes, shops or industry</th><td>$100</td></tr>
+          <tr><th scope="row">Police station</th><td>$500</td></tr>
+          <tr><th scope="row">Fire station</th><td>$500</td></tr>
+          <tr><th scope="row">School</th><td>$800</td></tr>
+          <tr><th scope="row">Hospital</th><td>$1,000</td></tr>
+          <tr><th scope="row">Power plant</th><td>$3,000</td></tr>
+          <tr><th scope="row">Stadium</th><td>$3,000</td></tr>
+          <tr><th scope="row">Seaport</th><td>$5,000</td></tr>
+          <tr><th scope="row">Nuclear plant</th><td>$5,000</td></tr>
+          <tr class="big"><th scope="row">Airport</th><td>$10,000</td></tr>
+        </tbody>
+      </table>
+    </aside>
+
+    <article class="story c6">
+      <h3 class="hed hed--big">Sixteen Sites Offered to New Mayors</h3>
+      <p class="deck">Rivers, lakes, coasts, islands, forests, fjords, marshes and plains</p>
+      <figure class="photo">
+        <img class="px" src="screens/maps-sheet.png" width="960" height="412" loading="lazy" alt="A sheet of the 16 start maps in TileTown 2, each a green landscape with blue rivers, lakes or coastline and dark green forests.">
+        <figcaption><b>All sixteen.</b> The start maps, side by side.</figcaption>
+      </figure>
+      <p class="flush">Every new city starts on one of 16 maps. Pick a map, then a goal and a level, and the land is yours to lay out. Bridges cross the water, roads and rails meet at level crossings, and rail tunnels run under the lakes and rivers.</p>
+    </article>
+
+    <aside class="notice c3" aria-labelledby="notice-h">
+      <h3 class="box-h" id="notice-h">Public Notices</h3>
+      <p class="box-sub">Five goals, each with a deadline - or free play</p>
+      <dl>
+        <dt>Boomtown</dt><dd>10,000 people in 10 years.</dd>
+        <dt>Shoestring</dt><dd>2,000 people from only $5,000, in 5 years.</dd>
+        <dt>Clean air</dt><dd>5,000 people, pollution under 20%, in 15 years.</dd>
+        <dt>Safe streets</dt><dd>5,000 people, crime under 15%, in 15 years.</dd>
+        <dt>Rich town</dt><dd>$50,000 in the bank, in 20 years.</dd>
+      </dl>
+      <h4>Three levels</h4>
+      <dl>
+        <dt>Easy</dt><dd>$30,000 to start, fewer disasters.</dd>
+        <dt>Normal</dt><dd>$20,000 to start.</dd>
+        <dt>Hard</dt><dd>$10,000 to start, twice as many disasters.</dd>
+      </dl>
+    </aside>
+
+    <aside class="c3" id="needs" aria-labelledby="needs-h">
+      <div class="official">
+        <span class="seal" aria-hidden="true">Notice</span>
+        <h3 class="box-h" id="needs-h">What You Need</h3>
+        <ul>
+          <li>An <b>Apple IIgs</b> with <b>8 MB</b> of memory.</li>
+          <li>A drive that boots an <b>800K 3.5" ProDOS</b> disk.</li>
+          <li>An <b>accelerator</b> (ZipGS, TransWarp GS or similar): it runs from 8 MHz and is at its best at 16 MHz.</li>
+          <li>Or an <b>emulator</b> such as MAME (on the Mac: Ample, or <a href="../EmuBuddy/">EmuBuddy</a>), set up as an Apple IIgs with 8 MB and the CPU type &ldquo;16 MHz ZipGS&rdquo;.</li>
+          <li>A mouse is easier; the keyboard works too.</li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ================= PAGE 3 ================= -->
+<div class="folio" id="page-3"><span>Page 3</span><span>The TileTown Gazette</span><span>February 1900</span></div>
+<section aria-labelledby="p3-h">
+  <h2 class="section-name" id="p3-h">The Town in Pictures</h2>
+  <div class="cols">
+    <div class="c8">
+      <div class="gallery">
+        <figure class="photo">
+          <img class="px" src="screens/title.png" width="960" height="640" loading="lazy" alt="The TileTown 2 title screen: the yellow TileTown 2 logo over a little isometric town with a fountain, a stadium, a church and a river.">
+          <figcaption><b>The title screen.</b> A little town greets the new mayor.</figcaption>
+        </figure>
+        <figure class="photo">
+          <img class="px" src="screens/chooser.png" width="960" height="640" loading="lazy" alt="The new-city screen: map 1 of 16, Green Valley, with the goal set to free play and the level to normal.">
+          <figcaption><b>A new city.</b> Pick one of 16 maps, a goal and a level.</figcaption>
+        </figure>
+        <figure class="photo">
+          <img class="px" src="screens/graphs.png" width="960" height="640" loading="lazy" alt="The Maps and graphs screen: a pollution heat map on the left and ten years of graphs for homes, shops, industry, money, crime and pollution on the right.">
+          <figcaption><b>Maps and graphs.</b> A pollution heat map beside ten years of graphs.</figcaption>
+        </figure>
+        <figure class="photo">
+          <img class="px" src="screens/budget.png" width="960" height="640" loading="lazy" alt="The budget screen: a slider for taxes at 7 percent and sliders for roads, police and fire at 100 percent, with the monthly balance and money below.">
+          <figcaption><b>The budget.</b> Taxes, roads, police and fire, each on a slider.</figcaption>
+        </figure>
+        <figure class="photo">
+          <img class="px" src="screens/query.png" width="960" height="640" loading="lazy" alt="The query tool over a hospital: land value medium, pollution low, crime none, traffic medium, power yes.">
+          <figcaption><b>The query tool.</b> Click a building to ask about its land value, pollution, crime, traffic and power.</figcaption>
+        </figure>
+        <figure class="photo">
+          <img class="px" src="screens/evaluation.png" width="960" height="640" loading="lazy" alt="The city evaluation: 20 percent approval, what people say is wrong (power, health care, fire), 1180 people, a village, and a score of 214.">
+          <figcaption><b>The evaluation.</b> What people say is wrong, and the city&rsquo;s score.</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <aside class="report c4 t-full" aria-labelledby="report-h">
+      <div class="report-in">
+        <a class="cover" href="TileTown2-Manual.pdf"><img src="screens/manual-cover.png" width="384" height="576" loading="lazy" alt="Cover of the TileTown 2 instruction manual: a gold TileTown 2 logo on navy, two screenshots and a starburst reading A city in 3D, 16 maps, 3 levels."></a>
+        <div>
+          <h3 class="hed hed--big" id="report-h">Read the Full Report</h3>
+          <p class="deck">The instruction manual, in colour</p>
+          <p>Every tool, screen and menu of TileTown 2, set down in 28 full-colour pages by the author.</p>
+          <a class="btn" href="TileTown2-Manual.pdf">Open the manual &rsaquo;</a>
+          <p style="margin-top:10px;font-size:.86rem;color:var(--ink-2)">PDF, 28 pages, 1.6 MB</p>
+        </div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ================= PAGE 4 ================= -->
+<div class="folio" id="page-4"><span>Page 4</span><span>The TileTown Gazette</span><span>February 1900</span></div>
+<section aria-labelledby="p4-h">
+  <h2 class="section-name" id="p4-h">Classified Advertisements</h2>
+  <p class="section-sub">More Apple IIgs work from the same desk. Every advertisement is a link - click one to visit.</p>
+  <ul class="ads">
+    <li class="wide"><a class="ad ad--frame ad--big ad-red" href="../TileTown/">
+      <span class="kick">Free tour of the old town</span>
+      <span class="body"><img src="../assets/icons/tiletown.png" width="64" height="64" alt="" loading="lazy">
+        <span><span class="head">Where it all began - the town that started it.</span>
+        <span class="name">TileTown</span><span class="desc">The original city builder, for any 2 MB IIgs, with a free demo.</span></span></span>
+      <span class="go"><span>/TileTown/</span><span>Try the demo &rsaquo;</span></span></a></li>
+
+    <li><a class="ad ad--rev" href="../Conquer-GS/">
+      <span class="kick">Wanted</span>
+      <span class="body"><img src="../assets/icons/conquer-gs.png" width="64" height="64" alt="" loading="lazy">
+        <span><span class="head">Generals with a head for ore.</span>
+        <span class="name">Conquer GS</span><span class="desc">Real-time strategy: build a base, harvest ore, conquer the enemy.</span></span></span>
+      <span class="go"><span>/Conquer-GS/</span><span>Visit &rsaquo;</span></span></a></li>
+
+    <li><a class="ad ad--slab ad-red" href="../Conquer3/">
+      <span class="kick">Wanted</span>
+      <span class="body"><img src="../assets/icons/conquer3.png" width="64" height="64" alt="" loading="lazy">
+        <span><span class="head">Commanders for a desert war.</span>
+        <span class="name">Conquer 3: Sandstorm</span><span class="desc">Real-time strategy, three armies in the desert. In development.</span></span></span>
+      <span class="go"><span>/Conquer3/</span><span>Visit &rsaquo;</span></span></a></li>
+
+    <li><a class="ad ad--didone ad--double" href="../Hyperhaul/">
+      <span class="kick">Situations vacant</span>
+      <span class="body"><img class="px" src="../assets/icons/hyperhaul.png" width="64" height="64" alt="" loading="lazy">
+        <span><span class="head">Hauliers for the space lanes.</span>
+        <span class="name">Hyperhaul</span><span class="desc">Space trading and combat, filled 3D ships. In development.</span></span></span>
+      <span class="go"><span>/Hyperhaul/</span><span>Visit &rsaquo;</span></span></a></li>
+
+    <li><a class="ad ad--slab ad-red" href="../GTApple/">
+      <span class="kick">Stolen!</span>
+      <span class="body"><img class="px" src="../assets/icons/gtapple.png" width="64" height="64" alt="" loading="lazy">
+        <span><span class="head">One motor car, red. Last seen in a crime game.</span>
+        <span class="name">Grand Theft Apple</span><span class="desc">A top-down crime game. In development.</span></span></span>
+      <span class="go"><span>/GTApple/</span><span>Visit &rsaquo;</span></span></a></li>
+
+    <li class="wide"><a class="ad ad--didone ad--big" href="../EmuBuddy/">
+      <span class="kick" style="text-transform:none">No IIgs? No matter.</span>
+      <span class="body"><img src="../assets/icons/emubuddy.png" width="64" height="64" alt="" loading="lazy">
+        <span><span class="head">An Apple IIgs on your Mac, ready for TileTown 2.</span>
+        <span class="name">EmuBuddy</span><span class="desc">An Apple IIgs emulator for the Mac - to play TileTown 2.</span></span></span>
+      <span class="go"><span>/EmuBuddy/</span><span>Visit &rsaquo;</span></span></a></li>
+
+    <li><a class="ad ad--didone ad--center" href="../GSCommander/">
+      <span class="kick">For tidy minds</span>
+      <span class="body"><img src="../assets/icons/gscommander.png" width="64" height="64" alt="" loading="lazy">
+        <span><span class="head">Two panes, no fuss.</span>
+        <span class="name">GS Commander</span><span class="desc">A two-pane file manager.</span></span></span>
+      <span class="go"><span>/GSCommander/</span><span>Visit &rsaquo;</span></span></a></li>
+
+    <li><a class="ad ad--rev ad--center" href="../GSLauncher/">
+      <span class="kick">At your service</span>
+      <span class="body"><img src="../assets/icons/gslauncher.png" width="64" height="64" alt="" loading="lazy">
+        <span><span class="head">Programs started promptly.</span>
+        <span class="name">GSLauncher</span><span class="desc">A program launcher.</span></span></span>
+      <span class="go"><span>/GSLauncher/</span><span>Visit &rsaquo;</span></span></a></li>
+
+    <li><a class="ad ad--frame ad--slab" href="../MegaconvertGS/">
+      <span class="kick">Pictures converted</span>
+      <span class="body"><img src="../assets/icons/megaconvertgs.png" width="64" height="64" alt="" loading="lazy">
+        <span><span class="head">While you wait.</span>
+        <span class="name">MegaconvertGS</span><span class="desc">Over 60 picture formats to Super Hi-Res, on the IIgs itself.</span></span></span>
+      <span class="go"><span>/MegaconvertGS/</span><span>Visit &rsaquo;</span></span></a></li>
+
+    <li><a class="ad ad--frak ad--double ad--center" href="../Demos/">
+      <span class="kick">Astonishing Spectacles</span>
+      <span class="body"><img src="../assets/icons/demos.png" width="64" height="64" alt="" loading="lazy">
+        <span><span class="head">Nightly, in Super Hi-Res.</span>
+        <span class="name">IIgs Demos</span><span class="desc">Demo-scene effects in Super Hi-Res.</span></span></span>
+      <span class="go"><span>/Demos/</span><span>Visit &rsaquo;</span></span></a></li>
+
+    <li class="wide"><a class="ad ad--rev ad--small" href="../">
+      <span class="kick">Directory</span>
+      <span class="head">Every app from the same desk, Apple IIgs and otherwise.</span>
+      <span class="go"><span>portwally.github.io</span><span>All apps &rsaquo;</span></span></a></li>
+
+    <li class="wide"><a class="ad ad--didone ad--small" href="../Retro%20Computing/">
+      <span class="kick">More retro computing: 1977</span>
+      <span class="head">Retro computing tools for the Mac and the Apple IIgs.</span>
+      <span class="go"><span>/Retro Computing/</span><span>Visit &rsaquo;</span></span></a></li>
+  </ul>
+</section>
+</main>
+
+<footer class="colophon">
+  <div class="colophon-in">
+    <p class="end" aria-hidden="true">The End</p>
+    <p>Printed and published in TileTown by Walter Tengler. TileTown 2 was written from scratch in 65816 assembly for the Apple IIgs.</p>
+    <nav aria-label="Footer">
+      <a href="../">All apps</a>
+      <a href="../TileTown/">TileTown, the original</a>
+      <a href="../EmuBuddy/">EmuBuddy</a>
+      <a href="../Retro%20Computing/">More retro computing: 1977</a>
+    </nav>
+    <p>&copy; 2026 Walter Tengler</p>
+    <p class="legal">TileTown 2 is an independent game inspired by the city-building classics of the late 1980s. All of its code, graphics and music are original. SimCity is a trademark of Electronic Arts Inc.; TileTown is not affiliated with or endorsed by Electronic Arts. Apple IIgs is a trademark of Apple Inc.</p>
+  </div>
+</footer>
+</div>
+<script src="box3d.js"></script>
+<script src="switcher.js"></script>
+</body>
+</html>

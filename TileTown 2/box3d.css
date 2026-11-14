@@ -1,0 +1,104 @@
+/* The TileTown 2 box in 3D, shared by the page's three looks (index.html,
+   gazette.html; box.html has its own copy): box3d.js builds it into each
+   <div class="tt2box"></div> and turns it. Its own colours and fonts, so it
+   looks the same on the blueprint, the newspaper and the night sky. */
+@import url("https://fonts.googleapis.com/css2?family=Lilita+One&family=Michroma&display=swap");
+.tt2box {
+    --gold1: #ffe65a; --gold2: #f6a531; --gold-edge: #4a2300; --burst: #ffd51f; --red: #d8312c;
+    --muted: #b9bfeb; --grid: 196, 104, 255; --violet: #33197a;
+    --g: #61bb46; --y: #fdb827; --o: #f5821f; --r: #e03a3e; --p: #963d97; --b: #2f8fe0;
+    --rainbow: linear-gradient(90deg, var(--g) 0 16.67%, var(--y) 0 33.33%, var(--o) 0 50%, var(--r) 0 66.67%, var(--p) 0 83.33%, var(--b) 0);
+    --rainbow-v: linear-gradient(180deg, var(--g) 0 16.67%, var(--y) 0 33.33%, var(--o) 0 50%, var(--r) 0 66.67%, var(--p) 0 83.33%, var(--b) 0);
+    --chunky: "Lilita One", "Arial Black", Impact, sans-serif;
+    --wide: "Michroma", "Eurostile", Arial, sans-serif;
+    font-family: "Nunito Sans", "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.35;
+}
+.tt2box *, .tt2box *::before, .tt2box *::after { box-sizing: border-box; }
+.tt2box img { display: block; max-width: 100%; height: auto; }
+.tt2box .px { image-rendering: pixelated; image-rendering: crisp-edges; }
+.tt2box h3 { letter-spacing: normal; text-transform: none; }
+
+/* ---------- the box in 3D ---------- */
+.tt2box .boxview { --bw: min(360px, 64vw); --bh: calc(var(--bw) * 4 / 3); --bd: calc(var(--bw) * 0.22);
+    position: relative; width: 100%; height: calc(var(--bh) * 1.22); perspective: calc(var(--bw) * 5);
+    cursor: grab; touch-action: pan-y; user-select: none; -webkit-user-select: none; outline: none; border-radius: 8px; }
+.tt2box .boxview.drag { cursor: grabbing; }
+.tt2box .boxview:focus-visible { box-shadow: 0 0 0 3px var(--gold1); }
+.tt2box .boxview::after { content: ""; position: absolute; left: 50%; bottom: 0; width: calc(var(--bw) * 1.5); height: 12%; transform: translateX(-50%);
+    background: radial-gradient(ellipse at center, rgba(255, 140, 240, 0.35) 0%, rgba(30, 0, 60, 0.55) 35%, transparent 70%); }
+.tt2box .box3d { position: absolute; left: 50%; top: 46%; width: var(--bw); height: var(--bh); margin: calc(var(--bh) / -2) 0 0 calc(var(--bw) / -2);
+    transform-style: preserve-3d; font-size: calc(var(--bw) / 16); transform: rotateX(-8deg) rotateY(-26deg); }
+.tt2box .box3d .bf { position: absolute; left: 0; top: 0; width: var(--bw); height: var(--bh); backface-visibility: hidden; overflow: hidden;
+    background: linear-gradient(180deg, #0b1140 0%, #18206a 45%, #35197c 100%); box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.6); }
+.tt2box .box3d .bf > i { position: absolute; inset: 0; background: #000; opacity: 0; pointer-events: none; z-index: 9; }
+.tt2box .box3d img { pointer-events: none; -webkit-user-drag: none; }
+.tt2box .box3d .f { transform: translateZ(calc(var(--bd) / 2)); }
+.tt2box .box3d .b { transform: rotateY(180deg) translateZ(calc(var(--bd) / 2)); }
+.tt2box .box3d .l, .tt2box .box3d .r { width: var(--bd); left: calc((var(--bw) - var(--bd)) / 2); display: flex; flex-direction: column; align-items: center;
+    background: linear-gradient(90deg, #0a0f38, #1b1f6c 50%, #0a0f38); }
+.tt2box .box3d .l { transform: rotateY(-90deg) translateZ(calc(var(--bw) / 2)); }
+.tt2box .box3d .r { transform: rotateY(90deg) translateZ(calc(var(--bw) / 2)); }
+.tt2box .box3d .t, .tt2box .box3d .u { height: var(--bd); top: calc((var(--bh) - var(--bd)) / 2); }
+.tt2box .box3d .t { transform: rotateX(90deg) translateZ(calc(var(--bh) / 2)); background: #141a5c; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+.tt2box .box3d .u { transform: rotateX(-90deg) translateZ(calc(var(--bh) / 2)); background: #07091f; }
+/* the front */
+.tt2box .f .fstripe { position: absolute; left: 0; right: 0; top: 0.75em; height: 0.5em; background: var(--rainbow); }
+.tt2box .f .ffor { position: absolute; right: 1.95em; top: 4.3em; background: var(--red); color: #fff; font-family: var(--wide); font-size: 0.36em; letter-spacing: 0.16em; padding: 0.45em 0.7em 0.35em; box-shadow: 0.2em 0.2em 0 #5a0c0a; }
+.tt2box .f .fname { position: absolute; left: 0.24em; right: 0.16em; top: 0.78em; font-size: 2.55em; line-height: 1; white-space: nowrap; }
+.tt2box .f .fsub { position: absolute; left: 1.5em; top: 8.9em; color: #fff; font-weight: 700; font-size: 0.56em; letter-spacing: 0.02em; }
+.tt2box .f .fart { position: absolute; left: 1.05em; top: 6.3em; width: 12.6em; border: 0.28em solid #fff; transform: rotate(-3deg); box-shadow: 0.2em 0.3em 0.6em rgba(0, 0, 0, 0.6); }
+.tt2box .f .fburst { position: absolute; right: 0.25em; top: 4.4em; width: 4.6em; height: 4.6em; }
+.tt2box .f .fgrid { position: absolute; left: 0; right: 0; bottom: 0; height: 5.8em; overflow: hidden;
+    background:
+        linear-gradient(180deg, rgba(53, 25, 124, 1) 0%, rgba(53, 25, 124, 0) 45%),
+        repeating-linear-gradient(90deg, rgba(var(--grid), 0.7) 0 0.06em, transparent 0.06em 1.2em),
+        repeating-linear-gradient(180deg, rgba(var(--grid), 0.7) 0 0.06em, transparent 0.06em 0.9em),
+        #241056; }
+.tt2box .f .fgrid::before { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(36, 16, 86, 0.9), transparent 30%, transparent 70%, rgba(36, 16, 86, 0.9)); }
+.tt2box .f .fbadge { position: absolute; left: 50%; bottom: 3em; transform: translateX(-50%); white-space: nowrap; color: #fff; font-family: var(--wide); font-size: 0.4em; letter-spacing: 0.3em; padding: 0.5em 1em; border-top: 0.12em solid var(--gold1); border-bottom: 0.12em solid var(--gold1); background: rgba(9, 12, 44, 0.8); }
+.tt2box .f .fby { position: absolute; left: 0; right: 0; bottom: 1.5em; text-align: center; color: var(--muted); font-family: var(--wide); font-size: 0.3em; letter-spacing: 0.35em; }
+.tt2box .gloss { position: absolute; inset: 0; z-index: 8; pointer-events: none;
+    background: linear-gradient(115deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.07) 32%, transparent 33%, transparent 62%, rgba(255, 255, 255, 0.06) 63%, rgba(255, 255, 255, 0.0) 80%); }
+/* the starburst (used on the box and elsewhere) */
+.tt2box .burst { position: relative; display: flex; align-items: center; justify-content: center; text-align: center; }
+.tt2box .burst::before { content: ""; position: absolute; inset: 0; background: var(--burst);
+    clip-path: polygon(50% 0, 59% 14%, 75% 6%, 76% 23%, 93% 21%, 87% 37%, 100% 46%, 87% 56%, 95% 72%, 78% 74%, 76% 92%, 61% 85%, 50% 100%, 39% 85%, 24% 92%, 22% 74%, 5% 72%, 13% 56%, 0 46%, 13% 37%, 7% 21%, 24% 23%, 25% 6%, 41% 14%);
+    transform: rotate(8deg); }
+.tt2box .burst span { position: relative; font-family: var(--chunky); color: var(--red); text-transform: uppercase; line-height: 1.02; transform: rotate(8deg); }
+.tt2box .f .fburst span { font-size: 0.62em; }
+/* the back */
+.tt2box .b { padding: 0.9em 0.85em 0; }
+.tt2box .b .bstripe { position: absolute; left: 0; right: 0; top: 0; height: 0.4em; background: var(--rainbow); }
+.tt2box .b h3 { font-family: var(--chunky); font-weight: 400; color: var(--gold1); font-size: 1.12em; line-height: 1.05; margin: 0.3em 0 0.45em; }
+.tt2box .b .bshot { border: 0.14em solid #fff; }
+.tt2box .b .bshots { display: grid; grid-template-columns: 1fr 1fr; gap: 0.3em; margin-top: 0.3em; }
+.tt2box .b .bshots img { border: 0.08em solid #fff; }
+.tt2box .b ul { list-style: none; margin: 0.55em 0 0; padding: 0; color: #fff; font-size: 0.5em; line-height: 1.35; }
+.tt2box .b li { padding-left: 1.1em; position: relative; margin-bottom: 0.18em; }
+.tt2box .b li::before { content: ""; position: absolute; left: 0.1em; top: 0.42em; width: 0.5em; height: 0.5em; background: var(--burst); }
+.tt2box .b .bneed { position: absolute; left: 0; right: 0; bottom: 0; background: #fff; color: #0b1140; font-size: 0.42em; padding: 0.7em 1.9em; display: flex; justify-content: space-between; align-items: center; gap: 1em; line-height: 1.35; }
+.tt2box .b .bneed b { display: block; font-family: var(--wide); font-weight: 400; letter-spacing: 0.15em; text-transform: uppercase; }
+.tt2box .barcode { flex: 0 0 auto; width: 5.5em; height: 2.8em; background: repeating-linear-gradient(90deg, #000 0 0.14em, #fff 0.14em 0.26em, #000 0.26em 0.48em, #fff 0.48em 0.56em, #000 0.56em 0.62em, #fff 0.62em 0.8em, #000 0.8em 0.9em, #fff 0.9em 1.02em); }
+/* sides and top */
+.tt2box .l .vstripe, .tt2box .r .vstripe { width: 100%; height: 3.4em; flex: 0 0 auto; background: var(--rainbow-v); }
+.tt2box .l .vname, .tt2box .r .vname { writing-mode: vertical-rl; font-size: 1.5em; margin-top: 0.5em; line-height: 1; }
+.tt2box .l small, .tt2box .r small { margin-top: auto; margin-bottom: 0.9em; writing-mode: vertical-rl; color: #fff; font-family: var(--wide); font-size: 0.36em; letter-spacing: 0.25em; text-transform: uppercase; }
+.tt2box .t .tname { font-size: 1.15em; line-height: 1; }
+.tt2box .t .tstripe { width: 60%; height: 0.28em; margin-top: 0.35em; background: var(--rainbow); }
+.tt2box .boxbar { position: relative; z-index: 2; display: flex; justify-content: center; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 6px; font-family: var(--wide); font-size: 0.64rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+.tt2box .boxbar button { font: inherit; letter-spacing: 0.12em; color: #fff; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.35); border-radius: 4px; padding: 7px 11px 6px; cursor: pointer; }
+.tt2box .boxbar button:hover { background: rgba(255, 255, 255, 0.16); border-color: #fff; }
+/* on a light page (the newspaper): the bar under the box in dark ink */
+.tt2box.on-light .boxbar { color: #333; }
+.tt2box.on-light .boxbar button { color: #111; background: #fff; border-color: #111; }
+.tt2box.on-light .boxbar button:hover, .tt2box.on-light .boxbar button:focus-visible { background: #ffe65a; }
+.tt2box.on-light .boxview::after { background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.35) 0%, transparent 70%); }
+.tt2box .boxbar button:focus-visible { outline: 2px solid var(--gold1); outline-offset: 2px; }
+.tt2box .gold {
+    font-family: var(--chunky); font-weight: 400;
+    background: linear-gradient(180deg, var(--gold1) 0%, #ffd23a 48%, var(--gold2) 52%, #e98a22 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    -webkit-text-stroke: 0.035em var(--gold-edge);
+    filter: drop-shadow(0.035em 0.045em 0 #2a1300) drop-shadow(0.03em 0.04em 0 #120a00);
+}

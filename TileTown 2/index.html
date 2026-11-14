@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TileTown 2 - An Isometric City Builder for the Apple IIgs</title>
+<meta name="description" content="TileTown 2 is an isometric city-building game for the Apple IIgs, written from scratch in 65816 assembly. Buildings stand up from the map, chimneys smoke, trains run on the rails. Coming soon, for an 8 MB IIgs with an accelerator.">
+<meta name="author" content="Walter Tengler">
+<link rel="canonical" href="https://portwally.github.io/TileTown%202/">
+<link rel="icon" type="image/png" href="icon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="TileTown 2 - An Isometric City Builder for the Apple IIgs">
+<meta property="og:description" content="The city stands up from the map: an isometric city builder for the Apple IIgs, written from scratch in 65816 assembly. Coming soon.">
+<meta property="og:image" content="https://portwally.github.io/TileTown%202/screens/city.png">
+<meta property="og:url" content="https://portwally.github.io/TileTown%202/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="TileTown 2 - An Isometric City Builder for the Apple IIgs">
+<meta name="twitter:description" content="The city stands up from the map: an isometric city builder for the Apple IIgs. Coming soon.">
+<meta name="twitter:image" content="https://portwally.github.io/TileTown%202/screens/city.png">
+<meta name="theme-color" content="#0d3768">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoGame",
+  "name": "TileTown 2",
+  "description": "An isometric city-building game for the Apple IIgs, written from scratch in 65816 assembly.",
+  "genre": "City-building simulation",
+  "gamePlatform": "Apple IIgs",
+  "author": { "@type": "Person", "name": "Walter Tengler" },
+  "copyrightYear": 2026,
+  "inLanguage": "en",
+  "image": "https://portwally.github.io/TileTown%202/screens/city.png",
+  "url": "https://portwally.github.io/TileTown%202/"
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;1,400&family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Architects+Daughter&display=swap" rel="stylesheet">
+<style>
+/* The City Planning Office: the page is one drawing sheet on blueprint paper.
+   Square grid + 2:1 isometric lattice (the game's 32 x 16 diamond), white line
+   work, one coral "redline" accent for revisions and status. */
+:root{
+  --paper:#0d3768; --paper-hi:#134a85; --paper-lo:#0a2b52; --mat:#061a33;
+  --ink:#eaf4ff; --ink-2:#a9c8e6; --ink-3:#7fa6cc;
+  --rule:rgba(234,244,255,.85); --rule-2:rgba(234,244,255,.38); --rule-3:rgba(234,244,255,.16);
+  --red:#ff8f7d;
+  --fh:"Barlow Condensed","Arial Narrow",sans-serif;
+  --fb:"Barlow",system-ui,-apple-system,sans-serif;
+  --fm:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --fa:"Architects Daughter","Comic Sans MS",cursive;
+  --pad:6px; --gut:0px; --bw:0px; --sp:9px;
+}
+@media (min-width:760px){ :root{ --pad:12px; --gut:24px; --bw:2px; --sp:28px; } }
+@media (min-width:1100px){ :root{ --sp:34px; } }
+*{box-sizing:border-box}
+html{color-scheme:dark;scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{
+  margin:0; padding:var(--pad); color:var(--ink); font:400 17px/1.55 var(--fb);
+  background-color:var(--paper);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='32'%3E%3Cpath d='M0 16 32 0 64 16 32 32Z' fill='none' stroke='%23cfe6ff' stroke-opacity='.055'/%3E%3C/svg%3E"),
+    linear-gradient(rgba(190,222,255,.085) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(190,222,255,.085) 1px,transparent 1px),
+    linear-gradient(rgba(190,222,255,.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(190,222,255,.04) 1px,transparent 1px),
+    radial-gradient(ellipse 120% 60% at 50% 0%,var(--paper-hi),var(--paper) 55%,var(--paper-lo));
+  background-size:64px 32px,64px 64px,64px 64px,16px 16px,16px 16px,100% 100%;
+}
+img{max-width:100%}
+a{color:var(--ink);text-decoration-color:var(--ink-3);text-underline-offset:3px;text-decoration-thickness:1px}
+a:hover{text-decoration-color:var(--red)}
+:focus-visible{outline:2px solid var(--red);outline-offset:3px;border-radius:2px}
+.sr{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:12px;top:-60px;background:var(--ink);color:var(--paper);padding:8px 14px;font:600 15px var(--fb);z-index:10}
+.skip:focus{top:12px}
+.mono{font-family:var(--fm)}
+
+/* ---------- the sheet ---------- */
+.frame{position:relative;max-width:1460px;margin:0 auto;border:1px solid var(--rule-2);padding:var(--gut)}
+.sheet{border:var(--bw) solid var(--rule);padding:0 var(--sp) 0}
+.ruler{display:none}
+.reg{display:none}
+@media (min-width:760px){
+  .ruler{position:absolute;left:var(--gut);right:var(--gut);height:var(--gut);display:flex;font:500 11px/var(--gut) var(--fm);color:var(--ink-3)}
+  .ruler.top{top:0}.ruler.bot{bottom:0}
+  .ruler span{flex:1;text-align:center;border-left:1px solid var(--rule-3)}
+  .ruler span:first-child{border-left:0}
+  .reg{display:block;position:absolute;width:var(--gut);height:var(--gut)}
+  .reg::before,.reg::after{content:"";position:absolute;background:var(--rule-2)}
+  .reg::before{left:50%;top:3px;bottom:3px;width:1px}
+  .reg::after{top:50%;left:3px;right:3px;height:1px}
+  .reg i{position:absolute;inset:6px;border:1px solid var(--rule-2);border-radius:50%}
+  .reg.tl{left:0;top:0}.reg.tr{right:0;top:0}.reg.bl{left:0;bottom:0}.reg.br{right:0;bottom:0}
+  .zone{position:relative}
+  .zone::before,.zone::after{content:attr(data-zone);position:absolute;top:6px;width:var(--gut);text-align:center;font:500 11px var(--fm);color:var(--ink-3)}
+  .zone::before{left:calc(-1*var(--sp) - var(--bw) - var(--gut))}
+  .zone::after{right:calc(-1*var(--sp) - var(--bw) - var(--gut))}
+}
+
+/* ---------- top strip ---------- */
+.strip{display:flex;flex-wrap:wrap;gap:6px 18px;justify-content:space-between;align-items:center;
+  border-bottom:1px solid var(--rule-2);padding:12px 0 10px;font:500 12px/1.4 var(--fm);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
+.strip a{color:var(--ink);text-decoration:none}
+.strip a:hover{color:var(--red)}
+.strip nav{display:flex;flex-wrap:wrap;gap:4px 16px}
+.strip .back{display:inline-flex;gap:8px;align-items:center}
+
+/* ---------- masthead ---------- */
+.mast{padding:28px 0 8px}
+.kicker{font:500 12px/1.4 var(--fm);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);margin:0 0 6px}
+h1{margin:0;font:700 clamp(62px,13.2vw,176px)/.86 var(--fh);letter-spacing:.005em;text-transform:uppercase;display:flex;align-items:flex-end;gap:.06em;flex-wrap:nowrap}
+h1 .word{color:var(--ink)}
+@supports ((-webkit-background-clip:text) or (background-clip:text)) and (-webkit-text-stroke:1px white){
+  h1 .word{color:transparent;-webkit-text-stroke:clamp(1.5px,.2vw,2.5px) var(--ink);
+    background:repeating-linear-gradient(-45deg,rgba(234,244,255,.9) 0 1.4px,transparent 1.4px 6px);
+    -webkit-background-clip:text;background-clip:text}
+}
+h1 .delta{width:.86em;height:.78em;flex:none;margin-bottom:.01em}
+.mast-grid{display:grid;gap:22px 48px;margin-top:22px}
+@media (min-width:900px){.mast-grid{grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);align-items:start}}
+.sub{margin:0 0 12px;font:500 clamp(24px,3vw,34px)/1.15 var(--fh);letter-spacing:.02em}
+.lede{margin:0;max-width:40em;font-size:clamp(17px,1.5vw,19px)}
+.status{position:relative;padding:4px 0 0}
+.stamp{display:inline-block;transform:rotate(-2.5deg);border:3px double var(--red);color:var(--red);padding:10px 18px 9px;text-transform:uppercase;font-family:var(--fh)}
+.stamp small{display:block;font:500 11px/1.3 var(--fm);letter-spacing:.16em}
+.stamp strong{display:block;font:700 clamp(34px,4vw,46px)/1 var(--fh);letter-spacing:.05em;margin:3px 0 2px}
+.stamp span{display:block;font:600 14px/1.25 var(--fh);letter-spacing:.08em}
+.status p{margin:16px 0 0;color:var(--ink-2);font-size:16px;max-width:30em}
+.status p a{color:var(--ink);font-weight:500}
+.pencil{font-family:var(--fa);color:var(--red);font-size:17px;line-height:1.35}
+
+.dims{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 22px;margin:34px 0 0;padding:0;list-style:none}
+@media (min-width:640px){.dims{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (min-width:1000px){.dims{grid-template-columns:repeat(5,minmax(0,1fr))}}
+.dims li{position:relative}
+.dl{position:relative;display:flex;align-items:center;gap:10px;height:40px;border-inline:1px solid var(--rule-2);font:600 28px/1 var(--fh);white-space:nowrap}
+.dl::before,.dl::after{content:"";flex:1;height:1px;background:var(--rule-2)}
+.dims li::before,.dims li::after{content:"";position:absolute;top:20px;width:11px;height:1.5px;background:var(--ink);transform:translate(-50%,-50%) rotate(-45deg)}
+.dims li::before{left:0}.dims li::after{left:100%}
+.dims p{margin:6px 0 0;text-align:center;font:500 12px/1.35 var(--fm);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
+
+/* ---------- detail titles ---------- */
+.dt{display:flex;align-items:center;gap:16px;margin:0 0 26px}
+.bub{flex:none;width:58px;height:58px;border:2px solid var(--ink);border-radius:50%;display:grid;grid-template-rows:1fr 1fr;text-align:center;overflow:hidden}
+.bub b{font:700 22px/1 var(--fh);align-self:end;padding-bottom:3px;border-bottom:1.5px solid var(--ink)}
+.bub i{font:500 10px/1 var(--fm);font-style:normal;padding-top:5px;color:var(--ink-2)}
+.dt-t{flex:1;min-width:0}
+.dt h2{margin:0;font:600 clamp(26px,3.4vw,38px)/1.05 var(--fh);letter-spacing:.04em;text-transform:uppercase;padding-bottom:6px;border-bottom:3px solid var(--ink);box-shadow:0 4px 0 -3px var(--rule-2)}
+.dt p{margin:9px 0 0;font:500 12px/1.4 var(--fm);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2)}
+section{padding:64px 0 0}
+section.first{padding-top:44px}
+.intro{max-width:44em;margin:-6px 0 28px;color:var(--ink)}
+
+/* ---------- mounted plates ---------- */
+.mount{position:relative;padding:12px}
+.mount::before{content:"";position:absolute;inset:0;pointer-events:none;
+  --c:var(--ink);
+  background:
+   linear-gradient(var(--c),var(--c)) 0 0/14px 1px no-repeat, linear-gradient(var(--c),var(--c)) 0 0/1px 14px no-repeat,
+   linear-gradient(var(--c),var(--c)) 100% 0/14px 1px no-repeat, linear-gradient(var(--c),var(--c)) 100% 0/1px 14px no-repeat,
+   linear-gradient(var(--c),var(--c)) 0 100%/14px 1px no-repeat, linear-gradient(var(--c),var(--c)) 0 100%/1px 14px no-repeat,
+   linear-gradient(var(--c),var(--c)) 100% 100%/14px 1px no-repeat, linear-gradient(var(--c),var(--c)) 100% 100%/1px 14px no-repeat}
+.pic{position:relative;background:var(--mat);border:1px solid var(--rule);padding:6px}
+.pic img{display:block;width:100%;height:auto;image-rendering:pixelated;image-rendering:crisp-edges}
+@supports (image-rendering:pixelated){.pic img{image-rendering:pixelated}}
+.cap{margin:10px 0 0;font:500 12px/1.45 var(--fm);letter-spacing:.04em;color:var(--ink-2)}
+.cap b{color:var(--ink);font-weight:500;text-transform:uppercase;letter-spacing:.1em}
+
+/* ---------- Fig. 1 with callouts ---------- */
+.fig1{position:relative;margin:0;display:grid;gap:14px 26px;grid-template-columns:minmax(0,1fr);grid-template-areas:"p" "c" "l" "r"}
+.fig1 .mount{grid-area:p}
+.fig1 .cap{grid-area:c;margin:0}
+.co{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.co-l{grid-area:l}.co-r{grid-area:r}
+.co li{display:flex;gap:12px;align-items:flex-start;font-size:15px;line-height:1.4;color:var(--ink-2)}
+.co li b{display:block;color:var(--ink);font:600 16px/1.2 var(--fh);letter-spacing:.08em;text-transform:uppercase;margin-bottom:2px}
+.ball{flex:none;width:26px;height:26px;border:1.5px solid var(--ink);border-radius:50%;display:grid;place-items:center;font:600 13px/1 var(--fm);color:var(--ink);background:var(--paper)}
+.co li.hot .ball{background:var(--red);border-color:var(--red);color:var(--mat)}
+.pin{position:absolute;left:calc(var(--x)*1%);top:calc(var(--y)*1%);transform:translate(-50%,-50%);width:20px;height:20px;border-radius:50%;
+  background:var(--ink);color:var(--mat);border:2px solid var(--mat);font:600 11px/16px var(--fm);text-align:center;box-shadow:0 0 0 1px var(--ink)}
+.fig1.has-leaders .pin{display:none}
+.leaders{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;overflow:visible;z-index:2}
+.leaders .halo{fill:none;stroke:var(--mat);stroke-width:4;stroke-opacity:.85;stroke-linejoin:round}
+.leaders .ln{fill:none;stroke:var(--ink);stroke-width:1.3;stroke-linejoin:round}
+.leaders .dot{fill:var(--ink);stroke:var(--mat);stroke-width:2}
+.leaders .ring{fill:none;stroke:var(--ink);stroke-width:1.3}
+.leaders g.hot .ln,.leaders g.hot .ring{stroke:var(--red)}
+.leaders g.hot .dot{fill:var(--red)}
+@media (prefers-reduced-motion:no-preference){
+  .leaders.anim .ln{stroke-dasharray:1;stroke-dashoffset:1;animation:draw 1s ease-out forwards}
+  .leaders.anim .halo{stroke-dasharray:1;stroke-dashoffset:1;animation:draw 1s ease-out forwards}
+  .leaders.anim .ring,.leaders.anim .dot{opacity:0;animation:pop .3s ease-out .9s forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @keyframes pop{to{opacity:1}}
+}
+@media (min-width:640px) and (max-width:999px){
+  .fig1{grid-template-columns:1fr 1fr;grid-template-areas:"p p" "c c" "l r"}
+}
+@media (min-width:1000px){
+  .fig1{margin:0 calc(-1*var(--sp) + 10px);grid-template-columns:168px minmax(0,1fr) 168px;grid-template-areas:"l p r" ". c .";row-gap:6px}
+  .co{display:flex;flex-direction:column;justify-content:space-around;padding:12px 0}
+  .co-l li{flex-direction:row-reverse;text-align:right}
+  .co li{font-size:14px}
+}
+@media (min-width:1300px){ .fig1{grid-template-columns:190px minmax(0,1fr) 190px} }
+
+/* ---------- revision table ---------- */
+table{width:100%;border-collapse:collapse;font-size:16px}
+th{font:500 11px/1.3 var(--fm);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);text-align:left;padding:9px 12px;border-bottom:2px solid var(--ink);background:rgba(234,244,255,.05)}
+td{padding:12px;border-bottom:1px solid var(--rule-2);vertical-align:top}
+.tbl{border:1px solid var(--rule)}
+.rev-note{display:flex;flex-wrap:wrap;gap:6px 24px;padding:9px 12px;border-bottom:1px solid var(--rule-2);font:500 12px/1.4 var(--fm);letter-spacing:.05em;color:var(--ink-2)}
+.rev-note b{color:var(--ink);font-weight:500}
+.tri{display:inline-grid;place-items:center;width:30px;height:27px;position:relative;font:600 13px/1 var(--fm);color:var(--red);padding-top:7px}
+.tri svg{position:absolute;inset:0;width:100%;height:100%}
+.rev td:first-child{width:56px}
+.rev td.chg{width:26%;font:600 19px/1.2 var(--fh);letter-spacing:.03em}
+.rev td.see{width:110px;font:500 13px var(--fm);white-space:nowrap}
+.rev td.see a{color:var(--ink-2)}
+@media (max-width:699px){
+  .rev thead{display:none}
+  .rev tr{display:grid;grid-template-columns:44px 1fr;border-bottom:1px solid var(--rule-2);padding:10px 0}
+  .rev td{border:0;padding:2px 10px}
+  .rev td:first-child{grid-row:span 3;width:auto}
+  .rev td.chg,.rev td.see{width:auto}
+}
+.details{display:grid;gap:30px;margin-top:34px;grid-template-columns:minmax(0,1fr)}
+@media (min-width:700px){.details{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.det{margin:0;text-align:center}
+.det .art{height:210px;display:grid;place-items:center}
+.zoom{width:196px;height:196px;border-radius:50%;border:2px solid var(--ink);box-shadow:0 0 0 5px var(--paper),0 0 0 6px var(--rule-2);
+  background:url(screens/city.png) no-repeat;background-size:1440px 960px;image-rendering:pixelated}
+.det figcaption{margin-top:12px;font:500 12px/1.45 var(--fm);letter-spacing:.04em;color:var(--ink-2)}
+.det figcaption b{display:block;color:var(--ink);font:600 17px/1.2 var(--fh);letter-spacing:.08em;text-transform:uppercase;margin-bottom:3px}
+.tile svg{width:100%;max-width:290px;height:auto;overflow:visible}
+
+/* ---------- plan / iso ---------- */
+.pair{display:grid;gap:18px;grid-template-columns:minmax(0,1fr);align-items:center}
+@media (min-width:860px){.pair{grid-template-columns:minmax(0,1fr) 92px minmax(0,1fr)}}
+.pair figure{margin:0}
+.swap{display:grid;justify-items:center;gap:8px;text-align:center}
+kbd.key{display:inline-grid;place-items:center;width:58px;height:58px;border:2px solid var(--ink);border-radius:8px;box-shadow:inset 0 -5px 0 rgba(234,244,255,.18),0 3px 0 var(--rule-2);
+  font:700 30px/1 var(--fh);color:var(--ink);background:rgba(6,26,51,.5)}
+.swap .pencil{font-size:16px;max-width:9em}
+.swap svg{width:64px;height:18px}
+@media (max-width:859px){.swap{grid-auto-flow:column;align-items:center;justify-content:center;gap:14px}.swap svg{transform:rotate(90deg)}}
+
+/* ---------- general notes ---------- */
+.notes{margin:0;padding:0;list-style:none;counter-reset:n;columns:1;column-gap:48px}
+@media (min-width:860px){.notes{columns:2}}
+.notes li{counter-increment:n;break-inside:avoid;position:relative;padding:0 0 14px 44px;margin-bottom:4px}
+.notes li::before{content:counter(n,decimal-leading-zero);position:absolute;left:0;top:2px;font:500 13px var(--fm);color:var(--ink-2);border-bottom:1px solid var(--rule-2);padding-bottom:1px}
+.notes b{font-weight:600}
+
+/* ---------- schedules ---------- */
+.sched{display:grid;gap:44px 48px;grid-template-columns:minmax(0,1fr)}
+@media (min-width:960px){.sched{grid-template-columns:minmax(0,1fr) minmax(0,1.1fr)}}
+h3{margin:0 0 12px;font:600 21px/1.2 var(--fh);letter-spacing:.08em;text-transform:uppercase;display:flex;gap:10px;align-items:baseline}
+h3 span{font:500 11px var(--fm);letter-spacing:.12em;color:var(--ink-2)}
+.rates td{padding:6px 12px;vertical-align:middle}
+.rates td.ico{width:1%;white-space:nowrap;padding-right:4px;text-align:right}
+.rates td.amt,.rates th.amt{text-align:right;font-family:var(--fm);font-variant-numeric:tabular-nums;white-space:nowrap}
+.rates .unit{font:400 12px var(--fm);color:var(--ink-2);margin-left:6px}
+.ti{display:inline-block;width:30px;height:32px;vertical-align:middle;background:url(screens/city.png) no-repeat;background-size:480px 320px;image-rendering:pixelated;border:1px solid var(--rule-2);margin-right:3px}
+@media (max-width:560px){.ti.x{display:none}}
+.goals td:first-child{font:600 18px/1.2 var(--fh);letter-spacing:.04em;white-space:nowrap}
+.goals td.yrs{font-family:var(--fm);font-size:14px;white-space:nowrap;text-align:right}
+.goals tr.free td{color:var(--ink-2)}
+.goals th.yrs{text-align:right}
+@media (max-width:560px){
+  .goals thead{display:none}
+  .goals tr{display:grid;grid-template-columns:1fr auto;padding:10px 12px;border-bottom:1px solid var(--rule-2)}
+  .goals td{border:0;padding:1px 0}
+  .goals td.tgt{grid-column:1/-1;order:3}
+}
+.lv td.amt{font-family:var(--fm)}
+.sched-r{display:grid;gap:36px}
+.disasters{margin:12px 0 0;color:var(--ink-2);font-size:15px}
+.survey{margin-top:52px;display:grid;gap:22px 40px;grid-template-columns:minmax(0,1fr);align-items:center}
+@media (min-width:960px){.survey{grid-template-columns:minmax(0,680px) minmax(0,1fr)}}
+.survey p{margin:0 0 12px}
+.survey ul{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:8px}
+.survey li{border:1px solid var(--rule-2);padding:3px 10px;font:500 13px var(--fm);letter-spacing:.04em}
+
+/* ---------- gallery ---------- */
+.gal{display:grid;gap:30px 26px;grid-template-columns:minmax(0,1fr);list-style:none;margin:0;padding:0}
+@media (min-width:640px){.gal{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:1040px){.gal{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.gal a{display:block;text-decoration:none;color:inherit}
+.gal a:hover .pic{border-color:var(--red)}
+.gal .mount{padding:10px}
+.gal .cap{margin-top:8px}
+
+/* ---------- specification ---------- */
+.spec-wrap{display:grid;gap:44px;grid-template-columns:minmax(0,1fr)}
+@media (min-width:980px){.spec-wrap{grid-template-columns:minmax(0,1fr) 330px}}
+.spec{display:grid;gap:0;border:1px solid var(--rule);grid-template-columns:minmax(0,1fr)}
+@media (min-width:700px){.spec{grid-template-columns:1fr 1fr}}
+.opt{padding:0}
+.opt + .opt{border-top:1px solid var(--rule)}
+@media (min-width:700px){.opt + .opt{border-top:0;border-left:1px solid var(--rule)}}
+.opt h3{margin:0;padding:12px 16px;border-bottom:2px solid var(--ink);background:rgba(234,244,255,.05);font-size:19px;flex-direction:column;gap:2px;align-items:flex-start}
+.opt dl{margin:0;padding:4px 16px 14px}
+.opt dl div{display:grid;grid-template-columns:104px 1fr;gap:12px;padding:10px 0;border-bottom:1px dashed var(--rule-2)}
+.opt dl div:last-child{border-bottom:0}
+.opt dt{font:500 11px/1.9 var(--fm);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2)}
+.opt dd{margin:0;font-size:16px}
+.opt dd strong{font:700 22px/1 var(--fh);letter-spacing:.03em}
+.spec-note{margin:14px 0 0;color:var(--ink-2);font-size:15px}
+.booklet{display:grid;gap:14px;justify-items:start}
+.booklet a.cover{display:block;width:100%;max-width:290px;text-decoration:none}
+.booklet .pic{padding:8px}
+.booklet .pic img{image-rendering:auto}
+.booklet a.cover:hover .pic{border-color:var(--red)}
+.btn{display:inline-flex;align-items:center;gap:10px;border:2px solid var(--ink);padding:10px 16px;font:600 17px/1 var(--fh);letter-spacing:.1em;text-transform:uppercase;text-decoration:none;color:var(--ink);background:rgba(6,26,51,.45)}
+.btn:hover{border-color:var(--red);color:var(--red)}
+.booklet .meta{font:500 12px/1.5 var(--fm);letter-spacing:.05em;color:var(--ink-2);margin:0}
+
+/* ---------- drawing index ---------- */
+.idx{list-style:none;margin:0;padding:0;display:grid;gap:0;grid-template-columns:minmax(0,1fr);border-top:1px solid var(--rule);border-left:1px solid var(--rule)}
+@media (min-width:700px){.idx{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:1100px){.idx{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.idx li{border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);display:flex}
+.dwg{flex:1;display:grid;grid-template-columns:72px minmax(0,1fr) 22px;gap:16px;align-items:center;padding:16px;text-decoration:none;color:var(--ink);transition:background-color .15s}
+.dwg:hover{background:rgba(234,244,255,.07)}
+.dwg:hover .go{color:var(--red);transform:translateX(3px)}
+.dwg .ico{position:relative;width:72px;height:72px;border:1px solid var(--rule-2);display:grid;place-items:center;background:var(--mat)}
+.dwg .ico img{width:64px;height:64px;display:block;image-rendering:pixelated}
+.dwg .no{display:block;font:500 11px/1.3 var(--fm);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2)}
+.dwg .t{display:block;font:600 23px/1.1 var(--fh);letter-spacing:.03em;margin:3px 0 4px}
+.dwg .d{display:block;font-size:14.5px;line-height:1.4;color:var(--ink-2)}
+.go{font:500 20px/1 var(--fm);transition:transform .15s,color .15s}
+@media (prefers-reduced-motion:reduce){.dwg,.go{transition:none}}
+.idx li.feat .dwg{background:rgba(234,244,255,.035)}
+.dwg .ico svg{width:46px;height:46px}
+
+/* ---------- title block ---------- */
+footer{padding:72px 0 calc(var(--sp) + 4px)}
+.tb{display:grid;border:2px solid var(--ink);grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (min-width:860px){.tb{grid-template-columns:2fr 1.4fr 1fr 1fr 1fr 0.8fr;margin-left:auto}}
+.tb > div{padding:9px 12px 10px;border-right:1px solid var(--rule-2);border-bottom:1px solid var(--rule-2);min-width:0}
+.tb small{display:block;font:500 10px/1.3 var(--fm);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);margin-bottom:3px}
+.tb span{font:600 18px/1.2 var(--fh);letter-spacing:.05em;text-transform:uppercase}
+.tb .proj{grid-column:1/-1}
+.tb .proj span{font-size:30px;letter-spacing:.06em}
+.tb .stat span{color:var(--red)}
+.tb .legal{grid-column:1/-1;font-size:13.5px;line-height:1.5;color:var(--ink-2)}
+.tb .legal p{margin:0}
+.tb .copy{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:6px 22px;justify-content:space-between;font:500 12px/1.5 var(--fm);letter-spacing:.06em;border-bottom:0}
+.tb .copy nav{display:flex;flex-wrap:wrap;gap:4px 18px}
+@media (min-width:860px){
+  .tb .proj{grid-column:1/2;grid-row:1/3}
+  .tb .legal{grid-column:1/-1}
+}
+
+/* ---------- lightbox ---------- */
+dialog.lb{border:1px solid var(--ink);background:var(--mat);color:var(--ink);padding:12px;max-width:min(96vw,1000px);width:100%}
+dialog.lb::backdrop{background:rgba(4,16,32,.86)}
+dialog.lb img{display:block;width:100%;height:auto;image-rendering:pixelated}
+dialog.lb .bar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:10px;font:500 13px/1.4 var(--fm);color:var(--ink-2)}
+dialog.lb button{font:600 15px var(--fh);letter-spacing:.1em;text-transform:uppercase;background:none;color:var(--ink);border:1.5px solid var(--ink);padding:6px 12px;cursor:pointer}
+/* Fig. 0: the box (box3d.css draws it) */
+.pack{display:grid;grid-template-columns:minmax(0,1fr);gap:20px;align-items:center}
+.pack .tt2box{border:1px dashed var(--rule-2);padding:10px 0 14px;background:rgba(5,20,50,.25)}
+.pack-list{margin:14px 0 0;padding-left:22px;font:500 14px/1.55 var(--fm)}
+.pack-list li{margin-bottom:8px}
+.pack-list b{text-transform:uppercase;letter-spacing:.06em}
+@media (min-width:860px){.pack{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:36px}}
+</style>
+<link rel="stylesheet" href="box3d.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="frame">
+  <div class="ruler top" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span></div>
+  <span class="reg tl" aria-hidden="true"><i></i></span><span class="reg tr" aria-hidden="true"><i></i></span>
+  <span class="reg bl" aria-hidden="true"><i></i></span><span class="reg br" aria-hidden="true"><i></i></span>
+
+  <div class="sheet">
+    <header class="strip">
+      <a class="back" href="../"><span aria-hidden="true">&larr;</span> All apps</a>
+      <nav aria-label="On this page">
+        <a href="#box">The box</a><a href="#fig1">Fig. 1</a><a href="#revision">Revision 2</a><a href="#notes">Notes</a><a href="#schedules">Schedules</a><a href="#spec">Specification</a><a href="#index">Drawing index</a>
+      </nav>
+    </header>
+
+    <main id="main">
+    <div class="mast zone" data-zone="A">
+      <p class="kicker">City Planning Office &middot; Apple IIgs &middot; Dwg TT2-001 &middot; Rev 2</p>
+      <h1><span class="word">TileTown</span><span class="sr"> 2</span><svg class="delta" viewBox="0 0 100 90" aria-hidden="true"><polygon points="50,5 96,86 4,86" fill="none" stroke="#ff8f7d" stroke-width="6" stroke-linejoin="round"/><text x="50" y="79" text-anchor="middle" font-family="Barlow Condensed, Arial Narrow, sans-serif" font-weight="700" font-size="56" fill="#ff8f7d">2</text></svg></h1>
+      <div class="mast-grid">
+        <div>
+          <p class="sub">An isometric city builder for the Apple&nbsp;IIgs</p>
+          <p class="lede">The sequel to <a href="../TileTown/">TileTown</a>, written from scratch in 65816 assembly. This time the city stands up from the map: homes, towers and factories drawn in 32&nbsp;&times;&nbsp;16 diamonds, with cars, trains and tornadoes going behind them. Lay out the roads, zone the land, balance the budget and keep the people happy.</p>
+        </div>
+        <div class="status">
+          <div class="stamp" role="note" aria-label="Status: coming soon. Price and release date to be announced.">
+            <small>Status</small><strong>Coming soon</strong><span>Price and release date to be announced</span>
+          </div>
+          <p>There is no download yet. Can't wait? The original <a href="../TileTown/">TileTown</a> has a free demo for any 2&nbsp;MB IIgs.</p>
+        </div>
+      </div>
+      <ul class="dims" aria-label="TileTown 2 in numbers">
+        <li><div class="dl">128 &times; 128</div><p>squares in the map</p></li>
+        <li><div class="dl">16</div><p>maps to start on</p></li>
+        <li><div class="dl">17</div><p>things to build</p></li>
+        <li><div class="dl">5</div><p>goals, or free play</p></li>
+        <li><div class="dl">8&nbsp;MB</div><p>and an accelerator</p></li>
+      </ul>
+    </div>
+
+    <!-- ===== Fig. 0: the box (box3d.js) ===== -->
+    <section class="first" id="box" aria-labelledby="h-box">
+      <div class="dt"><div class="bub" aria-hidden="true"><b>0</b><i>TT2</i></div>
+        <div class="dt-t"><h2 id="h-box">The box</h2><p>Fig. 0 &middot; packaging &middot; drag to turn</p></div></div>
+      <div class="pack">
+        <div class="tt2box"></div>
+        <div class="pack-notes">
+          <p class="lede">Every city builder of 1990 came in a box, so TileTown 2 has one too. Turn it round: the title picture on the front, the new isometric city on the back, with what you need.</p>
+          <ol class="pack-list">
+            <li><b>Front</b> - the title screen, the name in gold, a starburst: a city in 3D, 16 maps, 3 levels.</li>
+            <li><b>Back</b> - the city view, four new things in TileTown 2 and the system requirements.</li>
+            <li><b>Spine and top</b> - the six-colour stripe and the name, for the shelf.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Fig. 1 ===== -->
+    <section class="zone" data-zone="B" id="fig1" aria-labelledby="h-fig1">
+      <div class="dt"><div class="bub" aria-hidden="true"><b>1</b><i>TT2</i></div>
+        <div class="dt-t"><h2 id="h-fig1">Isometric view</h2><p>Fig. 1 &middot; a town in February 1900 &middot; scale 32 &times; 16</p></div></div>
+
+      <figure class="fig1" id="figure1">
+        <ol class="co co-l" aria-label="Callouts 1 to 5">
+          <li data-at="25.5,12.5"><span class="ball">1</span><span><b>Fire station</b>Red brick, two big doors. $500.</span></li>
+          <li data-at="4.8,22.5"><span class="ball">2</span><span><b>Homes</b>Four designs of every house, picked by where it stands.</span></li>
+          <li data-at="19.8,47.2"><span class="ball">3</span><span><b>Stadium</b>Watch the score on the board go up.</span></li>
+          <li data-at="38,79"><span class="ball">4</span><span><b>Nuclear plant</b>The cooling tower steams.</span></li>
+          <li data-at="11.5,96"><span class="ball">5</span><span><b>Status line</b>The tool in hand and what it costs.</span></li>
+        </ol>
+        <div class="mount">
+          <div class="pic">
+            <img src="screens/city.png" width="960" height="640" alt="TileTown 2's isometric city view: a fire station, houses and flats, a stadium, a steaming cooling tower and a smoking factory district, downtown towers by the sea, a rail line crossing a road, the toolbox on the right and the menu bar showing $20026, February 1900.">
+            <span class="pin" style="--x:25.5;--y:12.5" aria-hidden="true">1</span>
+            <span class="pin" style="--x:4.8;--y:22.5" aria-hidden="true">2</span>
+            <span class="pin" style="--x:19.8;--y:47.2" aria-hidden="true">3</span>
+            <span class="pin" style="--x:38;--y:79" aria-hidden="true">4</span>
+            <span class="pin" style="--x:11.5;--y:95" aria-hidden="true">5</span>
+            <span class="pin" style="--x:75;--y:9" aria-hidden="true">6</span>
+            <span class="pin" style="--x:54.9;--y:17.2" aria-hidden="true">7</span>
+            <span class="pin" style="--x:90.1;--y:35.2" aria-hidden="true">8</span>
+            <span class="pin" style="--x:75.2;--y:44.5" aria-hidden="true">9</span>
+            <span class="pin" style="--x:57.1;--y:56" aria-hidden="true">10</span>
+            <span class="pin" style="--x:90.1;--y:82" aria-hidden="true">11</span>
+          </div>
+        </div>
+        <ol class="co co-r" start="6" aria-label="Callouts 6 to 11">
+          <li data-at="75,9"><span class="ball">6</span><span><b>The sea</b>Coasts, islands, fjords: 16 maps to start on.</span></li>
+          <li data-at="54.9,17.2"><span class="ball">7</span><span><b>Downtown</b>Shops grow in three sizes, up to towers.</span></li>
+          <li data-at="90.1,35.2"><span class="ball">8</span><span><b>Toolbox</b>Pick a tool, then click or drag to build.</span></li>
+          <li data-at="75.2,44.5"><span class="ball">9</span><span><b>Level crossing</b>Trains run on the rails, across the road.</span></li>
+          <li data-at="57.1,56"><span class="ball">10</span><span><b>Industry</b>Chimneys smoke; pollution spreads.</span></li>
+          <li data-at="90.1,82"><span class="ball">11</span><span><b>City figures</b>People, tax, pollution, crime and the R C I bars.</span></li>
+        </ol>
+        <figcaption class="cap"><b>Fig. 1</b> - Screenshot, Apple IIgs Super Hi-Res, shown with square pixels and no filtering.</figcaption>
+        <svg class="leaders" aria-hidden="true"></svg>
+      </figure>
+    </section>
+
+    <!-- ===== Revision 2 ===== -->
+    <section class="zone" data-zone="C" id="revision" aria-labelledby="h-rev">
+      <div class="dt"><div class="bub" aria-hidden="true"><b>2</b><i>TT2</i></div>
+        <div class="dt-t"><h2 id="h-rev">Revision 2</h2><p>What's new against the original TileTown</p></div></div>
+
+      <div class="tbl">
+        <div class="rev-note"><span><b>Rev 1</b> &middot; <a href="../TileTown/">TileTown</a>, for any 2&nbsp;MB IIgs</span><span><b>Rev 2</b> &middot; TileTown 2, for an 8&nbsp;MB IIgs with an accelerator &middot; 2026</span></div>
+        <table class="rev">
+          <thead><tr><th scope="col"><span class="sr">Item</span>Rev</th><th scope="col">Change</th><th scope="col">Description</th><th scope="col">See</th></tr></thead>
+          <tbody>
+            <tr><td><span class="tri"><svg viewBox="0 0 30 27" aria-hidden="true"><polygon points="15,2 28,25 2,25" fill="none" stroke="#ff8f7d" stroke-width="1.6"/></svg>A</span></td><td class="chg">An isometric city</td><td>Buildings stand up from the map, drawn in 32 &times; 16 diamonds. Cars, trains and tornadoes go behind them.</td><td class="see"><a href="#fig1">Fig. 1</a></td></tr>
+            <tr><td><span class="tri"><svg viewBox="0 0 30 27" aria-hidden="true"><polygon points="15,2 28,25 2,25" fill="none" stroke="#ff8f7d" stroke-width="1.6"/></svg>B</span></td><td class="chg">Four designs of everything</td><td>Every house, shop and factory comes in four designs, picked by where it stands, so no two streets look alike.</td><td class="see"><a href="#det-b">Detail B</a></td></tr>
+            <tr><td><span class="tri"><svg viewBox="0 0 30 27" aria-hidden="true"><polygon points="15,2 28,25 2,25" fill="none" stroke="#ff8f7d" stroke-width="1.6"/></svg>C</span></td><td class="chg">Traffic that faces the road</td><td>Cars, buses and vans face the way they drive; trains run on the rails.</td><td class="see"><a href="#fig1">Fig. 1, 9</a></td></tr>
+            <tr><td><span class="tri"><svg viewBox="0 0 30 27" aria-hidden="true"><polygon points="15,2 28,25 2,25" fill="none" stroke="#ff8f7d" stroke-width="1.6"/></svg>D</span></td><td class="chg">Smooth scrolling</td><td>The map scrolls a few pixels at a time.</td><td class="see">-</td></tr>
+            <tr><td><span class="tri"><svg viewBox="0 0 30 27" aria-hidden="true"><polygon points="15,2 28,25 2,25" fill="none" stroke="#ff8f7d" stroke-width="1.6"/></svg>E</span></td><td class="chg">A living picture</td><td>Lakes ripple, chimneys smoke, the nuclear plant steams, the airport's beacon flashes and the stadium's score goes up.</td><td class="see"><a href="#det-c">Detail C</a></td></tr>
+            <tr><td><span class="tri"><svg viewBox="0 0 30 27" aria-hidden="true"><polygon points="15,2 28,25 2,25" fill="none" stroke="#ff8f7d" stroke-width="1.6"/></svg>F</span></td><td class="chg">Press I</td><td>Switch to the flat top-down map and back.</td><td class="see"><a href="#plan">Fig. 2 &amp; 3</a></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="details">
+        <figure class="det tile" id="det-a">
+          <div class="art">
+            <svg viewBox="0 0 290 190" role="img" aria-label="Drawing of one isometric map square: a diamond 32 pixels wide and 16 pixels high.">
+              <defs><pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#eaf4ff" stroke-opacity=".45" stroke-width="1.2"/></pattern></defs>
+              <g stroke="#eaf4ff" fill="none" stroke-width="1">
+                <!-- extension lines -->
+                <line x1="40" y1="112" x2="40" y2="22" stroke-opacity=".5"/><line x1="220" y1="112" x2="220" y2="22" stroke-opacity=".5"/>
+                <line x1="130" y1="67" x2="270" y2="67" stroke-opacity=".5"/><line x1="130" y1="157" x2="270" y2="157" stroke-opacity=".5"/>
+                <!-- dimension lines -->
+                <line x1="40" y1="30" x2="220" y2="30"/><line x1="262" y1="67" x2="262" y2="157"/>
+                <line x1="34" y1="36" x2="46" y2="24" stroke-width="1.8"/><line x1="214" y1="36" x2="226" y2="24" stroke-width="1.8"/>
+                <line x1="256" y1="73" x2="268" y2="61" stroke-width="1.8"/><line x1="256" y1="163" x2="268" y2="151" stroke-width="1.8"/>
+                <!-- the diamond -->
+                <polygon points="40,112 130,67 220,112 130,157" fill="url(#hatch)" stroke-width="2.2"/>
+                <line x1="40" y1="112" x2="220" y2="112" stroke-dasharray="5 4" stroke-opacity=".6"/>
+                <line x1="130" y1="67" x2="130" y2="157" stroke-dasharray="5 4" stroke-opacity=".6"/>
+              </g>
+              <g fill="#eaf4ff" font-family="IBM Plex Mono, monospace" font-size="15" font-weight="500" text-anchor="middle">
+                <rect x="112" y="20" width="36" height="20" fill="#0f3f73"/><text x="130" y="35">32</text>
+                <rect x="252" y="102" width="20" height="20" fill="#0f3f73"/><text x="262" y="117" transform="rotate(-90 262 112)">16</text>
+              </g>
+              <text x="40" y="184" fill="#ff8f7d" font-family="Architects Daughter, cursive" font-size="15">one square of the 128 &times; 128 map</text>
+            </svg>
+          </div>
+          <figcaption><b>Detail A - one square</b>32 &times; 16 pixels, 2 : 1</figcaption>
+        </figure>
+        <figure class="det" id="det-b">
+          <div class="art"><div class="zoom" role="img" aria-label="Enlarged detail of Fig. 1: houses and flats in different designs along a street." style="background-position:-7px -142px"></div></div>
+          <figcaption><b>Detail B - four designs</b>From Fig. 1, enlarged 1.5 &times;</figcaption>
+        </figure>
+        <figure class="det" id="det-c">
+          <div class="art"><div class="zoom" role="img" aria-label="Enlarged detail of Fig. 1: red and white factory chimneys with white smoke." style="background-position:-772px -502px"></div></div>
+          <figcaption><b>Detail C - chimneys smoke</b>From Fig. 1, enlarged 1.5 &times;</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ===== Plan / Iso ===== -->
+    <section class="zone" data-zone="D" id="plan" aria-labelledby="h-plan">
+      <div class="dt"><div class="bub" aria-hidden="true"><b>3</b><i>TT2</i></div>
+        <div class="dt-t"><h2 id="h-plan">Plan view &middot; isometric view</h2><p>Figs. 2 &amp; 3 &middot; the same town, the same moment</p></div></div>
+      <p class="intro">Press I in the game to switch between the flat top-down map and the isometric city. Same streets, same money, same month - one view for laying out, one for looking at.</p>
+      <div class="pair">
+        <figure>
+          <div class="mount"><div class="pic"><img src="screens/city-topdown.png" width="960" height="640" loading="lazy" alt="The same town in the flat top-down view: a grid of roads, the fire station, blocks of shops, a police station, hospital and stadium, factories and a rail line, with the toolbox on the right."></div></div>
+          <figcaption class="cap"><b>Fig. 2</b> - Plan view, top-down</figcaption>
+        </figure>
+        <div class="swap" aria-hidden="true">
+          <kbd class="key">I</kbd>
+          <svg viewBox="0 0 64 18"><g fill="none" stroke="#eaf4ff" stroke-width="1.5"><path d="M4 6h54m-6-5 6 5-6 5"/><path d="M60 13H6m6-5-6 5 6 5"/></g></svg>
+          <span class="pencil">press I to switch</span>
+        </div>
+        <figure>
+          <div class="mount"><div class="pic"><img src="screens/city.png" width="960" height="640" loading="lazy" alt="The same town in the isometric view, with buildings standing up from the map."></div></div>
+          <figcaption class="cap"><b>Fig. 3</b> - Isometric view</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ===== General notes ===== -->
+    <section class="zone" data-zone="E" id="notes" aria-labelledby="h-notes">
+      <div class="dt"><div class="bub" aria-hidden="true"><b>4</b><i>TT2</i></div>
+        <div class="dt-t"><h2 id="h-notes">General notes</h2><p>Everything from TileTown, carried over to Rev 2</p></div></div>
+      <ol class="notes">
+        <li><b>A living city on a 128 &times; 128 map.</b> Homes, shops and factories grow in three sizes once they have power, a road and people who want them. Commuters drive to work and back.</li>
+        <li><b>16 maps to start on:</b> rivers, lakes, coasts, islands, forests, fjords, marshes and plains.</li>
+        <li><b>17 things to build:</b> roads, rail, power lines, homes, shops, industry, coal and nuclear power plants, police and fire stations, hospitals, schools, parks, a stadium, a seaport and an airport.</li>
+        <li><b>Bridges over water,</b> level crossings, and rail tunnels under lakes and rivers.</li>
+        <li><b>Land value, traffic, pollution and crime</b> spread through the neighbourhoods. People ask for what the city lacks.</li>
+        <li><b>Maps and graphs:</b> heat maps of pollution, crime, land value, traffic, police, fire, health, schools, population and power; graphs over 10 or 100 years.</li>
+        <li><b>A budget with sliders</b> for taxes, roads, police and fire.</li>
+        <li><b>Five disasters:</b> fire, flood, tornado, earthquake and nuclear meltdown - or switch them off.</li>
+        <li><b>Five goals with a deadline,</b> or free play. See Schedule 2.</li>
+        <li><b>Three levels:</b> easy, normal and hard. See Schedule 3.</li>
+        <li><b>Milestones and monthly advice,</b> a city evaluation with a score, and a query tool.</li>
+        <li><b>Menus, pause and three speeds,</b> a help screen, mouse and keyboard.</li>
+        <li><b>Eight save slots,</b> each city under its own name.</li>
+        <li><b>Sound effects and eight relaxed tunes</b> on the Ensoniq sound chip.</li>
+      </ol>
+    </section>
+
+    <!-- ===== Schedules ===== -->
+    <section class="zone" data-zone="F" id="schedules" aria-labelledby="h-sched">
+      <div class="dt"><div class="bub" aria-hidden="true"><b>5</b><i>TT2</i></div>
+        <div class="dt-t"><h2 id="h-sched">Schedules</h2><p>Rates, goals and levels, as set in the game</p></div></div>
+      <div class="sched">
+        <div>
+          <h3>Schedule 1 <span>Rates - the toolbox</span></h3>
+          <div class="tbl">
+          <table class="rates">
+            <thead><tr><th scope="col" colspan="2">Item</th><th scope="col" class="amt">Rate</th></tr></thead>
+            <tbody>
+              <tr><td class="ico"><i class="ti" style="background-position:-417px -17px" aria-hidden="true"></i></td><td>Road</td><td class="amt">$10</td></tr>
+              <tr><td class="ico"><i class="ti" style="background-position:-447px -17px" aria-hidden="true"></i></td><td>Power line</td><td class="amt">$5</td></tr>
+              <tr><td class="ico"><i class="ti" style="background-position:-447px -145px" aria-hidden="true"></i></td><td>Rail <span class="unit mono">a square</span></td><td class="amt">$20</td></tr>
+              <tr><td class="ico"><i class="ti" style="background-position:-417px -49px" aria-hidden="true"></i><i class="ti x" style="background-position:-447px -49px" aria-hidden="true"></i><i class="ti x" style="background-position:-387px -81px" aria-hidden="true"></i></td><td>A zone: homes, shops or industry</td><td class="amt">$100</td></tr>
+              <tr><td class="ico"><i class="ti" style="background-position:-387px -49px" aria-hidden="true"></i></td><td>Park</td><td class="amt">$50</td></tr>
+              <tr><td class="ico"><i class="ti" style="background-position:-417px -81px" aria-hidden="true"></i></td><td>Police station</td><td class="amt">$500</td></tr>
+              <tr><td class="ico"><i class="ti" style="background-position:-447px -81px" aria-hidden="true"></i></td><td>Fire station</td><td class="amt">$500</td></tr>
+              <tr><td class="ico"><i class="ti" style="background-position:-417px -177px" aria-hidden="true"></i></td><td>School</td><td class="amt">$800</td></tr>
+              <tr><td class="ico"><i class="ti" style="background-position:-387px -177px" aria-hidden="true"></i></td><td>Hospital</td><td class="amt">$1,000</td></tr>
+              <tr><td class="ico"><i class="ti" style="background-position:-417px -113px" aria-hidden="true"></i></td><td>Power plant (coal)</td><td class="amt">$3,000</td></tr>
+              <tr><td class="ico"><i class="ti" style="background-position:-387px -113px" aria-hidden="true"></i></td><td>Stadium</td><td class="amt">$3,000</td></tr>
+              <tr><td class="ico"><i class="ti" style="background-position:-387px -145px" aria-hidden="true"></i></td><td>Seaport</td><td class="amt">$5,000</td></tr>
+              <tr><td class="ico"><i class="ti" style="background-position:-447px -113px" aria-hidden="true"></i></td><td>Nuclear plant</td><td class="amt">$5,000</td></tr>
+              <tr><td class="ico"><i class="ti" style="background-position:-417px -145px" aria-hidden="true"></i></td><td>Airport</td><td class="amt">$10,000</td></tr>
+            </tbody>
+          </table>
+          </div>
+        </div>
+        <div class="sched-r">
+          <div>
+            <h3>Schedule 2 <span>Goals</span></h3>
+            <div class="tbl">
+            <table class="goals">
+              <thead><tr><th scope="col">Goal</th><th scope="col">Target</th><th scope="col" class="yrs">Deadline</th></tr></thead>
+              <tbody>
+                <tr><td>Boomtown</td><td class="tgt">10,000 people</td><td class="yrs">10 years</td></tr>
+                <tr><td>Shoestring</td><td class="tgt">2,000 people, starting from only $5,000</td><td class="yrs">5 years</td></tr>
+                <tr><td>Clean air</td><td class="tgt">5,000 people, pollution under 20%</td><td class="yrs">15 years</td></tr>
+                <tr><td>Safe streets</td><td class="tgt">5,000 people, crime under 15%</td><td class="yrs">15 years</td></tr>
+                <tr><td>Rich town</td><td class="tgt">$50,000 in the bank</td><td class="yrs">20 years</td></tr>
+                <tr class="free"><td>Free play</td><td class="tgt">No goal - build as you like</td><td class="yrs">None</td></tr>
+              </tbody>
+            </table>
+            </div>
+          </div>
+          <div>
+            <h3>Schedule 3 <span>Levels</span></h3>
+            <div class="tbl">
+            <table class="lv">
+              <thead><tr><th scope="col">Level</th><th scope="col">Money to start</th><th scope="col">Disasters</th></tr></thead>
+              <tbody>
+                <tr><td>Easy</td><td class="amt">$30,000</td><td>Fewer</td></tr>
+                <tr><td>Normal</td><td class="amt">$20,000</td><td>Normal</td></tr>
+                <tr><td>Hard</td><td class="amt">$10,000</td><td>Twice as many</td></tr>
+              </tbody>
+            </table>
+            </div>
+            <p class="disasters">Five disasters: fire, flood, tornado, earthquake and nuclear meltdown. Switch them off if you'd rather build in peace.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="survey">
+        <figure style="margin:0">
+          <div class="mount"><div class="pic"><img src="screens/maps-sheet.png" width="652" height="412" loading="lazy" alt="A sheet of the 16 start maps: green land with rivers, lakes, coasts, islands and forests."></div></div>
+          <figcaption class="cap"><b>Site survey</b> - the 16 start maps</figcaption>
+        </figure>
+        <div>
+          <h3>Schedule 4 <span>Sites</span></h3>
+          <p>Every city starts on one of 16 maps. Pick one in the new-city chooser, with a goal and a level.</p>
+          <ul aria-label="Kinds of map"><li>Rivers</li><li>Lakes</li><li>Coasts</li><li>Islands</li><li>Forests</li><li>Fjords</li><li>Marshes</li><li>Plains</li></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Detail sheets (gallery) ===== -->
+    <section class="zone" data-zone="G" id="sheets" aria-labelledby="h-sheets">
+      <div class="dt"><div class="bub" aria-hidden="true"><b>6</b><i>TT2</i></div>
+        <div class="dt-t"><h2 id="h-sheets">Detail sheets</h2><p>Screens from the game &middot; click to enlarge</p></div></div>
+      <ul class="gal">
+        <li><a href="screens/iso-town.png" data-lb><div class="mount"><div class="pic"><img src="screens/iso-town.png" width="960" height="640" loading="lazy" alt="A lake crossed by a road bridge, a downtown of tall towers, red brick flats and houses."></div></div><p class="cap"><b>D-01</b> - A bridge over the lake, downtown beyond</p></a></li>
+        <li><a href="screens/iso-tornado.png" data-lb><div class="mount"><div class="pic"><img src="screens/iso-tornado.png" width="960" height="640" loading="lazy" alt="A grey tornado funnel twisting through downtown, with rubble behind it."></div></div><p class="cap"><b>D-02</b> - Tornado: it goes behind the towers</p></a></li>
+        <li><a href="screens/iso-industry.png" data-lb><div class="mount"><div class="pic"><img src="screens/iso-industry.png" width="960" height="640" loading="lazy" alt="An industrial district of factories with red and white chimneys smoking, a rail line across the grass."></div></div><p class="cap"><b>D-03</b> - Industry, chimneys smoking, the rail line</p></a></li>
+        <li><a href="screens/iso-suburbs.png" data-lb><div class="mount"><div class="pic"><img src="screens/iso-suburbs.png" width="960" height="640" loading="lazy" alt="The stadium among apartment blocks at the edge of town, with open grass and trees beyond."></div></div><p class="cap"><b>D-04</b> - The stadium and the edge of town</p></a></li>
+        <li><a href="screens/graphs.png" data-lb><div class="mount"><div class="pic"><img src="screens/graphs.png" width="960" height="640" loading="lazy" alt="Maps and graphs: a pollution heat map and ten years of graphs for homes, shops, industry, money, crime and pollution."></div></div><p class="cap"><b>D-05</b> - Maps and graphs: pollution, 10 years</p></a></li>
+        <li><a href="screens/chooser.png" data-lb><div class="mount"><div class="pic"><img src="screens/chooser.png" width="960" height="640" loading="lazy" alt="The new-city chooser: map 1 of 16, Green Valley, with goal and level settings."></div></div><p class="cap"><b>D-06</b> - New city: pick a map, a goal, a level</p></a></li>
+      </ul>
+    </section>
+
+    <!-- ===== Specification ===== -->
+    <section class="zone" data-zone="H" id="spec" aria-labelledby="h-spec">
+      <div class="dt"><div class="bub" aria-hidden="true"><b>7</b><i>TT2</i></div>
+        <div class="dt-t"><h2 id="h-spec">Specification</h2><p>What you need to run TileTown 2</p></div></div>
+      <div class="spec-wrap">
+        <div>
+          <div class="spec">
+            <div class="opt">
+              <h3><span>Option A</span>A real Apple IIgs</h3>
+              <dl>
+                <div><dt>Computer</dt><dd>Apple IIgs</dd></div>
+                <div><dt>Memory</dt><dd><strong>8 MB</strong></dd></div>
+                <div><dt>Drive</dt><dd>One that boots an 800K 3.5" ProDOS disk</dd></div>
+                <div><dt>Accelerator</dt><dd>ZipGS, TransWarp GS or similar. Runs from 8&nbsp;MHz, at its best at <strong>16 MHz</strong></dd></div>
+                <div><dt>Input</dt><dd>A mouse is easier; the keyboard works too</dd></div>
+              </dl>
+            </div>
+            <div class="opt">
+              <h3><span>Option B</span>An emulator</h3>
+              <dl>
+                <div><dt>Emulator</dt><dd>MAME - on the Mac, Ample or <a href="../EmuBuddy/">EmuBuddy</a></dd></div>
+                <div><dt>Machine</dt><dd>Apple IIgs</dd></div>
+                <div><dt>Memory</dt><dd><strong>8 MB</strong></dd></div>
+                <div><dt>CPU type</dt><dd>"16 MHz ZipGS"</dd></div>
+                <div><dt>Input</dt><dd>Mouse or keyboard</dd></div>
+              </dl>
+            </div>
+          </div>
+          <p class="spec-note">The original <a href="../TileTown/">TileTown</a> still runs on any 2&nbsp;MB IIgs, no accelerator needed.</p>
+        </div>
+        <div class="booklet">
+          <h3 style="margin:0">Specification booklet</h3>
+          <a class="cover" href="TileTown2-Manual.pdf"><div class="mount"><div class="pic"><img src="screens/manual-cover.png" width="384" height="576" loading="lazy" alt="Cover of the TileTown 2 instruction manual: navy, a rainbow stripe, the gold TileTown 2 logo, two screenshots and a starburst reading A city in 3D, 16 maps, 3 levels."></div></div></a>
+          <p class="meta">TileTown 2 instruction manual<br>28 pages, full colour &middot; PDF, 1.6 MB</p>
+          <a class="btn" href="TileTown2-Manual.pdf">Read the manual <span aria-hidden="true">&rarr;</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Drawing index ===== -->
+    <section class="zone" data-zone="J" id="index" aria-labelledby="h-idx">
+      <div class="dt"><div class="bub" aria-hidden="true"><b>8</b><i>TT2</i></div>
+        <div class="dt-t"><h2 id="h-idx">Drawing index</h2><p>Related drawings &middot; more Apple IIgs software by Walter Tengler</p></div></div>
+      <ul class="idx">
+        <li class="feat"><a class="dwg" href="../TileTown/"><span class="ico"><img src="../assets/icons/tiletown.png" alt="" width="64" height="64" loading="lazy"></span><span><span class="no">Dwg 01 &middot; Rev 1</span><span class="t">TileTown</span><span class="d">The original city builder, for any 2 MB IIgs, with a free demo</span></span><span class="go" aria-hidden="true">&rarr;</span></a></li>
+        <li><a class="dwg" href="../Conquer-GS/"><span class="ico"><img src="../assets/icons/conquer-gs.png" alt="" width="64" height="64" loading="lazy"></span><span><span class="no">Dwg 02 &middot; Game</span><span class="t">Conquer GS</span><span class="d">Real-time strategy: build a base, harvest ore, conquer the enemy</span></span><span class="go" aria-hidden="true">&rarr;</span></a></li>
+        <li><a class="dwg" href="../Conquer3/"><span class="ico"><img src="../assets/icons/conquer3.png" alt="" width="64" height="64" loading="lazy"></span><span><span class="no">Dwg 03 &middot; In development</span><span class="t">Conquer 3: Sandstorm</span><span class="d">Real-time strategy, three armies in the desert</span></span><span class="go" aria-hidden="true">&rarr;</span></a></li>
+        <li><a class="dwg" href="../Hyperhaul/"><span class="ico"><img src="../assets/icons/hyperhaul.png" alt="" width="64" height="64" loading="lazy"></span><span><span class="no">Dwg 04 &middot; In development</span><span class="t">Hyperhaul</span><span class="d">Space trading and combat, filled 3D ships</span></span><span class="go" aria-hidden="true">&rarr;</span></a></li>
+        <li><a class="dwg" href="../GTApple/"><span class="ico"><img src="../assets/icons/gtapple.png" alt="" width="64" height="64" loading="lazy"></span><span><span class="no">Dwg 05 &middot; In development</span><span class="t">Grand Theft Apple</span><span class="d">A top-down crime game</span></span><span class="go" aria-hidden="true">&rarr;</span></a></li>
+        <li><a class="dwg" href="../EmuBuddy/"><span class="ico"><img src="../assets/icons/emubuddy.png" alt="" width="64" height="64" loading="lazy"></span><span><span class="no">Dwg 06 &middot; Mac app</span><span class="t">EmuBuddy</span><span class="d">An Apple IIgs emulator for the Mac - to play TileTown 2</span></span><span class="go" aria-hidden="true">&rarr;</span></a></li>
+        <li><a class="dwg" href="../GSCommander/"><span class="ico"><img src="../assets/icons/gscommander.png" alt="" width="64" height="64" loading="lazy"></span><span><span class="no">Dwg 07 &middot; Utility</span><span class="t">GS Commander</span><span class="d">A two-pane file manager</span></span><span class="go" aria-hidden="true">&rarr;</span></a></li>
+        <li><a class="dwg" href="../GSLauncher/"><span class="ico"><img src="../assets/icons/gslauncher.png" alt="" width="64" height="64" loading="lazy"></span><span><span class="no">Dwg 08 &middot; Utility</span><span class="t">GSLauncher</span><span class="d">A program launcher</span></span><span class="go" aria-hidden="true">&rarr;</span></a></li>
+        <li><a class="dwg" href="../MegaconvertGS/"><span class="ico"><img src="../assets/icons/megaconvertgs.png" alt="" width="64" height="64" loading="lazy"></span><span><span class="no">Dwg 09 &middot; Utility</span><span class="t">MegaconvertGS</span><span class="d">Over 60 picture formats to Super Hi-Res, on the IIgs itself</span></span><span class="go" aria-hidden="true">&rarr;</span></a></li>
+        <li><a class="dwg" href="../Demos/"><span class="ico"><img src="../assets/icons/demos.png" alt="" width="64" height="64" loading="lazy"></span><span><span class="no">Dwg 10 &middot; Demos</span><span class="t">IIgs Demos</span><span class="d">Demo-scene effects in Super Hi-Res</span></span><span class="go" aria-hidden="true">&rarr;</span></a></li>
+        <li><a class="dwg" href="../"><span class="ico"><svg viewBox="0 0 46 46" aria-hidden="true"><g fill="none" stroke="#eaf4ff" stroke-width="2"><rect x="4" y="4" width="16" height="16"/><rect x="26" y="4" width="16" height="16"/><rect x="4" y="26" width="16" height="16"/><rect x="26" y="26" width="16" height="16"/></g></svg></span><span><span class="no">Index &middot; Sheet 0</span><span class="t">All apps</span><span class="d">Every app and game by Walter Tengler</span></span><span class="go" aria-hidden="true">&rarr;</span></a></li>
+        <li><a class="dwg" href="../Retro%20Computing/"><span class="ico"><svg viewBox="0 0 46 46" aria-hidden="true"><rect x="3" y="9" width="40" height="28" fill="none" stroke="#eaf4ff" stroke-width="2"/><text x="23" y="28" text-anchor="middle" fill="#ff8f7d" font-family="IBM Plex Mono, monospace" font-size="12" font-weight="500">1977</text></svg></span><span><span class="no">Archive</span><span class="t">More retro computing</span><span class="d">1977 - where it all started</span></span><span class="go" aria-hidden="true">&rarr;</span></a></li>
+      </ul>
+    </section>
+    </main>
+
+    <footer class="zone" data-zone="K" aria-label="Title block">
+      <div class="tb">
+        <div class="proj"><small>Project</small><span>TileTown 2</span></div>
+        <div><small>Drawing</small><span>Isometric city</span></div>
+        <div><small>Drawn by</small><span>W. Tengler</span></div>
+        <div><small>Scale</small><span>32 &times; 16</span></div>
+        <div><small>Sheet</small><span>1 of 1</span></div>
+        <div><small>Rev</small><span>2</span></div>
+        <div class="stat"><small>Status</small><span>Coming soon</span></div>
+        <div><small>Platform</small><span>Apple IIgs</span></div>
+        <div><small>Written in</small><span>65816 asm</span></div>
+        <div><small>Memory</small><span>8 MB</span></div>
+        <div><small>Date</small><span>2026</span></div>
+        <div class="legal"><small>Notes</small><p>TileTown 2 is an independent game inspired by the city-building classics of the late 1980s. All of its code, graphics and music are original. SimCity is a trademark of Electronic Arts Inc.; TileTown is not affiliated with or endorsed by Electronic Arts. Apple IIgs is a trademark of Apple Inc.</p></div>
+        <div class="copy"><span>&copy; 2026 Walter Tengler</span><nav aria-label="Footer"><a href="../">All apps</a><a href="../TileTown/">TileTown (the original)</a><a href="../Retro%20Computing/">More retro computing: 1977</a></nav></div>
+      </div>
+    </footer>
+  </div>
+  <div class="ruler bot" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span></div>
+</div>
+
+<dialog class="lb" id="lb" aria-label="Enlarged screen">
+  <img src="" alt="">
+  <div class="bar"><span class="lb-cap"></span><form method="dialog"><button>Close</button></form></div>
+</dialog>
+
+<script>
+(function(){
+  /* Leader lines for Fig. 1: drawn from each callout's balloon to its target
+     (given in % of the screenshot), recomputed whenever the figure resizes. */
+  var fig=document.getElementById('figure1'); if(!fig) return;
+  var svg=fig.querySelector('.leaders'), img=fig.querySelector('.pic img');
+  var items=[].slice.call(fig.querySelectorAll('.co li'));
+  var wide=window.matchMedia('(min-width:1000px)');
+  var NS='http://www.w3.org/2000/svg', first=true;
+  function el(n,a){var e=document.createElementNS(NS,n);for(var k in a)e.setAttribute(k,a[k]);return e;}
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    if(!wide.matches||!img.complete||!img.naturalWidth){fig.classList.remove('has-leaders');return;}
+    var fr=fig.getBoundingClientRect(), ir=img.getBoundingClientRect();
+    svg.setAttribute('viewBox','0 0 '+fr.width+' '+fr.height);
+    items.forEach(function(li,i){
+      var p=li.getAttribute('data-at').split(',').map(Number);
+      var tx=ir.left-fr.left+ir.width*p[0]/100, ty=ir.top-fr.top+ir.height*p[1]/100;
+      var b=li.querySelector('.ball').getBoundingClientRect();
+      var left=li.parentNode.classList.contains('co-l');
+      var ax=(left?b.right:b.left)-fr.left, ay=b.top+b.height/2-fr.top;
+      var sx=left?ax+16:ax-16;
+      var d='M'+ax+' '+ay+'H'+sx+'L'+tx+' '+ty;
+      var g=el('g',{});
+      g.appendChild(el('path',{d:d,'class':'halo',pathLength:1}));
+      g.appendChild(el('path',{d:d,'class':'ln',pathLength:1}));
+      g.appendChild(el('circle',{cx:tx,cy:ty,r:7,'class':'ring'}));
+      g.appendChild(el('circle',{cx:tx,cy:ty,r:3,'class':'dot'}));
+      svg.appendChild(g); li._g=g;
+    });
+    svg.classList.toggle('anim',first); first=false;
+    fig.classList.add('has-leaders');
+  }
+  items.forEach(function(li){
+    li.addEventListener('mouseenter',function(){li.classList.add('hot');if(li._g)li._g.classList.add('hot');});
+    li.addEventListener('mouseleave',function(){li.classList.remove('hot');if(li._g)li._g.classList.remove('hot');});
+  });
+  if(img.complete) draw(); else img.addEventListener('load',draw);
+  if(window.ResizeObserver) new ResizeObserver(function(){draw();}).observe(fig);
+  else window.addEventListener('resize',draw);
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(draw);
+})();
+(function(){
+  /* A small lightbox for the detail sheets; without JS the links open the PNG. */
+  var dlg=document.getElementById('lb'); if(!dlg||!dlg.showModal) return;
+  var im=dlg.querySelector('img'), cap=dlg.querySelector('.lb-cap');
+  document.querySelectorAll('a[data-lb]').forEach(function(a){
+    a.addEventListener('click',function(e){
+      e.preventDefault(); var t=a.querySelector('img');
+      im.src=a.getAttribute('href'); im.alt=t?t.alt:''; cap.textContent=a.querySelector('.cap').textContent;
+      dlg.showModal();
+    });
+  });
+  dlg.addEventListener('click',function(e){if(e.target===dlg)dlg.close();});
+})();
+</script>
+<script src="box3d.js"></script>
+<script src="switcher.js"></script>
+</body>
+</html>
