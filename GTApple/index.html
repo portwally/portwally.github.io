@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grand Theft Apple - A Top-Down Crime Game for the Apple IIgs</title>
+    <meta name="description" content="Grand Theft Apple is a top-down crime and driving game for the Apple IIgs: steal cars, run from the police and take jobs from the payphones of Solana Bay, a made-up sunset coast city. Traffic, people, five-star police, eight jobs, a car radio and a save game. Written in 65816 assembly.">
+    <meta name="keywords" content="Grand Theft Apple, Apple IIgs, top-down, crime game, driving game, 65816 assembly, Super Hi-Res, Ensoniq, retro game, homebrew, ProDOS">
+    <meta name="author" content="Walter Tengler">
+    <link rel="canonical" href="https://portwally.github.io/GTApple/">
+    <link rel="icon" type="image/png" href="icon.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Grand Theft Apple - a top-down crime game for the Apple IIgs">
+    <meta property="og:description" content="Steal a car, lose the police, take the job: Solana Bay on an Apple IIgs.">
+    <meta property="og:image" content="https://portwally.github.io/GTApple/screens/chase.png">
+    <meta property="og:url" content="https://portwally.github.io/GTApple/">
+    <meta name="twitter:card" content="summary_large_image">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "VideoGame",
+      "name": "Grand Theft Apple",
+      "description": "A top-down crime and driving game for the Apple IIgs: steal cars, run from the police and take jobs from the payphones of Solana Bay. Traffic, people, five-star police, eight jobs, a car radio and a save game. Written in 65816 assembly.",
+      "genre": ["Action", "Driving"],
+      "gamePlatform": "Apple IIgs",
+      "author": { "@type": "Person", "name": "Walter Tengler" },
+      "image": "https://portwally.github.io/GTApple/screens/chase.png",
+      "url": "https://portwally.github.io/GTApple/"
+    }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Silkscreen:wght@400;700&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --asph: #2a2a2f; --asph2: #35353b; --curb: #8e8e96; --side: #b6b6bd; --line: #f6c21c; --white: #f4f4f4;
+            --money: #3ddc5a; --heart: #ff3b3b; --dist: #ff8a1f; --ammo: #ffd400; --text: #ececf0; --dim: #aeaeb8;
+            --sign: #11804a; --blue: #1f5fd6; --red: #d8262e; --black: #000;
+            --display: 'Bungee', 'Arial Black', sans-serif; --hud: 'Silkscreen', ui-monospace, monospace;
+            --body: 'Barlow', system-ui, -apple-system, sans-serif;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+        body { background-color: var(--asph); color: var(--text); font: 500 1.08rem/1.6 var(--body); -webkit-font-smoothing: antialiased; overflow-x: hidden;
+               background-image: radial-gradient(rgba(255, 255, 255, .07) 1px, transparent 1.6px), radial-gradient(rgba(0, 0, 0, .3) 1px, transparent 1.6px);
+               background-size: 7px 7px, 11px 11px; background-position: 0 0, 3px 5px; }
+        img { display: block; max-width: 100%; height: auto; }
+        .px { image-rendering: pixelated; }
+        a { color: var(--ammo); }
+        .container { max-width: 1140px; margin: 0 auto; padding: 0 20px; }
+
+        /* the HUD as the page's header: the WANTED stars fill as you scroll,
+           the district is the section's */
+        .hud { position: sticky; top: 0; z-index: 20; background: var(--black); box-shadow: 0 6px 20px rgba(0, 0, 0, .45); }
+        .hud .container { padding-top: 7px; padding-bottom: 7px; }
+        .hud .row { display: flex; align-items: center; gap: 26px; font: 700 .95rem var(--hud); color: var(--white); white-space: nowrap; }
+        .hud .row + .row { margin-top: 1px; }
+        .hearts { color: var(--heart); letter-spacing: 2px; }
+        .ammo { color: var(--ammo); display: inline-flex; align-items: center; gap: 4px; }
+        .ammo svg { width: 20px; height: 14px; }
+        .stars { color: #5d5d5d; letter-spacing: 2px; } .stars b { color: var(--ammo); font-weight: 700; }
+        .money { color: var(--money); text-decoration: none; }
+        .hud nav { display: flex; gap: 16px; }
+        .hud nav a { color: var(--white); text-decoration: none; font-weight: 400; font-size: .84rem; }
+        .hud nav a:hover { color: var(--ammo); }
+        .dist { margin-left: auto; color: var(--dist); }
+
+        /* the roads between the sections */
+        .road { position: relative; height: 92px; background: var(--asph2); border-top: 8px solid var(--curb); border-bottom: 8px solid var(--curb); overflow: hidden; }
+        .road::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 6px; margin-top: -3px; background: repeating-linear-gradient(90deg, var(--line) 0 38px, transparent 38px 66px); }
+        .road .zebra { position: absolute; top: 0; bottom: 0; left: 8%; width: 70px; background: repeating-linear-gradient(180deg, var(--white) 0 9px, transparent 9px 18px); opacity: .92; }
+        .road .zebra.r { left: auto; right: 12%; }
+        .road .zebra.m { left: 46%; }
+
+        section { padding: 76px 0; }
+        .kicker { font: 700 .9rem var(--hud); color: var(--ammo); letter-spacing: 1px; text-transform: uppercase; }
+        h2 { font: 400 clamp(1.8rem, 3.8vw, 2.6rem)/1.08 var(--display); color: var(--white); margin: 8px 0 12px; }
+        h2 em { font-style: normal; color: var(--line); }
+        .sub { color: var(--dim); max-width: 48em; margin-bottom: 36px; }
+
+        .hero { padding: 64px 0 70px; }
+        .hero-grid { display: grid; grid-template-columns: 1fr 1.08fr; gap: 54px; align-items: center; }
+        h1 { font: 400 clamp(2.4rem, 5.6vw, 4.2rem)/1.02 var(--display); color: var(--white); margin: 16px 0 18px; }
+        h1 span { display: block; } h1 .y { color: var(--line); }
+        .name { font: 700 1.05rem var(--hud); color: var(--dist); margin-bottom: 12px; }
+        .lead { max-width: 34em; }
+        .cta { display: flex; gap: 14px; margin-top: 28px; flex-wrap: wrap; }
+        .btn { font: 400 1rem var(--display); text-decoration: none; color: #111; background: var(--line); padding: 12px 20px 10px; border-radius: 8px; box-shadow: inset 0 0 0 3px #111, 0 0 0 3px var(--line); }
+        .btn.alt { background: var(--white); box-shadow: inset 0 0 0 3px #111, 0 0 0 3px var(--white); }
+        .screen { background: var(--black); padding: 8px; border-radius: 4px; box-shadow: 0 0 0 3px var(--white), 0 26px 60px rgba(0, 0, 0, .55); }
+        .hero .screen { transform: rotate(1.4deg); }
+        .status { display: flex; align-items: center; gap: 18px; margin-top: 46px; padding: 16px 20px; background: rgba(0, 0, 0, .35); border-left: 6px solid var(--line); }
+        .status .flag { font: 700 .95rem var(--hud); letter-spacing: 1px; color: #111; padding: 4px 10px; white-space: nowrap;
+                        background: repeating-linear-gradient(135deg, var(--line) 0 12px, #ffe27a 12px 24px); }
+        .status p { color: var(--text); font-size: 1rem; }
+        .ticker { display: grid; grid-template-columns: repeat(6, 1fr); background: var(--black); margin-top: 22px; }
+        .ticker div { padding: 14px 10px; text-align: center; font: 700 1.5rem var(--hud); color: var(--white); border-right: 1px solid #222; }
+        .ticker div:last-child { border-right: 0; }
+        .ticker .g { color: var(--money); } .ticker .y { color: var(--ammo); } .ticker .o { color: var(--dist); } .ticker .r { color: var(--heart); }
+        .ticker span { display: block; font: 400 .72rem var(--hud); color: var(--dim); margin-top: 4px; letter-spacing: .5px; }
+
+        /* the game: pictures and words, turn and turn about */
+        .feat { display: grid; grid-template-columns: 1fr 1fr; gap: 46px; align-items: center; margin-bottom: 64px; }
+        .feat:last-child { margin-bottom: 0; }
+        .feat:nth-child(even) .screen { order: 2; }
+        .feat h3 { font: 400 1.6rem/1.15 var(--display); color: var(--white); margin: 6px 0 12px; }
+        .feat p + p { margin-top: 12px; }
+        .feat p { color: var(--text); }
+        .feat .kicker { font-size: .82rem; }
+
+        /* the city: street signs */
+        .signs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+        .sign { background: var(--sign); color: #fff; border-radius: 12px; padding: 18px 20px 16px; box-shadow: inset 0 0 0 4px var(--sign), inset 0 0 0 7px #fff, 0 10px 24px rgba(0, 0, 0, .35); }
+        .sign h3 { font: 400 1.25rem var(--display); display: flex; justify-content: space-between; gap: 10px; }
+        .sign p { font-size: .96rem; margin-top: 6px; color: #e6f5ec; }
+        .sign.blue { background: var(--blue); box-shadow: inset 0 0 0 4px var(--blue), inset 0 0 0 7px #fff, 0 10px 24px rgba(0, 0, 0, .35); }
+        .sign.blue p { color: #e3ecff; }
+        .sign.red { background: var(--red); box-shadow: inset 0 0 0 4px var(--red), inset 0 0 0 7px #fff, 0 10px 24px rgba(0, 0, 0, .35); }
+        .sign.red p { color: #ffe6e6; }
+        .sign.hazard { background: repeating-linear-gradient(135deg, var(--line) 0 18px, #1b1b1b 18px 36px); box-shadow: 0 10px 24px rgba(0, 0, 0, .35); }
+        .sign.hazard h3, .sign.hazard p { background: #1b1b1b; display: inline-block; padding: 2px 8px; }
+        .sign.hazard p { display: block; margin-top: 8px; }
+        .mapwrap { display: grid; grid-template-columns: 1.1fr 1fr; gap: 46px; align-items: center; margin-top: 60px; }
+        .mapwrap h3 { font: 400 1.6rem var(--display); color: var(--white); margin-bottom: 10px; }
+        .legend { list-style: none; margin-top: 16px; display: grid; gap: 8px; }
+        .legend li { display: flex; align-items: center; gap: 12px; color: var(--text); }
+        .legend i { display: inline-block; width: 14px; height: 14px; flex: none; }
+
+        /* the jobs: the payphone's list */
+        .jobs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px 22px; }
+        .job { display: grid; grid-template-columns: 54px 1fr auto; gap: 4px 14px; align-items: baseline; background: var(--black); padding: 14px 18px; border-left: 6px solid var(--blue); }
+        .job .no { font: 700 1.5rem var(--hud); color: var(--ammo); grid-row: span 2; }
+        .job b { font: 400 1.15rem var(--display); color: var(--white); font-weight: 400; }
+        .job .pay { font: 700 1.05rem var(--hud); color: var(--money); text-align: right; }
+        .job .what { font-size: .95rem; color: var(--dim); }
+        .job .clock { font: 700 .8rem var(--hud); color: var(--white); text-align: right; white-space: nowrap; }
+        .job.big { border-left-color: var(--heart); }
+        .theend { display: grid; grid-template-columns: 1fr 1fr; gap: 34px; align-items: start; margin-top: 50px; }
+        .theend figcaption { margin-top: 16px; color: var(--text); font-size: .98rem; }
+        .theend figcaption b { display: block; font: 700 .85rem var(--hud); color: var(--ammo); font-weight: 700; margin-bottom: 2px; }
+
+        /* screenshots: click one for it big */
+        .gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .gallery figure { background: var(--black); padding: 6px; box-shadow: 0 0 0 2px var(--side); }
+        .gallery img { cursor: zoom-in; width: 100%; }
+        .gallery figcaption { font: 700 .82rem var(--hud); color: var(--dist); padding: 8px 4px 2px; }
+        .gallery figcaption span { color: var(--dim); font-weight: 400; }
+        .lightbox { position: fixed; inset: 0; z-index: 60; display: none; align-items: center; justify-content: center; background: rgba(0, 0, 0, .9); padding: 20px; cursor: zoom-out; }
+        .lightbox.on { display: flex; }
+        .lightbox img { width: min(1280px, 100%); image-rendering: pixelated; box-shadow: 0 0 0 3px var(--white); }
+
+        /* the radio */
+        .radio { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+        .set { background: #141416; border-radius: 10px; padding: 18px; box-shadow: inset 0 0 0 2px #3a3a40, 0 12px 26px rgba(0, 0, 0, .4); }
+        .lcd { background: #0b1f0f; border-radius: 4px; padding: 12px 14px; font: 700 1.15rem var(--hud); color: var(--money); box-shadow: inset 0 0 0 2px #04110a; }
+        .lcd small { display: block; font: 400 .72rem var(--hud); color: #1f9a3c; letter-spacing: 1px; }
+        .set p { font-size: .95rem; color: var(--dim); margin: 14px 0; }
+        .set audio { width: 100%; }
+        .note { margin-top: 26px; color: var(--dim); }
+
+        /* the keys */
+        .keys { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        .keys h3 { font: 400 1.35rem var(--display); color: var(--white); margin-bottom: 12px; }
+        .keys table { width: 100%; border-collapse: collapse; background: rgba(0, 0, 0, .3); }
+        .keys td { padding: 10px 14px; border-top: 1px solid #45454c; vertical-align: top; font-size: .98rem; }
+        .keys td:first-child { width: 44%; }
+        kbd { display: inline-block; font: 700 .78rem var(--hud); color: #111; background: var(--white); border-radius: 4px; padding: 2px 7px 1px; margin: 1px 2px 1px 0; box-shadow: 0 2px 0 var(--curb); white-space: nowrap; }
+        .anywhere { margin-top: 24px; color: var(--text); }
+
+        /* inside */
+        .inside { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        .box { background: rgba(0, 0, 0, .3); border-top: 6px solid var(--line); padding: 22px 24px; }
+        .box h3 { font: 400 1.3rem var(--display); color: var(--white); margin-bottom: 10px; }
+        .box ul { list-style: none; display: grid; gap: 10px; }
+        .box li { padding-left: 20px; position: relative; color: var(--text); }
+        .box li::before { content: ""; position: absolute; left: 0; top: .62em; width: 9px; height: 9px; background: var(--line); }
+
+        footer { background: var(--black); padding: 46px 0 40px; color: var(--dim); font-size: .95rem; }
+        footer .banner { font: 400 clamp(1.6rem, 5vw, 2.6rem) var(--display); color: var(--line); }
+        footer .row { display: flex; gap: 22px; margin: 14px 0 22px; flex-wrap: wrap; }
+        footer .row a { font: 700 .9rem var(--hud); color: var(--white); text-decoration: none; }
+        footer .row a:hover { color: var(--ammo); }
+        footer .crosslinks p { margin: 6px 0; }
+        footer .crosslinks a { color: var(--text); text-decoration: none; }
+        footer .crosslinks a:hover { color: var(--ammo); }
+        footer .legal { margin-top: 14px; font-size: .85rem; color: #85858f; max-width: 60em; }
+
+        @media (max-width: 920px) {
+            .hud nav, .hud .ammo-l { display: none; }
+            .hero-grid, .feat, .mapwrap, .theend, .keys, .inside { grid-template-columns: 1fr; gap: 30px; }
+            .feat:nth-child(even) .screen { order: 0; }
+            .signs, .gallery, .radio { grid-template-columns: 1fr 1fr; }
+            .jobs { grid-template-columns: 1fr; }
+            .ticker { grid-template-columns: repeat(3, 1fr); }
+            .ticker div:nth-child(3) { border-right: 0; }
+        }
+        @media (max-width: 560px) {
+            .signs, .gallery, .radio { grid-template-columns: 1fr; }
+            .hud .row { gap: 12px; font-size: .78rem; }
+            .status { flex-direction: column; align-items: flex-start; }
+            section { padding: 56px 0; }
+            .road { height: 70px; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="hud">
+    <div class="container">
+        <div class="row">
+            <span>HEALTH: <span class="hearts" aria-label="5 hearts">&hearts;&hearts;&hearts;&hearts;&hearts;</span></span>
+            <span class="ammo-l">AMMO: <span class="ammo"><svg viewBox="0 0 10 7" aria-hidden="true"><path fill="#c9c9c9" d="M0 0h10v3H5v1H4v3H1V3H0z"/></svg>12</span></span>
+            <span>WANTED: <span class="stars" id="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span></span>
+        </div>
+        <div class="row">
+            <a class="money" href="#">GRAND THEFT APPLE</a>
+            <nav aria-label="Sections">
+                <a href="#game">THE GAME</a>
+                <a href="#city">THE CITY</a>
+                <a href="#jobs">JOBS</a>
+                <a href="#screens">SCREENS</a>
+                <a href="#radio">RADIO</a>
+                <a href="#keys">KEYS</a>
+                <a href="#inside">INSIDE</a>
+            </nav>
+            <span class="dist" id="dist">DOWNTOWN</span>
+        </div>
+    </div>
+</header>
+
+<section class="hero" data-dist="DOWNTOWN">
+    <div class="container">
+        <div class="hero-grid">
+            <div>
+                <div class="kicker">A top-down crime game for the Apple IIgs</div>
+                <h1><span>Steal a car.</span><span class="y">Lose the police.</span><span>Take the job.</span></h1>
+                <div class="name">GRAND THEFT APPLE</div>
+                <p class="lead">Solana Bay lives: traffic keeps to its lanes, people cross at the zebras, and every crime puts a star on your HUD and another black-and-white on your tail. The payphones have eight jobs, from WHEELS for $500 to THE BIG ONE for $5000. Written from scratch in 65816 assembly, in flat 16-colour pixel art on the Super Hi-Res screen.</p>
+                <div class="cta">
+                    <a class="btn" href="#screens">Screenshots</a>
+                    <a class="btn alt" href="#city">The city</a>
+                </div>
+            </div>
+            <div class="screen"><img class="px" src="screens/chase.png" alt="A chase at four stars: two police cars at a junction downtown, a police shot in the air" width="960" height="600"></div>
+        </div>
+        <div class="status">
+            <span class="flag">IN DEVELOPMENT</span>
+            <p>The whole game plays, from the title to the ending: the city, the police, the eight jobs and the save game. It has yet to be tried on a real IIgs, and there's no download yet.</p>
+        </div>
+        <div class="ticker">
+            <div>256&times;192<span>tiles of city</span></div>
+            <div class="y">40<span>parked cars</span></div>
+            <div class="y">5<span>stars at most</span></div>
+            <div class="g">8<span>jobs</span></div>
+            <div class="o">2<span>radio stations</span></div>
+            <div class="r">5<span>hearts</span></div>
+        </div>
+    </div>
+</section>
+
+<div class="road" aria-hidden="true"><div class="zebra"></div><div class="zebra r"></div></div>
+
+<section id="game" data-dist="SOLANA BAY">
+    <div class="container">
+        <div class="kicker">The game</div>
+        <h2>A city that <em>lives</em> around you</h2>
+        <p class="sub">You walk or run in eight directions and drive anything you can get into. Traffic and people turn up just out of view around you, and the view runs ahead of your car the way it's going.</p>
+
+        <div class="feat">
+            <div class="screen"><img class="px" src="screens/downtown.png" alt="Downtown: cars at a junction, people on the sidewalks" width="960" height="600" loading="lazy"></div>
+            <div>
+                <div class="kicker">Cars</div>
+                <h3>Take any car</h3>
+                <p>Forty cars are parked by the curb and in car parks. Walk up to one and press Return. Or stand in the traffic's way: a car stops, Return pulls the driver out, and it's yours.</p>
+                <p>Cars speed up, brake, back up and coast, and steer more sharply the faster they go. Hit something hard and your car takes damage. It smokes grey, then black, and a wreck burns for three seconds before it goes up.</p>
+            </div>
+        </div>
+
+        <div class="feat">
+            <div class="screen"><img class="px" src="screens/chase.png" alt="Police cars closing in at four stars" width="960" height="600" loading="lazy"></div>
+            <div>
+                <div class="kicker">The police</div>
+                <h3>One car per star</h3>
+                <p>Jacking a car makes you wanted, and knocking someone down adds a star, up to five. For each star a black-and-white comes in from out of view, ignoring the lanes and taking whichever road brings it closer. From three stars they ram you and shoot.</p>
+                <p>Caught on foot, or boxed in while you sit still, you're busted: a $500 fine. Keep every police car out of reach for ten seconds and a star goes. Or drive into one of the three spray shops for new paint and no stars at all.</p>
+            </div>
+        </div>
+
+        <div class="feat">
+            <div class="screen"><img class="px" src="screens/pistol.png" alt="The pistol fired along the sidewalk at a smoking car" width="960" height="600" loading="lazy"></div>
+            <div>
+                <div class="kicker">Fists, a pistol, five hearts</div>
+                <h3>Cartoon stars, no blood</h3>
+                <p>Control punches or shoots, and Tab switches between your fists and the pistol. The gun shops sell the pistol and 12 rounds for $500. A shot knocks people down, though they get up again, and enough shots wreck a car.</p>
+                <p>Get hurt and you lose hearts. With none left you're out cold and wake up at SOLANA GENERAL with a $1000 bill. Press Return at its doors and $200 buys all your hearts back.</p>
+            </div>
+        </div>
+
+        <div class="feat">
+            <div class="screen"><img class="px" src="screens/blast.png" alt="A wrecked car goes up in a cartoon blast" width="960" height="600" loading="lazy"></div>
+            <div>
+                <div class="kicker">And the rest</div>
+                <h3>A boom, a boing, a jingle</h3>
+                <p>The engine hums higher the faster you go, and the siren wails while the police are after you. There's a horn on H, a cartoon boing when someone's knocked down and a bleep for every new star. Payphones ring when a job's waiting, a ka-ching pays you, and a jingle tells you you're busted.</p>
+                <p>Answering a payphone saves the game to the disk, and C on the title screen carries on from it.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="road" aria-hidden="true"><div class="zebra m"></div></div>
+
+<section id="city" data-dist="SUNSET BEACH">
+    <div class="container">
+        <div class="kicker">The city</div>
+        <h2>Where to go in <em>Solana Bay</em></h2>
+        <p class="sub">256 by 192 tiles, about 13 by 17 screens, made up for this game. The HUD always names the district you're in.</p>
+        <div class="signs">
+            <div class="sign"><h3><span>Sunset Beach</span><span aria-hidden="true">&larr;</span></h3><p>The west coast: sand, palms and beach umbrellas along the coast road.</p></div>
+            <div class="sign"><h3><span>Palm Hills</span><span aria-hidden="true">&uarr;</span></h3><p>Houses with lawns and pools in the north, and a pickup for THE DROP.</p></div>
+            <div class="sign"><h3><span>Downtown</span><span aria-hidden="true">&bull;</span></h3><p>Glass towers, plazas, the hospital and a gun shop. You start here.</p></div>
+            <div class="sign"><h3><span>The Docks</span><span aria-hidden="true">&darr;</span></h3><p>Basins, cranes, containers and warehouses along the south coast.</p></div>
+            <div class="sign"><h3><span>Oil Fields</span><span aria-hidden="true">&nearr;</span></h3><p>Pumpjacks on the dirt of the north-east, and not much else.</p></div>
+            <div class="sign"><h3><span>Solana Island</span><span aria-hidden="true">&rarr;</span></h3><p>Across the bay in the south-east, reached by the Solana Bridge.</p></div>
+            <div class="sign blue"><h3><span>H&nbsp; Solana General</span><span>$200</span></h3><p>The white building with a big blue H on its roof, just west of the start.</p></div>
+            <div class="sign red"><h3><span>Gun shops</span><span>$500</span></h3><p>Downtown and at the docks, each with a target on the roof. 12 more rounds cost $100.</p></div>
+            <div class="sign hazard"><h3>Spray shops</h3><p>Downtown, the docks and the beach. Drive in at the hazard door.</p></div>
+        </div>
+
+        <div class="mapwrap">
+            <div class="screen"><img class="px" src="screens/map.png" alt="The map of the whole city, with the districts named" width="960" height="600" loading="lazy"></div>
+            <div>
+                <div class="kicker">Press M</div>
+                <h3>The whole city at once</h3>
+                <p>The map shows Solana Bay with your blinking mark, and everything you might be looking for. On the HUD, an arrow and a distance in tiles point the way.</p>
+                <ul class="legend">
+                    <li><i style="background: linear-gradient(90deg, #2f6bff 50%, #ff2d2d 50%)"></i>The police, flashing blue and red</li>
+                    <li><i style="background: #ff8a1f"></i>The spray shops</li>
+                    <li><i style="background: #fff; box-shadow: inset 0 0 0 4px #fff, inset 0 0 0 7px #1f5fd6"></i>The hospital</li>
+                    <li><i style="background: #d8262e"></i>The gun shops</li>
+                    <li><i style="background: #ffd400; transform: rotate(45deg) scale(.8)"></i>The waypoint, flashing yellow</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="road" aria-hidden="true"><div class="zebra"></div><div class="zebra r"></div></div>
+
+<section id="jobs" data-dist="DOWNTOWN">
+    <div class="container">
+        <div class="kicker">The payphones</div>
+        <h2>Eight jobs, <em>one at a time</em></h2>
+        <p class="sub">There are payphones downtown, at Sunset Beach and at the docks. Press Return at one and the HUD tells you what to do, while its arrow points the way. Some jobs run against a clock. Get busted or run out of time and the job waits at the payphones for another go.</p>
+        <div class="jobs">
+            <div class="job"><span class="no">1</span><b>WHEELS</b><span class="pay">$500</span><span class="what">Steal a car and bring it to the docks.</span><span class="clock"></span></div>
+            <div class="job"><span class="no">2</span><b>THE DROP</b><span class="pay">$750</span><span class="what">A pickup in Palm Hills, a drop at the beach.</span><span class="clock">60 S</span></div>
+            <div class="job"><span class="no">3</span><b>HEAT</b><span class="pay">$1000</span><span class="what">Two stars out of nowhere: lose them.</span><span class="clock"></span></div>
+            <div class="job"><span class="no">4</span><b>ISLAND RUN</b><span class="pay">$1000</span><span class="what">Get a car and drive it to the island.</span><span class="clock">90 S</span></div>
+            <div class="job"><span class="no">5</span><b>HOT PAINT</b><span class="pay">$1250</span><span class="what">A hot car: get it a respray.</span><span class="clock">60 S</span></div>
+            <div class="job"><span class="no">6</span><b>OIL MONEY</b><span class="pay">$1500</span><span class="what">A pickup at the oil, brought downtown.</span><span class="clock">75 S</span></div>
+            <div class="job"><span class="no">7</span><b>HOT WHEELS</b><span class="pay">$2000</span><span class="what">A stolen car to the docks, with three stars on you.</span><span class="clock"></span></div>
+            <div class="job big"><span class="no">8</span><b>THE BIG ONE</b><span class="pay">$5000</span><span class="what">A pickup on the island, four stars, then back downtown.</span><span class="clock">120 S</span></div>
+        </div>
+        <div class="theend">
+            <figure><div class="screen"><img class="px" src="screens/job.png" alt="A job on the HUD: 59 seconds to pick up in Palm Hills" width="960" height="600" loading="lazy"></div>
+                <figcaption><b>On the HUD</b> The job's words, its clock, and an arrow with the tiles to go.</figcaption></figure>
+            <figure><div class="screen"><img class="px" src="screens/ending.png" alt="The ending: THE END, SOLANA BAY IS YOURS, over the sunset" width="640" height="400" loading="lazy"></div>
+                <figcaption><b>And then</b> After the last job comes the ending, to the title's tune, and Return takes you back to play on.</figcaption></figure>
+        </div>
+    </div>
+</section>
+
+<div class="road" aria-hidden="true"><div class="zebra m"></div></div>
+
+<section id="screens" data-dist="THE DOCKS">
+    <div class="container">
+        <div class="kicker">Screenshots</div>
+        <h2>Straight from <em>the IIgs</em></h2>
+        <p class="sub">320 by 200 pixels in 16 colours, as the Super Hi-Res screen shows them. Click one to see it bigger.</p>
+        <div class="gallery">
+            <figure><img class="px" src="screens/title.png" alt="The title screen: Solana Bay at sunset" width="640" height="400" loading="lazy"><figcaption>THE TITLE <span>&middot; painted for the game</span></figcaption></figure>
+            <figure><img class="px" src="screens/downtown.png" alt="Downtown traffic and people" width="960" height="600" loading="lazy"><figcaption>DOWNTOWN</figcaption></figure>
+            <figure><img class="px" src="screens/chase.png" alt="Police cars at four stars" width="960" height="600" loading="lazy"><figcaption>FOUR STARS</figcaption></figure>
+            <figure><img class="px" src="screens/beach.png" alt="Sunset Beach: sand, palms, an umbrella" width="960" height="600" loading="lazy"><figcaption>SUNSET BEACH</figcaption></figure>
+            <figure><img class="px" src="screens/hills.png" alt="Palm Hills: houses, lawns and a pool" width="960" height="600" loading="lazy"><figcaption>PALM HILLS</figcaption></figure>
+            <figure><img class="px" src="screens/docks.png" alt="The docks: basins, cranes and containers" width="960" height="600" loading="lazy"><figcaption>THE DOCKS</figcaption></figure>
+            <figure><img class="px" src="screens/oil.png" alt="The oil fields: pumpjacks on the dirt" width="960" height="600" loading="lazy"><figcaption>OIL FIELDS</figcaption></figure>
+            <figure><img class="px" src="screens/bridge.png" alt="On the Solana Bridge over the bay" width="960" height="600" loading="lazy"><figcaption>SOLANA BRIDGE</figcaption></figure>
+            <figure><img class="px" src="screens/map.png" alt="The map of the city" width="960" height="600" loading="lazy"><figcaption>THE MAP <span>&middot; M</span></figcaption></figure>
+            <figure><img class="px" src="screens/job.png" alt="A job from the payphone with its clock" width="960" height="600" loading="lazy"><figcaption>A JOB <span>&middot; against the clock</span></figcaption></figure>
+            <figure><img class="px" src="screens/pistol.png" alt="The pistol fired at a car" width="960" height="600" loading="lazy"><figcaption>THE PISTOL</figcaption></figure>
+            <figure><img class="px" src="screens/blast.png" alt="A wreck going up" width="960" height="600" loading="lazy"><figcaption>A WRECK GOES UP</figcaption></figure>
+        </div>
+    </div>
+</section>
+
+<div class="road" aria-hidden="true"><div class="zebra"></div><div class="zebra r"></div></div>
+
+<section id="radio" data-dist="PALM HILLS">
+    <div class="container">
+        <div class="kicker">The radio</div>
+        <h2>Two stations <em>and a title tune</em></h2>
+        <p class="sub">Each car is tuned to one of the stations, and R switches to the next one or turns the radio off. The tunes here are rendered by the game's build tools the way the IIgs's sound chip plays them.</p>
+        <div class="radio">
+            <div class="set">
+                <div class="lcd"><small>THE TITLE SCREEN</small>SOLANA BAY</div>
+                <p>C major at sunset, 120 beats a minute with a lilt. It settles on A minor, the lead answers itself, and a bridge falls from F.</p>
+                <audio controls preload="none" src="music/title.mp3"></audio>
+            </div>
+            <div class="set">
+                <div class="lcd"><small>CAR RADIO &middot; 1</small>PALM DRIVE</div>
+                <p>E minor, four on the floor, with the bass bouncing in octaves and open hats on the off-beats. A sunny verse, then a chorus that lifts to A minor.</p>
+                <audio controls preload="none" src="music/palm.mp3"></audio>
+            </div>
+            <div class="set">
+                <div class="lcd"><small>CAR RADIO &middot; 2</small>HARBOR NIGHTS</div>
+                <p>D minor after dark, slow and loose: a sparse bass, a late snare, and a soft lead over a two-chord vamp.</p>
+                <audio controls preload="none" src="music/harbor.mp3"></audio>
+            </div>
+        </div>
+        <p class="note">All the music and sounds are synthesized by the game's own Python tools and played by the Ensoniq chip. Nothing is sampled.</p>
+    </div>
+</section>
+
+<div class="road" aria-hidden="true"><div class="zebra m"></div></div>
+
+<section id="keys" data-dist="OIL FIELDS">
+    <div class="container">
+        <div class="kicker">Controls</div>
+        <h2>The keys, <em>or a joystick</em></h2>
+        <p class="sub">The Apple keyboard reports one key at a time, so speeding up while you steer has keys of its own.</p>
+        <div class="keys">
+            <div>
+                <h3>On foot</h3>
+                <table>
+                    <tr><td><kbd>&larr;</kbd><kbd>&uarr;</kbd><kbd>&rarr;</kbd><kbd>&darr;</kbd> or <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd></td><td>Walk</td></tr>
+                    <tr><td><kbd>Q</kbd><kbd>E</kbd><kbd>Z</kbd><kbd>C</kbd></td><td>Walk diagonally</td></tr>
+                    <tr><td><kbd>Shift</kbd> or button 1</td><td>Run</td></tr>
+                    <tr><td><kbd>Return</kbd> <kbd>Space</kbd> or button 0</td><td>Take a car, a job at a payphone, the pistol at a gun shop's door, your hearts at the hospital</td></tr>
+                    <tr><td><kbd>Control</kbd>, or hold button 0</td><td>Punch, or shoot with the pistol in hand</td></tr>
+                    <tr><td><kbd>Tab</kbd></td><td>Fists or the pistol</td></tr>
+                </table>
+            </div>
+            <div>
+                <h3>In a car</h3>
+                <table>
+                    <tr><td><kbd>&uarr;</kbd> <kbd>W</kbd> / <kbd>&darr;</kbd> <kbd>S</kbd></td><td>Speed up / brake, then back up</td></tr>
+                    <tr><td><kbd>&larr;</kbd> <kbd>A</kbd> / <kbd>&rarr;</kbd> <kbd>D</kbd></td><td>Steer</td></tr>
+                    <tr><td><kbd>Q</kbd> <kbd>E</kbd> / <kbd>Z</kbd> <kbd>C</kbd></td><td>Speed up / back up while steering</td></tr>
+                    <tr><td>Button 1</td><td>Brake</td></tr>
+                    <tr><td><kbd>Return</kbd> <kbd>Space</kbd> or button 0</td><td>Get out, once nearly stopped</td></tr>
+                    <tr><td><kbd>H</kbd> / <kbd>R</kbd></td><td>The horn / the next station</td></tr>
+                </table>
+            </div>
+        </div>
+        <p class="anywhere">Anywhere, <kbd>M</kbd> shows the map. <kbd>Esc</kbd> asks QUIT? Y OR N, and on the title it quits at once.</p>
+    </div>
+</section>
+
+<div class="road" aria-hidden="true"><div class="zebra"></div><div class="zebra r"></div></div>
+
+<section id="inside" data-dist="SOLANA ISLAND">
+    <div class="container">
+        <div class="kicker">Inside</div>
+        <h2>How it's <em>made</em></h2>
+        <p class="sub">A new game, written from the ground up for the IIgs.</p>
+        <div class="inside">
+            <div class="box">
+                <h3>What you need</h3>
+                <ul>
+                    <li>An Apple IIgs with 8 MB and an accelerator, such as a 16 MHz ZipGS. It also runs on a stock IIgs, slowly.</li>
+                    <li>Or MAME (on the Mac it comes with Ample), set up as a IIgs with a 16 MHz ZipGS.</li>
+                    <li>An 800K ProDOS boot disk, which has to be writable for the save game.</li>
+                </ul>
+            </div>
+            <div class="box">
+                <h3>How it's built</h3>
+                <ul>
+                    <li>65816 assembly, assembled with Merlin 32.</li>
+                    <li>Python tools draw the tiles, the sprites, the city and the title picture, and write the music and the sounds.</li>
+                    <li>27 tests run in MAME on a stock IIgs and on a ZipGS, and a bot plays the timed jobs with the keys alone.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="lightbox" id="lb"><img alt=""></div>
+
+<footer>
+    <div class="container">
+        <div class="banner">GRAND THEFT APPLE</div>
+        <div class="row">
+            <a href="../">More projects</a>
+            <a href="#screens">Screenshots</a>
+            <a href="#radio">The radio</a>
+        </div>
+        <div class="crosslinks">
+            <p><b>Apple IIgs:</b> <a href="../Conquer3/">Conquer 3: Sandstorm</a> &middot; <a href="../Conquer-GS/">Conquer GS</a> &middot; <a href="../GSCommander/">GS Commander</a> &middot; <a href="../GSLauncher/">GSLauncher</a> &middot; <a href="../Hyperhaul/">Hyperhaul</a> &middot; <a href="../MegaconvertGS/">MegaconvertGS</a> &middot; <a href="../TileTown/">TileTown</a></p>
+            <p><b>Apple II tools for the Mac:</b> <a href="../EmuBuddy/">EmuBuddy</a> &middot; <a href="../Demos/">IIgs Demos</a> &middot; <a href="../GSRemap/">GS Remap</a> &middot; <a href="../RetroBrowse/">RetroBrowse</a> &middot; <a href="../AppleIIASCIIArt/">1977 ASCII Art</a></p>
+            <p><b>More retro:</b> <a href="../RetroGraphicsConverter/">Retro Graphics Converter</a> &middot; <a href="../Bitpast/">BitPast</a> &middot; <a href="../RetroTube/">Retro Tube</a> &middot; <a href="../RetroTV/">Retro TV</a> &middot; <a href="../Retro%20Computing/">1977: all retro tools</a></p>
+        </div>
+        <div style="margin-top: 14px;">&copy; 2026 Walter Tengler</div>
+        <p class="legal">Grand Theft Apple is an independent game in development. Its code, city, words, pictures, music and sounds are original, and it is not connected with Rockstar Games or the Grand Theft Auto series. Apple IIgs is a trademark of Apple Inc.</p>
+    </div>
+</footer>
+
+<script>
+    // the HUD: the WANTED stars fill as you scroll down, and the district is
+    // the section's you're in
+    var stars = document.getElementById('stars'), dist = document.getElementById('dist');
+    var parts = document.querySelectorAll('[data-dist]');
+    function hud() {
+        var h = document.documentElement, f = h.scrollTop / Math.max(1, h.scrollHeight - h.clientHeight);
+        var n = Math.min(5, Math.round(f * 5)), s = '';
+        for (var i = 0; i < 5; i++) s += i < n ? '<b>★</b>' : '★';
+        stars.innerHTML = s;
+        var d = parts[0].dataset.dist;
+        parts.forEach(function (p) { if (p.getBoundingClientRect().top < 140) d = p.dataset.dist; });
+        dist.textContent = d;
+    }
+    addEventListener('scroll', hud, { passive: true }); hud();
+
+    // a screenshot clicked: shown big; a click anywhere closes it
+    var lb = document.getElementById('lb');
+    document.querySelectorAll('.gallery img').forEach(function (i) {
+        i.addEventListener('click', function () { lb.querySelector('img').src = i.src; lb.querySelector('img').alt = i.alt; lb.classList.add('on'); });
+    });
+    lb.addEventListener('click', function () { lb.classList.remove('on'); });
+    addEventListener('keydown', function (e) { if (e.key === 'Escape') lb.classList.remove('on'); });
+</script>
+</body>
+</html>
