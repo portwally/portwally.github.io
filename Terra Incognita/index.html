@@ -91,6 +91,9 @@
         .hero { display: grid; grid-template-columns: 1.15fr .85fr; gap: 46px; align-items: center; margin-top: 46px; }
         .plate { background: #000; border: 2px solid var(--ink); box-shadow: 0 0 0 5px rgba(234, 215, 167, .95), 0 0 0 6px var(--ink-2), 0 12px 26px rgba(50, 25, 5, .45); }
         .plate img { width: 100%; height: auto; }
+        .film { max-width: 820px; margin: 0 auto; }
+        .film .plate { transform: rotate(.5deg); }
+        .film video { display: block; width: 100%; height: auto; background: #000; }
         .hero .plate { transform: rotate(-1deg); }
         .hero p { font-size: 1.12rem; }
         .hero p + p { margin-top: 12px; }
@@ -244,6 +247,7 @@
         <h1>Terra <em>Incognita</em></h1>
         <p class="tagline">An exploration and trade game for the Apple IIgs</p>
         <nav aria-label="Sections">
+            <a href="#film">The Film</a>
             <a href="#voyage">The Voyage</a>
             <a href="#world">The New World</a>
             <a href="#screens">Plates</a>
@@ -270,6 +274,17 @@
             </div>
         </div>
     </div>
+
+    <section id="film">
+        <div class="title">
+            <div class="kicker">A VOYAGE IN A MINUTE</div>
+            <h2>The <em>Film</em></h2>
+            <p>One voyage from Lisboa and back, recorded on an emulated Apple IIgs, with the game's own music and sounds.</p>
+        </div>
+        <div class="film">
+            <div class="plate"><video controls preload="metadata" playsinline poster="video/terra-demo-poster.jpg" aria-label="Terra Incognita, a demo: the title, fitting out in Lisboa, sailing west into the fog, land ho, a village, a storm and the Royal Audience, with captions."><source src="video/terra-demo.mp4" type="video/mp4"></video></div>
+        </div>
+    </section>
 
     <section id="voyage">
         <div class="title">
