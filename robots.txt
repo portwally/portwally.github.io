@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://portwally.github.io/sitemap.xml
+Sitemap: https://portwally.com/sitemap.xml
