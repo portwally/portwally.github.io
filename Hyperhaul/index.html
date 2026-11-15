@@ -115,6 +115,10 @@
 
         .gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
         .gallery figure { background: var(--navy); border: 1px solid var(--line); }
+        .demo { max-width: 900px; margin: 0 auto 28px; background: var(--navy); border: 1px solid var(--line); }
+        .demo video { display: block; width: 100%; height: auto; background: #000; }
+        .demo figcaption { padding: 10px 14px; font-size: .95rem; color: var(--dim); line-height: 1.4; }
+        .demo figcaption b { color: #fff; }
         .gallery img { width: 100%; cursor: zoom-in; }
         .gallery figcaption { padding: 9px 12px 11px; font-size: .95rem; color: var(--dim); line-height: 1.4; }
         .gallery figcaption b { color: #fff; }
@@ -218,6 +222,7 @@
                 <p class="lead">Trade grain for gold and computers for credits. Hunt pirates for their bounties, or run guns for the warlords and stay a jump ahead of the police. Earn your rating from Greenhorn to Legend, and when the Guild calls, answer. Hyperhaul is a new game in the spirit of the first Elite, written for the Apple IIgs in 65816 assembly, its ships drawn as filled, shaded polygons in real time.</p>
                 <div class="cta">
                     <a class="btn" href="Hyperhaul-Manual.pdf">Read the manual (PDF)</a>
+                    <a class="btn ghost" href="#demo">Watch the demo</a>
                     <a class="btn ghost" href="#screens">Screenshots</a>
                 </div>
             </div>
@@ -304,6 +309,12 @@
             <h2>Screenshots</h2>
             <p>Every picture here is a screen of the game, taken in the emulator byte for byte: the 320 x 200 Super Hi-Res screen, shown three times as big.</p>
         </div>
+        <figure class="demo" id="demo">
+            <video controls preload="none" playsinline poster="video/hyperhaul-demo.jpg" width="1056" height="800">
+                <source src="video/hyperhaul-demo.mp4" type="video/mp4">
+            </video>
+            <figcaption><b>The demo</b>, 85 seconds with the game's own sound: trading, the charts, hyperspace, a fight and the docking computer. Recorded in the emulator.</figcaption>
+        </figure>
         <div class="gallery">
             <figure><img class="px" src="screens/arrival.png" alt="" loading="lazy"><figcaption><b>Arriving</b> from hyperspace, the planet ahead.</figcaption></figure>
             <figure><img class="px" src="screens/station.png" alt="" loading="lazy"><figcaption><b>The station</b> and its traffic.</figcaption></figure>
