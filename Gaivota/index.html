@@ -110,6 +110,11 @@
         .ticker b { display: block; font: 1.15rem var(--px); color: var(--yellow); background: var(--disp); padding: 11px 4px 9px; border: 1px solid #000; white-space: nowrap; }
         .ticker span { display: block; font: .56rem var(--px); color: var(--grey); margin-top: 9px; letter-spacing: 1px; text-transform: uppercase; }
 
+        /* the demo video, in a bezel */
+        .film { max-width: 960px; margin: 0 auto; }
+        .film video { display: block; width: 100%; height: auto; aspect-ratio: 8 / 5; background: #000; border: 2px solid #000; image-rendering: pixelated; }
+        .film p { text-align: center; color: var(--dim); font-size: .98rem; margin-top: 14px; }
+
         /* how a rescue goes */
         .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
         .step { background: var(--panel-2); border: 1px solid var(--rim); display: flex; flex-direction: column; }
@@ -279,6 +284,7 @@
     <div class="container">
         <a class="brand" href="#"><img class="px" src="icon.png" alt="">GAIVOTA</a>
         <nav aria-label="Sections">
+            <a href="#video">Video</a>
             <a href="#rescue">Rescue</a>
             <a href="#missions">Missions</a>
             <a href="#map">Map</a>
@@ -321,6 +327,22 @@
             <div><b>6</b><span>Seats</span></div>
             <div><b>8 MB</b><span>Of RAM</span></div>
             <div><b>16</b><span>MHz best</span></div>
+        </div>
+    </div>
+</section>
+
+<section id="video">
+    <div class="container">
+        <div class="title">
+            <div class="kicker">Watch it fly</div>
+            <h2>A hundred seconds <em>over Portugal</em></h2>
+            <p>Porto's flooded roofs, the surfers at Nazar&eacute;, a sinking boat off Peniche, the fire at Leiria, and under the bridges of Porto and Lisbon.</p>
+        </div>
+        <div class="film">
+            <div class="bezel"><video controls preload="none" playsinline poster="video/poster.png" width="960" height="600">
+                <source src="video/gaivota-demo.mp4" type="video/mp4">
+            </video></div>
+            <p>Recorded in MAME at 16 MHz, the missions flown by the play-testing autopilot. With sound; the captions are in the picture.</p>
         </div>
     </div>
 </section>
