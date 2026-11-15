@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Walter Tengler</title>
+<meta name="description" content="Walter Tengler, born 1971: from a home-built Apple II and BASIC all night to the Apple IIgs and 65816 assembly, and the apps, games and demos he writes today.">
+<link rel="canonical" href="https://portwally.com/About/">
+<meta property="og:title" content="About Walter Tengler">
+<meta property="og:description" content="A home-built Apple II, an assembler book at the lake, and an Apple IIgs bought with saved-up money.">
+<meta property="og:image" content="https://portwally.com/About/walter.jpg">
+<meta property="og:type" content="profile">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Special+Elite&family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>
+:root{
+  --desk:#2a1d12;
+  --paper:#d9c59a;
+  --paper2:#c9b182;
+  --ink:#2a1a0e;
+  --rust:#9a3b14;
+  --rust2:#c0561e;
+  --mustard:#b8892a;
+}
+*{box-sizing:border-box}
+html{background:var(--desk)}
+body{
+  margin:0;padding:48px 16px 70px;color:var(--ink);font-family:'Special Elite','Courier New',monospace;font-size:18px;line-height:1.55;
+  background:
+    radial-gradient(ellipse at 20% 0%,rgba(255,200,120,.10),transparent 55%),
+    radial-gradient(circle at 80% 90%,rgba(0,0,0,.35),transparent 50%),
+    var(--desk);
+}
+a{color:var(--rust)}a:hover{color:#000;background:var(--mustard)}
+.back{display:block;max-width:1060px;margin:0 auto 14px;font-family:'Press Start 2P',monospace;font-size:10px;color:#d9c59a;text-decoration:none}
+.back:hover{background:none;text-decoration:underline;color:#fff}
+
+/* the sheet */
+.sheet{
+  position:relative;max-width:1060px;margin:0 auto;padding:54px 56px 48px;overflow:hidden;
+  background:
+    /* coffee ring */
+    radial-gradient(circle at 86% 13%,transparent 0 62px,rgba(90,45,10,.22) 63px 69px,transparent 71px),
+    /* big stains */
+    radial-gradient(ellipse at 12% 24%,rgba(120,60,15,.20),transparent 34%),
+    radial-gradient(ellipse at 90% 68%,rgba(110,55,12,.22),transparent 38%),
+    radial-gradient(ellipse at 40% 96%,rgba(80,40,10,.26),transparent 36%),
+    radial-gradient(ellipse at 2% 100%,rgba(60,30,8,.35),transparent 30%),
+    var(--paper);
+  box-shadow:0 0 0 1px #6b5230, 0 26px 60px rgba(0,0,0,.65), inset 0 0 90px rgba(90,50,15,.45);
+}
+/* grain and dust over everything */
+.sheet::before{
+  content:"";position:absolute;inset:0;pointer-events:none;z-index:5;mix-blend-mode:multiply;opacity:.55;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .25  0 0 0 0 .15  0 0 0 0 .05  0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+/* fold lines and scuffs */
+.sheet::after{
+  content:"";position:absolute;inset:0;pointer-events:none;z-index:6;
+  background:
+    linear-gradient(180deg,transparent 33%,rgba(0,0,0,.18) 33.15%,rgba(255,240,200,.25) 33.4%,transparent 33.7%),
+    linear-gradient(180deg,transparent 66%,rgba(0,0,0,.16) 66.15%,rgba(255,240,200,.22) 66.4%,transparent 66.7%),
+    linear-gradient(90deg,transparent 49.8%,rgba(0,0,0,.10) 50%,transparent 50.3%),
+    radial-gradient(circle at 18% 8%,rgba(0,0,0,.35) 0 1.5px,transparent 2px),
+    radial-gradient(circle at 63% 4%,rgba(0,0,0,.28) 0 1px,transparent 1.5px),
+    radial-gradient(circle at 92% 47%,rgba(0,0,0,.3) 0 1.4px,transparent 2px),
+    radial-gradient(circle at 7% 71%,rgba(0,0,0,.3) 0 1px,transparent 1.6px),
+    radial-gradient(circle at 55% 88%,rgba(0,0,0,.28) 0 1.8px,transparent 2.4px);
+}
+.sheet>*{position:relative;z-index:2}
+
+.strip{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-family:'Press Start 2P',monospace;font-size:10px;line-height:1.7;color:var(--rust);border-bottom:3px double var(--ink);padding-bottom:12px}
+.stripes{display:flex;height:10px;margin:14px 0 4px;opacity:.85;filter:saturate(.7) sepia(.35)}
+.stripes i{flex:1}
+h1{font-family:'Alfa Slab One',serif;font-weight:400;font-size:clamp(46px,9vw,108px);line-height:.95;margin:28px 0 8px;color:var(--rust);text-shadow:3px 3px 0 rgba(42,26,14,.35);letter-spacing:-.5px;transform:rotate(-.6deg)}
+.dek{font-size:21px;max-width:640px;margin:10px 0 0}
+
+.grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:50px;margin-top:34px;align-items:start}
+h2{font-family:'Press Start 2P',monospace;font-weight:400;font-size:11px;letter-spacing:.06em;color:var(--rust);margin:30px 0 8px;line-height:1.6}
+h2:first-child{margin-top:0}
+p{margin:0 0 14px}
+
+/* the photo, taped on */
+.photo{position:relative;margin:0 0 34px;transform:rotate(2.2deg);background:#e9dcbd;padding:14px 14px 16px;box-shadow:0 10px 24px rgba(0,0,0,.5), 0 0 0 1px rgba(60,30,8,.35)}
+.photo img{display:block;width:100%;height:auto;filter:sepia(.45) contrast(1.06) saturate(.8) brightness(.94)}
+.photo figcaption{font-size:15px;text-align:center;margin-top:10px;color:#4a3320}
+.tape{position:absolute;width:96px;height:30px;background:rgba(226,200,120,.72);box-shadow:0 1px 3px rgba(0,0,0,.35);z-index:3}
+.tape.a{top:-14px;left:-26px;transform:rotate(-38deg)}
+.tape.b{top:-14px;right:-26px;transform:rotate(36deg)}
+
+/* stamp */
+.stamp{position:absolute;right:52px;top:140px;transform:rotate(-9deg);border:4px double var(--rust);color:var(--rust);padding:6px 14px;font-family:'Press Start 2P',monospace;font-size:11px;line-height:1.7;letter-spacing:.08em;opacity:.55;mix-blend-mode:multiply;z-index:4}
+
+/* index cards */
+.card{background:#e6d7b0;border:1px solid rgba(60,30,8,.45);box-shadow:3px 4px 0 rgba(42,26,14,.32);padding:16px 18px;margin:0 0 24px;position:relative;background-image:repeating-linear-gradient(transparent 0 25px,rgba(120,60,20,.22) 25px 26px)}
+.card:nth-of-type(odd){transform:rotate(-.8deg)}.card:nth-of-type(even){transform:rotate(.7deg)}
+.card h3{font-family:'Press Start 2P',monospace;font-weight:400;font-size:10px;color:var(--rust);margin:0 0 10px;line-height:1.6;border-bottom:2px solid var(--rust);padding-bottom:6px}
+.card dl{margin:0}.card dt{font-family:'Press Start 2P',monospace;font-size:8px;color:var(--rust2);margin-top:10px}.card dt:first-child{margin-top:0}
+.card dd{margin:3px 0 0;font-size:16px;line-height:1.35}
+.card ul{margin:0;padding-left:20px}.card li{font-size:16px;margin:2px 0}
+
+.quote{margin:28px 0 4px;font-family:'Alfa Slab One',serif;font-size:26px;line-height:1.2;color:var(--rust);border-top:4px solid var(--ink);border-bottom:2px solid var(--ink);padding:14px 0;transform:rotate(-.4deg)}
+.foot{margin-top:40px;padding-top:12px;border-top:3px double var(--ink);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:14px;color:#4a3320}
+
+@media (max-width:820px){
+  .sheet{padding:30px 20px 34px}.grid{grid-template-columns:1fr;gap:10px}.stamp{display:none}.photo{max-width:380px;margin:0 auto 34px}
+}
+</style>
+<script data-goatcounter="https://portwally.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+<a class="back" href="../">&larr; portwally.com</a>
+<main class="sheet">
+  <div class="stamp">PERSONAL<br>FILE COPY</div>
+  <div class="strip"><span>THE EDITOR&rsquo;S DESK</span><span>NOVEMBER 1986</span><span>MEET THE AUTHOR</span></div>
+  <div class="stripes" aria-hidden="true"><i style="background:#5f8f3a"></i><i style="background:#c99a1e"></i><i style="background:#b8651b"></i><i style="background:#9a3328"></i><i style="background:#6a3a6e"></i><i style="background:#2f6a8a"></i></div>
+
+  <h1>Walter<br>Tengler</h1>
+  <p class="dek">Born 1971. A home-built Apple II, BASIC all night, an assembler book at the lake, and an Apple IIgs bought with saved-up money.</p>
+
+  <div class="grid">
+    <div>
+      <h2>The gift</h2>
+      <p>In the 1980s an Apple employee gave me an Apple II that he had built himself from parts. I learned BASIC on it and programmed all night.</p>
+
+      <h2>The IIgs</h2>
+      <p>When the Apple IIgs came out, I bought one with my own savings. That must have been around 1986.</p>
+
+      <h2>Pascal, and assembler at the lake</h2>
+      <p>Pascal followed BASIC. I learned assembler from a book that I had with me when I was a lifeguard with the Wasserwacht, the German water rescue service: on weekends I lay by the lake and saved people.</p>
+
+      <h2>Real life, and the way back</h2>
+      <p>Then came the serious side of life, and there was no time left for computers. Now I am 55, and I have rediscovered my love for the Apple IIgs.</p>
+      <p>Today I write apps for the Mac and iOS, and programs, games and demos for the Apple IIgs in 65816 assembly.</p>
+
+      <div class="quote">I have rediscovered my love for the Apple IIgs.</div>
+    </div>
+
+    <aside>
+      <figure class="photo">
+        <span class="tape a"></span><span class="tape b"></span>
+        <img src="walter.jpg" width="720" height="1080" alt="Walter Tengler in a black hat and a long black coat, standing in a desert landscape">
+        <figcaption>The author.</figcaption>
+      </figure>
+      <div class="card">
+        <h3>AT A GLANCE</h3>
+        <dl>
+          <dt>BORN</dt><dd>1971</dd>
+          <dt>FIRST COMPUTER</dt><dd>An Apple II, home-built by an Apple employee, a gift</dd>
+          <dt>THE IIGS</dt><dd>Bought with saved-up money, around 1986</dd>
+          <dt>LEARNED</dt><dd>BASIC, Pascal, assembler</dd>
+        </dl>
+      </div>
+      <div class="card">
+        <h3>THE COLLECTION</h3>
+        <ul><li>Old Pong consoles</li><li>Apple II</li><li>Apple IIc</li><li>Apple III</li><li>Lisa</li></ul>
+      </div>
+      <div class="card">
+        <h3>MORE</h3>
+        <ul><li><a href="../">All apps</a></li><li><a href="../Demos/">IIgs Demos</a></li><li><a href="../Retro%20Computing/index.html">Retro computing: 1977</a></li><li><a href="https://github.com/portwally">GitHub</a></li></ul>
+      </div>
+    </aside>
+  </div>
+
+  <div class="foot"><span>&copy; 2026 Walter Tengler</span><span>The Sixteen-Bit Gazette &middot; November 1986</span></div>
+</main>
+</body>
+</html>
