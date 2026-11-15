@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GAIVOTA - Helicopter Rescue over Portugal for the Apple IIgs</title>
+    <meta name="description" content="GAIVOTA is a helicopter rescue game for the Apple IIgs, flown over a map of mainland Portugal built from OpenStreetMap: six missions from the Tejo to the Douro, eleven landmarks in their real sizes, filled 3D in real time. Written in 65816 assembly.">
+    <meta name="keywords" content="GAIVOTA, Apple IIgs, helicopter, rescue, flight, Portugal, OpenStreetMap, Lisbon, Porto, Nazaré, 65816 assembly, Super Hi-Res, fill mode, Ensoniq, retro game, homebrew, ProDOS">
+    <meta name="author" content="Walter Tengler">
+    <link rel="canonical" href="https://portwally.github.io/Gaivota/">
+    <link rel="icon" type="image/png" href="icon.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="GAIVOTA - helicopter rescue over Portugal for the Apple IIgs">
+    <meta property="og:description" content="Fly out to the smoke, winch them up, bring them home: six rescues over a map of Portugal built from OpenStreetMap, on an Apple IIgs.">
+    <meta property="og:image" content="https://portwally.github.io/Gaivota/screens/porto-winch.png">
+    <meta property="og:url" content="https://portwally.github.io/Gaivota/">
+    <meta name="twitter:card" content="summary_large_image">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "VideoGame",
+      "name": "GAIVOTA",
+      "description": "A helicopter rescue game for the Apple IIgs, flown over a map of mainland Portugal built from OpenStreetMap: six missions, eleven landmarks in their real sizes, filled 3D in real time. Written in 65816 assembly.",
+      "genre": ["Flight", "Rescue"],
+      "gamePlatform": "Apple IIgs",
+      "author": { "@type": "Person", "name": "Walter Tengler" },
+      "image": "https://portwally.github.io/Gaivota/screens/porto-winch.png",
+      "url": "https://portwally.github.io/Gaivota/"
+    }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,500;0,600;0,700;1,600&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        /* GAIVOTA: the page as the helicopter's instrument panel.
+           Every colour is one of the game's own (its 12-bit palette). */
+        :root {
+            --night: #0b0c14; --bay: #15151f; --panel: #333344; --panel-2: #262634; --disp: #111122; --rim: #4a4a5e;
+            --text: #ddeeff; --dim: #9aa3c4; --grey: #888899; --yellow: #ffcc55; --orange: #ff7711; --orange-d: #b04a00;
+            --green: #44ee44; --green-d: #225522; --red: #ff3333; --red-d: #552222; --cyan: #44ccff;
+            --sky1: #4477dd; --sky2: #7799dd; --sky3: #bbbbdd; --sea: #3366aa;
+            --ui: 'Chakra Petch', 'Segoe UI', system-ui, sans-serif;
+            --px: 'Press Start 2P', ui-monospace, monospace;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 104px; }
+        body { background: var(--night); color: var(--text); font: 500 1.08rem/1.6 var(--ui); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+        img { display: block; max-width: 100%; height: auto; }
+        .px { image-rendering: pixelated; image-rendering: crisp-edges; }
+        a { color: var(--yellow); }
+        .container { max-width: 1160px; margin: 0 auto; padding: 0 18px; }
+
+        /* the header, and under it the compass tape: it turns as you scroll down the page */
+        .top { position: sticky; top: 0; z-index: 50; background: rgba(11, 12, 20, .94); backdrop-filter: blur(6px); border-bottom: 2px solid var(--panel); }
+        .top .container { display: flex; align-items: center; gap: 14px; height: 58px; }
+        .brand { flex: none; font: .95rem var(--px); color: var(--yellow); text-decoration: none; display: flex; align-items: center; gap: 10px; letter-spacing: 2px; }
+        .brand img { width: 28px; height: 28px; }
+        .top nav { display: flex; gap: 2px; margin-left: auto; overflow-x: auto; scrollbar-width: none; min-width: 0; }
+        .top nav::-webkit-scrollbar { display: none; }
+        .top nav a { font-weight: 700; font-size: .8rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--dim); text-decoration: none; padding: 8px 9px 6px; white-space: nowrap; border-bottom: 2px solid transparent; }
+        .top nav a:hover { color: var(--yellow); border-bottom-color: var(--yellow); }
+        .pill { font: .58rem var(--px); color: var(--green); background: var(--disp); border: 1px solid var(--green-d); padding: 6px 8px 5px; white-space: nowrap; }
+        .tape { position: relative; height: 30px; background: var(--disp); border-top: 1px solid #000; overflow: hidden; }
+        .tape .strip { position: absolute; top: 0; left: 0; height: 100%; will-change: transform; }
+        .tape .tick { position: absolute; bottom: 0; width: 2px; height: 7px; background: var(--grey); }
+        .tape .tick.l { height: 11px; background: var(--text); }
+        .tape .lab { position: absolute; top: 4px; font: .6rem var(--px); color: var(--text); transform: translateX(-50%); }
+        .tape .lab.c { color: var(--yellow); }
+        .tape .lub { position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; margin-left: -1px; background: var(--cyan); z-index: 2; }
+        .tape .lub::before { content: ""; position: absolute; top: 0; left: -5px; border: 6px solid transparent; border-top-color: var(--cyan); }
+        .tape .hdg { position: absolute; right: 10px; top: 7px; font: .56rem var(--px); color: var(--cyan); z-index: 2; background: var(--disp); padding-left: 8px; }
+
+        section { position: relative; padding: 76px 0; }
+        .bay { background: linear-gradient(180deg, var(--bay), #101019); border-top: 1px solid var(--panel); border-bottom: 1px solid var(--panel); }
+        .title { text-align: center; margin: 0 auto 38px; max-width: 860px; }
+        .kicker { font: .66rem/1.8 var(--px); letter-spacing: 2px; color: var(--green); text-transform: uppercase; }
+        .title h2 { font-weight: 700; font-size: clamp(1.9rem, 4.8vw, 3rem); line-height: 1.1; color: #fff; margin-top: 8px; }
+        .title h2 em { color: var(--yellow); font-style: italic; }
+        .title p { margin-top: 14px; font-size: 1.14rem; color: var(--dim); }
+
+        /* a bezel: the panel's slate with four screws */
+        .bezel { position: relative; background: var(--panel); padding: 12px; border: 1px solid var(--rim); box-shadow: inset 0 0 0 1px #000, 0 20px 50px rgba(0, 0, 0, .55); }
+        .bezel::before, .bezel::after { content: ""; position: absolute; width: 8px; height: 8px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #9a9ab0, #3a3a4a 70%); top: 3px; left: 3px;
+            box-shadow: calc(100cqw - 14px) 0 0 0 #555566; }
+        .bezel::after { top: auto; bottom: 3px; }
+        .bezel { container-type: inline-size; }
+        .bezel img { width: 100%; border: 2px solid #000; }
+
+        /* the hero */
+        .hero { padding: 40px 0 70px; }
+        .hero-grid { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 38px; align-items: center; }
+        .hero h1 { font-weight: 700; font-size: clamp(2.1rem, 5.4vw, 3.6rem); line-height: 1.04; color: #fff; margin: 12px 0 16px; }
+        .hero h1 span { display: block; color: var(--yellow); font-style: italic; }
+        .hero .lead { font-size: 1.16rem; line-height: 1.6; color: var(--text); }
+        .cta { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 24px; }
+        .btn { display: inline-block; font: .66rem var(--px); letter-spacing: 1px; text-transform: uppercase; text-decoration: none; color: #000; padding: 13px 18px 12px; background: var(--yellow); border: 0; box-shadow: 0 4px 0 #a07a1a, inset 0 0 0 2px rgba(255, 255, 255, .35); cursor: pointer; }
+        .btn:hover { background: #ffd977; }
+        .btn.ghost { background: var(--disp); color: var(--yellow); box-shadow: inset 0 0 0 2px var(--yellow); }
+        .btn.ghost:hover { background: #1c1c33; }
+        .lamps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 26px; max-width: 460px; }
+        .lamp { font: .62rem var(--px); letter-spacing: 1px; text-align: center; padding: 9px 4px 8px; background: var(--disp); color: var(--green-d); border: 1px solid #000; }
+        .lamp.on { color: var(--green); text-shadow: 0 0 8px rgba(68, 238, 68, .55); }
+        .lamp.y.on { color: var(--yellow); text-shadow: 0 0 8px rgba(255, 204, 85, .5); }
+        .lamp.r { color: var(--red-d); }
+        .status { margin-top: 10px; max-width: 460px; font-size: .98rem; color: var(--dim); line-height: 1.5; }
+        .ticker { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; margin-top: 44px; }
+        .ticker div { background: var(--panel); border: 1px solid var(--rim); padding: 10px 8px 10px; text-align: center; }
+        .ticker b { display: block; font: 1.15rem var(--px); color: var(--yellow); background: var(--disp); padding: 11px 4px 9px; border: 1px solid #000; white-space: nowrap; }
+        .ticker span { display: block; font: .56rem var(--px); color: var(--grey); margin-top: 9px; letter-spacing: 1px; text-transform: uppercase; }
+
+        /* how a rescue goes */
+        .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+        .step { background: var(--panel-2); border: 1px solid var(--rim); display: flex; flex-direction: column; }
+        .step img { border-bottom: 2px solid #000; }
+        .step div { padding: 18px 20px 22px; }
+        .step .lamp { display: inline-block; padding: 7px 10px 6px; margin-bottom: 12px; }
+        .step h3 { font-weight: 700; font-size: 1.32rem; color: #fff; line-height: 1.2; }
+        .step p { margin-top: 8px; color: var(--dim); font-size: 1rem; line-height: 1.5; }
+
+        /* the missions: the game's own menu, and the brief of the one you pick */
+        .ops { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 26px; align-items: start; }
+        .menu { background: #000; border: 2px solid var(--panel); padding: 22px 18px 20px; font: .68rem/2.1 var(--px); color: var(--text); }
+        .menu .mt { text-align: center; color: var(--yellow); letter-spacing: 8px; font-size: .78rem; }
+        .menu .ms { text-align: center; margin-bottom: 14px; }
+        .menu button { all: unset; display: grid; grid-template-columns: 2.2em 1fr auto; width: 100%; box-sizing: border-box; cursor: pointer; padding: 0 6px; }
+        .menu button:hover, .menu button:focus-visible { background: #1a1a2e; }
+        .menu button[aria-selected="true"] { color: var(--yellow); background: #221a00; }
+        .menu .help { color: #667799; margin-top: 14px; font-size: .6rem; line-height: 2; text-align: center; }
+        .menu .help b { color: var(--yellow); font-weight: 400; }
+        .brief { background: var(--panel-2); border: 1px solid var(--rim); }
+        .brief[hidden] { display: none; }
+        .brief img { border-bottom: 2px solid #000; }
+        .brief .say { background: #000; text-align: center; padding: 14px 10px 12px; font: .62rem/2 var(--px); }
+        .brief .say b { color: var(--yellow); font-weight: 400; display: block; }
+        .brief dl { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; padding: 16px; }
+        .brief dl div { background: var(--disp); border: 1px solid #000; padding: 8px 10px 9px; }
+        .brief dt { font: .5rem var(--px); color: var(--grey); letter-spacing: 1px; }
+        .brief dd { font: .78rem/1.6 var(--px); color: var(--yellow); margin-top: 6px; }
+        .brief p { padding: 0 18px 20px; color: var(--dim); font-size: 1rem; line-height: 1.5; }
+
+        /* the map: the chart of mainland Portugal drawn from the game's own map data, as a moving-map display */
+        .mapgrid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 40px; align-items: center; }
+        .mapgrid .bezel { max-width: 470px; justify-self: center; width: 100%; }
+        .mapgrid svg { display: block; width: 100%; height: auto; background: var(--disp); border: 2px solid #000; }
+        .mapgrid .cap { display: flex; justify-content: space-between; gap: 10px; font: .5rem/1.6 var(--px); color: var(--grey); padding: 9px 2px 0; }
+        .maptext h2 { font-weight: 700; font-size: clamp(1.9rem, 4.8vw, 3rem); line-height: 1.1; color: #fff; margin-top: 8px; }
+        .maptext h2 em { color: var(--yellow); font-style: italic; }
+        .maptext > p { margin-top: 14px; font-size: 1.1rem; color: var(--dim); }
+        .maplegend { list-style: none; margin-top: 22px; display: grid; gap: 10px; }
+        .maplegend li { display: flex; gap: 14px; align-items: center; color: var(--dim); font-size: 1rem; line-height: 1.4; }
+        .maplegend svg { flex: none; width: 26px; height: 26px; }
+        .maplegend b { color: #fff; }
+        .mapfacts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 24px; }
+        .mapfacts div { background: var(--panel); border: 1px solid var(--rim); padding: 8px; text-align: center; }
+        .mapfacts b { display: block; font: .8rem var(--px); color: var(--yellow); background: var(--disp); border: 1px solid #000; padding: 9px 4px 8px; white-space: nowrap; }
+        .mapfacts span { display: block; font: .5rem/1.7 var(--px); color: var(--grey); margin-top: 8px; letter-spacing: 1px; text-transform: uppercase; }
+        .m-land { fill: var(--panel-2); } .m-sea { fill: var(--disp); } .m-water { fill: var(--sea); stroke: var(--cyan); stroke-width: .3; }
+        .m-coast { fill: none; stroke: var(--cyan); stroke-width: .8; stroke-linejoin: round; }
+        .m-grat { stroke: var(--panel); stroke-width: .5; }
+        .m-glab { font: 7px var(--ui); fill: var(--grey); }
+        .m-city circle { fill: var(--text); } .m-city text { font: 600 10px var(--ui); fill: var(--dim); }
+        .m-ocean { font: italic 600 12px var(--ui); fill: var(--cyan); letter-spacing: 6px; opacity: .8; }
+        .m-river { font: italic 600 9px var(--ui); fill: var(--cyan); letter-spacing: 1.5px; opacity: .85; }
+        .m-neat { fill: none; stroke: var(--rim); stroke-width: 1; }
+        .m-route { stroke: var(--orange); stroke-width: 1.2; stroke-dasharray: 3 2; fill: none; }
+        .m-base { fill: var(--disp); stroke: var(--green); stroke-width: 1.4; }
+        .m-site { fill: var(--orange); stroke: #000; stroke-width: .8; }
+        .m-badge circle { fill: var(--yellow); } .m-badge text { font: 700 10px var(--ui); fill: #000; }
+        .m-lead { stroke: var(--yellow); stroke-width: .7; }
+        .m-obs { fill: var(--yellow); }
+        .msn { transition: opacity .2s; cursor: pointer; }
+        #map svg:hover .msn { opacity: .45; }
+        #map svg .msn:hover, #map svg .msn.on { opacity: 1; }
+        .msn:hover .m-badge circle, .msn.on .m-badge circle { fill: var(--orange); }
+
+        /* the panel, explained */
+        .panelmap { position: relative; max-width: 960px; margin: 0 auto; }
+        .panelmap img { width: 100%; border: 2px solid #000; }
+        .panelmap i { position: absolute; width: 26px; height: 26px; margin: -13px 0 0 -13px; border-radius: 50%; background: var(--orange); color: #000; font: 600 .78rem/26px var(--ui); font-style: normal; text-align: center; box-shadow: 0 0 0 3px rgba(0, 0, 0, .55); }
+        .legend { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px 22px; max-width: 960px; margin: 26px auto 0; counter-reset: k; }
+        .legend li { position: relative; padding-left: 36px; color: var(--dim); font-size: .98rem; line-height: 1.45; counter-increment: k; }
+        .legend li::before { content: counter(k); position: absolute; left: 0; top: 1px; width: 24px; height: 24px; border-radius: 50%; background: var(--orange); color: #000; font: 600 .78rem/24px var(--ui); text-align: center; }
+        .legend b { color: #fff; }
+
+        /* landmarks */
+        .marks { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+        .mark { background: var(--panel-2); border: 1px solid var(--rim); padding: 14px 16px 16px; display: flex; flex-direction: column; }
+        .mark small { font: .5rem var(--px); color: var(--green); letter-spacing: 1px; text-transform: uppercase; }
+        .mark h4 { font-weight: 700; font-size: 1.08rem; color: #fff; margin: 8px 0 10px; line-height: 1.25; }
+        .mark .alt { margin-top: auto; display: flex; align-items: baseline; gap: 8px; }
+        .mark .alt b { font: .8rem var(--px); color: var(--yellow); background: var(--disp); border: 1px solid #000; padding: 7px 8px 6px; white-space: nowrap; }
+        .mark.off { background: var(--disp); border-style: dashed; }
+        .mark.off p { color: var(--dim); font-size: .95rem; line-height: 1.45; }
+        .mark .alt span { font-size: .86rem; color: var(--grey); }
+        .marks-pics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 22px; }
+        .note { text-align: center; color: var(--dim); max-width: 760px; margin: 26px auto 0; font-size: 1rem; }
+        .mark kbd, .keys kbd { font: .62rem var(--px); color: #000; background: var(--text); padding: 4px 6px 3px; box-shadow: 0 2px 0 var(--grey); }
+
+        /* screenshots */
+        .gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+        .gallery figure { background: var(--panel-2); border: 1px solid var(--rim); }
+        .gallery img { width: 100%; cursor: zoom-in; }
+        .gallery figcaption { padding: 9px 12px 11px; font-size: .95rem; color: var(--dim); line-height: 1.4; }
+        .gallery figcaption b { color: #fff; }
+        .lightbox { position: fixed; inset: 0; background: rgba(5, 5, 12, .95); display: none; place-items: center; z-index: 100; cursor: zoom-out; padding: 20px; }
+        .lightbox.on { display: grid; }
+        .lightbox img { max-width: min(1280px, 96vw); max-height: 90vh; width: auto; border: 2px solid var(--panel); }
+
+        /* the music, on a tape deck */
+        .deck { max-width: 820px; margin: 0 auto; display: grid; grid-template-columns: 220px 1fr; gap: 26px; align-items: center; background: var(--panel); border: 1px solid var(--rim); padding: 22px; }
+        .cass { aspect-ratio: 1.55; background: #1b1b28; border: 2px solid #000; border-radius: 6px; position: relative; padding: 10px; }
+        .cass .lbl { background: var(--yellow); color: #000; font: .5rem/1.7 var(--px); padding: 6px 8px; text-align: center; }
+        .cass .reels { display: flex; justify-content: space-around; margin-top: 12px; }
+        .cass .reels span { width: 38px; height: 38px; border-radius: 50%; border: 6px solid var(--text); background: #000; }
+        .deck.play .reels span { animation: spin 2.2s linear infinite; border-style: dashed; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .deck h3 { font-weight: 700; font-size: 1.4rem; color: #fff; }
+        .deck h3 small { display: block; font: .56rem var(--px); color: var(--green); letter-spacing: 1px; margin-bottom: 8px; }
+        .deck p { color: var(--dim); margin: 8px 0 14px; font-size: 1rem; line-height: 1.5; }
+        .deck audio { width: 100%; }
+
+        /* what you need, the keys */
+        .two { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; align-items: start; }
+        .card { background: var(--panel-2); border: 1px solid var(--rim); padding: 22px 24px 24px; }
+        .card h3 { font-weight: 700; font-size: 1.35rem; color: #fff; margin-bottom: 12px; }
+        .card ul { list-style: none; }
+        .card li { position: relative; padding-left: 22px; margin-top: 9px; color: var(--dim); line-height: 1.5; }
+        .card li::before { content: ""; position: absolute; left: 2px; top: .58em; width: 8px; height: 8px; background: var(--green); box-shadow: 0 0 6px rgba(68, 238, 68, .6); }
+        .card li b { color: var(--text); }
+        .keys { width: 100%; border-collapse: collapse; font-size: .98rem; }
+        .keys td { padding: 8px 6px; border-bottom: 1px solid var(--panel); color: var(--dim); vertical-align: top; }
+        .keys td:first-child { white-space: nowrap; color: var(--text); width: 46%; }
+        .keys kbd { display: inline-block; margin: 2px 2px 2px 0; }
+
+        .dl { max-width: 820px; margin: 0 auto; text-align: center; background: var(--panel); border: 1px solid var(--rim); padding: 30px 24px 32px; }
+        .dl .lamp { display: inline-block; padding: 8px 14px 7px; }
+        .dl h3 { font-weight: 700; font-size: 1.7rem; color: #fff; margin: 14px 0 6px; }
+        .dl p { color: var(--dim); }
+        .dl .cta { justify-content: center; }
+        .dl .fine { font-size: .9rem; margin-top: 16px; }
+
+        .inside { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+        .fact { background: var(--panel-2); border: 1px solid var(--rim); padding: 18px 20px 20px; }
+        .fact b { display: block; font-weight: 700; font-size: 1.12rem; color: var(--yellow); margin-bottom: 6px; }
+        .fact p { color: var(--dim); font-size: 1rem; line-height: 1.5; }
+        .fact code { font: .6rem var(--px); color: var(--green); }
+
+        footer { padding: 54px 0 46px; text-align: center; background: #07070d; border-top: 2px solid var(--panel); color: var(--dim); font-size: .98rem; }
+        footer .banner { font: 1.2rem var(--px); letter-spacing: 8px; color: var(--yellow); }
+        footer .row { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px 22px; margin-top: 16px; }
+        footer .row a { color: var(--text); }
+        footer .crosslinks { margin-top: 20px; font-size: .92rem; line-height: 1.7; }
+        footer .crosslinks a { color: var(--dim); }
+        footer .crosslinks b { color: var(--text); }
+        footer .legal { max-width: 780px; margin: 14px auto 0; font-size: .86rem; line-height: 1.5; color: #737a98; }
+
+        @media (max-width: 900px) {
+            .hero-grid, .ops, .two, .mapgrid { grid-template-columns: 1fr; }
+            .ticker { grid-template-columns: repeat(3, 1fr); }
+            .steps, .inside, .gallery, .marks-pics { grid-template-columns: 1fr 1fr; }
+            .marks { grid-template-columns: repeat(2, 1fr); }
+            .legend { grid-template-columns: 1fr 1fr; }
+            .deck { grid-template-columns: 1fr; }
+            .cass { max-width: 240px; }
+        }
+        @media (max-width: 600px) {
+            .steps, .inside, .gallery, .marks-pics, .legend { grid-template-columns: 1fr; }
+            .ticker { grid-template-columns: repeat(2, 1fr); }
+            .marks { grid-template-columns: 1fr 1fr; }
+            .pill, .tape .hdg { display: none; }
+            section { padding: 56px 0; }
+            .menu { font-size: .56rem; padding: 18px 10px; }
+            .brief dl { grid-template-columns: 1fr 1fr; }
+            .panelmap i { width: 18px; height: 18px; margin: -9px 0 0 -9px; font-size: .62rem; line-height: 18px; }
+        }
+        @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .deck.play .reels span { animation: none; } }
+    </style>
+</head>
+<body>
+
+<header class="top">
+    <div class="container">
+        <a class="brand" href="#"><img class="px" src="icon.png" alt="">GAIVOTA</a>
+        <nav aria-label="Sections">
+            <a href="#rescue">Rescue</a>
+            <a href="#missions">Missions</a>
+            <a href="#map">Map</a>
+            <a href="#panel">Panel</a>
+            <a href="#landmarks">Landmarks</a>
+            <a href="#screens">Screenshots</a>
+            <a href="#music">Music</a>
+            <a href="#need">What you need</a>
+            <a href="#inside">Inside</a>
+        </nav>
+        <span class="pill">APPLE IIGS</span>
+    </div>
+    <div class="tape" aria-hidden="true"><div class="strip" id="strip"></div><div class="lub"></div><div class="hdg" id="hdg">HDG 000</div></div>
+</header>
+
+<section class="hero">
+    <div class="container">
+        <div class="hero-grid">
+            <div class="bezel"><img class="px" src="screens/porto-winch.png" alt="GAIVOTA in Porto: a man on the winch cable, three more waiting on a flooded roof, the Ponte Luiz I behind; the panel below shows WINCH lit" width="960" height="600"></div>
+            <div>
+                <div class="kicker">Call sign Gaivota</div>
+                <h1>Fly out to the smoke. <span>Bring them home.</span></h1>
+                <p class="lead">GAIVOTA is a helicopter rescue game for the Apple IIgs, flown over a map of mainland Portugal built from OpenStreetMap. Surfers in the big waves at Nazar&eacute;, a fishing boat sinking off Peniche, a fire in the pines of Leiria, Porto's roofs in a flood: hover low and slow to winch them up, then land softly at the base before the clock runs out.</p>
+                <div class="cta">
+                    <a class="btn" href="#download">Download</a>
+                    <a class="btn ghost" href="#screens">Screenshots</a>
+                </div>
+                <div class="lamps" aria-label="Status">
+                    <span class="lamp on">FINISHED</span>
+                    <span class="lamp y on">MAME OK</span>
+                    <span class="lamp r">REAL IIGS</span>
+                </div>
+                <p class="status">Every mission plays from the menu to ALL SAFE, tested in MAME at 16 MHz and at stock speed, started from ProDOS 8 and from GS/OS 6. A run on real hardware comes next.</p>
+            </div>
+        </div>
+        <div class="ticker">
+            <div><b>6</b><span>Missions</span></div>
+            <div><b>11</b><span>Landmarks</span></div>
+            <div><b>300&times;600</b><span>Km of map</span></div>
+            <div><b>6</b><span>Seats</span></div>
+            <div><b>8 MB</b><span>Of RAM</span></div>
+            <div><b>16</b><span>MHz best</span></div>
+        </div>
+    </div>
+</section>
+
+<section class="bay" id="rescue">
+    <div class="container">
+        <div class="title">
+            <div class="kicker">How a rescue goes</div>
+            <h2>Out, <em>down</em>, and home</h2>
+            <p>The arrow on the panel points the way; the smoke rises over the people. Three lamps tell you when.</p>
+        </div>
+        <div class="steps">
+            <div class="step"><img class="px" src="screens/douro.png" alt="Over the Douro at 300 m, smoke over the roofs ahead" loading="lazy"><div>
+                <span class="lamp y on">TGT 1.5KM</span>
+                <h3>Fly out to the smoke</h3>
+                <p>The arrow points to the nearest people while a seat is free, and their smoke rises over them. Up to 252 km/h, and up to 2,000 m; the brief tells you where.</p></div></div>
+            <div class="step"><img class="px" src="screens/peniche.png" alt="Winching from the deck of a sinking fishing boat off Peniche" loading="lazy"><div>
+                <span class="lamp on">WINCH</span>
+                <h3>Hover low and slow</h3>
+                <p>Come down by the smoke and slow to a hover: WINCH lights up, the cable goes down and they come up one at a time. Six seats; Porto has ten on its roofs.</p></div></div>
+            <div class="step"><img class="px" src="screens/all-safe.png" alt="The end screen: ALL SAFE - WELL FLOWN, two saved in 3 minutes 10" loading="lazy"><div>
+                <span class="lamp on">LAND</span>
+                <h3>Land softly at the base</h3>
+                <p>Near the base LAND lights up. Touch down gently, under 5 m/s down and 12 m/s forward, and they get out. Soft on the water and you ditch; hard, and you crash.</p></div></div>
+        </div>
+    </div>
+</section>
+
+<section id="missions">
+    <div class="container">
+        <div class="title">
+            <div class="kicker">Press 1 - 6</div>
+            <h2>Six missions, <em>coast to coast</em></h2>
+            <p>The game's own menu: pick a mission here, or press its number on your keyboard, and read its brief.</p>
+        </div>
+        <div class="ops">
+            <div class="menu" role="tablist" aria-label="Missions">
+                <div class="mt">G A I V O T A</div>
+                <div class="ms">A HELICOPTER OVER PORTUGAL</div>
+                <button role="tab" aria-selected="false" data-m="1"><span>1</span><span>FREE FLIGHT</span><span></span></button>
+                <button role="tab" aria-selected="false" data-m="2"><span>2</span><span>TEJO: SAILORS ADRIFT</span><span>TRAINING</span></button>
+                <button role="tab" aria-selected="false" data-m="3"><span>3</span><span>NAZAR&Eacute;: SURFERS IN BIG WAVES</span><span>6:00</span></button>
+                <button role="tab" aria-selected="false" data-m="4"><span>4</span><span>PENICHE: A BOAT IS SINKING</span><span>11:30</span></button>
+                <button role="tab" aria-selected="false" data-m="5"><span>5</span><span>LEIRIA: FIRE IN THE PINES</span><span>13:00</span></button>
+                <button role="tab" aria-selected="true" data-m="6"><span>6</span><span>PORTO: THE DOURO FLOODS</span><span>11:00</span></button>
+                <div class="help">HOVER LOW AND SLOW BY THE SMOKE: WINCH<br>LAND SOFTLY AT THE BASE: THEY GET OUT<br>MAP DATA (C) OPENSTREETMAP CONTRIBUTORS<br><b>PRESS 1 - 6</b></div>
+            </div>
+            <div>
+                <article class="brief" data-m="1" hidden><img class="px" src="screens/belem.png" alt="The Torre de Belém, and the smoke of home behind it" loading="lazy">
+                    <div class="say"><b>FREE FLIGHT</b>FLY WHERE YOU LIKE - THE SMOKE IS HOME</div>
+                    <dl><div><dt>START</dt><dd>300 M</dd></div><div><dt>PEOPLE</dt><dd>-</dd></div><div><dt>TIME</dt><dd>-</dd></div></dl>
+                    <p>You start over the Tejo by Bel&eacute;m. Fly the coast, follow the rivers inland, see the bridges; the smoke at the Torre de Bel&eacute;m is home.</p></article>
+                <article class="brief" data-m="2" hidden><img class="px" src="screens/tejo.png" alt="A sailor coming up on the winch cable over the Tejo" loading="lazy">
+                    <div class="say"><b>TEJO: A DINGHY CAPSIZED OFF BEL&Eacute;M</b>TWO SAILORS IN THE WATER</div>
+                    <dl><div><dt>START</dt><dd>BASE</dd></div><div><dt>PEOPLE</dt><dd>2</dd></div><div><dt>TIME</dt><dd>TRAINING</dd></div></dl>
+                    <p>The training mission: lift off, find the smoke on the river, winch both sailors out of the water and bring them back. No clock.</p></article>
+                <article class="brief" data-m="3" hidden><img class="px" src="screens/nazare.png" alt="A surfer on the winch cable off Nazaré" loading="lazy">
+                    <div class="say"><b>NAZAR&Eacute;: THE BIG WAVES ARE BACK</b>THREE SURFERS ARE IN TROUBLE</div>
+                    <dl><div><dt>START</dt><dd>BASE</dd></div><div><dt>PEOPLE</dt><dd>3</dd></div><div><dt>TIME</dt><dd>6:00</dd></div></dl>
+                    <p>Three surfers in the foam north of the fort and its red lighthouse. The shortest clock of all.</p></article>
+                <article class="brief" data-m="4" hidden><img class="px" src="screens/peniche.png" alt="Four fishermen on the deck of their sinking boat, one on the winch" loading="lazy">
+                    <div class="say"><b>PENICHE: A FISHING BOAT IS SINKING</b>ON THE WAY TO THE BERLENGAS</div>
+                    <dl><div><dt>START</dt><dd>BASE</dd></div><div><dt>PEOPLE</dt><dd>5</dd></div><div><dt>TIME</dt><dd>11:30</dd></div></dl>
+                    <p>Out past Cabo Carvoeiro and its lighthouse, a boat going down with five aboard: the hull sinks as the clock runs, and then they are in the water.</p></article>
+                <article class="brief" data-m="5" hidden><img class="px" src="screens/leiria.png" alt="Smoke and flames over the pine forest near Leiria" loading="lazy">
+                    <div class="say"><b>LEIRIA: THE PINE FOREST IS ON FIRE</b>PEOPLE ARE CUT OFF BY THE FLAMES</div>
+                    <dl><div><dt>START</dt><dd>BASE</dd></div><div><dt>PEOPLE</dt><dd>3 + 2</dd></div><div><dt>TIME</dt><dd>13:00</dd></div></dl>
+                    <p>Two groups cut off in the pines between Leiria and the sea. Follow the black smoke.</p></article>
+                <article class="brief" data-m="6"><img class="px" src="screens/porto-winch.png" alt="Winching from a flooded roof in Porto, the Ponte Luiz I behind" loading="lazy">
+                    <div class="say"><b>PORTO: THE DOURO HAS FLOODED</b>PEOPLE ON THE ROOFS - MIND THE BRIDGES</div>
+                    <dl><div><dt>START</dt><dd>BASE</dd></div><div><dt>PEOPLE</dt><dd>4+3+3</dd></div><div><dt>TIME</dt><dd>11:00</dd></div></dl>
+                    <p>Ten people on three roofs along the Douro, and six seats: two trips at least. The Ponte Luiz I and the Arr&aacute;bida stand in the way, and they are solid.</p></article>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="bay" id="map">
+    <div class="container">
+        <div class="mapgrid">
+            <figure class="bezel">
+<svg viewBox="-22 -16 347 634" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mainland Portugal: the coast and the big rivers from GAIVOTA's map data, the six missions' bases and rescue sites, and the eleven landmarks">
+<rect class="m-land" x="0" y="0" width="303.1" height="602.1"/>
+<path class="m-sea" d="M61.6 0.0 61.6 36.9 62.9 39.8 62.0 42.8 63.1 44.7 62.2 46.4 62.5 48.4 61.7 51.4 64.8 60.1 65.1 59.0 66.4 60.3 66.7 65.2 67.8 67.0 69.3 73.7 69.5 79.3 70.7 81.8 69.7 89.2 71.3 93.0 71.1 93.9 71.5 93.2 71.9 93.5 71.7 94.1 71.4 93.7 72.5 95.6 72.5 97.0 73.8 97.9 73.6 100.6 75.1 106.4 74.7 108.1 75.8 110.0 76.5 116.2 76.4 115.2 77.9 115.6 79.4 118.7 79.0 119.0 80.0 119.5 80.9 125.0 80.9 129.6 82.0 132.6 81.8 136.5 77.8 155.1 73.1 172.0 72.3 174.5 71.6 174.9 73.0 175.1 72.4 179.0 66.4 203.5 62.4 217.2 59.3 225.5 59.5 226.4 62.1 228.4 61.9 230.4 63.2 230.7 63.2 232.7 54.9 257.3 47.1 277.6 47.1 279.7 44.1 289.2 44.1 290.3 45.1 290.8 45.3 292.6 44.8 291.9 40.4 298.7 39.0 299.5 39.7 301.4 39.0 301.6 39.0 300.9 38.4 300.8 36.8 301.8 34.0 304.8 32.0 309.0 28.3 312.5 23.9 315.7 22.6 316.0 22.2 315.3 22.3 316.6 21.2 317.3 19.7 317.1 19.0 315.7 19.0 316.5 17.4 316.3 16.4 317.4 19.3 318.8 19.2 317.9 20.2 318.0 19.4 318.6 19.9 318.6 20.5 319.6 20.4 321.5 21.7 322.8 22.0 325.5 22.6 326.1 22.0 330.7 22.4 332.0 20.7 338.4 15.3 349.2 15.8 352.6 14.8 357.2 15.5 359.1 15.1 361.6 15.8 362.1 15.8 364.0 12.8 373.0 8.5 381.8 9.3 383.8 11.0 385.3 9.8 389.9 12.1 391.4 15.6 392.0 15.8 390.8 17.8 390.6 23.7 393.8 24.5 392.6 27.4 391.0 30.7 391.0 33.0 391.8 40.4 389.9 42.4 387.8 43.5 385.3 43.9 378.7 45.2 375.0 49.5 370.2 50.3 367.0 52.6 362.7 54.5 361.8 53.3 362.7 52.1 365.1 52.5 367.0 52.0 370.5 52.4 371.2 52.0 370.6 53.2 371.1 52.4 371.2 53.4 372.3 52.6 373.7 53.9 376.5 59.0 369.9 59.0 368.3 60.5 366.3 59.1 368.3 59.1 370.0 55.9 375.1 54.4 376.4 55.2 376.1 54.9 377.0 56.4 378.0 56.7 378.9 56.2 378.9 57.0 379.1 57.4 380.2 56.8 380.7 57.4 380.8 57.5 381.7 56.5 382.3 57.1 382.3 56.8 382.7 57.4 382.0 57.0 382.9 57.8 383.1 57.2 383.5 58.8 385.8 57.4 384.0 54.4 384.5 53.6 385.6 50.8 386.8 50.7 387.6 47.7 388.9 47.2 391.8 49.0 390.6 50.8 390.5 51.0 390.9 53.1 390.2 55.0 391.0 55.7 392.0 53.9 391.1 53.3 393.1 53.2 392.3 51.7 392.2 51.7 393.0 51.0 392.1 50.4 394.1 51.3 394.4 51.9 396.3 50.6 394.9 49.5 394.9 49.6 394.3 49.3 394.8 48.8 394.3 48.7 395.8 48.6 394.8 48.2 395.3 47.8 394.8 47.9 393.2 46.8 393.3 46.5 392.6 46.3 393.6 45.0 394.1 45.4 394.4 43.5 395.3 44.4 395.9 44.3 395.2 44.5 396.2 45.8 396.5 45.8 398.1 46.9 398.7 47.2 402.1 45.2 397.8 44.8 397.4 43.9 397.8 44.7 397.3 44.8 396.5 42.4 397.1 42.3 399.6 41.7 397.9 40.5 397.2 39.1 397.3 40.6 396.4 39.9 396.2 40.1 395.9 41.7 397.0 42.9 396.6 39.6 395.3 39.4 394.1 38.9 394.6 38.9 392.1 36.1 393.2 31.0 393.5 28.9 395.0 30.2 396.0 32.9 400.5 35.8 409.8 35.4 415.7 32.3 422.7 34.6 423.2 37.0 420.9 40.0 421.0 41.7 420.4 42.3 419.9 41.7 420.3 41.6 419.8 42.3 419.5 46.0 420.3 47.9 419.0 49.0 419.1 52.3 417.0 53.1 415.4 56.4 414.9 57.2 414.3 57.8 412.2 61.2 410.7 64.4 412.2 66.8 414.4 67.6 414.3 67.1 414.5 67.3 415.1 67.9 414.4 67.9 415.8 67.9 414.4 69.1 414.5 68.5 416.2 69.8 416.1 69.9 415.4 69.9 416.1 70.7 416.2 69.9 414.2 70.5 414.1 70.5 415.3 70.4 413.9 71.3 413.6 71.1 412.9 72.3 413.2 71.3 412.4 68.2 412.6 66.3 411.9 67.7 411.8 66.8 411.1 68.1 412.2 68.6 412.0 67.8 411.4 69.2 411.8 68.1 411.1 70.1 411.2 68.1 409.6 69.6 408.5 67.7 407.7 68.5 407.9 68.5 407.2 68.8 408.1 70.8 408.4 70.1 408.9 70.4 409.4 71.1 409.3 72.1 408.7 72.2 407.7 73.1 407.5 72.9 405.9 74.1 405.3 73.7 406.3 74.2 407.8 73.6 408.9 74.0 410.6 75.8 411.5 76.7 411.2 74.8 411.6 75.4 419.6 77.3 419.5 81.3 423.3 89.6 422.5 90.8 423.6 90.9 427.0 92.3 427.8 90.6 426.9 90.4 423.7 89.3 422.8 81.7 424.1 77.3 422.2 74.7 422.0 73.2 422.2 71.4 423.5 70.6 423.0 70.6 422.0 69.5 421.6 68.5 419.5 68.0 421.0 68.8 421.2 69.2 421.7 68.7 422.1 69.8 422.6 69.1 424.0 69.3 425.0 68.7 424.9 69.2 426.2 66.4 420.7 65.8 419.0 66.5 419.3 64.2 417.9 61.6 414.6 61.1 414.6 61.5 416.2 61.3 415.0 60.3 414.1 61.0 414.8 61.0 414.1 60.0 413.7 59.1 414.2 65.6 420.8 66.9 423.0 69.6 430.8 70.6 438.4 70.3 448.3 68.7 456.2 65.2 466.4 62.6 471.9 61.2 473.1 61.0 475.2 61.1 474.0 61.8 474.4 63.0 473.8 64.1 475.8 63.0 475.5 65.1 478.0 63.9 476.2 64.3 475.6 65.2 476.6 65.3 475.6 67.8 476.6 68.9 480.4 68.8 485.1 69.5 486.7 67.6 497.1 68.9 498.0 69.4 500.0 71.2 498.9 72.8 498.9 73.2 501.8 74.2 501.8 73.5 503.5 75.0 504.1 76.3 507.1 76.2 508.3 77.3 509.3 76.9 510.0 77.7 509.7 78.6 510.7 79.8 510.7 78.9 512.0 80.1 512.0 80.8 511.3 80.2 512.0 78.9 512.0 79.7 510.8 78.6 510.8 77.6 509.8 76.9 510.0 77.2 509.3 76.1 508.3 76.2 507.0 75.4 506.3 75.0 504.1 73.5 503.5 74.1 501.8 73.2 501.9 72.6 499.0 69.7 500.0 69.0 501.5 69.0 504.6 67.0 513.2 67.6 515.3 69.3 517.7 69.8 520.4 68.5 527.1 68.8 530.5 64.7 541.2 64.4 541.0 62.0 544.2 62.5 545.3 62.1 547.0 63.0 547.2 63.5 550.0 60.6 556.5 59.7 557.8 58.5 558.0 59.3 558.8 58.9 559.5 59.7 561.6 56.8 567.7 55.0 569.4 54.7 572.1 53.3 573.6 52.8 574.4 53.2 575.0 51.7 577.4 52.4 577.2 52.6 577.8 52.8 576.9 54.6 577.1 55.9 579.1 56.0 580.6 56.4 579.4 57.4 579.7 57.8 579.2 58.0 578.5 57.4 578.6 58.0 577.6 59.5 577.3 60.5 575.2 61.9 574.7 63.1 575.2 63.9 573.8 65.3 573.1 67.9 572.5 69.6 572.9 75.0 570.2 80.0 571.1 80.4 568.0 82.4 566.7 84.1 566.7 83.9 566.1 83.2 566.1 83.8 566.1 84.0 564.9 83.9 565.5 85.2 565.4 86.2 564.7 86.1 565.8 84.3 565.6 84.2 566.7 85.6 566.2 88.7 567.2 89.1 566.6 91.2 566.9 92.7 568.2 99.3 570.3 103.3 569.8 105.7 568.5 111.7 571.9 115.1 571.0 114.2 570.4 117.1 570.7 121.5 569.8 126.6 572.2 127.0 571.1 126.7 572.1 129.8 573.1 140.5 581.5 134.0 576.1 134.6 575.9 136.2 577.7 138.3 578.0 137.9 578.8 138.4 578.3 140.0 579.3 141.3 578.5 140.9 578.1 141.4 577.7 140.9 577.7 141.4 576.7 147.0 581.9 147.8 581.7 149.1 580.2 148.8 578.8 149.5 578.1 149.0 577.8 151.3 577.4 151.4 576.7 151.6 577.2 153.5 576.7 155.1 575.6 156.9 575.7 158.3 574.4 159.1 574.5 160.8 572.3 161.6 572.7 161.9 571.7 165.9 568.9 168.0 568.5 170.2 566.2 170.5 564.8 171.1 565.3 176.4 562.4 183.8 560.2 187.6 560.8 188.8 561.7 189.2 560.2 190.5 561.0 194.7 559.5 303.1 559.8 303.1 602.1 0.0 602.1 0.0 0.0Z"/>
+<path class="m-land" d="M161.4 573.4 170.2 567.5 169.3 567.1 168.1 568.7 165.7 569.9 165.3 569.7 165.6 570.0 161.4 573.4ZM154.7 577.5 153.9 577.3 154.1 577.9 153.8 577.8 154.2 578.4 155.1 578.6 160.5 574.0 156.3 576.8 155.5 576.9 155.3 577.4 154.8 577.1 154.7 577.5ZM149.4 581.6 148.7 582.4 148.5 584.0 148.8 582.8 154.5 579.3 154.3 578.9 153.3 579.7 152.6 579.6 152.6 580.3 151.5 580.6 151.2 581.1 151.3 580.3 150.8 580.3 149.4 581.6ZM171.4 565.5 170.3 566.4 170.2 567.3 170.3 566.7 172.1 565.2 176.9 562.8 175.3 563.0 171.4 565.5ZM49.2 371.4 48.3 372.5 46.4 373.6 44.4 378.3 45.6 376.8 47.5 375.6 49.2 371.4ZM140.9 581.6 143.3 583.2 146.1 584.2 148.4 583.9 148.0 583.1 147.3 583.6 145.9 583.6 143.1 582.4 142.3 582.6 140.9 581.6ZM52.8 372.7 53.0 372.2 51.5 370.3 50.7 370.9 49.6 373.3 51.6 373.3 52.8 372.7ZM50.6 370.3 51.5 368.9 51.6 366.0 50.8 367.2 50.6 370.3ZM8.1 311.5 8.4 311.0 7.8 310.7 7.9 311.2 7.5 310.8 7.1 311.9 7.5 312.1 8.1 311.5Z"/>
+<path class="m-water" d="M75.1 413.7 75.3 419.5 77.3 419.5 79.7 422.0 78.8 423.1 77.3 422.2 73.8 422.0 71.4 423.5 68.4 419.6 68.0 421.0 69.8 422.6 68.7 424.9 69.2 426.2 66.2 419.0 64.2 417.9 61.0 414.1 61.0 414.8 60.3 414.2 61.6 416.2 61.6 414.9 61.5 416.2 60.3 414.1 61.0 414.8 61.0 414.1 59.1 414.2 57.6 413.1 57.8 412.2 61.2 410.7 67.6 414.3 67.3 415.1 67.9 414.4 67.9 415.8 67.9 414.4 69.1 414.5 68.5 416.2 69.8 416.1 69.9 415.4 70.7 416.2 69.9 414.2 70.5 415.3 71.1 412.9 72.4 413.3 71.3 412.4 66.3 411.9 67.7 411.8 66.8 411.1 68.1 412.2 68.6 412.0 67.8 411.4 69.2 411.8 68.1 411.1 70.1 411.2 68.1 409.6 69.6 408.5 67.7 407.7 68.5 407.9 68.5 407.2 68.8 408.1 70.8 408.4 70.1 408.9 71.1 409.3 73.1 407.5 72.9 405.9 74.2 405.3 74.0 410.6 76.7 411.2 74.8 411.6 75.1 413.7ZM143.4 578.8 141.4 576.7 140.8 579.0 138.7 578.5 138.9 579.1 138.4 578.3 137.9 578.8 138.3 578.0 134.0 576.1 142.3 582.6 146.8 583.7 148.0 583.1 148.5 584.0 148.7 582.4 150.8 580.3 151.2 581.1 152.6 579.6 154.5 579.3 155.1 578.6 154.1 578.4 153.9 577.3 154.7 577.7 158.5 575.5 165.3 569.7 168.1 568.7 169.3 567.1 170.2 567.5 171.3 565.2 177.7 562.0 171.1 565.3 170.5 564.8 168.0 568.5 165.9 568.9 156.9 575.7 155.1 575.6 151.6 577.2 151.4 576.7 151.3 577.4 149.0 577.8 148.8 579.3 146.5 578.5 145.9 579.1 146.4 578.5 148.8 578.9 149.1 580.2 147.8 581.7 146.9 581.9 146.2 580.9 147.5 580.3 146.2 580.9 143.4 578.8ZM92.1 567.8 92.8 567.2 91.8 564.5 93.9 563.4 94.2 562.3 94.5 562.9 94.4 561.8 95.5 561.9 95.0 561.6 96.1 560.2 94.6 558.3 94.9 556.8 93.2 556.6 95.1 557.0 94.4 558.1 95.6 559.8 94.9 559.0 95.5 560.4 93.9 561.7 93.8 563.1 92.6 563.8 93.2 562.0 92.5 561.3 92.6 562.9 92.3 560.7 91.4 560.7 92.6 563.2 91.5 563.6 92.1 567.8ZM98.3 545.9 97.2 545.3 97.5 546.6 97.2 546.1 97.1 547.4 96.2 547.7 98.2 547.8 98.0 546.6 98.9 547.4 98.1 546.4 98.8 545.6 100.1 545.9 99.3 545.4 99.5 544.6 101.4 544.9 100.1 544.5 100.4 543.4 101.7 543.6 101.3 542.5 101.9 542.2 102.6 543.3 103.8 542.0 105.5 542.3 105.0 541.6 106.5 540.3 105.2 540.5 105.1 539.8 106.0 540.8 105.5 541.4 104.4 542.0 103.0 541.3 103.2 542.4 102.5 542.7 101.6 541.7 101.3 543.1 100.1 543.4 100.4 542.0 99.8 541.3 100.0 544.4 99.2 545.1 99.2 544.2 98.3 545.9ZM185.4 544.8 184.8 541.8 185.3 536.8 183.3 534.5 184.8 533.4 183.7 532.3 183.8 529.7 182.6 527.3 183.2 525.8 181.4 524.5 180.8 521.9 179.1 521.6 178.3 518.4 179.2 521.5 180.8 521.6 181.6 524.4 183.3 525.6 182.9 527.6 184.2 529.1 183.8 531.7 185.0 533.3 183.4 534.3 185.8 537.5 185.0 541.7 185.4 544.8ZM172.0 541.3 173.2 542.1 175.0 541.2 174.4 542.4 175.8 541.5 177.7 543.3 178.6 542.1 179.3 543.1 179.6 542.2 179.7 543.0 181.4 543.3 181.2 544.1 180.2 543.5 179.8 544.2 178.5 543.0 177.6 544.1 176.8 543.9 177.4 543.4 177.0 542.8 176.2 543.4 175.8 541.7 175.8 542.9 175.4 542.3 174.8 542.8 174.1 542.5 174.5 541.6 173.2 542.2 172.0 541.3ZM102.2 524.3 101.5 523.6 101.4 524.7 101.1 523.1 100.9 524.7 100.7 523.6 99.2 522.6 98.7 519.5 99.0 520.1 99.3 519.3 99.2 520.0 100.1 519.6 99.1 520.4 100.0 520.6 99.3 521.5 100.8 520.4 99.9 522.3 100.7 522.6 101.4 521.3 102.0 522.6 101.9 521.0 102.8 522.0 102.9 520.9 103.3 522.1 104.1 520.4 104.3 522.0 105.5 520.1 105.6 520.8 106.3 520.2 104.8 518.3 106.1 519.7 108.1 517.1 107.9 515.8 108.4 517.2 108.5 516.1 109.5 516.9 109.7 516.0 110.0 516.9 110.4 515.4 111.3 515.4 111.0 516.2 111.7 515.6 110.4 515.8 110.1 517.5 109.9 516.5 109.5 517.5 108.8 516.8 109.3 518.2 107.9 517.2 106.6 519.8 107.5 520.0 106.2 520.5 109.6 521.4 110.4 520.7 109.8 521.2 110.2 521.9 109.5 521.1 108.0 521.5 107.1 520.8 108.1 522.5 105.9 521.3 106.8 523.6 105.5 521.5 105.6 522.4 103.7 521.7 102.4 522.4 102.6 523.2 103.9 523.0 103.0 523.5 105.1 525.2 103.6 524.5 103.3 525.5 104.4 526.5 105.3 526.2 106.0 528.0 105.2 526.4 103.8 526.3 104.1 527.4 103.6 527.1 103.8 526.1 102.7 525.8 103.2 524.5 102.2 524.3ZM173.1 516.1 173.7 518.1 176.1 518.9 178.4 517.8 176.3 519.0 173.3 518.1 171.7 514.4 167.5 513.1 165.9 510.1 167.2 507.6 166.0 504.5 168.8 498.9 167.3 495.9 168.8 490.4 167.6 488.7 166.9 480.6 168.2 479.2 164.6 475.3 166.3 471.1 168.2 469.3 167.1 462.7 168.8 461.7 167.0 458.5 167.3 457.2 168.9 456.3 167.3 456.9 166.9 458.2 168.7 461.8 167.0 462.5 167.8 469.5 166.1 471.2 164.5 475.4 168.1 479.2 166.8 481.2 167.7 488.6 168.8 489.9 167.4 495.9 168.9 498.9 166.1 504.3 167.3 508.0 165.9 510.0 168.0 513.2 171.3 513.8 173.1 516.1ZM178.8 516.1 179.5 517.7 178.1 517.0 178.3 517.7 180.1 518.5 179.8 517.0 180.5 516.6 179.0 516.5 180.8 515.9 180.4 514.7 181.7 514.2 182.5 515.0 182.2 514.0 183.0 512.9 183.5 514.1 185.2 514.2 184.4 512.8 186.1 513.0 186.2 512.0 187.1 513.0 188.0 512.0 188.8 512.3 189.0 511.4 188.7 512.2 186.9 512.5 186.3 511.7 185.9 512.6 184.6 512.5 186.7 510.8 188.7 510.9 186.2 510.2 185.4 511.9 184.0 512.2 184.0 513.2 182.7 512.6 182.2 513.7 180.5 514.1 180.1 512.8 181.3 512.9 181.9 510.6 183.1 510.4 183.1 507.7 184.4 508.3 184.1 507.2 184.9 507.2 184.1 506.3 185.1 505.8 184.3 504.5 185.0 501.8 184.2 504.5 184.9 505.9 183.5 505.9 184.3 506.6 184.0 507.8 182.5 507.8 183.1 508.7 182.3 508.8 182.5 510.2 181.8 509.6 181.2 510.4 181.7 511.1 181.1 512.6 180.1 512.2 181.2 511.5 180.9 510.7 178.9 510.4 180.9 511.3 179.4 511.8 179.6 512.7 178.8 512.4 180.2 514.1 179.2 515.9 178.5 514.2 178.8 516.1ZM80.0 512.0 78.8 511.9 79.7 510.8 76.9 510.0 77.2 509.3 76.1 508.3 75.0 504.1 73.5 503.5 74.1 501.8 73.2 501.9 72.6 499.0 69.6 500.6 69.7 499.6 72.8 498.9 73.2 501.8 74.2 501.8 73.5 503.5 75.0 504.1 76.2 508.3 77.3 509.3 76.9 510.0 79.8 510.7 78.9 512.0 80.8 511.2 80.0 512.0ZM111.9 504.4 112.0 502.7 111.1 503.8 112.3 502.2 111.2 500.8 111.5 499.0 113.2 498.7 115.0 499.8 116.4 497.9 116.6 498.6 115.5 499.3 116.2 499.7 114.9 500.2 116.3 502.0 115.6 504.0 115.6 501.2 114.2 500.3 113.8 502.4 113.9 500.9 112.7 499.8 113.1 502.5 111.9 504.4ZM133.4 479.2 134.8 480.5 133.0 479.3 132.8 480.5 132.5 479.0 131.4 480.6 132.1 478.8 131.6 477.1 130.3 476.6 130.4 474.8 131.6 474.7 131.1 474.0 132.0 472.4 132.1 474.1 133.1 473.1 133.5 474.4 134.6 473.1 134.0 474.6 136.2 474.3 132.8 475.3 133.5 476.3 135.1 476.1 134.9 476.9 133.6 476.7 132.6 475.4 131.3 476.1 133.3 476.7 133.7 478.0 133.0 476.7 132.0 477.6 133.4 479.2ZM169.8 455.2 170.5 453.0 168.1 451.5 170.5 452.8 171.9 449.7 171.5 449.1 172.3 449.5 172.3 448.5 172.4 449.4 174.0 448.4 178.3 451.4 180.9 449.8 180.6 446.8 181.5 448.6 181.0 450.3 183.0 449.3 185.2 450.5 190.4 449.5 185.1 450.7 182.9 449.4 178.4 451.7 173.1 449.4 171.4 450.8 171.6 452.9 172.2 453.2 170.2 455.2 171.0 456.4 170.1 455.4 168.8 456.2 169.8 455.2ZM180.2 446.8 179.0 445.7 178.5 446.2 177.5 445.1 178.4 445.2 178.5 444.4 178.0 444.9 177.0 444.0 177.5 443.1 177.1 443.6 179.5 445.2 180.7 444.9 178.4 442.6 179.4 442.8 178.7 441.9 180.2 442.8 179.0 438.9 176.3 438.1 177.6 437.2 176.1 436.4 176.6 435.1 175.6 436.1 174.7 435.8 175.2 436.6 173.6 436.5 174.2 437.4 172.7 438.2 172.8 437.6 171.3 437.8 173.7 437.3 173.4 436.3 172.5 436.6 175.0 435.4 173.5 434.8 175.2 435.1 174.0 433.4 175.1 433.2 174.9 431.5 173.0 430.7 173.7 429.8 172.5 429.2 172.9 428.6 171.9 428.3 171.8 429.2 171.8 428.2 170.6 428.0 170.4 426.2 169.4 426.6 167.6 425.1 166.7 426.1 166.8 425.0 164.6 422.2 165.3 421.9 165.2 420.3 165.4 423.4 167.8 424.2 169.3 425.9 170.6 425.6 171.1 427.8 173.1 427.9 173.9 430.9 175.3 431.0 174.2 429.3 175.1 430.4 176.1 429.5 175.3 430.5 175.8 431.1 175.0 431.4 176.0 433.0 175.4 432.7 175.0 433.8 175.6 434.2 175.4 435.5 176.6 433.9 176.7 436.1 177.3 435.7 177.9 436.5 178.2 438.1 179.2 438.3 179.0 436.8 179.3 437.8 180.1 436.3 179.8 437.7 180.5 437.4 179.4 438.8 180.2 439.0 180.0 440.1 180.9 439.5 180.5 440.6 181.7 441.2 180.6 441.5 180.7 443.6 181.4 442.9 181.4 444.2 182.5 443.8 182.3 443.1 183.3 443.8 183.3 441.9 184.2 441.6 183.6 440.3 184.9 441.3 185.0 439.8 184.1 440.1 182.9 438.6 184.7 439.3 183.9 436.5 184.6 435.9 185.5 438.9 185.5 437.2 186.8 438.4 187.2 438.0 184.9 436.4 186.0 436.3 185.0 435.7 186.0 435.4 185.2 433.4 186.3 433.7 185.2 432.0 186.0 430.2 184.5 429.1 185.1 429.0 184.7 428.2 185.4 428.5 185.2 427.5 186.7 428.8 186.9 427.2 188.2 428.4 190.1 427.0 187.3 426.0 185.4 426.5 187.3 424.5 185.3 425.7 185.3 424.7 183.1 423.0 184.8 423.3 185.7 424.6 187.0 424.1 186.4 423.7 187.8 422.6 188.8 424.6 188.4 424.2 190.0 423.5 188.3 422.1 190.9 421.8 189.5 421.3 190.4 420.7 192.3 421.3 193.2 419.3 193.8 419.9 192.8 418.3 193.4 417.8 192.1 417.9 193.1 417.5 193.8 418.4 193.4 416.5 192.5 416.2 193.5 414.5 192.6 413.2 193.7 414.5 193.2 416.3 194.6 416.8 193.9 420.2 196.2 417.0 194.6 415.3 195.8 412.1 195.2 411.1 196.4 410.9 195.7 409.4 196.6 410.8 197.1 409.5 196.2 408.5 196.9 408.5 197.4 407.2 195.6 406.6 197.2 406.7 196.3 406.0 196.7 405.2 195.1 404.5 192.2 400.8 190.5 400.7 192.4 400.6 194.0 402.5 194.4 401.5 194.3 403.2 196.3 404.5 196.5 403.6 197.8 407.1 197.9 404.2 199.3 404.5 200.4 403.0 199.9 401.3 200.4 402.5 200.5 400.3 201.9 399.2 200.1 399.2 199.2 396.3 199.9 396.5 200.1 393.3 199.4 392.5 200.1 393.1 200.1 389.8 199.2 389.0 199.4 387.7 197.6 387.3 199.9 387.8 200.2 387.2 200.0 388.0 201.6 387.4 202.9 386.5 201.6 384.8 203.0 386.5 204.4 386.1 206.2 383.2 209.5 381.6 206.9 383.3 204.1 387.0 201.8 387.5 200.3 394.0 201.5 394.4 200.3 394.6 200.2 397.8 200.8 398.7 201.8 397.9 201.8 398.5 203.6 398.7 204.1 398.0 202.4 398.8 202.2 400.4 201.7 400.0 201.2 401.1 204.5 401.0 203.6 400.9 203.5 401.8 201.1 401.4 200.9 402.3 201.6 402.5 200.4 403.4 201.1 403.7 200.7 404.0 200.1 403.7 200.0 406.1 199.2 406.5 201.9 406.8 198.3 407.3 197.2 408.7 197.4 409.9 198.5 409.8 196.6 411.3 197.1 411.7 196.3 411.6 197.0 412.8 196.2 414.4 197.6 413.7 198.6 415.7 201.6 414.8 200.3 415.8 202.1 417.4 203.9 416.6 202.2 417.8 201.3 417.1 200.6 417.7 200.6 416.8 199.4 416.3 199.1 417.6 198.2 416.9 196.4 417.5 197.7 418.4 196.5 418.2 195.6 419.6 197.5 419.9 196.7 420.3 197.8 421.3 195.9 419.9 195.9 421.0 195.0 420.1 195.1 421.5 194.3 420.8 194.3 422.1 193.5 422.0 194.4 422.9 194.9 422.4 195.0 423.6 192.9 423.0 192.4 424.2 191.0 424.0 190.4 425.6 192.1 424.3 194.2 424.3 191.6 426.1 192.7 427.8 193.9 427.8 193.1 427.9 193.5 428.6 191.8 428.2 192.1 429.7 191.0 428.7 190.7 429.7 189.4 428.2 189.4 429.1 188.5 428.9 190.5 431.1 187.3 429.8 187.0 430.8 189.4 431.2 189.2 432.3 189.8 431.8 190.3 432.7 188.8 432.6 189.1 433.7 187.9 433.3 188.3 434.0 186.8 435.3 187.6 435.9 188.5 434.0 189.4 434.1 189.4 435.1 190.7 433.5 190.6 434.8 191.8 433.3 191.9 434.4 192.1 433.6 192.6 434.0 191.9 432.8 193.0 433.4 193.2 432.4 192.3 432.1 193.1 431.5 193.8 432.2 194.0 431.3 194.1 432.6 195.2 433.1 195.5 431.3 195.9 432.9 196.5 431.6 197.3 432.2 196.9 430.8 197.9 432.3 197.7 430.2 199.4 432.0 201.1 430.5 200.9 431.5 204.0 430.7 205.0 431.3 204.7 432.2 204.2 431.1 200.0 432.2 200.7 432.1 201.8 433.9 202.9 433.2 203.7 435.2 205.2 436.2 203.5 435.4 202.6 433.5 201.7 434.8 200.4 432.4 198.0 432.7 199.0 434.6 197.1 432.6 197.7 434.9 196.6 433.7 195.4 433.7 196.1 435.3 194.4 433.7 194.7 435.6 194.1 434.9 193.9 436.2 193.1 435.9 194.1 438.1 192.1 436.5 192.5 435.7 190.4 435.7 190.5 436.6 189.7 436.0 189.4 436.6 190.7 437.5 189.4 437.9 191.1 438.4 189.0 438.7 190.4 439.2 189.7 440.3 190.7 439.6 191.0 440.7 191.7 439.8 191.8 440.9 192.9 440.6 193.1 441.5 194.9 442.2 192.7 441.3 192.6 442.2 191.3 440.9 191.2 442.3 190.5 441.0 189.5 442.2 189.2 440.8 188.3 440.4 188.5 441.4 187.3 440.0 187.8 440.5 186.7 440.4 187.5 441.2 186.2 441.2 188.0 441.7 188.6 443.5 187.2 441.9 187.2 444.0 185.5 442.3 186.1 442.9 184.6 443.1 185.3 443.0 186.1 444.7 184.1 443.4 184.9 444.9 184.1 444.3 183.9 445.1 182.4 445.3 183.9 445.7 183.5 446.2 181.4 445.7 180.2 446.8ZM113.3 440.5 113.4 441.4 112.8 440.7 112.3 441.4 111.4 439.8 112.2 440.7 112.2 440.0 113.6 439.9 113.6 438.0 114.4 438.8 114.7 437.2 115.3 437.6 115.5 436.2 116.0 436.8 117.0 435.5 116.5 436.9 117.2 437.4 116.5 437.1 115.7 439.1 114.7 439.2 115.3 439.7 114.0 439.8 114.8 440.3 113.3 440.5ZM146.6 438.3 144.2 437.0 144.7 434.4 143.4 433.8 143.1 432.1 144.7 432.6 145.6 436.2 145.8 434.9 146.5 435.6 146.5 433.1 147.1 434.4 147.9 433.0 148.5 433.1 148.2 434.1 149.4 433.3 150.7 434.2 147.5 434.6 147.0 435.3 147.6 435.9 146.7 436.2 147.4 437.3 148.7 436.6 148.5 437.5 145.8 437.3 146.6 438.3ZM106.5 423.0 105.4 421.6 103.7 422.3 103.3 421.0 105.7 420.9 104.7 419.1 106.2 418.5 106.7 416.5 106.2 415.6 107.7 415.9 106.6 416.1 106.7 419.2 105.6 419.9 106.0 420.9 106.9 420.8 104.1 421.2 104.3 421.7 105.4 421.4 106.4 422.7 107.6 422.4 107.9 423.0 108.6 421.7 109.9 422.4 109.9 421.1 111.0 420.3 111.3 421.2 113.2 421.4 110.5 421.5 111.4 424.4 110.6 423.5 110.4 424.9 109.8 422.8 108.7 422.6 109.3 423.4 108.1 422.6 108.2 423.5 106.5 423.0ZM56.5 356.4 56.2 357.4 56.9 357.6 58.2 355.2 60.4 354.2 65.0 355.5 64.5 356.5 65.6 357.0 64.6 356.2 65.2 355.5 63.5 354.4 66.4 354.8 68.3 352.2 70.9 351.0 68.6 351.2 65.8 353.9 60.2 353.6 57.4 354.9 56.5 356.4ZM140.5 356.4 139.3 355.9 139.0 354.5 140.6 355.0 141.8 353.5 141.0 351.9 141.9 352.4 142.0 351.2 142.7 351.9 143.0 350.6 143.9 351.5 145.7 349.9 145.6 347.4 146.7 346.7 146.1 345.5 146.7 346.1 147.0 345.2 146.5 344.6 147.8 343.1 148.3 343.8 149.6 342.8 151.0 338.8 152.5 338.2 151.1 339.4 150.2 342.5 148.4 344.3 150.6 343.7 150.2 344.8 153.4 344.9 148.0 344.8 146.3 348.1 147.0 349.1 145.7 350.2 147.6 351.4 152.5 350.1 151.3 351.1 157.5 353.6 158.4 352.9 157.5 353.8 155.1 352.7 155.1 353.4 153.4 351.6 149.8 350.7 147.6 351.5 145.4 350.4 145.1 351.5 144.0 351.8 144.2 352.7 144.0 352.2 142.0 352.9 142.0 354.3 141.0 354.7 142.9 354.8 139.6 355.1 140.5 356.4ZM204.8 356.4 203.0 356.1 204.2 354.8 204.5 355.6 205.6 355.2 206.1 354.0 204.2 352.2 200.9 351.3 203.2 351.7 201.2 349.2 203.5 351.6 203.8 351.0 204.8 352.0 205.3 351.3 205.3 352.6 206.7 351.9 206.2 353.1 207.9 354.2 208.5 353.0 209.5 354.8 210.3 353.7 210.3 355.1 211.6 352.9 210.8 355.5 211.1 356.5 212.0 356.2 210.4 357.7 209.7 358.0 209.5 356.1 208.7 357.7 209.4 355.6 208.9 354.8 207.5 356.7 208.1 355.0 205.3 357.0 205.7 356.2 204.8 356.4ZM126.5 352.3 122.0 351.3 123.8 348.6 122.8 347.1 124.0 348.2 126.1 343.7 126.6 344.1 128.7 341.3 128.1 340.1 128.8 341.2 131.7 338.4 126.8 345.1 127.6 346.3 131.2 347.8 126.3 346.2 123.7 349.7 123.5 350.9 125.9 351.3 126.5 352.3ZM83.5 328.9 83.9 325.3 86.5 324.4 88.4 322.2 92.1 320.8 93.6 318.4 97.4 315.6 99.1 311.4 98.6 309.1 99.4 307.3 104.4 306.3 100.7 306.8 99.1 307.8 99.2 311.7 97.6 315.5 93.3 319.0 91.9 321.3 88.3 322.4 87.2 324.2 83.8 326.1 83.5 328.9ZM119.6 307.5 121.3 307.3 121.7 306.3 126.1 303.8 130.0 305.8 134.4 305.2 135.3 304.2 136.3 305.1 137.5 304.2 130.7 305.8 126.2 303.6 119.6 307.5ZM137.2 303.8 137.8 304.4 141.4 302.9 145.4 304.4 147.3 302.6 148.9 302.4 151.1 300.3 152.5 297.5 154.1 297.0 152.3 297.7 152.0 297.0 151.0 300.2 145.3 304.3 141.2 302.7 137.6 304.0 137.1 303.1 137.2 303.8ZM110.6 296.7 109.7 296.5 110.1 297.4 111.5 297.2 112.3 296.0 114.2 297.0 112.4 295.2 113.1 295.8 112.6 295.0 114.1 294.2 116.1 295.1 114.5 294.4 115.5 292.6 118.2 292.5 115.9 292.1 117.1 290.7 116.1 289.8 114.6 290.2 116.5 289.4 115.0 289.3 115.9 288.5 116.4 286.1 123.1 287.8 121.7 287.4 122.0 286.6 121.6 287.3 120.6 287.0 121.3 285.9 120.4 287.0 118.5 286.6 118.0 285.7 118.6 284.8 117.3 285.5 117.9 283.2 118.7 283.1 117.9 283.0 117.8 282.1 119.6 281.2 117.6 281.6 118.2 279.0 117.1 279.0 118.0 277.6 117.2 277.2 118.6 277.0 118.6 276.0 119.9 275.4 119.4 274.7 120.5 274.8 121.5 273.6 119.3 274.6 118.3 276.4 117.1 275.8 118.7 271.8 121.0 271.7 118.5 271.4 117.7 273.6 116.4 270.3 114.6 271.9 113.1 271.0 113.4 269.3 112.3 268.0 113.3 266.3 114.4 267.0 113.7 263.8 117.1 263.3 113.7 263.6 113.6 265.2 112.8 264.2 113.9 266.1 111.7 267.8 112.8 268.7 112.2 268.9 113.1 270.1 112.4 270.6 113.4 272.1 116.3 270.9 117.5 273.7 117.6 274.8 116.2 274.1 116.7 274.6 116.1 274.7 117.0 275.1 116.4 276.2 117.2 276.7 117.1 278.1 115.6 277.2 116.9 279.4 117.8 279.1 116.9 280.7 117.5 283.6 116.9 285.3 115.0 283.5 116.7 285.9 115.6 285.7 115.8 287.3 115.0 288.2 114.2 287.9 115.2 288.4 114.6 289.7 113.0 288.5 113.2 289.3 112.4 288.8 112.3 289.4 113.6 290.6 113.8 290.1 116.4 291.4 114.6 293.7 114.2 293.0 113.0 294.1 112.3 293.6 112.8 294.3 112.0 294.9 110.2 293.1 111.7 295.8 110.6 296.7ZM155.6 295.5 154.2 297.2 156.3 295.9 155.6 295.8 157.0 294.9 158.2 292.3 161.6 291.4 161.7 288.0 162.8 286.7 163.3 287.2 165.6 285.6 168.1 288.5 172.0 286.4 172.6 284.8 175.8 284.4 176.7 283.6 173.4 284.2 172.0 285.1 171.9 286.3 168.3 288.2 165.6 285.1 162.5 286.1 161.0 291.4 158.0 292.1 156.9 294.6 155.6 295.5ZM153.5 294.9 155.4 293.8 154.5 292.4 155.0 291.0 154.5 291.4 153.8 290.2 155.5 288.9 154.8 286.2 155.6 286.0 155.1 284.9 157.3 279.8 157.1 277.7 157.1 279.9 154.6 285.0 154.9 287.2 154.2 287.0 155.2 288.3 153.1 290.2 154.0 290.6 154.8 293.9 153.5 294.3 153.1 292.4 151.3 291.3 151.6 290.7 151.2 291.2 152.9 292.4 152.5 293.1 153.5 294.9ZM153.6 294.9 155.3 293.8 154.5 292.5 155.1 291.2 153.8 290.2 155.5 288.8 154.8 286.3 157.4 278.9 154.7 285.0 155.2 288.4 153.2 290.2 154.1 290.6 154.8 293.9 153.4 294.3 153.1 292.4 151.9 291.5 153.6 294.9ZM180.1 290.8 177.9 286.8 177.2 283.4 181.2 283.6 182.8 284.6 182.2 283.9 184.8 284.1 187.7 285.9 190.9 285.2 193.9 286.4 195.3 286.0 196.0 287.7 195.7 285.5 200.6 283.6 210.2 284.9 210.0 286.2 210.8 286.1 210.3 284.9 212.1 283.8 215.4 283.8 218.0 284.7 220.4 287.8 219.8 286.2 217.6 284.3 227.4 281.3 232.9 276.3 226.8 281.4 221.8 282.9 222.5 281.2 221.7 282.9 218.4 284.1 213.1 283.3 210.1 284.8 201.1 283.3 200.5 282.1 202.1 280.6 200.2 282.5 201.0 283.4 194.6 286.1 192.3 285.5 192.8 284.9 188.5 285.5 184.8 283.9 178.9 283.4 179.4 282.4 181.1 282.0 180.5 281.2 181.5 279.2 181.0 278.1 181.7 278.0 180.9 278.0 180.7 276.3 181.2 274.1 185.4 271.8 181.2 274.0 180.6 275.4 180.3 274.5 180.0 276.3 180.5 275.9 181.2 277.3 180.9 279.7 180.1 280.3 180.6 281.7 178.8 283.3 176.7 283.5 180.1 290.8ZM125.8 255.4 126.9 253.9 125.6 253.4 126.6 252.3 126.3 250.8 127.4 251.4 127.9 250.5 127.0 248.2 128.5 250.6 128.3 249.5 129.8 248.6 129.1 246.7 130.9 247.0 130.0 245.1 131.0 245.8 132.7 245.2 130.8 245.7 131.0 247.0 129.6 247.4 130.1 248.7 128.4 249.7 128.8 250.9 128.1 250.6 126.0 253.1 126.7 253.6 127.3 251.8 129.7 252.5 129.9 249.9 131.8 251.2 132.5 249.0 133.1 250.2 134.4 250.5 133.9 248.9 134.5 247.8 135.8 249.4 136.7 249.3 136.0 247.3 138.0 248.6 138.7 247.2 140.4 248.7 141.2 246.0 145.8 245.9 146.5 243.7 147.6 243.1 148.4 244.4 147.3 244.6 150.2 245.8 150.4 244.1 153.7 242.4 154.0 239.0 154.5 239.7 153.7 240.5 154.4 241.0 153.9 242.2 150.3 244.3 150.7 245.6 147.3 244.7 148.3 244.4 147.6 243.2 145.8 246.0 141.4 246.1 142.1 247.4 141.5 246.8 140.4 248.9 138.6 247.5 137.5 248.9 136.2 247.6 137.0 249.3 135.8 249.6 134.6 248.1 134.9 250.4 134.1 251.1 135.1 251.3 134.9 252.3 133.9 250.5 132.5 249.9 131.3 252.1 130.0 250.3 130.6 252.3 129.3 253.1 127.5 252.2 127.1 253.2 128.0 253.9 127.3 253.6 127.1 254.8 125.8 255.4ZM69.6 234.0 68.7 232.6 70.5 233.7 71.8 231.1 73.6 230.0 78.1 230.4 79.5 228.1 82.0 228.3 84.7 225.5 95.2 222.3 84.8 225.6 82.0 228.4 79.7 228.2 78.1 230.5 73.6 230.2 71.9 231.2 70.6 233.9 69.6 234.0ZM121.1 208.9 121.7 209.9 122.3 209.2 122.4 210.9 122.5 208.3 122.7 209.1 122.9 208.4 123.8 209.3 124.6 208.8 124.4 210.2 124.8 209.5 125.4 210.5 124.8 208.8 126.5 209.8 126.1 208.4 127.4 209.3 127.3 212.0 127.4 209.5 129.3 209.8 127.3 208.9 129.2 208.3 128.1 207.9 128.9 206.8 133.9 203.4 136.5 203.1 138.8 201.5 136.3 202.9 133.7 203.1 132.4 204.8 131.1 204.8 130.8 205.8 129.7 205.8 127.4 208.2 127.0 207.4 127.0 208.4 125.7 207.6 125.8 209.1 125.3 208.3 124.0 208.6 123.8 207.6 123.4 208.2 122.6 207.6 121.9 208.5 122.6 206.6 123.4 206.8 123.7 206.1 122.6 206.1 132.3 197.3 123.1 205.2 122.2 204.2 123.4 202.6 122.4 203.0 122.2 201.9 122.0 202.5 120.9 202.0 122.4 203.6 121.9 204.3 121.2 203.4 121.9 204.7 121.3 204.9 122.7 205.5 121.2 205.8 122.1 206.4 122.2 207.2 121.2 206.8 121.6 208.3 120.3 207.3 121.1 208.9ZM74.5 176.1 74.5 174.6 73.7 176.1 74.1 174.6 71.6 174.9 74.3 173.8 75.7 170.9 75.5 168.8 77.4 166.3 77.1 161.9 79.4 158.4 81.0 150.3 79.9 157.1 80.7 157.8 80.1 157.3 81.7 156.8 78.6 159.5 78.2 161.9 79.1 160.9 79.2 163.9 80.6 166.3 79.1 166.7 80.1 168.3 79.6 171.0 76.8 173.4 78.4 175.5 80.4 174.5 79.5 175.0 79.3 174.2 81.4 172.1 79.7 172.5 80.2 173.5 78.5 175.0 77.9 174.7 78.3 175.2 77.3 173.1 75.5 173.1 74.9 173.5 76.1 173.8 75.3 174.7 74.2 174.3 74.9 174.9 74.5 176.1ZM110.6 163.9 109.8 163.6 111.7 163.0 111.6 161.9 112.6 162.5 115.1 158.6 114.0 161.7 117.4 161.5 119.2 163.4 121.9 163.1 118.3 163.7 118.6 163.2 117.5 163.2 117.2 161.9 114.6 162.8 115.1 161.7 110.6 163.9ZM101.1 131.1 100.2 132.1 100.5 131.1 97.5 127.5 95.6 127.2 96.7 126.4 100.7 131.0 101.6 126.9 102.7 127.2 103.1 129.1 105.5 129.0 105.0 129.4 107.3 130.5 110.3 128.4 113.0 124.6 114.7 124.2 112.2 126.0 114.2 127.9 118.0 126.3 119.6 124.5 126.1 125.7 119.8 124.7 118.2 126.5 114.2 128.1 112.1 126.3 110.6 128.5 107.1 130.8 105.5 129.6 104.9 129.7 105.8 130.7 104.8 129.7 103.0 130.0 101.9 127.2 101.1 131.1ZM223.4 131.1 224.0 132.3 225.5 131.0 228.7 131.7 230.3 130.7 233.4 131.9 237.2 131.9 239.4 131.0 239.8 129.8 239.8 131.3 237.1 132.0 233.5 132.0 230.3 130.9 229.1 131.9 229.7 134.3 228.9 131.9 225.7 131.1 223.8 132.5 222.1 130.6 220.7 130.9 219.0 130.1 219.8 131.0 219.1 130.9 218.6 128.8 216.1 126.9 214.2 126.0 213.7 128.3 214.1 123.3 215.8 121.2 213.3 120.2 214.4 119.8 216.5 120.5 214.4 123.4 214.4 126.1 218.3 128.1 219.3 130.0 223.4 131.1ZM94.2 127.4 93.1 127.1 90.2 121.8 88.4 121.4 87.7 119.6 84.1 119.7 82.4 118.8 80.6 119.9 79.2 118.8 87.7 119.1 88.8 121.0 90.3 121.5 92.6 125.3 95.0 124.1 92.6 125.4 93.6 127.1 95.5 126.8 94.2 127.4ZM241.7 127.3 240.0 129.9 242.6 127.6 243.0 125.4 244.5 123.5 242.8 120.6 248.1 115.9 249.6 112.1 248.0 115.9 244.2 119.4 242.5 119.8 243.9 123.5 242.2 126.3 241.6 126.1 241.7 127.3ZM115.7 122.9 114.9 124.2 115.6 124.5 117.9 120.8 117.7 119.2 119.9 118.3 122.5 114.0 124.4 112.9 125.6 113.2 125.1 112.5 126.7 111.1 129.8 105.4 126.0 111.7 122.2 114.0 119.7 118.2 117.4 118.7 117.7 120.7 115.7 122.9ZM127.0 125.4 126.0 125.4 128.8 123.3 130.3 124.7 132.7 125.1 135.3 124.1 135.6 123.1 140.5 122.3 141.6 121.3 145.7 121.8 148.1 117.5 153.2 118.8 154.7 117.0 159.6 118.7 154.7 117.3 153.3 119.0 148.4 117.7 145.7 121.9 141.6 121.5 140.6 122.6 134.9 124.7 130.6 124.9 130.9 126.6 129.2 124.1 127.0 125.4ZM159.7 119.0 163.3 119.2 167.0 116.4 166.6 116.9 168.7 117.4 173.7 117.2 175.3 115.7 176.4 112.9 176.0 114.0 178.1 115.0 179.3 113.1 182.7 112.8 184.0 111.3 186.1 111.5 186.8 110.8 186.1 111.6 189.6 113.3 191.2 116.4 190.8 117.1 189.4 113.3 184.4 111.3 182.8 113.1 179.7 113.1 178.3 115.2 176.1 114.3 176.0 116.1 173.2 117.5 174.3 119.2 173.1 117.6 168.1 117.6 168.2 118.6 168.0 117.6 166.3 117.1 163.1 119.7 159.7 119.0ZM192.5 118.8 190.7 117.2 193.1 118.8 196.3 118.5 198.8 120.0 201.4 118.2 206.3 120.8 208.8 121.0 210.1 117.9 211.8 117.0 212.4 115.3 213.5 115.4 215.1 112.7 213.5 115.6 213.3 118.4 212.0 119.5 213.3 120.2 211.7 119.4 213.2 118.3 213.0 115.3 211.8 117.4 210.2 118.0 208.9 121.4 206.7 121.3 201.6 119.1 197.5 120.1 196.6 118.9 195.0 118.9 193.3 119.1 193.1 120.1 192.5 118.8ZM186.7 110.6 187.5 107.7 190.0 108.1 189.2 107.1 190.0 105.5 189.6 103.3 192.1 101.3 191.0 100.1 192.6 98.3 195.8 97.5 197.5 98.0 199.8 95.9 197.4 98.0 194.0 97.4 192.0 99.0 190.5 98.4 191.8 98.7 190.8 100.4 192.0 101.2 189.3 103.1 189.8 104.7 188.9 105.9 189.6 108.1 187.5 107.3 186.7 108.0 186.7 110.6ZM250.0 111.4 252.8 108.8 253.1 107.5 254.9 108.0 256.7 107.2 257.4 107.9 258.1 106.6 258.7 108.1 259.8 108.5 261.5 107.7 261.9 106.4 264.4 104.1 265.2 105.7 267.7 104.5 266.7 103.1 267.9 104.3 265.2 105.8 264.1 104.5 259.6 109.5 259.9 108.5 258.7 108.5 258.2 106.8 257.5 108.1 256.8 107.4 254.8 108.2 253.3 107.6 252.9 109.0 250.0 111.4ZM225.3 107.7 224.0 108.0 223.2 107.2 222.6 108.0 222.6 106.4 221.6 107.7 221.8 109.6 224.0 108.6 224.6 110.4 226.3 108.7 227.2 109.3 226.6 108.5 229.5 109.2 232.6 107.1 232.4 108.2 233.2 108.3 233.3 107.5 236.3 109.8 235.9 108.9 237.1 108.6 235.8 109.1 234.8 108.2 235.7 107.8 234.2 108.0 233.5 107.2 234.6 106.9 233.5 106.7 234.3 106.2 233.4 105.1 234.0 103.2 236.4 102.7 234.7 102.6 235.3 101.1 238.2 100.0 238.8 96.0 238.1 95.8 239.2 95.2 238.5 93.6 240.1 90.3 246.4 86.9 241.4 89.6 239.6 89.4 239.3 92.2 238.1 94.1 238.5 95.0 237.6 95.6 238.4 96.7 237.9 99.0 236.6 100.5 235.2 100.5 232.9 104.2 233.0 106.2 231.7 106.7 231.5 102.5 229.9 100.5 229.9 98.5 229.7 100.4 231.1 103.3 230.2 107.1 229.7 104.8 229.8 106.7 229.1 106.8 230.3 107.6 229.3 108.8 228.4 108.0 225.3 107.7ZM270.3 102.0 268.5 101.4 269.7 101.8 269.8 101.2 270.3 101.7 271.3 101.0 270.9 100.2 272.8 98.8 272.5 96.6 276.3 95.4 276.5 94.8 275.1 94.0 275.3 92.5 277.6 91.3 278.7 93.0 277.5 91.4 275.6 92.2 275.2 94.0 276.6 95.1 273.3 96.5 272.3 98.0 273.4 99.1 271.7 99.7 271.6 101.1 270.3 102.0ZM200.7 95.9 199.8 95.8 201.5 95.9 202.7 93.9 203.7 94.0 204.0 92.8 205.8 91.9 208.2 92.5 208.8 91.8 208.9 87.3 207.0 85.2 207.0 81.7 207.0 85.3 208.5 86.2 208.9 87.8 208.7 91.8 208.2 92.4 205.8 91.9 200.7 95.9ZM65.5 59.4 67.1 57.6 74.6 57.1 81.9 52.9 84.3 50.4 86.5 50.3 87.3 48.7 89.4 49.0 93.4 46.9 95.7 47.0 96.8 45.9 89.4 48.9 87.5 48.6 86.3 50.3 84.3 50.3 81.7 52.8 75.3 56.4 70.7 57.6 71.2 57.9 70.0 58.6 67.1 58.2 65.5 59.4ZM151.6 53.5 150.1 54.0 148.3 51.4 152.0 50.9 152.8 51.7 154.0 50.7 154.5 51.3 155.6 48.7 156.0 49.6 157.4 49.7 157.1 50.4 158.0 49.7 158.2 50.4 159.1 50.2 158.1 51.3 156.8 51.0 156.2 52.9 154.2 52.9 154.4 54.0 153.2 53.0 151.6 53.5ZM65.5 37.2 64.5 38.8 63.2 38.3 62.8 39.7 62.6 39.0 65.0 34.5 72.0 31.3 72.9 30.5 73.0 27.7 80.3 23.6 80.8 20.4 83.2 18.2 90.4 17.8 92.2 16.8 92.6 15.0 98.7 14.6 100.4 15.8 102.5 14.9 104.5 15.4 106.1 13.8 108.8 14.6 109.6 12.6 112.8 10.9 109.6 12.6 108.8 14.6 106.1 13.9 104.5 15.5 102.6 15.0 100.5 15.9 99.3 14.8 92.4 15.3 92.3 16.9 90.0 18.4 86.1 17.7 82.7 18.7 80.9 20.7 80.6 23.7 73.4 28.2 72.3 32.2 67.2 35.0 65.5 37.2ZM122.9 37.7 121.6 38.0 121.9 39.3 121.3 37.9 119.9 38.3 119.9 36.4 118.5 35.4 119.1 32.7 118.9 35.1 119.9 35.6 120.2 37.7 121.4 37.6 124.9 34.6 126.1 35.0 126.3 33.3 126.6 34.8 127.6 35.3 131.7 31.3 130.1 33.0 131.7 33.6 130.6 33.9 130.0 33.1 127.9 35.3 128.1 36.1 126.1 35.5 122.9 37.7Z"/>
+<path class="m-coast" d="M61.6 0.0 61.6 36.9 62.9 39.8 62.0 42.8 63.1 44.7 62.2 46.4 62.5 48.4 61.7 51.4 64.8 60.1 65.1 59.0 66.4 60.3 66.7 65.2 67.8 67.0 69.3 73.7 69.5 79.3 70.7 81.8 69.7 89.2 71.3 93.0 71.1 93.9 71.5 93.2 71.9 93.5 71.7 94.1 71.4 93.7 72.5 95.6 72.5 97.0 73.8 97.9 73.6 100.6 75.1 106.4 74.7 108.1 75.8 110.0 76.5 116.2 76.4 115.2 77.9 115.6 79.4 118.7 79.0 119.0 80.0 119.5 80.9 125.0 80.9 129.6 82.0 132.6 81.8 136.5 77.8 155.1 73.1 172.0 72.3 174.5 71.6 174.9 73.0 175.1 72.4 179.0 66.4 203.5 62.4 217.2 59.3 225.5 59.5 226.4 62.1 228.4 61.9 230.4 63.2 230.7 63.2 232.7 54.9 257.3 47.1 277.6 47.1 279.7 44.1 289.2 44.1 290.3 45.1 290.8 45.3 292.6 44.8 291.9 40.4 298.7 39.0 299.5 39.7 301.4 39.0 301.6 39.0 300.9 38.4 300.8 36.8 301.8 34.0 304.8 32.0 309.0 28.3 312.5 23.9 315.7 22.6 316.0 22.2 315.3 22.3 316.6 21.2 317.3 19.7 317.1 19.0 315.7 19.0 316.5 17.4 316.3 16.4 317.4 19.3 318.8 19.2 317.9 20.2 318.0 19.4 318.6 19.9 318.6 20.5 319.6 20.4 321.5 21.7 322.8 22.0 325.5 22.6 326.1 22.0 330.7 22.4 332.0 20.7 338.4 15.3 349.2 15.8 352.6 14.8 357.2 15.5 359.1 15.1 361.6 15.8 362.1 15.8 364.0 12.8 373.0 8.5 381.8 9.3 383.8 11.0 385.3 9.8 389.9 12.1 391.4 15.6 392.0 15.8 390.8 17.8 390.6 23.7 393.8 24.5 392.6 27.4 391.0 30.7 391.0 33.0 391.8 40.4 389.9 42.4 387.8 43.5 385.3 43.9 378.7 45.2 375.0 49.5 370.2 50.3 367.0 52.6 362.7 54.5 361.8 53.3 362.7 52.1 365.1 52.5 367.0 52.0 370.5 52.4 371.2 52.0 370.6 53.2 371.1 52.4 371.2 53.4 372.3 52.6 373.7 53.9 376.5 59.0 369.9 59.0 368.3 60.5 366.3 59.1 368.3 59.1 370.0 55.9 375.1 54.4 376.4 55.2 376.1 54.9 377.0 56.4 378.0 56.7 378.9 56.2 378.9 57.0 379.1 57.4 380.2 56.8 380.7 57.4 380.8 57.5 381.7 56.5 382.3 57.1 382.3 56.8 382.7 57.4 382.0 57.0 382.9 57.8 383.1 57.2 383.5 58.8 385.8 57.4 384.0 54.4 384.5 53.6 385.6 50.8 386.8 50.7 387.6 47.7 388.9 47.2 391.8 49.0 390.6 50.8 390.5 51.0 390.9 53.1 390.2 55.0 391.0 55.7 392.0 53.9 391.1 53.3 393.1 53.2 392.3 51.7 392.2 51.7 393.0 51.0 392.1 50.4 394.1 51.3 394.4 51.9 396.3 50.6 394.9 49.5 394.9 49.6 394.3 49.3 394.8 48.8 394.3 48.7 395.8 48.6 394.8 48.2 395.3 47.8 394.8 47.9 393.2 46.8 393.3 46.5 392.6 46.3 393.6 45.0 394.1 45.4 394.4 43.5 395.3 44.4 395.9 44.3 395.2 44.5 396.2 45.8 396.5 45.8 398.1 46.9 398.7 47.2 402.1 45.2 397.8 44.8 397.4 43.9 397.8 44.7 397.3 44.8 396.5 42.4 397.1 42.3 399.6 41.7 397.9 40.5 397.2 39.1 397.3 40.6 396.4 39.9 396.2 40.1 395.9 41.7 397.0 42.9 396.6 39.6 395.3 39.4 394.1 38.9 394.6 38.9 392.1 36.1 393.2 31.0 393.5 28.9 395.0 30.2 396.0 32.9 400.5 35.8 409.8 35.4 415.7 32.3 422.7 34.6 423.2 37.0 420.9 40.0 421.0 41.7 420.4 42.3 419.9 41.7 420.3 41.6 419.8 42.3 419.5 46.0 420.3 47.9 419.0 49.0 419.1 52.3 417.0 53.1 415.4 56.4 414.9 57.2 414.3 57.8 412.2 61.2 410.7 64.4 412.2 66.8 414.4 67.6 414.3 67.1 414.5 67.3 415.1 67.9 414.4 67.9 415.8 67.9 414.4 69.1 414.5 68.5 416.2 69.8 416.1 69.9 415.4 69.9 416.1 70.7 416.2 69.9 414.2 70.5 414.1 70.5 415.3 70.4 413.9 71.3 413.6 71.1 412.9 72.3 413.2 71.3 412.4 68.2 412.6 66.3 411.9 67.7 411.8 66.8 411.1 68.1 412.2 68.6 412.0 67.8 411.4 69.2 411.8 68.1 411.1 70.1 411.2 68.1 409.6 69.6 408.5 67.7 407.7 68.5 407.9 68.5 407.2 68.8 408.1 70.8 408.4 70.1 408.9 70.4 409.4 71.1 409.3 72.1 408.7 72.2 407.7 73.1 407.5 72.9 405.9 74.1 405.3 73.7 406.3 74.2 407.8 73.6 408.9 74.0 410.6 75.8 411.5 76.7 411.2 74.8 411.6 75.4 419.6 77.3 419.5 81.3 423.3 89.6 422.5 90.8 423.6 90.9 427.0 92.3 427.8 90.6 426.9 90.4 423.7 89.3 422.8 81.7 424.1 77.3 422.2 74.7 422.0 73.2 422.2 71.4 423.5 70.6 423.0 70.6 422.0 69.5 421.6 68.5 419.5 68.0 421.0 68.8 421.2 69.2 421.7 68.7 422.1 69.8 422.6 69.1 424.0 69.3 425.0 68.7 424.9 69.2 426.2 66.4 420.7 65.8 419.0 66.5 419.3 64.2 417.9 61.6 414.6 61.1 414.6 61.5 416.2 61.3 415.0 60.3 414.1 61.0 414.8 61.0 414.1 60.0 413.7 59.1 414.2 65.6 420.8 66.9 423.0 69.6 430.8 70.6 438.4 70.3 448.3 68.7 456.2 65.2 466.4 62.6 471.9 61.2 473.1 61.0 475.2 61.1 474.0 61.8 474.4 63.0 473.8 64.1 475.8 63.0 475.5 65.1 478.0 63.9 476.2 64.3 475.6 65.2 476.6 65.3 475.6 67.8 476.6 68.9 480.4 68.8 485.1 69.5 486.7 67.6 497.1 68.9 498.0 69.4 500.0 71.2 498.9 72.8 498.9 73.2 501.8 74.2 501.8 73.5 503.5 75.0 504.1 76.3 507.1 76.2 508.3 77.3 509.3 76.9 510.0 77.7 509.7 78.6 510.7 79.8 510.7 78.9 512.0 80.1 512.0 80.8 511.3 80.2 512.0 78.9 512.0 79.7 510.8 78.6 510.8 77.6 509.8 76.9 510.0 77.2 509.3 76.1 508.3 76.2 507.0 75.4 506.3 75.0 504.1 73.5 503.5 74.1 501.8 73.2 501.9 72.6 499.0 69.7 500.0 69.0 501.5 69.0 504.6 67.0 513.2 67.6 515.3 69.3 517.7 69.8 520.4 68.5 527.1 68.8 530.5 64.7 541.2 64.4 541.0 62.0 544.2 62.5 545.3 62.1 547.0 63.0 547.2 63.5 550.0 60.6 556.5 59.7 557.8 58.5 558.0 59.3 558.8 58.9 559.5 59.7 561.6 56.8 567.7 55.0 569.4 54.7 572.1 53.3 573.6 52.8 574.4 53.2 575.0 51.7 577.4 52.4 577.2 52.6 577.8 52.8 576.9 54.6 577.1 55.9 579.1 56.0 580.6 56.4 579.4 57.4 579.7 57.8 579.2 58.0 578.5 57.4 578.6 58.0 577.6 59.5 577.3 60.5 575.2 61.9 574.7 63.1 575.2 63.9 573.8 65.3 573.1 67.9 572.5 69.6 572.9 75.0 570.2 80.0 571.1 80.4 568.0 82.4 566.7 84.1 566.7 83.9 566.1 83.2 566.1 83.8 566.1 84.0 564.9 83.9 565.5 85.2 565.4 86.2 564.7 86.1 565.8 84.3 565.6 84.2 566.7 85.6 566.2 88.7 567.2 89.1 566.6 91.2 566.9 92.7 568.2 99.3 570.3 103.3 569.8 105.7 568.5 111.7 571.9 115.1 571.0 114.2 570.4 117.1 570.7 121.5 569.8 126.6 572.2 127.0 571.1 126.7 572.1 129.8 573.1 140.5 581.5 134.0 576.1 134.6 575.9 136.2 577.7 138.3 578.0 137.9 578.8 138.4 578.3 140.0 579.3 141.3 578.5 140.9 578.1 141.4 577.7 140.9 577.7 141.4 576.7 147.0 581.9 147.8 581.7 149.1 580.2 148.8 578.8 149.5 578.1 149.0 577.8 151.3 577.4 151.4 576.7 151.6 577.2 153.5 576.7 155.1 575.6 156.9 575.7 158.3 574.4 159.1 574.5 160.8 572.3 161.6 572.7 161.9 571.7 165.9 568.9 168.0 568.5 170.2 566.2 170.5 564.8 171.1 565.3 176.4 562.4 183.8 560.2 187.6 560.8 188.8 561.7 189.2 560.2 190.5 561.0 194.7 559.5 303.1 559.8"/>
+<line class="m-grat" x1="0" y1="579.9" x2="303.1" y2="579.9"/>
+<text class="m-glab" x="-3" y="582.9" text-anchor="end">37&#176;N</text>
+<line class="m-grat" x1="0" y1="468.7" x2="303.1" y2="468.7"/>
+<text class="m-glab" x="-3" y="471.7" text-anchor="end">38&#176;N</text>
+<line class="m-grat" x1="0" y1="357.5" x2="303.1" y2="357.5"/>
+<text class="m-glab" x="-3" y="360.5" text-anchor="end">39&#176;N</text>
+<line class="m-grat" x1="0" y1="246.3" x2="303.1" y2="246.3"/>
+<text class="m-glab" x="-3" y="249.3" text-anchor="end">40&#176;N</text>
+<line class="m-grat" x1="0" y1="135.1" x2="303.1" y2="135.1"/>
+<text class="m-glab" x="-3" y="138.1" text-anchor="end">41&#176;N</text>
+<line class="m-grat" x1="0" y1="23.9" x2="303.1" y2="23.9"/>
+<text class="m-glab" x="-3" y="26.9" text-anchor="end">42&#176;N</text>
+<line class="m-grat" x1="51.5" y1="0" x2="51.5" y2="602.1"/>
+<text class="m-glab" x="51.5" y="-5" text-anchor="middle">9&#176;W</text>
+<line class="m-grat" x1="137.3" y1="0" x2="137.3" y2="602.1"/>
+<text class="m-glab" x="137.3" y="-5" text-anchor="middle">8&#176;W</text>
+<line class="m-grat" x1="223.1" y1="0" x2="223.1" y2="602.1"/>
+<text class="m-glab" x="223.1" y="-5" text-anchor="middle">7&#176;W</text>
+<text class="m-ocean" transform="translate(30 180) rotate(-90)" text-anchor="middle">OCEANO ATL&#194;NTICO</text>
+<text class="m-river" transform="translate(158.7 120.6) rotate(-8)" text-anchor="middle">DOURO</text>
+<text class="m-river" transform="translate(133.0 304.1) rotate(-20)" text-anchor="middle">TEJO</text>
+<text class="m-river" transform="translate(186.2 474.2) rotate(-75)" text-anchor="middle">GUADIANA</text>
+<text class="m-river" transform="translate(124.4 221.8) rotate(-18)" text-anchor="middle">MONDEGO</text>
+<g class="m-city"><circle cx="81.2" cy="175.1" r="1.6"/><text x="84.7" y="178.5">Aveiro</text></g>
+<g class="m-city"><circle cx="148.9" cy="467.0" r="1.6"/><text x="152.4" y="470.4">Beja</text></g>
+<g class="m-city"><circle cx="100.6" cy="73.8" r="1.6"/><text x="104.1" y="77.2">Braga</text></g>
+<g class="m-city"><circle cx="243.8" cy="45.3" r="1.6"/><text x="247.3" y="48.7">Bragança</text></g>
+<g class="m-city"><circle cx="180.9" cy="265.6" r="1.6"/><text x="184.4" y="269.0">Castelo Branco</text></g>
+<g class="m-city"><circle cx="100.5" cy="222.8" r="1.6"/><text x="104.0" y="226.2">Coimbra</text></g>
+<g class="m-city"><circle cx="142.8" cy="578.1" r="1.6"/><text x="146.3" y="581.5">Faro</text></g>
+<g class="m-city"><circle cx="200.2" cy="186.5" r="1.6"/><text x="203.7" y="189.9">Guarda</text></g>
+<g class="m-city"><circle cx="79.5" cy="568.4" r="1.6"/><text x="83.0" y="571.8">Lagos</text></g>
+<g class="m-city"><circle cx="68.0" cy="274.8" r="1.6"/><text x="71.5" y="278.2">Leiria</text></g>
+<g class="m-city"><circle cx="39.8" cy="390.0" r="1.6"/><text x="43.3" y="393.4">Lisboa</text></g>
+<g class="m-city"><circle cx="185.9" cy="325.1" r="1.6"/><text x="189.4" y="328.5">Portalegre</text></g>
+<g class="m-city"><circle cx="84.9" cy="118.4" r="1.6"/><text x="88.4" y="121.8">Porto</text></g>
+<g class="m-city"><circle cx="78.4" cy="331.2" r="1.6"/><text x="81.9" y="334.6">Santarém</text></g>
+<g class="m-city"><circle cx="60.6" cy="410.4" r="1.6"/><text x="64.1" y="413.8">Setúbal</text></g>
+<g class="m-city"><circle cx="62.7" cy="473.5" r="1.6"/><text x="66.2" y="476.9">Sines</text></g>
+<g class="m-city"><circle cx="66.2" cy="58.0" r="1.6"/><text x="69.7" y="61.4">Viana do Castelo</text></g>
+<g class="m-city"><circle cx="159.1" cy="102.0" r="1.6"/><text x="162.6" y="105.4">Vila Real</text></g>
+<g class="m-city"><circle cx="144.7" cy="173.2" r="1.6"/><text x="148.2" y="176.6">Viseu</text></g>
+<g class="m-city"><circle cx="145.1" cy="405.2" r="1.6"/><text x="148.6" y="408.6">Évora</text></g>
+<path class="m-obs" transform="translate(33.0 391.8)" d="M-2.6 2 L0 -3 L2.6 2 L1.6 2 L0 -1 L-1.6 2Z"/>
+<path class="m-obs" transform="translate(33.8 391.6)" d="M-2.6 2 L0 -3 L2.6 2 L1.6 2 L0 -1 L-1.6 2Z"/>
+<path class="m-obs" transform="translate(33.8 391.1)" d="M-2.6 2 L0 -3 L2.6 2 L1.6 2 L0 -1 L-1.6 2Z"/>
+<path class="m-obs" transform="translate(36.4 391.9)" d="M-2.6 2 L0 -3 L2.6 2 L1.6 2 L0 -1 L-1.6 2Z"/>
+<path class="m-obs" transform="translate(36.3 390.4)" d="M-2.6 2 L0 -3 L2.6 2 L1.6 2 L0 -1 L-1.6 2Z"/>
+<path class="m-obs" transform="translate(36.8 393.2)" d="M-2.6 2 L0 -3 L2.6 2 L1.6 2 L0 -1 L-1.6 2Z"/>
+<path class="m-obs" transform="translate(43.6 382.5)" d="M-2.6 2 L0 -3 L2.6 2 L1.6 2 L0 -1 L-1.6 2Z"/>
+<path class="m-obs" transform="translate(84.5 118.9)" d="M-2.6 2 L0 -3 L2.6 2 L1.6 2 L0 -1 L-1.6 2Z"/>
+<path class="m-obs" transform="translate(85.0 119.5)" d="M-2.6 2 L0 -3 L2.6 2 L1.6 2 L0 -1 L-1.6 2Z"/>
+<path class="m-obs" transform="translate(82.3 118.7)" d="M-2.6 2 L0 -3 L2.6 2 L1.6 2 L0 -1 L-1.6 2Z"/>
+<path class="m-obs" transform="translate(44.2 290.3)" d="M-2.6 2 L0 -3 L2.6 2 L1.6 2 L0 -1 L-1.6 2Z"/>
+<path class="m-obs" transform="translate(16.5 317.4)" d="M-2.6 2 L0 -3 L2.6 2 L1.6 2 L0 -1 L-1.6 2Z"/>
+<a href="#missions"><g class="msn" data-m="1"><title>1: Free Flight</title><line class="m-route" x1="34.3" y1="392.0" x2="32.9" y2="391.6"/><circle class="m-site" cx="32.9" cy="391.6" r="2.4"/><circle class="m-base" cx="34.3" cy="392.0" r="2.6"/><line class="m-lead" x1="34.3" y1="392.0" x2="4.3" y2="404.0"/><g class="m-badge"><circle cx="4.3" cy="404.0" r="7"/><text x="4.3" y="407.2" text-anchor="middle">1</text></g></g></a>
+<a href="#missions"><g class="msn" data-m="2"><title>2: Tejo: Sailors Adrift</title><line class="m-route" x1="30.2" y1="388.1" x2="32.6" y2="392.2"/><circle class="m-site" cx="32.6" cy="392.2" r="2.4"/><circle class="m-base" cx="30.2" cy="388.1" r="2.6"/><line class="m-lead" x1="30.2" y1="388.1" x2="0.2" y2="378.1"/><g class="m-badge"><circle cx="0.2" cy="378.1" r="7"/><text x="0.2" y="381.3" text-anchor="middle">2</text></g></g></a>
+<a href="#missions"><g class="msn" data-m="3"><title>3: Nazaré: Surfers In Big Waves</title><line class="m-route" x1="45.6" y1="290.8" x2="43.8" y2="289.9"/><line class="m-route" x1="45.6" y1="290.8" x2="43.9" y2="289.4"/><line class="m-route" x1="45.6" y1="290.8" x2="44.1" y2="288.9"/><circle class="m-site" cx="43.8" cy="289.9" r="2.4"/><circle class="m-site" cx="43.9" cy="289.4" r="2.4"/><circle class="m-site" cx="44.1" cy="288.9" r="2.4"/><circle class="m-base" cx="45.6" cy="290.8" r="2.6"/><line class="m-lead" x1="45.6" y1="290.8" x2="21.6" y2="286.8"/><g class="m-badge"><circle cx="21.6" cy="286.8" r="7"/><text x="21.6" y="290.0" text-anchor="middle">3</text></g></g></a>
+<a href="#missions"><g class="msn" data-m="4"><title>4: Peniche: A Boat Is Sinking</title><line class="m-route" x1="18.8" y1="318.0" x2="11.2" y2="313.6"/><circle class="m-site" cx="11.2" cy="313.6" r="2.4"/><circle class="m-base" cx="18.8" cy="318.0" r="2.6"/><line class="m-lead" x1="18.8" y1="318.0" x2="-1.2" y2="328.0"/><g class="m-badge"><circle cx="-1.2" cy="328.0" r="7"/><text x="-1.2" y="331.2" text-anchor="middle">4</text></g></g></a>
+<a href="#missions"><g class="msn" data-m="5"><title>5: Leiria: Fire In The Pines</title><line class="m-route" x1="57.5" y1="274.1" x2="49.2" y2="273.1"/><line class="m-route" x1="57.5" y1="274.1" x2="52.3" y2="269.6"/><circle class="m-site" cx="49.2" cy="273.1" r="2.4"/><circle class="m-site" cx="52.3" cy="269.6" r="2.4"/><circle class="m-base" cx="57.5" cy="274.1" r="2.6"/><line class="m-lead" x1="57.5" y1="274.1" x2="59.5" y2="254.1"/><g class="m-badge"><circle cx="59.5" cy="254.1" r="7"/><text x="59.5" y="257.3" text-anchor="middle">5</text></g></g></a>
+<a href="#missions"><g class="msn" data-m="6"><title>6: Porto: The Douro Floods</title><line class="m-route" x1="85.0" y1="118.2" x2="84.7" y2="119.5"/><line class="m-route" x1="85.0" y1="118.2" x2="83.9" y2="119.1"/><line class="m-route" x1="85.0" y1="118.2" x2="81.8" y2="119.1"/><circle class="m-site" cx="84.7" cy="119.5" r="2.4"/><circle class="m-site" cx="83.9" cy="119.1" r="2.4"/><circle class="m-site" cx="81.8" cy="119.1" r="2.4"/><circle class="m-base" cx="85.0" cy="118.2" r="2.6"/><line class="m-lead" x1="85.0" y1="118.2" x2="59.0" y2="120.2"/><g class="m-badge"><circle cx="59.0" cy="120.2" r="7"/><text x="59.0" y="123.4" text-anchor="middle">6</text></g></g></a>
+<rect class="m-neat" x="0" y="0" width="303.1" height="602.1"/>
+</svg>
+                <figcaption class="cap"><span>FROM THE GAME'S OWN MAP DATA</span><span>&copy; OSM</span></figcaption>
+            </figure>
+            <div class="maptext">
+                <div class="kicker">The whole mainland</div>
+                <h2>From the Minho <em>to the Algarve</em></h2>
+                <p>This chart is drawn from the same map the game flies over: the coast, the rivers and the lakes of mainland Portugal, built from OpenStreetMap. Every mission starts and ends somewhere on it; click a number to read its brief.</p>
+                <ul class="maplegend">
+                    <li><svg viewBox="-6 -6 12 12" aria-hidden="true"><circle class="m-base" r="3.6"/></svg><span><b>The base</b>, where you land the people you have winched up.</span></li>
+                    <li><svg viewBox="-6 -6 12 12" aria-hidden="true"><circle class="m-site" r="3.4"/></svg><span><b>The people</b>, waiting under the smoke.</span></li>
+                    <li><svg viewBox="-5 -5 10 10" aria-hidden="true"><path class="m-obs" d="M-2.6 2 L0 -3 L2.6 2 L1.6 2 L0 -1 L-1.6 2Z"/></svg><span><b>A landmark</b>: bridges, towers and monuments, solid and in their real heights.</span></li>
+                </ul>
+                <div class="mapfacts">
+                    <div><b>300&times;600</b><span>Km</span></div>
+                    <div><b>3</b><span>Levels of detail</span></div>
+                    <div><b>4.6 MB</b><span>In memory</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="panel">
+    <div class="container">
+        <div class="title">
+            <div class="kicker">Under the picture</div>
+            <h2>The panel</h2>
+            <p>Everything you need, at a glance: drawn by the game below its 3D view, here in Porto with one man aboard and the winch working.</p>
+        </div>
+        <div class="panelmap">
+            <img class="px" src="screens/panel.png" alt="GAIVOTA's instrument panel" width="960" height="144">
+            <i style="left:7.8%;top:40%">1</i><i style="left:21.9%;top:40%">2</i><i style="left:50%;top:14%">3</i>
+            <i style="left:30.5%;top:56%">4</i><i style="left:50%;top:58%">5</i><i style="left:69%;top:56%">6</i>
+            <i style="left:77.6%;top:40%">7</i><i style="left:84%;top:40%">8</i><i style="left:84%;top:86%">9</i>
+        </div>
+        <ol class="legend">
+            <li><b>Airspeed</b>, 0 to 300 km/h.</li>
+            <li><b>Radar altitude</b>, 0 to 500 m; the red mark at 25 m is the winch height.</li>
+            <li><b>The compass</b>: your heading under the blue mark, the objective under the orange one.</li>
+            <li><b>The objective</b>: TGT the people, BASE where to land them, HOME in free flight, and how far.</li>
+            <li><b>The arrow</b> to the objective.</li>
+            <li><b>Aboard, and saved</b>: ON 1, 00/10 (FLYING or LANDED in free flight).</li>
+            <li><b>Climb and sink</b>, up to 10 m/s.</li>
+            <li><b>WINCH, LAND, LOW</b>: steady when it works, blinking when you are close but too high or fast; LOW warns of a hard landing.</li>
+            <li><b>The clock</b>, the time left or flown, and the mission's name.</li>
+        </ol>
+    </div>
+</section>
+
+<section class="bay" id="landmarks">
+    <div class="container">
+        <div class="title">
+            <div class="kicker">In their real sizes</div>
+            <h2>Eleven <em>landmarks</em></h2>
+            <p>Portugal's famous buildings and bridges stand where they are, built from their outlines and heights in OpenStreetMap. They are solid: fly into one and the end screen names it.</p>
+        </div>
+        <div class="marks">
+            <div class="mark"><small>Lisbon</small><h4>Ponte 25 de Abril</h4><div class="alt"><b>190 M</b><span>towers; the deck at 70 m</span></div></div>
+            <div class="mark"><small>Lisbon</small><h4>Torre Vasco da Gama</h4><div class="alt"><b>145 M</b><span>by the river</span></div></div>
+            <div class="mark"><small>Almada</small><h4>Cristo Rei</h4><div class="alt"><b>103 M</b><span>arms east and west</span></div></div>
+            <div class="mark"><small>Porto</small><h4>Torre dos Cl&eacute;rigos</h4><div class="alt"><b>75 M</b><span>and its church</span></div></div>
+            <div class="mark"><small>Porto</small><h4>Ponte da Arr&aacute;bida</h4><div class="alt"><b>70 M</b><span>the deck, on its arch</span></div></div>
+            <div class="mark"><small>Lisbon</small><h4>Padr&atilde;o dos Descobrimentos</h4><div class="alt"><b>52 M</b><span>at Bel&eacute;m</span></div></div>
+            <div class="mark"><small>Porto</small><h4>Ponte Luiz I</h4><div class="alt"><b>45 M</b><span>the upper deck</span></div></div>
+            <div class="mark"><small>Nazar&eacute;</small><h4>The fort and its red lighthouse</h4><div class="alt"><b>38 M</b><span>on the rock</span></div></div>
+            <div class="mark"><small>Lisbon</small><h4>Jer&oacute;nimos Monastery</h4><div class="alt"><b>34 M</b><span>at Bel&eacute;m</span></div></div>
+            <div class="mark"><small>Lisbon</small><h4>Torre de Bel&eacute;m</h4><div class="alt"><b>33 M</b><span>free flight's home</span></div></div>
+            <div class="mark"><small>Peniche</small><h4>Cabo Carvoeiro lighthouse</h4><div class="alt"><b>29 M</b><span>on the cape</span></div></div>
+            <div class="mark off"><small>In the menu</small><h4>Press <kbd>L</kbd></h4><p>Landmarks off: faster where they stand, and nothing there to hit.</p></div>
+        </div>
+        <div class="marks-pics">
+            <div class="bezel"><img class="px" src="screens/ponte-25-abril.png" alt="The Ponte 25 de Abril from the Tejo" loading="lazy"></div>
+            <div class="bezel"><img class="px" src="screens/cristo-rei.png" alt="Cristo Rei over Almada, the 25 de Abril beyond" loading="lazy"></div>
+            <div class="bezel"><img class="px" src="screens/arrabida.png" alt="The Ponte da Arrábida over the Douro" loading="lazy"></div>
+        </div>
+    </div>
+</section>
+
+<section id="screens">
+    <div class="container">
+        <div class="title">
+            <div class="kicker">As the IIgs shows them</div>
+            <h2>Screenshots</h2>
+            <p>Every picture here is a screen of the game, taken in the emulator: the 320 &times; 200 Super Hi-Res screen, shown three times as big.</p>
+        </div>
+        <div class="gallery">
+            <figure><img class="px" src="screens/porto-winch.png" alt="" loading="lazy"><figcaption><b>Porto:</b> off a flooded roof, the Ponte Luiz I behind.</figcaption></figure>
+            <figure><img class="px" src="screens/ponte-25-abril.png" alt="" loading="lazy"><figcaption><b>The Ponte 25 de Abril</b>, broadside from the Tejo.</figcaption></figure>
+            <figure><img class="px" src="screens/deck.png" alt="" loading="lazy"><figcaption><b>Over the deck</b>, 70 m up, by its south tower.</figcaption></figure>
+            <figure><img class="px" src="screens/cristo-rei.png" alt="" loading="lazy"><figcaption><b>Cristo Rei</b>, and the bridge beyond.</figcaption></figure>
+            <figure><img class="px" src="screens/belem.png" alt="" loading="lazy"><figcaption><b>Home:</b> the Torre de Bel&eacute;m and its smoke.</figcaption></figure>
+            <figure><img class="px" src="screens/luiz.png" alt="" loading="lazy"><figcaption><b>The Ponte Luiz I</b> from the river.</figcaption></figure>
+            <figure><img class="px" src="screens/arrabida.png" alt="" loading="lazy"><figcaption><b>The Arr&aacute;bida</b>: under its arch or over its deck.</figcaption></figure>
+            <figure><img class="px" src="screens/douro.png" alt="" loading="lazy"><figcaption><b>The Douro</b> from 300 m, smoke over the roofs.</figcaption></figure>
+            <figure><img class="px" src="screens/leiria.png" alt="" loading="lazy"><figcaption><b>Leiria:</b> the pines are burning.</figcaption></figure>
+            <figure><img class="px" src="screens/menu.png" alt="" loading="lazy"><figcaption><b>The menu:</b> six missions, and L for the landmarks.</figcaption></figure>
+            <figure><img class="px" src="screens/brief.png" alt="" loading="lazy"><figcaption><b>The brief</b>, before the clock starts.</figcaption></figure>
+            <figure><img class="px" src="screens/all-safe.png" alt="" loading="lazy"><figcaption><b>All safe:</b> your time, and your best.</figcaption></figure>
+        </div>
+    </div>
+</section>
+
+<section class="bay" id="music">
+    <div class="container">
+        <div class="title">
+            <div class="kicker">On the Ensoniq</div>
+            <h2>The music</h2>
+        </div>
+        <div class="deck" id="deck">
+            <div class="cass" aria-hidden="true"><div class="lbl">GAIVOTA<br>SIDE A</div><div class="reels"><span></span><span></span></div></div>
+            <div>
+                <h3><small>The theme</small>Gaivota</h3>
+                <p>An original synthwave track for the IIgs's sound chip: D minor at 112.5 beats a minute, 80s drums with a gated snare, an octave bass, arpeggios, a supersaw pad and a saw lead with its echo. It plays at the menu and in flight; <b>M</b> turns it off. Here is its first minute, recorded from the game in the emulator.</p>
+                <audio controls preload="none" src="music/gaivota.mp3"></audio>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="need">
+    <div class="container">
+        <div class="title">
+            <div class="kicker">Before you fly</div>
+            <h2>What you need, <em>and the keys</em></h2>
+        </div>
+        <div class="two">
+            <div class="card">
+                <h3>What you need</h3>
+                <ul>
+                    <li><b>An Apple IIgs with 8 MB of RAM</b>: the whole map lives in memory.</li>
+                    <li><b>A hard disk</b>: the game is a 32 MB ProDOS hard-disk image.</li>
+                    <li><b>A 16 MHz accelerator</b> (ZipGS, TransWarp GS) is best. At stock speed it runs, slowly: 4 to 6 frames a second, and about 90 seconds to load.</li>
+                    <li><b>ProDOS 8 or GS/OS 6</b>: from GS/OS it asks the Memory Manager for its memory, and quits back to the Finder.</li>
+                    <li><b>In MAME</b> (Ample on the Mac): 8 MB, a 16 MHz ZipGS, the disk on a CFFA card in slot 7.</li>
+                    <li><b>The keyboard</b>, or a joystick.</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>The keys</h3>
+                <table class="keys">
+                    <tr><td><kbd>&larr;</kbd><kbd>&rarr;</kbd> or the stick</td><td>Turn</td></tr>
+                    <tr><td><kbd>&uarr;</kbd><kbd>&darr;</kbd> or the stick</td><td>Speed up, slow down, down to flying backwards</td></tr>
+                    <tr><td><kbd>A</kbd><kbd>Z</kbd> or the buttons</td><td>Climb, sink; Open-Apple and Option too, held with an arrow</td></tr>
+                    <tr><td><kbd>SPACE</kbd></td><td>Hover: stop</td></tr>
+                    <tr><td><kbd>P</kbd> <kbd>M</kbd></td><td>Pause; music on or off</td></tr>
+                    <tr><td><kbd>ESC</kbd></td><td>Back to the menu</td></tr>
+                    <tr><td><kbd>C</kbd> <kbd>L</kbd> <kbd>Q</kbd> in the menu</td><td>Centre the stick; landmarks on or off; quit</td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="bay" id="download">
+    <div class="container">
+        <div class="dl">
+            <span class="lamp on">READY</span>
+            <h3>Download GAIVOTA</h3>
+            <p>The 32 MB ProDOS hard-disk image, zipped: GAIVOTA.SYSTEM and its five data files.</p>
+            <div class="cta"><a class="btn" href="GAIVOTA.zip" download>GAIVOTA.zip &middot; 2.8 MB</a><a class="btn ghost" href="#need">What you need</a></div>
+            <p class="fine">Map data &copy; OpenStreetMap contributors.</p>
+        </div>
+    </div>
+</section>
+
+<section id="inside">
+    <div class="container">
+        <div class="title">
+            <div class="kicker">How it is made</div>
+            <h2>Inside</h2>
+        </div>
+        <div class="inside">
+            <div class="fact"><b>Portugal from OpenStreetMap</b><p>Python tools turn the Geofabrik extract of Portugal into a 300 by 600 km map: coast, rivers and lakes, beaches, forests, and towns from the density of their buildings, in three levels of detail. 4.6 MB of it sits in memory.</p></div>
+            <div class="fact"><b>Filled 3D in fill mode</b><p>Every edge is turned, clipped and projected into one colour change per screen line, and the Super Hi-Res fill mode paints the rest: the fill engine of the <a href="../Demos/#portugal">PORTUGAL</a> demo, grown into a flight game.</p></div>
+            <div class="fact"><b>Landmarks, solid</b><p>Boxes at any heading, arches and cables, from OSM outlines and heights; drawn far to near over the ground, simpler far away, and checked against the helicopter every frame.</p></div>
+            <div class="fact"><b>65816 assembly</b><p>About 15,000 lines for Merlin 32: the renderer, the flight model, the missions, the panel, the music player. The landmarks are their own module, in a bank of their own.</p></div>
+            <div class="fact"><b>Sound on the Ensoniq</b><p>The rotor follows the collective and your speed; the music and every effect are synthesized in Python and laid out in the chip's 64K of sound memory.</p></div>
+            <div class="fact"><b>Flown by scripts</b><p>Headless MAME runs, driven by Lua scripts, flew every mission, crashed into every landmark and checked the landmark views against a Python model of the renderer.</p></div>
+        </div>
+    </div>
+</section>
+
+<div class="lightbox" id="lb"><img alt=""></div>
+
+<footer>
+    <div class="container">
+        <div class="banner">GAIVOTA</div>
+        <div class="row">
+            <a href="../">More projects</a>
+            <a href="#download">Download</a>
+            <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>
+        </div>
+        <div class="crosslinks">
+            <p><b>Apple IIgs:</b> <a href="../Conquer3/">Conquer 3: Sandstorm</a> &middot; <a href="../Conquer-GS/">Conquer GS</a> &middot; <a href="../GTApple/">Grand Theft Apple</a> &middot; <a href="../Terra%20Incognita/">Terra Incognita</a> &middot; <a href="../GSCommander/">GS Commander</a> &middot; <a href="../GSLauncher/">GSLauncher</a> &middot; <a href="../Hyperhaul/">Hyperhaul</a> &middot; <a href="../MegaconvertGS/">MegaconvertGS</a> &middot; <a href="../TileTown/">TileTown</a> &middot; <a href="../TileTown%202/">TileTown 2</a></p>
+            <p><b>Apple II tools for the Mac:</b> <a href="../EmuBuddy/">EmuBuddy</a> &middot; <a href="../Demos/">IIgs Demos</a> &middot; <a href="../GSRemap/">GS Remap</a> &middot; <a href="../RetroBrowse/">RetroBrowse</a> &middot; <a href="../AppleIIASCIIArt/">1977 ASCII Art</a></p>
+            <p><b>More retro:</b> <a href="../RetroGraphicsConverter/">Retro Graphics Converter</a> &middot; <a href="../Bitpast/">BitPast</a> &middot; <a href="../RetroTube/">Retro Tube</a> &middot; <a href="../RetroTV/">Retro TV</a> &middot; <a href="../Retro%20Computing/">1977: all retro tools</a></p>
+        </div>
+        <div style="margin-top: 14px;">&copy; 2026 Walter Tengler</div>
+        <p class="legal">GAIVOTA is an original game. Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>, available under the Open Database Licence. The little men waving to be rescued are a homage to Dan Gorlin's Choplifter (1982); GAIVOTA is not connected with its author or publishers. Apple IIgs is a trademark of Apple Inc.</p>
+    </div>
+</footer>
+
+<script>
+    // a screenshot clicked: shown big; a click anywhere closes it
+    var lb = document.getElementById('lb');
+    document.querySelectorAll('.gallery img').forEach(function (i) {
+        i.addEventListener('click', function () { lb.querySelector('img').src = i.src; lb.classList.add('on'); });
+    });
+    lb.addEventListener('click', function () { lb.classList.remove('on'); });
+
+    // the compass tape: ticks every 10 degrees, labels every 30, as the game's; the heading
+    // follows how far down the page you are
+    (function () {
+        var strip = document.getElementById('strip'), hdg = document.getElementById('hdg'), PX = 4, html = '';
+        var names = { 0: 'N', 90: 'E', 180: 'S', 270: 'W' };
+        for (var d = -360; d <= 720; d += 10) {
+            var a = ((d % 360) + 360) % 360, x = (d + 360) * PX;
+            html += '<span class="tick' + (a % 30 ? '' : ' l') + '" style="left:' + x + 'px"></span>';
+            if (a % 30 === 0) html += '<span class="lab' + (names[a] ? ' c' : '') + '" style="left:' + x + 'px">' + (names[a] || a / 10) + '</span>';
+        }
+        strip.innerHTML = html;
+        function turn() {
+            var max = document.documentElement.scrollHeight - innerHeight;
+            var h = max > 0 ? scrollY / max * 360 : 0;
+            strip.style.transform = 'translateX(' + (strip.parentNode.clientWidth / 2 - (h + 360) * PX) + 'px)';
+            hdg.textContent = 'HDG ' + String(Math.round(h) % 360).padStart(3, '0');
+        }
+        addEventListener('scroll', turn, { passive: true });
+        addEventListener('resize', turn);
+        turn();
+    })();
+
+    // the missions: the menu picks a brief; so do the keys 1 to 6, as in the game
+    (function () {
+        var tabs = document.querySelectorAll('.menu button'), briefs = document.querySelectorAll('.brief');
+        var marks = document.querySelectorAll('#map .msn');
+        function pick(m) {
+            tabs.forEach(function (t) { t.setAttribute('aria-selected', t.dataset.m === m ? 'true' : 'false'); });
+            briefs.forEach(function (b) { b.hidden = b.dataset.m !== m; });
+        }
+        tabs.forEach(function (t) { t.addEventListener('click', function () { pick(t.dataset.m); }); });
+        // a number on the map picks its mission, and the link goes up to the brief
+        marks.forEach(function (g) { g.parentNode.addEventListener('click', function () { pick(g.dataset.m); }); });
+        addEventListener('keydown', function (e) {
+            if (e.metaKey || e.ctrlKey || e.altKey || /input|textarea|select/i.test(e.target.tagName)) return;
+            if (e.key >= '1' && e.key <= '6') pick(e.key);
+        });
+    })();
+
+    // the tape deck turns while the music plays
+    (function () {
+        var deck = document.getElementById('deck'), au = deck.querySelector('audio');
+        au.addEventListener('play', function () { deck.classList.add('play'); });
+        au.addEventListener('pause', function () { deck.classList.remove('play'); });
+        au.addEventListener('ended', function () { deck.classList.remove('play'); });
+    })();
+</script>
+</body>
+</html>
