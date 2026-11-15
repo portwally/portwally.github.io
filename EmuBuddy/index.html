@@ -23,6 +23,7 @@
 <nav class="menubar">
     <span class="apple" title="EmuBuddy"></span>
     <a href="../">portwally.github.io</a>
+    <a href="#box">Manual</a>
     <a href="#features">Features</a>
     <a href="#printing">Printing</a>
     <a href="#dragdrop">Drag &amp; Drop</a>
@@ -44,6 +45,7 @@
             <p class="sub">Menus, windows, drag and drop, printing to PDF, internet and file exchange with your computer &ndash; all without typing a command.</p>
             <a class="btn default" href="#get">Get it</a>
             <a class="btn" href="#features">See what it does</a>
+            <a class="btn" href="EmuBuddy-Manual.pdf">Read the manual</a>
             <div class="stripes" role="presentation"></div>
             <p class="platforms">macOS (Apple Silicon) &middot; Windows (x64) &middot; Linux (x64, arm64) &middot; free, GPL 3</p>
         </div>
@@ -52,6 +54,44 @@
             <figcaption><b>Fig. 1</b> System 6 on a Mac. The menu bar and status bar belong to EmuBuddy; everything between them is the IIgs.</figcaption>
         </figure>
         <p>EmuBuddy is built on <a href="http://kegs.sourceforge.net">KEGS</a>, Kent Dickey&rsquo;s Apple IIgs emulator, through the <a href="https://github.com/digarok/gsplus">GSplus</a> SDL3 build. The emulator core is the proven KEGS one. What EmuBuddy adds is everything around it: a menu bar, a status bar and tool windows, easy disk handling, a printer, network access, and several ways to move files between the IIgs and the computer it runs on.</p>
+    </div>
+</section>
+
+<!-- ================= the box and the manual ================= -->
+<section class="win" id="box">
+    <div class="title"><h2>In the Box</h2></div>
+    <div class="body">
+        <div class="box-row">
+            <figure class="box-stage">
+                <div class="box3d" id="box3d" role="img" aria-label="The EmuBuddy box: on its front a monitor showing System 6 and the User&rsquo;s Guide lying before it; on its back four screens and the features">
+                    <div class="bf b-front"><img src="img/box/front.png" width="900" height="1180" alt=""></div>
+                    <div class="bf b-back"><img src="img/box/back.png" width="900" height="1180" alt="" loading="lazy"></div>
+                    <div class="bf b-left"><img src="img/box/spine.png" width="170" height="1180" alt=""></div>
+                    <div class="bf b-right"><img src="img/box/spine.png" width="170" height="1180" alt=""></div>
+                    <div class="bf b-top"><img src="img/box/top.png" width="900" height="170" alt=""></div>
+                    <div class="bf b-bottom"></div>
+                </div>
+                <div class="box-floor" aria-hidden="true"></div>
+                <figcaption>The box. Drag it to turn it around.</figcaption>
+            </figure>
+            <div class="box-text">
+                <p>Software came in a box then: disks, a manual and a promise on the cover. EmuBuddy&rsquo;s would have looked like this. The box you will have to imagine. What was in it is real:</p>
+                <ul>
+                    <li><b>EmuBuddy</b>, the emulator</li>
+                    <li><b>EmuBuddy Launcher</b>, the shelf for your games and set-ups</li>
+                    <li>The <b>User&rsquo;s Guide</b>, set in Apple Garamond like the guides of the time</li>
+                </ul>
+                <div class="guide-row">
+                    <a class="guide-cover" href="EmuBuddy-Manual.pdf"><img src="img/manual-cover.jpg" width="560" height="720" alt="The cover of the EmuBuddy User&rsquo;s Guide"></a>
+                    <div>
+                        <h3>Read the manual</h3>
+                        <p>54 pages with a picture of every window: getting started, disks, sharing files, the Internet, printing, the Launcher, and what to do when something goes wrong. A PDF of 1.7&nbsp;MB.</p>
+                        <a class="btn default" href="EmuBuddy-Manual.pdf">User&rsquo;s Guide (PDF)</a>
+                    </div>
+                </div>
+                <p class="turn"><a class="btn" href="#" id="boxTurn" role="button">Turn it over</a></p>
+            </div>
+        </div>
     </div>
 </section>
 
@@ -368,5 +408,36 @@
     <p><a href="../">&larr; portwally.github.io</a></p>
 </footer>
 
+<script>
+// The box: drag to turn it; "Turn it over" shows the other side.
+(function () {
+    var box = document.getElementById("box3d"), turn = document.getElementById("boxTurn");
+    if (!box) return;
+    var ry = 28, rx = 10, sx = 0, sy = 0, r0 = 0, x0 = 0, dragging = false;
+    function draw() {
+        box.style.transform = "rotateX(" + rx + "deg) rotateY(" + ry + "deg)";
+        turn.textContent = Math.cos(ry * Math.PI / 180) > 0 ? "Turn it over" : "Back to the front";
+    }
+    box.addEventListener("pointerdown", function (e) {
+        dragging = true; sx = e.clientX; sy = e.clientY; r0 = ry; x0 = rx;
+        box.classList.add("dragging"); box.setPointerCapture(e.pointerId);
+    });
+    box.addEventListener("pointermove", function (e) {
+        if (!dragging) return;
+        ry = r0 + (e.clientX - sx) * 0.5;
+        rx = Math.max(-25, Math.min(35, x0 - (e.clientY - sy) * 0.3));
+        draw();
+    });
+    function up() { dragging = false; box.classList.remove("dragging"); }
+    box.addEventListener("pointerup", up);
+    box.addEventListener("pointercancel", up);
+    turn.addEventListener("click", function (e) {
+        e.preventDefault();
+        ry += 180;
+        draw();
+    });
+    draw();
+})();
+</script>
 </body>
 </html>
