@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>GAIVOTA - box art</title>
+<meta name="robots" content="noindex">
+<!-- The box's faces, drawn here and rendered to pictures by render.sh
+     (front.jpg, back.jpg, spine.jpg, top.jpg: the 3D box on the homepage
+     wears them). box.html?face=front (back, spine, top) shows one face at
+     its size: 900 x 1180, the spine 170 x 1180, the top 900 x 170. The
+     pictures are the game's own: the title picture (art/title.py) and its
+     screens. The ground in the screens is drawn from OpenStreetMap data. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>
+:root { --night: #0b0c14; --bay: #15151f; --panel: #333344; --panel-2: #262634; --disp: #111122; --rim: #4a4a5e;
+        --text: #ddeeff; --dim: #9aa3c4; --yellow: #ffcc55; --or: #ff7711; --or-d: #b04a00; --green: #44ee44; --cyan: #44ccff;
+        --sky1: #4477dd; --sky2: #7799dd; --sky3: #bbbbdd; --sea: #3366aa; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #05060c; font-family: 'Chakra Petch', sans-serif; color: var(--text); display: flex; gap: 30px; padding: 30px; align-items: flex-start; }
+img { display: block; }
+.px { image-rendering: pixelated; }
+.face { position: relative; width: 900px; height: 1180px; flex: none; overflow: hidden;
+  background: linear-gradient(180deg, #1a1b2a 0, var(--night) 100%); }
+.face.spine { width: 170px; }
+.face.top { height: 170px; }
+.logo { font-family: 'Press Start 2P', monospace; color: var(--or); text-shadow: 3px 3px 0 var(--or-d), 6px 6px 0 var(--disp); }
+.strip { position: absolute; left: 0; right: 0; height: 64px; display: flex; align-items: center; justify-content: space-between; padding: 0 28px;
+  background: linear-gradient(180deg, var(--panel), var(--panel-2)); border-bottom: 4px solid var(--or); color: var(--text);
+  font-weight: 700; letter-spacing: 3px; font-size: 19px; text-transform: uppercase; }
+.strip.bottom { bottom: 0; border-bottom: 0; border-top: 4px solid var(--or); font-size: 15px; letter-spacing: 2px; height: 54px; }
+.lamp { font-family: 'Press Start 2P', monospace; font-size: 13px; letter-spacing: 0; padding: 8px 10px 6px; background: var(--disp); border: 2px solid var(--rim); color: var(--green); }
+.lamp.y { color: var(--yellow); }
+.panel { background: linear-gradient(180deg, var(--panel), var(--panel-2)); border: 2px solid var(--rim); box-shadow: 0 10px 24px rgba(0, 0, 0, .6); }
+
+/* ---- front ---- */
+.front .art { position: absolute; left: 0; top: 64px; width: 900px; height: 562px; border-bottom: 4px solid var(--or); }
+.front .tag { position: absolute; left: 0; right: 0; top: 664px; text-align: center; font-size: 31px; line-height: 1; }
+.front .sub { position: absolute; left: 60px; right: 60px; top: 722px; text-align: center; color: var(--dim); font-size: 25px; font-weight: 500; }
+.front .trio { position: absolute; left: 34px; right: 34px; top: 786px; display: flex; justify-content: space-between; }
+.front .who { width: 268px; text-align: center; padding: 10px 10px 14px; border-top: 4px solid var(--c); }
+.front .who img { width: 244px; height: 152px; border: 2px solid #000; margin-bottom: 12px; object-fit: cover; object-position: top; }
+.front .who b { display: block; font-family: 'Press Start 2P', monospace; font-size: 13px; color: var(--c); text-transform: uppercase; }
+.front .who span { display: block; font-size: 18px; font-weight: 500; color: var(--dim); margin-top: 8px; line-height: 1.2; }
+.front .foot { position: absolute; left: 0; right: 0; top: 1070px; text-align: center; font-family: 'Press Start 2P', monospace; font-size: 13px; color: var(--yellow); }
+
+/* ---- back ---- */
+.back .head { position: absolute; left: 30px; right: 30px; top: 40px; text-align: center; font-size: 30px; line-height: 1.5; }
+.back .blurb { position: absolute; left: 50px; right: 50px; top: 150px; color: var(--text); font-size: 20.5px; line-height: 1.34; text-align: center; font-weight: 500; }
+.back .shots { position: absolute; left: 40px; right: 40px; top: 252px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px 20px; }
+.back .shot { padding: 6px 6px 4px; }
+.back .shot img { width: 392px; height: 245px; border: 2px solid #000; }
+.back .shot span { display: block; text-align: center; font-size: 15.5px; font-weight: 700; padding-top: 4px; color: var(--dim); }
+.back .cols { position: absolute; left: 40px; right: 40px; top: 838px; display: flex; gap: 14px; }
+.back .col { flex: 1; padding: 12px 12px 10px; border-top: 4px solid var(--c); }
+.back .col h3 { font-family: 'Press Start 2P', monospace; font-size: 14px; color: var(--c); text-transform: uppercase; }
+.back .col p { font-size: 15.5px; line-height: 1.26; margin-top: 8px; color: var(--text); font-weight: 500; }
+.back .need { position: absolute; left: 40px; right: 40px; top: 1010px; display: flex; gap: 18px; color: var(--text); font-size: 16px; line-height: 1.28; }
+.back .need div { flex: 1; }
+.back .need b { color: var(--or); letter-spacing: 2px; font-size: 14px; font-weight: 700; display: block; }
+
+/* ---- spine, top ---- */
+.spine .word { position: absolute; left: 50%; top: 50%; width: 900px; margin-left: -450px; text-align: center; transform: translateY(-50%) rotate(90deg); font-size: 62px; white-space: nowrap; }
+.spine .sh { position: absolute; left: 0; right: 0; top: 34px; display: flex; flex-direction: column; align-items: center; }
+.spine .sh img { width: 112px; height: 112px; border: 2px solid var(--rim); }
+.spine .sys { position: absolute; left: 0; right: 0; bottom: 34px; text-align: center; font-weight: 700; color: var(--text); letter-spacing: 2px; font-size: 17px; line-height: 1.35; }
+.top .word { position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-50%); text-align: center; font-size: 50px; line-height: 1; white-space: nowrap; }
+.top .l, .top .r { position: absolute; top: 50%; transform: translateY(-50%); font-weight: 700; color: var(--text); letter-spacing: 2px; font-size: 15px; }
+.top .l { left: 26px; } .top .r { right: 26px; }
+
+body.one { padding: 0; background: none; display: block; }
+body.one .face { display: none; }
+body.front .face.front, body.back .face.back, body.spine .face.spine, body.top .face.top { display: block; }
+</style>
+</head>
+<body>
+
+<div class="face front">
+  <div class="strip" style="top:0"><span class="lamp">APPLE IIGS</span><span>Helicopter rescue</span><span class="lamp y">8 MB</span></div>
+  <img class="art px" src="../screens/title.png" alt="">
+  <div class="tag logo">FLY LOW. BRING THEM HOME.</div>
+  <div class="sub">Six missions over a real map of Portugal.</div>
+  <div class="trio">
+    <div class="who panel" style="--c: var(--or)"><img class="px" src="../screens/leiria.png" alt=""><b>The rescues</b><span>Fire, flood, surf and a sinking boat</span></div>
+    <div class="who panel" style="--c: var(--cyan)"><img class="px" src="../screens/cristo-rei.png" alt=""><b>The country</b><span>300 by 600 km, coast to border</span></div>
+    <div class="who panel" style="--c: var(--green)"><img class="px" src="../screens/belem.png" alt=""><b>The landmarks</b><span>Bridges and towers, solid</span></div>
+  </div>
+  <div class="foot">FILLED 3D &middot; SYNTHWAVE SOUNDTRACK &middot; JOYSTICK</div>
+  <div class="strip bottom"><span>&copy; 2026 Walter Tengler</span><span>65816 assembly &middot; Ensoniq sound</span><span>Hard disk</span></div>
+</div>
+
+<div class="face back">
+  <div class="head logo">ALL OF PORTUGAL<br>UNDER YOUR ROTOR</div>
+  <p class="blurb">You fly GAIVOTA, the seagull: a rescue helicopter with six seats and a winch. Surfers off Nazar&eacute;, a crew off Peniche, families on Porto's roofs &mdash; hover low and slow, winch them aboard and land them softly at the base.</p>
+  <div class="shots">
+    <div class="shot panel"><img class="px" src="../screens/porto-winch.png" alt=""><span>Porto: winching off the roofs</span></div>
+    <div class="shot panel"><img class="px" src="../screens/ponte-25-abril.png" alt=""><span>Lisbon: the Ponte 25 de Abril</span></div>
+    <div class="shot panel"><img class="px" src="../screens/peniche.png" alt=""><span>Peniche: the crew on deck</span></div>
+    <div class="shot panel"><img class="px" src="../screens/arrabida.png" alt=""><span>The Douro and the Ponte da Arr&aacute;bida</span></div>
+  </div>
+  <div class="cols">
+    <div class="col panel" style="--c: var(--or)"><h3>Rescue</h3><p>Five rescues, four against the clock: fire at Leiria, flood in Porto, the big waves of Nazar&eacute;, a sinking boat off Peniche.</p></div>
+    <div class="col panel" style="--c: var(--cyan)"><h3>Fly</h3><p>A helicopter that pitches and banks, a full instrument panel, and free flight from the Minho to the Algarve.</p></div>
+    <div class="col panel" style="--c: var(--green)"><h3>Explore</h3><p>Coast, rivers, forests and towns from real map data. Fly under the bridges of Lisbon and Porto &mdash; if you dare.</p></div>
+  </div>
+  <div class="need">
+    <div><b>IN THE BOX</b>filled 3D in real time &middot; five rescues and free flight &middot; eleven landmarks &middot; best times</div>
+    <div><b>ALSO</b>an original synthwave soundtrack, rotor and winch, all on the Ensoniq chip. Map data &copy; OpenStreetMap contributors</div>
+    <div><b>YOU NEED</b>an Apple IIgs with 8 MB of memory, a hard disk and an accelerator (16 MHz is best) &mdash; or an emulator such as MAME</div>
+  </div>
+  <div class="strip bottom"><span>&copy; 2026 Walter Tengler</span><span>Written in 65816 assembly</span><span>portwally.github.io</span></div>
+</div>
+
+<div class="face spine">
+  <div class="sh"><img class="px" src="../icon.png" alt=""></div>
+  <div class="word logo">GAIVOTA</div>
+  <div class="sys">APPLE<br>IIGS</div>
+</div>
+
+<div class="face top">
+  <span class="l">APPLE IIGS</span>
+  <div class="word logo">GAIVOTA</div>
+  <span class="r">8 MB &middot; HARD DISK</span>
+</div>
+
+<script>
+var m = location.search.match(/face=(\w+)/);
+if (m) document.body.className = 'one ' + m[1];
+</script>
+</body>
+</html>
