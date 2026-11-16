@@ -168,6 +168,15 @@
         kbd { display: inline-block; font: 700 .78rem var(--hud); color: #111; background: var(--white); border-radius: 4px; padding: 2px 7px 1px; margin: 1px 2px 1px 0; box-shadow: 0 2px 0 var(--curb); white-space: nowrap; }
         .anywhere { margin-top: 24px; color: var(--text); }
 
+        /* the manual: its cover, what's in it, the PDFs */
+        .manual { display: grid; grid-template-columns: 300px 1fr; gap: 54px; align-items: center; }
+        .manual .cover { display: block; }
+        .manual .cover img { width: 100%; box-shadow: 0 0 0 3px var(--white), 0 26px 60px rgba(0, 0, 0, .55); transform: rotate(-1.6deg); }
+        .manual ul { list-style: none; display: grid; gap: 10px; margin: 4px 0 6px; }
+        .manual li { padding-left: 20px; position: relative; color: var(--text); }
+        .manual li::before { content: ""; position: absolute; left: 0; top: .62em; width: 9px; height: 9px; background: var(--line); }
+        .manual .sub { margin-bottom: 22px; }
+
         /* the box: as it would have stood on the shelf (box/box.html, render.sh) */
         .boxstage { position: relative; max-width: 760px; margin: 0 auto; padding-bottom: 6px; }
         .box3d-view { --bw: min(300px, 60vw); --bh: calc(var(--bw) * 1180 / 900); --bd: calc(var(--bw) * 170 / 900);
@@ -213,9 +222,15 @@
         footer .crosslinks a:hover { color: var(--ammo); }
         footer .legal { margin-top: 14px; font-size: .85rem; color: #85858f; max-width: 60em; }
 
+        @media (max-width: 1100px) {
+            .hud .row { gap: 14px; }
+            .hud nav { gap: 9px; }
+            .hud nav a { font-size: .76rem; }
+        }
         @media (max-width: 920px) {
             .hud nav, .hud .ammo-l { display: none; }
-            .hero-grid, .feat, .mapwrap, .theend, .keys, .inside { grid-template-columns: 1fr; gap: 30px; }
+            .hero-grid, .feat, .mapwrap, .theend, .keys, .inside, .manual { grid-template-columns: 1fr; gap: 30px; }
+            .manual .cover { max-width: 260px; }
             .feat:nth-child(even) .screen { order: 0; }
             .signs, .gallery, .radio { grid-template-columns: 1fr 1fr; }
             .jobs { grid-template-columns: 1fr; }
@@ -249,6 +264,7 @@
                 <a href="#screens">SCREENS</a>
                 <a href="#radio">RADIO</a>
                 <a href="#keys">KEYS</a>
+                <a href="#manual">MANUAL</a>
                 <a href="#inside">INSIDE</a>
             </nav>
             <span class="dist" id="dist">DOWNTOWN</span>
@@ -486,6 +502,33 @@
     </div>
 </section>
 
+<div class="road" aria-hidden="true"><div class="zebra r"></div></div>
+
+<section id="manual" data-dist="SOLANA BRIDGE">
+    <div class="container">
+        <div class="manual">
+            <a class="cover" href="GrandTheftApple-Manual.pdf"><img src="screens/manual-cover.jpg" alt="The manual's cover: the title picture, Instruction Manual, and the game's HUD along the bottom" width="600" height="850" loading="lazy"></a>
+            <div>
+                <div class="kicker">Instruction manual</div>
+                <h2>Read it <em>before you drive</em></h2>
+                <p class="sub">24 A5 pages with the game's own pictures, and a key card to keep by the keyboard.</p>
+                <ul>
+                    <li>Getting started, and your first job step by step</li>
+                    <li>The HUD, walking, taking a car and driving</li>
+                    <li>The map and the districts of Solana Bay</li>
+                    <li>The police: what makes you wanted, getting busted, three stars and more</li>
+                    <li>Hearts and the hospital, car damage, fists and the pistol</li>
+                    <li>All eight jobs with hints, saving, the radio, and every key</li>
+                </ul>
+                <div class="cta">
+                    <a class="btn" href="GrandTheftApple-Manual.pdf">The manual (PDF, 2.1 MB)</a>
+                    <a class="btn alt" href="GrandTheftApple-Keys.pdf">Key card (PDF, one A4 page)</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <div class="road" aria-hidden="true"><div class="zebra m"></div></div>
 
 <section id="box" data-dist="THE DOCKS">
@@ -546,6 +589,7 @@
             <a href="../">More projects</a>
             <a href="#screens">Screenshots</a>
             <a href="#radio">The radio</a>
+            <a href="#manual">The manual</a>
         </div>
         <div class="crosslinks">
             <p><b>Apple IIgs:</b> <a href="../Conquer3/">Conquer 3: Sandstorm</a> &middot; <a href="../Conquer-GS/">Conquer GS</a> &middot; <a href="../GSCommander/">GS Commander</a> &middot; <a href="../GSLauncher/">GSLauncher</a> &middot; <a href="../Hyperhaul/">Hyperhaul</a> &middot; <a href="../Gaivota/">GAIVOTA</a> &middot; <a href="../Terra%20Incognita/">Terra Incognita</a> &middot; <a href="../MegaconvertGS/">MegaconvertGS</a> &middot; <a href="../TileTown/">TileTown</a> &middot; <a href="../TileTown%202/">TileTown 2</a></p>
