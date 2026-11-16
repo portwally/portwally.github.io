@@ -320,3 +320,28 @@ legend { padding: 0 8px; color: var(--gold); }
 @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
 }
+
+/* The box in 3D (box/front.jpg, back.jpg, spine.jpg, top.jpg; made in the MegaconvertGS repo, art/box) */
+.boxstage { position: relative; max-width: 760px; margin: 0 auto; padding-bottom: 6px; }
+.box3d-view { --bw: min(300px, 60vw); --bh: calc(var(--bw) * 1180 / 900); --bd: calc(var(--bw) * 170 / 900);
+    position: relative; width: 100%; height: calc(var(--bh) * 1.24); perspective: calc(var(--bw) * 5); cursor: grab; touch-action: pan-y; outline: none; user-select: none; -webkit-user-select: none; }
+.box3d-view.drag { cursor: grabbing; }
+.box3d-view:focus-visible { box-shadow: 0 0 0 3px var(--gold); }
+.box3d-view::before { content: ""; position: absolute; left: 50%; top: 50%; width: calc(var(--bw) * 2.4); height: calc(var(--bw) * 2.4); margin: calc(var(--bw) * -1.2); border-radius: 50%; pointer-events: none;
+    background: radial-gradient(circle, rgba(255, 221, 0, .22) 0, rgba(255, 221, 0, 0) 62%); }
+.box3d-view::after { content: ""; position: absolute; left: 50%; bottom: 1%; width: calc(var(--bw) * 1.35); height: 9%; margin-left: calc(var(--bw) * -.675); border-radius: 50%; pointer-events: none;
+    background: radial-gradient(ellipse, rgba(0, 0, 0, .55) 0, rgba(0, 0, 0, 0) 68%); }
+.box3d { position: absolute; left: 50%; top: 50%; width: var(--bw); height: var(--bh); margin: calc(var(--bh) / -2) 0 0 calc(var(--bw) / -2); transform-style: preserve-3d; transform: rotateX(-6deg) rotateY(-28deg); }
+.box3d .bf { position: absolute; left: 0; top: 0; width: var(--bw); height: var(--bh); backface-visibility: hidden; background: #14105a center / 100% 100% no-repeat; }
+.box3d .bf i { position: absolute; inset: 0; background: #000; opacity: 0; pointer-events: none; }
+.box3d .f { background-image: url(box/front.jpg); transform: translateZ(calc(var(--bd) / 2)); }
+.box3d .b { background-image: url(box/back.jpg); transform: rotateY(180deg) translateZ(calc(var(--bd) / 2)); }
+.box3d .l, .box3d .r { width: var(--bd); left: calc((var(--bw) - var(--bd)) / 2); background-image: url(box/spine.jpg); }
+.box3d .l { transform: rotateY(-90deg) translateZ(calc(var(--bw) / 2)); }
+.box3d .r { transform: rotateY(90deg) translateZ(calc(var(--bw) / 2)); }
+.box3d .t, .box3d .u { height: var(--bd); top: calc((var(--bh) - var(--bd)) / 2); }
+.box3d .t { background-image: url(box/top.jpg); transform: rotateX(90deg) translateZ(calc(var(--bh) / 2)); }
+.box3d .u { transform: rotateX(-90deg) translateZ(calc(var(--bh) / 2)); }
+.boxbar { display: flex; justify-content: center; gap: 14px; margin-top: 8px; flex-wrap: wrap; }
+.boxnote { text-align: center; margin-top: 14px; }
+.boxbar .btn { font: inherit; cursor: pointer; }
