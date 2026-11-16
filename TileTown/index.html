@@ -102,41 +102,17 @@
         .box3d { position: absolute; left: 50%; top: 50%; width: var(--bw); height: var(--bh);
             margin: calc(var(--bh) / -2) 0 0 calc(var(--bw) / -2); transform-style: preserve-3d; font-size: calc(var(--bw) / 16); }
         .box3d .bf { position: absolute; left: 0; top: 0; width: var(--bw); height: var(--bh); backface-visibility: hidden;
-            overflow: hidden; background: #0f1b44; box-shadow: inset 0 0 0 1px #000; }
-        .box3d .bf > i { position: absolute; inset: 0; background: #000; opacity: 0; pointer-events: none; z-index: 5; }
-        .box3d img { pointer-events: none; -webkit-user-drag: none; }
-        .box3d .f { transform: translateZ(calc(var(--bd) / 2)); display: flex; flex-direction: column; }
-        .box3d .b { transform: rotateY(180deg) translateZ(calc(var(--bd) / 2)); padding: 0.7em 0.75em 0; display: flex; flex-direction: column; }
-        .box3d .l, .box3d .r { width: var(--bd); left: calc((var(--bw) - var(--bd)) / 2); background: linear-gradient(90deg, #091233, #13235a 50%, #091233);
-            display: flex; flex-direction: column; align-items: center; }
+            background: #0f2a8c center / 100% 100% no-repeat; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.5); }
+        .box3d .bf > i { position: absolute; inset: 0; background: #000; opacity: 0; pointer-events: none; }
+        /* the faces: the box's art, drawn in box/box.html and rendered by box/render.sh */
+        .box3d .f { background-image: url(box/front.jpg); transform: translateZ(calc(var(--bd) / 2)); }
+        .box3d .b { background-image: url(box/back.jpg); transform: rotateY(180deg) translateZ(calc(var(--bd) / 2)); }
+        .box3d .l, .box3d .r { width: var(--bd); left: calc((var(--bw) - var(--bd)) / 2); background-image: url(box/spine.jpg); }
         .box3d .l { transform: rotateY(-90deg) translateZ(calc(var(--bw) / 2)); }
         .box3d .r { transform: rotateY(90deg) translateZ(calc(var(--bw) / 2)); }
         .box3d .t, .box3d .u { height: var(--bd); top: calc((var(--bh) - var(--bd)) / 2); }
-        .box3d .t { transform: rotateX(90deg) translateZ(calc(var(--bh) / 2)); background: #16245a; display: flex; flex-direction: column; justify-content: center; align-items: center; }
-        .box3d .u { background: #070c20; transform: rotateX(-90deg) translateZ(calc(var(--bh) / 2)); }
-        .rainbow { background: linear-gradient(90deg, #2bb24c 0 16.6%, #f5d000 16.6% 33.3%, #f08a00 33.3% 50%, #d6262a 50% 66.6%, #8b2a92 66.6% 83.3%, #2a5cd6 83.3%); }
-        .rainbow.v { background: linear-gradient(180deg, #2bb24c 0 16.6%, #f5d000 16.6% 33.3%, #f08a00 33.3% 50%, #d6262a 50% 66.6%, #8b2a92 66.6% 83.3%, #2a5cd6 83.3%); }
-        .f .band { height: 0.75em; flex: 0 0 auto; }
-        .f .art { flex: 0 0 auto; border-top: 0.12em solid #000; border-bottom: 0.12em solid #000; }
-        .f .art img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; }
-        .f .name { font-family: var(--head); color: var(--gold); font-size: 2.75em; text-align: center; line-height: 1; margin-top: 0.3em; letter-spacing: 0.03em; text-shadow: 0.06em 0.06em 0 #000; }
-        .f .sub { font-family: var(--sans); color: #fff; text-align: center; font-size: 0.66em; letter-spacing: 0.2em; text-transform: uppercase; margin-top: 0.5em; }
-        .f .for { margin-top: auto; background: #fff; color: #000; font-family: var(--sans); font-weight: 700; font-size: 0.62em; letter-spacing: 0.12em; text-align: center; padding: 0.4em 0; text-transform: uppercase; }
-        .b h3 { font-family: var(--head); font-weight: 400; color: var(--gold); font-size: 1.32em; line-height: 1.05; margin: 0 0 0.4em; text-transform: uppercase; text-align: left; }
-        .b .shots { display: grid; grid-template-columns: 1fr 1fr; gap: 0.3em; }
-        .b .shots img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; border: 0.1em solid #000; }
-        .b ul { list-style: none; margin: 0.5em 0 0; padding: 0; color: #fff; font-family: var(--sans); font-size: 0.56em; line-height: 1.32; text-align: left; }
-        .b li { padding-left: 1em; position: relative; }
-        .b li::before { content: ""; position: absolute; left: 0.15em; top: 0.48em; width: 0.42em; height: 0.42em; background: var(--gold); }
-        .b .need { margin: auto -1.34em 0; background: #fff; color: #000; font-family: var(--sans); font-size: 0.56em; padding: 0.55em 1.34em; display: flex; justify-content: space-between; align-items: center; gap: 0.8em; text-align: left; }
-        .b .need b { display: block; letter-spacing: 0.1em; text-transform: uppercase; }
-        .b .code { flex: 0 0 auto; width: 5em; height: 2.6em; background: repeating-linear-gradient(90deg, #000 0 0.12em, #fff 0.12em 0.22em, #000 0.22em 0.42em, #fff 0.42em 0.5em, #000 0.5em 0.56em, #fff 0.56em 0.7em); }
-        .b .rights { color: #aab3d6; font-family: var(--sans); font-size: 0.45em; padding: 0.6em 0 0.7em; text-align: center; letter-spacing: 0.05em; }
-        .l .rainbow, .r .rainbow { width: 100%; height: 3.6em; flex: 0 0 auto; }
-        .l span, .r span { writing-mode: vertical-rl; font-family: var(--head); color: var(--gold); font-size: 1.55em; letter-spacing: 0.1em; margin-top: 0.6em; }
-        .l small, .r small { margin-top: auto; margin-bottom: 0.8em; writing-mode: vertical-rl; color: #fff; font-family: var(--sans); font-weight: 700; font-size: 0.5em; letter-spacing: 0.2em; text-transform: uppercase; }
-        .t .word { font-family: var(--head); color: var(--gold); font-size: 1.3em; line-height: 1; letter-spacing: 0.05em; }
-        .t .rainbow { width: 60%; height: 0.3em; margin-top: 0.35em; }
+        .box3d .t { background-image: url(box/top.jpg); transform: rotateX(90deg) translateZ(calc(var(--bh) / 2)); }
+        .box3d .u { background: #0a1a5c; transform: rotateX(-90deg) translateZ(calc(var(--bh) / 2)); }
         .boxbar { display: flex; justify-content: center; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 4px; font-family: var(--sans); font-size: 0.72rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--soft); }
         .boxbar button { font: inherit; font-weight: 700; color: var(--ink); background: #fff; border: 2px solid var(--ink); box-shadow: 3px 3px 0 var(--ink); padding: 3px 10px; cursor: pointer; }
         .boxbar button:hover, .boxbar button:focus-visible { background: var(--gold); outline: none; }
@@ -262,37 +238,8 @@
 
     <div class="hero">
         <div class="boxcol">
-            <div class="boxview" id="box3d" tabindex="0" role="img" aria-label="The TileTown box in 3D, turned by dragging or with the arrow keys. The front: the title picture of a little city, the name TileTown in gold, For the Apple IIgs. The back: four screenshots, the features and what you need.">
-                <div class="box3d">
-                    <div class="bf f"><i></i>
-                        <div class="band rainbow"></div>
-                        <div class="art"><img class="px" src="screens/title.png" width="960" height="640" alt="" draggable="false"></div>
-                        <div class="name">TileTown</div>
-                        <div class="sub">The city-building game</div>
-                        <div class="for">For the Apple IIgs &middot; 3.5" disk</div>
-                    </div>
-                    <div class="bf b"><i></i>
-                        <h3>Your city. Your rules. Your disasters.</h3>
-                        <div class="shots">
-                            <img class="px" src="screens/city.png" width="960" height="640" alt="" draggable="false">
-                            <img class="px" src="screens/graphs.png" width="960" height="640" alt="" draggable="false" loading="lazy">
-                            <img class="px" src="screens/tornado.png" width="960" height="640" alt="" draggable="false" loading="lazy">
-                            <img class="px" src="screens/chooser.png" width="960" height="640" alt="" draggable="false" loading="lazy">
-                        </div>
-                        <ul>
-                            <li>16 maps, 17 things to build, rail and bridges</li>
-                            <li>Commuters, land value, pollution and crime</li>
-                            <li>Hospitals, schools, heat maps and graphs</li>
-                            <li>Fire, flood, tornado, earthquake, meltdown</li>
-                            <li>5 goals, 3 levels, a city rating, 8 save slots</li>
-                        </ul>
-                        <div class="need"><span><b>Requires</b>Apple IIgs &middot; 2 MB &middot; 3.5" drive &middot; mouse</span><span class="code"></span></div>
-                    </div>
-                    <div class="bf l"><i></i><div class="rainbow v"></div><span>TILETOWN</span><small>Apple IIgs</small></div>
-                    <div class="bf r"><i></i><div class="rainbow v"></div><span>TILETOWN</span><small>Apple IIgs</small></div>
-                    <div class="bf t"><i></i><div class="word">TileTown</div><div class="rainbow"></div></div>
-                    <div class="bf u"><i></i></div>
-                </div>
+            <div class="boxview" id="box3d" tabindex="0" role="img" aria-label="The TileTown box in 3D, turned by dragging or with the arrow keys. The front: TileTown in gold under a blue sky with pixel clouds, the title screen and a city, a starburst: 16 maps, 5 disasters, 5 goals, 3 levels. The back: Your city. Your rules. Your disasters. Four screenshots, the features and what you need.">
+                <div class="box3d"><div class="bf f"><i></i></div><div class="bf b"><i></i></div><div class="bf l"><i></i></div><div class="bf r"><i></i></div><div class="bf t"><i></i></div><div class="bf u"><i></i></div></div>
             </div>
             <div class="boxbar"><span>Drag to turn</span><button type="button" data-turn="0">Front</button><button type="button" data-turn="180">Back</button></div>
         </div>
