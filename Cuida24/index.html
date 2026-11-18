@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuida24 - Análises, Tensão Arterial e Relatórios Médicos</title>
+    <meta name="description" content="Guarde as análises clínicas, a tensão arterial e os relatórios médicos de toda a família no iPhone, com gráficos e valores de referência. Os dados ficam só no seu dispositivo.">
+    <meta name="keywords" content="análises clínicas, tensão arterial, pressão arterial, colesterol, glicose, hemograma, relatórios médicos, saúde, iPhone, iPad, Portugal, app">
+    <meta property="og:title" content="Cuida24 - Análises e Tensão Arterial">
+    <meta property="og:description" content="As análises, a tensão arterial e os relatórios médicos de toda a família, organizados e com gráficos.">
+    <meta property="og:image" content="https://portwally.com/Cuida24/screenshots/iphone-pt-1.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="icon.png">
+    <link rel="alternate" hreflang="pt-PT" href="https://portwally.com/Cuida24/">
+    <link rel="alternate" hreflang="en" href="https://portwally.com/Cuida24/en/">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <script data-goatcounter="https://portwally.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+    <style>
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: var(--text); background: #FBFDFC; }
+        .container { max-width: 1160px; margin: 0 auto; padding: 0 1.5rem; }
+
+        header.top { position: sticky; top: 0; z-index: 50; background: rgba(251,253,252,0.86); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(46,125,107,0.12); }
+        header.top .container { display: flex; align-items: center; height: 64px; gap: 1.6rem; }
+        .brand { display: flex; align-items: center; gap: 0.6rem; font-weight: 700; font-size: 1.15rem; color: var(--ink); text-decoration: none; }
+        .brand img { width: 34px; height: 34px; border-radius: 8px; }
+        header.top nav { margin-left: auto; display: flex; gap: 1.4rem; align-items: center; font-size: 0.95rem; }
+        header.top nav a { color: var(--text); text-decoration: none; }
+        header.top nav a:hover { color: var(--brand); }
+        .btn { display: inline-block; background: var(--brand); color: var(--white) !important; padding: 0.55rem 1.1rem; border-radius: 10px; font-weight: 600; text-decoration: none; }
+
+        .hero { padding: 4.5rem 0 3rem; background: radial-gradient(1200px 500px at 85% 10%, rgba(63,168,143,0.18), transparent 60%); }
+        .hero .container { display: grid; grid-template-columns: 1.05fr 1fr; gap: 3rem; align-items: center; }
+        .eyebrow { display: inline-block; font-weight: 600; font-size: 0.85rem; color: var(--brand-dark); background: rgba(63,168,143,0.14); padding: 0.3rem 0.8rem; border-radius: 999px; margin-bottom: 1.2rem; }
+        .hero h1 { font-size: 3.4rem; line-height: 1.08; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 1.2rem; font-weight: 800; }
+        .hero h1 span { color: var(--brand); }
+        .hero p.lead { font-size: 1.2rem; color: var(--muted); margin-bottom: 2rem; max-width: 520px; }
+        .hero .cta { display: flex; align-items: center; gap: 1.2rem; flex-wrap: wrap; }
+        .hero .cta img { height: 52px; }
+        .hero .note { font-size: 0.9rem; color: var(--muted); }
+        .phones { position: relative; height: 600px; }
+        .phones img { position: absolute; width: 260px; border-radius: 42px; border: 10px solid #10251F; box-shadow: 0 30px 60px rgba(20,60,50,0.28); }
+        .phones img:first-child { left: 8%; top: 40px; transform: rotate(-5deg); }
+        .phones img:last-child { right: 4%; top: 0; transform: rotate(4deg); }
+
+        .stats { border-top: 1px solid rgba(46,125,107,0.12); border-bottom: 1px solid rgba(46,125,107,0.12); background: var(--white); }
+        .stats .container { display: grid; grid-template-columns: repeat(4, 1fr); text-align: center; padding: 1.8rem 1.5rem; gap: 1rem; }
+        .stats strong { display: block; font-size: 1.6rem; color: var(--ink); }
+        .stats span { color: var(--muted); font-size: 0.95rem; }
+
+        .row { padding: 5rem 0; }
+        .row:nth-child(even) { background: var(--bg); }
+        .row .container { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+        .row.flip .text { order: 2; }
+        .row .shot { text-align: center; }
+        .row .shot img { width: 300px; max-width: 100%; border-radius: 44px; border: 10px solid #10251F; box-shadow: 0 24px 50px rgba(20,60,50,0.25); }
+        .kicker { font-weight: 600; color: var(--brand); text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.8rem; margin-bottom: 0.6rem; }
+        .row h2 { font-size: 2.2rem; line-height: 1.15; color: var(--ink); margin-bottom: 1rem; letter-spacing: -0.01em; }
+        .row p { font-size: 1.08rem; margin-bottom: 1rem; }
+        .row ul { list-style: none; }
+        .row li { padding-left: 1.8rem; position: relative; margin-bottom: 0.6rem; }
+        .row li::before { content: "✓"; position: absolute; left: 0; color: var(--white); background: var(--brand); width: 1.2rem; height: 1.2rem; border-radius: 50%; font-size: 0.75rem; display: flex; align-items: center; justify-content: center; top: 0.25rem; }
+
+        .privacy { background: linear-gradient(140deg, #2E7D6B, #163F36); color: var(--white); padding: 5rem 0; }
+        .privacy h2 { font-size: 2.3rem; text-align: center; margin-bottom: 0.6rem; }
+        .privacy .lead { text-align: center; opacity: 0.85; max-width: 620px; margin: 0 auto 3rem; font-size: 1.1rem; }
+        .privacy-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; }
+        .privacy-card { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.14); border-radius: 18px; padding: 1.6rem; }
+        .privacy-card .ico { font-size: 1.8rem; margin-bottom: 0.6rem; }
+        .privacy-card h3 { font-size: 1.1rem; margin-bottom: 0.3rem; }
+        .privacy-card p { opacity: 0.85; font-size: 0.97rem; }
+        .privacy .more { text-align: center; margin-top: 2rem; }
+        .privacy .more a { color: var(--white); font-weight: 600; }
+
+        .ipad { padding: 5rem 0; text-align: center; }
+        .ipad h2 { font-size: 2.2rem; color: var(--ink); margin-bottom: 0.6rem; }
+        .ipad .lead { color: var(--muted); margin-bottom: 2.5rem; }
+        .ipad-strip { display: flex; gap: 1.5rem; justify-content: center; overflow-x: auto; padding: 0.5rem 0 1.5rem; }
+        .ipad-strip img { height: 400px; border-radius: 26px; border: 10px solid #10251F; box-shadow: 0 18px 40px rgba(20,60,50,0.2); }
+
+        .faq { background: var(--bg); padding: 5rem 0; }
+        .faq h2 { text-align: center; font-size: 2.2rem; color: var(--ink); margin-bottom: 2.5rem; }
+        .faq .list { max-width: 780px; margin: 0 auto; }
+        details { background: var(--white); border-radius: 14px; padding: 1.1rem 1.4rem; margin-bottom: 0.8rem; box-shadow: 0 2px 10px rgba(20,60,50,0.05); }
+        summary { font-weight: 600; color: var(--ink); cursor: pointer; list-style: none; }
+        summary::after { content: "+"; float: right; color: var(--brand); font-size: 1.3rem; line-height: 1; }
+        details[open] summary::after { content: "–"; }
+        details p { margin-top: 0.7rem; }
+
+        .final { text-align: center; padding: 5rem 1.5rem; }
+        .final img.icon { width: 96px; height: 96px; margin-bottom: 1rem; }
+        .final h2 { font-size: 2.2rem; color: var(--ink); margin-bottom: 1.4rem; }
+        .final .badge img { height: 54px; }
+
+        footer { background: #12352D; color: var(--white); padding: 3rem 1.5rem; text-align: center; }
+        .footer-links { margin-bottom: 0.6rem; }
+        .footer-links a { color: var(--white); text-decoration: none; margin: 0 0.8rem; opacity: 0.8; line-height: 2; }
+        .footer-links a:hover { opacity: 1; }
+        .disclaimer { font-size: 0.85rem; opacity: 0.7; max-width: 640px; margin: 1rem auto 0; }
+
+        @media (max-width: 900px) {
+            .hero .container, .row .container { grid-template-columns: 1fr; gap: 2.5rem; }
+            .row.flip .text { order: 0; }
+            .hero h1 { font-size: 2.5rem; }
+            .phones { height: 480px; }
+            .phones img { width: 210px; }
+            .stats .container, .privacy-grid { grid-template-columns: 1fr 1fr; }
+            header.top nav a:not(.btn):not(.lang) { display: none; }
+            .ipad-strip { justify-content: flex-start; }
+            .ipad-strip img { height: 300px; }
+        }
+    </style>
+</head>
+<body>
+    <header class="top">
+        <div class="container">
+            <a class="brand" href="index.html"><img src="icon.png" alt="">Cuida24</a>
+            <nav>
+                <a href="#funcionalidades">Funcionalidades</a>
+                <a href="#privacidade">Privacidade</a>
+                <a href="#faq">Perguntas</a>
+                <a class="lang" href="en/">EN</a>
+                <a class="btn" href="#descarregar">Descarregar</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div>
+                <span class="eyebrow">Para iPhone e iPad · Feito em Portugal</span>
+                <h1>A saúde da família, <span>organizada</span>.</h1>
+                <p class="lead">Análises clínicas, tensão arterial e relatórios médicos num só lugar, com gráficos e os valores de referência do laboratório. Tudo fica no seu dispositivo.</p>
+                <div class="cta">
+                    <a href="#descarregar"><img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Brevemente na App Store"></a>
+                    <span class="note">Brevemente na App Store<br>Sem conta · Sem publicidade · Português e English</span>
+                </div>
+            </div>
+            <div class="phones">
+                <img src="screenshots/screen-pt-2.jpg" alt="Evolução do colesterol com valores de referência">
+                <img src="screenshots/screen-pt-1.jpg" alt="Todas as análises num só lugar">
+            </div>
+        </div>
+    </section>
+
+    <div class="stats">
+        <div class="container">
+            <div><strong>120+</strong><span>análises reconhecidas</span></div>
+            <div><strong>PDF e papel</strong><span>importação e digitalização</span></div>
+            <div><strong>ESC 2024</strong><span>limites para medição em casa</span></div>
+            <div><strong>0</strong><span>dados enviados para servidores</span></div>
+        </div>
+    </div>
+
+    <main id="funcionalidades">
+        <section class="row">
+            <div class="container">
+                <div class="text">
+                    <div class="kicker">Análises clínicas</div>
+                    <h2>Do PDF do laboratório ao gráfico, em segundos</h2>
+                    <p>Importe o PDF ou digitalize o relatório em papel com a câmara. O Cuida24 lê os valores, as unidades e os intervalos de referência, e você confirma antes de guardar.</p>
+                    <ul>
+                        <li>Cada valor assinalado no documento original</li>
+                        <li>Hemograma, glicose, colesterol, rim, fígado, tiroide, urina e mais</li>
+                        <li>Também pode introduzir valores à mão</li>
+                    </ul>
+                </div>
+                <div class="shot"><img src="screenshots/screen-pt-3.jpg" alt="Rever valores importados"></div>
+            </div>
+        </section>
+
+        <section class="row flip">
+            <div class="container">
+                <div class="text">
+                    <div class="kicker">Evolução</div>
+                    <h2>Veja como os seus valores mudam ao longo dos anos</h2>
+                    <p>Cada análise tem o seu gráfico, com a faixa de referência indicada por cada laboratório. Valores fora do intervalo ficam assinalados, e a tendência anual é calculada para si.</p>
+                    <ul>
+                        <li>Mínimo, máximo, média e percentagem dentro do intervalo</li>
+                        <li>Comparação com o resultado anterior em cada relatório</li>
+                    </ul>
+                </div>
+                <div class="shot"><img src="screenshots/screen-pt-2.jpg" alt="Gráfico do colesterol LDL"></div>
+            </div>
+        </section>
+
+        <section class="row">
+            <div class="container">
+                <div class="text">
+                    <div class="kicker">Tensão arterial</div>
+                    <h2>Leia o visor do medidor com a câmara</h2>
+                    <p>Aponte o iPhone ao medidor: a sistólica e a diastólica são lidas e você confirma. Ou introduza os valores à mão.</p>
+                    <ul>
+                        <li>Médias de 7 e 30 dias, de manhã e à noite</li>
+                        <li>Limites ESC 2024 para medição em casa</li>
+                        <li>Integração opcional com a app Saúde</li>
+                    </ul>
+                </div>
+                <div class="shot"><img src="screenshots/screen-pt-4.jpg" alt="Tensão arterial"></div>
+            </div>
+        </section>
+
+        <section class="row flip">
+            <div class="container">
+                <div class="text">
+                    <div class="kicker">Para a consulta</div>
+                    <h2>Medição de 7 dias e relatório para o médico</h2>
+                    <p>A medição em casa que o médico pede antes da consulta, guiada dia a dia, com lembretes de manhã e à noite. No fim, partilhe o resumo, ou crie um relatório PDF com as análises e os gráficos.</p>
+                </div>
+                <div class="shot"><img src="screenshots/screen-pt-5.jpg" alt="Medição de 7 dias"></div>
+            </div>
+        </section>
+
+        <section class="row">
+            <div class="container">
+                <div class="text">
+                    <div class="kicker">Documentos e família</div>
+                    <h2>Os relatórios médicos de todos, sempre à mão</h2>
+                    <p>Guarde relatórios de imagiologia, cardiologia, cirurgia e consultas, e pesquise no texto de todos. Cada pessoa da família tem o seu perfil, e o Cuida24 sugere o perfil certo pelo nome e data de nascimento no relatório.</p>
+                </div>
+                <div class="shot"><img src="screenshots/screen-pt-6.jpg" alt="Relatórios médicos"></div>
+            </div>
+        </section>
+    </main>
+
+    <section class="privacy" id="privacidade">
+        <div class="container">
+            <h2>Os seus dados ficam consigo</h2>
+            <p class="lead">Dados de saúde são dos mais sensíveis que existem. Por isso o Cuida24 funciona sem servidor e sem nuvem.</p>
+            <div class="privacy-grid">
+                <div class="privacy-card"><div class="ico">📱</div><h3>Só no dispositivo</h3><p>Leitura de PDF, câmara e texto feitas no próprio iPhone.</p></div>
+                <div class="privacy-card"><div class="ico">🚫</div><h3>Sem conta</h3><p>Sem registo, sem email, sem publicidade nem rastreamento.</p></div>
+                <div class="privacy-card"><div class="ico">🔐</div><h3>Face ID</h3><p>Bloqueie a aplicação com Face ID ou Touch ID.</p></div>
+                <div class="privacy-card"><div class="ico">💾</div><h3>Cópias cifradas</h3><p>Cópias de segurança AES-256 com a sua palavra-passe.</p></div>
+            </div>
+            <p class="more"><a href="privacy.html">Ler a política de privacidade &rarr;</a></p>
+        </div>
+    </section>
+
+    <section class="ipad">
+        <div class="container">
+            <h2>Também no iPad</h2>
+            <p class="lead">Mais espaço para os gráficos e para rever relatórios.</p>
+            <div class="ipad-strip">
+                <img src="screenshots/ipadscreen-pt-1.jpg" alt="Análises no iPad">
+                <img src="screenshots/ipadscreen-pt-3.jpg" alt="Rever relatório no iPad">
+                <img src="screenshots/ipadscreen-pt-5.jpg" alt="Medição de 7 dias no iPad">
+            </div>
+        </div>
+    </section>
+
+    <section class="faq" id="faq">
+        <div class="container">
+            <h2>Perguntas frequentes</h2>
+            <div class="list">
+                <details><summary>O Cuida24 liga-se ao SNS 24?</summary><p>Não. O Cuida24 é uma app independente, sem ligação ao SNS nem ao portal SNS 24. Importe os PDF que recebe do laboratório ou digitalize os relatórios em papel.</p></details>
+                <details><summary>Que laboratórios são suportados?</summary><p>O Cuida24 lê relatórios em PDF e em papel de laboratórios e hospitais portugueses. Como os formatos variam, mostra sempre os valores lidos para confirmar antes de guardar, e lembra-se das correções para o próximo relatório do mesmo laboratório.</p></details>
+                <details><summary>Que medidores de tensão funcionam com a câmara?</summary><p>Medidores com visor digital de segmentos e as indicações SYS, DIA e PUL junto aos números. Confirme sempre os valores lidos; também pode introduzi-los à mão.</p></details>
+                <details><summary>Os meus dados vão para a nuvem?</summary><p>Não. Ficam apenas no seu dispositivo. Pode criar uma cópia de segurança cifrada e guardá-la onde quiser.</p></details>
+                <details><summary>O Cuida24 substitui o meu médico?</summary><p>Não. O Cuida24 não é um dispositivo médico e não faz diagnósticos. Ajuda-o a organizar os seus dados e a levá-los à consulta.</p></details>
+            </div>
+        </div>
+    </section>
+
+    <section class="final" id="descarregar">
+        <img class="icon" src="icon.png" alt="">
+        <h2>Comece a cuidar dos seus dados hoje</h2>
+        <span class="badge"><img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Brevemente na App Store"></span>
+        <p style="margin-top: 0.8rem; font-weight: 600; color: var(--brand-dark);">Brevemente na App Store</p>
+        <p id="support" style="margin-top: 1rem; color: var(--muted);">iOS e iPadOS 18 ou posterior · Dúvidas ou sugestões: <a href="mailto:walter.tengler@gmail.com">walter.tengler@gmail.com</a></p>
+    </section>
+
+    <footer>
+        <div class="footer-links">
+            <a href="#support">Suporte</a>
+            <a href="privacy.html">Política de Privacidade</a>
+            <a href="imprint.html">Aviso Legal</a>
+        </div>
+        <div class="footer-links" style="margin-top: 15px;">
+                <a href="../Adsensemonitor/">AdSense Monitor</a>
+                <a href="../Aichive/">Aichive</a>
+                <a href="../Alerta/">Alerta</a>
+                <a href="../AppleIIASCIIArt/">1977</a>
+                <a href="../MissileTag/">Missile Tag</a>
+            </div>
+            <div class="footer-links" style="margin-top: 10px;">
+                <a href="../Bitpast/">BitPast</a>
+                <a href="../Bomba/">Bomba</a>
+                <a href="../CertificadoEnergetico/">Certificado Energético</a>
+                <a href="../Comboiotreck/">Comboiotreck</a>
+                <a href="../Conquer-GS/">Conquer GS</a>
+                <a href="../CyanHero/">CyanHero</a>
+                <a href="../EUEnergyMonitor/">EU Energy Monitor</a>
+            </div>
+            <div class="footer-links" style="margin-top: 10px;">
+                <a href="../EasyDup/">EasyDup</a>
+                <a href="../ExifEasy/">ExifEasy</a>
+                <a href="../FCPXClean/">FCPX Clean</a>
+                <a href="../File Vortex/">File Vortex</a>
+                <a href="../Fire/">Fire</a>
+            </div>
+            <div class="footer-links" style="margin-top: 10px;">
+                <a href="../Flipside/">Flipside</a>
+                <a href="../Fluvio/">Fluvio</a>
+                <a href="../Fugiu/">Fugiu!</a>
+                <a href="../MegaconvertGS/">MegaconvertGS</a>
+                <a href="../Pibup/">PIBUP</a>
+            </div>
+            <div class="footer-links" style="margin-top: 10px;">
+                                <a href="../RetroBrowse/">Retro Browse</a>
+                <a href="../RetroGraphicsConverter/">Retro Graphics</a>
+                <a href="../RetroTube/">Retro Tube</a>
+                <a href="../RetroTV/">Retro TV</a>
+                <a href="../SOSIberico/">SOS Ibérica</a>
+                <a href="../Scanora/">Scanora</a>
+                <a href="../Screen2Store/">Screen2Store</a>
+            </div>
+            <div class="footer-links" style="margin-top: 10px;">
+                <a href="../SlimPix/">SlimPix</a>
+                <a href="../Sobrium/">Sobrium</a>
+                <a href="../Terramoto/">Terramoto</a>
+                <a href="../TileTown/">TileTown</a>
+                <a href="../TileTown%202/">TileTown 2</a>
+                <a href="../Wallys Manager/">Wally's Manager</a>
+                <a href="../climaviva/">Clima Viva</a>
+                <a href="../coresdoamor/">Cores do Amor</a>
+            </div>
+            <div class="footer-links" style="margin-top: 10px;">
+                <a href="../emergengy-reminder/">Emergency Reminder</a>
+                <a href="../GSRemap/">GS Remap</a>
+                <a href="../GSCommander/">GS Commander</a>
+                <a href="../GSLauncher/">GSLauncher</a>
+                <a href="../Conquer3/">Conquer 3: Sandstorm</a>
+                <a href="../EmuBuddy/">EmuBuddy</a>
+                <a href="../Demos/">IIgs Demos</a>
+                <a href="../Hyperhaul/">Hyperhaul</a>
+                <a href="../GTApple/">Grand Theft Apple</a>
+                <a href="../Terra%20Incognita/">Terra Incognita</a>
+                <a href="../Gaivota/">GAIVOTA</a>
+                <a href="../Theos/">Theos</a>
+            </div>
+
+        <p>&copy; 2026 Walter Tengler. Todos os direitos reservados.</p>
+        <p class="disclaimer">O Cuida24 não é um dispositivo médico e não faz diagnósticos. Mostra os valores e intervalos indicados pelos laboratórios. Sem ligação ao Serviço Nacional de Saúde (SNS) nem ao portal SNS 24.</p>
+    </footer>
+</body>
+</html>
