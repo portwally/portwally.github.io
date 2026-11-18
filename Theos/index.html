@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Theos - A God Game for the Apple IIgs</title>
+<meta name="description" content="Theos is a god game for the Apple IIgs, written from scratch in 65816 assembly: shape the land, lead your people, and cast the Titans into the sea. 128 worlds, nine divine powers, four landscapes. Coming soon, for a stock IIgs with 4 MB; the demo is free.">
+<meta name="author" content="Walter Tengler">
+<link rel="canonical" href="https://portwally.com/Theos/">
+<link rel="icon" type="image/png" href="icon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Theos - A God Game for the Apple IIgs">
+<meta property="og:description" content="Shape the land, lead your people, cast down the Titans: a god game for the Apple IIgs, written from scratch in 65816 assembly. Coming soon.">
+<meta property="og:image" content="https://portwally.com/Theos/screens/game.png">
+<meta property="og:url" content="https://portwally.com/Theos/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Theos - A God Game for the Apple IIgs">
+<meta name="twitter:description" content="Shape the land, lead your people, cast down the Titans: a god game for the Apple IIgs. Coming soon.">
+<meta name="twitter:image" content="https://portwally.com/Theos/screens/game.png">
+<meta name="theme-color" content="#223377">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoGame",
+  "name": "Theos",
+  "description": "A god game for the Apple IIgs, written from scratch in 65816 assembly: shape the land, lead your people, and cast the Titans into the sea.",
+  "genre": "God game",
+  "gamePlatform": "Apple IIgs",
+  "author": { "@type": "Person", "name": "Walter Tengler" },
+  "copyrightYear": 2026,
+  "inLanguage": "en",
+  "image": "https://portwally.com/Theos/screens/game.png",
+  "url": "https://portwally.com/Theos/"
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jersey+10&display=swap" rel="stylesheet">
+<style>
+/* Theos: the page as the game's own tablets - marble framed in bronze on the
+   navy of the menus, the game's sixteen colours, its buttons, its board. */
+:root{
+  --night:#0e1740; --navy:#223377; --navy-2:#1a2860;
+  --marble:#e6e3dc; --marble-2:#d6d2c7; --marble-3:#bbb7ab;
+  --ink:#201d19; --soft:#575146;
+  --bronze:#bb7733; --bronze-d:#774422; --gold:#eecc44; --sand:#ddcc88; --terra:#cc6633;
+  --blue:#4444ff; --red:#dd2222;
+  --disp:"Cinzel","Trajan Pro",Georgia,serif;
+  --text:"EB Garamond",Georgia,"Times New Roman",serif;
+  --px:"Jersey 10","Courier New",monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--night);color:var(--ink);font:400 19px/1.55 var(--text);
+  background-image:linear-gradient(var(--navy),var(--night) 1400px);background-repeat:no-repeat;background-color:var(--night)}
+img{max-width:100%;height:auto;display:block}
+.px{image-rendering:pixelated;image-rendering:crisp-edges}
+a{color:var(--bronze-d);text-decoration-thickness:1px;text-underline-offset:3px}
+a:hover{color:#000}
+a:focus-visible,button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.skip{position:absolute;left:-999px;top:0;background:var(--gold);color:#000;padding:8px 14px;z-index:10;font:400 20px/1 var(--px)}
+.skip:focus{left:8px;top:8px}
+.wrap{max-width:1140px;margin:0 auto;padding:0 20px}
+
+/* the meander: a Greek key in bronze */
+.meander{height:22px;background-color:var(--night);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='22'%3E%3Cpath d='M0 18H22V5H7V13H15V9' fill='none' stroke='%23bb7733' stroke-width='2.4'/%3E%3Cpath d='M22 18H28' fill='none' stroke='%23bb7733' stroke-width='2.4'/%3E%3C/svg%3E");
+  background-repeat:repeat-x;background-position:center;border-top:2px solid var(--bronze);border-bottom:2px solid var(--bronze)}
+
+/* the strip */
+.strip{display:flex;flex-wrap:wrap;gap:8px 22px;align-items:center;justify-content:space-between;padding:14px 0;font:400 20px/1.2 var(--px)}
+.strip a{color:#cfd6f2;text-decoration:none}
+.strip a:hover{color:var(--gold)}
+.strip nav{display:flex;flex-wrap:wrap;gap:6px 18px}
+.strip .back{color:var(--gold)}
+
+/* the masthead: on the navy itself */
+.mast{display:grid;gap:34px;align-items:center;padding:26px 0 30px;color:#e9ecfa}
+@media (min-width:920px){.mast{grid-template-columns:1fr 1.02fr;padding-top:38px}}
+.kicker{font:400 20px/1.2 var(--px);letter-spacing:2px;text-transform:uppercase;color:var(--sand);margin:0 0 6px}
+h1{font:800 clamp(64px,11vw,132px)/.92 var(--disp);letter-spacing:.06em;margin:0;color:var(--gold);
+  text-shadow:0 3px 0 #b8901c,0 6px 0 #7a5a10,0 10px 0 rgba(0,0,0,.45)}
+.sub{font:600 clamp(20px,2.6vw,27px)/1.25 var(--disp);letter-spacing:.04em;margin:22px 0 12px;color:#fff}
+.lede{font-size:21px;line-height:1.5;margin:0 0 20px;color:#dfe4f7;max-width:34em}
+.screen{margin:0;border:5px solid var(--bronze);box-shadow:0 0 0 2px var(--bronze-d),10px 12px 0 rgba(0,0,0,.4);background:#000}
+.board{display:inline-block;background:#000;border:4px solid var(--sand);padding:10px 20px 12px;margin:0 0 14px;text-align:center}
+.board small{display:block;font:400 20px/1 var(--px);letter-spacing:2px;text-transform:uppercase;color:#999}
+.board strong{display:block;font:400 40px/1 var(--px);letter-spacing:4px;text-transform:uppercase;color:var(--sand);margin:4px 0 4px}
+.board span{display:block;font:400 20px/1.1 var(--px);color:#fff}
+.mast p.dl{margin:0;font-size:18px;color:#dfe4f7;max-width:34em}
+.mast p.dl a{color:var(--gold)}
+.dsz{white-space:nowrap;color:#aeb7dd;font-size:16px}
+.dims{list-style:none;margin:0 0 34px;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+@media (min-width:640px){.dims{grid-template-columns:repeat(5,1fr)}}
+@media (max-width:639px){.dims li:last-child{grid-column:1/-1}}
+.dims li{border:2px solid var(--bronze);background:var(--navy-2);padding:12px 10px 10px;text-align:center;color:#dfe4f7}
+.dims .n{font:400 40px/1 var(--px);color:var(--gold);letter-spacing:2px}
+.dims p{margin:6px 0 0;font:400 20px/1.1 var(--px)}
+
+/* a tablet: marble framed in bronze, as the game's menus */
+.tablet{background:var(--marble);border:5px solid var(--bronze);box-shadow:0 0 0 2px var(--bronze-d),10px 12px 0 rgba(0,0,0,.35);
+  padding:26px 22px 30px;margin:0 0 44px}
+@media (min-width:760px){.tablet{padding:34px 40px 40px}}
+.th{display:flex;align-items:center;gap:16px;margin:0 0 18px}
+.th .gr{flex:none;width:54px;height:54px;border-radius:50%;background:var(--bronze);color:#fff3d0;font:600 30px/54px var(--disp);text-align:center;
+  box-shadow:inset 0 0 0 3px var(--bronze-d),inset 0 0 0 5px #d99a55}
+h2{font:800 clamp(27px,3.6vw,38px)/1.08 var(--disp);letter-spacing:.05em;text-transform:uppercase;color:var(--bronze-d);margin:0}
+.th p{margin:4px 0 0;font:400 20px/1.15 var(--px);color:var(--soft)}
+h3{font:600 21px/1.2 var(--disp);letter-spacing:.03em;color:var(--ink);margin:0 0 6px}
+.tablet p{margin:0 0 .8em}
+.tablet .intro{font-size:21px;max-width:44em}
+.cap{font:400 20px/1.15 var(--px);color:var(--soft)}
+.cap b{color:var(--bronze-d);font-weight:400}
+figure{margin:0}
+.shot{border:3px solid #1c1a17;background:#000}
+kbd{font:400 20px/1 var(--px);background:#bbb;border:2px solid #555;padding:0 7px 1px;color:#000}
+
+/* three steps */
+.steps{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:26px;counter-reset:s}
+@media (min-width:860px){.steps{grid-template-columns:repeat(3,1fr)}}
+.steps li{counter-increment:s}
+.steps h3::before{content:counter(s);display:inline-block;width:28px;height:28px;margin-right:10px;text-align:center;vertical-align:2px;
+  background:var(--terra);color:#000;font:400 20px/27px var(--px)}
+.steps .shot{margin-bottom:12px}
+.steps p{margin:0}
+
+/* the homes, the orders */
+.homes{list-style:none;margin:14px 0 6px;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:14px 10px;align-items:end}
+@media (min-width:620px){.homes{grid-template-columns:repeat(4,1fr)}}
+@media (min-width:1000px){.homes{grid-template-columns:repeat(7,1fr) 2.1fr}}
+.homes li{text-align:center;font:400 20px/1.1 var(--px);color:var(--soft)}
+.homes img{margin:0 auto 6px;border:2px solid #1c1a17}
+.homes b{display:block;font:600 16px/1.2 var(--disp);color:var(--ink);letter-spacing:.02em;margin-bottom:3px}
+.homes span{display:block}
+@media (max-width:619px){.homes li:nth-child(n+7){grid-column:1/-1}}
+@media (min-width:620px) and (max-width:999px){.homes li.wide{grid-column:2/span 2}}
+.two{display:grid;gap:30px;margin-top:26px}
+@media (min-width:900px){.two{grid-template-columns:1fr 1fr}}
+.orders{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.orders li{display:flex;gap:14px;align-items:flex-start}
+.orders img{flex:none;border:2px solid #1c1a17}
+.orders b{font:600 19px/1.2 var(--disp)}
+.facts{margin:0;padding:0;list-style:none}
+.facts li{padding:8px 0 8px 22px;border-bottom:1px solid var(--marble-3);position:relative}
+.facts li::before{content:"";position:absolute;left:2px;top:17px;width:9px;height:9px;background:var(--bronze)}
+.facts li:last-child{border-bottom:0}
+.cast{margin:18px 0 0}
+.cast div{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end}
+.cast img{border:2px solid #1c1a17;max-width:none}
+.cast img.f{width:48px;height:44px}
+@media (min-width:480px){.cast img.f{width:72px;height:66px}}
+.cast figcaption{margin-top:7px}
+
+/* the powers */
+/* the mana bar as the panel has it: the icons at whole multiples of their 16 pixels */
+.manabar{--ic:24px;--gp:4px;width:fit-content;margin:10px auto 6px;background:#ddd;border:3px solid var(--bronze-d);padding:calc(var(--ic)/4)}
+@media (min-width:480px){.manabar{--ic:32px;--gp:8px}}
+@media (min-width:760px){.manabar{--ic:48px;--gp:12px}}
+@media (min-width:1000px){.manabar{--ic:64px;--gp:14px}}
+.manabar>div{display:grid;grid-template-columns:repeat(9,var(--ic));column-gap:var(--gp)}
+.manabar img{width:var(--ic);height:var(--ic);max-width:none}
+.manabar img.off{opacity:.35}
+.manabar .mk{height:calc(var(--ic)/8);margin-top:calc(var(--ic)/8)}
+.manabar .mk i{justify-self:center;width:calc(var(--ic)/16);background:var(--bronze-d)}
+.manabar .mk i:first-child{visibility:hidden}
+.manabar .mb{display:block;height:calc(var(--ic)*3/8);background:var(--navy)}
+.manabar .mb i{display:block;width:55%;height:100%;background:var(--gold);border-top:calc(var(--ic)/16) solid #fff}
+.manabar .mp{display:none;margin-top:8px;font:400 20px/1 var(--px);color:#555;text-align:center}
+@media (min-width:760px){.manabar .mp{display:grid}}
+.pcards{list-style:none;margin:22px 0 0;padding:0;display:grid;gap:16px 26px}
+@media (min-width:700px){.pcards{grid-template-columns:1fr 1fr}}
+@media (min-width:1040px){.pcards{grid-template-columns:1fr 1fr 1fr}}
+.pcards li{display:flex;gap:14px;align-items:flex-start}
+.pcards img{flex:none;border:2px solid #1c1a17}
+.pcards h3{font-size:19px;margin:0 0 3px;display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.pcards p{margin:0;font-size:17.5px;line-height:1.4}
+.mana{font:400 20px/1 var(--px);background:var(--gold);color:#000;padding:0 7px 1px;border:2px solid var(--bronze-d);white-space:nowrap}
+
+/* the ladder of the worlds */
+.ladder-wrap{overflow-x:auto;margin:16px 0 8px;padding-bottom:4px}
+.ladder-in{min-width:660px}
+.gods{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:0 0 6px;font:400 20px/1 var(--px);text-transform:uppercase;letter-spacing:2px;text-align:center}
+.gods span{background:var(--bronze-d);color:#fff3d0;padding:4px 4px 5px}
+.ladder{list-style:none;margin:0;padding:0;display:grid;grid-auto-flow:column;grid-template-rows:repeat(8,1fr);grid-template-columns:repeat(16,1fr);gap:3px}
+.ladder li{position:relative;font:400 20px/1 var(--px);text-align:center;padding:3px 0 4px;border:1px solid rgba(0,0,0,.35)}
+.ladder li:nth-child(n+33):nth-child(-n+64),.ladder li:nth-child(n+97){filter:brightness(.93)}
+.l0{background:#44aa44;color:#062b06}.l1{background:#22aacc;color:#04303b}.l2{background:#e3eaee;color:#39434c}.l3{background:#dd3300;color:#fff}
+.ladder .gain::after{content:"";position:absolute;right:2px;top:2px;width:6px;height:6px;background:var(--gold);border:1px solid #000}
+.key{display:flex;flex-wrap:wrap;gap:8px 20px;margin:10px 0 0;padding:0;list-style:none;font:400 20px/1.2 var(--px);color:var(--soft)}
+.key i{display:inline-block;width:14px;height:14px;margin-right:6px;vertical-align:-2px;border:1px solid rgba(0,0,0,.4)}
+.key .g{background:var(--gold)}
+.lands{display:grid;gap:22px 26px;margin:22px 0 0}
+@media (min-width:760px){.lands{grid-template-columns:1fr 1fr}}
+.lands img{border:3px solid #1c1a17}
+.lands figcaption{margin-top:7px}
+.lands figcaption b{font:600 18px/1.2 var(--disp);color:var(--ink);margin-right:6px}
+.sw{display:inline-flex;vertical-align:-2px;margin-right:8px;border:1px solid #1c1a17}
+.sw i{display:block;width:9px;height:13px}
+
+/* the gallery */
+.gal{list-style:none;margin:8px 0 0;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:18px 16px}
+@media (min-width:860px){.gal{grid-template-columns:repeat(4,1fr)}}
+.gal a{display:block;text-decoration:none}
+.gal img{border:3px solid #1c1a17;transition:transform .12s}
+.gal a:hover img{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--bronze)}
+@media (prefers-reduced-motion:reduce){.gal img{transition:none}}
+.gal .cap{display:block;margin-top:6px}
+
+/* what you need */
+.spec{display:grid;gap:22px}
+@media (min-width:900px){.spec{grid-template-columns:1fr 1fr .8fr}}
+.opt{background:var(--marble-2);border:2px solid var(--marble-3);padding:16px 18px 10px}
+.opt h3 span{display:block;font:400 20px/1 var(--px);letter-spacing:2px;text-transform:uppercase;color:var(--bronze-d);margin-bottom:5px}
+.opt dl{margin:10px 0 0}
+.opt dl div{display:grid;grid-template-columns:6em 1fr;gap:8px;padding:6px 0;border-top:1px solid var(--marble-3);font-size:17.5px;line-height:1.35}
+.opt dt{font:400 20px/1.2 var(--px);color:var(--soft)}
+.opt dd{margin:0}
+.booklet{text-align:center}
+.booklet .cover{display:inline-block;border:3px solid #1c1a17;box-shadow:6px 7px 0 rgba(0,0,0,.25);max-width:210px}
+.booklet .meta{font:400 20px/1.15 var(--px);color:var(--soft);margin:12px 0 10px}
+.btn{display:inline-block;font:400 20px/1 var(--px);letter-spacing:2px;text-transform:uppercase;text-decoration:none;color:#000;background:#bbb;
+  border:3px solid #555;padding:7px 16px 8px}
+.btn:hover{background:var(--gold);color:#000}
+.demo{display:grid;gap:18px;align-items:center;margin-top:26px;padding-top:24px;border-top:2px solid var(--marble-3)}
+@media (min-width:820px){.demo{grid-template-columns:1.3fr 1fr}}
+.demo .shot{max-width:440px;justify-self:center}
+.tablet p.dlrow{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;margin:0}
+
+/* more software */
+.more{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:10px 22px}
+@media (min-width:700px){.more{grid-template-columns:1fr 1fr}}
+@media (min-width:1040px){.more{grid-template-columns:1fr 1fr 1fr}}
+.more a{display:flex;gap:12px;align-items:center;text-decoration:none;color:var(--ink);padding:8px;border:2px solid transparent}
+.more a:hover{border-color:var(--bronze);background:var(--marble-2)}
+.more img{flex:none;width:52px;height:52px}
+.more span{font-size:16.5px;line-height:1.3;color:var(--soft)}
+.more b{display:block;font:600 18px/1.2 var(--disp);color:var(--ink)}
+
+/* the foot */
+footer{color:#c9d0ee;padding:6px 0 46px;font-size:16.5px;line-height:1.5}
+footer .legal{margin:0 0 16px;max-width:60em}
+footer small{display:block;font:400 20px/1 var(--px);letter-spacing:2px;text-transform:uppercase;color:var(--sand);margin-bottom:6px}
+footer p{margin:0}
+footer a{color:#e9ecfa}
+footer a:hover{color:var(--gold)}
+footer .copy{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between;border-top:2px solid var(--bronze);padding-top:14px;margin-top:22px;font:400 20px/1.2 var(--px)}
+footer .copy nav{display:flex;flex-wrap:wrap;gap:6px 20px}
+
+/* the lightbox */
+dialog.lb{border:5px solid var(--bronze);padding:0;background:#000;max-width:min(96vw,1000px);color:#fff}
+dialog.lb::backdrop{background:rgba(8,12,40,.86)}
+dialog.lb img{width:100%;height:auto}
+dialog.lb .bar{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:8px 12px;font:400 20px/1.15 var(--px);background:var(--night)}
+dialog.lb button{font:400 20px/1 var(--px);letter-spacing:2px;text-transform:uppercase;background:#bbb;border:2px solid #555;padding:4px 12px 5px;cursor:pointer;color:#000}
+dialog.lb button:hover{background:var(--gold)}
+@media print{body{background:#fff}.strip nav,.meander{display:none}.tablet{box-shadow:none}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="meander" aria-hidden="true"></div>
+<div class="wrap">
+  <header class="strip">
+    <a class="back" href="../"><span aria-hidden="true">&larr;</span> All apps</a>
+    <nav aria-label="On this page">
+      <a href="#game">The game</a><a href="#people">Your people</a><a href="#powers">Powers</a><a href="#titans">The Titans</a><a href="#worlds">Worlds</a><a href="#screens">Screens</a><a href="#need">What you need</a>
+    </nav>
+  </header>
+
+  <main id="main">
+  <div class="mast">
+    <div>
+      <p class="kicker">Apple IIgs &middot; 65816 assembly</p>
+      <h1>Theos</h1>
+      <p class="sub">A god game for the Apple&nbsp;IIgs</p>
+      <p class="lede">You are a god of Olympus. You can't build a hut or swing a sword, but you can move the earth itself: raise the land out of the sea, level the hills, and your people settle on it, build and multiply. Across the world the Titans' people do the same, and their god has every one of your gifts too.</p>
+      <div class="board" role="note" aria-label="Status: coming soon. Price and release date to be announced.">
+        <small>Status</small><strong>Coming soon</strong><span>Price and release date to be announced</span>
+      </div>
+      <p class="dl">Can't wait? The demo has three of the 128 worlds: <a href="Theos-Demo.zip" download>download the free demo</a> <span class="dsz">(800K ProDOS disk, zipped, 116&nbsp;KB)</span>.</p>
+    </div>
+    <figure class="screen"><img src="screens/title.png" width="960" height="720" alt="The title screen of Theos: a hand reaching down from storm clouds, lightning from its finger, over an island with a temple in a blue sea."></figure>
+  </div>
+  <ul class="dims" aria-label="Theos in numbers">
+    <li><div class="n">128</div><p>worlds to conquer</p></li>
+    <li><div class="n">9</div><p>divine powers</p></li>
+    <li><div class="n">4</div><p>landscapes</p></li>
+    <li><div class="n">256</div><p>maps for custom worlds</p></li>
+    <li><div class="n">2.8&nbsp;MHz</div><p>no accelerator needed</p></li>
+  </ul>
+
+  <!-- ===== the game ===== -->
+  <section class="tablet" id="game" aria-labelledby="h-game">
+    <div class="th"><span class="gr" aria-hidden="true">&Alpha;</span><div><h2 id="h-game">You move the earth</h2><p>They do the rest</p></div></div>
+    <p class="intro">A world is 64 by 64 squares of hills in the sea, seen from above at an angle. You shape it; your people decide for themselves what to make of it.</p>
+    <ol class="steps">
+      <li><figure class="shot"><a href="screens/raised.png" data-lb><img src="screens/raised.png" width="960" height="720" loading="lazy" alt="A small hill raised in the middle of a flat green plain by the sea."><span class="cap" hidden>A corner raised twice: its neighbours followed</span></a></figure>
+        <h3>Shape the land</h3><p>A click raises the corner under the pointer, Option-click lowers it, and its neighbours follow. Your people build only where the ground is flat, so you level it for them, a step at a time.</p></li>
+      <li><figure class="shot"><a href="screens/settlement.png" data-lb><img src="screens/settlement.png" width="960" height="720" loading="lazy" alt="Four white homes with blue roofs among tilled fields, walkers along the shore."><span class="cap" hidden>Four homes that had room to grow</span></a></figure>
+        <h3>They settle and grow</h3><p>Walkers look for flat, empty land and pitch a tent. With room around it a tent becomes a hut, a farmhouse, a villa, a temple, at last a citadel. Full homes send out new walkers, and every home gives you mana.</p></li>
+      <li><figure class="shot"><a href="screens/gather.png" data-lb><img src="screens/gather.png" width="960" height="720" loading="lazy" alt="A temple and three villas; beside them the Oracle with its staff stands by the Sacred Flame."><span class="cap" hidden>Gathered: the Oracle by the Sacred Flame</span></a></figure>
+        <h3>Gather and march</h3><p>Light the Sacred Flame and your people gather round their Oracle. Give the order to march, and a band of 32 or more lays siege to the Titans' homes. The world is yours when no Titan is left on it.</p></li>
+    </ol>
+  </section>
+
+  <!-- ===== your people ===== -->
+  <section class="tablet" id="people" aria-labelledby="h-people">
+    <div class="th"><span class="gr" aria-hidden="true">&Beta;</span><div><h2 id="h-people">Your people</h2><p>From a tent to a citadel</p></div></div>
+    <p class="intro">Each time its turn comes round, a home counts the flat, free squares among the 24 around it, and grows or shrinks to match. Bigger homes hold more people, give more mana, and are far harder to take.</p>
+    <ul class="homes"><li><img class="px" src="img/h01.png" width="80" height="88" alt=""><b>Tent</b><span>0 squares</span><span>holds 12</span></li><li><img class="px" src="img/h02.png" width="80" height="88" alt=""><b>Hut</b><span>2 squares</span><span>holds 20</span></li><li><img class="px" src="img/h03.png" width="80" height="88" alt=""><b>Farmhouse</b><span>5 squares</span><span>holds 32</span></li><li><img class="px" src="img/h04.png" width="80" height="88" alt=""><b>Villa</b><span>8 squares</span><span>holds 48</span></li><li><img class="px" src="img/h05.png" width="80" height="88" alt=""><b>Walled villa</b><span>12 squares</span><span>holds 64</span></li><li><img class="px" src="img/h06.png" width="80" height="88" alt=""><b>Small temple</b><span>16 squares</span><span>holds 96</span></li><li><img class="px" src="img/h07.png" width="80" height="88" alt=""><b>Temple</b><span>20 squares</span><span>holds 128</span></li><li class="wide"><img class="px" src="img/h08.png" width="208" height="156" alt=""><b>Citadel</b><span>all 24 squares</span><span>holds 200</span></li></ul>
+    <p class="cap" style="text-align:center;margin:10px 0 0">Under each home: the flat, free squares it needs, and how many people it holds.</p>
+    <div class="two">
+      <div>
+        <h3>Four orders</h3>
+        <p>You don't steer anyone. You tell your whole people what to be about, and each walker does it as best it can.</p>
+        <ul class="orders"><li><img class="px" src="img/o0.png" width="48" height="48" alt=""><div><b>Settle</b> <kbd>S</kbd><br>Spread out, find flat land, build homes.</div></li><li><img class="px" src="img/o1.png" width="48" height="48" alt=""><div><b>Gather</b> <kbd>G</kbd><br>Go to the Sacred Flame and join the Oracle's band.</div></li><li><img class="px" src="img/o2.png" width="48" height="48" alt=""><div><b>March</b> <kbd>M</kbd><br>Seek the enemy: fight his walkers, besiege his homes.</div></li><li><img class="px" src="img/o3.png" width="48" height="48" alt=""><div><b>Join</b> <kbd>J</kbd><br>Merge into fewer, stronger bands.</div></li></ul>
+      </div>
+      <div>
+        <h3>How they live</h3>
+        <ul class="facts">
+          <li>A full home sends half of its people out as a new walker.</li>
+          <li>A walker who meets an enemy fights; the stronger band wins.</li>
+          <li>The first walker to reach the Sacred Flame is your Oracle; those who come after join its band.</li>
+          <li>A marching band of 32 or more takes an enemy home that holds no more than half as many people.</li>
+          <li>No one builds within three squares of the other tribe's homes.</li>
+        </ul>
+        <figure class="cast">
+          <div role="img" aria-label="Four figures from the game: a walker in blue, the Oracle with a staff, the Hero with shield and crest, and the Sacred Flame on its tripod."><img class="px f" src="img/w00.png" width="72" height="66" alt=""><img class="px f" src="img/w01.png" width="72" height="66" alt=""><img class="px f" src="img/w02.png" width="72" height="66" alt=""><img class="px f" src="img/flame.png" width="72" height="66" alt=""></div>
+          <figcaption class="cap"><b>Yours.</b> A walker, the Oracle, the Hero, and the Sacred Flame.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== the powers ===== -->
+  <section class="tablet" id="powers" aria-labelledby="h-powers">
+    <div class="th"><span class="gr" aria-hidden="true">&Gamma;</span><div><h2 id="h-powers">Nine divine powers</h2><p>The panel's icons, and what each costs in mana</p></div></div>
+    <p class="intro">Mana comes from your people's homes. Spend it on the land, or save it for something the Titans will remember. An icon lights up when the gold bar reaches its mark.</p>
+    <div class="manabar" role="img" aria-label="The nine powers above the mana bar, each with its price in mana: 3, 20, 600, 1,000, 2,000, 3,500, 6,000, 10,000 and 16,000. The bar has reached the fifth mark: five powers are lit."><div class="mi"><img class="px" src="img/p0.png" width="64" height="64" alt=""><img class="px" src="img/p1.png" width="64" height="64" alt=""><img class="px" src="img/p2.png" width="64" height="64" alt=""><img class="px" src="img/p3.png" width="64" height="64" alt=""><img class="px" src="img/p4.png" width="64" height="64" alt=""><img class="px off" src="img/p5.png" width="64" height="64" alt=""><img class="px off" src="img/p6.png" width="64" height="64" alt=""><img class="px off" src="img/p7.png" width="64" height="64" alt=""><img class="px off" src="img/p8.png" width="64" height="64" alt=""></div><div class="mk"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="mb"><i></i></div><div class="mp"><span>3</span><span>20</span><span>600</span><span>1,000</span><span>2,000</span><span>3,500</span><span>6,000</span><span>10,000</span><span>16,000</span></div></div>
+    <ul class="pcards"><li><img class="px" src="img/p0.png" width="64" height="64" alt=""><div><h3>Shape the land <span class="mana">3</span></h3><p>Raise a corner with a click, lower it with Option-click. The neighbours follow.</p></div></li><li><img class="px" src="img/p1.png" width="64" height="64" alt=""><div><h3>Sacred Flame <span class="mana">20</span></h3><p>Where your people gather. The first to reach it is your Oracle.</p></div></li><li><img class="px" src="img/p2.png" width="64" height="64" alt=""><div><h3>Earthquake <span class="mana">600</span></h3><p>Jolts fourteen corners around the place. Homes on broken ground fall.</p></div></li><li><img class="px" src="img/p3.png" width="64" height="64" alt=""><div><h3>Bog <span class="mana">1,000</span></h3><p>Turns up to five flat squares into marsh that swallows whoever steps on it.</p></div></li><li><img class="px" src="img/p4.png" width="64" height="64" alt=""><div><h3>Hero <span class="mana">2,000</span></h3><p>Makes your Oracle a champion who hunts walkers and burns homes.</p></div></li><li><img class="px" src="img/p5.png" width="64" height="64" alt=""><div><h3>Thunderbolt <span class="mana">3,500</span></h3><p>Destroys every walker on a square and the eight around it; burns a home.</p></div></li><li><img class="px" src="img/p6.png" width="64" height="64" alt=""><div><h3>Volcano <span class="mana">6,000</span></h3><p>Throws up a mountain five steps high, strewn with boulders.</p></div></li><li><img class="px" src="img/p7.png" width="64" height="64" alt=""><div><h3>Deluge <span class="mana">10,000</span></h3><p>The sea rises one step, everywhere. Count who has more to lose.</p></div></li><li><img class="px" src="img/p8.png" width="64" height="64" alt=""><div><h3>Titanomachy <span class="mana">16,000</span></h3><p>The last battle: every home empties, and everyone fights until one people is left.</p></div></li></ul>
+  </section>
+
+  <!-- ===== the Titans ===== -->
+  <section class="tablet" id="titans" aria-labelledby="h-titans">
+    <div class="th"><span class="gr" aria-hidden="true">&Delta;</span><div><h2 id="h-titans">The Titans and their god</h2><p>He plays by your rules</p></div></div>
+    <div class="two" style="margin-top:0">
+      <div>
+        <p class="intro">Across the world a second people settles, in red, and a second god shapes the land.</p>
+        <p>He levels the ground round his homes, a corner at a time. He lights his own Sacred Flame by the home nearest to yours, gathers a band, and marches: when they set out, you hear their horn. What mana he doesn't spend on the land he saves for one power after another, and casts each where it hurts most.</p>
+        <p>Every world's tablet tells you what kind of god you face. A <b>mild</b> god thinks slowly, and in the first eight worlds starts no war at all until you take a home of his. A <b>fierce</b> god is at your border in three minutes and casts a power every 50 seconds, if he has the mana.</p>
+        <figure class="cast">
+          <div role="img" aria-label="The Titans' figures: a walker, an Oracle with a staff and a Hero with a shield, all in red, and one of their temples, dark stone under a red roof."><img class="px f" src="img/w10.png" width="72" height="66" alt=""><img class="px f" src="img/w11.png" width="72" height="66" alt=""><img class="px f" src="img/w12.png" width="72" height="66" alt=""><img class="px" src="img/h17.png" width="80" height="88" alt=""></div>
+          <figcaption class="cap"><b>Theirs.</b> Walker, Oracle and Hero in red, and a temple of the Titans.</figcaption>
+        </figure>
+      </div>
+      <div>
+        <figure><a class="shot" style="display:block" href="screens/siege.png" data-lb><img src="screens/siege.png" width="960" height="720" loading="lazy" alt="Four red-roofed Titan tents on a field, a blue band laying siege to one of them."><span class="cap" hidden>A siege</span></a>
+          <figcaption class="cap" style="margin-top:7px"><b>A siege.</b> A blue band at the Titans' tents.</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== the worlds ===== -->
+  <section class="tablet" id="worlds" aria-labelledby="h-worlds">
+    <div class="th"><span class="gr" aria-hidden="true">&Epsilon;</span><div><h2 id="h-worlds">A conquest of 128 worlds</h2><p>Each made by the game from its number, each with a name of its own</p></div></div>
+    <p class="intro">Every column below is a step: eight worlds, then the Titans grow stronger. Win a world in under 30 minutes and you skip one; in under 20, two; in under 12, three. How far you have come is kept on the disk.</p>
+    <div class="ladder-wrap" tabindex="0" role="group" aria-label="The 128 worlds in sixteen steps, coloured by landscape">
+      <div class="ladder-in">
+        <div class="gods" aria-hidden="true"><span>A mild god</span><span>Steady</span><span>Bold</span><span>Fierce</span></div>
+        <ol class="ladder"><li class="l0" title="World 1: Argos, in Arcadia"><span>1</span></li><li class="l0" title="World 2: Theria, in Arcadia"><span>2</span></li><li class="l0" title="World 3: Ithon, in Arcadia"><span>3</span></li><li class="l1" title="World 4: Kora, in the Aegean"><span>4</span></li><li class="l0 gain" title="World 5: Erymene, in Arcadia - you gain the Bog"><span>5</span></li><li class="l2" title="World 6: Illis, in Thrace"><span>6</span></li><li class="l1" title="World 7: Kyraka, in the Aegean"><span>7</span></li><li class="l0" title="World 8: Pyleus, in Arcadia"><span>8</span></li><li class="l0 gain" title="World 9: Lykyra, in Arcadia - you gain the Hero"><span>9</span></li><li class="l1" title="World 10: Phalope, in the Aegean"><span>10</span></li><li class="l2" title="World 11: Trygion, in Thrace"><span>11</span></li><li class="l0" title="World 12: Delae, in Arcadia"><span>12</span></li><li class="l3 gain" title="World 13: Naxike, in Tartarus - you gain the Thunderbolt"><span>13</span></li><li class="l2" title="World 14: Melara, in Thrace"><span>14</span></li><li class="l1" title="World 15: Zakyma, in the Aegean"><span>15</span></li><li class="l0" title="World 16: Aegax, in Arcadia"><span>16</span></li><li class="l0 gain" title="World 17: Delos, in Arcadia - you gain the Volcano"><span>17</span></li><li class="l1" title="World 18: Naxia, in the Aegean"><span>18</span></li><li class="l0" title="World 19: Melon, in Arcadia"><span>19</span></li><li class="l2" title="World 20: Zaka, in Thrace"><span>20</span></li><li class="l1 gain" title="World 21: Aegene, in the Aegean - you gain the Deluge"><span>21</span></li><li class="l0" title="World 22: Argis, in Arcadia"><span>22</span></li><li class="l3" title="World 23: Theraka, in Tartarus"><span>23</span></li><li class="l0" title="World 24: Itheus, in Arcadia"><span>24</span></li><li class="l2 gain" title="World 25: Koryra, in Thrace - you gain the Titanomachy"><span>25</span></li><li class="l0" title="World 26: Erymope, in Arcadia"><span>26</span></li><li class="l3" title="World 27: Illion, in Tartarus"><span>27</span></li><li class="l2" title="World 28: Kyrae, in Thrace"><span>28</span></li><li class="l1" title="World 29: Pylike, in the Aegean"><span>29</span></li><li class="l0" title="World 30: Lykara, in Arcadia"><span>30</span></li><li class="l0" title="World 31: Phalyma, in Arcadia"><span>31</span></li><li class="l0" title="World 32: Trygax, in Arcadia"><span>32</span></li><li class="l0" title="World 33: Kyros, in Arcadia"><span>33</span></li><li class="l2" title="World 34: Pylia, in Thrace"><span>34</span></li><li class="l1" title="World 35: Lykon, in the Aegean"><span>35</span></li><li class="l0" title="World 36: Phala, in Arcadia"><span>36</span></li><li class="l3" title="World 37: Trygene, in Tartarus"><span>37</span></li><li class="l0" title="World 38: Delis, in Arcadia"><span>38</span></li><li class="l1" title="World 39: Naxaka, in the Aegean"><span>39</span></li><li class="l2" title="World 40: Meleus, in Thrace"><span>40</span></li><li class="l3" title="World 41: Zakyra, in Tartarus"><span>41</span></li><li class="l2" title="World 42: Aegope, in Thrace"><span>42</span></li><li class="l1" title="World 43: Argion, in the Aegean"><span>43</span></li><li class="l0" title="World 44: Therae, in Arcadia"><span>44</span></li><li class="l0" title="World 45: Ithike, in Arcadia"><span>45</span></li><li class="l0" title="World 46: Korara, in Arcadia"><span>46</span></li><li class="l1" title="World 47: Erymyma, in the Aegean"><span>47</span></li><li class="l0" title="World 48: Illax, in Arcadia"><span>48</span></li><li class="l1" title="World 49: Theros, in the Aegean"><span>49</span></li><li class="l0" title="World 50: Ithia, in Arcadia"><span>50</span></li><li class="l3" title="World 51: Koron, in Tartarus"><span>51</span></li><li class="l0" title="World 52: Eryma, in Arcadia"><span>52</span></li><li class="l1" title="World 53: Illene, in the Aegean"><span>53</span></li><li class="l2" title="World 54: Kyris, in Thrace"><span>54</span></li><li class="l0" title="World 55: Pylaka, in Arcadia"><span>55</span></li><li class="l3" title="World 56: Lykeus, in Tartarus"><span>56</span></li><li class="l1" title="World 57: Phalyra, in the Aegean"><span>57</span></li><li class="l0" title="World 58: Trygope, in Arcadia"><span>58</span></li><li class="l0" title="World 59: Delion, in Arcadia"><span>59</span></li><li class="l0" title="World 60: Naxae, in Arcadia"><span>60</span></li><li class="l1" title="World 61: Melike, in the Aegean"><span>61</span></li><li class="l0" title="World 62: Zakara, in Arcadia"><span>62</span></li><li class="l2" title="World 63: Aegyma, in Thrace"><span>63</span></li><li class="l1" title="World 64: Argax, in the Aegean"><span>64</span></li><li class="l3" title="World 65: Naxos, in Tartarus"><span>65</span></li><li class="l0" title="World 66: Melia, in Arcadia"><span>66</span></li><li class="l1" title="World 67: Zakon, in the Aegean"><span>67</span></li><li class="l2" title="World 68: Aega, in Thrace"><span>68</span></li><li class="l0" title="World 69: Argene, in Arcadia"><span>69</span></li><li class="l3" title="World 70: Theris, in Tartarus"><span>70</span></li><li class="l2" title="World 71: Ithaka, in Thrace"><span>71</span></li><li class="l1" title="World 72: Koreus, in the Aegean"><span>72</span></li><li class="l0" title="World 73: Erymyra, in Arcadia"><span>73</span></li><li class="l0" title="World 74: Illope, in Arcadia"><span>74</span></li><li class="l1" title="World 75: Kyrion, in the Aegean"><span>75</span></li><li class="l0" title="World 76: Pylae, in Arcadia"><span>76</span></li><li class="l2" title="World 77: Lykike, in Thrace"><span>77</span></li><li class="l1" title="World 78: Phalara, in the Aegean"><span>78</span></li><li class="l0" title="World 79: Trygyma, in Arcadia"><span>79</span></li><li class="l3" title="World 80: Delax, in Tartarus"><span>80</span></li><li class="l1" title="World 81: Pylos, in the Aegean"><span>81</span></li><li class="l2" title="World 82: Lykia, in Thrace"><span>82</span></li><li class="l0" title="World 83: Phalon, in Arcadia"><span>83</span></li><li class="l3" title="World 84: Tryga, in Tartarus"><span>84</span></li><li class="l2" title="World 85: Delene, in Thrace"><span>85</span></li><li class="l1" title="World 86: Naxis, in the Aegean"><span>86</span></li><li class="l0" title="World 87: Melaka, in Arcadia"><span>87</span></li><li class="l0" title="World 88: Zakeus, in Arcadia"><span>88</span></li><li class="l1" title="World 89: Aegyra, in the Aegean"><span>89</span></li><li class="l0" title="World 90: Argope, in Arcadia"><span>90</span></li><li class="l2" title="World 91: Therion, in Thrace"><span>91</span></li><li class="l1" title="World 92: Ithae, in the Aegean"><span>92</span></li><li class="l0" title="World 93: Korike, in Arcadia"><span>93</span></li><li class="l3" title="World 94: Erymara, in Tartarus"><span>94</span></li><li class="l0" title="World 95: Illyma, in Arcadia"><span>95</span></li><li class="l1" title="World 96: Kyrax, in the Aegean"><span>96</span></li><li class="l0" title="World 97: Ithos, in Arcadia"><span>97</span></li><li class="l3" title="World 98: Koria, in Tartarus"><span>98</span></li><li class="l2" title="World 99: Erymon, in Thrace"><span>99</span></li><li class="l1" title="World 100: Illa, in the Aegean"><span>100</span></li><li class="l0" title="World 101: Kyrene, in Arcadia"><span>101</span></li><li class="l0" title="World 102: Pylis, in Arcadia"><span>102</span></li><li class="l0" title="World 103: Lykaka, in Arcadia"><span>103</span></li><li class="l1" title="World 104: Phaleus, in the Aegean"><span>104</span></li><li class="l2" title="World 105: Trygyra, in Thrace"><span>105</span></li><li class="l1" title="World 106: Delope, in the Aegean"><span>106</span></li><li class="l0" title="World 107: Naxion, in Arcadia"><span>107</span></li><li class="l3" title="World 108: Melae, in Tartarus"><span>108</span></li><li class="l0" title="World 109: Zakike, in Arcadia"><span>109</span></li><li class="l1" title="World 110: Aegara, in the Aegean"><span>110</span></li><li class="l2" title="World 111: Argyma, in Thrace"><span>111</span></li><li class="l0" title="World 112: Therax, in Arcadia"><span>112</span></li><li class="l2" title="World 113: Melos, in Thrace"><span>113</span></li><li class="l1" title="World 114: Zakia, in the Aegean"><span>114</span></li><li class="l0" title="World 115: Aegon, in Arcadia"><span>115</span></li><li class="l0" title="World 116: Arga, in Arcadia"><span>116</span></li><li class="l0" title="World 117: Therene, in Arcadia"><span>117</span></li><li class="l1" title="World 118: Ithis, in the Aegean"><span>118</span></li><li class="l0" title="World 119: Koraka, in Arcadia"><span>119</span></li><li class="l2" title="World 120: Erymeus, in Thrace"><span>120</span></li><li class="l0" title="World 121: Illyra, in Arcadia"><span>121</span></li><li class="l3" title="World 122: Kyrope, in Tartarus"><span>122</span></li><li class="l0" title="World 123: Pylion, in Arcadia"><span>123</span></li><li class="l1" title="World 124: Lykae, in the Aegean"><span>124</span></li><li class="l2" title="World 125: Phalike, in Thrace"><span>125</span></li><li class="l0" title="World 126: Trygara, in Arcadia"><span>126</span></li><li class="l3" title="World 127: Delyma, in Tartarus"><span>127</span></li><li class="l2" title="World 128: Naxax, in Thrace"><span>128</span></li></ol>
+      </div>
+    </div>
+    <ul class="key">
+      <li><i class="l0"></i>Arcadia</li><li><i class="l1"></i>The Aegean</li><li><i class="l2"></i>Thrace</li><li><i class="l3"></i>Tartarus</li>
+      <li><i class="g"></i>You gain a power here; all nine are yours from world 25</li>
+    </ul>
+    <div class="lands"><figure><a href="screens/arcadia.png" data-lb><img src="screens/arcadia.png" width="960" height="720" loading="lazy" alt="A plain in Arcadia: green hills, blue sea."></a><figcaption class="cap"><b>Arcadia</b> <span class="sw" aria-hidden="true"><i style="background:#115522"></i><i style="background:#228833"></i><i style="background:#44AA44"></i><i style="background:#77CC55"></i><i style="background:#DDCC88"></i><i style="background:#AA8855"></i><i style="background:#999999"></i><i style="background:#555555"></i><i style="background:#2255BB"></i><i style="background:#113388"></i></span> Green hills and a fair share of sea. Where the conquest begins.</figcaption></figure><figure><a href="screens/aegean.png" data-lb><img src="screens/aegean.png" width="960" height="720" loading="lazy" alt="A plain in the Aegean: pale dry land in a turquoise sea."></a><figcaption class="cap"><b>The Aegean</b> <span class="sw" aria-hidden="true"><i style="background:#446633"></i><i style="background:#668844"></i><i style="background:#99AA55"></i><i style="background:#CCCC77"></i><i style="background:#FFEEAA"></i><i style="background:#CCAA77"></i><i style="background:#BBBBAA"></i><i style="background:#777766"></i><i style="background:#22AACC"></i><i style="background:#1188AA"></i></span> Low, dry islands and many bays: little land, and all of it near the water.</figcaption></figure><figure><a href="screens/thrace.png" data-lb><img src="screens/thrace.png" width="960" height="720" loading="lazy" alt="A plain in Thrace under snow, a dark cold sea."></a><figcaption class="cap"><b>Thrace</b> <span class="sw" aria-hidden="true"><i style="background:#667788"></i><i style="background:#99AABB"></i><i style="background:#CCDDDD"></i><i style="background:#EEEEFF"></i><i style="background:#CCCCBB"></i><i style="background:#998877"></i><i style="background:#AAAABB"></i><i style="background:#555566"></i><i style="background:#114477"></i><i style="background:#2266AA"></i></span> High hills under snow. Homes take their turns more slowly here.</figcaption></figure><figure><a href="screens/tartarus.png" data-lb><img src="screens/tartarus.png" width="960" height="720" loading="lazy" alt="Grey ash and rock in a sea of red lava."></a><figcaption class="cap"><b>Tartarus</b> <span class="sw" aria-hidden="true"><i style="background:#332222"></i><i style="background:#443333"></i><i style="background:#665555"></i><i style="background:#887777"></i><i style="background:#997755"></i><i style="background:#664433"></i><i style="background:#776666"></i><i style="background:#332222"></i><i style="background:#DD3300"></i><i style="background:#FF8800"></i></span> Ash and rock in a sea of lava.</figcaption></figure></div>
+    <div class="two">
+      <div>
+        <h3>Custom worlds</h3>
+        <p>Put a world together yourself: any of the four landscapes, one of 256 maps, the plain you start on (wide, fair, narrow or bare), the Titans' god (mild, steady, bold or fierce), and the powers: all nine for both gods, none but shaping and the flame, or by the god's rank.</p>
+      </div>
+      <div>
+        <h3>Sound and music</h3>
+        <p>Sixteen sound effects and six tunes on the IIgs's Ensoniq sound chip: lyre, reed pipe, pan flute and frame drum, in the old modes. Thunder rolls over the title screen, and the Titans' horn warns you when they march.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== screens ===== -->
+  <section class="tablet" id="screens" aria-labelledby="h-screens">
+    <div class="th"><span class="gr" aria-hidden="true">&Zeta;</span><div><h2 id="h-screens">Screens</h2><p>From the game, as a IIgs monitor shows them &middot; click to enlarge</p></div></div>
+    <ul class="gal"><li><a href="screens/game.png" data-lb><img src="screens/game.png" width="960" height="720" loading="lazy" alt="Four white homes with blue roofs on tilled fields, walkers around them, the panel with powers, mana bar and orders below."><span class="cap">A few minutes in: homes, fields, walkers</span></a></li><li><a href="screens/gather.png" data-lb><img src="screens/gather.png" width="960" height="720" loading="lazy" alt="A temple and three villas; beside them a walker with a staff stands by a burning tripod."><span class="cap">Gathered: the Oracle by the Sacred Flame</span></a></li><li><a href="screens/siege.png" data-lb><img src="screens/siege.png" width="960" height="720" loading="lazy" alt="Four red-roofed Titan tents on a field, a blue band beside one of them."><span class="cap">A siege</span></a></li><li><a href="screens/earthquake.png" data-lb><img src="screens/earthquake.png" width="960" height="720" loading="lazy" alt="Broken, uneven ground where a village stood, walkers scattered."><span class="cap">After an earthquake</span></a></li><li><a href="screens/volcano.png" data-lb><img src="screens/volcano.png" width="960" height="720" loading="lazy" alt="A grey mountain with boulders rising out of green land."><span class="cap">A volcano where homes stood</span></a></li><li><a href="screens/hero.png" data-lb><img src="screens/hero.png" width="960" height="720" loading="lazy" alt="A lone figure with a shield between red tents."><span class="cap">The Hero among the Titans' tents</span></a></li><li><a href="screens/bog.png" data-lb><img src="screens/bog.png" width="960" height="720" loading="lazy" alt="Dark marsh squares beside a home and its fields."><span class="cap">A bog by a home</span></a></li><li><a href="screens/deluge.png" data-lb><img src="screens/deluge.png" width="960" height="720" loading="lazy" alt="Only hilltops left above a wide sea."><span class="cap">After two deluges</span></a></li><li><a href="screens/tablet.png" data-lb><img src="screens/tablet.png" width="960" height="720" loading="lazy" alt="A marble tablet: World 1 of 128, Argos, landscape Arcadia, your plain wide, the Titans' god mild, your powers 3 of 9."><span class="cap">A world of the conquest</span></a></li><li><a href="screens/custom.png" data-lb><img src="screens/custom.png" width="960" height="720" loading="lazy" alt="The custom world tablet: land, map, plain, Titans and powers, each between two arrows."><span class="cap">A custom world</span></a></li><li><a href="screens/victory.png" data-lb><img src="screens/victory.png" width="960" height="720" loading="lazy" alt="A board over the world: Victory. Swift! Worlds skipped: 2. On to world 4: Kora."><span class="cap">Won in good time: two worlds skipped</span></a></li><li><a href="screens/pause.png" data-lb><img src="screens/pause.png" width="960" height="720" loading="lazy" alt="A marble tablet with the buttons Resume, Settings, Help and Leave world."><span class="cap">The pause menu</span></a></li></ul>
+  </section>
+
+  <!-- ===== what you need ===== -->
+  <section class="tablet" id="need" aria-labelledby="h-need">
+    <div class="th"><span class="gr" aria-hidden="true">&Eta;</span><div><h2 id="h-need">What you need</h2><p>A IIgs as it comes, or an emulator</p></div></div>
+    <div class="spec">
+      <div class="opt">
+        <h3><span>Option A</span>A real Apple IIgs</h3>
+        <dl>
+          <div><dt>Computer</dt><dd>Apple IIgs</dd></div>
+          <div><dt>Memory</dt><dd><strong>4 MB</strong></dd></div>
+          <div><dt>Drive</dt><dd>One that boots an 800K 3.5" ProDOS disk; or a hard disk, started from GS/OS</dd></div>
+          <div><dt>Accelerator</dt><dd>None needed: made for <strong>2.8 MHz</strong>. With one, the view scrolls more smoothly</dd></div>
+          <div><dt>Input</dt><dd>A mouse</dd></div>
+        </dl>
+      </div>
+      <div class="opt">
+        <h3><span>Option B</span>An emulator</h3>
+        <dl>
+          <div><dt>Emulator</dt><dd>MAME - on the Mac, Ample or <a href="../EmuBuddy/">EmuBuddy</a></dd></div>
+          <div><dt>Machine</dt><dd>Apple IIgs</dd></div>
+          <div><dt>Memory</dt><dd><strong>4 MB</strong> or more</dd></div>
+          <div><dt>CPU type</dt><dd>The standard one is enough</dd></div>
+          <div><dt>Input</dt><dd>A mouse</dd></div>
+        </dl>
+      </div>
+      <div class="booklet">
+        <a class="cover" href="Theos-Manual.pdf"><img src="screens/manual-cover.png" width="384" height="576" loading="lazy" alt="Cover of the Theos instruction manual: navy, a stripe of six colours, the gold Theos logo, the title screen and a view of the game, a starburst reading 128 worlds, 9 divine powers."></a>
+        <p class="meta">Theos instruction manual<br>30 pages, full colour &middot; PDF, 2.6 MB</p>
+        <a class="btn" href="Theos-Manual.pdf">Read the manual <span aria-hidden="true">&rarr;</span></a>
+      </div>
+    </div>
+    <div class="demo">
+      <div>
+        <h3>The demo</h3>
+        <p>The demo disk has three of the conquest's worlds, numbers 1, 9 and 17: a god who keeps to himself, one who makes war, and one with more powers. There is no custom world in it, and it keeps nothing on the disk.</p>
+        <p class="dlrow"><a class="btn" href="Theos-Demo.zip" download>Download the demo</a><span class="cap">800K ProDOS disk, zipped, 116 KB</span></p>
+      </div>
+      <figure class="shot"><a href="screens/start.png" data-lb><img src="screens/start.png" width="960" height="720" loading="lazy" alt="The start of world 1: four tents and their fields on a plain by the sea."><span class="cap" hidden>World 1, Argos: the start</span></a></figure>
+    </div>
+  </section>
+
+  <!-- ===== more ===== -->
+  <section class="tablet" id="more" aria-labelledby="h-more">
+    <div class="th"><span class="gr" aria-hidden="true">&Theta;</span><div><h2 id="h-more">More for the Apple IIgs</h2><p>Other software by Walter Tengler</p></div></div>
+    <ul class="more"><li><a href="../TileTown%202/"><img src="../assets/icons/tiletown2.png" width="64" height="64" loading="lazy" alt=""><span><b>TileTown 2</b>An isometric city builder, for an 8 MB IIgs with an accelerator</span></a></li><li><a href="../TileTown/"><img src="../assets/icons/tiletown.png" width="64" height="64" loading="lazy" alt=""><span><b>TileTown</b>The original city builder, for any 2 MB IIgs</span></a></li><li><a href="../Conquer-GS/"><img src="../assets/icons/conquer-gs.png" width="64" height="64" loading="lazy" alt=""><span><b>Conquer GS</b>Real-time strategy: build a base, harvest ore, conquer the enemy</span></a></li><li><a href="../Conquer3/"><img src="../assets/icons/conquer3.png" width="64" height="64" loading="lazy" alt=""><span><b>Conquer 3: Sandstorm</b>Real-time strategy, three armies in the desert</span></a></li><li><a href="../Terra%20Incognita/"><img src="../assets/icons/terraincognita.png" width="64" height="64" loading="lazy" alt=""><span><b>Terra Incognita</b>Exploration and trade: sail west in 1495</span></a></li><li><a href="../Hyperhaul/"><img src="../assets/icons/hyperhaul.png" width="64" height="64" loading="lazy" alt=""><span><b>Hyperhaul</b>Space trading and combat, filled 3D ships</span></a></li><li><a href="../GTApple/"><img src="../assets/icons/gtapple.png" width="64" height="64" loading="lazy" alt=""><span><b>Grand Theft Apple</b>A top-down crime game</span></a></li><li><a href="../Gaivota/"><img src="../assets/icons/gaivota.png" width="64" height="64" loading="lazy" alt=""><span><b>GAIVOTA</b>A helicopter rescue game over a map of Portugal</span></a></li><li><a href="../EmuBuddy/"><img src="../assets/icons/emubuddy.png" width="64" height="64" loading="lazy" alt=""><span><b>EmuBuddy</b>An Apple IIgs emulator for the Mac - to play Theos</span></a></li></ul>
+  </section>
+  </main>
+
+  <footer>
+    <div class="legal"><small>Notes</small><p>Theos is an independent game in the tradition of the god games of the late 1980s. All of its code, graphics, worlds and music are original. Apple IIgs is a trademark of Apple Inc.</p></div>
+    <div class="legal"><small>More for the Apple II</small><p><a href="../AppleIIASCIIArt/">1977 ASCII Art</a> &middot; <a href="../Bitpast/">BitPast</a> &middot; <a href="../Conquer-GS/">Conquer GS</a> &middot; <a href="../Conquer3/">Conquer 3: Sandstorm</a> &middot; <a href="../Demos/">IIgs Demos</a> &middot; <a href="../EmuBuddy/">EmuBuddy</a> &middot; <a href="../GSCommander/">GS Commander</a> &middot; <a href="../GSLauncher/">GSLauncher</a> &middot; <a href="../GSRemap/">GS Remap</a> &middot; <a href="../GTApple/">Grand Theft Apple</a> &middot; <a href="../Terra%20Incognita/">Terra Incognita</a> &middot; <a href="../Gaivota/">GAIVOTA</a> &middot; <a href="../Hyperhaul/">Hyperhaul</a> &middot; <a href="../MegaconvertGS/">MegaconvertGS</a> &middot; <a href="../RetroBrowse/">RetroBrowse</a> &middot; <a href="../RetroGraphicsConverter/">Retro Graphics Converter</a> &middot; <a href="../RetroTV/">Retro TV</a> &middot; <a href="../RetroTube/">Retro Tube</a> &middot; <a href="../TileTown/">TileTown</a> &middot; <a href="../TileTown%202/">TileTown 2</a></p></div>
+    <div class="copy"><span>&copy; 2026 Walter Tengler</span><nav aria-label="Footer"><a href="../">All apps</a><a href="../TileTown%202/">TileTown 2</a><a href="../Retro%20Computing/">More retro computing: 1977</a></nav></div>
+  </footer>
+</div>
+<div class="meander" aria-hidden="true"></div>
+
+<dialog class="lb" id="lb" aria-label="Enlarged screen">
+  <img alt="">
+  <div class="bar"><span class="lb-cap"></span><form method="dialog"><button>Close</button></form></div>
+</dialog>
+
+<script>
+(function(){
+  /* A small lightbox for the screens; without JS the links open the PNG. */
+  var dlg=document.getElementById('lb'); if(!dlg||!dlg.showModal) return;
+  var im=dlg.querySelector('img'), cap=dlg.querySelector('.lb-cap');
+  document.querySelectorAll('a[data-lb]').forEach(function(a){
+    a.addEventListener('click',function(e){
+      e.preventDefault(); var t=a.querySelector('img'), c=a.querySelector('.cap');
+      im.src=a.getAttribute('href'); im.alt=t?t.alt:''; cap.textContent=c?c.textContent:'';
+      dlg.showModal();
+    });
+  });
+  dlg.addEventListener('click',function(e){if(e.target===dlg)dlg.close();});
+})();
+</script>
+</body>
+</html>
