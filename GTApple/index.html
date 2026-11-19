@@ -100,6 +100,13 @@
         .ticker .g { color: var(--money); } .ticker .y { color: var(--ammo); } .ticker .o { color: var(--dist); } .ticker .r { color: var(--heart); }
         .ticker span { display: block; font: 400 .72rem var(--hud); color: var(--dim); margin-top: 4px; letter-spacing: .5px; }
 
+        /* the demo video: a screen on the road */
+        .film { max-width: 960px; margin: 0 auto; }
+        .film .screen { padding: 8px; }
+        .film video { display: block; width: 100%; height: auto; background: #000; image-rendering: pixelated; }
+        .film p { margin-top: 18px; color: var(--dim); text-align: center; font-size: .98rem; }
+        #video .kicker, #video h2 { text-align: center; }
+
         /* the game: pictures and words, turn and turn about */
         .feat { display: grid; grid-template-columns: 1fr 1fr; gap: 46px; align-items: center; margin-bottom: 64px; }
         .feat:last-child { margin-bottom: 0; }
@@ -281,7 +288,8 @@
                 <div class="name">GRAND THEFT APPLE</div>
                 <p class="lead">Solana Bay lives: traffic keeps to its lanes, people cross at the zebras, and every crime puts a star on your HUD and another black-and-white on your tail. The payphones have eight jobs, from WHEELS for $500 to THE BIG ONE for $5000. Written from scratch in 65816 assembly, in flat 16-colour pixel art on the Super Hi-Res screen.</p>
                 <div class="cta">
-                    <a class="btn" href="#screens">Screenshots</a>
+                    <a class="btn" href="#video">Watch it</a>
+                    <a class="btn alt" href="#screens">Screenshots</a>
                     <a class="btn alt" href="#city">The city</a>
                 </div>
             </div>
@@ -299,6 +307,19 @@
             <div class="o">5<span>radio stations</span></div>
             <div class="r">5<span>hearts</span></div>
         </div>
+    </div>
+</section>
+
+<div class="road" aria-hidden="true"><div class="zebra m"></div></div>
+
+<section id="video" data-dist="DOWNTOWN">
+    <div class="container">
+        <div class="kicker">Watch it</div>
+        <h2>84 seconds in <em>Solana Bay</em></h2>
+        <figure class="film">
+            <div class="screen"><video controls preload="none" playsinline poster="video/gtapple-demo.jpg" width="1920" height="1200" aria-label="Demo video of Grand Theft Apple, 84 seconds, with captions in the picture: on foot downtown, a job from a payphone, a stolen car, a police chase at three stars, the map, the pistol, Sunset Beach, Palm Hills, the docks, the oil fields and the Solana Bridge."><source src="video/gtapple-demo.mp4" type="video/mp4"></video></div>
+            <p>Recorded in MAME on a 2 MB IIgs with a 16 MHz ZipGS, with its own sound: a job, a chase and a drive round the city.</p>
+        </figure>
     </div>
 </section>
 
