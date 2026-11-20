@@ -8,6 +8,7 @@
     <meta name="keywords" content="Flipside, gravity puzzle, puzzle game, iPhone game, tap to clear, match gems, flip gravity, daily puzzle, colorblind friendly, offline game, no ads">
     <meta name="author" content="Walter Tengler">
     <link rel="canonical" href="https://portwally.com/Flipside/">
+    <meta name="apple-itunes-app" content="app-id=6827134646">
     <link rel="icon" type="image/png" href="icon.png">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <meta property="og:type" content="website">
@@ -24,7 +25,9 @@
       "operatingSystem": "iOS",
       "applicationCategory": "GameApplication",
       "author": {"@type": "Person", "name": "Walter Tengler"},
-      "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"}
+      "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"},
+      "downloadUrl": "https://apps.apple.com/us/app/flipside-gravity-puzzle/id6827134646",
+      "installUrl": "https://apps.apple.com/us/app/flipside-gravity-puzzle/id6827134646"
     }
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -136,8 +139,7 @@
         }
         .store-btn svg { width: 24px; height: 24px; }
         .store-btn small { display: block; font-size: 0.72rem; font-weight: 500; opacity: 0.6; line-height: 1.1; }
-        .store-btn.soon { cursor: default; }
-        .store-btn:not(.soon):hover { transform: translateY(-3px); }
+        .store-btn:hover { transform: translateY(-3px); }
         .pills { display: flex; flex-wrap: wrap; gap: 8px; }
         .pill { padding: 6px 12px; border-radius: 999px; background: var(--panel); border: 1px solid var(--stroke); font-size: 0.85rem; color: var(--muted); }
 
@@ -360,11 +362,10 @@
                     <h1 data-i18n="hero.title">Turn the world <span class="flip-word">around</span>.</h1>
                     <p class="lead" data-i18n="hero.lead">Tap groups of matching gems to clear them, then flip gravity so everything falls a new way. Plan the fall, set off chain reactions, and beat each level before you run out of taps.</p>
                     <div class="cta-row">
-                        <!-- When the app is live, turn this into a link to the App Store page and remove the "soon" class. -->
-                        <span class="store-btn soon">
+                        <a class="store-btn" href="https://apps.apple.com/us/app/flipside-gravity-puzzle/id6827134646">
                             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-                            <span><small data-i18n="hero.soon">Coming soon</small><span data-i18n="hero.store">on the App Store</span></span>
-                        </span>
+                            <span><small data-i18n="hero.soon">Download on the</small><span data-i18n="hero.store">App Store</span></span>
+                        </a>
                         <div class="pills">
                             <span class="pill" data-i18n="pill.ads">No ads</span>
                             <span class="pill" data-i18n="pill.tracking">No tracking</span>
@@ -562,7 +563,7 @@ Turn the world around</div>
             'hero.kicker': 'Ein Schwerkraft-Puzzle fürs iPhone',
             'hero.title': 'Stell die Welt <span class="flip-word">auf den Kopf</span>.',
             'hero.lead': 'Tippe Gruppen gleicher Edelsteine an, um sie abzuräumen, und kipp dann die Schwerkraft, damit alles in eine neue Richtung fällt. Plane den Fall, löse Kettenreaktionen aus und schaff jedes Level, bevor dir die Taps ausgehen.',
-            'hero.soon': 'Demnächst', 'hero.store': 'im App Store',
+            'hero.soon': 'Laden im', 'hero.store': 'App Store',
             'pill.ads': 'Keine Werbung', 'pill.tracking': 'Kein Tracking', 'pill.offline': 'Spielt offline',
             'demo.title': 'Probier einen Flip', 'demo.score': 'Punkte', 'demo.shapes': 'Formen', 'demo.reset': 'Neues Brett',
             'demo.hint': 'Tippe 2+ benachbarte Steine an. Wische, nutze die Pfeiltasten oder das Rad, um die Schwerkraft zu kippen. Reihe 4 per Flip auf für eine Kettenreaktion.',
@@ -595,7 +596,7 @@ Turn the world around</div>
             'hero.kicker': 'Um puzzle de gravidade para iPhone',
             'hero.title': 'Vira o mundo <span class="flip-word">ao contrário</span>.',
             'hero.lead': 'Toca em grupos de gemas iguais para as limpar e depois vira a gravidade para que tudo caia para outro lado. Planeia a queda, provoca reações em cadeia e passa cada nível antes de ficares sem toques.',
-            'hero.soon': 'Brevemente', 'hero.store': 'na App Store',
+            'hero.soon': 'Descarregar na', 'hero.store': 'App Store',
             'pill.ads': 'Sem anúncios', 'pill.tracking': 'Sem rastreio', 'pill.offline': 'Joga offline',
             'demo.title': 'Experimenta virar', 'demo.score': 'Pontos', 'demo.shapes': 'Formas', 'demo.reset': 'Novo tabuleiro',
             'demo.hint': 'Toca em 2+ gemas vizinhas. Desliza, usa as setas ou o seletor para virar a gravidade. Alinha 4 com uma viragem para uma reação em cadeia.',
@@ -628,7 +629,7 @@ Turn the world around</div>
             'hero.kicker': 'Un puzle de gravedad para iPhone',
             'hero.title': 'Dale la vuelta <span class="flip-word">al mundo</span>.',
             'hero.lead': 'Toca grupos de gemas iguales para eliminarlos y luego gira la gravedad para que todo caiga hacia otro lado. Planea la caída, provoca reacciones en cadena y supera cada nivel antes de quedarte sin toques.',
-            'hero.soon': 'Muy pronto', 'hero.store': 'en el App Store',
+            'hero.soon': 'Consíguelo en el', 'hero.store': 'App Store',
             'pill.ads': 'Sin anuncios', 'pill.tracking': 'Sin rastreo', 'pill.offline': 'Funciona sin conexión',
             'demo.title': 'Prueba a girar', 'demo.score': 'Puntos', 'demo.shapes': 'Formas', 'demo.reset': 'Nuevo tablero',
             'demo.hint': 'Toca 2+ gemas vecinas. Desliza, usa las flechas o el selector para girar la gravedad. Alinea 4 con un giro para una reacción en cadena.',
