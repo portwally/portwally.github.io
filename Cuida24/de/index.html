@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuida24 - Laborwerte, Blutdruck und Arztberichte</title>
+    <meta name="description" content="Die Laborwerte, Blutdruckwerte und Arztberichte Ihrer Familie auf dem iPhone, mit Diagrammen und Referenzbereichen. Ihre Daten bleiben auf Ihrem Gerät.">
+    <meta name="keywords" content="Laborwerte, Blutwerte, Blutbild, Blutdruck, Cholesterin, Blutzucker, Arztberichte, Gesundheitsdaten, iPhone, iPad, Portugal, App">
+    <meta property="og:title" content="Cuida24 - Laborwerte und Blutdruck">
+    <meta property="og:description" content="Die Laborwerte, Blutdruckwerte und Arztberichte Ihrer Familie, übersichtlich geordnet und als Diagramm.">
+    <meta property="og:image" content="https://portwally.com/Cuida24/screenshots/iphone-en-1.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="icon" type="image/png" href="../icon.png">
+    <link rel="alternate" hreflang="pt-PT" href="https://portwally.com/Cuida24/">
+    <link rel="alternate" hreflang="en" href="https://portwally.com/Cuida24/en/">
+    <link rel="alternate" hreflang="de" href="https://portwally.com/Cuida24/de/">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+    <script data-goatcounter="https://portwally.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+    <style>
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: var(--text); background: #FBFDFC; }
+        .container { max-width: 1160px; margin: 0 auto; padding: 0 1.5rem; }
+
+        header.top { position: sticky; top: 0; z-index: 50; background: rgba(251,253,252,0.86); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(46,125,107,0.12); }
+        header.top .container { display: flex; align-items: center; height: 64px; gap: 1.6rem; }
+        .brand { display: flex; align-items: center; gap: 0.6rem; font-weight: 700; font-size: 1.15rem; color: var(--ink); text-decoration: none; }
+        .brand img { width: 34px; height: 34px; border-radius: 8px; }
+        header.top nav { margin-left: auto; display: flex; gap: 1.4rem; align-items: center; font-size: 0.95rem; }
+        header.top nav a { color: var(--text); text-decoration: none; }
+        header.top nav a:hover { color: var(--brand); }
+        .btn { display: inline-block; background: var(--brand); color: var(--white) !important; padding: 0.55rem 1.1rem; border-radius: 10px; font-weight: 600; text-decoration: none; }
+
+        .hero { padding: 4.5rem 0 3rem; background: radial-gradient(1200px 500px at 85% 10%, rgba(63,168,143,0.18), transparent 60%); }
+        .hero .container { display: grid; grid-template-columns: 1.05fr 1fr; gap: 3rem; align-items: center; }
+        .eyebrow { display: inline-block; font-weight: 600; font-size: 0.85rem; color: var(--brand-dark); background: rgba(63,168,143,0.14); padding: 0.3rem 0.8rem; border-radius: 999px; margin-bottom: 1.2rem; }
+        .hero h1 { font-size: 3.4rem; line-height: 1.08; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 1.2rem; font-weight: 800; }
+        .hero h1 span { color: var(--brand); }
+        .hero p.lead { font-size: 1.2rem; color: var(--muted); margin-bottom: 2rem; max-width: 520px; }
+        .hero .cta { display: flex; align-items: center; gap: 1.2rem; flex-wrap: wrap; }
+        .hero .cta img { height: 52px; }
+        .hero .note { font-size: 0.9rem; color: var(--muted); }
+        .phones { position: relative; height: 600px; }
+        .phones img { position: absolute; width: 260px; border-radius: 42px; border: 10px solid #10251F; box-shadow: 0 30px 60px rgba(20,60,50,0.28); }
+        .phones img:first-child { left: 8%; top: 40px; transform: rotate(-5deg); }
+        .phones img:last-child { right: 4%; top: 0; transform: rotate(4deg); }
+
+        .stats { border-top: 1px solid rgba(46,125,107,0.12); border-bottom: 1px solid rgba(46,125,107,0.12); background: var(--white); }
+        .stats .container { display: grid; grid-template-columns: repeat(4, 1fr); text-align: center; padding: 1.8rem 1.5rem; gap: 1rem; }
+        .stats strong { display: block; font-size: 1.6rem; color: var(--ink); }
+        .stats span { color: var(--muted); font-size: 0.95rem; }
+
+        .row { padding: 5rem 0; }
+        .row:nth-child(even) { background: var(--bg); }
+        .row .container { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+        .row.flip .text { order: 2; }
+        .row .shot { text-align: center; }
+        .row .shot img { width: 300px; max-width: 100%; border-radius: 44px; border: 10px solid #10251F; box-shadow: 0 24px 50px rgba(20,60,50,0.25); }
+        .kicker { font-weight: 600; color: var(--brand); text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.8rem; margin-bottom: 0.6rem; }
+        .row h2 { font-size: 2.2rem; line-height: 1.15; color: var(--ink); margin-bottom: 1rem; letter-spacing: -0.01em; }
+        .row p { font-size: 1.08rem; margin-bottom: 1rem; }
+        .row ul { list-style: none; }
+        .row li { padding-left: 1.8rem; position: relative; margin-bottom: 0.6rem; }
+        .row li::before { content: "✓"; position: absolute; left: 0; color: var(--white); background: var(--brand); width: 1.2rem; height: 1.2rem; border-radius: 50%; font-size: 0.75rem; display: flex; align-items: center; justify-content: center; top: 0.25rem; }
+
+        .privacy { background: linear-gradient(140deg, #2E7D6B, #163F36); color: var(--white); padding: 5rem 0; }
+        .privacy h2 { font-size: 2.3rem; text-align: center; margin-bottom: 0.6rem; }
+        .privacy .lead { text-align: center; opacity: 0.85; max-width: 620px; margin: 0 auto 3rem; font-size: 1.1rem; }
+        .privacy-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; }
+        .privacy-card { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.14); border-radius: 18px; padding: 1.6rem; }
+        .privacy-card .ico { font-size: 1.8rem; margin-bottom: 0.6rem; }
+        .privacy-card h3 { font-size: 1.1rem; margin-bottom: 0.3rem; }
+        .privacy-card p { opacity: 0.85; font-size: 0.97rem; }
+        .privacy .more { text-align: center; margin-top: 2rem; }
+        .privacy .more a { color: var(--white); font-weight: 600; }
+
+        .ipad { padding: 5rem 0; text-align: center; }
+        .ipad h2 { font-size: 2.2rem; color: var(--ink); margin-bottom: 0.6rem; }
+        .ipad .lead { color: var(--muted); margin-bottom: 2.5rem; }
+        .ipad-strip { display: flex; gap: 1.5rem; justify-content: center; overflow-x: auto; padding: 0.5rem 0 1.5rem; }
+        .ipad-strip img { height: 400px; border-radius: 26px; border: 10px solid #10251F; box-shadow: 0 18px 40px rgba(20,60,50,0.2); }
+
+        .faq { background: var(--bg); padding: 5rem 0; }
+        .faq h2 { text-align: center; font-size: 2.2rem; color: var(--ink); margin-bottom: 2.5rem; }
+        .faq .list { max-width: 780px; margin: 0 auto; }
+        details { background: var(--white); border-radius: 14px; padding: 1.1rem 1.4rem; margin-bottom: 0.8rem; box-shadow: 0 2px 10px rgba(20,60,50,0.05); }
+        summary { font-weight: 600; color: var(--ink); cursor: pointer; list-style: none; }
+        summary::after { content: "+"; float: right; color: var(--brand); font-size: 1.3rem; line-height: 1; }
+        details[open] summary::after { content: "–"; }
+        details p { margin-top: 0.7rem; }
+
+        .final { text-align: center; padding: 5rem 1.5rem; }
+        .final img.icon { width: 96px; height: 96px; margin-bottom: 1rem; }
+        .final h2 { font-size: 2.2rem; color: var(--ink); margin-bottom: 1.4rem; }
+        .final .badge img { height: 54px; }
+
+        footer { background: #12352D; color: var(--white); padding: 3rem 1.5rem; text-align: center; }
+        .footer-links { margin-bottom: 0.6rem; }
+        .footer-links a { color: var(--white); text-decoration: none; margin: 0 0.8rem; opacity: 0.8; line-height: 2; }
+        .footer-links a:hover { opacity: 1; }
+        .disclaimer { font-size: 0.85rem; opacity: 0.7; max-width: 640px; margin: 1rem auto 0; }
+
+        @media (max-width: 900px) {
+            .hero .container, .row .container { grid-template-columns: 1fr; gap: 2.5rem; }
+            .row.flip .text { order: 0; }
+            .hero h1 { font-size: 2.5rem; }
+            .phones { height: 480px; }
+            .phones img { width: 210px; }
+            .stats .container, .privacy-grid { grid-template-columns: 1fr 1fr; }
+            header.top nav a:not(.btn):not(.lang) { display: none; }
+            .ipad-strip { justify-content: flex-start; }
+            .ipad-strip img { height: 300px; }
+        }
+    </style>
+</head>
+<body>
+    <header class="top">
+        <div class="container">
+            <a class="brand" href="index.html"><img src="../icon.png" alt="">Cuida24</a>
+            <nav>
+                <a href="#features">Funktionen</a>
+                <a href="#privacy">Datenschutz</a>
+                <a href="#faq">FAQ</a>
+                <a class="lang" href="../">PT</a>
+                <a class="lang" href="../en/">EN</a>
+                <a class="btn" href="https://apps.apple.com/us/app/cuida24/id6836549872" ping="/ping">Download</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div>
+                <span class="eyebrow">Für iPhone und iPad · Entwickelt in Portugal</span>
+                <h1>Die Gesundheit Ihrer Familie, <span>gut geordnet</span>.</h1>
+                <p class="lead">Laborwerte, Blutdruck und Arztberichte an einem Ort, mit Diagrammen und den Referenzbereichen des Labors. Alles bleibt auf Ihrem Gerät.</p>
+                <div class="cta">
+                    <a href="https://apps.apple.com/us/app/cuida24/id6836549872" ping="/ping"><img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Laden im App Store"></a>
+                    <span class="note">Im App Store für iPhone und iPad erhältlich<br>Kostenlos · Ohne Konto · Deutsch, Englisch und Portugiesisch</span>
+                </div>
+            </div>
+            <div class="phones">
+                <img src="../screenshots/screen-en-2.jpg" alt="Cholesterinverlauf mit Referenzbereich">
+                <img src="../screenshots/screen-en-1.jpg" alt="Alle Ihre Laborwerte an einem Ort">
+            </div>
+        </div>
+    </section>
+
+    <div class="stats">
+        <div class="container">
+            <div><strong>440+</strong><span>erkannte Laborwerte</span></div>
+            <div><strong>PDF &amp; Papier</strong><span>importieren und scannen</span></div>
+            <div><strong>ESC 2024</strong><span>Grenzwerte für die Heimmessung</span></div>
+            <div><strong>0</strong><span>Daten an Server gesendet</span></div>
+        </div>
+    </div>
+
+    <main id="features">
+        <section class="row">
+            <div class="container">
+                <div class="text">
+                    <div class="kicker">Laborwerte</div>
+                    <h2>Vom Labor-PDF zum Diagramm, in Sekunden</h2>
+                    <p>Importieren Sie das PDF oder scannen Sie den Papierbefund mit der Kamera. Cuida24 liest Werte, Einheiten und Referenzbereiche aus, und Sie bestätigen sie vor dem Speichern.</p>
+                    <ul>
+                        <li>Jeder Wert wird im Originaldokument markiert</li>
+                        <li>Blutbild, Blutzucker, Cholesterin, Nieren-, Leber- und Schilddrüsenwerte, Urin und mehr</li>
+                        <li>Sie können Werte auch von Hand eingeben</li>
+                    </ul>
+                </div>
+                <div class="shot"><img src="../screenshots/screen-en-3.jpg" alt="Importierte Werte prüfen"></div>
+            </div>
+        </section>
+
+        <section class="row flip">
+            <div class="container">
+                <div class="text">
+                    <div class="kicker">Verlauf</div>
+                    <h2>Sehen Sie, wie sich Ihre Werte über die Jahre verändern</h2>
+                    <p>Jeder Laborwert hat ein eigenes Diagramm, mit dem Referenzbereich des jeweiligen Labors. Werte außerhalb des Referenzbereichs werden hervorgehoben, und der Trend pro Jahr wird für Sie berechnet.</p>
+                    <ul>
+                        <li>Minimum, Maximum, Durchschnitt und Anteil im Referenzbereich</li>
+                        <li>Vergleich mit dem vorherigen Ergebnis in jedem Befund</li>
+                    </ul>
+                </div>
+                <div class="shot"><img src="../screenshots/screen-en-2.jpg" alt="Diagramm LDL-Cholesterin"></div>
+            </div>
+        </section>
+
+        <section class="row">
+            <div class="container">
+                <div class="text">
+                    <div class="kicker">Blutdruck</div>
+                    <h2>Die Anzeige Ihres Blutdruckmessgeräts mit der Kamera ablesen</h2>
+                    <p>Richten Sie Ihr iPhone auf das Messgerät: Der systolische und der diastolische Wert werden erkannt, und Sie bestätigen sie. Oder Sie geben die Werte von Hand ein.</p>
+                    <ul>
+                        <li>Durchschnitt über 7 und 30 Tage, morgens und abends</li>
+                        <li>ESC-2024-Grenzwerte für die Heimmessung</li>
+                        <li>Optionale Anbindung an Apple Health</li>
+                    </ul>
+                </div>
+                <div class="shot"><img src="../screenshots/screen-en-4.jpg" alt="Blutdruck"></div>
+            </div>
+        </section>
+
+        <section class="row flip">
+            <div class="container">
+                <div class="text">
+                    <div class="kicker">Für Ihren Arzttermin</div>
+                    <h2>7-Tage-Messung und ein Bericht für Ihren Arzt</h2>
+                    <p>Die Blutdruckmessung zu Hause, die Ärzte vor einem Termin verlangen, Tag für Tag angeleitet, mit Erinnerungen morgens und abends. Am Ende teilen Sie die Zusammenfassung oder erstellen einen PDF-Bericht mit Ihren Laborwerten und Diagrammen.</p>
+                </div>
+                <div class="shot"><img src="../screenshots/screen-en-5.jpg" alt="7-Tage-Messung"></div>
+            </div>
+        </section>
+
+        <section class="row">
+            <div class="container">
+                <div class="text">
+                    <div class="kicker">Dokumente und Familie</div>
+                    <h2>Die Arztberichte der ganzen Familie, immer zur Hand</h2>
+                    <p>Bewahren Sie Befunde aus Bildgebung, Kardiologie, Chirurgie und Sprechstunden auf und durchsuchen Sie deren Text. Jedes Familienmitglied hat ein eigenes Profil, und Cuida24 schlägt anhand von Name und Geburtsdatum auf dem Bericht das passende vor.</p>
+                </div>
+                <div class="shot"><img src="../screenshots/screen-en-6.jpg" alt="Arztberichte"></div>
+            </div>
+        </section>
+    </main>
+
+    <section class="privacy" id="privacy">
+        <div class="container">
+            <h2>Ihre Daten bleiben bei Ihnen</h2>
+            <p class="lead">Gesundheitsdaten gehören zu den sensibelsten Daten überhaupt. Deshalb funktioniert Cuida24 ohne Server und ohne Cloud.</p>
+            <div class="privacy-grid">
+                <div class="privacy-card"><div class="ico">📱</div><h3>Nur auf Ihrem Gerät</h3><p>PDFs, Kamerabilder und Text werden direkt auf dem iPhone ausgelesen.</p></div>
+                <div class="privacy-card"><div class="ico">🚫</div><h3>Kein Konto</h3><p>Keine Registrierung, keine E-Mail-Adresse und kein App-übergreifendes Tracking.</p></div>
+                <div class="privacy-card"><div class="ico">🔐</div><h3>Face ID</h3><p>Sperren Sie die App mit Face ID oder Touch ID.</p></div>
+                <div class="privacy-card"><div class="ico">💾</div><h3>Verschlüsselte Backups</h3><p>AES-256-Backups, geschützt durch Ihr eigenes Passwort.</p></div>
+            </div>
+            <p class="more"><a href="privacy.html">Datenschutzerklärung lesen &rarr;</a></p>
+        </div>
+    </section>
+
+    <section class="ipad">
+        <div class="container">
+            <h2>Auch auf dem iPad</h2>
+            <p class="lead">Mehr Platz für Diagramme und zum Prüfen von Befunden.</p>
+            <div class="ipad-strip">
+                <img src="../screenshots/ipadscreen-en-1.jpg" alt="Laborwerte auf dem iPad">
+                <img src="../screenshots/ipadscreen-en-3.jpg" alt="Befund auf dem iPad prüfen">
+                <img src="../screenshots/ipadscreen-en-5.jpg" alt="7-Tage-Messung auf dem iPad">
+            </div>
+        </div>
+    </section>
+
+    <section class="faq" id="faq">
+        <div class="container">
+            <h2>Häufige Fragen</h2>
+            <div class="list">
+                <details><summary>Ist Cuida24 mit SNS 24 verbunden?</summary><p>Nein. Cuida24 ist eine unabhängige App und nicht mit dem portugiesischen nationalen Gesundheitsdienst (SNS) oder dem Portal SNS 24 verbunden. Importieren Sie die PDFs, die Sie von Ihrem Labor erhalten, oder scannen Sie Ihre Papierbefunde.</p></details>
+                <details><summary>Welche Labore werden unterstützt?</summary><p>Cuida24 liest PDF- und Papierbefunde portugiesischer Labore und Krankenhäuser. Da die Formate unterschiedlich sind, zeigt die App die erkannten Werte vor dem Speichern immer zur Bestätigung an und merkt sich Ihre Korrekturen für den nächsten Befund desselben Labors.</p></details>
+                <details><summary>Welche Blutdruckmessgeräte funktionieren mit der Kamera?</summary><p>Geräte mit digitaler Segmentanzeige und den Beschriftungen SYS, DIA und PUL neben den Zahlen. Prüfen Sie die erkannten Werte immer; Sie können sie auch von Hand eingeben.</p></details>
+                <details><summary>Landen meine Daten in der Cloud?</summary><p>Nein. Sie bleiben ausschließlich auf Ihrem Gerät. Sie können ein verschlüsseltes Backup erstellen und es aufbewahren, wo Sie möchten.</p></details>
+                <details><summary>Ersetzt Cuida24 meinen Arzt?</summary><p>Nein. Cuida24 ist kein Medizinprodukt und stellt keine Diagnosen. Die App hilft Ihnen, Ihre Daten zu ordnen und zum Arzttermin mitzunehmen.</p></details>
+            </div>
+        </div>
+    </section>
+
+    <section class="final" id="download">
+        <img class="icon" src="../icon.png" alt="">
+        <h2>Kümmern Sie sich noch heute um Ihre Gesundheitsdaten</h2>
+        <a class="badge" href="https://apps.apple.com/us/app/cuida24/id6836549872" ping="/ping"><img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Laden im App Store"></a>
+        <p style="margin-top: 0.8rem; font-weight: 600; color: var(--brand-dark);">Kostenlos im App Store</p>
+        <p id="support" style="margin-top: 1rem; color: var(--muted);">iOS und iPadOS 18 oder neuer · Fragen oder Vorschläge: <a href="mailto:walter.tengler@gmail.com">walter.tengler@gmail.com</a></p>
+    </section>
+
+    <footer>
+        <div class="footer-links">
+            <a href="#support">Support</a>
+            <a href="privacy.html">Datenschutzerklärung</a>
+            <a href="imprint.html">Impressum</a>
+        </div>
+        <div class="footer-links" style="margin-top: 15px;">
+                <a href="../../Adsensemonitor/">AdSense Monitor</a>
+                <a href="../../Aichive/">Aichive</a>
+                <a href="../../Alerta/">Alerta</a>
+                <a href="../../AppleIIASCIIArt/">1977</a>
+                <a href="../../MissileTag/">Missile Tag</a>
+            </div>
+            <div class="footer-links" style="margin-top: 10px;">
+                <a href="../../Bitpast/">BitPast</a>
+                <a href="../../Bomba/">Bomba</a>
+                <a href="../../CertificadoEnergetico/">Certificado Energético</a>
+                <a href="../../Comboiotreck/">Comboiotreck</a>
+                <a href="../../Conquer-GS/">Conquer GS</a>
+                <a href="../../CyanHero/">CyanHero</a>
+                <a href="../../EUEnergyMonitor/">EU Energy Monitor</a>
+            </div>
+            <div class="footer-links" style="margin-top: 10px;">
+                <a href="../../EasyDup/">EasyDup</a>
+                <a href="../../ExifEasy/">ExifEasy</a>
+                <a href="../../FCPXClean/">FCPX Clean</a>
+                <a href="../../File Vortex/">File Vortex</a>
+                <a href="../../Fire/">Fire</a>
+            </div>
+            <div class="footer-links" style="margin-top: 10px;">
+                <a href="../../Flipside/">Flipside</a>
+                <a href="../../Fluvio/">Fluvio</a>
+                <a href="../../Fugiu/">Fugiu!</a>
+                <a href="../../MegaconvertGS/">MegaconvertGS</a>
+                <a href="../../Pibup/">PIBUP</a>
+            </div>
+            <div class="footer-links" style="margin-top: 10px;">
+                                <a href="../../RetroBrowse/">Retro Browse</a>
+                <a href="../../RetroGraphicsConverter/">Retro Graphics</a>
+                <a href="../../RetroTube/">Retro Tube</a>
+                <a href="../../RetroTV/">Retro TV</a>
+                <a href="../../SOSIberico/">SOS Ibérica</a>
+                <a href="../../Scanora/">Scanora</a>
+                <a href="../../Screen2Store/">Screen2Store</a>
+            </div>
+            <div class="footer-links" style="margin-top: 10px;">
+                <a href="../../SlimPix/">SlimPix</a>
+                <a href="../../Sobrium/">Sobrium</a>
+                <a href="../../Terramoto/">Terramoto</a>
+                <a href="../../TileTown/">TileTown</a>
+                <a href="../../TileTown%202/">TileTown 2</a>
+                <a href="../../Wallys Manager/">Wally's Manager</a>
+                <a href="../../climaviva/">Clima Viva</a>
+                <a href="../../coresdoamor/">Cores do Amor</a>
+            </div>
+            <div class="footer-links" style="margin-top: 10px;">
+                <a href="../../emergengy-reminder/">Emergency Reminder</a>
+                <a href="../../GSRemap/">GS Remap</a>
+                <a href="../../GSCommander/">GS Commander</a>
+                <a href="../../GSLauncher/">GSLauncher</a>
+                <a href="../../Conquer3/">Conquer 3: Sandstorm</a>
+                <a href="../../EmuBuddy/">EmuBuddy</a>
+                <a href="../../Demos/">IIgs Demos</a>
+                <a href="../../Hyperhaul/">Hyperhaul</a>
+                <a href="../../GTApple/">Grand Theft Apple</a>
+                <a href="../../Terra%20Incognita/">Terra Incognita</a>
+                <a href="../../Gaivota/">GAIVOTA</a>
+                <a href="../../Theos/">Theos</a>
+            </div>
+
+        <p>&copy; 2026 Walter Tengler. Alle Rechte vorbehalten.</p>
+        <p class="disclaimer">Cuida24 ist kein Medizinprodukt und stellt keine Diagnosen. Die App zeigt die Werte und Referenzbereiche an, die Ihre Labore angeben. Nicht verbunden mit dem portugiesischen nationalen Gesundheitsdienst (SNS) oder dem Portal SNS 24.</p>
+    </footer>
+</body>
+</html>
