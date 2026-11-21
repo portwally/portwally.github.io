@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tenth Sun - Beyond the Void: a Side-Scrolling Shoot 'em Up for the Apple IIgs</title>
+    <meta name="description" content="Tenth Sun is a side-scrolling shoot 'em up for the Apple IIgs, in development: ten stages, ten bosses that each fight their own way, three weapons, a charged blast and a pod that docks on your ship. Smooth scrolling at 30 frames a second on a stock 2.8 MHz IIgs, written in 65816 assembly.">
+    <meta name="keywords" content="Tenth Sun, Apple IIgs, shoot 'em up, shmup, side-scrolling shooter, arcade, 65816 assembly, Super Hi-Res, Ensoniq, retro game, homebrew, ProDOS, MAME, EmuBuddy">
+    <meta name="author" content="Walter Tengler">
+    <link rel="canonical" href="https://portwally.com/TenthSun/">
+    <link rel="icon" type="image/png" href="icon.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Tenth Sun - Beyond the Void">
+    <meta property="og:description" content="A side-scrolling shoot 'em up for the Apple IIgs, in development: ten stages, ten bosses, three weapons, a charged blast and a pod. 30 frames a second on a stock IIgs.">
+    <meta property="og:image" content="https://portwally.com/TenthSun/art/share.jpg">
+    <meta property="og:url" content="https://portwally.com/TenthSun/">
+    <meta name="twitter:card" content="summary_large_image">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "VideoGame",
+      "name": "Tenth Sun",
+      "alternateName": "Tenth Sun: Beyond the Void",
+      "description": "A side-scrolling shoot 'em up for the Apple IIgs, in development: ten stages, ten bosses, three weapons, a charged blast and a pod. Written in 65816 assembly.",
+      "gamePlatform": "Apple IIgs",
+      "genre": "Shoot 'em up",
+      "author": { "@type": "Person", "name": "Walter Tengler" },
+      "image": "https://portwally.com/TenthSun/art/share.jpg",
+      "url": "https://portwally.com/TenthSun/"
+    }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Chakra+Petch:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Tenth Sun: a command centre at the edge of space. Midnight blues
+           and purples, metal greys; cyan for the interface, red and orange
+           for danger. The game's own screens are shown pixel for pixel. */
+        :root {
+            --void: #04050d; --navy: #08102a; --deep: #0d0a26; --purple: #1c1042; --metal: #8a93ab; --steel: #3a4260;
+            --line: rgba(57, 230, 255, .22); --line2: rgba(57, 230, 255, .5);
+            --cyan: #39e6ff; --blue: #2f7bff; --red: #ff3b4e; --orange: #ff8a2a; --gold: #ffd257;
+            --text: #d9e2ff; --dim: #8d97ba; --faint: #5d6688;
+            --display: 'Orbitron', 'Chakra Petch', sans-serif; --body: 'Chakra Petch', system-ui, sans-serif; --pixel: 'Silkscreen', monospace;
+            --wrap: 1180px;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; scroll-padding-top: 70px; }
+        body { background: var(--void); color: var(--text); font-family: var(--body); font-size: 1.08rem; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+        img { display: block; max-width: 100%; }
+        .px { image-rendering: pixelated; image-rendering: crisp-edges; }
+        a { color: var(--cyan); }
+        .wrap { width: 100%; max-width: var(--wrap); margin: 0 auto; padding: 0 22px; }
+        ::selection { background: var(--cyan); color: var(--void); }
+
+        /* the screen's scan lines, over everything, very faint */
+        body::after { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 90;
+            background: repeating-linear-gradient(to bottom, rgba(255,255,255,.025) 0 1px, transparent 1px 3px); mix-blend-mode: overlay; }
+
+        /* ---------------- the bar on top ---------------- */
+        .top { position: fixed; top: 0; left: 0; right: 0; z-index: 50; transition: background .3s, border-color .3s;
+            border-bottom: 1px solid transparent; }
+        .top.solid { background: rgba(4, 5, 13, .86); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom-color: var(--line); }
+        .top .wrap { display: flex; align-items: center; gap: 18px; height: 62px; }
+        .brand { font-family: var(--display); font-weight: 900; font-size: 1.12rem; letter-spacing: 3px; color: #fff; text-decoration: none; white-space: nowrap; }
+        .brand span { color: var(--orange); }
+        .top nav { display: flex; gap: 2px; margin-left: auto; overflow-x: auto; scrollbar-width: none; }
+        .top nav::-webkit-scrollbar { display: none; }
+        .top nav a { font-family: var(--pixel); font-size: .78rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--dim); text-decoration: none; padding: 8px 10px; white-space: nowrap; transition: color .2s; }
+        .top nav a:hover { color: var(--cyan); }
+        .chip { font-family: var(--pixel); font-size: .72rem; letter-spacing: 1.5px; color: var(--void); background: var(--cyan); padding: 4px 9px 3px; white-space: nowrap; }
+        @media (max-width: 860px) { .top nav { display: none; } .chip { margin-left: auto; } }
+
+        /* ---------------- buttons ---------------- */
+        .btn { --c: var(--cyan); position: relative; display: inline-flex; align-items: center; gap: 10px; font-family: var(--display); font-weight: 800; font-size: .9rem; letter-spacing: 2.5px;
+            text-transform: uppercase; text-decoration: none; color: var(--void); background: var(--c); border: 0; cursor: pointer; padding: 16px 28px 15px;
+            clip-path: polygon(14px 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%, 0 14px);
+            box-shadow: 0 0 0 1px var(--c), 0 0 26px rgba(57, 230, 255, .45); transition: transform .15s, filter .2s; }
+        .btn:hover { transform: translateY(-2px); filter: brightness(1.15); }
+        .btn.ghost { color: var(--c); background: rgba(57, 230, 255, .07); box-shadow: inset 0 0 0 1px var(--c); }
+        .btn.hot { --c: var(--orange); box-shadow: 0 0 0 1px var(--c), 0 0 30px rgba(255, 138, 42, .5); }
+        .btn svg { width: 16px; height: 16px; flex: none; }
+
+        /* ---------------- section titles ---------------- */
+        section { position: relative; }
+        .kicker { font-family: var(--pixel); font-size: .8rem; letter-spacing: 3px; text-transform: uppercase; color: var(--cyan); display: flex; align-items: center; gap: 10px; }
+        .kicker::before { content: ""; width: 26px; height: 2px; background: var(--cyan); box-shadow: 0 0 10px var(--cyan); }
+        .h2 { font-family: var(--display); font-weight: 900; font-size: clamp(1.8rem, 4.6vw, 3.1rem); line-height: 1.08; letter-spacing: 1.5px; text-transform: uppercase; color: #fff; margin-top: 12px; }
+        .h2 em { font-style: normal; color: var(--orange); text-shadow: 0 0 24px rgba(255, 138, 42, .5); }
+        .lede { color: var(--dim); max-width: 40em; margin-top: 14px; font-size: 1.12rem; }
+        .pad { padding: 110px 0; }
+        @media (max-width: 700px) { .pad { padding: 78px 0; } }
+
+        /* a framed screen: corner brackets and labels, like a targeting display */
+        .frame { position: relative; padding: 10px; background: linear-gradient(160deg, rgba(57,230,255,.08), rgba(47,123,255,.02)); border: 1px solid var(--line); }
+        .frame::before, .frame::after { content: ""; position: absolute; width: 22px; height: 22px; border: 2px solid var(--cyan); pointer-events: none; }
+        .frame::before { top: -2px; left: -2px; border-right: 0; border-bottom: 0; }
+        .frame::after { bottom: -2px; right: -2px; border-left: 0; border-top: 0; }
+        .frame img { width: 100%; height: auto; background: #000; }
+        .tag { position: absolute; z-index: 2; font-family: var(--pixel); font-size: .68rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--cyan); background: rgba(4,5,13,.82); border: 1px solid var(--line2); padding: 3px 8px 2px; white-space: nowrap; }
+        .tag.red { color: var(--red); border-color: rgba(255,59,78,.6); }
+        .tag { max-width: calc(100% - 20px); overflow: hidden; text-overflow: ellipsis; }
+        .tag .dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--red); margin-right: 6px; vertical-align: 0; animation: blink 1.2s steps(2) infinite; }
+        @keyframes blink { 50% { opacity: 0; } }
+
+        /* ---------------- 1 the hero ---------------- */
+        .hero { min-height: 100vh; min-height: 100svh; display: flex; align-items: center; overflow: hidden; isolation: isolate; padding: 110px 0 120px; }
+        /* (the picture's top, its own title lettering, stays above the hero: the page has its own) */
+        .hero .art { position: absolute; top: -31%; right: -40px; bottom: -40px; left: -40px; z-index: -3; background: url(art/title.jpg) 70% 100% / cover no-repeat; transform: translate3d(0,0,0) scale(1.04); will-change: transform; }
+        .hero .shade { position: absolute; inset: 0; z-index: -2;
+            background: linear-gradient(90deg, rgba(4,5,13,.96) 0%, rgba(4,5,13,.82) 34%, rgba(4,5,13,.25) 64%, rgba(4,5,13,.35) 100%),
+                        linear-gradient(0deg, var(--void) 0%, rgba(4,5,13,0) 26%), linear-gradient(180deg, rgba(4,5,13,.75) 0%, rgba(4,5,13,0) 22%); }
+        #stars { position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%; pointer-events: none; }
+        .hero .wrap { position: relative; }
+        .status { font-family: var(--pixel); font-size: .78rem; letter-spacing: 2px; color: var(--cyan); text-shadow: 0 0 10px rgba(57,230,255,.7); min-height: 1.4em; }
+        .status .cur { display: inline-block; width: .6em; height: 1em; background: var(--cyan); vertical-align: -2px; margin-left: 3px; animation: blink 1s steps(2) infinite; }
+        .hero h1 { font-family: var(--display); font-weight: 900; text-transform: uppercase; line-height: .92; margin-top: 18px; color: #fff; }
+        .hero h1 .big { display: block; font-size: clamp(3.1rem, 11vw, 7.6rem); letter-spacing: clamp(2px, .8vw, 8px);
+            background: linear-gradient(180deg, #ffffff 0%, #cfd7f0 45%, #7c87a8 52%, #e8edff 100%); -webkit-background-clip: text; background-clip: text; color: transparent;
+            filter: drop-shadow(0 0 22px rgba(57,230,255,.35)) drop-shadow(0 4px 0 rgba(255,59,78,.55)); }
+        .hero h1 .sub { display: block; font-size: clamp(1rem, 3vw, 1.7rem); letter-spacing: clamp(4px, 1.6vw, 14px); color: var(--orange); margin-top: 16px; text-shadow: 0 0 18px rgba(255,138,42,.6); }
+        .hero .tagline { font-size: clamp(1.1rem, 2.2vw, 1.35rem); color: #e6ecff; max-width: 27em; margin-top: 26px; }
+        .hero .actions { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 34px; }
+        .hero .note { font-family: var(--pixel); font-size: .72rem; letter-spacing: 2px; color: var(--dim); margin-top: 26px; text-transform: uppercase; }
+        .hero .note b { color: var(--gold); font-weight: 400; }
+        .laser { position: absolute; height: 2px; border-radius: 2px; z-index: -1; pointer-events: none; opacity: 0;
+            background: linear-gradient(90deg, transparent, var(--c, var(--cyan)), #fff); box-shadow: 0 0 12px var(--c, var(--cyan)); animation: zap var(--d, 3.2s) linear infinite; animation-delay: var(--w, 0s); }
+        @keyframes zap { 0% { transform: translateX(-30vw); opacity: 0; } 6% { opacity: 1; } 40% { opacity: 1; } 46% { transform: translateX(110vw); opacity: 0; } 100% { transform: translateX(110vw); opacity: 0; } }
+        .scroll { position: absolute; left: 50%; bottom: 28px; transform: translateX(-50%); font-family: var(--pixel); font-size: .66rem; letter-spacing: 3px; color: var(--dim); text-decoration: none; text-align: center; }
+        .scroll::after { content: ""; display: block; width: 2px; height: 34px; margin: 8px auto 0; background: linear-gradient(var(--cyan), transparent); animation: drip 1.8s ease-in-out infinite; }
+        @keyframes drip { 0% { transform: scaleY(0); transform-origin: top; } 50% { transform: scaleY(1); transform-origin: top; } 51% { transform-origin: bottom; } 100% { transform: scaleY(0); transform-origin: bottom; } }
+
+        /* the numbers under the hero */
+        .readout { position: relative; z-index: 3; margin-top: -60px; }
+        .readout .grid { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--line); background: rgba(8,16,42,.78); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+        .readout .cell { padding: 20px 22px; border-right: 1px solid var(--line); }
+        .readout .cell:last-child { border-right: 0; }
+        .readout b { display: block; font-family: var(--display); font-weight: 900; font-size: clamp(1.5rem, 3.4vw, 2.2rem); color: #fff; line-height: 1; }
+        .readout span { display: block; font-family: var(--pixel); font-size: .7rem; letter-spacing: 1.5px; color: var(--dim); text-transform: uppercase; margin-top: 8px; }
+        @media (max-width: 700px) { .readout .grid { grid-template-columns: 1fr 1fr; } .readout .cell:nth-child(2) { border-right: 0; } .readout .cell:nth-child(-n+2) { border-bottom: 1px solid var(--line); } }
+
+        /* ---------------- 2 the story ---------------- */
+        .story { background: radial-gradient(ellipse 60% 70% at 85% 40%, rgba(28,16,66,.9), transparent 70%); }
+        .story .grid { display: grid; grid-template-columns: 5fr 7fr; gap: 64px; align-items: center; }
+        .story .copy p { margin-top: 18px; color: #c4cdee; font-size: 1.14rem; }
+        .story .copy p.big { font-size: 1.28rem; color: #fff; }
+        .story .shot { transform: perspective(1400px) rotateY(-9deg) rotateX(2deg); transition: transform .6s; }
+        .story .shot:hover { transform: none; }
+        .story .shot .t1 { top: -12px; left: 20px; }
+        .story .shot .t2 { bottom: -12px; right: 24px; }
+        .story .facts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+        .story .facts span { font-family: var(--pixel); font-size: .7rem; letter-spacing: 1px; text-transform: uppercase; color: var(--cyan); border: 1px solid var(--line2); padding: 5px 9px 4px; }
+        @media (max-width: 900px) { .story .grid { grid-template-columns: 1fr; gap: 40px; } .story .shot { transform: none; } }
+
+        /* ---------------- 3 the features ---------------- */
+        .features { background: linear-gradient(180deg, transparent, rgba(8,16,42,.7) 30%, rgba(8,16,42,.7) 70%, transparent); }
+        .cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 50px; }
+        .card { --c: var(--cyan); position: relative; display: flex; flex-direction: column; background: linear-gradient(170deg, rgba(20,26,58,.95), rgba(8,10,26,.95)); border: 1px solid rgba(255,255,255,.08);
+            clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 0 100%); transition: transform .3s, border-color .3s, box-shadow .3s; }
+        .card:hover { transform: translateY(-6px); border-color: var(--c); box-shadow: 0 18px 40px rgba(0,0,0,.5), inset 0 0 0 1px var(--c); }
+        .card .pic { position: relative; aspect-ratio: 5 / 3; overflow: hidden; background: #000; border-bottom: 1px solid var(--line); }
+        .card .pic img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s; }
+        .card:hover .pic img { transform: scale(1.06); }
+        .card .pic::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(8,10,26,.85), transparent 55%); }
+        .card .num { position: absolute; z-index: 2; left: 14px; bottom: 10px; font-family: var(--pixel); font-size: .7rem; letter-spacing: 2px; color: var(--c); }
+        .card .body { padding: 20px 20px 24px; }
+        .card h3 { font-family: var(--display); font-weight: 800; font-size: 1.02rem; letter-spacing: 1.5px; text-transform: uppercase; color: #fff; line-height: 1.25; }
+        .card h3::after { content: ""; display: block; width: 34px; height: 3px; margin-top: 12px; background: var(--c); box-shadow: 0 0 12px var(--c); transition: width .3s; }
+        .card:hover h3::after { width: 70px; }
+        .card p { color: var(--dim); font-size: 1rem; margin-top: 12px; }
+        .card.c2 { --c: var(--gold); } .card.c3 { --c: #7d8bff; } .card.c4 { --c: var(--red); }
+        @media (max-width: 1020px) { .cards { grid-template-columns: 1fr 1fr; } }
+        @media (max-width: 560px) { .cards { grid-template-columns: 1fr; } }
+
+        /* ---------------- 4 the arsenal ---------------- */
+        .arsenal { background: radial-gradient(ellipse 50% 60% at 15% 60%, rgba(47,123,255,.12), transparent 70%); }
+        .db { display: grid; grid-template-columns: 340px 1fr; gap: 26px; margin-top: 50px; }
+        .db .panel { border: 1px solid var(--line); background: rgba(8,12,32,.85); }
+        .db .head { display: flex; justify-content: space-between; gap: 10px; font-family: var(--pixel); font-size: .7rem; letter-spacing: 2px; text-transform: uppercase; color: var(--dim); padding: 10px 16px; border-bottom: 1px solid var(--line); background: rgba(57,230,255,.05); }
+        .db .head b { color: var(--cyan); font-weight: 400; }
+        .ship { padding: 22px 22px 24px; }
+        .ship .sprite { display: flex; justify-content: center; align-items: center; height: 140px; background: radial-gradient(circle, rgba(57,230,255,.14), transparent 65%); }
+        .ship .sprite img { width: 192px; height: auto; animation: hover 3.6s ease-in-out infinite; filter: drop-shadow(0 0 14px rgba(57,230,255,.35)); }
+        @keyframes hover { 50% { transform: translateY(-8px); } }
+        .ship h3 { font-family: var(--display); font-weight: 900; font-size: 1.3rem; letter-spacing: 2px; color: #fff; margin-top: 10px; }
+        .ship .cls { font-family: var(--pixel); font-size: .7rem; letter-spacing: 1.5px; color: var(--orange); text-transform: uppercase; margin-top: 4px; }
+        .stats { margin-top: 18px; display: grid; gap: 12px; }
+        .stat { display: grid; grid-template-columns: 1fr auto; gap: 2px 10px; font-size: .95rem; }
+        .stat span { font-family: var(--pixel); font-size: .68rem; letter-spacing: 1.5px; color: var(--dim); text-transform: uppercase; align-self: end; }
+        .stat b { font-weight: 600; color: #fff; text-align: right; }
+        .stat i { grid-column: 1 / -1; height: 6px; background: rgba(255,255,255,.06); position: relative; overflow: hidden; }
+        .stat i::after { content: ""; position: absolute; inset: 0; width: var(--v); background: linear-gradient(90deg, var(--blue), var(--cyan)); box-shadow: 0 0 10px var(--cyan); }
+        .ship .abil { margin-top: 18px; padding-top: 16px; border-top: 1px dashed var(--line); font-size: .95rem; color: var(--dim); }
+        .ship .abil b { color: #fff; font-weight: 600; }
+        .weap .tabs { display: flex; flex-wrap: wrap; border-bottom: 1px solid var(--line); }
+        .weap .tabs button { --c: var(--cyan); flex: 1 1 auto; font-family: var(--pixel); font-size: .72rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--dim); background: none; border: 0; border-right: 1px solid var(--line);
+            padding: 14px 12px 12px; cursor: pointer; position: relative; transition: color .2s, background .2s; }
+        .weap .tabs button:last-child { border-right: 0; }
+        .weap .tabs button::before { content: ""; display: inline-block; width: 8px; height: 8px; margin-right: 7px; background: var(--c); box-shadow: 0 0 8px var(--c); vertical-align: 0; }
+        .weap .tabs button:hover { color: #fff; }
+        .weap .tabs button[aria-selected="true"] { color: #fff; background: rgba(57,230,255,.08); }
+        .weap .tabs button[aria-selected="true"]::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; background: var(--c); box-shadow: 0 0 10px var(--c); }
+        .weap .view { padding: 22px; display: grid; gap: 22px; }
+        .weap .screen { position: relative; border: 1px solid var(--line); background: #000; }
+        .weap .screen img { width: 100%; height: auto; transition: opacity .25s; }
+        .weap .screen .tag { top: 10px; left: 10px; }
+        .weap .info { display: grid; grid-template-columns: 1.2fr 1fr; gap: 22px; }
+        .weap h3 { font-family: var(--display); font-weight: 900; font-size: 1.45rem; letter-spacing: 1.5px; color: #fff; text-transform: uppercase; }
+        .weap .info p { color: #c4cdee; margin-top: 8px; }
+        .weap dl { display: grid; grid-template-columns: auto 1fr; gap: 8px 14px; align-content: start; font-size: .96rem; }
+        .weap dt { font-family: var(--pixel); font-size: .66rem; letter-spacing: 1.5px; color: var(--dim); text-transform: uppercase; padding-top: 3px; }
+        .weap dd { color: #fff; }
+        .pips { display: inline-flex; gap: 4px; vertical-align: -1px; }
+        .pips i { width: 14px; height: 10px; background: rgba(255,255,255,.1); }
+        .pips i.on { background: var(--cyan); box-shadow: 0 0 8px var(--cyan); }
+        @media (max-width: 1000px) { .db { grid-template-columns: 1fr; } .weap .info { grid-template-columns: 1fr; } }
+
+        /* ---------------- 5 the stages ---------------- */
+        .stages .grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-top: 46px; }
+        .stg { position: relative; display: block; text-align: left; padding: 0; border: 1px solid rgba(255,255,255,.08); background: #000; cursor: zoom-in; overflow: hidden; transition: border-color .3s, transform .3s, box-shadow .3s; color: inherit; font: inherit; }
+        .stg:hover, .stg:focus-visible { border-color: var(--cyan); transform: translateY(-4px); box-shadow: 0 0 24px rgba(57,230,255,.25); outline: none; }
+        .stg img { width: 100%; height: auto; aspect-ratio: 8 / 5; object-fit: cover; transition: transform .5s; }
+        .stg:hover img { transform: scale(1.08); }
+        .stg .cap { position: absolute; left: 0; right: 0; bottom: 0; padding: 26px 10px 8px; background: linear-gradient(0deg, rgba(4,5,13,.95), transparent); }
+        .stg .cap b { display: block; font-family: var(--pixel); font-size: .64rem; letter-spacing: 2px; color: var(--orange); font-weight: 400; }
+        .stg .cap span { display: block; font-family: var(--display); font-weight: 800; font-size: .76rem; letter-spacing: 1px; text-transform: uppercase; color: #fff; line-height: 1.25; margin-top: 2px; }
+        @media (max-width: 1000px) { .stages .grid { grid-template-columns: repeat(3, 1fr); } }
+        @media (max-width: 600px) { .stages .grid { grid-template-columns: 1fr 1fr; } }
+
+        /* ---------------- 6 the gameplay ---------------- */
+        .show { overflow: hidden; isolation: isolate; }
+        .show .bg { position: absolute; inset: -30px; z-index: -2; background: url(img/fight04.png) center / cover; filter: blur(18px) saturate(1.3) brightness(.45); transform: scale(1.1); }
+        .show .bg2 { position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, var(--void), rgba(4,5,13,.35) 30%, rgba(4,5,13,.35) 70%, var(--void)); }
+        .show .head { text-align: center; }
+        .show .head .kicker { justify-content: center; }
+        .show .head .lede { margin-left: auto; margin-right: auto; }
+        .monitor { position: relative; max-width: 980px; margin: 46px auto 0; }
+        .monitor .frame { padding: 14px; background: rgba(4,5,13,.7); box-shadow: 0 30px 80px rgba(0,0,0,.6), 0 0 60px rgba(57,230,255,.12); }
+        .monitor .t1 { top: 26px; left: 26px; } .monitor .t2 { top: 26px; right: 26px; } .monitor .t3 { bottom: 26px; left: 26px; } .monitor .t4 { bottom: 26px; right: 26px; }
+        .monitor .play { position: absolute; inset: 14px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; background: rgba(4,5,13,.35); border: 0; cursor: pointer; color: #fff; transition: background .3s; }
+        .monitor .play:hover { background: rgba(4,5,13,.15); }
+        .monitor .ring { width: 96px; height: 96px; border-radius: 50%; display: grid; place-items: center; border: 2px solid var(--cyan); background: rgba(57,230,255,.14); box-shadow: 0 0 40px rgba(57,230,255,.5), inset 0 0 30px rgba(57,230,255,.25); transition: transform .3s; }
+        .monitor .play:hover .ring { transform: scale(1.08); }
+        .monitor .ring svg { width: 34px; height: 34px; margin-left: 6px; fill: var(--cyan); }
+        .monitor .play b { font-family: var(--display); font-weight: 900; font-size: 1rem; letter-spacing: 4px; text-shadow: 0 0 14px rgba(57,230,255,.8); }
+        .monitor .play small { font-family: var(--pixel); font-size: .66rem; letter-spacing: 1.5px; color: var(--dim); background: rgba(4,5,13,.7); padding: 2px 8px; }
+        .specs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; max-width: 980px; margin: 26px auto 0; }
+        .specs div { border: 1px solid var(--line); background: rgba(4,5,13,.6); padding: 14px 16px; }
+        .specs b { display: block; font-family: var(--display); font-weight: 800; font-size: .98rem; color: #fff; letter-spacing: 1px; }
+        .specs span { display: block; font-size: .9rem; color: var(--dim); margin-top: 4px; line-height: 1.4; }
+        @media (max-width: 800px) { .specs { grid-template-columns: 1fr 1fr; } .monitor .t3, .monitor .t4 { display: none; } }
+        @media (max-width: 480px) { .monitor .t2 { display: none; } .monitor .ring { width: 70px; height: 70px; } }
+
+        /* ---------------- 7 the archive ---------------- */
+        .archive { background: radial-gradient(ellipse 55% 60% at 80% 50%, rgba(255,59,78,.08), transparent 70%); }
+        .stamp { display: inline-block; font-family: var(--pixel); font-size: .74rem; letter-spacing: 3px; color: var(--red); border: 2px solid var(--red); padding: 4px 10px 3px; transform: rotate(-2deg); margin-top: 18px; text-shadow: 0 0 10px rgba(255,59,78,.6); box-shadow: 0 0 14px rgba(255,59,78,.25); }
+        .files { display: grid; grid-template-columns: 300px 1fr; gap: 26px; margin-top: 44px; }
+        .list { border: 1px solid rgba(255,59,78,.3); background: rgba(14,8,20,.8); max-height: 640px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: var(--red) transparent; }
+        .list .grp { font-family: var(--pixel); font-size: .64rem; letter-spacing: 2px; color: var(--faint); text-transform: uppercase; padding: 12px 14px 6px; }
+        .list button { display: flex; align-items: center; gap: 12px; width: 100%; text-align: left; background: none; border: 0; border-top: 1px solid rgba(255,255,255,.05); color: var(--dim); padding: 9px 14px; cursor: pointer; font: inherit; transition: background .2s, color .2s; }
+        .list button:hover { background: rgba(255,59,78,.08); color: #fff; }
+        .list button[aria-selected="true"] { background: rgba(255,59,78,.16); color: #fff; box-shadow: inset 3px 0 0 var(--red); }
+        .list button img { width: 38px; height: 38px; object-fit: contain; flex: none; background: #000; border: 1px solid rgba(255,255,255,.08); }
+        .list button b { display: block; font-family: var(--display); font-weight: 800; font-size: .8rem; letter-spacing: 1.5px; text-transform: uppercase; }
+        .list button span { display: block; font-family: var(--pixel); font-size: .6rem; letter-spacing: 1px; color: var(--faint); }
+        .dossier { position: relative; border: 1px solid rgba(255,59,78,.35); background: linear-gradient(165deg, rgba(30,10,24,.9), rgba(8,6,16,.95)); padding: 26px; display: grid; grid-template-columns: 280px 1fr; gap: 28px; align-content: start; }
+        .dossier::before { content: "CLASSIFIED"; position: absolute; right: 18px; top: 16px; font-family: var(--pixel); font-size: .7rem; letter-spacing: 3px; color: rgba(255,59,78,.55); }
+        .dossier .img { position: relative; background: #000; border: 1px solid rgba(255,59,78,.35); aspect-ratio: 14 / 15; display: grid; place-items: center; overflow: hidden; }
+        .dossier .img img { width: 100%; height: 100%; object-fit: cover; }
+        .dossier .img img.small { width: 52%; height: auto; object-fit: contain; }
+        .dossier .img::after { content: ""; position: absolute; inset: 0; background: linear-gradient(transparent 50%, rgba(255,59,78,.06) 50%) 0 0 / 100% 4px; pointer-events: none; }
+        .dossier .scan { position: absolute; left: 0; right: 0; height: 30%; background: linear-gradient(180deg, transparent, rgba(255,59,78,.18), transparent); animation: scan 3s linear infinite; pointer-events: none; }
+        @keyframes scan { from { top: -30%; } to { top: 100%; } }
+        .dossier .code { font-family: var(--pixel); font-size: .72rem; letter-spacing: 2px; color: var(--red); }
+        .dossier h3 { font-family: var(--display); font-weight: 900; font-size: clamp(1.6rem, 3.4vw, 2.3rem); letter-spacing: 2px; color: #fff; text-transform: uppercase; line-height: 1.05; margin-top: 6px; }
+        .dossier .where { font-family: var(--pixel); font-size: .7rem; letter-spacing: 1.5px; color: var(--dim); text-transform: uppercase; margin-top: 8px; }
+        .threat { display: flex; align-items: center; gap: 12px; margin-top: 18px; }
+        .threat span { font-family: var(--pixel); font-size: .66rem; letter-spacing: 1.5px; color: var(--dim); text-transform: uppercase; }
+        .threat .bars { display: flex; gap: 3px; }
+        .threat .bars i { width: 12px; height: 16px; background: rgba(255,255,255,.08); transform: skewX(-12deg); }
+        .threat .bars i.on { background: linear-gradient(var(--orange), var(--red)); box-shadow: 0 0 8px rgba(255,59,78,.7); }
+        .threat b { font-family: var(--display); font-weight: 800; font-size: .92rem; color: var(--red); }
+        .dossier .desc { color: #d3d9f0; margin-top: 16px; }
+        .intel { margin-top: 16px; display: grid; gap: 8px; }
+        .intel div { display: grid; grid-template-columns: 104px 1fr; gap: 12px; font-size: .96rem; padding-top: 8px; border-top: 1px dashed rgba(255,59,78,.25); }
+        .intel dt { font-family: var(--pixel); font-size: .64rem; letter-spacing: 1.5px; color: var(--red); text-transform: uppercase; padding-top: 3px; }
+        .intel dd { color: #fff; }
+        @media (max-width: 1000px) { .files { grid-template-columns: 1fr; } .list { max-height: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); } .list .grp { grid-column: 1 / -1; } }
+        @media (max-width: 700px) { .dossier { grid-template-columns: 1fr; padding: 20px; } .dossier .img { max-width: 300px; } .dossier::before { top: 10px; right: 12px; } }
+
+        /* ---------------- 8 play ---------------- */
+        .play-sec { background: linear-gradient(180deg, transparent, rgba(8,16,42,.75) 25%, rgba(8,16,42,.75) 75%, transparent); }
+        .play-sec .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; margin-top: 44px; }
+        .play-sec .grid > *, .db > *, .files > *, .story .grid > * { min-width: 0; }
+        @media (max-width: 480px) { .box { padding: 20px 16px; } .keys thead { display: none; } .keys tr { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 12px; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,.06); }
+            .keys td { border: 0; padding: 0; font-size: .94rem; } .keys td:first-child { grid-column: 1 / -1; }
+            .keys td[data-l]::before { content: attr(data-l); display: block; font-family: var(--pixel); font-size: .6rem; letter-spacing: 1.5px; color: var(--dim); text-transform: uppercase; } kbd { padding: 1px 4px; } }
+        .box { border: 1px solid var(--line); background: rgba(4,5,13,.75); padding: 26px; }
+        .flag { display: inline-block; font-family: var(--pixel); font-weight: 700; font-size: .82rem; letter-spacing: 2.5px; color: #fff; background: var(--red); padding: 5px 12px 4px; box-shadow: 0 0 18px rgba(255,59,78,.5); }
+        .box h3 { font-family: var(--display); font-weight: 900; font-size: 1.3rem; letter-spacing: 1.5px; color: #fff; text-transform: uppercase; margin-top: 16px; line-height: 1.2; }
+        .box p { color: #c4cdee; margin-top: 12px; }
+        .box ul { list-style: none; margin-top: 14px; display: grid; gap: 8px; }
+        .box li { padding-left: 20px; position: relative; color: #c4cdee; }
+        .box li::before { content: ""; position: absolute; left: 2px; top: .62em; width: 8px; height: 8px; background: var(--cyan); transform: rotate(45deg); box-shadow: 0 0 8px var(--cyan); }
+        .keys { width: 100%; border-collapse: collapse; margin-top: 14px; font-size: .98rem; }
+        .keys th { font-family: var(--pixel); font-weight: 400; font-size: .64rem; letter-spacing: 1.5px; color: var(--dim); text-transform: uppercase; text-align: left; padding: 6px 8px 6px 0; border-bottom: 1px solid var(--line); }
+        .keys td { padding: 9px 8px 9px 0; border-bottom: 1px solid rgba(255,255,255,.06); vertical-align: top; color: #c4cdee; }
+        .keys td:first-child { color: #fff; font-weight: 600; white-space: nowrap; }
+        kbd { font-family: var(--pixel); font-size: .7rem; color: var(--cyan); border: 1px solid var(--line2); border-bottom-width: 2px; padding: 1px 6px; margin: 0 1px; white-space: nowrap; }
+        @media (max-width: 900px) { .play-sec .grid { grid-template-columns: 1fr; } }
+
+        /* ---------------- 9 the call ---------------- */
+        .cta { min-height: 82vh; display: flex; align-items: center; overflow: hidden; isolation: isolate; text-align: center; }
+        .cta .bg { position: absolute; inset: 0; z-index: -3; background: url(img/fight10.png) 70% 50% / cover; filter: saturate(1.2) brightness(.5); image-rendering: pixelated; }
+        .cta .bg2 { position: absolute; inset: 0; z-index: -2; background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(4,5,13,.35), rgba(4,5,13,.92) 75%), linear-gradient(180deg, var(--void), transparent 25%, transparent 75%, var(--void)); }
+        .cta .fly { position: absolute; z-index: -1; left: -12%; top: 58%; width: 120px; height: auto; image-rendering: pixelated; filter: drop-shadow(0 0 16px rgba(57,230,255,.6)); animation: fly 9s ease-in-out infinite; }
+        .cta .fly::after { content: ""; }
+        @keyframes fly { 0% { transform: translate(0, 0); opacity: 0; } 8% { opacity: 1; } 60% { transform: translate(62vw, -18vh) scale(.8); opacity: 1; } 75% { transform: translate(78vw, -24vh) scale(.6); opacity: 0; } 100% { transform: translate(78vw, -24vh) scale(.6); opacity: 0; } }
+        .cta .h2 { font-size: clamp(2.2rem, 7vw, 5rem); text-shadow: 0 0 40px rgba(57,230,255,.35); }
+        .cta .lede { margin: 18px auto 0; color: #dfe6ff; font-size: clamp(1.1rem, 2.4vw, 1.4rem); }
+        .cta .btn { margin-top: 38px; font-size: 1.05rem; padding: 20px 40px 19px; animation: pulse 2.4s ease-in-out infinite; }
+        @keyframes pulse { 50% { box-shadow: 0 0 0 1px var(--c), 0 0 60px rgba(255,138,42,.8); } }
+
+        /* ---------------- the footer ---------------- */
+        footer { border-top: 1px solid var(--line); background: #03040a; padding: 46px 0 40px; color: var(--dim); font-size: .95rem; }
+        footer .banner { font-family: var(--display); font-weight: 900; font-size: 1.3rem; letter-spacing: 5px; color: #fff; }
+        footer .banner span { color: var(--orange); }
+        footer .row { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 14px; }
+        footer a { color: var(--cyan); text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+        footer .crosslinks { margin-top: 22px; display: grid; gap: 6px; font-size: .92rem; }
+        footer .crosslinks b { color: #c4cdee; }
+        footer .copy { margin-top: 22px; color: #c4cdee; }
+        footer .legal { margin-top: 8px; font-size: .84rem; color: var(--faint); max-width: 60em; }
+
+        /* ---------------- the viewer (pictures and the trailer) ---------------- */
+        .viewer { position: fixed; inset: 0; z-index: 100; display: none; align-items: center; justify-content: center; padding: 20px; background: rgba(2,3,8,.94); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+        .viewer.open { display: flex; }
+        .viewer figure { position: relative; width: min(1100px, 100%); }
+        .viewer .frame { padding: 12px; }
+        .viewer img { width: 100%; height: auto; }
+        .viewer figcaption { display: flex; justify-content: space-between; gap: 14px; flex-wrap: wrap; font-family: var(--pixel); font-size: .74rem; letter-spacing: 1.5px; color: var(--cyan); text-transform: uppercase; margin-top: 14px; }
+        .viewer figcaption span { color: var(--dim); }
+        .viewer .bar { height: 3px; background: rgba(255,255,255,.08); margin-top: 10px; display: none; }
+        .viewer .bar i { display: block; height: 100%; width: 0; background: var(--cyan); box-shadow: 0 0 10px var(--cyan); }
+        .viewer.trailer .bar { display: block; }
+        .viewer .ctl { position: absolute; top: 14px; right: 14px; display: flex; gap: 8px; }
+        .viewer button.x { font-family: var(--pixel); font-size: .74rem; letter-spacing: 1.5px; color: var(--cyan); background: rgba(4,5,13,.8); border: 1px solid var(--line2); padding: 8px 12px 7px; cursor: pointer; }
+        .viewer button.x:hover { background: rgba(57,230,255,.15); }
+        .viewer .nav { position: absolute; top: 50%; transform: translateY(-50%); width: 46px; height: 64px; background: rgba(4,5,13,.7); border: 1px solid var(--line2); color: var(--cyan); font-size: 1.6rem; cursor: pointer; }
+        .viewer .prev { left: 10px; } .viewer .next { right: 10px; }
+
+        /* the reveal as a section comes into view */
+        .js .rv { opacity: 0; transform: translateY(28px); transition: opacity .8s ease, transform .8s ease; }
+        .js .rv.in { opacity: 1; transform: none; }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            *, *::before, *::after { animation: none !important; transition: none !important; }
+            .js .rv { opacity: 1; transform: none; }
+            .laser, .cta .fly { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="top" id="top">
+    <div class="wrap">
+        <a class="brand" href="#hero">TENTH <span>SUN</span></a>
+        <nav aria-label="Sections">
+            <a href="#story">Story</a>
+            <a href="#features">Features</a>
+            <a href="#arsenal">Arsenal</a>
+            <a href="#stages">Stages</a>
+            <a href="#gameplay">Gameplay</a>
+            <a href="#archive">Archive</a>
+            <a href="#play">Play</a>
+        </nav>
+        <span class="chip">APPLE IIgs</span>
+    </div>
+</header>
+
+<main>
+
+<!-- 1 the hero -->
+<section class="hero" id="hero">
+    <div class="art" id="heroArt" role="img" aria-label="The title picture: a silver fighter with a glowing engine races toward a giant biomechanical skull creature, a red sun setting over a ruined city"></div>
+    <div class="shade"></div>
+    <canvas id="stars" aria-hidden="true"></canvas>
+    <i class="laser" style="top: 30%; width: 180px; --d: 4.2s;"></i>
+    <i class="laser" style="top: 52%; width: 120px; --d: 3.6s; --w: 1.4s; --c: var(--orange);"></i>
+    <i class="laser" style="top: 71%; width: 220px; --d: 5s; --w: 2.6s;"></i>
+    <div class="wrap">
+        <p class="status" aria-label="System online, pilot authorization required"><span id="typed"></span><span class="cur"></span></p>
+        <h1><span class="big">Tenth Sun</span><span class="sub">Beyond the Void</span></h1>
+        <p class="tagline">Humanity&rsquo;s last hope lies beyond the edge of space.</p>
+        <div class="actions">
+            <a class="btn" href="#play">
+                <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1.5v13l11-6.5z" fill="currentColor"/></svg>Play now</a>
+            <a class="btn ghost" href="#stages">Explore the universe</a>
+        </div>
+        <p class="note">A shoot &rsquo;em up for the <b>Apple IIgs</b> &middot; in development</p>
+    </div>
+    <a class="scroll" href="#story">SCROLL</a>
+</section>
+
+<div class="readout">
+    <div class="wrap">
+        <div class="grid">
+            <div class="cell"><b>10</b><span>Stages to fight through</span></div>
+            <div class="cell"><b>10</b><span>Bosses, each its own fight</span></div>
+            <div class="cell"><b>30 fps</b><span>On a stock 2.8 MHz IIgs</span></div>
+            <div class="cell"><b>65816</b><span>Every line in assembly</span></div>
+        </div>
+    </div>
+</div>
+
+<!-- 2 the story -->
+<section class="story pad" id="story">
+    <div class="wrap grid">
+        <div class="copy rv">
+            <p class="kicker">Briefing // 001</p>
+            <h2 class="h2">The galaxy is <em>at war</em></h2>
+            <p class="big">An ancient alien threat has returned. Entire civilizations have vanished, and humanity&rsquo;s last defense is a single experimental combat fighter.</p>
+            <p>Take control, master devastating weapons, and fight your way through the unknown: from a space station at dusk, past red fortresses, ice fields and a toxic marsh, through the void and into the core, where the last of them waits.</p>
+            <div class="facts">
+                <span>Horizontal scrolling</span><span>Parallax skies</span><span>Weather on every world</span><span>Ensoniq music</span>
+            </div>
+        </div>
+        <div class="shot frame rv">
+            <span class="tag t1">Sector 08 // The fire mountain</span>
+            <img class="px" src="img/stage08.png" width="960" height="600" alt="Stage 8, the fire mountain: the fighter with its pod flies through a red sky between molten rock, dodging enemy fire" loading="lazy">
+            <span class="tag red t2"><span class="dot"></span>Live from the game</span>
+        </div>
+    </div>
+</section>
+
+<!-- 3 the features -->
+<section class="features pad" id="features">
+    <div class="wrap">
+        <div class="rv">
+            <p class="kicker">Combat systems</p>
+            <h2 class="h2">Built for the <em>fight</em></h2>
+            <p class="lede">Classic arcade shooting in the tradition of the 1980s, on a machine that was never meant to scroll this smoothly.</p>
+        </div>
+        <div class="cards">
+            <article class="card c1 rv">
+                <div class="pic"><img class="px" src="img/weapon-blast.png" width="720" height="288" alt="The charged blast leaving the ship's nose as a long white-blue bolt" loading="lazy"><span class="num">01</span></div>
+                <div class="body">
+                    <h3>Advanced combat</h3>
+                    <p>Tap fire for single shots, or hold it to charge a blast that strikes five times as hard. Capsules drifting through every stage give you red, blue or yellow weapons.</p>
+                </div>
+            </article>
+            <article class="card c2 rv">
+                <div class="pic"><img class="px" src="img/weapon-yellow.png" width="720" height="288" alt="The pod on the ship's nose firing yellow shots straight up and straight down" loading="lazy"><span class="num">02</span></div>
+                <div class="body">
+                    <h3>The pod</h3>
+                    <p>An armoured pod docks on your nose or your tail and fires your weapon forward or backward. Send it ahead to hover as a shield, and call it back when you need it.</p>
+                </div>
+            </article>
+            <article class="card c3 rv">
+                <div class="pic"><img class="px" src="img/stage04.png" width="960" height="600" alt="Stage 4, the ice fields: a blue sky over frozen ground, the ship among enemies" loading="lazy"><span class="num">03</span></div>
+                <div class="body">
+                    <h3>Ten alien worlds</h3>
+                    <p>From the station at dusk to the core: ten stages, each with its own sky, terrain, colours and weather, and walls you will not survive flying into.</p>
+                </div>
+            </article>
+            <article class="card c4 rv">
+                <div class="pic"><img class="px" src="img/fight08.png" width="960" height="600" alt="The boss of stage 8, a horned mask with striking hands, fighting the ship" loading="lazy"><span class="num">04</span></div>
+                <div class="body">
+                    <h3>Epic boss battles</h3>
+                    <p>Ten bosses, each fighting its own way: claws that strike out, homing orbs, bouncing shots, rams and charges. Find the weak point and hit it while it is open.</p>
+                </div>
+            </article>
+        </div>
+    </div>
+</section>
+
+<!-- 4 the arsenal -->
+<section class="arsenal pad" id="arsenal">
+    <div class="wrap">
+        <div class="rv">
+            <p class="kicker">Hangar database</p>
+            <h2 class="h2">Ship &amp; <em>arsenal</em></h2>
+            <p class="lede">One fighter, one pod, and everything they can fire. Pick a weapon to see it in action; every picture is a real screen from the game.</p>
+        </div>
+        <div class="db">
+            <div class="panel rv">
+                <div class="head"><span>Fighter</span><b>Ready</b></div>
+                <div class="ship">
+                    <div class="sprite"><img class="px" src="img/ship.png" width="192" height="96" alt="The player's fighter: a silver ship with a red stripe and a blue engine glow"></div>
+                    <h3>Tenth Sun fighter</h3>
+                    <p class="cls">Experimental fighter &middot; single seat</p>
+                    <div class="stats">
+                        <div class="stat"><span>Speed</span><b>60 pixels a second</b><i style="--v: 62%"></i></div>
+                        <div class="stat"><span>Firepower</span><b>4 weapons + blast</b><i style="--v: 80%"></i></div>
+                        <div class="stat"><span>Defense</span><b>3 ships</b><i style="--v: 45%"></i></div>
+                    </div>
+                    <p class="abil"><b>Special abilities:</b> the charged blast, the pod, and two seconds in which nothing can hurt you after you are hit.</p>
+                </div>
+            </div>
+            <div class="panel weap rv">
+                <div class="tabs" role="tablist" aria-label="Weapons">
+                    <button role="tab" aria-selected="true" data-w="0" style="--c: #dfe6ff">Shot</button>
+                    <button role="tab" aria-selected="false" data-w="1" style="--c: var(--red)">Red</button>
+                    <button role="tab" aria-selected="false" data-w="2" style="--c: var(--blue)">Blue</button>
+                    <button role="tab" aria-selected="false" data-w="3" style="--c: var(--gold)">Yellow</button>
+                    <button role="tab" aria-selected="false" data-w="4" style="--c: var(--cyan)">Blast</button>
+                    <button role="tab" aria-selected="false" data-w="5" style="--c: var(--orange)">Pod</button>
+                </div>
+                <div class="view" role="tabpanel">
+                    <div class="screen"><span class="tag" id="wTag">Weapon 01</span><img class="px" id="wImg" src="img/weapon-plain.png" width="720" height="288" alt=""></div>
+                    <div class="info">
+                        <div><h3 id="wName"></h3><p id="wText"></p></div>
+                        <dl>
+                            <dt>Pattern</dt><dd id="wPat"></dd>
+                            <dt>Per press</dt><dd id="wPips"></dd>
+                            <dt>Fired from</dt><dd id="wFrom"></dd>
+                            <dt>How to get</dt><dd id="wGet"></dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 5 the stages -->
+<section class="stages pad" id="stages">
+    <div class="wrap">
+        <div class="rv">
+            <p class="kicker">Star chart</p>
+            <h2 class="h2">Explore the <em>universe</em></h2>
+            <p class="lede">Ten stages, from the edge of human space to the heart of the enemy. Each one is harder than the last, and each ends with a boss. Click a stage for the full screen.</p>
+        </div>
+        <div class="grid" id="stageGrid"></div>
+    </div>
+</section>
+
+<!-- 6 the gameplay -->
+<section class="show pad" id="gameplay">
+    <div class="bg" aria-hidden="true"></div><div class="bg2" aria-hidden="true"></div>
+    <div class="wrap">
+        <div class="head rv">
+            <p class="kicker">Combat footage</p>
+            <h2 class="h2">See it <em>in action</em></h2>
+            <p class="lede">Super Hi-Res at 320 &times; 200, smooth scrolling at 30 frames a second, up to 16 objects on the screen, and music played on the IIgs&rsquo;s own Ensoniq chip.</p>
+        </div>
+        <div class="monitor rv">
+            <div class="frame">
+                <img class="px" src="img/fight04.png" width="960" height="600" alt="Stage 4's boss, a dragon with a segmented tail, fighting the ship over the ice fields" loading="lazy">
+            </div>
+            <span class="tag t1"><span class="dot"></span>Rec</span>
+            <span class="tag t2">Stage 04 // Dragon</span>
+            <span class="tag t3">320 &times; 200 &middot; 16 colours a line</span>
+            <span class="tag t4">30 fps</span>
+            <button class="play" id="trailerBtn" type="button" aria-label="Play the trailer: a slideshow of screens from the game">
+                <span class="ring"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1.5v13l11-6.5z"/></svg></span>
+                <b>PLAY TRAILER</b>
+                <small>A slideshow of real screens &middot; the video is still to come</small>
+            </button>
+        </div>
+        <div class="specs rv">
+            <div><b>Smooth scrolling</b><span>Every byte of the screen redrawn only where it changes</span></div>
+            <div><b>Parallax</b><span>Far mountains and skylines move slower than the walls</span></div>
+            <div><b>Compiled sprites</b><span>Each picture is its own piece of machine code</span></div>
+            <div><b>No interrupts</b><span>Timed by the screen&rsquo;s own beam, line by line</span></div>
+        </div>
+    </div>
+</section>
+
+<!-- 7 the archive -->
+<section class="archive pad" id="archive">
+    <div class="wrap">
+        <div class="rv">
+            <p class="kicker" style="color: var(--red);">Intelligence division</p>
+            <h2 class="h2">Enemy <em>database</em></h2>
+            <p class="lede">What we know about the enemy, from the pilots who came back. Bosses can only be hurt in one place, and only while it is open. Below half their strength, the later ones fire twice as fast.</p>
+            <span class="stamp">Top secret // Eyes only</span>
+        </div>
+        <div class="files rv">
+            <div class="list" id="foeList" role="tablist" aria-label="Enemies"></div>
+            <article class="dossier" id="dossier" role="tabpanel" aria-live="polite">
+                <div class="img"><img id="dImg" class="px" src="img/boss01.png" alt=""><div class="scan"></div></div>
+                <div>
+                    <p class="code" id="dCode"></p>
+                    <h3 id="dName"></h3>
+                    <p class="where" id="dWhere"></p>
+                    <div class="threat"><span>Threat</span><div class="bars" id="dBars"></div><b id="dLevel"></b></div>
+                    <p class="desc" id="dDesc"></p>
+                    <dl class="intel" id="dIntel"></dl>
+                </div>
+            </article>
+        </div>
+    </div>
+</section>
+
+<!-- 8 play -->
+<section class="play-sec pad" id="play">
+    <div class="wrap">
+        <div class="rv">
+            <p class="kicker">Pilot authorization</p>
+            <h2 class="h2">Ready for <em>launch</em></h2>
+            <p class="lede">Tenth Sun is being built for the real machine: a stock Apple IIgs, with nothing added but memory.</p>
+        </div>
+        <div class="grid">
+            <div class="box rv">
+                <span class="flag">IN DEVELOPMENT</span>
+                <h3>All ten stages and all ten bosses are in</h3>
+                <p>The game can be played from beginning to end. What is still being worked on: the balance of the boss fights, an ending, and the best score kept on the disk.</p>
+                <ul>
+                    <li>Apple IIgs at 2.8 MHz, with 1 MB of memory</li>
+                    <li>Boots from its own ProDOS disk; no GS/OS needed</li>
+                    <li>Tested in the MAME emulator (with 1 MB) and in <a href="../EmuBuddy/">EmuBuddy</a></li>
+                    <li>Keyboard or joystick</li>
+                </ul>
+            </div>
+            <div class="box rv">
+                <h3 style="margin-top: 0;">Flight controls</h3>
+                <table class="keys">
+                    <thead><tr><th>Action</th><th>Keyboard</th><th>Joystick</th></tr></thead>
+                    <tbody>
+                        <tr><td>Fly</td><td data-l="Keyboard"><kbd>&larr;</kbd><kbd>&uarr;</kbd><kbd>&rarr;</kbd><kbd>&darr;</kbd> or <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd>; <kbd>Q</kbd><kbd>E</kbd><kbd>Z</kbd><kbd>C</kbd> diagonal</td><td data-l="Joystick">The stick, all eight ways</td></tr>
+                        <tr><td>Fire</td><td data-l="Keyboard"><kbd>Space</kbd> or <kbd>&#8984;</kbd> (Apple)</td><td data-l="Joystick">Button 0</td></tr>
+                        <tr><td>Charged blast</td><td data-l="Keyboard">Hold fire, let go</td><td data-l="Joystick">Hold button 0, let go</td></tr>
+                        <tr><td>Pod out / back</td><td data-l="Keyboard"><kbd>F</kbd> or <kbd>&#8997;</kbd> (Option)</td><td data-l="Joystick">Button 1</td></tr>
+                        <tr><td>Pause</td><td data-l="Keyboard"><kbd>P</kbd></td><td data-l="Joystick">&ndash;</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 9 the call -->
+<section class="cta pad" id="join">
+    <div class="bg" aria-hidden="true"></div><div class="bg2" aria-hidden="true"></div>
+    <img class="fly" src="img/ship.png" width="96" height="48" alt="" aria-hidden="true">
+    <div class="wrap rv">
+        <p class="kicker" style="justify-content: center;">Transmission ends</p>
+        <h2 class="h2">The void is <em>calling.</em></h2>
+        <p class="lede">Suit up, pilot. The future of humanity depends on you.</p>
+        <a class="btn hot" href="#play">Join the fight</a>
+    </div>
+</section>
+
+</main>
+
+<footer>
+    <div class="wrap">
+        <div class="banner">TENTH <span>SUN</span></div>
+        <div class="row">
+            <a href="../">More projects</a>
+            <a href="../Conquer3/">Conquer 3: Sandstorm, real-time strategy for the IIgs</a>
+        </div>
+        <div class="crosslinks">
+            <p><b>Apple IIgs:</b> <a href="../Conquer3/">Conquer 3</a> &middot; <a href="../Conquer-GS/">Conquer GS</a> &middot; <a href="../GTApple/">Grand Theft Apple</a> &middot; <a href="../Terra%20Incognita/">Terra Incognita</a> &middot; <a href="../Gaivota/">GAIVOTA</a> &middot; <a href="../Theos/">Theos</a> &middot; <a href="../Hyperhaul/">Hyperhaul</a> &middot; <a href="../GSCommander/">GS Commander</a> &middot; <a href="../GSLauncher/">GSLauncher</a> &middot; <a href="../MegaconvertGS/">MegaconvertGS</a> &middot; <a href="../TileTown/">TileTown</a> &middot; <a href="../TileTown%202/">TileTown 2</a></p>
+            <p><b>Apple II tools for the Mac:</b> <a href="../EmuBuddy/">EmuBuddy</a> &middot; <a href="../Demos/">IIgs Demos</a> &middot; <a href="../GSRemap/">GS Remap</a> &middot; <a href="../RetroBrowse/">RetroBrowse</a> &middot; <a href="../AppleIIASCIIArt/">1977 ASCII Art</a></p>
+            <p><b>More retro:</b> <a href="../RetroGraphicsConverter/">Retro Graphics Converter</a> &middot; <a href="../Bitpast/">BitPast</a> &middot; <a href="../RetroTube/">Retro Tube</a> &middot; <a href="../RetroTV/">Retro TV</a> &middot; <a href="../Retro%20Computing/">1977: all retro tools</a></p>
+        </div>
+        <p class="copy">&copy; 2026 Walter Tengler</p>
+        <p class="legal">Tenth Sun is an independent game in development. Its code, ships, enemies, worlds and music are original. Apple IIgs is a trademark of Apple Inc.</p>
+    </div>
+</footer>
+
+<div class="viewer" id="viewer" role="dialog" aria-modal="true" aria-label="Screen viewer">
+    <figure>
+        <div class="frame"><img class="px" id="vImg" alt=""></div>
+        <button class="nav prev" id="vPrev" type="button" aria-label="Previous screen">&lsaquo;</button>
+        <button class="nav next" id="vNext" type="button" aria-label="Next screen">&rsaquo;</button>
+        <figcaption><b id="vCap"></b><span id="vCount"></span></figcaption>
+        <div class="bar"><i id="vBar"></i></div>
+    </figure>
+    <div class="ctl"><button class="x" id="vClose" type="button">CLOSE &times;</button></div>
+</div>
+
+<script>
+(function () {
+    'use strict';
+    document.documentElement.classList.add('js');
+    var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function $(id) { return document.getElementById(id); }
+    function pad(n) { return (n < 10 ? '0' : '') + n; }
+
+    /* ---- the game's facts ---- */
+    var STAGES = ['The station at dusk', 'The deep sector', 'The red fortress', 'The ice fields', 'The golden dunes',
+                  'The toxic marsh', 'The night city', 'The fire mountain', 'The void', 'The core'];
+    var WEAPONS = [
+        { name: 'Shot', img: 'weapon-plain', n: 1, pat: 'Straight ahead', from: 'The ship, and the pod',
+          get: 'Always ready', alt: 'The ship and its pod firing single blue shots straight ahead',
+          text: 'One shot each time you press fire. Quick and reliable: keep tapping and the screen fills with it.' },
+        { name: 'Red', img: 'weapon-red', n: 2, pat: 'Two heavy shots, forward', from: 'The pod, docked on the ship',
+          get: 'Red capsule', alt: 'Two pairs of red and white heavy shots leaving the pod',
+          text: 'Two heavy shots side by side, straight down the line, each one hurting twice as much as a plain shot. The one for armour.' },
+        { name: 'Blue', img: 'weapon-blue', n: 2, pat: 'Two shots on the diagonal', from: 'The pod, docked on the ship',
+          get: 'Blue capsule', alt: 'Two blue shots flying away from the pod at an angle, one up and one down',
+          text: 'Two shots fanning out at an angle, one up and one down. Catches what comes at you from above and below.' },
+        { name: 'Yellow', img: 'weapon-yellow', n: 2, pat: 'One straight up, one straight down', from: 'The pod, docked on the ship',
+          get: 'Yellow capsule', alt: 'Yellow shots rising and falling vertically from the pod',
+          text: 'One shot straight up and one straight down, for the guns on the ceiling and the floor while you fly past.' },
+        { name: 'Charged blast', img: 'weapon-blast', n: 1, pat: 'A long bolt, straight ahead', from: 'The ship',
+          get: 'Hold fire for 2/3 of a second, then let go', alt: 'A long white-blue charged bolt leaving the ship',
+          text: 'Hold fire and watch the PWR bar fill; let go and a bolt leaves the ship that strikes five times as hard as a shot.' },
+        { name: 'The pod', img: 'weapon-yellow', n: 0, pat: 'Docks on the nose or the tail', from: 'Your weapon, forward or backward',
+          get: 'Press F, Option or button 1', alt: 'The pod docked on the ship’s nose, firing the yellow weapon',
+          text: 'On the nose it fires your weapon forward; on the tail, backward. Sent off, it hovers at your height, stops enemy shots, and fires a plain shot each time you do. Press again to call it back.' }
+    ];
+    var FOES = [
+        { name: 'Drone', code: 'XD-1 // Drone', img: 'drone.png', small: true, t: 1, where: 'Every stage',
+          desc: 'The enemy’s most common craft. It weaves up and down as it comes, often in long lines.',
+          intel: [['Moves', 'Weaves up and down'], ['Armour', 'One hit'], ['Bounty', '100 points']] },
+        { name: 'Dart', code: 'XA-2 // Dart', img: 'dart.png', small: true, t: 2, where: 'Every stage',
+          desc: 'A fast interceptor that turns toward your line and tries to ram you.',
+          intel: [['Moves', 'Makes for your line'], ['Armour', 'Two hits'], ['Bounty', '150 points']] },
+        { name: 'Gunner', code: 'XG-3 // Gunner', img: 'gunner.png', small: true, t: 3, where: 'More of them in every stage',
+          desc: 'A drone armed with a gun. Every so often it fires at your side of the screen, and its shots get faster in the later stages.',
+          intel: [['Moves', 'Weaves up and down'], ['Attack', 'Shots aimed at you'], ['Armour', 'Two hits'], ['Bounty', '200 points']] },
+        { name: 'Skull', b: 1, moves: 'Drifts up and down, lunges at you now and then', mouth: 'Aimed shots', special: 'A three-way shot from its sting' },
+        { name: 'Crab', b: 2, moves: 'Drifts, lunges now and then', mouth: 'Aimed shots', special: 'Both claws shoot out toward you and snap back' },
+        { name: 'Sentinel', b: 3, moves: 'Follows your height', mouth: 'Straight bursts of four', special: 'None: the bursts never stop' },
+        { name: 'Dragon', b: 4, moves: 'Weaves forward and back', mouth: 'A sweeping fan', special: 'A three-way shot from its tail' },
+        { name: 'Jelly', b: 5, moves: 'Bounces around its half of the screen', mouth: 'Aimed shots', special: 'Three shots that bounce off the floor and the ceiling' },
+        { name: 'Warship', b: 6, moves: 'Drifts fast, rams across the screen', mouth: 'Straight bursts', special: 'A wall of three shots from its turrets' },
+        { name: 'Wasp', b: 7, moves: 'Follows your height fast, charges at you', mouth: 'Aimed shots', special: 'A three-way shot from its sting', rage: true },
+        { name: 'Mask', b: 8, moves: 'Slides off the screen and comes back at your height', mouth: 'Rapid aimed shots', special: 'Two slow homing orbs, and its hands strike out', rage: true },
+        { name: 'Crystal', b: 9, moves: 'Bounces fast', mouth: 'A rapid fan', special: 'Shots that bounce off the floor and the ceiling', rage: true },
+        { name: 'Heart', b: 10, moves: 'Follows your height fast, lunges', mouth: 'Aimed bursts', special: 'Homing orbs, and its talons strike out', rage: true }
+    ];
+    var BOSSTEXT = {
+        1: 'The guardian of the first station. Slow, but it does not leave much room.',
+        2: 'Its claws shoot out toward you and snap back. Stay out of their line when they open.',
+        3: 'It does not chase you, it mirrors you. Wherever you fly, it is already level with you.',
+        4: 'A long creature that never stops moving. Its tail is as dangerous as its mouth.',
+        5: 'It bounces around its half of the screen, and its shots bounce too.',
+        6: 'A battleship with turrets on its hull. Every few seconds it rams.',
+        7: 'Fast and aggressive. When it charges, get out of the way.',
+        8: 'It vanishes off the screen and comes back right in front of you.',
+        9: 'Its shots ricochet off the floor and the ceiling. There is no safe height.',
+        10: 'The heart of the enemy, in the core of its world, and the most dangerous of them all.'
+    };
+
+    /* ---- the hero: the status line types itself; the stars; parallax ---- */
+    var line = 'SYSTEM ONLINE // PILOT AUTHORIZATION REQUIRED', typed = $('typed');
+    if (still) typed.textContent = line;
+    else { var k = 0; (function type() { typed.textContent = line.slice(0, ++k); if (k < line.length) setTimeout(type, 38 + Math.random() * 40); })(); }
+
+    var cv = $('stars'), ctx = cv.getContext('2d'), stars = [], W = 0, H = 0, mx = 0, my = 0, dpr = Math.min(window.devicePixelRatio || 1, 2);
+    function size() {
+        W = cv.clientWidth; H = cv.clientHeight; cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        stars = [];
+        var n = Math.round(W * H / 5200);
+        for (var i = 0; i < n; i++) stars.push({ x: Math.random() * W, y: Math.random() * H, z: Math.random() * .9 + .1, t: Math.random() * 6 });
+    }
+    function draw(dt) {
+        ctx.clearRect(0, 0, W, H);
+        for (var i = 0; i < stars.length; i++) {
+            var s = stars[i];
+            s.x -= s.z * s.z * 70 * dt;
+            if (s.x < -4) { s.x = W + 4; s.y = Math.random() * H; }
+            s.t += dt * 2;
+            var a = (.35 + .65 * s.z) * (.75 + .25 * Math.sin(s.t)), x = s.x + mx * s.z * 18, y = s.y + my * s.z * 12, r = s.z * 1.6;
+            ctx.fillStyle = s.z > .8 ? 'rgba(120,235,255,' + a + ')' : 'rgba(220,230,255,' + a + ')';
+            if (s.z > .85) { ctx.fillRect(x, y, r * 6, r * .7); } else { ctx.fillRect(x, y, r, r); }
+        }
+    }
+    size();
+    window.addEventListener('resize', size);
+    var art = $('heroArt'), last = 0, heroOn = true;
+    if (!still) {
+        window.addEventListener('mousemove', function (e) { mx = e.clientX / window.innerWidth - .5; my = e.clientY / window.innerHeight - .5; });
+        if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { heroOn = es[0].isIntersecting; }).observe($('hero'));
+        (function frame(t) {
+            var dt = Math.min((t - last) / 1000, .05); last = t;
+            if (heroOn) {
+                draw(dt);
+                var sy = window.scrollY;
+                art.style.transform = 'translate3d(' + (-mx * 22) + 'px,' + (-my * 14 + sy * .25) + 'px,0) scale(1.04)';
+            }
+            requestAnimationFrame(frame);
+        })(0);
+    } else draw(0);
+
+    /* ---- the bar on top: solid once the page scrolls ---- */
+    var top = $('top');
+    function bar() { top.classList.toggle('solid', window.scrollY > 40); }
+    window.addEventListener('scroll', bar, { passive: true }); bar();
+
+    /* ---- the weapons ---- */
+    var tabs = [].slice.call(document.querySelectorAll('.weap .tabs button'));
+    function weapon(i) {
+        var w = WEAPONS[i];
+        tabs.forEach(function (b, j) { b.setAttribute('aria-selected', j === i ? 'true' : 'false'); b.tabIndex = j === i ? 0 : -1; });
+        var img = $('wImg');
+        img.style.opacity = 0;
+        setTimeout(function () { img.src = 'img/' + w.img + '.png'; img.alt = w.alt; img.style.opacity = 1; }, still ? 0 : 160);
+        $('wTag').textContent = i === 5 ? 'Support unit' : 'Weapon ' + pad(i + 1);
+        $('wName').textContent = w.name; $('wText').textContent = w.text; $('wPat').textContent = w.pat;
+        $('wFrom').textContent = w.from; $('wGet').textContent = w.get;
+        var p = '';
+        if (w.n === 0) p = 'Your weapon’s';
+        else { p = '<span class="pips" aria-label="' + w.n + ' shots">'; for (var k = 0; k < 2; k++) p += '<i class="' + (k < w.n ? 'on' : '') + '"></i>'; p += '</span> ' + w.n + (w.n === 1 ? ' shot' : ' shots'); }
+        $('wPips').innerHTML = p;
+    }
+    tabs.forEach(function (b, i) {
+        b.addEventListener('click', function () { weapon(i); });
+        b.addEventListener('keydown', function (e) {
+            var d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+            if (d) { var j = (i + d + tabs.length) % tabs.length; weapon(j); tabs[j].focus(); e.preventDefault(); }
+        });
+    });
+    weapon(0);
+
+    /* ---- the viewer: one screen, or the trailer (all of them, one after another) ---- */
+    var SHOTS = [];
+    STAGES.forEach(function (s, i) {
+        SHOTS.push({ src: 'img/stage' + pad(i + 1) + '.png', cap: 'Stage ' + pad(i + 1) + ' // ' + s, alt: 'Stage ' + (i + 1) + ', ' + s.toLowerCase() + ': the ship flying through the level' });
+        SHOTS.push({ src: 'img/fight' + pad(i + 1) + '.png', cap: 'Stage ' + pad(i + 1) + ' // Boss: ' + FOES[i + 3].name, alt: 'The boss of stage ' + (i + 1) + ', the ' + FOES[i + 3].name.toLowerCase() + ', fighting the ship' });
+    });
+    var viewer = $('viewer'), at = 0, timer = null, t0 = 0, SLIDE = 2200, back = null;
+    function show(i) {
+        at = (i + SHOTS.length) % SHOTS.length;
+        var s = SHOTS[at];
+        $('vImg').src = s.src; $('vImg').alt = s.alt; $('vCap').textContent = s.cap; $('vCount').textContent = (at + 1) + ' / ' + SHOTS.length;
+        t0 = performance.now();
+    }
+    function tick() {
+        if (!timer) return;
+        var p = (performance.now() - t0) / SLIDE;
+        if (p >= 1) { show(at + 1); p = 0; }
+        $('vBar').style.width = (p * 100) + '%';
+        timer = requestAnimationFrame(tick);
+    }
+    function open(i, trailer) {
+        back = document.activeElement;
+        viewer.classList.add('open'); viewer.classList.toggle('trailer', !!trailer);
+        show(i); document.body.style.overflow = 'hidden'; $('vClose').focus();
+        if (trailer) timer = requestAnimationFrame(tick);
+    }
+    function close() {
+        viewer.classList.remove('open'); if (timer) cancelAnimationFrame(timer); timer = null;
+        document.body.style.overflow = ''; if (back) back.focus();
+    }
+    function step(d) { if (timer) { cancelAnimationFrame(timer); timer = null; viewer.classList.remove('trailer'); } show(at + d); }
+    $('vClose').addEventListener('click', close);
+    $('vPrev').addEventListener('click', function () { step(-1); });
+    $('vNext').addEventListener('click', function () { step(1); });
+    viewer.addEventListener('click', function (e) { if (e.target === viewer) close(); });
+    document.addEventListener('keydown', function (e) {
+        if (!viewer.classList.contains('open')) return;
+        if (e.key === 'Escape') close(); else if (e.key === 'ArrowRight') step(1); else if (e.key === 'ArrowLeft') step(-1);
+    });
+    $('trailerBtn').addEventListener('click', function () { open(0, true); });
+
+    /* ---- the stages ---- */
+    var grid = $('stageGrid');
+    STAGES.forEach(function (s, i) {
+        var b = document.createElement('button');
+        b.type = 'button'; b.className = 'stg rv';
+        b.setAttribute('aria-label', 'Stage ' + (i + 1) + ': ' + s + ' (show full screen)');
+        b.innerHTML = '<img class="px" src="img/stage' + pad(i + 1) + '-t.png" width="768" height="480" alt="" loading="lazy">' +
+            '<span class="cap"><b>STAGE ' + pad(i + 1) + '</b><span>' + s + '</span></span>';
+        b.addEventListener('click', function () { open(i * 2, false); });
+        grid.appendChild(b);
+    });
+
+    /* ---- the enemy archive ---- */
+    var list = $('foeList'), btns = [];
+    function group(t) { var g = document.createElement('div'); g.className = 'grp'; g.textContent = t; list.appendChild(g); }
+    FOES.forEach(function (f, i) {
+        if (i === 0) group('Fighters // 3 files');
+        if (i === 3) group('Bosses // 10 files');
+        if (f.b) {
+            f.img = 'boss' + pad(f.b) + '.png'; f.code = 'BX-' + pad(f.b) + ' // ' + f.name; f.t = f.b;
+            f.where = 'Stage ' + pad(f.b) + ' – ' + STAGES[f.b - 1];
+            f.desc = BOSSTEXT[f.b];
+            f.intel = [['Moves', f.moves], ['Main gun', f.mouth], ['Special', f.special]];
+            if (f.rage) f.intel.push(['Rage', 'Below half its strength, it fires twice as often']);
+            f.intel.push(['Weak point', 'One spot, hurt only while it is open']);
+        }
+        var b = document.createElement('button');
+        b.type = 'button'; b.setAttribute('role', 'tab'); b.setAttribute('aria-selected', 'false');
+        b.innerHTML = '<img class="px" src="img/' + f.img + '" alt="" loading="lazy"><span><b>' + f.name + '</b><span>' + (f.b ? 'Stage ' + pad(f.b) : 'Threat ' + pad(f.t)) + '</span></span>';
+        b.addEventListener('click', function () { foe(i); });
+        list.appendChild(b); btns.push(b);
+    });
+    function foe(i) {
+        var f = FOES[i];
+        btns.forEach(function (b, j) { b.setAttribute('aria-selected', j === i ? 'true' : 'false'); });
+        var img = $('dImg');
+        img.src = 'img/' + f.img; img.className = 'px' + (f.small ? ' small' : '');
+        img.alt = f.small ? 'The ' + f.name.toLowerCase() + ', a small enemy craft' : 'The ' + f.name.toLowerCase() + ', the boss of stage ' + f.b + ', in its fight';
+        $('dCode').textContent = f.code; $('dName').textContent = f.name; $('dWhere').textContent = f.where;
+        var bars = '';
+        for (var k = 1; k <= 10; k++) bars += '<i class="' + (k <= f.t ? 'on' : '') + '"></i>';
+        $('dBars').innerHTML = bars; $('dLevel').textContent = pad(f.t) + ' / 10';
+        $('dDesc').textContent = f.desc;
+        $('dIntel').innerHTML = f.intel.map(function (r) { return '<div><dt>' + r[0] + '</dt><dd>' + r[1] + '</dd></div>'; }).join('');
+    }
+    foe(3);
+
+    /* ---- the sections appear as they come into view ---- */
+    var rv = [].slice.call(document.querySelectorAll('.rv'));
+    if ('IntersectionObserver' in window && !still) {
+        var io = new IntersectionObserver(function (es) {
+            es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+        }, { rootMargin: '0px 0px -8% 0px' });
+        rv.forEach(function (el, i) { el.style.transitionDelay = (el.parentNode.classList.contains('cards') || el.parentNode.id === 'stageGrid' ? (i % 5) * 70 : 0) + 'ms'; io.observe(el); });
+    } else rv.forEach(function (el) { el.classList.add('in'); });
+})();
+</script>
+</body>
+</html>
