@@ -199,3 +199,16 @@ a{color:inherit}
         </div>
       </div>
 
+
+    <div style="border-top:4px double #2b1a10;padding:32px 0 56px;display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;font-size:15px">
+      <span>Boot the disk. Space = next scene, Esc = quit. No IIgs? Use <a href="../EmuBuddy/" style="color:#8a3412">EmuBuddy</a>.</span>
+      <span>&copy; 2026 Walter Tengler</span>
+    </div>
+  </div>
+</div>
+
+<script>
+document.querySelectorAll("[data-play]").forEach(function(a){a.addEventListener("click",function(){var v=document.querySelector("#"+a.dataset.play+" video");if(v){v.play();}});});
+</script>
+</body>
+</html>
