@@ -34,14 +34,14 @@ OTHER_APPS = [
     ("../Fugiu/", "Fugiu!"), ("../MegaconvertGS/", "MegaconvertGS"), ("../Pibup/", "PIBUP"),
     ("../RetroBrowse/", "Retro Browse"), ("../RetroGraphicsConverter/", "Retro Graphics"),
     ("../RetroTube/", "Retro Tube"), ("../RetroTV/", "Retro TV"), ("../SOSIberico/", "SOS Ibérica"),
-    ("../Scanora/", "Scanora"), ("../Screen2Store/", "Screen2Store"), ("../SlimPix/", "SlimPix"),
+    ("../Cuida24/", "Cuida24"), ("../Scanora/", "Scanora"), ("../Screen2Store/", "Screen2Store"), ("../SlimPix/", "SlimPix"),
     ("../Sobrium/", "Sobrium"), ("../Terramoto/", "Terramoto"), ("../TileTown/", "TileTown"),
     ("../TileTown%202/", "TileTown 2"), ("../Wallys Manager/", "Wally's Manager"), ("../climaviva/", "Clima Viva"),
     ("../coresdoamor/", "Cores do Amor"), ("../emergengy-reminder/", "Emergency Reminder"),
     ("../GSRemap/", "GS Remap"), ("../GSCommander/", "GS Commander"), ("../GSLauncher/", "GSLauncher"),
     ("../Conquer3/", "Conquer 3: Sandstorm"), ("../EmuBuddy/", "EmuBuddy"), ("../Demos/", "IIgs Demos"),
     ("../Hyperhaul/", "Hyperhaul"), ("../GTApple/", "Grand Theft Apple"), ("../Terra%20Incognita/", "Terra Incognita"),
-    ("../Gaivota/", "GAIVOTA"),
+    ("../Gaivota/", "GAIVOTA"), ("../Theos/", "Theos"),
 ]
 
 # ---------------------------------------------------------------------------
@@ -502,8 +502,8 @@ def footer(lang):
 def badges(lang):
     t = T[lang]
     return f"""<div class="badges">
-                <a href="{APP_STORE}"><img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="{t['apple_alt']}" width="144" height="48"></a>
-                <a href="{PLAY}" class="play"><img src="{t['play_badge']}" alt="{t['play_alt']}" width="181" height="70"></a>
+                <a href="{APP_STORE}" ping="/ping"><img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="{t['apple_alt']}" width="144" height="48"></a>
+                <a href="{PLAY}" class="play" ping="/ping"><img src="{t['play_badge']}" alt="{t['play_alt']}" width="181" height="70"></a>
             </div>"""
 
 
