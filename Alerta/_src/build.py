@@ -419,6 +419,9 @@ FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">\n'
          '    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
          '    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Public+Sans:wght@600;700;800&display=swap">')
 HTML_LANG = {"pt": "pt", "en": "en", "de": "de"}
+# Absolute base for share previews (Facebook, WhatsApp, X...): og:image must be absolute.
+SITE = "https://portwally.com/Alerta/"
+OG_LOCALE = {"pt": "pt_PT", "en": "en_GB", "de": "de_DE"}
 
 
 def head(lang, title, description, pages, keywords=None):
@@ -431,6 +434,18 @@ def head(lang, title, description, pages, keywords=None):
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>{escape(title)}</title>{kw}
     <meta name="description" content="{escape(description)}">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Alerta">
+    <meta property="og:title" content="{escape(title)}">
+    <meta property="og:description" content="{escape(description)}">
+    <meta property="og:url" content="{SITE}{pages[lang]}">
+    <meta property="og:locale" content="{OG_LOCALE[lang]}">
+    <meta property="og:image" content="{SITE}share-{lang}.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Alerta">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="{SITE}share-{lang}.jpg">
     <meta name="theme-color" content="#14213d">
     {FONTS}
     <link rel="stylesheet" href="site.css">
