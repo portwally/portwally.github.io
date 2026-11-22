@@ -94,6 +94,8 @@
         .status .flag { font: 700 .95rem var(--hud); letter-spacing: 1px; color: #111; padding: 4px 10px; white-space: nowrap;
                         background: repeating-linear-gradient(135deg, var(--line) 0 12px, #ffe27a 12px 24px); }
         .status p { color: var(--text); font-size: 1rem; }
+        .status .btn { white-space: nowrap; }
+        .status .dsz { color: var(--dim); white-space: nowrap; }
         .ticker { display: grid; grid-template-columns: repeat(6, 1fr); background: var(--black); margin-top: 22px; }
         .ticker div { padding: 14px 10px; text-align: center; font: 700 1.5rem var(--hud); color: var(--white); border-right: 1px solid #222; }
         .ticker div:last-child { border-right: 0; }
@@ -288,16 +290,16 @@
                 <div class="name">GRAND THEFT APPLE</div>
                 <p class="lead">Solana Bay lives: traffic keeps to its lanes, people cross at the zebras, and every crime puts a star on your HUD and another black-and-white on your tail. The payphones have eight jobs, from WHEELS for $500 to THE BIG ONE for $5000. Written from scratch in 65816 assembly, in flat 16-colour pixel art on the Super Hi-Res screen.</p>
                 <div class="cta">
-                    <a class="btn" href="#video">Watch it</a>
+                    <a class="btn" href="GrandTheftApple.zip" download>Download</a>
+                    <a class="btn alt" href="#video">Watch it</a>
                     <a class="btn alt" href="#screens">Screenshots</a>
-                    <a class="btn alt" href="#city">The city</a>
                 </div>
             </div>
             <div class="screen"><img class="px" src="screens/chase.png" alt="A chase at four stars: two police cars at a junction downtown, a police shot in the air" width="960" height="600"></div>
         </div>
-        <div class="status">
-            <span class="flag">IN DEVELOPMENT</span>
-            <p>The whole game plays, from the title to the ending: the city, the police, the eight jobs and the save game. It has yet to be tried on a real IIgs, and there's no download yet.</p>
+        <div class="status" id="download">
+            <a class="btn" href="GrandTheftApple.zip" download>Download the game</a>
+            <p>An 800K ProDOS boot disk, zipped <span class="dsz">(110&nbsp;KB)</span>. It boots on its own or starts from GS/OS, and needs an Apple IIgs with 2 MB and an accelerator, or MAME. With it: <a href="GrandTheftApple-Manual.pdf">the manual</a> and <a href="GrandTheftApple-Keys.pdf">the key card</a>.</p>
         </div>
         <div class="ticker">
             <div>256&times;192<span>tiles of city</span></div>
@@ -583,7 +585,7 @@
                 <button class="btn" type="button" data-turn="152">Back</button>
                 <button class="btn alt" type="button" data-turn="-90">Spine</button>
             </div>
-            <p class="boxnote">A picture of a box: the game will come as a disk image.</p>
+            <p class="boxnote">A picture of a box: the game comes as a disk image, <a href="#download">download it above</a>.</p>
         </div>
     </div>
 </section>
@@ -633,7 +635,7 @@
             <p><b>More retro:</b> <a href="../RetroGraphicsConverter/">Retro Graphics Converter</a> &middot; <a href="../Bitpast/">BitPast</a> &middot; <a href="../RetroTube/">Retro Tube</a> &middot; <a href="../RetroTV/">Retro TV</a> &middot; <a href="../Retro%20Computing/">1977: all retro tools</a></p>
         </div>
         <div style="margin-top: 14px;">&copy; 2026 Walter Tengler</div>
-        <p class="legal">Grand Theft Apple is an independent game in development. Its code, city, words, pictures, music and sounds are original, and it is not connected with Rockstar Games or the Grand Theft Auto series. Apple IIgs is a trademark of Apple Inc.</p>
+        <p class="legal">Grand Theft Apple is an independent game. Its code, city, words, pictures, music and sounds are original, and it is not connected with Rockstar Games or the Grand Theft Auto series. Apple IIgs is a trademark of Apple Inc.</p>
     </div>
 </footer>
 
