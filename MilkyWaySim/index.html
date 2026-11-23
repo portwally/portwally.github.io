@@ -240,7 +240,10 @@
         .zoom.open { display: flex; }
         .zoom img { max-height: 92vh; width: auto; border-radius: 8px; }
 
-        video { width: 100%; display: block; background: #000; }
+        video { width: 100%; display: block; background: #000; aspect-ratio: 1728 / 1116; object-fit: cover; }
+        .filmbar { display: flex; gap: 14px; align-items: center; margin-top: 14px; flex-wrap: wrap; }
+        .filmbar .hint { font-family: var(--data); font-size: 13px; color: var(--a4); letter-spacing: 0.08em; text-transform: uppercase; flex: 1; min-width: 200px; }
+        [data-look="glass"] .filmbar .hint { text-transform: none; letter-spacing: 0; color: var(--soft); }
 
         .specs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px 30px; }
         .specs div { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px; }
@@ -317,13 +320,22 @@
                     <h1>Milky Way<b>Sim</b></h1>
                     <p class="lead">Fly the real galaxy at any speed up to light&rsquo;s. 1.7 million real stars, each where it is &mdash; and the sky bent, coloured and squeezed exactly as relativity says it must be.</p>
                     <div class="ctas">
-                        <a class="btn" href="#film">Watch the film</a>
                         <a class="btn ghost" href="#pictures">See the pictures</a>
                         <span class="soon">Coming soon to the Mac App Store</span>
                     </div>
 
                 </div>
-                <div class="shot reveal"><img data-shot="01-near-light" src="img/01-near-light-bridge.jpg" alt="The cockpit at nine tenths of the speed of light, the galaxy's centre ahead" width="1920" height="1200"></div>
+                <div class="film" id="film">
+                    <div class="shot">
+                        <video id="hero-film" autoplay muted loop playsinline preload="auto" poster="video/milky-way-sim.jpg" aria-label="The film: from beside the Sun past all the planets, then to the black hole at the galaxy's centre">
+                            <source src="video/milky-way-sim.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="filmbar">
+                        <button class="btn" id="film-sound">&#9654;&#xFE0E; Play with sound</button>
+                        <span class="hint">The film, made in the simulator: past every planet, then 27,000 light years to the black hole</span>
+                    </div>
+                </div>
                 <div class="drive panel" style="--c: var(--a1)">
                     <div class="read"><div class="label">Speed</div><div class="v big" id="r-speed">0.000 c</div></div>
                     <div class="read"><div class="label">Lorentz factor</div><div class="v" id="r-gamma">1.000</div></div>
@@ -433,19 +445,6 @@
                         <li><b>Saved flights</b> to carry on later, and a log of the places you have reached</li>
                         <li><b>Keyboard and mouse</b>; no account, no ads, no internet needed</li>
                     </ul>
-                </div>
-            </div>
-        </section>
-
-        <section id="film">
-            <div class="wrap">
-                <div class="label">The film</div>
-                <h2>Past every planet, then to the centre</h2>
-                <p style="max-width:760px;margin-bottom:26px">Two minutes, recorded from the simulator itself: from beside the Sun past all the planets, then with the drive at 1.6 million g across 27,000 light years to the black hole.</p>
-                <div class="shot panel" style="padding:0;--c: var(--a1)">
-                    <video controls preload="none" playsinline poster="video/milky-way-sim.jpg">
-                        <source src="video/milky-way-sim.mp4" type="video/mp4">
-                    </video>
                 </div>
             </div>
         </section>
@@ -578,6 +577,19 @@
         }
         document.querySelectorAll('button[data-look]').forEach(b => b.addEventListener('click', () => setLook(b.dataset.look)));
         setLook(look);
+
+        // ---------- the film at the top: plays silently by itself (not when motion is to be kept down); the button gives it sound ----------
+        const film = document.getElementById('hero-film'), fsb = document.getElementById('film-sound');
+        if (matchMedia('(prefers-reduced-motion: reduce)').matches) film.pause(); else film.play().catch(() => {});
+        fsb.addEventListener('click', () => {
+            if (film.muted || film.paused) {
+                film.muted = false; film.loop = false; film.controls = true;
+                if (fsb.dataset.started !== '1') { film.currentTime = 0; fsb.dataset.started = '1'; }
+                film.play(); fsb.textContent = 'Pause';
+            } else { film.pause(); fsb.innerHTML = '&#9654;&#xFE0E; Play'; }
+        });
+        film.addEventListener('play', () => { if (!film.muted) fsb.textContent = 'Pause'; });
+        film.addEventListener('pause', () => { if (!film.muted) fsb.innerHTML = '&#9654;&#xFE0E; Play'; });
 
         // ---------- pictures, larger ----------
         const zoom = document.getElementById('zoom');
