@@ -202,7 +202,7 @@
         .shot img { width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; }
 
         /* ---------- figures ---------- */
-        .facts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+        .facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
         .fact .n { font-family: var(--data); font-size: clamp(28px, 4vw, 48px); color: var(--a1); line-height: 1; font-weight: 600; }
         [data-look="glass"] .fact .n { font-weight: 300; color: #fff; }
         [data-look="amber"] .fact .n { font-weight: 400; text-shadow: 0 0 12px rgba(255,176,0,0.4); }
@@ -265,6 +265,7 @@
             .looks { margin-left: auto; }
             .grid2, .grid3 { grid-template-columns: 1fr; }
             .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .facts .fact:last-child { grid-column: span 2; }
             .drive { grid-template-columns: repeat(2, minmax(0, 1fr)); }
             .thrust { grid-column: span 2; }
             .specs { grid-template-columns: 1fr 1fr; }
@@ -346,6 +347,7 @@
                     <div class="fact panel reveal" style="--c: var(--a1)"><div class="n">1,714,849</div><div class="t">real stars</div></div>
                     <div class="fact panel reveal" style="--c: var(--a3)"><div class="n">4,236</div><div class="t">star clusters</div></div>
                     <div class="fact panel reveal" style="--c: var(--a5)"><div class="n">147</div><div class="t">nebulae</div></div>
+                    <div class="fact panel reveal" style="--c: var(--a5)"><div class="n">8</div><div class="t">neighbour galaxies to fly to</div></div>
                     <div class="fact panel reveal" style="--c: var(--a6)"><div class="n">43,516</div><div class="t">galaxies beyond</div></div>
                     <div class="fact panel reveal" style="--c: var(--a4)"><div class="n">31</div><div class="t">worlds round the Sun</div></div>
                     <div class="fact panel reveal" style="--c: var(--a2)"><div class="n">2,088</div><div class="t">planets of other stars</div></div>
@@ -384,6 +386,10 @@
                         <h3>Other worlds</h3>
                         <p>2,088 known planets of other stars, such as the seven of TRAPPIST-1. Nobody has seen them, so their looks are a careful guess from their size and heat.</p>
                     </div>
+                </div>
+                <div class="panel reveal" style="--c: var(--a4);margin-top:20px">
+                    <h3>The neighbour galaxies</h3>
+                    <p>Eight galaxies near the Milky Way are places to fly to, each where it is, as large and as bright as it is: the Large and Small Magellanic Clouds, Andromeda, Triangulum, and the Sagittarius, Fornax, Sculptor and Leo&nbsp;I dwarf galaxies. Andromeda, Triangulum and the Large Magellanic Cloud are discs with spiral arms, tilted as we see them from here. Beyond them, 43,516 more galaxies where their redshifts put them.</p>
                 </div>
                 <div class="gallery" style="margin-top:30px">
                     <button class="reveal" data-i="4"><div class="shot"><img data-shot="05-black-hole" src="img/05-black-hole-bridge.jpg" alt="The black hole's shadow" loading="lazy" width="1920" height="1200"></div><div class="cap">Sagittarius A*, from its orbit</div></button>
