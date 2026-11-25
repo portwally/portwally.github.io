@@ -85,7 +85,7 @@
                     <a class="guide-cover" href="EmuBuddy-Manual.pdf"><img src="img/manual-cover.jpg" width="560" height="720" alt="The cover of the EmuBuddy User&rsquo;s Guide"></a>
                     <div>
                         <h3>Read the manual</h3>
-                        <p>59 pages with a picture of every window: getting started, disks, sharing files, the Internet, printing, the Launcher, and what to do when something goes wrong. A PDF of 1.8&nbsp;MB.</p>
+                        <p>62 pages with a picture of every window: getting started, disks, sharing files, the Internet, cards, printing, the Launcher, and what to do when something goes wrong. A PDF of 1.8&nbsp;MB.</p>
                         <a class="btn default" href="EmuBuddy-Manual.pdf">User&rsquo;s Guide (PDF)</a>
                     </div>
                 </div>
@@ -114,7 +114,7 @@
             </div>
             <div class="feature">
                 <h3>Disks on the fly</h3>
-                <p>Two 3.5&Prime; and two 5.25&Prime; drives plus a SCSI card with seven hard disks. <code>.po</code> <code>.2mg</code> <code>.hdv</code> <code>.dsk</code> <code>.do</code> <code>.woz</code> and more.</p>
+                <p>Two 3.5&Prime; and two 5.25&Prime; drives, seven hard disks and a CD-ROM drive. <code>.po</code> <code>.2mg</code> <code>.hdv</code> <code>.dsk</code> <code>.do</code> <code>.woz</code> <code>.iso</code> and more.</p>
             </div>
             <div class="feature">
                 <h3>Shared folders</h3>
@@ -129,8 +129,16 @@
                 <p>New in 1.1: set slot 1 or 2 to AppleTalk and the IIgs gets a LocalTalk network, carried over UDP to Mini vMac, TashRouter and other emulators.</p>
             </div>
             <div class="feature">
+                <h3>SCSI card and CD-ROM</h3>
+                <p>New in 1.3: Apple&rsquo;s Apple&nbsp;II High-Speed SCSI Card with a real SCSI bus, for a CD-ROM drive and for software that talks to the card itself. Drop a CD image on the window and it shows up in the Finder; audio CDs play with CD Remote. The card needs its own ROM file.</p>
+            </div>
+            <div class="feature">
+                <h3>FujiNet</h3>
+                <p>New in 1.3 and experimental: with FujiNet-PC running on your computer, the IIgs gets a FujiNet with its disk drives and its network device, after the hard disks or as a card of its own that it starts up from.</p>
+            </div>
+            <div class="feature">
                 <h3>Configurable slots</h3>
-                <p>Choose the card for every slot in a window, not in a text file: printer, modem, Mockingboard, Uthernet II, SCSI.</p>
+                <p>Choose the card for every slot in a window, not in a text file: printer, modem, Mockingboard, Uthernet II, hard disks, SCSI, FujiNet.</p>
             </div>
             <div class="feature">
                 <h3>Speed</h3>
@@ -261,7 +269,9 @@
             <tr><th>Option</th><th>Meaning</th></tr>
             <tr><td><code>-flop1 &lt;img&gt;</code> <code>-flop2 &lt;img&gt;</code></td><td>5.25&Prime; drives (slot 6, drive 1 and 2)</td></tr>
             <tr><td><code>-flop3 &lt;img&gt;</code> <code>-flop4 &lt;img&gt;</code></td><td>3.5&Prime; drives (slot 5, drive 1 and 2)</td></tr>
-            <tr><td><code>-hard1 &lt;img&gt;</code> &hellip; <code>-hard7 &lt;img&gt;</code></td><td>SCSI hard disks (slot 7, drive 1 to 7)</td></tr>
+            <tr><td><code>-hard1 &lt;img&gt;</code> &hellip; <code>-hard7 &lt;img&gt;</code></td><td>hard disks (slot 7, drive 1 to 7)</td></tr>
+            <tr><td><code>-cdrom &lt;img&gt;</code></td><td>a CD image (<code>.iso</code>, <code>.cdr</code>, <code>.toast</code>, <code>.cue</code>) in the CD-ROM drive of the High-Speed SCSI Card</td></tr>
+            <tr><td><code>-fujinet on</code> | <code>off</code></td><td>FujiNet, with FujiNet-PC running on your computer; <code>-fujinetpc &lt;folder&gt;</code> lets EmuBuddy start it</td></tr>
             <tr><td><code>-share &lt;folder&gt;</code></td><td>a folder on your computer as a live ProDOS volume</td></tr>
             <tr><td><code>&lt;img or folder&gt;</code></td><td>goes into the first free drive that fits</td></tr>
         </table>
@@ -270,10 +280,10 @@
         <table>
             <tr><th>Option</th><th>Cards</th></tr>
             <tr><td><code>-sl1 &lt;card&gt;</code></td><td><code>imagewriter</code>, <code>postscript</code>, <code>modem</code>, <code>none</code> (printer port)</td></tr>
-            <tr><td><code>-sl2 &lt;card&gt;</code></td><td><code>modem</code>, <code>imagewriter</code>, <code>postscript</code>, <code>none</code> (modem port)</td></tr>
+            <tr><td><code>-sl2 &lt;card&gt;</code></td><td><code>modem</code>, <code>imagewriter</code>, <code>postscript</code>, <code>fujinet</code>, <code>none</code> (modem port; <code>fujinet</code>: the FujiNet as a card of its own)</td></tr>
             <tr><td><code>-sl3 &lt;card&gt;</code></td><td><code>uthernet2</code>, <code>voc</code>, <code>none</code></td></tr>
             <tr><td><code>-sl4 &lt;card&gt;</code></td><td><code>mockingboard</code>, <code>uthernet2</code>, <code>none</code></td></tr>
-            <tr><td><code>-sl7 &lt;card&gt;</code></td><td><code>scsi</code>, <code>none</code></td></tr>
+            <tr><td><code>-sl7 &lt;card&gt;</code></td><td><code>hd</code> (the Hard Disk Card; <code>scsi</code> means the same), <code>hsscsi</code> (the High-Speed SCSI Card), <code>none</code></td></tr>
         </table>
         <p>Slots 5 and 6 hold the built-in drives. As on a real IIgs, a card is only used when its slot is set to &ldquo;Your Card&rdquo; in the IIgs Control Panel.</p>
 
@@ -385,15 +395,15 @@
 <section class="win" id="get">
     <div class="title"><h2>Get EmuBuddy</h2></div>
     <div class="body">
-        <p>EmuBuddy <b>1.2.0</b> is free. It runs on <b>macOS (Apple Silicon)</b>, <b>Windows (x64)</b> and <b>Linux (x64 and arm64)</b> and looks the same on all of them. Each download holds EmuBuddy and EmuBuddy Launcher.</p>
+        <p>EmuBuddy <b>1.3.0</b> is free. It runs on <b>macOS (Apple Silicon)</b>, <b>Windows (x64)</b> and <b>Linux (x64 and arm64)</b> and looks the same on all of them. Each download holds EmuBuddy and EmuBuddy Launcher.</p>
         <table>
             <tr><th>Your computer</th><th>Download</th></tr>
-            <tr><td>Mac with Apple Silicon, macOS&nbsp;15 or newer</td><td><a href="https://github.com/portwally/EmuBuddy/releases/download/v1.2.0/EmuBuddy-1.2.0-macOS-arm64.dmg" ping="/ping">EmuBuddy-1.2.0-macOS-arm64.dmg</a> (3.7&nbsp;MB)</td></tr>
-            <tr><td>Windows&nbsp;10 or newer, 64-bit</td><td><a href="https://github.com/portwally/EmuBuddy/releases/download/v1.2.0/EmuBuddy-1.2.0-win64.zip" ping="/ping">EmuBuddy-1.2.0-win64.zip</a> (6.0&nbsp;MB)</td></tr>
-            <tr><td>Linux, 64-bit Intel or AMD</td><td><a href="https://github.com/portwally/EmuBuddy/releases/download/v1.2.0/EmuBuddy-1.2.0-Linux-x86_64.tar.gz" ping="/ping">EmuBuddy-1.2.0-Linux-x86_64.tar.gz</a> (3.2&nbsp;MB)</td></tr>
-            <tr><td>Linux, 64-bit ARM</td><td><a href="https://github.com/portwally/EmuBuddy/releases/download/v1.2.0/EmuBuddy-1.2.0-Linux-aarch64.tar.gz" ping="/ping">EmuBuddy-1.2.0-Linux-aarch64.tar.gz</a> (2.8&nbsp;MB)</td></tr>
+            <tr><td>Mac with Apple Silicon, macOS&nbsp;15 or newer</td><td><a href="https://github.com/portwally/EmuBuddy/releases/download/v1.3.0/EmuBuddy-1.3.0-macOS-arm64.dmg" ping="/ping">EmuBuddy-1.3.0-macOS-arm64.dmg</a> (3.7&nbsp;MB)</td></tr>
+            <tr><td>Windows&nbsp;10 or newer, 64-bit</td><td><a href="https://github.com/portwally/EmuBuddy/releases/download/v1.3.0/EmuBuddy-1.3.0-win64.zip" ping="/ping">EmuBuddy-1.3.0-win64.zip</a> (6.0&nbsp;MB)</td></tr>
+            <tr><td>Linux, 64-bit Intel or AMD</td><td><a href="https://github.com/portwally/EmuBuddy/releases/download/v1.3.0/EmuBuddy-1.3.0-Linux-x86_64.tar.gz" ping="/ping">EmuBuddy-1.3.0-Linux-x86_64.tar.gz</a> (3.2&nbsp;MB)</td></tr>
+            <tr><td>Linux, 64-bit ARM</td><td><a href="https://github.com/portwally/EmuBuddy/releases/download/v1.3.0/EmuBuddy-1.3.0-Linux-aarch64.tar.gz" ping="/ping">EmuBuddy-1.3.0-Linux-aarch64.tar.gz</a> (2.8&nbsp;MB)</td></tr>
         </table>
-        <p>The manual: <a href="EmuBuddy-Manual.pdf" download>EmuBuddy User&rsquo;s Guide</a>, 59 pages (PDF), with pictures of every window.</p>
+        <p>The manual: <a href="EmuBuddy-Manual.pdf" download>EmuBuddy User&rsquo;s Guide</a>, 62 pages (PDF), with pictures of every window.</p>
         <p>Newer versions, the release notes and the source code are on <a href="https://github.com/portwally/EmuBuddy/releases" ping="/ping">GitHub</a>. The Windows and Linux versions are new and little tested; if something does not work, please <a href="https://github.com/portwally/EmuBuddy/issues">report it there</a>.</p>
         <h3>You need a ROM</h3>
         <p>Like every IIgs emulator, EmuBuddy needs an Apple IIgs ROM file. It is Apple&rsquo;s copyrighted firmware, so it cannot be included. Without one, EmuBuddy shows a <b>ROM Required</b> window. A <b>ROM 03</b> file (256&nbsp;KB) is the usual choice; a ROM 01 file (128&nbsp;KB) works too. Drop the file on the window or choose it with <b>File &rsaquo; Choose ROM File&hellip;</b>; EmuBuddy remembers it. The cleanest way to get one is to read it out of an Apple IIgs you own.</p>
