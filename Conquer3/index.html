@@ -23,6 +23,7 @@
       "name": "Conquer 3: Sandstorm",
       "description": "A real-time strategy game for the Apple IIgs, in development: three armies, each with its own units, buildings and special power, fighting over the desert's oil. Written in 65816 assembly.",
       "genre": "Real-time strategy",
+      "playMode": ["SinglePlayer", "MultiPlayer"],
       "gamePlatform": "Apple IIgs",
       "author": { "@type": "Person", "name": "Walter Tengler" },
       "image": "https://portwally.com/Conquer3/art/title.jpg",
@@ -278,7 +279,7 @@
         .night .title h2 { color: var(--gold); text-shadow: 0 2px 0 var(--gold-d), 0 4px 0 #1a1004; }
         .night .title .kicker { color: #b9a9d9; }
         .night .title p { color: #e9dfc6; }
-        .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; }
+        .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
         .fact { padding: 16px 18px; background: rgba(255, 255, 255, .06); border: 1px solid rgba(242, 192, 46, .35); border-left: 4px solid var(--gold); }
         .fact h3 { font-family: var(--display); font-weight: 800; font-size: 1.08rem; color: var(--gold); letter-spacing: .5px; margin-bottom: 5px; }
         .fact p { font-size: 1.04rem; line-height: 1.45; }
@@ -395,7 +396,7 @@
                 <aside class="status tablet studs">
                     <span class="flag">NOT RELEASED YET</span>
                     <h2>In development</h2>
-                    <p>The game runs today: skirmish against one or two computer armies, survival, sixteen maps and the map editor are all in.</p>
+                    <p>The game runs today: skirmish against one or two computer armies, survival, two players on two machines over the Internet, sixteen maps and the map editor are all in.</p>
                     <p>The campaigns are still being written. There is no date yet &mdash; <a href="#status">see where it stands</a>.</p>
                 </aside>
             </div>
@@ -573,8 +574,11 @@
                 <figure class="shot tablet"><a href="screens/riders-at-the-stronghold.png" data-caption="Desert Riders among the Order&#x27;s tanks before the stronghold"><img src="screens/riders-at-the-stronghold.png" alt="Desert Riders among the Order&#x27;s tanks before the stronghold" width="640" height="400" loading="lazy"></a><figcaption><b>11</b><span>The Riders reach the stronghold</span></figcaption></figure>
                 <figure class="shot tablet"><a href="screens/order-on-the-road.png" data-caption="A column of the Order&#x27;s tanks on a road, a Defence Force building burning ahead of it"><img src="screens/order-on-the-road.png" alt="A column of the Order&#x27;s tanks on a road, a Defence Force building burning ahead of it" width="640" height="400" loading="lazy"></a><figcaption><b>12</b><span>Bastion tanks, and something burning ahead</span></figcaption></figure>
                 <figure class="shot tablet"><a href="screens/skirmish.png" data-caption="The skirmish setup: the level, two sides, three sides or three with the computers allied, your army, the list of maps and the chosen map&#x27;s preview"><img src="screens/skirmish.png" alt="The skirmish setup: the level, two sides, three sides or three with the computers allied, your army, the list of maps and the chosen map&#x27;s preview" width="640" height="400" loading="lazy"></a><figcaption><b>13</b><span>Skirmish: level, sides, your army, the map</span></figcaption></figure>
-                <figure class="shot tablet"><a href="screens/menu.png" data-caption="The main menu in sandstone and gold: campaign, skirmish, load game, settings, map editor, how to play, quit; the three shields below"><img src="screens/menu.png" alt="The main menu in sandstone and gold: campaign, skirmish, load game, settings, map editor, how to play, quit; the three shields below" width="640" height="400" loading="lazy"></a><figcaption><b>14</b><span>The main menu, and the three shields</span></figcaption></figure>
-                <figure class="shot tablet"><a href="screens/title.png" data-caption="The title screen in Super Hi-Res: the three armies before a desert town, CLICK TO START"><img src="screens/title.png" alt="The title screen in Super Hi-Res: the three armies before a desert town, CLICK TO START" width="640" height="400" loading="lazy"></a><figcaption><b>15</b><span>The title screen, in the IIgs&#x27;s 16 colours a line</span></figcaption></figure>
+                <figure class="shot tablet"><a href="screens/network.png" data-caption="The network page: the Uthernet II found in slot 3, the relay, and the code of four letters the host tells the other player"><img src="screens/network.png" alt="The network page: the Uthernet II found in slot 3, the relay, and the code of four letters the host tells the other player" width="640" height="400" loading="lazy"></a><figcaption><b>14</b><span>Network game: host, and tell the other your code</span></figcaption></figure>
+                <figure class="shot tablet"><a href="screens/lobby.png" data-caption="The lobby of a network game: the host chooses the level, the sides and the map, each player an army - the Order against the Desert Riders, the Defence Force as the computer - and both click READY"><img src="screens/lobby.png" alt="The lobby of a network game: the host chooses the level, the sides and the map, each player an army - the Order against the Desert Riders, the Defence Force as the computer - and both click READY" width="640" height="400" loading="lazy"></a><figcaption><b>15</b><span>The lobby: two players agree on the battle</span></figcaption></figure>
+                <figure class="shot tablet"><a href="screens/network-won.png" data-caption="The end of a network game: the other player has quit, and the one who stayed has won"><img src="screens/network-won.png" alt="The end of a network game: the other player has quit, and the one who stayed has won" width="640" height="400" loading="lazy"></a><figcaption><b>16</b><span>The other player has left: the battle is won</span></figcaption></figure>
+                <figure class="shot tablet"><a href="screens/menu.png" data-caption="The main menu in sandstone and gold: campaign, skirmish, network game, load game, settings, map editor, how to play, quit; the three shields below"><img src="screens/menu.png" alt="The main menu in sandstone and gold: campaign, skirmish, network game, load game, settings, map editor, how to play, quit; the three shields below" width="640" height="400" loading="lazy"></a><figcaption><b>17</b><span>The main menu, and the three shields</span></figcaption></figure>
+                <figure class="shot tablet"><a href="screens/title.png" data-caption="The title screen in Super Hi-Res: the three armies before a desert town, CLICK TO START"><img src="screens/title.png" alt="The title screen in Super Hi-Res: the three armies before a desert town, CLICK TO START" width="640" height="400" loading="lazy"></a><figcaption><b>18</b><span>The title screen, in the IIgs&#x27;s 16 colours a line</span></figcaption></figure>
             </div>
         </div>
     </section>
@@ -653,7 +657,8 @@
                 <div class="fact"><h3>Three armies in memory</h3><p>Three complete sets of units and buildings do not fit in 2 MB. The game asks for an Apple IIgs with 4 MB.</p></div>
                 <div class="fact"><h3>Up to 96 at once</h3><p>Units and buildings of all three sides, each finding its own way round rocks, water and walls on maps of 64 by 48 tiles.</p></div>
                 <div class="fact"><h3>A music player of its own</h3><p>Seven voices on ten of the Ensoniq's oscillators, with envelopes, vibrato, trills and grace notes. The other 22 play the sound effects.</p></div>
-                <div class="fact"><h3>A style per army</h3><p>The computer builds and attacks by its army's own plan: heavy and patient, long-ranged, or fast and many.</p></div>
+                <div class="fact"><h3>Two machines, one battle</h3><p>In a network game both IIgs play the whole battle, step for step; only the orders cross the line, and a checksum every turn proves the two still agree. Both call a relay, the game&rsquo;s own or <a href="relay.py" style="color: var(--gold);">one of your own</a> (Python 3).</p></div>
+<div class="fact"><h3>A style per army</h3><p>The computer builds and attacks by its army's own plan: heavy and patient, long-ranged, or fast and many.</p></div>
                 <div class="fact"><h3>Tested by the machine</h3><p>About ninety scripts play the game in the MAME emulator after every change and check what happens.</p></div>
                 <div class="fact"><h3>One 800K disk</h3><p>The game, its three armies, sixteen maps, the music and the map editor boot from a single 3.5-inch ProDOS disk.</p></div>
             </div>
@@ -680,15 +685,16 @@
                     <div>
                         <div class="kicker">Instruction manual</div>
                         <h2>The manual</h2>
-                        <p>Forty pages in the menus&rsquo; sandstone, as it would have come with the disk:</p>
+                        <p>Forty-four pages in the menus&rsquo; sandstone, as it would have come with the disk:</p>
                         <ul>
                             <li>Starting the game, the menus and your first battle</li>
                             <li>The mouse, the view, the build menu and the ten places in every base</li>
                             <li>Oil, power, how units fight and the three powers</li>
                             <li>Every army&rsquo;s buildings and units, with their numbers</li>
                             <li>Skirmish, survival, the campaign, the map editor and the music</li>
+<li>A network game for two: the relay, hosting and joining, the lobby</li>
                         </ul>
-                        <a class="btn" href="manual/Conquer3-Sandstorm-Manual.pdf">THE MANUAL (PDF, 5.9 MB)</a>
+                        <a class="btn" href="manual/Conquer3-Sandstorm-Manual.pdf">THE MANUAL (PDF, 6.4 MB)</a>
                     </div>
                 </div>
             </div>
@@ -699,6 +705,7 @@
                     <ul>
                         <li>Three armies: 27 kinds of units, 30 buildings, three special powers</li>
                         <li>Skirmish for two or three sides, and survival</li>
+<li>Two players on two machines, over the Internet: a Uthernet II card or a FujiNet each</li>
                         <li>Computer armies that each play their own way</li>
                         <li>Sixteen maps and the map editor</li>
                         <li>Sandstone menus, and a sidebar for each army</li>
