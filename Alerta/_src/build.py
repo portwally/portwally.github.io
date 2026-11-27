@@ -29,7 +29,7 @@ OTHER_APPS = [
     ("../MissileTag/", "Missile Tag"), ("../Bitpast/", "BitPast"), ("../Bomba/", "Bomba"),
     ("../CertificadoEnergetico/", "Certificado Energético"), ("../Comboiotreck/", "Comboiotreck"),
     ("../Conquer-GS/", "Conquer GS"), ("../CyanHero/", "CyanHero"), ("../EUEnergyMonitor/", "EU Energy Monitor"),
-    ("../EasyDup/", "EasyDup"), ("../ExifEasy/", "ExifEasy"), ("../FCPXClean/", "FCPX Clean"),
+    ("../EasyDup/", "EasyDup"), ("../ExifEasy/", "ExifEasy"), ("../FCPXClean/", "Render Sweep"),
     ("../File Vortex/", "File Vortex"), ("../Fire/", "Fire"), ("../Flipside/", "Flipside"), ("../Fluvio/", "Fluvio"),
     ("../Fugiu/", "Fugiu!"), ("../MegaconvertGS/", "MegaconvertGS"), ("../Pibup/", "PIBUP"),
     ("../RetroBrowse/", "Retro Browse"), ("../RetroGraphicsConverter/", "Retro Graphics"),
